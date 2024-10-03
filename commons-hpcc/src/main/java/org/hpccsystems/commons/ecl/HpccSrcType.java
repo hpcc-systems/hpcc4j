@@ -36,6 +36,12 @@ public enum HpccSrcType
             "little endian", false
     ), BINARY_CODED_DECIMAL (
             "Binary coded decimal", false
+    ), KEYED_INTEGER (
+            "Non-payload integer field within a key", false
+    ), SWAPPED_INTEGER (
+            "Byte swapped integer, used within keys", false
+    ), BIAS_SWAPPED_INTEGER (
+            "Byte swapped integer, deprecated", false
     ), UNKNOWN (
             "Unkown", false
     );

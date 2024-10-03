@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FileFilter;
+import org.hpccsystems.commons.ecl.HpccSrcType;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
 import org.hpccsystems.dfs.cluster.ClusterRemapper;
@@ -163,12 +164,12 @@ public class HPCCFile implements Serializable
     }
 
     /**
-     * Extracts the offset in the file part from a fileposition value. 
+     * Extracts the offset in the file part from a fileposition value.
      *
      * @param fpos file position
      * @return the project list
      */
-    public static long getOffsetFromFPos(long fpos) 
+    public static long getOffsetFromFPos(long fpos)
     {
         // First 48 bits store the offset
         return fpos & 0xffffffffffffL;
@@ -198,9 +199,25 @@ public class HPCCFile implements Serializable
         this.columnPruner = new ColumnPruner(projectList);
         if (this.recordDefinition != null)
         {
-            this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
+            updateProjectedRecordDef();
         }
         return this;
+    }
+
+    private void updateProjectedRecordDef() throws Exception
+    {
+        this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
+
+        // By default project all sub-integer types to standard integers
+        for (int i = 0; i < this.projectedRecordDefinition.getNumDefs(); i++)
+        {
+            FieldDef field = this.projectedRecordDefinition.getDef(i);
+            if (field.isNonStandardInt())
+            {
+                field.setSourceType(HpccSrcType.LITTLE_ENDIAN);
+            }
+
+        }
     }
 
     /**
@@ -434,7 +451,7 @@ public class HPCCFile implements Serializable
                     this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, null);
                 }
 
-                this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
+                updateProjectedRecordDef();
             }
             else
                 throw new HpccFileException("Could not fetch metadata for file: '" + fileName + "'");
@@ -622,13 +639,13 @@ public class HPCCFile implements Serializable
         String uniqueID = "HPCC-FILE: " + UUID.randomUUID().toString();
         return hpcc.getFileAccessBlob(fileName, clusterName, expirySeconds, uniqueID);
     }
-    
+
     /**
      * @return the file metadata information for this HPCCFile (if it exists)
      */
-    public DFUFileDetailWrapper getOriginalFileMetadata() 
+    public DFUFileDetailWrapper getOriginalFileMetadata()
     {
-        if (originalFileMetadata==null) 
+        if (originalFileMetadata==null)
         {
             HPCCWsDFUClient dfuClient = HPCCWsDFUClient.get(espConnInfo);
             if (dfuClient.hasInitError())
