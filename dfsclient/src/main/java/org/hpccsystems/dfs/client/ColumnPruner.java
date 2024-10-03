@@ -129,7 +129,7 @@ public class ColumnPruner implements Serializable
     {
         if (selectedFieldMap.size() == 0)
         {
-            return originalRD;
+            return new FieldDef(originalRD);
         }
 
         ArrayList<FieldDef> selectedFields = new ArrayList<FieldDef>();
