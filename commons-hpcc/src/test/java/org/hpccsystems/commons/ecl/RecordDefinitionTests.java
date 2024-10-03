@@ -38,30 +38,34 @@ public class RecordDefinitionTests
     @Test
     public void testJsonRecordParsing() throws Exception
     {
-        String jsonRecDefStr = TestFieldDefinitions.getComplexRecordDefinitionJson();
-        try
+        String[] recordDefStrs = new String[] { TestFieldDefinitions.getComplexRecordDefinitionJson(),
+                                                 TestFieldDefinitions.getAllTypesIndexRecordDefinitionJson() };
+        for (String recordDefStr : recordDefStrs)
         {
-            JSONObject jsonRecDef = new JSONObject(jsonRecDefStr);
-             
-            FieldDef recDef = RecordDefinitionTranslator.parseJsonRecordDefinition(jsonRecDef);
-
-            JSONObject tJsonRecDef = RecordDefinitionTranslator.toJsonRecord(recDef);
-
-            if (tJsonRecDef.equals(jsonRecDef))
+            try
             {
-                System.out.println(jsonRecDef + "\n");
-                System.out.println(tJsonRecDef + "\n");
-                Assert.fail("Translated JSON record definition differs from original");
+                JSONObject expectedRefDef = new JSONObject(recordDefStr);
+
+                FieldDef recDef = RecordDefinitionTranslator.parseJsonRecordDefinition(expectedRefDef);
+                JSONObject actualRecDef = RecordDefinitionTranslator.toJsonRecord(recDef);
+
+                // Use similar instead of equals because the order of fields in the JSON object may differ
+                if (!actualRecDef.similar(expectedRefDef))
+                {
+                    System.out.println("Expected Record Def: " + expectedRefDef + "\n");
+                    System.out.println("Actual Record Def: " + actualRecDef + "\n");
+                    Assert.fail("Translated JSON record definition differs from original");
+                }
             }
-        }
-        catch (UnparsableContentException e)
-        {
-            Assert.fail("Encountered invalid record definition: '" + jsonRecDefStr + "'");
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            Assert.fail("Exception occurred: '" + e.getMessage() + "'");
+            catch (UnparsableContentException e)
+            {
+                Assert.fail("Encountered invalid record definition: '" + recordDefStr + "'");
+            }
+            catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+                Assert.fail("Exception occurred: '" + e.getMessage() + "'");
+            }
         }
 
     }

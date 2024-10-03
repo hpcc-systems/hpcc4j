@@ -34,6 +34,8 @@ public class RecordDefinitionTranslator
     private static final String CHILD_KEY             = "child";
     private static final String FLAGS_KEY             = "flags";
 
+    private static final String ESP_TYPE_NAME_PREFIX = "ty";
+
     private static final int    FLAG_UNSIGNED         = 256;
     private static final int    FLAG_UNKNOWN_SIZE     = 1024;
     private static final int    TYPE_ID_MASK          = 0xff;       // 0x7fff & ~FLAG_UNKNOWN_SIZE & ~FLAG_UNSIGNED;
@@ -55,6 +57,7 @@ public class RecordDefinitionTranslator
     final private static int    type_varunicode       = 33;
     final private static int    type_utf8             = 41;
 
+
     // FNoInitializer,                 // 0 means no initialiser - not a special virtual initialiser
     // FVirtualFilePosition,
     // FVirtualLocalFilePosition,
@@ -67,6 +70,8 @@ public class RecordDefinitionTranslator
     // These types need to be revised
     final private static int    type_char             = 11;         // Convert to string
     final private static int    type_qstring          = 30;         // Convert to string
+
+    final private static char   XPATH_DELIMITER       = 0x0001;
 
     // Additional retained flags
     final private static int    FLAG_IS_PAYLOAD_FIELD = 0x00010000;
@@ -134,9 +139,12 @@ public class RecordDefinitionTranslator
             case type_int:
             case type_real:
                 return HpccSrcType.LITTLE_ENDIAN;
-            case type_swapint:
             case type_biasedswapint:
+                return HpccSrcType.BIAS_SWAPPED_INTEGER;
+            case type_swapint:
+                return HpccSrcType.SWAPPED_INTEGER;
             case type_keyedint:
+                return HpccSrcType.KEYED_INTEGER;
             case type_filepos:
                 return HpccSrcType.BIG_ENDIAN;
             case type_utf8:
@@ -272,7 +280,7 @@ public class RecordDefinitionTranslator
                 {
                     return "DATA" + field.getDataLen();
                 }
-                
+
                 return "DATA";
             }
             case BOOLEAN:
@@ -298,7 +306,7 @@ public class RecordDefinitionTranslator
             {
                 if (field.isUnsigned() == false)
                 {
-                    throw new Exception("Error: Filepos must be unsigned"); 
+                    throw new Exception("Error: Filepos must be unsigned");
                 }
 
                 if (field.getDataLen() != 8)
@@ -454,7 +462,7 @@ public class RecordDefinitionTranslator
                 continue;
             }
 
-            rootDefinition.put("ty" + (i + 1), typeDefinition);
+            rootDefinition.put(ESP_TYPE_NAME_PREFIX + (i + 1), typeDefinition);
         }
 
         return rootDefinition;
@@ -471,7 +479,7 @@ public class RecordDefinitionTranslator
      */
     private static int getTypeID(FieldDef field) throws Exception
     {
-        int typeID = 0;
+        int typeID = -1;
         switch (field.getFieldType())
         {
             case SET:
@@ -514,10 +522,25 @@ public class RecordDefinitionTranslator
             case INTEGER:
             {
                 typeID = type_int;
+                HpccSrcType srcType = field.getSourceType();
+                if (srcType == HpccSrcType.KEYED_INTEGER)
+                {
+                    typeID = type_keyedint;
+                }
+                else if (srcType == HpccSrcType.SWAPPED_INTEGER)
+                {
+                    typeID = type_swapint;
+                }
+                else if (srcType == HpccSrcType.BIAS_SWAPPED_INTEGER)
+                {
+                    typeID = type_biasedswapint;
+                }
+
                 if (field.isUnsigned())
                 {
                     typeID |= FLAG_UNSIGNED;
                 }
+
                 break;
             }
             case DECIMAL:
@@ -625,7 +648,7 @@ public class RecordDefinitionTranslator
      */
     private static int getTypeHash(FieldDef field) throws Exception
     {
-        int numHashComponents = 2 + field.getNumDefs();
+        int numHashComponents = 4 + field.getNumDefs();
         if (field.getFieldType() == FieldType.DECIMAL)
         {
             numHashComponents += 2;
@@ -634,8 +657,10 @@ public class RecordDefinitionTranslator
         long[] hashComponents = new long[numHashComponents];
         hashComponents[0] = getTypeID(field);
         hashComponents[1] = field.getDataLen();
+        hashComponents[2] = field.getSourceType().ordinal();
+        hashComponents[3] = field.getAdditionalFlags();
 
-        int hashCompIndex = 2;
+        int hashCompIndex = 4;
         for (int i = 0; i < field.getNumDefs(); i++, hashCompIndex++)
         {
             hashComponents[hashCompIndex] = getTypeHash(field.getDef(i));
@@ -685,7 +710,7 @@ public class RecordDefinitionTranslator
 
                 int childTypeHash = getJsonTypeDefinition(field.getDef(0), typeDefinitionMap, typeDefinitions);
                 int childTypeIndex = typeDefinitionMap.get(childTypeHash);
-                String childTypeName = "ty" + (childTypeIndex + 1);
+                String childTypeName = ESP_TYPE_NAME_PREFIX + (childTypeIndex + 1);
                 typeDef.put("child", childTypeName);
                 break;
             }
@@ -727,22 +752,26 @@ public class RecordDefinitionTranslator
 
                     int childTypeHash = getJsonTypeDefinition(childField, typeDefinitionMap, typeDefinitions);
                     int childTypeIndex = typeDefinitionMap.get(childTypeHash);
-                    String childTypeName = "ty" + (childTypeIndex + 1);
+                    String childTypeName = ESP_TYPE_NAME_PREFIX + (childTypeIndex + 1);
                     int childTypeID = getTypeID(childField);
 
                     JSONObject childJson = new JSONObject();
                     childJson.put("name", childField.getFieldName());
                     childJson.put("type", childTypeName);
-                    if (childTypeID > 0)
+
+                    int flags = childTypeID | childField.getAdditionalFlags();
+                    if (flags > 0)
                     {
-                        int flags = childTypeID | childField.getAdditionalFlags();
                         childJson.put("flags", flags);
                     }
 
                     if (childField.getFieldType() == FieldType.DATASET)
                     {
-                        char delim = 0x0001;
-                        childJson.put("xpath", childField.getFieldName() + delim + "Row");
+                        childJson.put("xpath", childField.getFieldName() + XPATH_DELIMITER + "Row");
+                    }
+                    else if (childField.getFieldType() == FieldType.SET)
+                    {
+                        childJson.put("xpath", childField.getFieldName() + XPATH_DELIMITER + "Item");
                     }
 
                     fields.put(childJson);
@@ -756,6 +785,17 @@ public class RecordDefinitionTranslator
                 throw new Exception(
                         "Unable to generate JSON for field : " + field.getFieldName() + " with unknown type: " + field.getFieldType().description());
             }
+        }
+
+        if (field.isNonStandardInt())
+        {
+            FieldDef nonKeyedField = new FieldDef(field);
+            nonKeyedField.setSourceType(HpccSrcType.LITTLE_ENDIAN);
+
+            int childTypeHash = getJsonTypeDefinition(nonKeyedField, typeDefinitionMap, typeDefinitions);
+            int childTypeIndex = typeDefinitionMap.get(childTypeHash);
+            String childTypeName = ESP_TYPE_NAME_PREFIX + (childTypeIndex + 1);
+            typeDef.put("child", childTypeName);
         }
 
         int newTypeIndex = typeDefinitions.size();
@@ -935,10 +975,6 @@ public class RecordDefinitionTranslator
             {
                 FieldDef fd = new FieldDef("", fieldType, fieldType.description(), length,
                         isFixedLength(typeID), isUnsigned(typeID), getSourceType(typeID), new FieldDef[0]);
-                if ((typeID & TYPE_ID_MASK) == type_keyedint)
-                {
-                    fd.setIsBiased(true);
-                }
                 return fd;
             }
         }
