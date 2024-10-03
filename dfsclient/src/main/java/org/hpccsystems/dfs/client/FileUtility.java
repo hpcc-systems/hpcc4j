@@ -1001,7 +1001,7 @@ public class FileUtility
                 HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
                 readContext.parentSpan = context.getCurrentOperation().operationSpan;
                 readContext.originalRD = recordDef;
-                filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(readContext, inFilePart, new HPCCRecordBuilder(recordDef));
+                filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(readContext, inFilePart, new HPCCRecordBuilder(file.getProjectedRecordDefinition()));
             }
             incomingFilePartIndex += numIncomingParts;
 

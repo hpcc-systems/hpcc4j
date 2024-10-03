@@ -35,7 +35,6 @@ public class FieldDef implements Serializable
     private long              len                = 0;
     private boolean           fixedLength        = false;
     private boolean           isUnsigned         = false;
-    private boolean           isBiased           = false;
     private int               additionalFlags    = 0;
 
     /**
@@ -49,12 +48,17 @@ public class FieldDef implements Serializable
         this.fieldName = rhs.fieldName;
         this.fieldType = rhs.fieldType;
         this.typeName = rhs.typeName;
-        this.defs = rhs.defs;
+
+        this.defs = new FieldDef[rhs.defs.length];
+        for (int i = 0; i < rhs.defs.length; i++)
+        {
+            this.defs[i] = new FieldDef(rhs.defs[i]);
+        }
+
         this.srcType = rhs.srcType;
         this.len = rhs.len;
         this.fixedLength = rhs.fixedLength;
         this.isUnsigned = rhs.isUnsigned;
-        this.isBiased = rhs.isBiased;
         this.additionalFlags = rhs.additionalFlags;
     }
 
@@ -170,6 +174,16 @@ public class FieldDef implements Serializable
     public HpccSrcType getSourceType()
     {
         return this.srcType;
+    }
+
+    /**
+     * Sets data type on the HPCC cluster.
+     *
+     * @param srcType the new source type
+     */
+    public void setSourceType(HpccSrcType srcType)
+    {
+        this.srcType = srcType;
     }
 
     /**
@@ -305,18 +319,27 @@ public class FieldDef implements Serializable
     }
 
     /**
-     * Is the underlying value biased?
+     * Is the underlying value biased? Deprecated in favor of isNonStandardInt.
      *
-     * @return true when biased 
+     * @return true when biased
+     *
+     * @deprecated
      */
     public boolean isBiased()
     {
-        return this.isBiased;
+        return isNonStandardInt();
     }
 
-    void setIsBiased(boolean biased)
+    /**
+     *
+     *
+     * @return true when biased
+     */
+    public boolean isNonStandardInt()
     {
-        this.isBiased = biased;
+        return this.srcType == HpccSrcType.KEYED_INTEGER
+                || this.srcType == HpccSrcType.SWAPPED_INTEGER
+                || this.srcType == HpccSrcType.BIAS_SWAPPED_INTEGER;
     }
 
     /**

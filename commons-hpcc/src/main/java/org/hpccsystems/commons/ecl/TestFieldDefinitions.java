@@ -46,6 +46,24 @@ public class TestFieldDefinitions
             + "\"type\": \"ty17\",\r\n   \"xpath\": \"childdataset\\u0001Row\",\r\n   \"flags\": 1044\r\n  },\r\n  {\r\n   \"name\": \"int2set\",\r\n   "
             + "\"type\": \"ty19\",\r\n   \"xpath\": \"int2set\\u0001Item\",\r\n   \"flags\": 1045\r\n  }\r\n ]\r\n}";
 
+    private static final String allTypesIndexRecordDefinitionStr = "{\r\n \"ty1\": {\r\n  \"fieldType\": 1,\r\n  \"length\": 8\r\n },\r\n \"ty2\":"
+            + " {\r\n  \"fieldType\": 10,\r\n  \"length\": 8,\r\n  \"child\": \"ty1\"\r\n },\r\n \"ty3\": {\r\n  \"fieldType\": 257,\r\n  \"length\":"
+            + " 8\r\n },\r\n \"ty4\": {\r\n  \"fieldType\": 266,\r\n  \"length\": 8,\r\n  \"child\": \"ty3\"\r\n },\r\n \"ty5\": {\r\n  \"fieldType\": "
+            + "1,\r\n  \"length\": 4\r\n },\r\n \"ty6\": {\r\n  \"fieldType\": 10,\r\n  \"length\": 4,\r\n  \"child\": \"ty5\"\r\n },\r\n \"ty7\": {\r\n "
+            + " \"fieldType\": 257,\r\n  \"length\": 4\r\n },\r\n \"ty8\": {\r\n  \"fieldType\": 266,\r\n  \"length\": 4,\r\n  \"child\": \"ty7\"\r\n },\r\n"
+            + " \"ty9\": {\r\n  \"fieldType\": 1,\r\n  \"length\": 2\r\n },\r\n \"ty10\": {\r\n  \"fieldType\": 10,\r\n  \"length\": 2,\r\n  \"child\": "
+            + "\"ty9\"\r\n },\r\n \"ty11\": {\r\n  \"fieldType\": 257,\r\n  \"length\": 2\r\n },\r\n \"ty12\": {\r\n  \"fieldType\": 266,\r\n  \"length\": "
+            + "2,\r\n  \"child\": \"ty11\"\r\n },\r\n \"ty13\": {\r\n  \"fieldType\": 259,\r\n  \"length\": 524304\r\n },\r\n \"ty14\": {\r\n  \"fieldType\":"
+            + " 4,\r\n  \"length\": 8\r\n },\r\n \"ty15\": {\r\n  \"fieldType\": 0,\r\n  \"length\": 1\r\n },\r\n \"ty16\": {\r\n  \"fieldType\": 285,\r\n  "
+            + "\"vinit\": 2,\r\n \"length\": 8\r\n },\r\n \"fieldType\": 13,\r\n \"length\": 61,\r\n \"fields\": [\r\n  {\r\n   \"name\": \"int8\",\r\n   \"type\": \"ty2\",\r\n"
+            + "   \"flags\": 10\r\n  },\r\n  {\r\n   \"name\": \"uint8\",\r\n   \"type\": \"ty4\",\r\n   \"flags\": 266\r\n  },\r\n  {\r\n   \"name\": \"int4\","
+            + "\r\n   \"type\": \"ty6\",\r\n   \"flags\": 10\r\n  },\r\n  {\r\n   \"name\": \"uint4\",\r\n   \"type\": \"ty8\",\r\n   \"flags\": 266\r\n  },\r\n"
+            + "  {\r\n   \"name\": \"int2\",\r\n   \"type\": \"ty10\",\r\n   \"flags\": 10\r\n  },\r\n  {\r\n   \"name\": \"uint2\",\r\n   \"type\": \"ty12\",\r\n"
+            + "   \"flags\": 266\r\n  },\r\n  {\r\n   \"name\": \"udec16\",\r\n   \"type\": \"ty13\",\r\n   \"flags\": 259\r\n  },\r\n  {\r\n   \"name\": \"fixstr8\",\r\n"
+            + "   \"type\": \"ty14\",\r\n   \"flags\": 4\r\n  },\r\n  {\r\n   \"name\": \"recptr\",\r\n   \"type\": \"ty4\",\r\n   \"flags\": 266\r\n  },\r\n  {\r\n"
+            + "   \"name\": \"isactive\",\r\n   \"type\": \"ty15\",\r\n   \"flags\": 65536\r\n  },\r\n  {\r\n   \"name\": \"__internal_fpos__\",\r\n \"type\": \"ty16\",\r\n"
+            + "   \"flags\": 65821\r\n  }\r\n ]\r\n}";
+
     /**
      * Gets the complex record definition json.
      *
@@ -54,6 +72,11 @@ public class TestFieldDefinitions
     public static String getComplexRecordDefinitionJson()
     {
         return complexRecordDefinitionStr;
+    }
+
+    public static String getAllTypesIndexRecordDefinitionJson()
+    {
+        return allTypesIndexRecordDefinitionStr;
     }
 
     /**
