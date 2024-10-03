@@ -1123,7 +1123,7 @@ public class FileUtility
                 readContext.originalRD = recordDef;
                 readContext.socketOpTimeoutMS = context.socketOpTimeoutMS;
                 readContext.initialReadSizeKB = context.initialReadSizeKB;
-                filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(readContext, inFilePart, new HPCCRecordBuilder(recordDef));
+                filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(readContext, inFilePart, new HPCCRecordBuilder(file.getProjectedRecordDefinition()));
                 filePartReaders[j].setMaxReadRetries(context.readRetries);
             }
             incomingFilePartIndex += numIncomingParts;
