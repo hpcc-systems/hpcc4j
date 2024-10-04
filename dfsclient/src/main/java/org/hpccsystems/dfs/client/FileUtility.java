@@ -327,9 +327,11 @@ public class FileUtility
     {
         Console console = System.console();
 
+        boolean nonInteractive = cmd.hasOption("non_interactive");
+
         String user = cmd.getOptionValue("user");
         boolean userIsEmpty = user == null || user.isEmpty();
-        if (userIsEmpty)
+        if (userIsEmpty && !nonInteractive)
         {
             user = new String(console.readLine("Enter username: "));
             userIsEmpty = user == null || user.isEmpty();
@@ -337,7 +339,7 @@ public class FileUtility
 
         String pass = cmd.getOptionValue("pass");
         boolean passIsEmpty = pass == null || pass.isEmpty();
-        if (!userIsEmpty && passIsEmpty)
+        if (!userIsEmpty && passIsEmpty & !nonInteractive)
         {
             pass = new String(console.readPassword("Enter password for " + user + ": "));
         }
@@ -551,6 +553,7 @@ public class FileUtility
         options.addOption("format", true, "Specifies the output format to be used when writing files to disk. Defaults to Thor files.");
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
         options.addOption("out", true, "Specifies the directory that the files should be written to.");
+        options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
         options.addOption(Option.builder("read")
                                 .argName("files")
@@ -571,6 +574,7 @@ public class FileUtility
         options.addOption("pass", true, "Specifies the password used to connect. Defaults to null.");
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
         options.addOption("access_expiry_seconds", true, "Access token expiration seconds.");
+        options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
         options.addOption(Option.builder("file_parts")
                                 .argName("_file_parts")
@@ -590,6 +594,7 @@ public class FileUtility
         options.addRequiredOption("dest_cluster", "Destination Cluster Name", true, "Specifies the name of the cluster to write files back to.");
         options.addOption("dest_url", "Destination Cluster URL", true, "Specifies the URL of the ESP to write to.");
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
+        options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
         options.addOption(Option.builder("copy")
                                 .argName("files")
@@ -611,6 +616,7 @@ public class FileUtility
         options.addOption("dest_url", "Destination Cluster URL", true, "Specifies the URL of the ESP to write to.");
         options.addRequiredOption("dest_cluster", "Destination Cluster Name", true, "Specifies the name of the cluster to write files back to.");
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
+        options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
         options.addOption(Option.builder("write")
                                 .argName("files")
