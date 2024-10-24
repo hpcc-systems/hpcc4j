@@ -344,6 +344,7 @@ public class FieldDef implements Serializable
 
     /**
      * Sets the blob flag.
+     * @param blob is the field a blob?
      */
     public void setIsBlob(boolean blob)
     {

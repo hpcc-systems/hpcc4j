@@ -37,6 +37,7 @@ public class RecordDefinitionTranslator
 
     private static final String ESP_TYPE_NAME_PREFIX = "ty";
 
+    private static final int    BLOB_LENGTH           = 8;
     private static final int    FLAG_UNSIGNED         = 256;
     private static final int    FLAG_UNKNOWN_SIZE     = 1024;
     private static final int    TYPE_ID_MASK          = 0xff;       // 0x7fff & ~FLAG_UNKNOWN_SIZE & ~FLAG_UNSIGNED;
@@ -730,7 +731,7 @@ public class RecordDefinitionTranslator
 
             JSONObject typeDef = new JSONObject();
             typeDef.put("fieldType", type_blob);
-            typeDef.put("length", 8);
+            typeDef.put("length", BLOB_LENGTH);
             typeDef.put("child", nonBlobTypeName);
 
             int newTypeIndex = typeDefinitions.size();
