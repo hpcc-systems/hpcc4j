@@ -558,6 +558,36 @@ public class BinaryRecordReader implements IRecordReader
         for (int fieldIndex = 0; fieldIndex < recordDef.getNumDefs(); fieldIndex++)
         {
             FieldDef fd = recordDef.getDef(fieldIndex);
+            if (fd.isBlob())
+            {
+                // If we encounter a blob field, we only have access to the blob file location
+                // So read that location and construct a default value field
+                long blobFileLoc = (long) getUnsigned(8, true);
+                try
+                {
+                    switch (fd.getFieldType())
+                    {
+                        case BINARY:
+                            recordBuilder.setFieldValue(fieldIndex, new byte[0]);
+                            continue;
+                        case STRING:
+                        case VAR_STRING:
+                            recordBuilder.setFieldValue(fieldIndex, "");
+                            continue;
+                        case SET:
+                        case DATASET:
+                            recordBuilder.setFieldValue(fieldIndex, new ArrayList<Object>());
+                            continue;
+                        default:
+                            throw new UnparsableContentException("Unexpected blob type: " + fd.getFieldType() + " for field: " + fd.getFieldName());
+                    }
+                }
+                catch (IllegalAccessException e)
+                {
+                    throw new UnparsableContentException("Unable to set field value for field: " + fd.getFieldName() + " with error: " + e.getMessage());
+                }
+            }
+
             Object fieldValue = null;
             switch (fd.getFieldType())
             {

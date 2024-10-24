@@ -52,6 +52,7 @@ public class HPCCFile implements Serializable
     private DataPartition[]      dataParts;
     private DataPartition        tlkPartition                  = null;
     private boolean              useTLK                        = true;
+    private boolean              readBlobs                     = true;
     private PartitionProcessor   partitionProcessor            = null;
     private long                 dataPartsCreationTimeMS       = -1;
 
@@ -241,7 +242,7 @@ public class HPCCFile implements Serializable
     {
         this.projectedRecordDefinition = this.columnPruner.pruneRecordDefinition(this.recordDefinition);
 
-        // By default project all sub-integer types to standard integers
+        // By default project all sub-integer types to standard integers and all blobs to non-blobs
         for (int i = 0; i < this.projectedRecordDefinition.getNumDefs(); i++)
         {
             FieldDef field = this.projectedRecordDefinition.getDef(i);
@@ -250,6 +251,11 @@ public class HPCCFile implements Serializable
                 field.setSourceType(HpccSrcType.LITTLE_ENDIAN);
             }
 
+            // Project blobs to non-blobs, otherwise we will only get back the file position of the blob
+            if (readBlobs && field.isBlob())
+            {
+                field.setIsBlob(false);
+            }
         }
     }
 
@@ -356,6 +362,24 @@ public class HPCCFile implements Serializable
     public HPCCFile setUseTLK(boolean useTLK)
     {
         this.useTLK = useTLK;
+
+        // Force the data parts to be re-created
+        this.dataParts = null;
+
+        return this;
+    }
+
+    /**
+     * Sets the read blobs options
+     * Note: Blobs are read by default, on older HPCC systems reading blobs can cause issues reading blobs should be disabled for these systems.
+     *
+     * @param readBlobs should blobs be read
+     *
+     * @return this file
+     */
+    public HPCCFile setReadBlobs(boolean readBlobs)
+    {
+        this.readBlobs = readBlobs;
 
         // Force the data parts to be re-created
         this.dataParts = null;

@@ -32,10 +32,12 @@ public class RecordDefinitionTranslator
     private static final String NAME_KEY              = "name";
     private static final String TYPE_KEY              = "type";
     private static final String CHILD_KEY             = "child";
+    private static final String XPATH_KEY             = "xpath";
     private static final String FLAGS_KEY             = "flags";
 
     private static final String ESP_TYPE_NAME_PREFIX = "ty";
 
+    private static final int    BLOB_LENGTH           = 8;
     private static final int    FLAG_UNSIGNED         = 256;
     private static final int    FLAG_UNKNOWN_SIZE     = 1024;
     private static final int    TYPE_ID_MASK          = 0xff;       // 0x7fff & ~FLAG_UNKNOWN_SIZE & ~FLAG_UNSIGNED;
@@ -48,6 +50,7 @@ public class RecordDefinitionTranslator
     final private static int    type_keyedint         = 10;         // Convert to integer
     final private static int    type_record           = 13;
     final private static int    type_varstring        = 14;
+    final private static int    type_blob             = 15;
     final private static int    type_data             = 16;
     final private static int    type_table            = 20;
     final private static int    type_set              = 21;
@@ -264,28 +267,32 @@ public class RecordDefinitionTranslator
      */
     private static String getEClTypeDefinition(FieldDef field, HashMap<String, String> recordDefinitionMap) throws Exception
     {
+        String type = "";
         switch (field.getFieldType())
         {
             case SET:
             {
-                return "SET OF " + getEClTypeDefinition(field.getDef(0), recordDefinitionMap);
+                type = "SET OF " + getEClTypeDefinition(field.getDef(0), recordDefinitionMap);
+                break;
             }
             case DATASET:
             {
-                return "DATASET(" + getEClTypeDefinition(field.getDef(0), recordDefinitionMap) + ")";
+                type = "DATASET(" + getEClTypeDefinition(field.getDef(0), recordDefinitionMap) + ")";
+                break;
             }
             case BINARY:
             {
+                type = "DATA";
                 if (field.isFixed())
                 {
-                    return "DATA" + field.getDataLen();
+                    type += field.getDataLen();
                 }
-
-                return "DATA";
+                break;
             }
             case BOOLEAN:
             {
-                return "BOOLEAN";
+                type = "BOOLEAN";
+                break;
             }
             case INTEGER:
             {
@@ -300,7 +307,8 @@ public class RecordDefinitionTranslator
                     throw new Exception("Error: Unsupported integer size: " + field.getDataLen() + " must 1-8.");
                 }
 
-                return root + field.getDataLen();
+                type = root + field.getDataLen();
+                break;
             }
             case FILEPOS:
             {
@@ -314,7 +322,8 @@ public class RecordDefinitionTranslator
                     throw new Exception("Error: Unsupported filepos size: " + field.getDataLen() + " must be 8.");
                 }
 
-                return "UNSIGNED8";
+                type = "UNSIGNED8";
+                break;
             }
             case DECIMAL:
             {
@@ -323,28 +332,33 @@ public class RecordDefinitionTranslator
                 {
                     root = "U" + root;
                 }
-                return root + field.getPrecision() + "_" + field.getScale();
+                type = root + field.getPrecision() + "_" + field.getScale();
+                break;
             }
             case REAL:
             {
                 if (field.getDataLen() == 4)
                 {
-                    return "REAL4";
+                    type = "REAL4";
                 }
                 else if (field.getDataLen() == 8)
                 {
-                    return "REAL8";
+                    type = "REAL8";
                 }
+                else
+                {
+                    throw new Exception("Error: Unsupported real size: " + field.getDataLen() + " must 4 or 8.");
+                }
+                break;
 
-                throw new Exception("Error: Unsupported real size: " + field.getDataLen() + " must 4 or 8.");
             }
             case CHAR:
             {
-                return "STRING1";
+                type = "STRING1";
+                break;
             }
             case STRING:
             {
-                String type = "";
                 HpccSrcType srcType = field.getSourceType();
                 if (srcType == HpccSrcType.SINGLE_BYTE_CHAR)
                 {
@@ -371,11 +385,10 @@ public class RecordDefinitionTranslator
                 {
                     type += field.getDataLen();
                 }
-                return type;
+                break;
             }
             case VAR_STRING:
             {
-                String type = "";
                 HpccSrcType srcType = field.getSourceType();
                 if (srcType == HpccSrcType.SINGLE_BYTE_CHAR)
                 {
@@ -394,7 +407,7 @@ public class RecordDefinitionTranslator
                 {
                     type += field.getDataLen();
                 }
-                return type;
+                break;
             }
             case RECORD:
             {
@@ -416,13 +429,21 @@ public class RecordDefinitionTranslator
                 String recordDefnName = "##" + hash + "##";
 
                 recordDefinitionMap.put(recordDefnName, definition);
-                return recordDefnName;
+                type = recordDefnName;
+                break;
             }
             default:
             {
                 throw new Exception("Unable to generate ECL unknown field type: " + field.getFieldType().description());
             }
         }
+
+        if (field.isBlob())
+        {
+            type += " {blob}";
+        }
+
+        return type;
     }
 
     /**
@@ -648,7 +669,7 @@ public class RecordDefinitionTranslator
      */
     private static int getTypeHash(FieldDef field) throws Exception
     {
-        int numHashComponents = 4 + field.getNumDefs();
+        int numHashComponents = 5 + field.getNumDefs();
         if (field.getFieldType() == FieldType.DECIMAL)
         {
             numHashComponents += 2;
@@ -659,8 +680,9 @@ public class RecordDefinitionTranslator
         hashComponents[1] = field.getDataLen();
         hashComponents[2] = field.getSourceType().ordinal();
         hashComponents[3] = field.getAdditionalFlags();
+        hashComponents[4] = field.isBlob() ? 1 : 0;
 
-        int hashCompIndex = 4;
+        int hashCompIndex = 5;
         for (int i = 0; i < field.getNumDefs(); i++, hashCompIndex++)
         {
             hashComponents[hashCompIndex] = getTypeHash(field.getDef(i));
@@ -695,6 +717,26 @@ public class RecordDefinitionTranslator
         Integer typeIndex = typeDefinitionMap.get(typeHash);
         if (typeIndex != null)
         {
+            return typeHash;
+        }
+
+        if (field.isBlob())
+        {
+            FieldDef nonBlobField = new FieldDef(field);
+            nonBlobField.setIsBlob(false);
+
+            int nonBlobTypeHash = getJsonTypeDefinition(nonBlobField, typeDefinitionMap, typeDefinitions);
+            int nonBlobTypeIndex = typeDefinitionMap.get(nonBlobTypeHash);
+            String nonBlobTypeName = ESP_TYPE_NAME_PREFIX + (nonBlobTypeIndex + 1);
+
+            JSONObject typeDef = new JSONObject();
+            typeDef.put("fieldType", type_blob);
+            typeDef.put("length", BLOB_LENGTH);
+            typeDef.put("child", nonBlobTypeName);
+
+            int newTypeIndex = typeDefinitions.size();
+            typeDefinitions.add(typeDef);
+            typeDefinitionMap.put(typeHash, newTypeIndex);
             return typeHash;
         }
 
@@ -753,25 +795,30 @@ public class RecordDefinitionTranslator
                     int childTypeHash = getJsonTypeDefinition(childField, typeDefinitionMap, typeDefinitions);
                     int childTypeIndex = typeDefinitionMap.get(childTypeHash);
                     String childTypeName = ESP_TYPE_NAME_PREFIX + (childTypeIndex + 1);
+
                     int childTypeID = getTypeID(childField);
+                    if (childField.isBlob())
+                    {
+                        childTypeID = type_blob;
+                    }
 
                     JSONObject childJson = new JSONObject();
-                    childJson.put("name", childField.getFieldName());
-                    childJson.put("type", childTypeName);
+                    childJson.put(NAME_KEY, childField.getFieldName());
+                    childJson.put(TYPE_KEY, childTypeName);
 
                     int flags = childTypeID | childField.getAdditionalFlags();
                     if (flags > 0)
                     {
-                        childJson.put("flags", flags);
+                        childJson.put(FLAGS_KEY, flags);
                     }
 
                     if (childField.getFieldType() == FieldType.DATASET)
                     {
-                        childJson.put("xpath", childField.getFieldName() + XPATH_DELIMITER + "Row");
+                        childJson.put(XPATH_KEY, childField.getFieldName() + XPATH_DELIMITER + "Row");
                     }
                     else if (childField.getFieldType() == FieldType.SET)
                     {
-                        childJson.put("xpath", childField.getFieldName() + XPATH_DELIMITER + "Item");
+                        childJson.put(XPATH_KEY, childField.getFieldName() + XPATH_DELIMITER + "Item");
                     }
 
                     fields.put(childJson);
@@ -953,6 +1000,14 @@ public class RecordDefinitionTranslator
     {
         int typeID = typeDef.getInt(FIELD_TYPE_KEY);
         long length = typeDef.getLong(LENGTH_KEY);
+
+        if (typeID == type_blob)
+        {
+            String blobType = typeDef.getString(CHILD_KEY);
+            FieldDef def = getOrParseJsonTypeDefintion(blobType, jsonTypeDefinitions, protoTypeDefs);
+            def.setIsBlob(true);
+            return def;
+        }
 
         FieldType fieldType = getFieldType(typeID);
         switch (fieldType)
