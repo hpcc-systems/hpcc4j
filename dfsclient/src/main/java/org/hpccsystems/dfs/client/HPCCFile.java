@@ -250,6 +250,10 @@ public class HPCCFile implements Serializable
                 field.setSourceType(HpccSrcType.LITTLE_ENDIAN);
             }
 
+            // if (field.isBlob())
+            // {
+            //     field.setIsBlob(false);
+            // }
         }
     }
 

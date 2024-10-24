@@ -35,6 +35,7 @@ public class FieldDef implements Serializable
     private long              len                = 0;
     private boolean           fixedLength        = false;
     private boolean           isUnsigned         = false;
+    private boolean           isBlob             = false;
     private int               additionalFlags    = 0;
 
     /**
@@ -59,6 +60,7 @@ public class FieldDef implements Serializable
         this.len = rhs.len;
         this.fixedLength = rhs.fixedLength;
         this.isUnsigned = rhs.isUnsigned;
+        this.isBlob = rhs.isBlob;
         this.additionalFlags = rhs.additionalFlags;
     }
 
@@ -328,6 +330,24 @@ public class FieldDef implements Serializable
     public boolean isBiased()
     {
         return isNonStandardInt();
+    }
+
+    /**
+     * Is the field stored in a blob?
+     *
+     * @return true when blob
+     */
+    public boolean isBlob()
+    {
+        return this.isBlob;
+    }
+
+    /**
+     * Sets the blob flag.
+     */
+    public void setIsBlob(boolean blob)
+    {
+        this.isBlob = blob;
     }
 
     /**

@@ -260,6 +260,27 @@ public class DFSIndexTest extends BaseRemoteTest
         }
     }
 
+    @Test
+    public void indexBlobTest() throws Exception
+    {
+        HPCCFile file = new HPCCFile("~test::index::blobs::key", connString , hpccUser, hpccPass);
+
+        DataPartition[] fileParts = file.getFileParts();
+
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        FieldDef originalRD = file.getRecordDefinition();
+        for (int j = 0; j < fileParts.length; j++)
+        {
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(fileParts[j], originalRD, recordBuilder);
+            while (fileReader.hasNext())
+            {
+                records.add(fileReader.next());
+            }
+            fileReader.close();
+        }
+    }
+
     private String partitionListToString(List<DataPartition> partitions)
     {
         String matchedPartitionStr = "[ ";
