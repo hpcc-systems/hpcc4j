@@ -217,3 +217,27 @@ IF(~Std.File.FileExists(dataset_name9), OUTPUT(ds9,,dataset_name9, overwrite));
 key_name2 := '~test::index::child_dataset::key';
 idx := INDEX(ds9, {str12}, {str8, int8, DATASET(childRec2) childDS {maxcount(100)} := children}, key_name2);
 IF(~Std.File.FileExists(key_name2), BUILDINDEX(idx, OVERWRITE));
+
+rec10 := RECORD
+    string12 str12;
+	string content_string{blob, maxlength(2000000)};
+    data content_data{blob, maxlength(2000000)};
+    DATASET(childRec2) children{blob, maxcount(100)};
+END;
+
+ds10 := DATASET(125, transform(rec10,
+                                self.str12 := (STRING) random();
+                                self.content_string := (STRING) random();
+                                self.content_data := (DATA) random();
+                               	self.children := DATASET(random() % 100, transform(childRec2,
+                                                                                  self.str8 := (string) random();
+                                                                                  self.int8 := random();
+                                                                                 ));
+                               ), DISTRIBUTED);
+
+dataset_name10 := '~test::index::blobs';
+IF(~Std.File.FileExists(dataset_name10), OUTPUT(ds10,,dataset_name10, overwrite));
+
+key_name3 := '~test::index::blobs::key';
+idx2 := INDEX(ds10, {str12}, {content_string, content_data, DATASET(childRec2) childDS {blob, maxcount(100)} := children}, key_name3);
+IF(~Std.File.FileExists(key_name3), BUILDINDEX(idx2, OVERWRITE));
