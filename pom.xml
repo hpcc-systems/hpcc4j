@@ -67,6 +67,9 @@
     <opentelemetry.instrumentation.annotations.version>2.6.0</opentelemetry.instrumentation.annotations.version>
     <xalan.version>2.7.3</xalan.version>
     <commons-fileupload.version>1.5</commons-fileupload.version>
+    <commons-codec.version>1.17.1</commons-codec.version>
+    <fasterxml.woodstox-core.version>6.4.0</fasterxml.woodstox-core.version>
+    <apache-mime4j.version>0.8.11</apache-mime4j.version>
   </properties>
 
   <scm>
@@ -235,7 +238,23 @@
         <artifactId>serializer</artifactId>
         <version>${xalan.version}</version>
     </dependency>
-    <!--  -->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>${commons-codec.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.woodstox</groupId>
+      <artifactId>woodstox-core</artifactId>
+      <version>${fasterxml.woodstox-core.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.james</groupId>
+      <artifactId>apache-mime4j</artifactId>
+      <version>${apache-mime4j.version}</version>
+      <type>pom</type>
+    </dependency>
+    <!-- End of Apache Axis2: Out-dated dependency overrides -->
   </dependencies>
 
   <build>
