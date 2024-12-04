@@ -46,7 +46,7 @@ public class FileUtilityTest extends BaseRemoteTest
     {
         {
             String readArgs[] = {"-read", "benchmark::integer::20kb", "-url", this.connString,
-                                "-format", "thor", "-user", this.hpccUser, "-pass", this.hpccPass };
+                                "-format", "thor", "-user", this.hpccUser, "-pass", this.hpccPass, "-non_interactive" };
 
             JSONArray results = FileUtility.run(readArgs);
             JSONObject result = results.optJSONObject(0);
@@ -58,7 +58,7 @@ public class FileUtilityTest extends BaseRemoteTest
 
         {
             String readArgs[] = {"-read_test", "benchmark::integer::20kb", "-url", this.connString,
-                                 "-user", this.hpccUser, "-pass", this.hpccPass, "-file_parts", "1" };
+                                 "-user", this.hpccUser, "-pass", this.hpccPass, "-file_parts", "1", "-non_interactive" };
 
             JSONArray results = FileUtility.run(readArgs);
             JSONObject result = results.optJSONObject(0);
@@ -72,7 +72,7 @@ public class FileUtilityTest extends BaseRemoteTest
             String copyArgs[] = {"-copy", "benchmark::integer::20kb benchmark::integer::20kb-copy",
                                 "-url", this.connString, "-dest_url", this.connString,
                                 "-dest_cluster", this.thorClusterFileGroup,
-                                "-user", this.hpccUser, "-pass", this.hpccPass };
+                                "-user", this.hpccUser, "-pass", this.hpccPass, "-non_interactive" };
 
             JSONArray results = FileUtility.run(copyArgs);
             JSONObject result = results.optJSONObject(0);
@@ -87,7 +87,7 @@ public class FileUtilityTest extends BaseRemoteTest
             String writeArgs[] = {"-write", localDir + "benchmark__integer__20kb* benchmark::integer::20kb_write",
                                 "-url", this.connString, "-dest_url", this.connString,
                                 "-dest_cluster", this.thorClusterFileGroup,
-                                "-user", this.hpccUser, "-pass", this.hpccPass };
+                                "-user", this.hpccUser, "-pass", this.hpccPass, "-non_interactive" };
 
             JSONArray results = FileUtility.run(writeArgs);
             JSONObject result = results.optJSONObject(0);
