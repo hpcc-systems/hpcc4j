@@ -335,9 +335,11 @@ public class FileUtility
     {
         Console console = System.console();
 
+        boolean nonInteractive = cmd.hasOption("non_interactive");
+
         String user = cmd.getOptionValue("user");
         boolean userIsEmpty = user == null || user.isEmpty();
-        if (userIsEmpty)
+        if (userIsEmpty && !nonInteractive)
         {
             user = new String(console.readLine("Enter username: "));
             userIsEmpty = user == null || user.isEmpty();
@@ -345,7 +347,7 @@ public class FileUtility
 
         String pass = cmd.getOptionValue("pass");
         boolean passIsEmpty = pass == null || pass.isEmpty();
-        if (!userIsEmpty && passIsEmpty)
+        if (!userIsEmpty && passIsEmpty & !nonInteractive)
         {
             pass = new String(console.readPassword("Enter password for " + user + ": "));
         }
@@ -642,6 +644,7 @@ public class FileUtility
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
         options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
                                     + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
+        options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
         options.addOption(Option.builder("read")
                                 .argName("files")
@@ -672,6 +675,7 @@ public class FileUtility
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
         options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
                                     + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
+        options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
         options.addOption(Option.builder("file_parts")
                                 .argName("_file_parts")
@@ -697,6 +701,7 @@ public class FileUtility
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
         options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
                                     + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
+        options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
         options.addOption(Option.builder("copy")
                                 .argName("files")
@@ -721,6 +726,7 @@ public class FileUtility
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
         options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
                                     + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
+        options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
         options.addOption(Option.builder("write")
                                 .argName("files")
@@ -1962,14 +1968,14 @@ public class FileUtility
             {
                 String readArgs[] = {"-read", srcFile, "-url", srcURL,
                                 "-format", "thor", "-user", user, "-pass", pass,
-                                "-out", "tmp-read"};
+                                "-out", "tmp-read", "-non_interactive"};
 
                 performRead(readArgs, context);
 
                 String writeArgs[] = {"-write", "tmp-read" + File.separator +  srcFile.replace(':', '_') + "*" +  " " + destFile,
                                 "-url", srcURL, "-dest_url", destURL,
                                 "-dest_cluster", destClusterName,
-                                "-user", user, "-pass", pass };
+                                "-user", user, "-pass", pass, "-non_interactive"};
 
                 performWrite(writeArgs, context);
             }
