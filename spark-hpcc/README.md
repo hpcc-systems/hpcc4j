@@ -25,8 +25,7 @@
 # Spark-HPCC
 Spark classes for HPCC Systems / Spark interoperability
 
-### DataAccess
-The DataAccess project contains the classes which expose distributed
+This project contains the classes which expose distributed
 streaming of HPCC based data via Spark constructs. In addition,
 the HPCC data is exposed as a Dataframe for the convenience of the Spark developer.
 
@@ -36,7 +35,7 @@ If using a standard Spark submission pipeline such as spark-submit these depende
 However, if your pipeline executes a jar directly you may need to add the Spark libraries from your $SPARK_HOME to the classpath.
 
 ### Examples & Documentation
-See: [Examples](https://github.com/hpcc-systems/Spark-HPCC/tree/master/Examples) for example usage of the connector as well as API documentation for the reading and writing APIs.
+See: [Examples](https://github.com/hpcc-systems/hpcc4j/tree/master/spark-hpcc/Examples) for example usage of the connector as well as API documentation for the reading and writing APIs.
 
 ## Please note:
 ##### As reported by github:

@@ -15,6 +15,8 @@
   <properties>
     <javadoc.excludePackageNames>net.razorvine.*:org.apache.*:org.hpccsystems.commons.*:org.hpccsystems.generated.*:org.hpccsystems.dfs.*:org.hpccsystems.ws.*:org.hpccsystems.ws.client.antlr.*</javadoc.excludePackageNames>
     <spark.runtime.version>2.4.6</spark.runtime.version>
+    <scala.binary.version>2.11</scala.binary.version>
+    <scala.version>2.11</scala.version>
  </properties>
 
 

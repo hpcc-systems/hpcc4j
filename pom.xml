@@ -67,8 +67,6 @@
     <opentelemetry.bom.version>1.38.0</opentelemetry.bom.version>
     <opentelemetry.semconv.version>1.25.0-alpha</opentelemetry.semconv.version>
     <opentelemetry.instrumentation.annotations.version>2.6.0</opentelemetry.instrumentation.annotations.version>
-    <scala.binary.version>2.11</scala.binary.version>
-    <scala.version>2.11</scala.version>
   </properties>
 
   <scm>

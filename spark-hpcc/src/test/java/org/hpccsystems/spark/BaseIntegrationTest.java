@@ -86,7 +86,7 @@ class BaseIntegrationTest
         else
         {
             System.out.println("Unable to find spark jar matching pattern: spark-hpcc.*-jar-with-dependencies.jar, "
-                              + "in directory [PROJECT_ROOT]/DataAccess/target/, check maven package / verify output for errors.");
+                              + "in directory [PROJECT_ROOT]/spark-hpcc/target/, check maven package / verify output for errors.");
         }
 
         String[] jars = {

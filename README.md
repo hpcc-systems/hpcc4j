@@ -1,4 +1,4 @@
-![hpcc4j Master Nightly](https://github.com/hpcc-systems/hpcc4j/workflows/hpcc4j%20Nightly/badge.svg?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/hpcc4j/badge.svg?subject=hpcc4j)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/hpcc4j) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc/badge.svg?subject=commons-hpcc)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient/badge.svg?subject=wsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient/badge.svg?subject=dfsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient)
+![hpcc4j Master Nightly](https://github.com/hpcc-systems/hpcc4j/workflows/hpcc4j%20Nightly/badge.svg?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/hpcc4j/badge.svg?subject=hpcc4j)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/hpcc4j) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc/badge.svg?subject=commons-hpcc)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/commons-hpcc) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient/badge.svg?subject=wsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/wsclient) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient/badge.svg?subject=dfsclient)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/dfsclient) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/spark-hpcc/badge.svg?subject=spark-hpcc)](https://maven-badges.herokuapp.com/maven-central/org.hpccsystems/spark-hpcc)
 
 [![CodeQL](https://github.com/hpcc-systems/hpcc4j/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/hpcc-systems/hpcc4j/actions/workflows/codeql-analysis.yml)
 
@@ -57,6 +57,10 @@ Everybody is encouraged to report issues and contribute to the project. When ope
   - RDF data ingestion tool to HPCC
   - Based on Apache Jena and dependent on org.hpccsystems.ws.client
 
+- [Spark-HPCC](https://github.com/hpcc-systems/hpcc4j/blob/master/spark-hpcc/README.md)
+  - Spark classes for HPCC Systems / Spark interoperability
+
+
 #### HPCC4J and HPCC Kubernetes Clusters
 Utilizing HPCC4J with containized HPCC Systems clusters requires some additional local configuration steps. These configuration steps are documented here: [Using HPCC4j with HPCC on a Kubernetes Cluster](https://github.com/hpcc-systems/hpcc4j/wiki/Using-HPCC4J-with-HPCC-on-a-Kubernetes-Cluster)
 
@@ -65,7 +69,7 @@ These projects are configured to be built using Maven. To build the projects usi
 
 `mvn install`
 
-NOTE: hpcccommons, wsclient, and dfsclient are controled via the top-level maven pom file and can be built via a single command.
+NOTE: hpcccommons, wsclient, dfsclient, and spark-hpcc are controlled via the top-level maven pom file and can be built via a single command.
 All sub-projects can be built individually using the pom file in each sub-project directory
 
 For more information on how to use Maven see http://maven.apache.org
