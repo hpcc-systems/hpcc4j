@@ -2,67 +2,22 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.hpccsystems</groupId>
   <artifactId>spark-hpcc</artifactId>
-  <version>9.9.0-0-SNAPSHOT</version>
-  <name>spark-hpcc</name>
+  <packaging>jar</packaging>
+  <name>HPCC Systems Spark Connector Project</name>
   <description>Spark connector for reading files residing in an HPCC cluster environment</description>
-  <url>https://hpccsystems.com</url>
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+
+  <parent>
+    <groupId>org.hpccsystems</groupId>
+    <artifactId>hpcc4j</artifactId>
+    <version>9.9.0-0-SNAPSHOT</version>
+  </parent>
+
   <properties>
-    <sonatype.staging.version>1.6.8</sonatype.staging.version>
-    <sonatype.staging.autorelease>false</sonatype.staging.autorelease>
-    <maven.surefire.version>3.1.2</maven.surefire.version>
-    <maven.failsafe.version>3.1.2</maven.failsafe.version>
-    <maven.gpg.version>1.6</maven.gpg.version>
-    <maven.gpg.skip>true</maven.gpg.skip>
-    <maven.source.version>2.2.1</maven.source.version>
-    <maven.javadoc.version>3.1.0</maven.javadoc.version>
-    <maven.compiler.version>3.8.0</maven.compiler.version>
-    <maven.compiler.release>8</maven.compiler.release>
-    <spark.runtime.version>2.4.6</spark.runtime.version>
-    <scala.binary.version>2.11</scala.binary.version>
-    <scala.version>2.11</scala.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <javadoc.excludePackageNames>net.razorvine.*:org.apache.*:org.hpccsystems.commons.*:org.hpccsystems.generated.*:org.hpccsystems.dfs.*:org.hpccsystems.ws.*:org.hpccsystems.ws.client.antlr.*</javadoc.excludePackageNames>
-  </properties>
-  <scm>
-    <connection>scm:git:https://github.com/hpcc-systems/Spark-HPCC.git</connection>
-    <developerConnection>scm:git:https://github.com/hpcc-systems/Spark-HPCC.git</developerConnection>
-    <url>scm:git:https://github.com/hpcc-systems/Spark-HPCC.git</url>
-    <tag>HEAD</tag>
-  </scm>
+    <spark.runtime.version>2.4.6</spark.runtime.version>
+ </properties>
 
-  <!-- This for deployment of snapshots -->
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
 
-  <!-- This is for fetching dependencies when doing SNAPSHOT builds -->
-  <repositories>
-    <repository>
-      <id>ossrh</id>
-      <name>Ossrh Snapshot Repository</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-      <layout>default</layout>
-      <releases>
-        <enabled>false</enabled>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>warn</checksumPolicy>
-      </snapshots>
-    </repository>
-  </repositories>
 
   <dependencies>
     <dependency>
@@ -155,66 +110,8 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+  
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${maven.compiler.version}</version>
-          <configuration>
-            <release>${maven.compiler.release}</release>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-gpg-plugin</artifactId>
-          <version>${maven.gpg.version}</version>
-          <executions>
-            <execution>
-              <id>sign-artifacts</id>
-              <phase>verify</phase>
-              <goals>
-                <goal>sign</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-          <version>${maven.source.version}</version>
-          <executions>
-            <execution>
-              <id>attach-sources</id>
-              <goals>
-                <goal>jar-no-fork</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>${maven.javadoc.version}</version>
-          <executions>
-            <execution>
-              <id>attach-javadocs</id>
-              <goals>
-                <goal>jar</goal>
-              </goals>
-            </execution>
-          </executions>
-          <configuration>
-            <doclint>none</doclint>
-            <excludePackageNames>${javadoc.excludePackageNames}</excludePackageNames>
-            <additionalparam>-Xdoclint:none</additionalparam>
-            <header>Copyright © 2021 HPCC Systems®. All rights reserved</header>
-            <footer>Copyright © 2021 HPCC Systems®. All rights reserved</footer>
-            <includeDependencySources>true</includeDependencySources>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

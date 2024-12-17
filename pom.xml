@@ -26,6 +26,7 @@
     <module>commons-hpcc</module>
     <module>wsclient</module>
     <module>dfsclient</module>
+    <module>spark-hpcc</module>
   </modules>
 
   <properties>
@@ -33,6 +34,7 @@
     <maven.compiler.version>3.8.0</maven.compiler.version>
     <maven.compiler.release>8</maven.compiler.release>
     <maven.assembly.version>3.1.1</maven.assembly.version>
+    <maven.failsafe.version>3.1.2</maven.failsafe.version>
     <sonatype.staging.version>1.6.8</sonatype.staging.version>
     <sonatype.staging.autorelease>false</sonatype.staging.autorelease>
     <maven.gpg.version>1.6</maven.gpg.version>
@@ -65,6 +67,8 @@
     <opentelemetry.bom.version>1.38.0</opentelemetry.bom.version>
     <opentelemetry.semconv.version>1.25.0-alpha</opentelemetry.semconv.version>
     <opentelemetry.instrumentation.annotations.version>2.6.0</opentelemetry.instrumentation.annotations.version>
+    <scala.binary.version>2.11</scala.binary.version>
+    <scala.version>2.11</scala.version>
   </properties>
 
   <scm>
