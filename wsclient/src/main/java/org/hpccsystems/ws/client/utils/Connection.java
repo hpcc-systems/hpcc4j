@@ -488,12 +488,27 @@ public class Connection
      * @param port_
      *            the new port
      */
-    private void setPort(String port_)
+    public void setPort(String port_)
     {
-        if (port_ != null && port_.length() > 0)
+        boolean hasChanged = false;
+
+        if (port_ != null && !port_.isEmpty())
+        {
+            if (port != null && !port.equals(port_))
+                hasChanged = true;
+
             port = port_;
+        }
         else
+        {
+            if (port != null && !port.isEmpty())
+                hasChanged = true;
+
             port = "";
+        }
+
+        if(baseUrl != null && !baseUrl.isEmpty() && hasChanged)
+            constructUrl();
     }
 
     /**
@@ -518,7 +533,7 @@ public class Connection
     /**
      * Construct url.
      */
-    private void constructUrl()
+    public void constructUrl()
     {
         baseUrl = new StringBuffer();
         baseUrl.append(protocol).append(protDelimiter);
