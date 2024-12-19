@@ -121,8 +121,8 @@ public class HpccFileWriter implements Serializable
 
     /**
      * Set the trace context for the current job
-     * @param parentTraceID
-     * @param parentSpanID
+     * @param parentTraceID parent trace ID
+     * @param parentSpanID parent span ID
      */
     public void setTraceContext(String parentTraceID, String parentSpanID)
     {
