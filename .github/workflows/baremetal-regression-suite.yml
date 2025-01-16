@@ -129,11 +129,16 @@ jobs:
         latestVersionStr = ".".join(map(str, latestVersion))
         latestVersionURL = 'https://cdn.hpccsystems.com/releases/CE-Candidate-' + latestVersionStr \
                          + '/bin/platform/hpccsystems-platform-community_' + latestVersionStr + '-1jammy_amd64_withsymbols.deb'
-
-        print(f"::set-output name=previousVersion::{previousVersionStr}")
-        print(f"::set-output name=previousVersionURL::{previousVersionURL}")
-        print(f"::set-output name=latestVersion::{latestVersionStr}")
-        print(f"::set-output name=latestVersionURL::{latestVersionURL}")
+        
+        github_output_path = os.getenv('GITHUB_OUTPUT')
+        if github_output_path:
+          with open(github_output_path, 'a') as output_file:
+            output_file.write(f"previousVersion={previousVersionStr}\n")
+            output_file.write(f"previousVersionURL={previousVersionURL}\n")
+            output_file.write(f"latestVersion={latestVersionStr}\n")
+            output_file.write(f"latestVersionURL={latestVersionURL}\n")
+        else:
+          print('GITHUB_OUTPUT environment variable is not set.')
 
     - name: Install latest version
       run: |

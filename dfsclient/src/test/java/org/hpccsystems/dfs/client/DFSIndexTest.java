@@ -18,6 +18,7 @@ package org.hpccsystems.dfs.client;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -114,7 +115,8 @@ public class DFSIndexTest extends BaseRemoteTest
         }
     }
 
-    @Test
+    // Ignoring this test until underlying TLK support changes have been made
+    @Ignore @Test
     public void hpccTLKFilterTest() throws Exception
     {
         for (int i = 0; i < datasetNames.length; i++)
