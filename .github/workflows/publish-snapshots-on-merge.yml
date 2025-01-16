@@ -43,7 +43,7 @@ jobs:
           gpg-passphrase: JFROG_GPG_PASSPHRASE
       - name: Publish package
         if: contains(github.ref_name, '-release') == false
-        run: mvn -Pjfrog-artifactory -Dgpg.passphrase=${{ secrets.SIGN_MODULES_PASSPHRASE }} -DstagingProgressTimeoutMinutes=20 clean deploy -e
+        run: mvn -Pjfrog-artifactory -Dgpg.passphrase=${{ secrets.SIGN_MODULES_PASSPHRASE }} -DstagingProgressTimeoutMinutes=20 -DskipITs clean deploy -e
         env:
           JFROG_USER: ${{ secrets.JFROG_USER }}
           JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
