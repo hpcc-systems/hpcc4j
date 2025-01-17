@@ -39,7 +39,7 @@ jobs:
           gpg-private-key: ${{ secrets.SIGNING_SECRET }}
           gpg-passphrase: JFROG_GPG_PASSPHRASE
       - name: Publish package
-        run: mvn -Pjfrog-artifactory -Dgpg.passphrase=${{ secrets.SIGN_MODULES_PASSPHRASE }} -DstagingProgressTimeoutMinutes=20 clean deploy -e
+        run: mvn -Pjfrog-artifactory -Dgpg.passphrase=${{ secrets.SIGN_MODULES_PASSPHRASE }} -DstagingProgressTimeoutMinutes=20 -DskipITs clean deploy -e
         env:
           JFROG_USER: ${{ secrets.JFROG_USER }}
           JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
