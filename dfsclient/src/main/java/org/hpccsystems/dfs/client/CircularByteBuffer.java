@@ -54,7 +54,7 @@ public class CircularByteBuffer
      * 
      * @return true, if successful
      */
-    public boolean hasSpace()
+    public boolean hasFreeSpace()
     {
         return getFreeSpace() > 0;
     }
@@ -82,7 +82,7 @@ public class CircularByteBuffer
      */
     public int getContiguousFreeSpace()
     {
-        if (!hasSpace())
+        if (!hasFreeSpace())
         {
             return 0;
         }

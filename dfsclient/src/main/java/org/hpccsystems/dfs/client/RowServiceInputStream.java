@@ -1227,13 +1227,13 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             remainingDataInCurrentRequest -= bytesToRead;
 
             // If we don't have enough room in the buffer. Return, and let the calling prefetch thread handle sleep etc
-            boolean hasSpace = false;
+            boolean hasFreeSpace = false;
             synchronized (readBuffer)
             {
-                hasSpace = readBuffer.hasSpace();
+                hasFreeSpace = readBuffer.hasFreeSpace();
             }
 
-            if (!hasSpace)
+            if (!hasFreeSpace)
             {
                 return;
             }

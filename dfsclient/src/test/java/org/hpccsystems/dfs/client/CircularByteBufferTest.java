@@ -42,7 +42,7 @@ public class CircularByteBufferTest extends BaseRemoteTest
     {
         CircularByteBuffer cbb = new CircularByteBuffer(10);
         assertEquals(0, cbb.getBytesAvailable());
-        assertEquals(true, cbb.hasSpace());
+        assertEquals(true, cbb.hasFreeSpace());
         assertEquals(10, cbb.getFreeSpace());
         assertEquals(10, cbb.getContiguousFreeSpace());
     }
@@ -52,7 +52,7 @@ public class CircularByteBufferTest extends BaseRemoteTest
     {
         CircularByteBuffer cbb = new CircularByteBuffer(10);
         assertEquals(0, cbb.getBytesAvailable());
-        assertEquals(true, cbb.hasSpace());
+        assertEquals(true, cbb.hasFreeSpace());
         assertEquals(10, cbb.getFreeSpace());
         assertEquals(10, cbb.getContiguousFreeSpace());
 
@@ -67,7 +67,7 @@ public class CircularByteBufferTest extends BaseRemoteTest
             fail();
         }
         assertEquals(5, cbb.getBytesAvailable());
-        assertEquals(true, cbb.hasSpace());
+        assertEquals(true, cbb.hasFreeSpace());
         assertEquals(5, cbb.getFreeSpace());
         assertEquals(5, cbb.getContiguousFreeSpace());
     }
@@ -77,7 +77,7 @@ public class CircularByteBufferTest extends BaseRemoteTest
     {
         CircularByteBuffer cbb = new CircularByteBuffer(10);
         assertEquals(0, cbb.getBytesAvailable());
-        assertEquals(true, cbb.hasSpace());
+        assertEquals(true, cbb.hasFreeSpace());
         assertEquals(10, cbb.getFreeSpace());
         assertEquals(10, cbb.getContiguousFreeSpace());
 
@@ -92,7 +92,7 @@ public class CircularByteBufferTest extends BaseRemoteTest
             fail();
         }
         assertEquals(5, cbb.getBytesAvailable());
-        assertEquals(true, cbb.hasSpace());
+        assertEquals(true, cbb.hasFreeSpace());
         assertEquals(5, cbb.getFreeSpace());
         assertEquals(5, cbb.getContiguousFreeSpace());
 
@@ -107,7 +107,7 @@ public class CircularByteBufferTest extends BaseRemoteTest
             fail();
         }
         assertEquals(0, cbb.getBytesAvailable());
-        assertEquals(true, cbb.hasSpace());
+        assertEquals(true, cbb.hasFreeSpace());
         assertEquals(10, cbb.getFreeSpace());
         assertEquals(5, cbb.getContiguousFreeSpace());
     }
@@ -117,7 +117,7 @@ public class CircularByteBufferTest extends BaseRemoteTest
     {
         CircularByteBuffer cbb = new CircularByteBuffer(10);
         assertEquals(0, cbb.getBytesAvailable());
-        assertEquals(true, cbb.hasSpace());
+        assertEquals(true, cbb.hasFreeSpace());
         assertEquals(10, cbb.getFreeSpace());
         assertEquals(10, cbb.getContiguousFreeSpace());
 
@@ -132,7 +132,7 @@ public class CircularByteBufferTest extends BaseRemoteTest
             fail();
         }
         assertEquals(10, cbb.getBytesAvailable());
-        assertEquals(false, cbb.hasSpace());
+        assertEquals(false, cbb.hasFreeSpace());
         assertEquals(0, cbb.getFreeSpace());
         assertEquals(0, cbb.getContiguousFreeSpace());
 
@@ -150,13 +150,13 @@ public class CircularByteBufferTest extends BaseRemoteTest
         }
 
         assertEquals(5, cbb.getBytesAvailable());
-        assertEquals(false, cbb.hasSpace());
+        assertEquals(false, cbb.hasFreeSpace());
         assertEquals(0, cbb.getFreeSpace());
         assertEquals(0, cbb.getContiguousFreeSpace());
 
         cbb.reset();
         assertEquals(10, cbb.getBytesAvailable());
-        assertEquals(false, cbb.hasSpace());
+        assertEquals(false, cbb.hasFreeSpace());
         assertEquals(0, cbb.getFreeSpace());
         assertEquals(0, cbb.getContiguousFreeSpace());
     }
