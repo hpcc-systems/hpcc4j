@@ -816,7 +816,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         synchronized (readBuffer)
         {
-            return readBuffer.getSpace();
+            return readBuffer.getFreeSpace();
         }
     }
 
@@ -1207,22 +1207,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 // Limit bytes to read based on remaining data in request and buffer capacity
                 synchronized (readBuffer)
                 {   
-                    // int contiguousCapacity = readBuffer.getContiguousSpace();
-                    // bytesToRead = Math.min(contiguousCapacity,
-                    //             Math.min(bytesToRead,
-                    //             remainingDataInCurrentRequest));
-                    
-                    // int writeOffset = readBuffer.getWriteOffset();
-                    // this.dis.readFully(this.readBuffer.getInternalBuffer(), writeOffset, bytesToRead);
-                    // this.readBuffer.incrementWriteOffset(bytesToRead);
+                    int writeOffset = readBuffer.getWriteOffset();
+                    bytesToRead = Math.min(readBuffer.getContiguousFreeSpace(), Math.min(bytesToRead, remainingDataInCurrentRequest));
 
-                    int contiguousCapacity = readBuffer.getSpace();
-                    bytesToRead = Math.min(contiguousCapacity,
-                                Math.min(bytesToRead,
-                                remainingDataInCurrentRequest));
-                    byte[] tempBuffer = new byte[bytesToRead];
-                    this.dis.readFully(tempBuffer, 0, bytesToRead);
-                    readBuffer.add(tempBuffer, 0, bytesToRead);
+                    this.dis.readFully(this.readBuffer.getInternalBuffer(), writeOffset, bytesToRead);
+                    this.readBuffer.incrementWriteOffset(bytesToRead);
                 }
             }
             catch (IOException e)
@@ -1444,10 +1433,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         int availBytes = 0;
         synchronized (readBuffer)
         {
-            availBytes = readBuffer.getCurrentNumberOfBytes();
+            availBytes = readBuffer.getBytesAvailable();
         }
 
-        // Do the check for closed first here to avoid data races
         if (this.closed.get())
         {
             if (this.prefetchException != null)
@@ -1603,11 +1591,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             return -1;
         }
 
-        // Java byte range [-128,127]
         int b = 0;
         synchronized (readBuffer)
         {
-            b = readBuffer.read() + 128;
+            b = readBuffer.read();
+            if (b == -1)
+            {
+                throw new IOException("Error reading byte from buffer, another thread may have read the byte.");
+            }
         }
         this.streamPos++;
 
@@ -1660,7 +1651,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         synchronized (readBuffer)
         {
-            readBuffer.read(b, off, bytesToRead);
+            bytesToRead = readBuffer.read(b, off, bytesToRead);
         }
         this.streamPos += bytesToRead;
 
@@ -1717,7 +1708,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             int bytesToSkip = Math.min((int) remainingBytesToSkip, available);
             synchronized (readBuffer)
             {
-                readBuffer.skip(bytesToSkip);
+                bytesToSkip = readBuffer.skip(bytesToSkip);
             }
             remainingBytesToSkip -= bytesToSkip;
         }

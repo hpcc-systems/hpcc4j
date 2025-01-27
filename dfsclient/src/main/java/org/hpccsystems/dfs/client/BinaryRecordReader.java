@@ -75,6 +75,7 @@ class CountingInputStream extends InputStream
         {
             streamPos++;
         }
+
         return ret;
     }
 
@@ -737,6 +738,15 @@ public class BinaryRecordReader implements IRecordReader
                 throw e;
             }
 
+            if (bytesRead == 0)
+            {
+                try
+                {
+                    Thread.sleep(1);
+                }
+                catch (InterruptedException e) {}
+            }
+
             position += bytesRead;
             bytesConsumed += bytesRead;
         }
@@ -1294,26 +1304,10 @@ public class BinaryRecordReader implements IRecordReader
                     // Use the second half of the remaining buffer space as a temp place to read in compressed bytes.
                     // Beginning of the buffer will be used to construct the string
 
-                    int bytesToRead = compressedLen;
-                    int availableBytes = 0;
-                    try
-                    {
-                        availableBytes = this.inputStream.available();
-                    }
-                    catch(Exception e)
-                    {
-                        throw new IOException("Error, unexpected EOS while constructing QString.");
-                    }
-
-                    if (bytesToRead > availableBytes)
-                    {
-                        bytesToRead = availableBytes;
-                    }
-
                     // Scratch buffer is divided into two parts. First expandedLen bytes are for the final expanded string
                     // Remaining bytes are for reading in the compressed string.
                     int readPos = expandedLen + compressedBytesConsumed;
-                    readIntoScratchBuffer(readPos, bytesToRead);
+                    readIntoScratchBuffer(readPos, compressedLen);
 
                     // We want to consume only a whole chunk so round off residual chars
                     // Below we will handle any residual bytes. (strLen % 4)
@@ -1334,7 +1328,7 @@ public class BinaryRecordReader implements IRecordReader
                         compressedBytesConsumed += QSTR_COMPRESSED_CHUNK_LEN;
                     }
 
-                    compressedBytesRead += bytesToRead;
+                    compressedBytesRead += compressedLen;
                     strByteLen += writePos;
                 }
 
