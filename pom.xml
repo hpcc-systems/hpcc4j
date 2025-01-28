@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.hpccsystems</groupId>
   <artifactId>hpcc4j</artifactId>
-  <version>9.10.0-4-SNAPSHOT</version>
+  <version>9.10.0-5-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>HPCC Systems Java Projects</name>
   <url>https://hpccsystems.com</url>
