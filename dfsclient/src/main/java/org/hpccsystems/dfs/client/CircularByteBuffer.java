@@ -15,6 +15,11 @@ package org.hpccsystems.dfs.client;
 
 public class CircularByteBuffer
 {
+    // Previous testing found that increasing read size beyond 16MB did not improve performance.
+    // New implementation separates the two read size from the buffer size, but it wouldn't make
+    // sense to go beyond 16MB for the buffer size
+    public static final int MAX_BUFFER_SIZE = 16 * 1024 * 1024;
+
     private final byte[] buffer;
     private int readPos = 0;
     private int writePos = 0;
@@ -33,6 +38,11 @@ public class CircularByteBuffer
         if (bufferSize <= 0)
         {
             throw new IllegalArgumentException("Buffer size must be greater than 0");
+        }
+
+        if (bufferSize > MAX_BUFFER_SIZE)
+        {
+            throw new IllegalArgumentException("Buffer size must be less than " + MAX_BUFFER_SIZE);
         }
 
         buffer = new byte[bufferSize];

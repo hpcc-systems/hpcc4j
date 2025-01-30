@@ -1447,7 +1447,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 String prefix = "RowServiceInputStream.available(), file "   + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
-                IOException wrappedException = new IOException(prefix + "End of input stream");
+                IOException wrappedException = new IOException(prefix + "End of input stream, streamPos: " + streamPos);
                 throw wrappedException;
             }
         }

@@ -156,6 +156,8 @@ public class BinaryRecordReader implements IRecordReader
                                                          100000000000L, 1000000000000L, 10000000000000L, 100000000000000L, 1000000000000000L };
     private static final int[]   signMap             = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, +1, -1, +1, -1, +1, +1 };
 
+    private static final int     SLEEP_TIME_WARN_MS  = 100;
+    private static final int     SHORT_SLEEP_MS      = 1;
     private static final int     MASK_32_LOWER_HALF  = 0xffff;
     private static final int     BUFFER_GROW_SIZE    = 8192;
     private static final int     OPTIMIZED_STRING_READ_AHEAD = 32;
@@ -726,6 +728,8 @@ public class BinaryRecordReader implements IRecordReader
         int requiredCapacity = offset + dataLen;
         ensureScratchBufferCapacity(requiredCapacity);
 
+        int totalSleepTimeMS = 0;
+
         int position = offset;
         int bytesConsumed = 0;
         while (bytesConsumed < dataLen)
@@ -742,13 +746,19 @@ public class BinaryRecordReader implements IRecordReader
             {
                 try
                 {
-                    Thread.sleep(1);
+                    Thread.sleep(SHORT_SLEEP_MS);
+                    totalSleepTimeMS += SHORT_SLEEP_MS;
                 }
                 catch (InterruptedException e) {}
             }
 
             position += bytesRead;
             bytesConsumed += bytesRead;
+        }
+
+        if (totalSleepTimeMS > SLEEP_TIME_WARN_MS)
+        {
+            messages.addMessage("Warning: BinaryRecordReader.readIntoScratchBuffer(): slept for more than " + SLEEP_TIME_WARN_MS + "ms");
         }
     }
 
