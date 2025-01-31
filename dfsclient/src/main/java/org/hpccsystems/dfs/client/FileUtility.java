@@ -84,9 +84,14 @@ public class FileUtility
     {
         private static class TaskOperation
         {
-            public String currentOperationDesc = "";
+            public String operationDesc = "";
             public long operationStartNS = 0;
+            public long operationEndNS = 0;
 
+            public boolean isActive = true;
+            public boolean success = false;
+
+            private List<TaskOperation> childOperations = new ArrayList<TaskOperation>();
 
             public List<String> errorMessages = new ArrayList<String>();
             public List<String> warnMessages = new ArrayList<String>();
@@ -99,28 +104,60 @@ public class FileUtility
 
             public Span operationSpan = null;
 
-            public JSONObject end(boolean success)
+            public void addChildOperation(TaskOperation op)
             {
-                if (success)
+                synchronized(childOperations)
                 {
-                    operationSpan.setStatus(StatusCode.OK);
+                    childOperations.add(op);
                 }
-                else
+            }
+
+            public JSONObject end(boolean _success)
+            {
+                if (isActive)
                 {
-                    operationSpan.setStatus(StatusCode.ERROR);
+                    success = _success;
+                    if (operationSpan != null)
+                    {
+                        if (success)
+                        {
+                            operationSpan.setStatus(StatusCode.OK);
+                        }
+                        else
+                        {
+                            operationSpan.setStatus(StatusCode.ERROR);
+                        }
+
+                        operationSpan.end();
+                    }
+
+                    operationEndNS = System.nanoTime();
+
+                    isActive = false;
                 }
 
-                operationSpan.end();
-
-                long totalOperationTime = System.nanoTime();
-                totalOperationTime -= operationStartNS;
-
+                long totalOperationTime = operationEndNS - operationStartNS;
                 double timeInSeconds = (double) totalOperationTime / 1_000_000_000.0;
 
                 JSONObject results = new JSONObject();
 
-                results.put("operation", currentOperationDesc);
+                results.put("operation", operationDesc);
                 results.put("successful", success);
+
+                JSONArray childResults = new JSONArray();
+                synchronized(childOperations)
+                {
+                    for (TaskOperation childOp : childOperations)
+                    {
+                        if (childOp.isActive)
+                        {
+                            warnMessages.add("Child operation: " + childOp.operationDesc + " did not complete.");
+                        }
+
+                        childResults.put(childOp.end(success));
+                    }
+                }
+                results.put("childOperations", childResults);
 
                 JSONArray errors = new JSONArray();
                 for (String err : errorMessages)
@@ -289,7 +326,7 @@ public class FileUtility
         public void startOperation(String operationName)
         {
             TaskOperation op = new TaskOperation();
-            op.currentOperationDesc = operationName;
+            op.operationDesc = operationName;
             op.operationStartNS = System.nanoTime();
 
             Span parentSpan = null;
@@ -301,6 +338,23 @@ public class FileUtility
 
             op.operationSpan = Utils.createChildSpan(parentSpan, operationName);
             setCurrentOperation(op);
+        }
+
+        public TaskOperation startChildOperation(String operationName)
+        {
+            if (!hasCurrentOperation())
+            {
+                return null;
+            }
+
+            TaskOperation parentOp = getCurrentOperation();
+
+            TaskOperation childOp = new TaskOperation();
+            childOp.operationDesc = operationName;
+            childOp.operationStartNS = System.nanoTime();
+
+            parentOp.addChildOperation(childOp);
+            return childOp;
         }
 
         public void endOperation()
@@ -954,6 +1008,8 @@ public class FileUtility
                 {
                     try
                     {
+                        TaskContext.TaskOperation fileReadOperation = context.startChildOperation("File Part: " + filePart.getThisPart());
+
                         HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
                         readContext.parentSpan = context.getCurrentOperation().operationSpan;
                         readContext.originalRD = recordDef;
@@ -971,10 +1027,16 @@ public class FileUtility
                             HPCCRecord record = fileReader.next();
                             recCount++;
                         }
+
+                        fileReadOperation.recordsRead.addAndGet(recCount);
                         context.getCurrentOperation().recordsRead.addAndGet(recCount);
 
                         fileReader.close();
+
+                        fileReadOperation.bytesRead.addAndGet(fileReader.getStreamPosition());
                         context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosition());
+
+                        fileReadOperation.end(true);
                     }
                     catch (Exception e)
                     {
