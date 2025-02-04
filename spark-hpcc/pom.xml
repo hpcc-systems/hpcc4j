@@ -19,8 +19,6 @@
     <scala.version>2.11</scala.version>
  </properties>
 
-
-
   <dependencies>
     <dependency>
       <groupId>org.apache.spark</groupId>
@@ -116,13 +114,6 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven.compiler.version}</version>
-        <configuration>
-          <release>${maven.compiler.release}</release>
-        </configuration>
-      </plugin>
-      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
         <configuration>
@@ -152,46 +143,9 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>${sonatype.staging.version}</version>
-        <extensions>true</extensions>
-        <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>${sonatype.staging.autorelease}</autoReleaseAfterClose>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.4.1</version>
-        <configuration>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-          <excludes>
-            <exclude>**/log4j.properties</exclude>
-          </excludes>
-        </configuration>
-        <executions>
-          <execution>
-            <id>spark-hpcc</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.0.2</version>
-        <configuration>
-          <excludes>
-            <exclude>**/log4j.properties</exclude>
-          </excludes>
-        </configuration>
+        <version>${maven.assembly.version}</version>
       </plugin>
     </plugins>
   </build>
@@ -215,59 +169,9 @@
     <profile>
       <id>release</id>
       <properties>
-        <sonatype.staging.autorelease>true</sonatype.staging.autorelease>
         <skipITs>true</skipITs>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>${maven.source.version}</version>
-            <executions>
-              <execution>
-                <id>attach-sources</id>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>${maven.javadoc.version}</version>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>${maven.gpg.version}</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>jenkins-on-demand</id>
-      <properties>
+        <maven.test.skip>true</maven.test.skip>
         <maven.gpg.skip>false</maven.gpg.skip>
-        <groups>org.hpccsystems.commons.annotations.BaseTests,org.hpccsystems.commons.annotations.RemoteTests</groups>
       </properties>
       <build>
         <plugins>
@@ -275,9 +179,6 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>${maven.javadoc.version}</version>
-            <configuration>
-              <excludePackageNames>${javadoc.excludePackageNames}</excludePackageNames>
-            </configuration>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -288,28 +189,6 @@
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
             <version>${sonatype.staging.version}</version>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>${maven.gpg.version}</version>
-            <configuration>
-              <useAgent>true</useAgent>
-              <gpgArguments>
-                <arg>--batch</arg>
-                <arg>--pinentry-mode</arg>
-                <arg>loopback</arg>
-              </gpgArguments>
-              <skip>${maven.gpg.skip}</skip>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${maven.surefire.version}</version>
-            <configuration>
-              <argLine>${argLine}</argLine>
-              <groups>${groups}</groups>
-            </configuration>
           </plugin>
         </plugins>
       </build>
@@ -317,53 +196,13 @@
     <profile>
       <id>jenkins-release</id>
       <properties>
-        <sonatype.staging.autorelease>true</sonatype.staging.autorelease>
         <skipITs>true</skipITs>
+        <maven.test.skip>true</maven.test.skip>
         <maven.gpg.skip>false</maven.gpg.skip>
         <groups>org.hpccsystems.commons.annotations.BaseTests</groups>
       </properties>
       <build>
         <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>${maven.javadoc.version}</version>
-            <configuration>
-              <excludePackageNames>${javadoc.excludePackageNames}</excludePackageNames>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>${maven.source.version}</version>
-          </plugin>
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>${sonatype.staging.version}</version>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>${maven.gpg.version}</version>
-            <configuration>
-              <useAgent>true</useAgent>
-              <gpgArguments>
-                <arg>--batch</arg>
-                <arg>--pinentry-mode</arg>
-                <arg>loopback</arg>
-              </gpgArguments>
-              <skip>${maven.gpg.skip}</skip>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${maven.surefire.version}</version>
-            <configuration>
-              <argLine>${argLine}</argLine>
-              <groups>${groups}</groups>
-            </configuration>
-          </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
@@ -380,13 +219,12 @@
   </profiles>
   <developers>
     <developer>
-      <id>johnholt</id>
-      <name>John Holt</name>
-      <email>john.holt@lexisnexis.com</email>
+      <id>jpmcmu</id>
+      <name>James McMullan</name>
+      <email>james.mcmullan@lexisnexis.com</email>
       <organization>LexisNexis Risk</organization>
       <organizationUrl>https://hpccsystems.com</organizationUrl>
       <roles>
-        <role>architect</role>
         <role>developer</role>
       </roles>
       <timezone>America/New_York</timezone>
