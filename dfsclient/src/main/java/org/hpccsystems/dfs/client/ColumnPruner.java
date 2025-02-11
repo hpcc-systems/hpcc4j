@@ -173,7 +173,7 @@ public class ColumnPruner implements Serializable
 
         if (fieldInfo.shouldCullChildren == false)
         {
-            return originalRecordDef;
+            return new FieldDef(originalRecordDef);
         }
 
         // Datasets are a special case. They will not have a component
