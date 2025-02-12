@@ -181,7 +181,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     public void longNullTerminatedStringTest() throws Exception
     {
         Object[] fields = new Object[1];
-        fields[0] = generateRandomString(1024);
+        fields[0] = generateRandomString(4096);
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[] { 
             new FieldDef("str", FieldType.STRING, "STRING", 0, false, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0])
         });
