@@ -192,6 +192,43 @@ public class DFSHPCCFile extends BaseRemoteTest
         Assert.assertEquals(3, projectedRecordDefinition.getNumDefs());
     }
 
+    private boolean fieldDefinitionsAreSeparate(FieldDef fieldDef1, FieldDef fieldDef2)
+    {
+        for (int i = 0; i < fieldDef1.getNumDefs(); i++)
+        {
+            if (fieldDef1.getDef(i) == fieldDef2.getDef(i))
+            {
+                return false;
+            }
+
+            if (!fieldDefinitionsAreSeparate(fieldDef1.getDef(i), fieldDef2.getDef(i)))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Test
+    public final void testProjectedRecordDefCloning() throws Exception 
+    {
+        FieldDef recordDef = mockHPCCFile.getRecordDefinition();
+
+        String[] fieldNames = new String[recordDef.getNumDefs()];
+        for (int i = 0; i < recordDef.getNumDefs(); i++)
+        {
+            fieldNames[i] = recordDef.getDef(i).getFieldName();
+        }
+
+        String projectList = String.join(",", fieldNames);
+        mockHPCCFile.setProjectList(projectList);
+        FieldDef projectedRecordDefinition = mockHPCCFile.getProjectedRecordDefinition();
+
+        // Ensure the projected record definition is a clone and not modifying the original record definition
+        assert(fieldDefinitionsAreSeparate(recordDef, projectedRecordDefinition));
+    }
+
     @Test
     public final void testIsIndex()
     {
