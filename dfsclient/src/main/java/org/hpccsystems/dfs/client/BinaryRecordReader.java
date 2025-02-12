@@ -158,6 +158,8 @@ public class BinaryRecordReader implements IRecordReader
     private static final int     MASK_32_LOWER_HALF  = 0xffff;
     private static final int     BUFFER_GROW_SIZE    = 8192;
     private static final int     OPTIMIZED_STRING_READ_AHEAD = 32;
+    private static final int     STARTING_NULL_SCAN_READ_LIMIT = 1024;
+    private static final int     NULL_SCAN_READ_LIMIT_GROW_SIZE = 256;
 
     // DO NOT CHANGE THESE VALUES. HERE FOR CODE READABILITY ONLY
     private static final int     QSTR_COMPRESSED_CHUNK_LEN = 3;
@@ -1039,6 +1041,8 @@ public class BinaryRecordReader implements IRecordReader
         int strByteLen = 0;
         if (stype.isUTF16())
         {
+            int readLimit = STARTING_NULL_SCAN_READ_LIMIT;
+            this.inputStream.mark(readLimit);
             while (eosLocation < 0)
             {
                 int readSize = 0;
@@ -1057,7 +1061,14 @@ public class BinaryRecordReader implements IRecordReader
                     readSize = OPTIMIZED_STRING_READ_AHEAD;
                 }
 
-                this.inputStream.mark(readSize);
+                if ((strByteLen + readSize) >= readLimit)
+                {
+                    readLimit += NULL_SCAN_READ_LIMIT_GROW_SIZE;
+                    this.inputStream.reset();
+                    this.inputStream.mark(readLimit);
+                    this.inputStream.skip(strByteLen);
+                }
+
                 readIntoScratchBuffer(strByteLen, readSize);
 
                 for (int j = 0; j < readSize-1; j += 2)
@@ -1264,26 +1275,10 @@ public class BinaryRecordReader implements IRecordReader
                     // Use the second half of the remaining buffer space as a temp place to read in compressed bytes.
                     // Beginning of the buffer will be used to construct the string
 
-                    int bytesToRead = compressedLen;
-                    int availableBytes = 0;
-                    try
-                    {
-                        availableBytes = this.inputStream.available();
-                    }
-                    catch(Exception e)
-                    {
-                        throw new IOException("Error, unexpected EOS while constructing QString.");
-                    }
-
-                    if (bytesToRead > availableBytes)
-                    {
-                        bytesToRead = availableBytes;
-                    }
-
                     // Scratch buffer is divided into two parts. First expandedLen bytes are for the final expanded string
                     // Remaining bytes are for reading in the compressed string.
                     int readPos = expandedLen + compressedBytesConsumed;
-                    readIntoScratchBuffer(readPos, bytesToRead);
+                    readIntoScratchBuffer(readPos, compressedLen);
 
                     // We want to consume only a whole chunk so round off residual chars
                     // Below we will handle any residual bytes. (strLen % 4)
@@ -1304,7 +1299,7 @@ public class BinaryRecordReader implements IRecordReader
                         compressedBytesConsumed += QSTR_COMPRESSED_CHUNK_LEN;
                     }
 
-                    compressedBytesRead += bytesToRead;
+                    compressedBytesRead += compressedLen;
                     strByteLen += writePos;
                 }
 
