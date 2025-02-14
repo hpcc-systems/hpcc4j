@@ -1063,7 +1063,7 @@ public class BinaryRecordReader implements IRecordReader
 
                 if ((strByteLen + readSize) >= readLimit)
                 {
-                    readLimit += (readLimit * NULL_SCAN_READ_LIMIT_GROW_MULTIPLIER);
+                    readLimit += (int) (readLimit * NULL_SCAN_READ_LIMIT_GROW_MULTIPLIER);
                     this.inputStream.reset();
                     this.inputStream.mark(readLimit);
                     this.inputStream.skip(strByteLen);
