@@ -159,7 +159,7 @@ public class BinaryRecordReader implements IRecordReader
     private static final int     BUFFER_GROW_SIZE    = 8192;
     private static final int     OPTIMIZED_STRING_READ_AHEAD = 32;
     private static final int     STARTING_NULL_SCAN_READ_LIMIT = 1024;
-    private static final int     NULL_SCAN_READ_LIMIT_GROW_SIZE = 256;
+    private static final float   NULL_SCAN_READ_LIMIT_GROW_MULTIPLIER = 1;
 
     // DO NOT CHANGE THESE VALUES. HERE FOR CODE READABILITY ONLY
     private static final int     QSTR_COMPRESSED_CHUNK_LEN = 3;
@@ -1063,7 +1063,7 @@ public class BinaryRecordReader implements IRecordReader
 
                 if ((strByteLen + readSize) >= readLimit)
                 {
-                    readLimit += NULL_SCAN_READ_LIMIT_GROW_SIZE;
+                    readLimit += (readLimit * NULL_SCAN_READ_LIMIT_GROW_MULTIPLIER);
                     this.inputStream.reset();
                     this.inputStream.mark(readLimit);
                     this.inputStream.skip(strByteLen);
