@@ -24,7 +24,8 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
-
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -174,6 +175,32 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 }
             }
         }
+    }
+
+    @Test
+    public void longNullTerminatedStringTest() throws Exception
+    {
+        Object[] fields = new Object[1];
+        fields[0] = generateRandomString(4096);
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[] { 
+            new FieldDef("varstr", FieldType.VAR_STRING, "VARSTRING", 0, false, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0])
+        });
+
+        HPCCRecord record = new HPCCRecord(fields, recordDef);
+
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        BinaryRecordWriter writer = new BinaryRecordWriter(outStream);
+        writer.initialize(new HPCCRecordAccessor(recordDef));
+
+        writer.writeRecord(record);
+        writer.finalize();
+
+        ByteArrayInputStream inStream = new ByteArrayInputStream(outStream.toByteArray());
+        BinaryRecordReader reader = new BinaryRecordReader(inStream);
+        reader.initialize(new HPCCRecordBuilder(recordDef));
+
+        HPCCRecord readRecord = (HPCCRecord) reader.getNext();
+        assertEquals(record, readRecord);
     }
 
     @Test

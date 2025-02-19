@@ -159,6 +159,9 @@ public class BinaryRecordReader implements IRecordReader
     private static final int     BUFFER_GROW_SIZE    = 8192;
     private static final int     OPTIMIZED_STRING_READ_AHEAD = 32;
 
+    // Max java UTF16 string length
+    private static final int     MAX_STRING_LENGTH = 1073741823;
+
     // DO NOT CHANGE THESE VALUES. HERE FOR CODE READABILITY ONLY
     private static final int     QSTR_COMPRESSED_CHUNK_LEN = 3;
     private static final int     QSTR_EXPANDED_CHUNK_LEN   = 4;
@@ -481,6 +484,11 @@ public class BinaryRecordReader implements IRecordReader
                 else
                 {
                     codePoints = ((int) getInt(4, isLittleEndian));
+                }
+
+                if (codePoints > MAX_STRING_LENGTH)
+                {
+                    throw new UnparsableContentException("String length exceeds maximum supported length: " + MAX_STRING_LENGTH);
                 }
 
                 fieldValue = getString(fd.getSourceType(), codePoints, shouldTrim);
@@ -1033,33 +1041,43 @@ public class BinaryRecordReader implements IRecordReader
                 throw new IOException("Unsupported source type for null terminated string: " + stype);
         }
 
-        // Note: separate for loops because consuming 2 bytes at a
-        // time makes null check easier. Do not have to check for alignment etc
+        // Read OPTIMIZED_STRING_READ_AHEAD bytes at a time until we find the end of the string
         int eosLocation = -1;
         int strByteLen = 0;
-        if (stype.isUTF16())
+        while (eosLocation < 0)
         {
-            while (eosLocation < 0)
+            int readSize = 0;
+            try
             {
-                int readSize = 0;
-                try
-                {
-                    readSize = this.inputStream.available();
-                }
-                catch(Exception e)
-                {
-                    throw new IOException("Error, unexpected EOS while constructing UTF16 string.");
-                }
+                readSize = this.inputStream.available();
+            }
+            catch(Exception e)
+            {
+                throw new IOException("Error, unexpected EOS while constructing UTF16 string.");
+            }
 
+            // Always read an even number of bytes for UTF16
+            if (stype.isUTF16()) {
                 readSize = ((readSize + 1) / 2) * 2;
-                if (readSize > OPTIMIZED_STRING_READ_AHEAD)
-                {
-                    readSize = OPTIMIZED_STRING_READ_AHEAD;
-                }
+            }
 
-                this.inputStream.mark(readSize);
-                readIntoScratchBuffer(strByteLen, readSize);
+            if (readSize > OPTIMIZED_STRING_READ_AHEAD)
+            {
+                readSize = OPTIMIZED_STRING_READ_AHEAD;
+            }
 
+            if ((strByteLen + readSize) > MAX_STRING_LENGTH)
+            {
+                throw new IOException("Error, string length exceeds maximum supported length: " + MAX_STRING_LENGTH);
+            }
+
+            this.inputStream.mark(OPTIMIZED_STRING_READ_AHEAD);
+            readIntoScratchBuffer(strByteLen, readSize);
+
+            // Note: separate for loops because consuming 2 bytes at a
+            // time makes null check easier. Do not have to check for alignment etc
+            if (stype.isUTF16())
+            {
                 for (int j = 0; j < readSize-1; j += 2)
                 {
                     if (scratchBuffer[strByteLen + j] == '\0' && scratchBuffer[strByteLen + j + 1] == '\0')
@@ -1068,46 +1086,9 @@ public class BinaryRecordReader implements IRecordReader
                         break;
                     }
                 }
-
-                if (eosLocation != -1)
-                {
-                    strByteLen += eosLocation;
-
-                    // Reset back to our mark and the skip forward so we don't consume bytes
-                    // passed the end of the string
-                    this.inputStream.reset();
-                    this.inputStream.skip(eosLocation + 2);
-
-                    break;
-                }
-                else
-                {
-                    strByteLen += readSize;
-                }
             }
-        }
-        else
-        {
-            while (eosLocation < 0)
+            else
             {
-                int readSize = 0;
-                try
-                {
-                    readSize = this.inputStream.available();
-                }
-                catch(IOException e)
-                {
-                    throw new IOException("Error, encountered EOS while constructing var string.");
-                }
-
-                if (readSize > OPTIMIZED_STRING_READ_AHEAD)
-                {
-                    readSize = OPTIMIZED_STRING_READ_AHEAD;
-                }
-
-                this.inputStream.mark(readSize);
-                readIntoScratchBuffer(strByteLen, readSize);
-
                 for (int j = 0; j < readSize; j++)
                 {
                     if (scratchBuffer[strByteLen + j] == '\0')
@@ -1116,22 +1097,30 @@ public class BinaryRecordReader implements IRecordReader
                         break;
                     }
                 }
+            }
 
-                if (eosLocation != -1)
+            if (eosLocation != -1)
+            {
+                strByteLen += eosLocation;
+
+                // Reset back to our mark and the skip forward so we don't consume bytes
+                // passed the end of the string
+                this.inputStream.reset();
+
+                if (stype.isUTF16())
                 {
-                    strByteLen += eosLocation;
-
-                    // Reset back to our mark and the skip forward so we don't consume bytes
-                    // passed the end of the string
-                    this.inputStream.reset();
-                    this.inputStream.skip(eosLocation + 1);
-
-                    break;
+                    this.inputStream.skip(eosLocation + 2);
                 }
                 else
                 {
-                    strByteLen += readSize;
+                    this.inputStream.skip(eosLocation + 1);
                 }
+
+                break;
+            }
+            else
+            {
+                strByteLen += readSize;
             }
         }
 
@@ -1264,26 +1253,10 @@ public class BinaryRecordReader implements IRecordReader
                     // Use the second half of the remaining buffer space as a temp place to read in compressed bytes.
                     // Beginning of the buffer will be used to construct the string
 
-                    int bytesToRead = compressedLen;
-                    int availableBytes = 0;
-                    try
-                    {
-                        availableBytes = this.inputStream.available();
-                    }
-                    catch(Exception e)
-                    {
-                        throw new IOException("Error, unexpected EOS while constructing QString.");
-                    }
-
-                    if (bytesToRead > availableBytes)
-                    {
-                        bytesToRead = availableBytes;
-                    }
-
                     // Scratch buffer is divided into two parts. First expandedLen bytes are for the final expanded string
                     // Remaining bytes are for reading in the compressed string.
                     int readPos = expandedLen + compressedBytesConsumed;
-                    readIntoScratchBuffer(readPos, bytesToRead);
+                    readIntoScratchBuffer(readPos, compressedLen);
 
                     // We want to consume only a whole chunk so round off residual chars
                     // Below we will handle any residual bytes. (strLen % 4)
@@ -1304,7 +1277,7 @@ public class BinaryRecordReader implements IRecordReader
                         compressedBytesConsumed += QSTR_COMPRESSED_CHUNK_LEN;
                     }
 
-                    compressedBytesRead += bytesToRead;
+                    compressedBytesRead += compressedLen;
                     strByteLen += writePos;
                 }
 
