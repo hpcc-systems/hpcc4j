@@ -525,7 +525,14 @@ public class BinaryRecordReader implements IRecordReader
                 else
                 {
                     boolean shouldTrim = shouldTrimStrings;
-                    fieldValue = getNullTerminatedString(fd.getSourceType(), shouldTrim);
+                    try
+                    {
+                        fieldValue = getNullTerminatedString(fd.getSourceType(), shouldTrim);
+                    }
+                    catch (IOException e)
+                    {
+                        throw new UnparsableContentException("Parsing VAR_STRING: " + fd.getFieldName() + " failed with error: " + e.getMessage(), e);
+                    }
                 }
                 break;
             }
