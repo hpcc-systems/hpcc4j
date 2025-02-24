@@ -118,7 +118,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     // Note: The platform may respond with more data than this if records are larger than this limit.
     public static final int          DEFAULT_MAX_READ_SIZE_KB = 4096;
     public static final int          DEFAULT_INITIAL_REQUEST_READ_SIZE_KB = 256;
-    public static final int          DEFAULT_READ_BUFFER_SIZE_KB = 64;
+    public static final int          DEFAULT_READ_BUFFER_SIZE_KB = 4096;
 
     private static final int         SHORT_SLEEP_MS           = 1;
     private static final int         LONG_WAIT_THRESHOLD_US   = 100;
@@ -452,7 +452,13 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             this.initialReadSizeKB = context.initialReadSizeKB;
         }
 
+        // It doesn't make sense to increase the read buffer size beyond the max read size
         int readBufferSize = context.readBufferSizeKB * 1024;
+        if (context.readBufferSizeKB > context.maxReadSizeKB)
+        {
+            readBufferSize = context.maxReadSizeKB * 1024;
+        }
+
         this.readBuffer = new CircularByteBuffer(readBufferSize);
 
         this.jsonRecordDefinition = RecordDefinitionTranslator.toJsonRecord(this.recordDefinition).toString();
