@@ -256,6 +256,54 @@ public class DFSReadWriteTest extends BaseRemoteTest
     }
 
     @Test
+    public void readBufferResizeTest() throws Exception
+    {
+        HPCCFile file = new HPCCFile(datasets[0], connString , hpccUser, hpccPass);
+        DataPartition[] fileParts = file.getFileParts();
+        if (fileParts == null || fileParts.length == 0)
+        {
+            Assert.fail("No file parts found");
+        }
+
+        FieldDef originalRD = file.getRecordDefinition();
+        if (originalRD == null || originalRD.getNumDefs() == 0)
+        {
+            Assert.fail("Invalid or null record definition");
+        }
+
+        ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < fileParts.length; i++)
+        {
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+
+            // Setting the read buffer size lower than the default readSize of 4096KB as a test
+            // for lower readBuffer sizes, this setting is useful to reduce memory consumption
+            HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
+            readContext.originalRD = originalRD;
+            readContext.readBufferSizeKB = 1024;
+            
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, fileParts[i], recordBuilder);
+
+            while (fileReader.hasNext())
+            {
+                HPCCRecord record = fileReader.next();
+                if (record == null)
+                {
+                    Assert.fail("Received null record during read");
+                }
+
+                records.add(record);
+            }
+            fileReader.close();
+
+            if (fileReader.getRemoteReadMessageCount() > 0)
+                System.out.println("Messages from file part (" + i + ") read operation:\n" + fileReader.getRemoteReadMessages());
+        }
+
+        assertEquals("Number of records did not match during read.", expectedCounts[0], records.size());
+    }
+
+    @Test
     public void readResumeTest() throws Exception
     {
         HPCCFile file = new HPCCFile(datasets[0], connString , hpccUser, hpccPass);

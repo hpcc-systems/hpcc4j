@@ -452,14 +452,19 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             this.initialReadSizeKB = context.initialReadSizeKB;
         }
 
-        // It doesn't make sense to increase the read buffer size beyond the max read size
-        int readBufferSize = context.readBufferSizeKB * 1024;
-        if (context.readBufferSizeKB > context.maxReadSizeKB)
+        int readBufferSizeKB = DEFAULT_READ_BUFFER_SIZE_KB;
+        if (context.readBufferSizeKB > 0)
         {
-            readBufferSize = context.maxReadSizeKB * 1024;
+            readBufferSizeKB = context.readBufferSizeKB;
         }
 
-        this.readBuffer = new CircularByteBuffer(readBufferSize);
+        // It doesn't make sense to increase the read buffer size beyond the max read size
+        if (readBufferSizeKB > this.maxReadSizeKB)
+        {
+            readBufferSizeKB = this.maxReadSizeKB;
+        }
+
+        this.readBuffer = new CircularByteBuffer(readBufferSizeKB * 1024);
 
         this.jsonRecordDefinition = RecordDefinitionTranslator.toJsonRecord(this.recordDefinition).toString();
         this.projectedJsonRecordDefinition = RecordDefinitionTranslator.toJsonRecord(this.projectedRecordDefinition).toString();

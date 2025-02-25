@@ -72,6 +72,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         public boolean createPrefetchThread = true;
         public int initialReadSizeKB = -1;
         public int readSizeKB = -1;
+        public int readBufferSizeKB = -1;
         public int readRequestSpanBatchSize = -1; // The number of read requests before creating a new span
         public Span parentSpan = null;
     };
@@ -101,6 +102,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         context.connectTimeoutMS = readContext.connectTimeout;
         context.socketOpTimeoutMS = readContext.socketOpTimeoutMS;
         context.createPrefetchThread = readContext.createPrefetchThread;
+        context.readBufferSizeKB = readContext.readBufferSizeKB;
 
         return context;
     }
