@@ -24,7 +24,8 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
-
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.SecureRandom;
@@ -209,6 +210,32 @@ public class DFSReadWriteTest extends BaseRemoteTest
     }
 
     @Test
+    public void longNullTerminatedStringTest() throws Exception
+    {
+        Object[] fields = new Object[1];
+        fields[0] = generateRandomString(4096);
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[] { 
+            new FieldDef("varstr", FieldType.VAR_STRING, "VARSTRING", 0, false, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0])
+        });
+
+        HPCCRecord record = new HPCCRecord(fields, recordDef);
+
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        BinaryRecordWriter writer = new BinaryRecordWriter(outStream);
+        writer.initialize(new HPCCRecordAccessor(recordDef));
+
+        writer.writeRecord(record);
+        writer.finalize();
+
+        ByteArrayInputStream inStream = new ByteArrayInputStream(outStream.toByteArray());
+        BinaryRecordReader reader = new BinaryRecordReader(inStream);
+        reader.initialize(new HPCCRecordBuilder(recordDef));
+
+        HPCCRecord readRecord = (HPCCRecord) reader.getNext();
+        assertEquals(record, readRecord);
+    }
+
+    @Test
     public void integrationReadWriteBackTest() throws Exception
     {
         for (int i = 0; i < datasets.length; i++)
@@ -253,6 +280,54 @@ public class DFSReadWriteTest extends BaseRemoteTest
                 fail("recs did not project correctly");
             }
         }
+    }
+
+    @Test
+    public void readBufferResizeTest() throws Exception
+    {
+        HPCCFile file = new HPCCFile(datasets[0], connString , hpccUser, hpccPass);
+        DataPartition[] fileParts = file.getFileParts();
+        if (fileParts == null || fileParts.length == 0)
+        {
+            Assert.fail("No file parts found");
+        }
+
+        FieldDef originalRD = file.getRecordDefinition();
+        if (originalRD == null || originalRD.getNumDefs() == 0)
+        {
+            Assert.fail("Invalid or null record definition");
+        }
+
+        ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < fileParts.length; i++)
+        {
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+
+            // Setting the read buffer size lower than the default readSize of 4096KB as a test
+            // for lower readBuffer sizes, this setting is useful to reduce memory consumption
+            HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
+            readContext.originalRD = originalRD;
+            readContext.readBufferSizeKB = 1024;
+            
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, fileParts[i], recordBuilder);
+
+            while (fileReader.hasNext())
+            {
+                HPCCRecord record = fileReader.next();
+                if (record == null)
+                {
+                    Assert.fail("Received null record during read");
+                }
+
+                records.add(record);
+            }
+            fileReader.close();
+
+            if (fileReader.getRemoteReadMessageCount() > 0)
+                System.out.println("Messages from file part (" + i + ") read operation:\n" + fileReader.getRemoteReadMessages());
+        }
+
+        assertEquals("Number of records did not match during read.", expectedCounts[0], records.size());
     }
 
     @Test

@@ -19,7 +19,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.io.InputStream;
@@ -32,6 +31,7 @@ import javax.net.ssl.SSLSocketFactory;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.benchmarking.IMetric;
 import org.hpccsystems.commons.benchmarking.IProfilable;
@@ -89,6 +89,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         public boolean isFetching = false;
         public int connectTimeoutMS = DEFAULT_CONNECT_TIMEOUT_MILIS;
         public int socketOpTimeoutMS = DEFAULT_SOCKET_OP_TIMEOUT_MS;
+        public int readBufferSizeKB = DEFAULT_READ_BUFFER_SIZE_KB;
         public Span fileReadSpan = null;
     };
 
@@ -117,6 +118,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     // Note: The platform may respond with more data than this if records are larger than this limit.
     public static final int          DEFAULT_MAX_READ_SIZE_KB = 4096;
     public static final int          DEFAULT_INITIAL_REQUEST_READ_SIZE_KB = 256;
+    public static final int          DEFAULT_READ_BUFFER_SIZE_KB = 4096;
 
     private static final int         SHORT_SLEEP_MS           = 1;
     private static final int         LONG_WAIT_THRESHOLD_US   = 100;
@@ -180,20 +182,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private Thread                   prefetchThread = null;
     private HpccFileException        prefetchException = null;
 
-    // This Semaphore only has one permit. Calling it a mutex for clarity
-    private final Semaphore          bufferWriteMutex = new Semaphore(1);
+    private CircularByteBuffer       readBuffer = null;
 
-    private byte[]                   readBuffer;
-    private AtomicInteger            readBufferCapacity = new AtomicInteger(0);
-    private AtomicInteger            readBufferDataLen = new AtomicInteger(0);
-    private int                      readPos = 0;
-    private int                      markPos = -1;
-    private int                      readLimit = -1;
     private int                      recordLimit = -1;
 
     private int                      totalDataInCurrentRequest = 0;
     private int                      remainingDataInCurrentRequest = 0;
     private long                     streamPos = 0;
+    private long                     streamMarkPos = 0;
 
     // Used for restarts
     private long                     streamPosOfFetchStart = 0;
@@ -226,10 +222,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
     private int initialReadSizeKB = DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
-
-    // Buffer compact threshold should always be smaller than buffer prefetch threshold
-    private int bufferPrefetchThresholdKB = DEFAULT_MAX_READ_SIZE_KB/2;
-    private int bufferCompactThresholdKB = DEFAULT_MAX_READ_SIZE_KB/4;
 
     /**
      * Instantiates a new row service input stream.
@@ -460,8 +452,19 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             this.initialReadSizeKB = context.initialReadSizeKB;
         }
 
-        this.bufferPrefetchThresholdKB = this.maxReadSizeKB/2;
-        this.bufferCompactThresholdKB = this.maxReadSizeKB/4;
+        int readBufferSizeKB = DEFAULT_READ_BUFFER_SIZE_KB;
+        if (context.readBufferSizeKB > 0)
+        {
+            readBufferSizeKB = context.readBufferSizeKB;
+        }
+
+        // It doesn't make sense to increase the read buffer size beyond the max read size
+        if (readBufferSizeKB > this.maxReadSizeKB)
+        {
+            readBufferSizeKB = this.maxReadSizeKB;
+        }
+
+        this.readBuffer = new CircularByteBuffer(readBufferSizeKB * 1024);
 
         this.jsonRecordDefinition = RecordDefinitionTranslator.toJsonRecord(this.recordDefinition).toString();
         this.projectedJsonRecordDefinition = RecordDefinitionTranslator.toJsonRecord(this.projectedRecordDefinition).toString();
@@ -498,9 +501,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
 
         this.recordLimit = context.recordReadLimit;
-
-        this.readBufferCapacity.set(this.maxReadSizeKB*1024*2);
-        this.readBuffer = new byte[this.readBufferCapacity.get()];
 
         if (restartInfo != null)
         {
@@ -825,9 +825,10 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      */
     public int getRemainingBufferCapacity()
     {
-        int totalBufferCapacity = this.readBufferCapacity.get();
-        int currentBufferLen = this.readBufferDataLen.get();
-        return totalBufferCapacity - currentBufferLen;
+        synchronized (readBuffer)
+        {
+            return readBuffer.getFreeSpace();
+        }
     }
 
     /**
@@ -854,7 +855,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
 
         // Clear stream information, but keep streamPos & markPos as they are due to potential wrapping counting streams
-        readPos = 0;
         totalDataInCurrentRequest = 0;
         remainingDataInCurrentRequest = 0;
 
@@ -1190,28 +1190,6 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         // Loop here while data is being consumed quickly enough
         while (remainingDataInCurrentRequest > 0)
         {
-            if (CompileTimeConstants.PROFILE_CODE)
-            {
-                boolean acquired = this.bufferWriteMutex.tryAcquire();
-                if (acquired == false)
-                {
-                    long aquireTime = System.nanoTime();
-                    this.bufferWriteMutex.acquireUninterruptibly();
-                    aquireTime = System.nanoTime() - aquireTime;
-                    mutexWaitTimeNS += aquireTime;
-                }
-            }
-            else
-            {
-                this.bufferWriteMutex.acquireUninterruptibly();
-            }
-
-            int totalBufferCapacity = this.readBufferCapacity.get();
-            int currentBufferLen = this.readBufferDataLen.get();
-            int remainingBufferCapacity = totalBufferCapacity - currentBufferLen;
-
-            remainingBufferCapacity = totalBufferCapacity - currentBufferLen;
-
             // Read up to available bytes in input stream
             int bytesToRead = 0;
             try
@@ -1238,9 +1216,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
 
                 // Limit bytes to read based on remaining data in request and buffer capacity
-                bytesToRead = Math.min(remainingBufferCapacity,
-                              Math.min(bytesToRead,remainingDataInCurrentRequest));
-                dis.readFully(this.readBuffer, currentBufferLen, bytesToRead);
+                synchronized (readBuffer)
+                {   
+                    int writeOffset = readBuffer.getWriteOffset();
+                    bytesToRead = Math.min(readBuffer.getContiguousFreeSpace(), Math.min(bytesToRead, remainingDataInCurrentRequest));
+
+                    this.dis.readFully(this.readBuffer.getInternalBuffer(), writeOffset, bytesToRead);
+                    this.readBuffer.incrementWriteOffset(bytesToRead);
+                }
             }
             catch (IOException e)
             {
@@ -1252,14 +1235,16 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 catch(Exception ie){}
             }
 
-            // readBufferDataLen should only ever be updated within the mutex so no need to do compare exchange
-            this.readBufferDataLen.addAndGet(bytesToRead);
             remainingDataInCurrentRequest -= bytesToRead;
 
-            bufferWriteMutex.release();
-
             // If we don't have enough room in the buffer. Return, and let the calling prefetch thread handle sleep etc
-            if (this.readBufferDataLen.get() > (this.bufferPrefetchThresholdKB * 1024))
+            boolean hasFreeSpace = false;
+            synchronized (readBuffer)
+            {
+                hasFreeSpace = readBuffer.hasFreeSpace();
+            }
+
+            if (!hasFreeSpace)
             {
                 return;
             }
@@ -1451,81 +1436,32 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     /*
      * (non-Javadoc)
      *
-     * Move unread data to front of buffer to make room for more data.
-     */
-    private void compactBuffer()
-    {
-        if (CompileTimeConstants.PROFILE_CODE)
-        {
-            boolean acquired = this.bufferWriteMutex.tryAcquire();
-            if (acquired == false)
-            {
-                long aquireTime = System.nanoTime();
-                this.bufferWriteMutex.acquireUninterruptibly();
-                aquireTime = System.nanoTime() - aquireTime;
-                mutexWaitTimeNS += aquireTime;
-            }
-        }
-        else
-        {
-            this.bufferWriteMutex.acquireUninterruptibly();
-        }
-
-        if (this.readPos >= this.bufferCompactThresholdKB * 1024)
-        {
-            // Don't loose the markPos during compaction
-            int compactStartLoc = this.readPos;
-            if (this.markPos >= 0)
-            {
-                int markOffset = this.readPos - this.markPos;
-                if (markOffset <= readLimit)
-                {
-                    compactStartLoc = this.markPos;
-                    this.markPos = 0;
-                }
-                else
-                {
-                    // We have gone past our read limit so go ahead reset the markPos
-                    this.markPos = -1;
-                }
-            }
-
-            int remainingBytesInBuffer = this.readBufferDataLen.addAndGet(-compactStartLoc);
-            System.arraycopy(this.readBuffer,compactStartLoc,this.readBuffer,0,remainingBytesInBuffer);
-            this.readPos -= compactStartLoc;
-        }
-        this.bufferWriteMutex.release();
-    }
-    /*
-     * (non-Javadoc)
-     *
      * @see java.io.InputStream#available()
      */
     @Override
     public int available() throws IOException
     {
-        // Do the check for closed first here to avoid data races
+        int availBytes = 0;
+        synchronized (readBuffer)
+        {
+            availBytes = readBuffer.getBytesAvailable();
+        }
+
         if (this.closed.get())
         {
             if (this.prefetchException != null)
             {
                 throw new IOException("Prefetch thread exited early exception:" + prefetchException.getMessage(), this.prefetchException);
             }
-
-            int bufferLen = this.readBufferDataLen.get();
-            int availBytes = bufferLen - this.readPos;
+            
             if (availBytes == 0)
             {
                 String prefix = "RowServiceInputStream.available(), file "   + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
 
-                // this.bufferWriteMutex.release();
-                IOException wrappedException = new IOException(prefix + "End of input stream, bufferLen:" + bufferLen + ", this.readPos:" + this.readPos + ", availableBytes=0");
+                IOException wrappedException = new IOException(prefix + "End of input stream, streamPos: " + streamPos);
                 throw wrappedException;
             }
         }
-
-        int bufferLen = this.readBufferDataLen.get();
-        int availBytes = bufferLen - this.readPos;
 
         return availBytes;
     }
@@ -1583,50 +1519,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     @Override
     public void mark(int readLim)
     {
-        if (CompileTimeConstants.PROFILE_CODE)
+        this.streamMarkPos = this.streamPos;
+        synchronized (readBuffer)
         {
-            boolean acquired = this.bufferWriteMutex.tryAcquire();
-            if (acquired == false)
-            {
-                long aquireTime = System.nanoTime();
-                this.bufferWriteMutex.acquireUninterruptibly();
-                aquireTime = System.nanoTime() - aquireTime;
-                mutexWaitTimeNS += aquireTime;
-            }
+            this.readBuffer.mark(readLim);
         }
-        else
-        {
-            this.bufferWriteMutex.acquireUninterruptibly();
-        }
-
-        int availableReadCapacity = (this.readBufferCapacity.get() - this.readPos);
-        this.readLimit = readLim;
-
-        // Check to see if we can handle this readLimit with the current buffer / readPos
-        if (availableReadCapacity <= this.readLimit)
-        {
-            int requiredBufferLength = this.readPos + this.readLimit;
-
-            // Check to see if compaction will work
-            int remainingBytesInBuffer = this.readBufferDataLen.addAndGet(-this.readPos);
-            if (this.readBufferCapacity.get() >= requiredBufferLength)
-            {
-                System.arraycopy(this.readBuffer,this.readPos,this.readBuffer,0,remainingBytesInBuffer);
-                this.readPos = 0;
-            }
-            // Need a larger buffer
-            else
-            {
-                byte[] newBuffer = new byte[requiredBufferLength];
-                System.arraycopy(this.readBuffer,this.readPos,newBuffer,0,remainingBytesInBuffer);
-                this.readBuffer = newBuffer;
-                this.readBufferCapacity.set(requiredBufferLength);
-                this.readPos = 0;
-            }
-        }
-
-        this.markPos = this.readPos;
-        this.bufferWriteMutex.release();
     }
 
     /*
@@ -1705,15 +1602,18 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             return -1;
         }
 
-
-        // Java byte range [-128,127]
-        int ret = this.readBuffer[this.readPos] + 128;
-        this.readPos++;
+        int b = 0;
+        synchronized (readBuffer)
+        {
+            b = readBuffer.read();
+            if (b == -1)
+            {
+                throw new IOException("Error reading byte from buffer, another thread may have read the byte.");
+            }
+        }
         this.streamPos++;
 
-        compactBuffer();
-
-        return ret;
+        return b;
     }
 
     /*
@@ -1760,11 +1660,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
         numBlockReads++;
 
-        System.arraycopy(this.readBuffer,this.readPos,b,off,bytesToRead);
-        this.readPos += bytesToRead;
+        synchronized (readBuffer)
+        {
+            bytesToRead = readBuffer.read(b, off, bytesToRead);
+        }
         this.streamPos += bytesToRead;
-
-        compactBuffer();
 
         return bytesToRead;
     }
@@ -1782,15 +1682,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             throw new IOException(this.prefetchException.getMessage(),prefetchException);
         }
 
-        if (this.markPos < 0)
+        this.streamPos = this.streamMarkPos;
+        synchronized (readBuffer)
         {
-            throw new IOException("Unable to reset to marked position. "
-                    + "Either a mark has not been set or the reset length exceeds internal buffer length.");
+            this.readBuffer.reset();
         }
-
-        this.streamPos -= (this.readPos - this.markPos);
-        this.readPos = this.markPos;
-        this.markPos = -1;
     }
 
     /*
@@ -1820,16 +1716,12 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 break;
             }
 
-            int bytesToSkip = (int) remainingBytesToSkip;
-            if (bytesToSkip > available)
+            int bytesToSkip = Math.min((int) remainingBytesToSkip, available);
+            synchronized (readBuffer)
             {
-                bytesToSkip = available;
+                bytesToSkip = readBuffer.skip(bytesToSkip);
             }
-
-            this.readPos += bytesToSkip;
             remainingBytesToSkip -= bytesToSkip;
-
-            compactBuffer();
         }
 
         long bytesSkipped = (n - remainingBytesToSkip);
