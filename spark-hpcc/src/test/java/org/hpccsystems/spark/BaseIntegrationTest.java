@@ -24,8 +24,9 @@ import java.nio.file.Paths;
 import org.apache.spark.SparkConf;
 import org.apache.spark.SparkContext;
 import org.apache.spark.sql.SparkSession;
+import org.hpccsystems.ws.client.BaseRemoteTest;
 
-class BaseIntegrationTest
+class BaseIntegrationTest extends BaseRemoteTest
 {
     static SparkContext sparkContext = null;
 
@@ -147,21 +148,21 @@ class BaseIntegrationTest
 
     public String getHPCCClusterURL()
     {
-        return System.getProperty("hpccconn", "https://eclwatch.default:8010");
+        return connString;
     }
 
     public String getHPCCClusterUser()
     {
-        return System.getProperty("hpccuser", "");
+        return hpccUser;
     }
 
     public String getHPCCClusterPass()
     {
-        return System.getProperty("hpccpass", "");
+        return hpccPass;
     }
 
     public String getThorCluster()
     {
-        return System.getProperty("thorclustername", "data");
+        return thorClusterFileGroup;
     }
 }

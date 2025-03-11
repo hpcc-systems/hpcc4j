@@ -90,6 +90,23 @@
     </dependency>
     <dependency>
       <groupId>org.hpccsystems</groupId>
+      <artifactId>wsclient</artifactId>
+      <type>test-jar</type>
+      <scope>test</scope>
+      <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.antlr</groupId>
+          <artifactId>antlr4-runtime</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.antlr</groupId>
+          <artifactId>antlr4</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.hpccsystems</groupId>
       <artifactId>dfsclient</artifactId>
       <version>${project.version}</version>
       <exclusions>
@@ -150,6 +167,14 @@
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>spark24</id>
+      <properties>
+        <spark.runtime.version>2.4.6</spark.runtime.version>
+        <scala.binary.version>2.11</scala.binary.version>
+        <scala.version>2.11</scala.version>
+      </properties>
+    </profile>
     <profile>
         <id>spark33</id>
         <properties>
