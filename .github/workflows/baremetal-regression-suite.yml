@@ -193,9 +193,9 @@ jobs:
         import json
         import sys
 
-        var hadErrors = False
+        hadErrors = False
 
-        var failedTestPaths = ["./HPCC4j/wsclient/FailedTests.csv", "./HPCC4j/dfsclient/FailedTests.csv"]
+        failedTestPaths = ["./HPCC4j/wsclient/FailedTests.csv", "./HPCC4j/dfsclient/FailedTests.csv"]
         for file_path in failedTestsPaths:
           if os.path.exists(file_path):
             with open(file_path, 'r') as file:
