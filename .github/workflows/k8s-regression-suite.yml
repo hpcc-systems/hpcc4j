@@ -158,7 +158,7 @@ jobs:
         hadErrors = False
 
         failedTestPaths = ["./HPCC4j/wsclient/FailedTests.csv", "./HPCC4j/dfsclient/FailedTests.csv"]
-        for file_path in failedTestsPaths:
+        for file_path in failedTestPaths:
           if os.path.exists(file_path):
             with open(file_path, 'r') as file:
               csv_reader = csv.reader(file)
