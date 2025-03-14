@@ -166,10 +166,6 @@ jobs:
                 hadErrors = True
 
                 # Each row in the CSV file is a failed test with: TestClass,Test,Error
-                testFailureMessages += textwrap.dedent(f"""\
-                ## {row[0]}.{row[1]} Failed
-                **Error:** ```{row[2]}```
-                """)
                 printf(f"::error file={row[0]}.{row[1]}, title={row[2]}")
           else:
             print(f"FailedTests.csv does not exist at {file_path}")
