@@ -9,7 +9,7 @@
   <parent>
     <groupId>org.hpccsystems</groupId>
     <artifactId>hpcc4j</artifactId>
-    <version>9.4.140-1</version>
+    <version>9.4.140-2</version>
   </parent>
 
   <build>
