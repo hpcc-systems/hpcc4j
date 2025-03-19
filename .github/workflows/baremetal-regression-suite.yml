@@ -185,10 +185,6 @@ jobs:
       run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open install
 
     - name: Process Errors
-      env:
-        comments_url: ${{ github.event.pull_request.comments_url }}
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        actions_run_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
       shell: python
       run: |
         import os
@@ -196,10 +192,6 @@ jobs:
         import textwrap
         import json
         import sys
-
-        comments_url = os.getenv('comments_url')
-        github_token  = os.getenv('github_token')
-        actions_run_url = os.getenv('actions_run_url')
 
         hadErrors = False
 
