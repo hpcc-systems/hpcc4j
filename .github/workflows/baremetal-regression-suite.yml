@@ -182,4 +182,39 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Build with Maven
-      run: mvn -B --activate-profiles jenkins-on-demand,spark33 -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=false -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open install
+      run: mvn -B --activate-profiles jenkins-on-demand,spark33 -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open install
+
+    - name: Process Errors
+      shell: python
+      run: |
+        import os
+        import csv
+        import textwrap
+        import json
+        import sys
+
+        hadErrors = False
+
+        failedTestPaths = ["./wsclient/FailedTests.csv", "./dfsclient/FailedTests.csv"]
+        for file_path in failedTestPaths:
+          if os.path.exists(file_path):
+            with open(file_path, 'r') as file:
+              csv_reader = csv.reader(file)
+              for row in csv_reader:
+
+                # If row is empty skip
+                if not row:
+                  continue
+
+                hadErrors = True
+
+                # Each row in the CSV file is a failed test with: TestClass,Test,Error
+                if len(row) == 3:
+                  print(f"::error file={row[0]}.{row[1]} title={row[2]}")
+                else:
+                  print(f"::error file={file_path} title=Invalid error row: {row}")
+          else:
+            print(f"FailedTests.csv does not exist at {file_path}")
+
+        if hadErrors:
+          sys.exit(1)
