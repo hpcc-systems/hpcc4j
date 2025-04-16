@@ -291,11 +291,11 @@ public class HPCCWsClient extends DataSingleton
     @WithSpan
     public synchronized boolean pingServer() throws Exception
     {
-        HPCCWsWorkUnitsClient wsWorkunitsClient = getWsWorkunitsClient();
+        HPCCWsSMCClient wsSMCClient = getWsSMCClient();
 
         try
         {
-            return wsWorkunitsClient.testWUQuery();
+            return wsSMCClient.ping();
         }
         catch (Exception e)
         {
