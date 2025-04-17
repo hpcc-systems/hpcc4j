@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.StatusCode;
+
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.commons.ecl.FieldDef;
@@ -137,10 +140,24 @@ public class BinaryRecordReader implements IRecordReader
     public static final int      TRIM_STRINGS = 1;
     public static final int      TRIM_FIXED_LEN_STRINGS = 2;
     public static final int      CONVERT_EMPTY_STRINGS_TO_NULL = 4;
+    public static final int      RECORD_BATCH_SIZE_IN_BYTES = 100 * 1000 * 1000;
 
     private boolean              shouldTrimFixedLenStrings = false;
     private boolean              shouldTrimStrings = false;
     private boolean              convertEmptyStringsToNull = false;
+
+    private Span                 recordBuilderSpan = null;
+    private Span                 recordBatchSpan = null;
+
+    private long                 recordDeserialTimeNS = 0;
+    private long                 lastRecordTimeNS = 0;
+    private long                 externalProcessingTimeNS = 0;
+    private long                 recordBatchStart = 0;
+    private long                 recordBatchStreamPos = 0;
+    private long                 recordBatchSize = RECORD_BATCH_SIZE_IN_BYTES;
+
+    private int                  readStalls = 0;
+    private long                 recordCount = 0;
 
     private byte[]               scratchBuffer = new byte[BUFFER_GROW_SIZE];
 
@@ -201,6 +218,20 @@ public class BinaryRecordReader implements IRecordReader
      */
     public BinaryRecordReader(InputStream is, long streamPos) throws Exception
     {
+        this(is, 0, null);
+    }
+
+    /**
+     * A Binary record reader.
+     *
+     * @param is the input stream
+     * @param streamPos the position in the stream to start reading at
+     * @param recBuildSpan the span to use for tracing record building
+     * @throws Exception
+     *             the exception
+     */
+    public BinaryRecordReader(InputStream is, long streamPos, Span recBuildSpan) throws Exception
+    {
         if (streamPos < 0)
         {
             throw new Exception("BinaryRecordReader: invalid initial streamPos provided: " + streamPos);
@@ -208,11 +239,61 @@ public class BinaryRecordReader implements IRecordReader
 
         this.inputStream = new CountingInputStream(is);
         this.inputStream.streamPos = streamPos;
+        this.recordBuilderSpan = recBuildSpan;
         this.defaultLE = true;
 
         if (this.inputStream.markSupported() == false)
         {
             throw new Exception("BinaryRecordReader requires provided InputStream to support mark()");
+        }
+
+        startNewRecordBatchSpan();
+    }
+
+    /**
+     * Set the record batch size in KB.
+     * 
+     * @param recordBatchSizeInKB the record batch size in KB
+     */
+    public void setRecordBuildingSpanBatchSizeKB(int recordBatchSizeInKB)
+    {
+        if (recordBatchSizeInKB <= 0)
+        {
+            return;
+        }
+
+        this.recordBatchSize = recordBatchSizeInKB * 1024;
+    }
+
+    private void endRecordBatchSpan()
+    {
+        if (this.recordBatchSpan == null)
+        {
+            return;
+        }
+
+        this.recordBatchSpan.setAttribute("RecordCount", (this.recordCount - this.recordBatchStart));
+        this.recordBatchSpan.setAttribute("DeserializationTime", (this.recordDeserialTimeNS));
+        this.recordBatchSpan.setAttribute("ExternalProcessingTime", (this.externalProcessingTimeNS));
+        this.recordBatchSpan.setAttribute("NumReadStalls", this.readStalls);
+        this.recordBatchSpan.updateName( "RecordBatch[" + this.recordBatchStart + "," + this.recordCount + "]");
+        this.recordBatchSpan.end();
+    }
+
+    private void startNewRecordBatchSpan()
+    {
+        if (this.recordBuilderSpan != null)
+        {
+            endRecordBatchSpan();
+
+            this.recordBatchSpan = org.hpccsystems.dfs.client.Utils.createChildSpan(recordBuilderSpan, "RecordBatch[]");
+            this.recordBatchSpan.setAttribute("StreamPos", this.inputStream.getStreamPosition());
+            this.recordBatchSpan.setStatus(StatusCode.OK);
+
+            this.recordBatchStart = this.recordCount;
+            this.recordBatchStreamPos = this.streamPosAfterLastRecord;
+            this.recordDeserialTimeNS = 0;
+            this.externalProcessingTimeNS = 0;
         }
     }
 
@@ -292,6 +373,7 @@ public class BinaryRecordReader implements IRecordReader
         {
             // Available may throw an IOException if no data is available and the stream is closed
             // This shouldn't be treated as an error, but an indication of EOS
+            endRecordBatchSpan();
             return false;
         }
 
@@ -308,7 +390,13 @@ public class BinaryRecordReader implements IRecordReader
             throw new HpccFileException("BinaryRecordReader.hasNext(): failed to peek at the next byte in the input stream:" + e.getMessage(),e);
         }
 
-        return nextByte >= 0;
+        boolean hasNextRecord = nextByte >= 0;
+        if (!hasNextRecord)
+        {
+            endRecordBatchSpan();
+        }
+
+        return hasNextRecord;
     }
 
     /*
@@ -318,6 +406,13 @@ public class BinaryRecordReader implements IRecordReader
      */
     public Object getNext() throws HpccFileException
     {
+        long start = 0;
+        if (this.recordBuilderSpan != null)
+        {
+            start = System.nanoTime();
+            this.externalProcessingTimeNS += (start - lastRecordTimeNS);
+        }
+
         if (this.rootRecordBuilder == null)
         {
             throw new HpccFileException("BinaryRecordReader.getNext(): RecordReader must be initialized before being used, rootRecordBuilder is null.");
@@ -329,6 +424,7 @@ public class BinaryRecordReader implements IRecordReader
         try
         {
             record = parseRecord(this.rootRecordDefinition, this.rootRecordBuilder, this.defaultLE);
+
             if (record == null)
             {
                 throw new HpccFileException("BinaryRecordReader.getNext(): RecordContent not found, or invalid record structure. Check logs for more information.");
@@ -339,8 +435,24 @@ public class BinaryRecordReader implements IRecordReader
         {
             throw new HpccFileException("BinaryRecordReader.getNext(): Failed to parse next record: " + e.getMessage(), e);
         }
-
+            
         this.streamPosAfterLastRecord = this.inputStream.getStreamPosition();
+
+        if (this.recordBuilderSpan != null)
+        {
+            long end = System.nanoTime();
+            this.recordDeserialTimeNS += (end - start);
+            this.lastRecordTimeNS = end;
+        }
+
+        this.recordCount++;
+
+        long recordBatchByteLen = this.streamPosAfterLastRecord - this.recordBatchStreamPos;
+        if (recordBatchByteLen >= this.recordBatchSize)
+        {
+            startNewRecordBatchSpan();
+        }
+
         return record;
     }
 
@@ -773,6 +885,7 @@ public class BinaryRecordReader implements IRecordReader
 
         if (totalSleepTimeMS > SLEEP_TIME_WARN_MS)
         {
+            this.readStalls++;
             messages.addMessage("Warning: BinaryRecordReader.readIntoScratchBuffer(): slept for more than " + SLEEP_TIME_WARN_MS + "ms");
         }
     }

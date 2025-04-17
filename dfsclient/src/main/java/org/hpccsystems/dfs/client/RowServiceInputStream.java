@@ -782,6 +782,21 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     }
 
     /**
+     * Sets the read request batch size in KB read.
+     * 
+     * @param batchSizeKB the read request batch size in KB
+     */
+    public void setReadRequestSpanBatchSizeKB(int batchSizeKB)
+    {
+        if (batchSizeKB <= maxReadSizeKB)
+        {
+            this.readRequestBatchSize = 1;
+        }
+
+        this.readRequestBatchSize = (int) Math.ceil((float) maxReadSizeKB / batchSizeKB);
+    }
+
+    /**
      * Simulate a handle failure and use the file token instead. The handle is set to an invalid value so the THOR node
      * will indicate that the handle is unknown and request a otken.
      *
