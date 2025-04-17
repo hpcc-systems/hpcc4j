@@ -140,7 +140,7 @@ public class BinaryRecordReader implements IRecordReader
     public static final int      TRIM_STRINGS = 1;
     public static final int      TRIM_FIXED_LEN_STRINGS = 2;
     public static final int      CONVERT_EMPTY_STRINGS_TO_NULL = 4;
-    public static final long     DEFAULT_RECORD_BATCH_SIZE = 10000;
+    public static final int      RECORD_BATCH_SIZE_IN_BYTES = 100 * 1000 * 1000;
 
     private boolean              shouldTrimFixedLenStrings = false;
     private boolean              shouldTrimStrings = false;
@@ -153,7 +153,8 @@ public class BinaryRecordReader implements IRecordReader
     private long                 lastRecordTimeNS = 0;
     private long                 externalProcessingTimeNS = 0;
     private long                 recordBatchStart = 0;
-    private long                 recordBatchSize = DEFAULT_RECORD_BATCH_SIZE;
+    private long                 recordBatchStreamPos = 0;
+    private long                 recordBatchSize = RECORD_BATCH_SIZE_IN_BYTES;
 
     private int                  readStalls = 0;
     private long                 recordCount = 0;
@@ -225,6 +226,7 @@ public class BinaryRecordReader implements IRecordReader
      *
      * @param is the input stream
      * @param streamPos the position in the stream to start reading at
+     * @param recBuildSpan the span to use for tracing record building
      * @throws Exception
      *             the exception
      */
@@ -244,26 +246,52 @@ public class BinaryRecordReader implements IRecordReader
         {
             throw new Exception("BinaryRecordReader requires provided InputStream to support mark()");
         }
+
+        startNewRecordBatchSpan();
+    }
+
+    /**
+     * Set the record batch size in KB.
+     * 
+     * @param recordBatchSizeInKB the record batch size in KB
+     */
+    public void setRecordBuildingSpanBatchSizeKB(int recordBatchSizeInKB)
+    {
+        if (recordBatchSizeInKB <= 0)
+        {
+            return;
+        }
+
+        this.recordBatchSize = recordBatchSizeInKB * 1024;
+    }
+
+    private void endRecordBatchSpan()
+    {
+        if (this.recordBatchSpan == null)
+        {
+            return;
+        }
+
+        this.recordBatchSpan.setAttribute("RecordCount", (this.recordCount - this.recordBatchStart));
+        this.recordBatchSpan.setAttribute("DeserializationTime", (this.recordDeserialTimeNS));
+        this.recordBatchSpan.setAttribute("ExternalProcessingTime", (this.externalProcessingTimeNS));
+        this.recordBatchSpan.setAttribute("NumReadStalls", this.readStalls);
+        this.recordBatchSpan.updateName( "RecordBatch[" + this.recordBatchStart + "," + this.recordCount + "]");
+        this.recordBatchSpan.end();
     }
 
     private void startNewRecordBatchSpan()
     {
         if (this.recordBuilderSpan != null)
         {
-            if (this.recordBatchSpan != null)
-            {
-                this.recordBatchSpan.setAttribute("RecordCount", (this.recordCount - this.recordBatchStart));
-                this.recordBatchSpan.setAttribute("DeserializationTimeMS", (this.recordDeserialTimeNS / 1000.0f));
-                this.recordBatchSpan.setAttribute("ExternalProcessingTimeMS", (this.externalProcessingTimeNS / 1000.0f));
-                this.recordBatchSpan.updateName( "RecordBatch[" + this.recordBatchStart + "," + this.recordCount + "]");
-                this.recordBatchSpan.end();
-            }
+            endRecordBatchSpan();
 
             this.recordBatchSpan = org.hpccsystems.dfs.client.Utils.createChildSpan(recordBuilderSpan, "RecordBatch[]");
             this.recordBatchSpan.setAttribute("StreamPos", this.inputStream.getStreamPosition());
             this.recordBatchSpan.setStatus(StatusCode.OK);
 
             this.recordBatchStart = this.recordCount;
+            this.recordBatchStreamPos = this.streamPosAfterLastRecord;
             this.recordDeserialTimeNS = 0;
             this.externalProcessingTimeNS = 0;
         }
@@ -345,6 +373,7 @@ public class BinaryRecordReader implements IRecordReader
         {
             // Available may throw an IOException if no data is available and the stream is closed
             // This shouldn't be treated as an error, but an indication of EOS
+            endRecordBatchSpan();
             return false;
         }
 
@@ -361,7 +390,13 @@ public class BinaryRecordReader implements IRecordReader
             throw new HpccFileException("BinaryRecordReader.hasNext(): failed to peek at the next byte in the input stream:" + e.getMessage(),e);
         }
 
-        return nextByte >= 0;
+        boolean hasNextRecord = nextByte >= 0;
+        if (!hasNextRecord)
+        {
+            endRecordBatchSpan();
+        }
+
+        return hasNextRecord;
     }
 
     /*
@@ -371,8 +406,12 @@ public class BinaryRecordReader implements IRecordReader
      */
     public Object getNext() throws HpccFileException
     {
-        long start = System.nanoTime();
-        this.externalProcessingTimeNS += (start - lastRecordTimeNS);
+        long start = 0;
+        if (this.recordBuilderSpan != null)
+        {
+            start = System.nanoTime();
+            this.externalProcessingTimeNS += (start - lastRecordTimeNS);
+        }
 
         if (this.rootRecordBuilder == null)
         {
@@ -399,14 +438,17 @@ public class BinaryRecordReader implements IRecordReader
             
         this.streamPosAfterLastRecord = this.inputStream.getStreamPosition();
 
-        long end = System.nanoTime();
-        this.recordDeserialTimeNS += (end - start);
-        this.lastRecordTimeNS = end;
+        if (this.recordBuilderSpan != null)
+        {
+            long end = System.nanoTime();
+            this.recordDeserialTimeNS += (end - start);
+            this.lastRecordTimeNS = end;
+        }
 
         this.recordCount++;
 
-        long numRecordsInBatch = this.recordCount - this.recordBatchStart; 
-        if (numRecordsInBatch >= DEFAULT_RECORD_BATCH_SIZE)
+        long recordBatchByteLen = this.streamPosAfterLastRecord - this.recordBatchStreamPos;
+        if (recordBatchByteLen >= this.recordBatchSize)
         {
             startNewRecordBatchSpan();
         }

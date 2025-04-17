@@ -75,6 +75,24 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         public int readBufferSizeKB = -1;
         public int readRequestSpanBatchSize = -1; // The number of read requests before creating a new span
         public Span parentSpan = null;
+
+        private long getReadSizeKB()
+        {
+            if (readSizeKB <= 0)
+            {
+                return RowServiceInputStream.DEFAULT_MAX_READ_SIZE_KB;
+            }
+            return readSizeKB;
+        }
+
+        private int getReadRequestSpanBatchSize()
+        {
+            if (readRequestSpanBatchSize <= 0)
+            {
+                return RowServiceInputStream.DEFAULT_READ_REQUEST_SPAN_BATCH_SIZE;
+            }
+            return readRequestSpanBatchSize;
+        }
     };
 
     private static FileReadContext constructReadContext(FieldDef originalRD, int connectTimeout, int socketOpTimeoutMS,
@@ -312,6 +330,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             this.inputStream.setReadRequestSpanBatchSize(context.readRequestSpanBatchSize);
 
             this.binaryRecordReader = new BinaryRecordReader(this.inputStream, 0, this.readSpan);
+            this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * (int) context.getReadSizeKB());
             this.binaryRecordReader.initialize(this.recordBuilder);
 
             if (dp.getFileType() == DataPartition.FileType.INDEX)
@@ -326,7 +345,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             restartInfo.tokenBin = resumeInfo.tokenBin;
 
             this.inputStream = new RowServiceInputStream(streamContext, this.dataPartition, restartInfo);
-            this.inputStream.setReadRequestSpanBatchSize(context.readRequestSpanBatchSize);
+            this.inputStream.setReadRequestSpanBatchSize(context.getReadRequestSpanBatchSize());
 
             long bytesToSkip = resumeInfo.recordReaderStreamPos - resumeInfo.inputStreamPos;
             if (bytesToSkip < 0)
@@ -339,6 +358,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             this.inputStream.skip(bytesToSkip);
 
             this.binaryRecordReader = new BinaryRecordReader(this.inputStream, resumeInfo.recordReaderStreamPos, this.readSpan);
+            this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * (int) context.getReadSizeKB());
             this.binaryRecordReader.initialize(this.recordBuilder);
         }
 
@@ -349,6 +369,16 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
                 + " projected record definition:\n"
                 + RecordDefinitionTranslator.toJsonRecord(projectedRecordDefinition));
         openTimeMs = System.currentTimeMillis();
+    }
+
+    private long getReadSizeKB()
+    {
+        long readSize = context.readSizeKB;
+        if (readSize < 0)
+        {
+            readSize = RowServiceInputStream.DEFAULT_MAX_READ_SIZE_KB;
+        }
+        return readSize;
     }
 
     private static Span createReadSpan(FileReadContext context, DataPartition dp)
@@ -364,13 +394,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             secondaryIP = dp.getCopyIP(1);
         }
 
-        long readSize = context.readSizeKB;
-        if (readSize < 0)
-        {
-            readSize = RowServiceInputStream.DEFAULT_MAX_READ_SIZE_KB;
-        }
-        readSize *= 1000;
-
+        long readSize = context.getReadSizeKB() * 1000;
         Attributes attributes = Attributes.of(  AttributeKey.stringKey("server.0.address"), primaryIP,
                                                 AttributeKey.stringKey("server.1.address"), secondaryIP,
                                                 AttributeKey.stringKey("server.port"), Integer.toString(dp.getPort()),
@@ -416,6 +440,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
                 this.inputStream.skip(bytesToSkip);
 
                 this.binaryRecordReader = new BinaryRecordReader(this.inputStream, resumeInfo.recordReaderStreamPos, this.readSpan);
+                this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * (int) context.getReadSizeKB());
                 this.binaryRecordReader.initialize(this.recordBuilder);
             }
             catch (Exception e)
