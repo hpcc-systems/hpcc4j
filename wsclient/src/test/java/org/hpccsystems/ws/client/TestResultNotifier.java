@@ -47,7 +47,14 @@ public class TestResultNotifier extends RunListener
             }
 
             Description description = failure.getDescription();
-            failedTestsFile.println(description.getClassName() + "," + description.getMethodName() + "," + failure.getMessage());
+
+            String className = description.getClassName();
+            String methodName = description.getMethodName();
+            String failureMsg = failure.getMessage();
+
+            failureMsg = failureMsg.replace("\n","\\n").replace("\"","\\\"");
+
+            failedTestsFile.println("\"" + className + "\",\"" + methodName + "\",\"" + failureMsg + "\"");
             failedTestsFile.flush();
         }
     }
