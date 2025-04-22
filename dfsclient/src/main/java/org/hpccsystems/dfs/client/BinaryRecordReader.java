@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.nio.charset.Charset;
+import java.security.InvalidParameterException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -140,6 +141,8 @@ public class BinaryRecordReader implements IRecordReader
     public static final int      TRIM_STRINGS = 1;
     public static final int      TRIM_FIXED_LEN_STRINGS = 2;
     public static final int      CONVERT_EMPTY_STRINGS_TO_NULL = 4;
+
+    // Defaulting to 100MB to match read stream span size of 100MB
     public static final int      RECORD_BATCH_SIZE_IN_BYTES = 100 * 1000 * 1000;
 
     private boolean              shouldTrimFixedLenStrings = false;
@@ -240,6 +243,11 @@ public class BinaryRecordReader implements IRecordReader
         this.inputStream = new CountingInputStream(is);
         this.inputStream.streamPos = streamPos;
         this.recordBuilderSpan = recBuildSpan;
+        if (this.recordBatchSpan != null && !this.recordBatchSpan.getSpanContext().isValid())
+        {
+            this.recordBatchSpan = null;
+        }
+
         this.defaultLE = true;
 
         if (this.inputStream.markSupported() == false)
@@ -255,11 +263,11 @@ public class BinaryRecordReader implements IRecordReader
      * 
      * @param recordBatchSizeInKB the record batch size in KB
      */
-    public void setRecordBuildingSpanBatchSizeKB(int recordBatchSizeInKB)
+    public void setRecordBuildingSpanBatchSizeKB(int recordBatchSizeInKB) throws InvalidParameterException
     {
         if (recordBatchSizeInKB <= 0)
         {
-            return;
+            throw new InvalidParameterException("BinaryRecordReader.setRecordBuildingSpanBatchSizeKB(): recordBatchSizeInKB must be greater than 0");
         }
 
         this.recordBatchSize = recordBatchSizeInKB * 1024;
