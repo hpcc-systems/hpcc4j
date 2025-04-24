@@ -330,7 +330,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             this.inputStream.setReadRequestSpanBatchSize(context.readRequestSpanBatchSize);
 
             this.binaryRecordReader = new BinaryRecordReader(this.inputStream, 0, this.readSpan);
-            this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * (int) context.getReadSizeKB());
+            this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * context.getReadSizeKB());
             this.binaryRecordReader.initialize(this.recordBuilder);
 
             if (dp.getFileType() == DataPartition.FileType.INDEX)
@@ -358,7 +358,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             this.inputStream.skip(bytesToSkip);
 
             this.binaryRecordReader = new BinaryRecordReader(this.inputStream, resumeInfo.recordReaderStreamPos, this.readSpan);
-            this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * (int) context.getReadSizeKB());
+            this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * context.getReadSizeKB());
             this.binaryRecordReader.initialize(this.recordBuilder);
         }
 
@@ -440,7 +440,7 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
                 this.inputStream.skip(bytesToSkip);
 
                 this.binaryRecordReader = new BinaryRecordReader(this.inputStream, resumeInfo.recordReaderStreamPos, this.readSpan);
-                this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * (int) context.getReadSizeKB());
+                this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * context.getReadSizeKB());
                 this.binaryRecordReader.initialize(this.recordBuilder);
             }
             catch (Exception e)

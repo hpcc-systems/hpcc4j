@@ -263,7 +263,7 @@ public class BinaryRecordReader implements IRecordReader
      * 
      * @param recordBatchSizeInKB the record batch size in KB
      */
-    public void setRecordBuildingSpanBatchSizeKB(int recordBatchSizeInKB) throws InvalidParameterException
+    public void setRecordBuildingSpanBatchSizeKB(long recordBatchSizeInKB) throws InvalidParameterException
     {
         if (recordBatchSizeInKB <= 0)
         {
