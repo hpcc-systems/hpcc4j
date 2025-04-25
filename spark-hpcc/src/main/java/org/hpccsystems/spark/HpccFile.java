@@ -17,6 +17,8 @@ package org.hpccsystems.spark;
 
 import java.io.Serializable;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import org.apache.spark.SparkContext;
@@ -166,6 +168,35 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
     rdd.setTraceContext(parentTraceID, parentSpanID);
     return rdd;
   }
+
+  /**
+   * Make a Spark Resilient Distributed Dataset (RDD) that provides access
+   * to THOR based datasets.
+   * @param sc Spark Context
+   * @return An RDD of THOR data.
+   * @throws HpccFileException When there are errors reaching the THOR data
+   */
+  public HpccRDD getRDD(SparkContext sc, List<Integer> filePartsToRead) throws HpccFileException
+  {
+    DataPartition[] fileParts = getFileParts();
+    
+    List<DataPartition> filteredFileParts = new ArrayList<DataPartition>();
+    for (Integer filePart : filePartsToRead)
+    {
+      filePart--; // File parts are 1 based
+      if (filePart < 0 || filePart >= fileParts.length)
+      {
+        throw new HpccFileException("Invalid file part requested: " + filePart);
+      }
+
+      filteredFileParts.add(fileParts[filePart]);
+    }
+
+	  HpccRDD rdd = new HpccRDD(sc, filteredFileParts.toArray(new DataPartition[0]), this.getRecordDefinition(), this.getProjectedRecordDefinition(), this.getFileAccessExpirySecs(), this.recordLimit);
+    rdd.setTraceContext(parentTraceID, parentSpanID);
+    return rdd;
+  }
+  
   /**
    * Make a Spark Dataframe (Dataset (Row)) of THOR data available.
    * @param session the Spark Session object

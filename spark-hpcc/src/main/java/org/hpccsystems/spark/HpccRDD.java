@@ -16,6 +16,7 @@
 package org.hpccsystems.spark;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 
 import java.util.Arrays;
@@ -78,9 +79,10 @@ public class HpccRDD extends RDD<Row> implements Serializable
 
     private class InternalPartition implements Partition
     {
-        private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 2L;
 
         public DataPartition      partition;
+        public int                sparkPartitionIndex = 0;
 
         public int hashCode()
         {
@@ -89,7 +91,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
 
         public int index()
         {
-            return partition.index();
+            return sparkPartitionIndex;
         }
     }
 
@@ -130,6 +132,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
         {
             this.parts[i] = new InternalPartition();
             this.parts[i].partition = dataParts[i];
+            this.parts[i].sparkPartitionIndex = i;
         }
 
         this.originalRecordDef = originalRD;
@@ -140,8 +143,8 @@ public class HpccRDD extends RDD<Row> implements Serializable
 
     /**
      * Set the trace context for this RDD.
-     * @param parentTraceID parent trace ID
-     * @param parentSpanID parent span ID
+     * @param parentTraceID
+     * @param parentSpanID
      */
     public void setTraceContext(String parentTraceID, String parentSpanID)
     {
@@ -197,6 +200,10 @@ public class HpccRDD extends RDD<Row> implements Serializable
             // Defaulting to OK, to reduce state tracking complexity below. If an error occurs this will be overwritten
             sparkPartReadSpan.setStatus(StatusCode.OK);
 
+            // Create string timestamp in time format for logging
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+            log.info("Starting file part read: " + this_part.partition.getThisPart() + " from: " + this_part.partition.getCopyLocations()[0] + " timestamp: " + timeStamp);
+
             HpccRemoteFileReader.FileReadContext context = new HpccRemoteFileReader.FileReadContext();
             context.originalRD = originalRD;
             context.connectTimeout = connectionTimeout;
@@ -224,6 +231,9 @@ public class HpccRDD extends RDD<Row> implements Serializable
                 {
                     sparkPartReadSpan.setStatus(StatusCode.ERROR);
                 }
+            
+                String endTimeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+                log.info("Finished file part read: " + this_part.partition.getThisPart() + " from: " + this_part.partition.getCopyLocations()[0] + " timestamp: " + endTimeStamp);
 
                 sparkPartReadSpan.end();
             });
