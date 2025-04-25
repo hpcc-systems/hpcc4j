@@ -149,6 +149,7 @@ public class HpccOptions
             String[] filePartsStrArray = filePartsStr.split(",");
             for (String filePartStr : filePartsStrArray)
             {
+                filePartStr = filePartStr.trim();
                 // Check if str is a range
                 if (filePartStr.contains("-"))
                 {
