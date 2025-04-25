@@ -143,8 +143,8 @@ public class HpccRDD extends RDD<Row> implements Serializable
 
     /**
      * Set the trace context for this RDD.
-     * @param parentTraceID
-     * @param parentSpanID
+     * @param parentTraceID parent trace ID
+     * @param parentSpanID parent span ID
      */
     public void setTraceContext(String parentTraceID, String parentSpanID)
     {
