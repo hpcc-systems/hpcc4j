@@ -323,7 +323,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
     {
         verifyStub();
 
-        HPCCTableWrapper[] result = null;
+        HPCCTableWrapper[] result = new HPCCTableWrapper[0];
 
         GetDBMetaDataRequest request = new GetDBMetaDataRequest();
 
@@ -344,20 +344,27 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
             log.error("HPCCWsSQL.getTables(" + filter + ") encountered RemoteException.\n" + e.getLocalizedMessage());
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not get Tables(" + filter + ").");
-
-        if (resp.getTables() != null)
+        if (resp != null)
         {
-            HPCCTable[] hpccTables = resp.getTables().getTable();
-            if (hpccTables != null && hpccTables.length > 0)
+            if (resp.getExceptions() != null)
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not get Tables(" + filter + ").");
+
+            if (resp.getTables() != null)
             {
-                result = new HPCCTableWrapper[hpccTables.length];
-                for (int i = 0; i < hpccTables.length; i++)
+                HPCCTable[] hpccTables = resp.getTables().getTable();
+                if (hpccTables != null && hpccTables.length > 0)
                 {
-                    result[i] = new HPCCTableWrapper(hpccTables[i]);
+                    result = new HPCCTableWrapper[hpccTables.length];
+                    for (int i = 0; i < hpccTables.length; i++)
+                    {
+                        result[i] = new HPCCTableWrapper(hpccTables[i]);
+                    }
                 }
             }
+        }
+        else
+        {
+            log.error("HPCCWsSQL.getTables(" + filter + ") did not receive valid response.\n");
         }
         return result;
     }
