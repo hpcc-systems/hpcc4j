@@ -1,0 +1,12 @@
+name: Changelog
+on:
+  pull_request_target:
+    types: [opened, reopened]
+    branches:
+      - "candidate-*"
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "✏️ Generate release changelog"
+        uses: janheinrichmerker/action-github-changelog-generator@v2.3
