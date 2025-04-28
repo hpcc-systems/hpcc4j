@@ -21,7 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Hashtable;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUPartLocation;
@@ -103,7 +103,7 @@ public class DFUFileAccessInfoWrapper
 
             try
             {
-                DataHandler handler = accessInfo.getRecordTypeInfoBin();
+                jakarta.activation.DataHandler handler = accessInfo.getRecordTypeInfoBin();
                 ByteArrayOutputStream output = new ByteArrayOutputStream();
                 handler.writeTo(output);
                 recordTypeInfoBin = output.toByteArray();

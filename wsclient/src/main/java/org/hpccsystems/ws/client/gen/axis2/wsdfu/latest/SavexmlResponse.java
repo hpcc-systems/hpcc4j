@@ -1,8 +1,8 @@
 /**
  * SavexmlResponse.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsdfu.latest;
 
@@ -48,7 +48,7 @@ public class SavexmlResponse implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for Xmlmap */
-  protected javax.activation.DataHandler localXmlmap;
+  protected jakarta.activation.DataHandler localXmlmap;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -63,9 +63,9 @@ public class SavexmlResponse implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated getter method
    *
-   * @return javax.activation.DataHandler
+   * @return jakarta.activation.DataHandler
    */
-  public javax.activation.DataHandler getXmlmap() {
+  public jakarta.activation.DataHandler getXmlmap() {
     return localXmlmap;
   }
 
@@ -74,7 +74,7 @@ public class SavexmlResponse implements org.apache.axis2.databinding.ADBBean {
    *
    * @param param Xmlmap
    */
-  public void setXmlmap(javax.activation.DataHandler param) {
+  public void setXmlmap(jakarta.activation.DataHandler param) {
     localXmlmapTracker = param != null;
 
     this.localXmlmap = param;
@@ -143,8 +143,11 @@ public class SavexmlResponse implements org.apache.axis2.databinding.ADBBean {
 
       if (localXmlmap != null) {
         try {
-          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeDataHandler(
-              xmlWriter, localXmlmap, null, true);
+          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeBlob(
+              xmlWriter,
+              org.apache.axiom.util.activation.DataHandlerUtils.toBlob(localXmlmap),
+              null,
+              true);
         } catch (java.io.IOException ex) {
           throw new javax.xml.stream.XMLStreamException(
               "Unable to read data handler for xmlmap", ex);
@@ -414,8 +417,8 @@ public class SavexmlResponse implements org.apache.axis2.databinding.ADBBean {
                     .equals(reader.getName())) {
 
               object.setXmlmap(
-                  org.apache.axiom.util.stax.XMLStreamReaderUtils.getDataHandlerFromElement(
-                      reader));
+                  org.apache.axiom.util.activation.DataHandlerUtils.toDataHandler(
+                      org.apache.axiom.util.stax.XMLStreamReaderUtils.getBlobFromElement(reader)));
 
               reader.next();
 
