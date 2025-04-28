@@ -15,7 +15,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 import org.apache.axis2.databinding.types.NonNegativeInteger;
 
 /**

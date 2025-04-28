@@ -2129,10 +2129,40 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
         {
             // fallback to 1.56 api
             org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUAction fwa = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUAction();
-            fwa.setActionType(action.getValue());
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.EspStringArray espstringarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.EspStringArray();
-            wuids.addItem(wuid);
-            fwa.setWuids(espstringarray);
+
+            String actionValue = action.getValue();
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions action156 = null;
+
+            if (actionValue.equalsIgnoreCase("abort"))
+                action156 = org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions.Abort;
+            else if (actionValue.equalsIgnoreCase("delete"))
+                action156 = org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions.Delete;
+            else if (actionValue.equalsIgnoreCase("deschedule"))
+                action156 = org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions.Deschedule;
+            else if (actionValue.equalsIgnoreCase("Reschedule"))
+                action156 = org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions.Reschedule;
+            else if (actionValue.equalsIgnoreCase("Pause"))
+                action156 = org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions.Pause;
+            else if (actionValue.equalsIgnoreCase("PauseNow"))
+                action156 = org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions.PauseNow;
+            else if (actionValue.equalsIgnoreCase("Protect"))
+                action156 = org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions.Protect;
+            else if (actionValue.equalsIgnoreCase("Unprotect"))
+                action156 = org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions.Unprotect;
+            else if (actionValue.equalsIgnoreCase("Restore"))
+                action156 = org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions.Restore;
+            else if (actionValue.equalsIgnoreCase("Resume"))
+                action156 = org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions.Resume;
+            else if (actionValue.equalsIgnoreCase("SetToFailed"))
+                action156 = org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWUActions.SetToFailed;
+            else
+                throw new Exception("Unknown wsworkunits.v1_56 action detected: '" + action.getValue() + "' on '" + wuid + "'");
+
+            fwa.setWUActionType(action156);
+
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.EspStringArray wuids156 = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.EspStringArray();
+            wuids156.addItem(wuid);
+            fwa.setWuids(wuids156);
 
             org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUActionResponse fwar = stubWrapper.get1_56FallbackStub().wUAction(fwa);
             if (fwar == null || fwar.getActionResults() == null || fwar.getActionResults().getWUActionResult() == null

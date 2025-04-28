@@ -43,7 +43,7 @@ public class ECLExceptionWrapper
         copy( eclexception );
     }
     public ECLExceptionWrapper( String _severity, String _source, int _code, String _message, int _column, int _lineNo, String _fileName, int _activity, String _scope, int _priority, double _cost )
-    {
+        {
         this.local_severity = _severity;
         this.local_source = _source;
         this.local_code = _code;
