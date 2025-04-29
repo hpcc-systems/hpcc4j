@@ -123,6 +123,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         {
             HPCCTableWrapper[] tables = client.getTables("*");
             Assert.assertNotNull(tables);
+            Assert.assertTrue(tables.length > 0);
             for (int i = 0; i < tables.length; i++)
             {
                 System.out.println(tables[i].getName());
@@ -183,7 +184,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         try
         {
             HPCCTableWrapper[] tables = client.getTables("XYZ");
-            Assert.assertNull(tables);
+            Assert.assertEquals(0, tables.length);
         }
         catch (AxisFault e)
         {
