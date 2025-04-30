@@ -173,6 +173,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
    * Make a Spark Resilient Distributed Dataset (RDD) that provides access
    * to THOR based datasets.
    * @param sc Spark Context
+   * @param filePartsToRead List of file parts to read
    * @return An RDD of THOR data.
    * @throws HpccFileException When there are errors reaching the THOR data
    */
