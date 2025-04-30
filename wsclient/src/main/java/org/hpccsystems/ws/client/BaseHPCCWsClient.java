@@ -75,6 +75,20 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     protected Version             targetHPCCBuildVersion = null;
     protected Double              targetESPInterfaceVer  = null;
     protected Boolean             targetsContainerizedHPCC = null;
+    protected Boolean             targetHPCCAuthenticates = null;
+
+    @WithSpan
+    public boolean doesTargetHPCCAuthenticate() throws Exception
+    {
+        if (targetHPCCAuthenticates == null)
+        {
+            if (wsconn == null)
+                throw new Exception("BaseHPCCWsClient: Cannot get target HPCC auth mode, client connection has not been initialized.");
+
+            targetHPCCAuthenticates = getTargetHPCCAuthenticates(wsconn);
+        }
+        return targetHPCCAuthenticates;
+    }
 
     public boolean isTargetHPCCContainerized() throws Exception
     {
@@ -86,6 +100,32 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             targetsContainerizedHPCC = getTargetHPCCIsContainerized(wsconn);
         }
         return targetsContainerizedHPCC;
+    }
+
+    @WithSpan
+    private boolean getTargetHPCCAuthenticates(Connection conn) throws Exception
+    {
+        if (wsconn == null)
+            throw new Exception("Cannot get target HPCC authentication mode, client connection has not been initialized.");
+
+        String response = wsconn.sendGetRequest("esp/getauthtype");//throws
+
+        if (response == null || response.isEmpty())
+            throw new Exception("Cannot get target HPCC authentication mode, received empty " + wsconn.getBaseUrl() + " esp/getauthtype response");
+
+        /*
+         * Known auth types:
+         * static const char* const AUTH_TYPE_NONE = "None";
+         * static const char* const AUTH_TYPE_USERNAMEONLY = "UserNameOnly";
+         * static const char* const AUTH_TYPE_PERREQUESTONLY = "PerRequestOnly";
+         * static const char* const AUTH_TYPE_PERSESSIONONLY = "PerSessionOnly";
+         * static const char* const AUTH_TYPE_MIXED = "Mixed";
+         * Declared in esp/platform/espcontext.hpp#L62
+         */
+        if (response.indexOf("None") > 0) //<GetAuthTypeResponse><AuthType>None|Mixed</AuthType></GetAuthTypeResponse>
+            return false;
+        else
+            return true;
     }
 
     @WithSpan
