@@ -178,6 +178,11 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
    */
   public HpccRDD getRDD(SparkContext sc, List<Integer> filePartsToRead) throws HpccFileException
   {
+    if (filePartsToRead == null || filePartsToRead.size() == 0)
+    {
+      throw new HpccFileException("No file parts requested");
+    }
+
     DataPartition[] fileParts = getFileParts();
     
     List<DataPartition> filteredFileParts = new ArrayList<DataPartition>();
@@ -186,7 +191,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
       filePart--; // File parts are 1 based
       if (filePart < 0 || filePart >= fileParts.length)
       {
-        throw new HpccFileException("Invalid file part requested: " + filePart);
+        throw new HpccFileException("Invalid file part requested: " + filePart + " of " + fileParts.length);
       }
 
       filteredFileParts.add(fileParts[filePart]);
