@@ -88,6 +88,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private static final int         LONG_WAIT_THRESHOLD_US   = 100;
     private static final int         MAX_HOT_LOOP_NS          = 10000;
 
+    // The number of fetch requests to keep in history, used for resuming reads
+    private static final int         FETCH_HISTORY_SIZE       = 10;
+
     // This is used to prevent the prefetch thread from hot looping when
     // the network connection is slow. The read on the socket will block until
     // at least 512 bytes are available
@@ -1224,6 +1227,12 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             this.streamPosOfFetchStart += totalDataInCurrentRequest;
             synchronized (streamPosOfFetches)
             {
+                if (streamPosOfFetches.size() >= FETCH_HISTORY_SIZE)
+                {
+                    streamPosOfFetches.remove(0);
+                    tokenBinOfFetches.remove(0);
+                }
+
                 streamPosOfFetches.add(this.streamPosOfFetchStart);
                 tokenBinOfFetches.add(this.tokenBin);
             }
