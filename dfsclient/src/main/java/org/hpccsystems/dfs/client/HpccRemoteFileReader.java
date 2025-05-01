@@ -355,7 +355,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
                 this.readSpan.end();
                 throw e;
             }
-            this.inputStream.skip(bytesToSkip);
+
+            do
+            {
+                bytesToSkip -= this.inputStream.skip(bytesToSkip);
+            } while (bytesToSkip > 0);
 
             this.binaryRecordReader = new BinaryRecordReader(this.inputStream, resumeInfo.recordReaderStreamPos, this.readSpan);
             this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * context.getReadSizeKB());
@@ -437,7 +441,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
                 {
                     throw new Exception("Unable to restart read stream, unexpected stream position in record reader.");
                 }
-                this.inputStream.skip(bytesToSkip);
+
+                do
+                {
+                    bytesToSkip -= this.inputStream.skip(bytesToSkip);
+                } while (bytesToSkip > 0);
 
                 this.binaryRecordReader = new BinaryRecordReader(this.inputStream, resumeInfo.recordReaderStreamPos, this.readSpan);
                 this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * context.getReadSizeKB());
