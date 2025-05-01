@@ -191,7 +191,14 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
             }
             file.setProjectList(projectList);
 
-            ret = file.getRDD(sqlContext.sparkContext());
+            if (options.fileParts.isEmpty())
+            {
+                ret = file.getRDD(sqlContext.sparkContext());
+            }
+            else
+            {
+                ret = file.getRDD(sqlContext.sparkContext(), options.fileParts);
+            }
         }
         catch (Exception e)
         {
