@@ -55,6 +55,7 @@ public class WSStoreClientTest extends BaseRemoteTest
 
     private final static String storename = System.getProperty("storename", defaultStoreName);
     private final static String namespace = System.getProperty("storenamespace", defaultNS);
+    private static Boolean targetHPCCAuthenticates = null;
 
     static
     {
@@ -66,6 +67,16 @@ public class WSStoreClientTest extends BaseRemoteTest
 
         client = HPCCWsStoreClient.get(connection);
         Assert.assertNotNull(client);
+
+        try
+        {
+            targetHPCCAuthenticates = client.doesTargetHPCCAuthenticate();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Could not deteremine if target HPCC authenticates! Assuming Authenticateion is enabled.");
+            targetHPCCAuthenticates = true;
+        }
 
         try
         {
@@ -163,13 +174,20 @@ public class WSStoreClientTest extends BaseRemoteTest
                 client.fetchAllNSKeys(storename,ns,true);
             }
 
-            nss = client.listNamespaces(storename, false);
-            Assert.assertNotNull(nss);
-            for (String ns : nss)
+            if (targetHPCCAuthenticates)
             {
-                System.out.println("Namespace (user): " + ns);
-                listNamespaceKeys(storename, ns, false);
-                client.fetchAllNSKeys(storename, ns,false);
+                nss = client.listNamespaces(storename, false);
+                Assert.assertNotNull(nss);
+                for (String ns : nss)
+                {
+                    System.out.println("Namespace (user): " + ns);
+                    listNamespaceKeys(storename, ns, false);
+                    client.fetchAllNSKeys(storename, ns,false);
+                }
+            }
+            else
+            {
+                System.out.println("Avoiding listNamespaces tests of per-user data because target HPCC does not authenticate");
             }
         }
         catch (ArrayOfEspExceptionWrapper e)
@@ -214,11 +232,19 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             Assert.assertTrue(client.setValue(storename, namespace, "global.test", "success", true));
             System.out.println("Setting " + storename + "." + namespace + "." + "WsClient.user.test=\"success\"...");
-            Assert.assertTrue(client.setValue(storename, namespace, "user.test", "success", false));
 
             Assert.assertTrue(client.setValue(storename, namespace, "files.rowperpage.default", "50", true));
-            Assert.assertTrue(client.setValue(storename, namespace, "dp-thor_160-jim::tutorialperson-wuid", "W20190710-114239", false));
             Assert.assertTrue(client.setValue(storename, namespace, "ecl.playground.sample.default", "Java Simple", true));
+
+            if (targetHPCCAuthenticates) //if hpcc does not authenticate, cannot store user specific data
+            {
+                Assert.assertTrue(client.setValue(storename, namespace, "user.test", "success", false));
+                Assert.assertTrue(client.setValue(storename, namespace, "dp-thor_160-jim::tutorialperson-wuid", "W20190710-114239", false));
+            }
+            else
+            {
+                System.out.println("Avoiding a2setTest tests of per-user data because target HPCC does not authenticate");
+            }
         }
         catch (Exception e)
         {
@@ -259,14 +285,21 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             Assert.assertTrue("Decrypted locally not equal decrypted by wsstore client", decryptedvalue.equals(decryptedvalue2));
 
-            System.out.println("Setting (encrypted based on provided cipher) " + storename + "." + namespace + "." + "WsClient.user.encrypted.test=\"moresensitivedata\"...");
-            Assert.assertTrue(client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.test", "moresensitivedata", false, aesEncryptCipher));
-
             System.out.println("Setting (encrypted based on private key) " + storename + "." + namespace + "." + "global.encrypted.secretkey.test=\"privateinfo\"...");
             Assert.assertTrue(client.setValueEncrypted(storename, namespace, "global.encrypted.secretkey.test", "privateinfo", true, mysecretkeycontent));
 
-            System.out.println("Setting (encrypted based on private key) " + storename + "." + namespace + "." + "WsClient.user.encrypted.secretkey.test=\"moreprivateinfo\"...");
-            Assert.assertTrue(client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.secretkey.test", "moreprivateinfo", false, mysecretkeycontent));
+            if (targetHPCCAuthenticates) //if hpcc does not authenticate, cannot store user specific data
+            {
+                System.out.println("Setting (encrypted based on provided cipher) " + storename + "." + namespace + "." + "WsClient.user.encrypted.test=\"moresensitivedata\"...");
+                Assert.assertTrue(client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.test", "moresensitivedata", false, aesEncryptCipher));
+
+                System.out.println("Setting (encrypted based on private key) " + storename + "." + namespace + "." + "WsClient.user.encrypted.secretkey.test=\"moreprivateinfo\"...");
+                Assert.assertTrue(client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.secretkey.test", "moreprivateinfo", false, mysecretkeycontent));
+            }
+            else
+            {
+                System.out.println("Avoiding a3setEncryptedTest tests of per-user data because target HPCC does not authenticate");
+            }
         }
         catch (Exception e)
         {
@@ -360,8 +393,15 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             System.out.println("Deleting " + storename + "." + namespace + "." + "WsClient.global.test=\"success\"...");
             Assert.assertTrue(client.setValue(storename, namespace, "WsClient.global.test", "success", true));
-            System.out.println("Deleting " + storename + "." + namespace + "." + "WsClient.user.test=\"success\"...");
-            Assert.assertTrue(client.setValue(storename, namespace, "WsClient.user.test", "success", false));
+            if (targetHPCCAuthenticates)
+            {
+                System.out.println("Deleting " + storename + "." + namespace + "." + "WsClient.user.test=\"success\"...");
+                Assert.assertTrue(client.setValue(storename, namespace, "WsClient.user.test", "success", false));
+            }
+            else
+            {
+                System.out.println("Avoiding a4deleteTest tests of per-user data because target HPCC does not authenticate");
+            }
         }
         catch (Exception e)
         {
@@ -541,12 +581,20 @@ public class WSStoreClientTest extends BaseRemoteTest
             Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "encod@ble", "whatever", true));
 
             Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "global.test", "success", true));
-            System.out.println("Setting " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.user.test=\"success\"...");
-            Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "user.test", "success", false));
 
             Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "files.rowperpage.default", "50", true));
-            Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "dp-thor_160-jim::tutorialperson-wuid", "W20190710-114239", false));
             Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "ecl.playground.sample.default", "Java Simple", true));
+
+            if (targetHPCCAuthenticates)
+            {
+                System.out.println("Setting " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.user.test=\"success\"...");
+                Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "user.test", "success", false));
+                Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "dp-thor_160-jim::tutorialperson-wuid", "W20190710-114239", false));
+            }
+            else
+            {
+                System.out.println("Avoiding b3setEncodedTest tests of per-user data because target HPCC does not authenticate");
+            }
         }
         catch (Exception e)
         {
@@ -587,14 +635,22 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             Assert.assertTrue("Decrypted locally not equal decrypted by wsstore client", decryptedvalue.equals(decryptedvalue2));
 
-            System.out.println("Setting (encrypted based on provided cipher) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.user.encrypted.test=\"moresensitivedata\"...");
-            Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "WsClient.user.encrypted.test", "moresensitivedata", false, aesEncryptCipher));
-
             System.out.println("Setting (encrypted based on private key) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "global.encrypted.secretkey.test=\"privateinfo\"...");
             Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.secretkey.test", "privateinfo", true, mysecretkeycontent));
 
-            System.out.println("Setting (encrypted based on private key) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.user.encrypted.secretkey.test=\"moreprivateinfo\"...");
-            Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "WsClient.user.encrypted.secretkey.test", "moreprivateinfo", false, mysecretkeycontent));
+            if (targetHPCCAuthenticates) //if hpcc does not authenticate, cannot store user specific data
+            {
+
+                System.out.println("Setting (encrypted based on provided cipher) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.user.encrypted.test=\"moresensitivedata\"...");
+                Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "WsClient.user.encrypted.test", "moresensitivedata", false, aesEncryptCipher));
+
+                System.out.println("Setting (encrypted based on private key) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.user.encrypted.secretkey.test=\"moreprivateinfo\"...");
+                Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "WsClient.user.encrypted.secretkey.test", "moreprivateinfo", false, mysecretkeycontent));
+            }
+            else
+            {
+                System.out.println("Avoiding b4setEncryptedTest tests of per-user data because target HPCC does not authenticate");
+            }
         }
         catch (Exception e)
         {
@@ -688,8 +744,16 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             System.out.println("Deleting " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.global.test=\"success\"...");
             Assert.assertTrue(client.setValue(defaultEncodedStoreName, defaultEncodedNS, "WsClient.global.test", "success", true));
-            System.out.println("Deleting " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.user.test=\"success\"...");
-            Assert.assertTrue(client.setValue(defaultEncodedStoreName, defaultEncodedNS, "WsClient.user.test", "success", false));
+
+            if (targetHPCCAuthenticates) //if hpcc does not authenticate, cannot store user specific data
+            {
+                System.out.println("Deleting " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.user.test=\"success\"...");
+                Assert.assertTrue(client.setValue(defaultEncodedStoreName, defaultEncodedNS, "WsClient.user.test", "success", false));
+            }
+            else
+            {
+                System.out.println("Avoiding b5deleteTest tests of per-user data because target HPCC does not authenticate");
+            }
         }
         catch (Exception e)
         {
