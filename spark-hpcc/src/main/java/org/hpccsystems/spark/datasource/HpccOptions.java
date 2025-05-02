@@ -1,5 +1,7 @@
 package org.hpccsystems.spark.datasource;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import org.hpccsystems.dfs.client.CompressionAlgorithm;
@@ -19,6 +21,7 @@ public class HpccOptions
     public int                  expirySeconds  = 120;
     public int                  filePartLimit  = -1;
     public boolean              useTLK         = false;
+    public List<Integer>        fileParts      = new ArrayList<Integer>();
 
     public String               traceID        = "";
     public String               spanID         = "";
@@ -57,7 +60,6 @@ public class HpccOptions
 
             String[] filePathParts = fileName.split("/|::");
             fileName = String.join("::", filePathParts);
-
         }
 
         if (parameters.containsKey("cluster"))
@@ -139,6 +141,47 @@ public class HpccOptions
         if (parameters.containsKey("spanid"))
         {
             spanID = (String) parameters.get("spanid");
+        }
+
+        if (parameters.containsKey("fileParts"))
+        {
+            String filePartsStr = (String) parameters.get("fileParts");
+            String[] filePartsStrArray = filePartsStr.split(",");
+            for (String filePartStr : filePartsStrArray)
+            {
+                filePartStr = filePartStr.trim();
+                // Check if str is a range
+                if (filePartStr.contains("-"))
+                {
+                    int start = 0, end = 0;
+                    String[] range = filePartStr.split("-");
+                    try
+                    {
+                        start = Integer.parseInt(range[0]);
+                        end = Integer.parseInt(range[1]);
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        throw new Exception("Invalid fileParts range: " + filePartStr, e);
+                    }
+
+                    for (int i = start; i <= end; i++)
+                    {
+                        fileParts.add(i);
+                    }
+                } 
+                else
+                {
+                    try 
+                    {
+                        fileParts.add(Integer.parseInt(filePartStr));
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        throw new Exception("Invalid fileParts value: " + filePartStr, e);
+                    }
+                }
+            }
         }
     }
 
