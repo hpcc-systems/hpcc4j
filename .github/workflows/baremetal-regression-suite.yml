@@ -195,7 +195,7 @@ jobs:
 
         hadErrors = False
 
-        failedTestPaths = ["./wsclient/FailedTests.csv", "./dfsclient/FailedTests.csv"]
+        failedTestPaths = ["./wsclient/FailedTests.csv", "./dfsclient/FailedTests.csv", "./spark-hpcc/FailedTests.csv"]
         for file_path in failedTestPaths:
           if os.path.exists(file_path):
             with open(file_path, 'r') as file:
