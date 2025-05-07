@@ -35,6 +35,16 @@
             "cwd": "${workspaceFolder}"
         },
         {
+            "name": "Generate 9.12.x wsworkunits",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wsclient/utils/wsInterfaceUpdater.py",
+            "console": "integratedTerminal",
+            "justMyCode": true, 
+            "cwd": "${workspaceFolder}",
+            "args": ["-b", "candidate-9.12.x", "-s", "wsworkunits"]
+        },
+        {
             "name": "Generate 9.0.x wssmc",
             "type": "python",
             "request": "launch",
