@@ -15,7 +15,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-import java.math.BigInteger;
+import org.apache.axiom.om.OMElement;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -27,8 +27,8 @@ public class EclFieldTypeWrapper
 {
     protected HPCCFieldTypeWrapper local_type;
     protected String local_locale;
-    protected BigInteger local_length;
-    protected BigInteger local_precision;
+    protected OMElement local_length;
+    protected OMElement local_precision;
 
     public EclFieldTypeWrapper() {}
 
@@ -36,7 +36,7 @@ public class EclFieldTypeWrapper
     {
         copy( eclfieldtype );
     }
-    public EclFieldTypeWrapper( HPCCFieldTypeWrapper _type, String _locale, BigInteger _length, BigInteger _precision )
+    public EclFieldTypeWrapper( HPCCFieldTypeWrapper _type, String _locale, OMElement _length, OMElement _precision )
     {
         this.local_type = _type;
         this.local_locale = _locale;
@@ -91,19 +91,19 @@ public class EclFieldTypeWrapper
     {
         return this.local_locale;
     }
-    public void setLength( BigInteger _length )
+    public void setLength( OMElement _length )
     {
         this.local_length = _length;
     }
-    public BigInteger getLength( )
+    public OMElement getLength( )
     {
         return this.local_length;
     }
-    public void setPrecision( BigInteger _precision )
+    public void setPrecision( OMElement _precision )
     {
         this.local_precision = _precision;
     }
-    public BigInteger getPrecision( )
+    public OMElement getPrecision( )
     {
         return this.local_precision;
     }

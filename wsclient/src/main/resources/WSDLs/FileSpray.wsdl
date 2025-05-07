@@ -4793,7 +4793,7 @@
 		<port name="FileSprayServiceSoap" binding="tns:FileSprayServiceSoap">
 			
       
-			<soap:address location="http://eclwatch-66ff99685c-4bl4k:8888/FileSpray?ver_=1.26"/>
+			<soap:address location="http://172.27.163.120:8010/FileSpray?ver_=1.26"/>
 			
     
 		</port>

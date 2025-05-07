@@ -15,6 +15,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+import org.apache.axiom.om.OMElement;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -30,7 +31,7 @@ public class WUPropertiesToReturnWrapper
     protected boolean local_allScopes;
     protected boolean local_allProperties;
     protected boolean local_allNotes;
-    protected String local_minVersion;
+    protected OMElement local_minVersion;
     protected String local_measure;
     protected Properties_type0Wrapper local_properties;
     protected ExtraProperties_type0Wrapper local_extraProperties;
@@ -41,7 +42,7 @@ public class WUPropertiesToReturnWrapper
     {
         copy( wupropertiestoreturn );
     }
-    public WUPropertiesToReturnWrapper( boolean _allStatistics, boolean _allAttributes, boolean _allHints, boolean _allScopes, boolean _allProperties, boolean _allNotes, String _minVersion, String _measure, Properties_type0Wrapper _properties, ExtraProperties_type0Wrapper _extraProperties )
+    public WUPropertiesToReturnWrapper( boolean _allStatistics, boolean _allAttributes, boolean _allHints, boolean _allScopes, boolean _allProperties, boolean _allNotes, OMElement _minVersion, String _measure, Properties_type0Wrapper _properties, ExtraProperties_type0Wrapper _extraProperties )
     {
         this.local_allStatistics = _allStatistics;
         this.local_allAttributes = _allAttributes;
@@ -148,11 +149,11 @@ public class WUPropertiesToReturnWrapper
     {
         return this.local_allNotes;
     }
-    public void setMinVersion( String _minVersion )
+    public void setMinVersion( OMElement _minVersion )
     {
         this.local_minVersion = _minVersion;
     }
-    public String getMinVersion( )
+    public OMElement getMinVersion( )
     {
         return this.local_minVersion;
     }

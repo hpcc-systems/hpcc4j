@@ -1,8 +1,8 @@
 /**
  * WUPropertiesToReturn.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest;
 
@@ -232,7 +232,7 @@ public class WUPropertiesToReturn implements org.apache.axis2.databinding.ADBBea
   }
 
   /** field for MinVersion */
-  protected java.lang.String localMinVersion;
+  protected org.apache.axiom.om.OMElement localMinVersion;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -247,9 +247,9 @@ public class WUPropertiesToReturn implements org.apache.axis2.databinding.ADBBea
   /**
    * Auto generated getter method
    *
-   * @return java.lang.String
+   * @return org.apache.axiom.om.OMElement
    */
-  public java.lang.String getMinVersion() {
+  public org.apache.axiom.om.OMElement getMinVersion() {
     return localMinVersion;
   }
 
@@ -258,7 +258,7 @@ public class WUPropertiesToReturn implements org.apache.axis2.databinding.ADBBea
    *
    * @param param MinVersion
    */
-  public void setMinVersion(java.lang.String param) {
+  public void setMinVersion(org.apache.axiom.om.OMElement param) {
     localMinVersionTracker = param != null;
 
     this.localMinVersion = param;
@@ -520,7 +520,7 @@ public class WUPropertiesToReturn implements org.apache.axis2.databinding.ADBBea
 
       } else {
 
-        xmlWriter.writeCharacters(localMinVersion);
+        localMinVersion.serialize(xmlWriter);
       }
 
       xmlWriter.writeEndElement();
@@ -913,9 +913,7 @@ public class WUPropertiesToReturn implements org.apache.axis2.databinding.ADBBea
               reader.next();
 
             } // End of if for expected property start element
-            else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "MinVersion")
-                    .equals(reader.getName())) {
+            else if (reader.isStartElement()) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
@@ -926,8 +924,14 @@ public class WUPropertiesToReturn implements org.apache.axis2.databinding.ADBBea
 
               java.lang.String content = reader.getElementText();
 
-              object.setMinVersion(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+              org.apache.axiom.om.OMFactory fac =
+                  org.apache.axiom.om.OMAbstractFactory.getOMFactory();
+              org.apache.axiom.om.OMNamespace omNs =
+                  fac.createOMNamespace("urn:hpccsystems:ws:wsworkunits", "");
+              org.apache.axiom.om.OMElement _valueMinVersion =
+                  fac.createOMElement("MinVersion", omNs);
+              _valueMinVersion.addChild(fac.createOMText(_valueMinVersion, content));
+              object.setMinVersion(_valueMinVersion);
 
               reader.next();
 

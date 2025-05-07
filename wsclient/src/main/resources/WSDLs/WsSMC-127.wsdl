@@ -1395,7 +1395,6 @@
 						
             
 						<xsd:element minOccurs="0" name="ESPInstance" type="xsd:string"/>
-						<xsd:element minOccurs="0" name="NetAddress" type="xsd:string"/> <!-- manually added because it was dropped in v1.27-->
 						
             
 						<xsd:element minOccurs="0" name="OS" type="xsd:int"/>
@@ -3282,7 +3281,7 @@
 		<port name="WsSMCServiceSoap" binding="tns:WsSMCServiceSoap">
 			
       
-			<soap:address location="http://eclwatch-65768756c6-9sm8c:8888/WsSMC?ver_=1.27"/>
+			<soap:address location="http://172.27.163.120:8010/WsSMC?ver_=1.27"/>
 			
     
 		</port>

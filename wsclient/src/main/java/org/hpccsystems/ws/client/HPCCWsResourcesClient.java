@@ -259,7 +259,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
         if (resp.getExceptions() != null)
         {
             ArrayOfEspException exceptions = resp.getExceptions();
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Error processing service query");
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Error processing service query request");
         }
 
         return new ServiceQueryResponseWrapper(resp);
@@ -282,6 +282,8 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
         if (req == null)
             throw new Exception("TargetQueryRequestWrapper must be provided!");
 
+        System.out.println("targetQuery received request: '" + req.getRaw().getType() + "'");
+
         verifyStub();
 
         TargetQueryResponse resp = null;
@@ -298,7 +300,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
         if (resp.getExceptions() != null)
         {
             ArrayOfEspException exceptions = resp.getExceptions();
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Error processing service query");
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Error processing target query request");
         }
 
         return new TargetQueryResponseWrapper(resp);
@@ -337,7 +339,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
         if (resp.getExceptions() != null)
         {
             ArrayOfEspException exceptions = resp.getExceptions();
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Error processing service query");
+            handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Error processing WebLinks query");
         }
 
         return new WebLinksQueryResponseWrapper(resp);

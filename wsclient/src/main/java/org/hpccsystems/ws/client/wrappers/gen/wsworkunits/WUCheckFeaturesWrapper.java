@@ -24,14 +24,48 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  */
 public class WUCheckFeaturesWrapper
 {
+    protected boolean local_includeFullVersion;
 
     public WUCheckFeaturesWrapper() {}
 
+    public WUCheckFeaturesWrapper( org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeatures wucheckfeatures)
+    {
+        copy( wucheckfeatures );
+    }
+    public WUCheckFeaturesWrapper( boolean _includeFullVersion )
+    {
+        this.local_includeFullVersion = _includeFullVersion;
+
+    }
+
+    private void copy( org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeatures raw )
+    {
+        if (raw == null)
+            return;
+
+        this.local_includeFullVersion = raw.getIncludeFullVersion();
+
+    }
+
+    @Override
+    public String toString()
+    {
+        return "WUCheckFeaturesWrapper [" + "includeFullVersion = " + local_includeFullVersion + "]";
+    }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeatures getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeatures raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeatures();
+        raw.setIncludeFullVersion( local_includeFullVersion);
         return raw;
     }
 
 
+    public void setIncludeFullVersion( boolean _includeFullVersion )
+    {
+        this.local_includeFullVersion = _includeFullVersion;
+    }
+    public boolean getIncludeFullVersion( )
+    {
+        return this.local_includeFullVersion;
+    }
 }

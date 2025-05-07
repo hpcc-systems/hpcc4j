@@ -1,8 +1,8 @@
 /**
  * WsstoreStub.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:46:59 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:49:45 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsstore.latest;
 
@@ -318,13 +318,13 @@ public class WsstoreStub extends org.apache.axis2.client.Stub implements Wsstore
   public WsstoreStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://10.1.1.180:8888/wsstore?ver_=1.02");
+    this(configurationContext, "http://172.27.163.120:8010/wsstore?ver_=1.02");
   }
 
   /** Default Constructor */
   public WsstoreStub() throws org.apache.axis2.AxisFault {
 
-    this("http://10.1.1.180:8888/wsstore?ver_=1.02");
+    this("http://172.27.163.120:8010/wsstore?ver_=1.02");
   }
 
   /** Constructor taking the target endpoint */
@@ -1692,7 +1692,7 @@ public class WsstoreStub extends org.apache.axis2.client.Stub implements Wsstore
     }
     return false;
   }
-  // http://10.1.1.180:8888/wsstore?ver_=1.02
+  // http://172.27.163.120:8010/wsstore?ver_=1.02
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wsstore.latest.ListKeysRequest param,
       boolean optimizeContent)

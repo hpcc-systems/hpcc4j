@@ -1,8 +1,8 @@
 /**
  * DFUGetDataColumnsRequest.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsdfu.latest;
 
@@ -146,7 +146,8 @@ public class DFUGetDataColumnsRequest implements org.apache.axis2.databinding.AD
   }
 
   /** field for ChooseFile */
-  protected int localChooseFile;
+  protected int localChooseFile =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToInt("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -247,7 +248,8 @@ public class DFUGetDataColumnsRequest implements org.apache.axis2.databinding.AD
   }
 
   /** field for StartIndex */
-  protected long localStartIndex;
+  protected long localStartIndex =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -282,7 +284,8 @@ public class DFUGetDataColumnsRequest implements org.apache.axis2.databinding.AD
   }
 
   /** field for EndIndex */
-  protected long localEndIndex;
+  protected long localEndIndex =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field

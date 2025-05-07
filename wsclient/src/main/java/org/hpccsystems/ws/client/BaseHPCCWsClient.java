@@ -18,13 +18,19 @@ import org.apache.axis2.addressing.EndpointReference;
 import org.apache.axis2.client.Options;
 import org.apache.axis2.client.Stub;
 import org.apache.axis2.kernel.http.HTTPConstants;
-import org.apache.axis2.transport.http.impl.httpclient4.HttpTransportPropertiesImpl;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.axis2.transport.http.impl.httpclient5.HttpTransportPropertiesImpl;
+import org.apache.hc.client5.http.auth.AuthScope;
+import org.apache.hc.client5.http.auth.BasicUserPrincipal;
+import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
+import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+//import org.apache.http.auth.AuthScope;
+//import org.apache.http.auth.UsernamePasswordCredentials;
+//import org.apache.http.client.CredentialsProvider;
+//import org.apache.http.impl.client.BasicCredentialsProvider;
+//import org.apache.http.impl.client.CloseableHttpClient;
+//import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hpccsystems.ws.client.platform.Version;
@@ -713,22 +719,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
         opt.setProperty(HTTPConstants.CHUNKED, Boolean.FALSE);
 
-        if (connection.getPreemptiveHTTPAuthenticate())
-        {
-            //Axis2 now forces connection authenticate, even if target is not secure
-            CredentialsProvider credsProvider = new BasicCredentialsProvider();
-            if (connection.hasCredentials())
-                credsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(connection.getUserName(), connection.getPassword()));
-            else
-                credsProvider.setCredentials(AuthScope.ANY, emptyCreds);//if no credentials provided, allow empty user/null pass
-
-            HttpClientBuilder builder = HttpClientBuilder.create();
-            builder.addInterceptorFirst(new HPCCPreemptiveAuthInterceptor());
-            builder.setDefaultCredentialsProvider(credsProvider);
-
-            CloseableHttpClient httpClient = builder.build();
-            opt.setProperty(HTTPConstants.CACHED_HTTP_CLIENT, httpClient);
-        }
+        //getPreemptiveHTTPAuthenticate no longer needed due to httpclient v5 upgrade
 
         thestub._getServiceClient().setOptions(opt);
 

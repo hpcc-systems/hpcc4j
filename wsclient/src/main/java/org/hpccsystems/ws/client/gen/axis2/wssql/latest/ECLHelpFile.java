@@ -1,8 +1,8 @@
 /**
  * ECLHelpFile.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssql.latest;
 
@@ -183,7 +183,8 @@ public class ECLHelpFile implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for PID */
-  protected org.apache.axis2.databinding.types.UnsignedInt localPID;
+  protected org.apache.axis2.databinding.types.UnsignedInt localPID =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToUnsignedInt("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -216,7 +217,8 @@ public class ECLHelpFile implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for MinActivityId */
-  protected org.apache.axis2.databinding.types.UnsignedInt localMinActivityId;
+  protected org.apache.axis2.databinding.types.UnsignedInt localMinActivityId =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToUnsignedInt("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -249,7 +251,8 @@ public class ECLHelpFile implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for MaxActivityId */
-  protected org.apache.axis2.databinding.types.UnsignedInt localMaxActivityId;
+  protected org.apache.axis2.databinding.types.UnsignedInt localMaxActivityId =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToUnsignedInt("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field

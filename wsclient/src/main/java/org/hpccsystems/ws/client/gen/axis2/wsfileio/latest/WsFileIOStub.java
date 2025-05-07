@@ -1,8 +1,8 @@
 /**
  * WsFileIOStub.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:46:59 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:49:45 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsfileio.latest;
 
@@ -171,13 +171,13 @@ public class WsFileIOStub extends org.apache.axis2.client.Stub implements WsFile
   public WsFileIOStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://10.1.1.180:8888/WsFileIO?ver_=1.01");
+    this(configurationContext, "http://172.27.163.120:8010/WsFileIO?ver_=1.01");
   }
 
   /** Default Constructor */
   public WsFileIOStub() throws org.apache.axis2.AxisFault {
 
-    this("http://10.1.1.180:8888/WsFileIO?ver_=1.01");
+    this("http://172.27.163.120:8010/WsFileIO?ver_=1.01");
   }
 
   /** Constructor taking the target endpoint */
@@ -687,7 +687,7 @@ public class WsFileIOStub extends org.apache.axis2.client.Stub implements WsFile
     }
     return false;
   }
-  // http://10.1.1.180:8888/WsFileIO?ver_=1.01
+  // http://172.27.163.120:8010/WsFileIO?ver_=1.01
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wsfileio.latest.WsFileIOPingRequest param,
       boolean optimizeContent)

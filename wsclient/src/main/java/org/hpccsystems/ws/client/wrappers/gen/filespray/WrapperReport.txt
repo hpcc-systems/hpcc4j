@@ -3,7 +3,7 @@ Generated Axis2 ADB stub class wrapper package report:
   Wrapper package name: org.hpccsystems.ws.client.wrappers.gen.filespray
   Wrapped service name: FileSpray
   Wrapped package: org.hpccsystems.ws.client.gen.axis2.filespray.latest
-  Wrapped service version: 1.25
+  Wrapped service version: 1.26
 Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.EchoDateTime
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.Rename
@@ -44,7 +44,9 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.GroupNodes_type0
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.PhysicalFileStruct
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUActionResult
+    org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsResponse
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.SubmitDFUWorkunitResponse
+    org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunit
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.CopyResponse
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunits
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWUActions
@@ -52,6 +54,7 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetSprayTargetsRequest
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayFixed
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.Replicate
+    org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUPublisherWorkunitResponse
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.DeleteDFUWorkunits
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.ProgressResponse
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.CreateDFUWorkunitResponse
@@ -72,6 +75,7 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.DropZone
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.ArrayOfDropZone
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayResponse
+    org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetRemoteTargetsRequest
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.ReplicateResponse
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunit
     org.hpccsystems.ws.client.gen.axis2.filespray.latest.ShowResultResponse

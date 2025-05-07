@@ -1,8 +1,8 @@
 /**
  * WriteFileDataRequest.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsfileio.latest;
 
@@ -14,7 +14,7 @@ public class WriteFileDataRequest implements org.apache.axis2.databinding.ADBBea
       new javax.xml.namespace.QName("urn:hpccsystems:ws:wsfileio", "WriteFileDataRequest", "ns1");
 
   /** field for Data */
-  protected javax.activation.DataHandler localData;
+  protected jakarta.activation.DataHandler localData;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -29,9 +29,9 @@ public class WriteFileDataRequest implements org.apache.axis2.databinding.ADBBea
   /**
    * Auto generated getter method
    *
-   * @return javax.activation.DataHandler
+   * @return jakarta.activation.DataHandler
    */
-  public javax.activation.DataHandler getData() {
+  public jakarta.activation.DataHandler getData() {
     return localData;
   }
 
@@ -40,7 +40,7 @@ public class WriteFileDataRequest implements org.apache.axis2.databinding.ADBBea
    *
    * @param param Data
    */
-  public void setData(javax.activation.DataHandler param) {
+  public void setData(jakarta.activation.DataHandler param) {
     localDataTracker = param != null;
 
     this.localData = param;
@@ -146,7 +146,7 @@ public class WriteFileDataRequest implements org.apache.axis2.databinding.ADBBea
   }
 
   /** field for Offset */
-  protected long localOffset;
+  protected long localOffset = org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -272,8 +272,11 @@ public class WriteFileDataRequest implements org.apache.axis2.databinding.ADBBea
 
       if (localData != null) {
         try {
-          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeDataHandler(
-              xmlWriter, localData, null, true);
+          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeBlob(
+              xmlWriter,
+              org.apache.axiom.util.activation.DataHandlerUtils.toBlob(localData),
+              null,
+              true);
         } catch (java.io.IOException ex) {
           throw new javax.xml.stream.XMLStreamException("Unable to read data handler for Data", ex);
         }
@@ -609,8 +612,8 @@ public class WriteFileDataRequest implements org.apache.axis2.databinding.ADBBea
                     .equals(reader.getName())) {
 
               object.setData(
-                  org.apache.axiom.util.stax.XMLStreamReaderUtils.getDataHandlerFromElement(
-                      reader));
+                  org.apache.axiom.util.activation.DataHandlerUtils.toDataHandler(
+                      org.apache.axiom.util.stax.XMLStreamReaderUtils.getBlobFromElement(reader)));
 
               reader.next();
 

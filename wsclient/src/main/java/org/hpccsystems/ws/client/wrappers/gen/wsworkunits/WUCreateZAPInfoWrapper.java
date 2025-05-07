@@ -39,6 +39,9 @@ public class WUCreateZAPInfoWrapper
     protected String local_emailFrom;
     protected String local_emailSubject;
     protected String local_emailBody;
+    protected LogAccessFilterWrapper local_logFilter;
+    protected boolean local_includeRelatedLogs;
+    protected boolean local_includePerComponentLogs;
 
     public WUCreateZAPInfoWrapper() {}
 
@@ -46,7 +49,7 @@ public class WUCreateZAPInfoWrapper
     {
         copy( wucreatezapinfo );
     }
-    public WUCreateZAPInfoWrapper( String _wuid, String _eSPApplication, String _thorProcesses, String _buildVersion, String _problemDescription, String _whatChanged, String _whereSlow, String _zAPFileName, String _includeThorSlaveLog, String _zAPPassword, boolean _sendEmail, boolean _attachZAPReportToEmail, String _emailFrom, String _emailSubject, String _emailBody )
+    public WUCreateZAPInfoWrapper( String _wuid, String _eSPApplication, String _thorProcesses, String _buildVersion, String _problemDescription, String _whatChanged, String _whereSlow, String _zAPFileName, String _includeThorSlaveLog, String _zAPPassword, boolean _sendEmail, boolean _attachZAPReportToEmail, String _emailFrom, String _emailSubject, String _emailBody, LogAccessFilterWrapper _logFilter, boolean _includeRelatedLogs, boolean _includePerComponentLogs )
     {
         this.local_wuid = _wuid;
         this.local_eSPApplication = _eSPApplication;
@@ -63,6 +66,9 @@ public class WUCreateZAPInfoWrapper
         this.local_emailFrom = _emailFrom;
         this.local_emailSubject = _emailSubject;
         this.local_emailBody = _emailBody;
+        this.local_logFilter = _logFilter;
+        this.local_includeRelatedLogs = _includeRelatedLogs;
+        this.local_includePerComponentLogs = _includePerComponentLogs;
 
     }
 
@@ -86,13 +92,17 @@ public class WUCreateZAPInfoWrapper
         this.local_emailFrom = raw.getEmailFrom();
         this.local_emailSubject = raw.getEmailSubject();
         this.local_emailBody = raw.getEmailBody();
+        if (raw.getLogFilter() != null)
+            this.local_logFilter = new LogAccessFilterWrapper( raw.getLogFilter());
+        this.local_includeRelatedLogs = raw.getIncludeRelatedLogs();
+        this.local_includePerComponentLogs = raw.getIncludePerComponentLogs();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUCreateZAPInfoWrapper [" + "wuid = " + local_wuid + ", " + "eSPApplication = " + local_eSPApplication + ", " + "thorProcesses = " + local_thorProcesses + ", " + "buildVersion = " + local_buildVersion + ", " + "problemDescription = " + local_problemDescription + ", " + "whatChanged = " + local_whatChanged + ", " + "whereSlow = " + local_whereSlow + ", " + "zAPFileName = " + local_zAPFileName + ", " + "includeThorSlaveLog = " + local_includeThorSlaveLog + ", " + "zAPPassword = " + local_zAPPassword + ", " + "sendEmail = " + local_sendEmail + ", " + "attachZAPReportToEmail = " + local_attachZAPReportToEmail + ", " + "emailFrom = " + local_emailFrom + ", " + "emailSubject = " + local_emailSubject + ", " + "emailBody = " + local_emailBody + "]";
+        return "WUCreateZAPInfoWrapper [" + "wuid = " + local_wuid + ", " + "eSPApplication = " + local_eSPApplication + ", " + "thorProcesses = " + local_thorProcesses + ", " + "buildVersion = " + local_buildVersion + ", " + "problemDescription = " + local_problemDescription + ", " + "whatChanged = " + local_whatChanged + ", " + "whereSlow = " + local_whereSlow + ", " + "zAPFileName = " + local_zAPFileName + ", " + "includeThorSlaveLog = " + local_includeThorSlaveLog + ", " + "zAPPassword = " + local_zAPPassword + ", " + "sendEmail = " + local_sendEmail + ", " + "attachZAPReportToEmail = " + local_attachZAPReportToEmail + ", " + "emailFrom = " + local_emailFrom + ", " + "emailSubject = " + local_emailSubject + ", " + "emailBody = " + local_emailBody + ", " + "logFilter = " + local_logFilter + ", " + "includeRelatedLogs = " + local_includeRelatedLogs + ", " + "includePerComponentLogs = " + local_includePerComponentLogs + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfo getRaw()
     {
@@ -112,6 +122,10 @@ public class WUCreateZAPInfoWrapper
         raw.setEmailFrom( local_emailFrom);
         raw.setEmailSubject( local_emailSubject);
         raw.setEmailBody( local_emailBody);
+        if (local_logFilter != null)
+            raw.setLogFilter( local_logFilter.getRaw());
+        raw.setIncludeRelatedLogs( local_includeRelatedLogs);
+        raw.setIncludePerComponentLogs( local_includePerComponentLogs);
         return raw;
     }
 
@@ -235,5 +249,29 @@ public class WUCreateZAPInfoWrapper
     public String getEmailBody( )
     {
         return this.local_emailBody;
+    }
+    public void setLogFilter( LogAccessFilterWrapper _logFilter )
+    {
+        this.local_logFilter = _logFilter;
+    }
+    public LogAccessFilterWrapper getLogFilter( )
+    {
+        return this.local_logFilter;
+    }
+    public void setIncludeRelatedLogs( boolean _includeRelatedLogs )
+    {
+        this.local_includeRelatedLogs = _includeRelatedLogs;
+    }
+    public boolean getIncludeRelatedLogs( )
+    {
+        return this.local_includeRelatedLogs;
+    }
+    public void setIncludePerComponentLogs( boolean _includePerComponentLogs )
+    {
+        this.local_includePerComponentLogs = _includePerComponentLogs;
+    }
+    public boolean getIncludePerComponentLogs( )
+    {
+        return this.local_includePerComponentLogs;
     }
 }

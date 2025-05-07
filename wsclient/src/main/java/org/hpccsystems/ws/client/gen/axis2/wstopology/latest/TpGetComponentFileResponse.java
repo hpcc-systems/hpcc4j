@@ -1,8 +1,8 @@
 /**
  * TpGetComponentFileResponse.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wstopology.latest;
 
@@ -50,7 +50,7 @@ public class TpGetComponentFileResponse implements org.apache.axis2.databinding.
   }
 
   /** field for FileContents */
-  protected javax.activation.DataHandler localFileContents;
+  protected jakarta.activation.DataHandler localFileContents;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -65,9 +65,9 @@ public class TpGetComponentFileResponse implements org.apache.axis2.databinding.
   /**
    * Auto generated getter method
    *
-   * @return javax.activation.DataHandler
+   * @return jakarta.activation.DataHandler
    */
-  public javax.activation.DataHandler getFileContents() {
+  public jakarta.activation.DataHandler getFileContents() {
     return localFileContents;
   }
 
@@ -76,7 +76,7 @@ public class TpGetComponentFileResponse implements org.apache.axis2.databinding.
    *
    * @param param FileContents
    */
-  public void setFileContents(javax.activation.DataHandler param) {
+  public void setFileContents(jakarta.activation.DataHandler param) {
     localFileContentsTracker = param != null;
 
     this.localFileContents = param;
@@ -145,8 +145,11 @@ public class TpGetComponentFileResponse implements org.apache.axis2.databinding.
 
       if (localFileContents != null) {
         try {
-          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeDataHandler(
-              xmlWriter, localFileContents, null, true);
+          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeBlob(
+              xmlWriter,
+              org.apache.axiom.util.activation.DataHandlerUtils.toBlob(localFileContents),
+              null,
+              true);
         } catch (java.io.IOException ex) {
           throw new javax.xml.stream.XMLStreamException(
               "Unable to read data handler for FileContents", ex);
@@ -416,8 +419,8 @@ public class TpGetComponentFileResponse implements org.apache.axis2.databinding.
                     .equals(reader.getName())) {
 
               object.setFileContents(
-                  org.apache.axiom.util.stax.XMLStreamReaderUtils.getDataHandlerFromElement(
-                      reader));
+                  org.apache.axiom.util.activation.DataHandlerUtils.toDataHandler(
+                      org.apache.axiom.util.stax.XMLStreamReaderUtils.getBlobFromElement(reader)));
 
               reader.next();
 

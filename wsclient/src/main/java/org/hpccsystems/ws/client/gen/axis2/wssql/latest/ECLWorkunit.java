@@ -1,8 +1,8 @@
 /**
  * ECLWorkunit.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssql.latest;
 
@@ -2610,6 +2610,42 @@ public class ECLWorkunit implements org.apache.axis2.databinding.ADBBean {
     this.localNoAccess = param;
   }
 
+  /** field for ECLWUProcessList */
+  protected org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWUProcess
+      localECLWUProcessList;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localECLWUProcessListTracker = false;
+
+  public boolean isECLWUProcessListSpecified() {
+    return localECLWUProcessListTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWUProcess
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWUProcess
+      getECLWUProcessList() {
+    return localECLWUProcessList;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param ECLWUProcessList
+   */
+  public void setECLWUProcessList(
+      org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWUProcess param) {
+    localECLWUProcessListTracker = param != null;
+
+    this.localECLWUProcessList = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -3701,6 +3737,13 @@ public class ECLWorkunit implements org.apache.axis2.databinding.ADBBean {
       }
 
       xmlWriter.writeEndElement();
+    }
+    if (localECLWUProcessListTracker) {
+      if (localECLWUProcessList == null) {
+        throw new org.apache.axis2.databinding.ADBException("ECLWUProcessList cannot be null!!");
+      }
+      localECLWUProcessList.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "ECLWUProcessList"), xmlWriter);
     }
     xmlWriter.writeEndElement();
   }
@@ -5258,6 +5301,17 @@ public class ECLWorkunit implements org.apache.axis2.databinding.ADBBean {
 
               object.setNoAccess(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "ECLWUProcessList")
+                    .equals(reader.getName())) {
+
+              object.setECLWUProcessList(
+                  org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWUProcess.Factory
+                      .parse(reader));
 
               reader.next();
 

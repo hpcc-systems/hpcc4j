@@ -31,6 +31,7 @@ public class DFUXRefArrayActionRequestWrapper
     protected String local_cluster;
     protected String local_action;
     protected List<String> local_xRefFiles = null;
+    protected boolean local_removeFromSuperfiles;
 
     public DFUXRefArrayActionRequestWrapper() {}
 
@@ -38,12 +39,13 @@ public class DFUXRefArrayActionRequestWrapper
     {
         copy( dfuxrefarrayactionrequest );
     }
-    public DFUXRefArrayActionRequestWrapper( String _type, String _cluster, String _action, List<String> _xRefFiles )
+    public DFUXRefArrayActionRequestWrapper( String _type, String _cluster, String _action, List<String> _xRefFiles, boolean _removeFromSuperfiles )
     {
         this.local_type = _type;
         this.local_cluster = _cluster;
         this.local_action = _action;
         this.local_xRefFiles = _xRefFiles;
+        this.local_removeFromSuperfiles = _removeFromSuperfiles;
 
     }
 
@@ -62,13 +64,14 @@ public class DFUXRefArrayActionRequestWrapper
             {
                 this.local_xRefFiles.add(new String(raw.getXRefFiles().getItem()[i]));
             }
-        }
+        }        this.local_removeFromSuperfiles = raw.getRemoveFromSuperfiles();
+
     }
 
     @Override
     public String toString()
     {
-        return "DFUXRefArrayActionRequestWrapper [" + "type = " + local_type + ", " + "cluster = " + local_cluster + ", " + "action = " + local_action + ", " + "xRefFiles = " + local_xRefFiles + "]";
+        return "DFUXRefArrayActionRequestWrapper [" + "type = " + local_type + ", " + "cluster = " + local_cluster + ", " + "action = " + local_action + ", " + "xRefFiles = " + local_xRefFiles + ", " + "removeFromSuperfiles = " + local_removeFromSuperfiles + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefArrayActionRequest getRaw()
     {
@@ -85,6 +88,7 @@ public class DFUXRefArrayActionRequestWrapper
             }
             raw.setXRefFiles(arr);
         }
+        raw.setRemoveFromSuperfiles( local_removeFromSuperfiles);
         return raw;
     }
 
@@ -120,5 +124,13 @@ public class DFUXRefArrayActionRequestWrapper
     public List<String> getXRefFiles( )
     {
         return this.local_xRefFiles;
+    }
+    public void setRemoveFromSuperfiles( boolean _removeFromSuperfiles )
+    {
+        this.local_removeFromSuperfiles = _removeFromSuperfiles;
+    }
+    public boolean getRemoveFromSuperfiles( )
+    {
+        return this.local_removeFromSuperfiles;
     }
 }

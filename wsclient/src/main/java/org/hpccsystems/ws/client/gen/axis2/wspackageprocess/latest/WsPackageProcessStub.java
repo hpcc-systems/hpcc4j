@@ -1,8 +1,8 @@
 /**
  * WsPackageProcessStub.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:46:59 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:49:45 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest;
 
@@ -493,13 +493,13 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
   public WsPackageProcessStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://10.1.1.180:8888/WsPackageProcess?ver_=1.05");
+    this(configurationContext, "http://172.27.163.120:8010/WsPackageProcess?ver_=1.06");
   }
 
   /** Default Constructor */
   public WsPackageProcessStub() throws org.apache.axis2.AxisFault {
 
-    this("http://10.1.1.180:8888/WsPackageProcess?ver_=1.05");
+    this("http://172.27.163.120:8010/WsPackageProcess?ver_=1.06");
   }
 
   /** Constructor taking the target endpoint */
@@ -525,7 +525,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/DeletePackage?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/DeletePackage?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -654,7 +654,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/GetPackage?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/GetPackage?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -783,7 +783,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/Ping?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/Ping?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -914,7 +914,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/CopyPackageMap?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/CopyPackageMap?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1043,7 +1043,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[4].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/AddPackage?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/AddPackage?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1173,7 +1173,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[5].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/ValidatePackage?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/ValidatePackage?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1306,7 +1306,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[6].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/AddPartToPackageMap?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/AddPartToPackageMap?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1440,7 +1440,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[7].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/ActivatePackage?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/ActivatePackage?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1573,7 +1573,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[8].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/DeActivatePackage?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/DeActivatePackage?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1703,7 +1703,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[9].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/Echo?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/Echo?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1834,7 +1834,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
           _serviceClient.createClient(_operations[10].getName());
       _operationClient
           .getOptions()
-          .setAction("WsPackageProcess/RemovePartFromPackageMap?ver_=1.05");
+          .setAction("WsPackageProcess/RemovePartFromPackageMap?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1968,7 +1968,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[11].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/ListPackage?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/ListPackage?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2103,7 +2103,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
           _serviceClient.createClient(_operations[12].getName());
       _operationClient
           .getOptions()
-          .setAction("WsPackageProcess/GetPackageMapSelectOptions?ver_=1.05");
+          .setAction("WsPackageProcess/GetPackageMapSelectOptions?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2238,7 +2238,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[13].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/GetPartFromPackageMap?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/GetPartFromPackageMap?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2372,7 +2372,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[14].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/ListPackages?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/ListPackages?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2503,7 +2503,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[15].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/GetQueryFileMapping?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/GetQueryFileMapping?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2637,7 +2637,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[16].getName());
-      _operationClient.getOptions().setAction("WsPackageProcess/GetPackageMapById?ver_=1.05");
+      _operationClient.getOptions().setAction("WsPackageProcess/GetPackageMapById?ver_=1.06");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2765,7 +2765,7 @@ public class WsPackageProcessStub extends org.apache.axis2.client.Stub implement
     }
     return false;
   }
-  // http://10.1.1.180:8888/WsPackageProcess?ver_=1.05
+  // http://172.27.163.120:8010/WsPackageProcess?ver_=1.06
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.DeletePackageRequest param,
       boolean optimizeContent)

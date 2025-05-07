@@ -15,7 +15,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 import org.apache.axis2.databinding.types.NonNegativeInteger;
 
 /**
@@ -48,6 +48,8 @@ public class WUQuerysetImportWrapper
     protected boolean local_dfuOverwrite;
     protected boolean local_onlyCopyFiles;
     protected boolean local_stopIfFilesCopied;
+    protected String local_dfuPublisherWuid;
+    protected String local_remoteStorage;
 
     public WUQuerysetImportWrapper() {}
 
@@ -55,7 +57,7 @@ public class WUQuerysetImportWrapper
     {
         copy( wuquerysetimport );
     }
-    public WUQuerysetImportWrapper( String _target, String _queryMask, boolean _replace, boolean _activeOnly, QuerysetImportActivationWrapper _activation, boolean _compressed, DataHandler _data, boolean _allowForeignFiles, String _dfsServer, boolean _copyFiles, boolean _overwriteDfs, String _sourceProcess, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied )
+    public WUQuerysetImportWrapper( String _target, String _queryMask, boolean _replace, boolean _activeOnly, QuerysetImportActivationWrapper _activation, boolean _compressed, DataHandler _data, boolean _allowForeignFiles, String _dfsServer, boolean _copyFiles, boolean _overwriteDfs, String _sourceProcess, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied, String _dfuPublisherWuid, String _remoteStorage )
     {
         this.local_target = _target;
         this.local_queryMask = _queryMask;
@@ -79,6 +81,8 @@ public class WUQuerysetImportWrapper
         this.local_dfuOverwrite = _dfuOverwrite;
         this.local_onlyCopyFiles = _onlyCopyFiles;
         this.local_stopIfFilesCopied = _stopIfFilesCopied;
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+        this.local_remoteStorage = _remoteStorage;
 
     }
 
@@ -110,13 +114,15 @@ public class WUQuerysetImportWrapper
         this.local_dfuOverwrite = raw.getDfuOverwrite();
         this.local_onlyCopyFiles = raw.getOnlyCopyFiles();
         this.local_stopIfFilesCopied = raw.getStopIfFilesCopied();
+        this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
+        this.local_remoteStorage = raw.getRemoteStorage();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUQuerysetImportWrapper [" + "target = " + local_target + ", " + "queryMask = " + local_queryMask + ", " + "replace = " + local_replace + ", " + "activeOnly = " + local_activeOnly + ", " + "activation = " + local_activation + ", " + "compressed = " + local_compressed + ", " + "data = " + local_data + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "dfsServer = " + local_dfsServer + ", " + "copyFiles = " + local_copyFiles + ", " + "overwriteDfs = " + local_overwriteDfs + ", " + "sourceProcess = " + local_sourceProcess + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + "]";
+        return "WUQuerysetImportWrapper [" + "target = " + local_target + ", " + "queryMask = " + local_queryMask + ", " + "replace = " + local_replace + ", " + "activeOnly = " + local_activeOnly + ", " + "activation = " + local_activation + ", " + "compressed = " + local_compressed + ", " + "data = " + local_data + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "dfsServer = " + local_dfsServer + ", " + "copyFiles = " + local_copyFiles + ", " + "overwriteDfs = " + local_overwriteDfs + ", " + "sourceProcess = " + local_sourceProcess + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "remoteStorage = " + local_remoteStorage + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetImport getRaw()
     {
@@ -144,6 +150,8 @@ public class WUQuerysetImportWrapper
         raw.setDfuOverwrite( local_dfuOverwrite);
         raw.setOnlyCopyFiles( local_onlyCopyFiles);
         raw.setStopIfFilesCopied( local_stopIfFilesCopied);
+        raw.setDfuPublisherWuid( local_dfuPublisherWuid);
+        raw.setRemoteStorage( local_remoteStorage);
         return raw;
     }
 
@@ -323,5 +331,21 @@ public class WUQuerysetImportWrapper
     public boolean getStopIfFilesCopied( )
     {
         return this.local_stopIfFilesCopied;
+    }
+    public void setDfuPublisherWuid( String _dfuPublisherWuid )
+    {
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+    }
+    public String getDfuPublisherWuid( )
+    {
+        return this.local_dfuPublisherWuid;
+    }
+    public void setRemoteStorage( String _remoteStorage )
+    {
+        this.local_remoteStorage = _remoteStorage;
+    }
+    public String getRemoteStorage( )
+    {
+        return this.local_remoteStorage;
     }
 }

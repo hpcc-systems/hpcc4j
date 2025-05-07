@@ -1,0 +1,2876 @@
+<?xml version="1.0" ?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:hpccsystems:ws:wsdali" targetNamespace="urn:hpccsystems:ws:wsdali">
+	
+  
+	<types>
+		
+    
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:wsdali">
+			
+      
+			<xsd:complexType name="EspException">
+				
+        
+				<xsd:all>
+					
+          
+					<xsd:element name="Code" type="xsd:string" minOccurs="0"/>
+					
+          
+					<xsd:element name="Audience" type="xsd:string" minOccurs="0"/>
+					
+          
+					<xsd:element name="Source" type="xsd:string" minOccurs="0"/>
+					
+          
+					<xsd:element name="Message" type="xsd:string" minOccurs="0"/>
+					
+        
+				</xsd:all>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="ArrayOfEspException">
+				
+        
+				<xsd:sequence>
+					
+          
+					<xsd:element name="Source" type="xsd:string" minOccurs="0"/>
+					
+          
+					<xsd:element name="Exception" type="tns:EspException" minOccurs="0" maxOccurs="unbounded"/>
+					
+        
+				</xsd:sequence>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:element name="Exceptions" type="tns:ArrayOfEspException"/>
+			
+      
+			<xsd:element name="AddRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="Value" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="ClearTraceTransactionsRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="CountRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="DFSCheckRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="DFSExistsRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="FileName" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="DFSLSRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="PathAndNameOnly" type="xsd:boolean" default="true"/>
+						
+            
+						<xsd:element minOccurs="0" name="IncludeSubFileInfo" type="xsd:boolean" default="false"/>
+						
+            
+						<xsd:element minOccurs="0" name="Recursively" type="xsd:boolean" default="false"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="DeleteRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="DisconnectClientConnectionRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Endpoint" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetClientsRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetConnectionsRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetDFSCSVRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="LogicalNameMask" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetDFSMapRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="FileName" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetDFSParentsRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="FileName" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetLogicalFileRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="FileName" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetLogicalFilePartRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="FileName" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="PartNumber" type="xsd:unsignedInt"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetProtectedListRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="FileName" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="CallerId" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetSDSStatsRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetSDSSubscribersRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetValueRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="ImportRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="XML" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="Add" type="xsd:boolean"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="ListSDSLocksRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="WSDaliPingRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="SaveSDSStoreRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="SetLogicalFilePartAttrRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="FileName" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="PartNumber" type="xsd:unsignedInt"/>
+						
+            
+						<xsd:element minOccurs="0" name="Attr" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="Value" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="SetProtectedRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="FileName" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="CallerId" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="SetTraceSlowTransactionsRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="SlowThresholdMS" type="xsd:unsignedInt" default="1000"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="SetTraceTransactionsRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="SetUnprotectedRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="FileName" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="CallerId" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="SetValueRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Path" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="Value" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="UnlockSDSLockRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="ConnectionID" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="Close" type="xsd:boolean" default="false"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="ResultResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="Result" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="CountResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="Result" type="xsd:unsignedInt"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="BooleanResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="Result" type="xsd:boolean"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="WSDaliPingResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="string" nillable="true" type="xsd:string"/>
+			
+    
+		</xsd:schema>
+		
+  
+	</types>
+	
+  
+	<message name="EspSoapFault">
+		
+    
+		<part name="parameters" element="tns:Exceptions"/>
+		
+  
+	</message>
+	
+  
+	<message name="AddSoapIn">
+		
+    
+		<part name="parameters" element="tns:AddRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="AddSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="ClearTraceTransactionsSoapIn">
+		
+    
+		<part name="parameters" element="tns:ClearTraceTransactionsRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="ClearTraceTransactionsSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="CountSoapIn">
+		
+    
+		<part name="parameters" element="tns:CountRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="CountSoapOut">
+		
+    
+		<part name="parameters" element="tns:CountResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="DFSCheckSoapIn">
+		
+    
+		<part name="parameters" element="tns:DFSCheckRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="DFSCheckSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="DFSExistsSoapIn">
+		
+    
+		<part name="parameters" element="tns:DFSExistsRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="DFSExistsSoapOut">
+		
+    
+		<part name="parameters" element="tns:BooleanResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="DFSLSSoapIn">
+		
+    
+		<part name="parameters" element="tns:DFSLSRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="DFSLSSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="DeleteSoapIn">
+		
+    
+		<part name="parameters" element="tns:DeleteRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="DeleteSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="DisconnectClientConnectionSoapIn">
+		
+    
+		<part name="parameters" element="tns:DisconnectClientConnectionRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="DisconnectClientConnectionSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetClientsSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetClientsRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetClientsSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetConnectionsSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetConnectionsRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetConnectionsSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetDFSCSVSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetDFSCSVRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetDFSCSVSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetDFSMapSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetDFSMapRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetDFSMapSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetDFSParentsSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetDFSParentsRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetDFSParentsSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetLogicalFileSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetLogicalFileRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetLogicalFileSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetLogicalFilePartSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetLogicalFilePartRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetLogicalFilePartSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetProtectedListSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetProtectedListRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetProtectedListSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetSDSStatsSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetSDSStatsRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetSDSStatsSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetSDSSubscribersSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetSDSSubscribersRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetSDSSubscribersSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetValueSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetValueRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetValueSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="ImportSoapIn">
+		
+    
+		<part name="parameters" element="tns:ImportRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="ImportSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="ListSDSLocksSoapIn">
+		
+    
+		<part name="parameters" element="tns:ListSDSLocksRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="ListSDSLocksSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="PingSoapIn">
+		
+    
+		<part name="parameters" element="tns:WSDaliPingRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="PingSoapOut">
+		
+    
+		<part name="parameters" element="tns:WSDaliPingResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="SaveSDSStoreSoapIn">
+		
+    
+		<part name="parameters" element="tns:SaveSDSStoreRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="SaveSDSStoreSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetLogicalFilePartAttrSoapIn">
+		
+    
+		<part name="parameters" element="tns:SetLogicalFilePartAttrRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetLogicalFilePartAttrSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetProtectedSoapIn">
+		
+    
+		<part name="parameters" element="tns:SetProtectedRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetProtectedSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetTraceSlowTransactionsSoapIn">
+		
+    
+		<part name="parameters" element="tns:SetTraceSlowTransactionsRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetTraceSlowTransactionsSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetTraceTransactionsSoapIn">
+		
+    
+		<part name="parameters" element="tns:SetTraceTransactionsRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetTraceTransactionsSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetUnprotectedSoapIn">
+		
+    
+		<part name="parameters" element="tns:SetUnprotectedRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetUnprotectedSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetValueSoapIn">
+		
+    
+		<part name="parameters" element="tns:SetValueRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="SetValueSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="UnlockSDSLockSoapIn">
+		
+    
+		<part name="parameters" element="tns:UnlockSDSLockRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="UnlockSDSLockSoapOut">
+		
+    
+		<part name="parameters" element="tns:ResultResponse"/>
+		
+  
+	</message>
+	
+  
+	<portType name="WSDaliServiceSoap">
+		
+    
+		<operation name="Add">
+			
+      
+			<input message="tns:AddSoapIn"/>
+			
+      
+			<output message="tns:AddSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="ClearTraceTransactions">
+			
+      
+			<input message="tns:ClearTraceTransactionsSoapIn"/>
+			
+      
+			<output message="tns:ClearTraceTransactionsSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="Count">
+			
+      
+			<input message="tns:CountSoapIn"/>
+			
+      
+			<output message="tns:CountSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="DFSCheck">
+			
+      
+			<input message="tns:DFSCheckSoapIn"/>
+			
+      
+			<output message="tns:DFSCheckSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="DFSExists">
+			
+      
+			<input message="tns:DFSExistsSoapIn"/>
+			
+      
+			<output message="tns:DFSExistsSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="DFSLS">
+			
+      
+			<input message="tns:DFSLSSoapIn"/>
+			
+      
+			<output message="tns:DFSLSSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="Delete">
+			
+      
+			<input message="tns:DeleteSoapIn"/>
+			
+      
+			<output message="tns:DeleteSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="DisconnectClientConnection">
+			
+      
+			<input message="tns:DisconnectClientConnectionSoapIn"/>
+			
+      
+			<output message="tns:DisconnectClientConnectionSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetClients">
+			
+      
+			<input message="tns:GetClientsSoapIn"/>
+			
+      
+			<output message="tns:GetClientsSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetConnections">
+			
+      
+			<input message="tns:GetConnectionsSoapIn"/>
+			
+      
+			<output message="tns:GetConnectionsSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetDFSCSV">
+			
+      
+			<input message="tns:GetDFSCSVSoapIn"/>
+			
+      
+			<output message="tns:GetDFSCSVSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetDFSMap">
+			
+      
+			<input message="tns:GetDFSMapSoapIn"/>
+			
+      
+			<output message="tns:GetDFSMapSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetDFSParents">
+			
+      
+			<input message="tns:GetDFSParentsSoapIn"/>
+			
+      
+			<output message="tns:GetDFSParentsSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetLogicalFile">
+			
+      
+			<input message="tns:GetLogicalFileSoapIn"/>
+			
+      
+			<output message="tns:GetLogicalFileSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetLogicalFilePart">
+			
+      
+			<input message="tns:GetLogicalFilePartSoapIn"/>
+			
+      
+			<output message="tns:GetLogicalFilePartSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetProtectedList">
+			
+      
+			<input message="tns:GetProtectedListSoapIn"/>
+			
+      
+			<output message="tns:GetProtectedListSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetSDSStats">
+			
+      
+			<input message="tns:GetSDSStatsSoapIn"/>
+			
+      
+			<output message="tns:GetSDSStatsSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetSDSSubscribers">
+			
+      
+			<input message="tns:GetSDSSubscribersSoapIn"/>
+			
+      
+			<output message="tns:GetSDSSubscribersSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetValue">
+			
+      
+			<input message="tns:GetValueSoapIn"/>
+			
+      
+			<output message="tns:GetValueSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="Import">
+			
+      
+			<input message="tns:ImportSoapIn"/>
+			
+      
+			<output message="tns:ImportSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="ListSDSLocks">
+			
+      
+			<input message="tns:ListSDSLocksSoapIn"/>
+			
+      
+			<output message="tns:ListSDSLocksSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="Ping">
+			
+      
+			<input message="tns:PingSoapIn"/>
+			
+      
+			<output message="tns:PingSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="SaveSDSStore">
+			
+      
+			<input message="tns:SaveSDSStoreSoapIn"/>
+			
+      
+			<output message="tns:SaveSDSStoreSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetLogicalFilePartAttr">
+			
+      
+			<input message="tns:SetLogicalFilePartAttrSoapIn"/>
+			
+      
+			<output message="tns:SetLogicalFilePartAttrSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetProtected">
+			
+      
+			<input message="tns:SetProtectedSoapIn"/>
+			
+      
+			<output message="tns:SetProtectedSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetTraceSlowTransactions">
+			
+      
+			<input message="tns:SetTraceSlowTransactionsSoapIn"/>
+			
+      
+			<output message="tns:SetTraceSlowTransactionsSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetTraceTransactions">
+			
+      
+			<input message="tns:SetTraceTransactionsSoapIn"/>
+			
+      
+			<output message="tns:SetTraceTransactionsSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetUnprotected">
+			
+      
+			<input message="tns:SetUnprotectedSoapIn"/>
+			
+      
+			<output message="tns:SetUnprotectedSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetValue">
+			
+      
+			<input message="tns:SetValueSoapIn"/>
+			
+      
+			<output message="tns:SetValueSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="UnlockSDSLock">
+			
+      
+			<input message="tns:UnlockSDSLockSoapIn"/>
+			
+      
+			<output message="tns:UnlockSDSLockSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+  
+	</portType>
+	
+  
+	<binding name="WSDaliServiceSoap" type="tns:WSDaliServiceSoap">
+		
+    
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		
+    
+		<operation name="Add">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/Add?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="ClearTraceTransactions">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/ClearTraceTransactions?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="Count">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/Count?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="DFSCheck">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/DFSCheck?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="DFSExists">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/DFSExists?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="DFSLS">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/DFSLS?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="Delete">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/Delete?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="DisconnectClientConnection">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/DisconnectClientConnection?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetClients">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/GetClients?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetConnections">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/GetConnections?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetDFSCSV">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/GetDFSCSV?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetDFSMap">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/GetDFSMap?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetDFSParents">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/GetDFSParents?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetLogicalFile">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/GetLogicalFile?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetLogicalFilePart">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/GetLogicalFilePart?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetProtectedList">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/GetProtectedList?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetSDSStats">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/GetSDSStats?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetSDSSubscribers">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/GetSDSSubscribers?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetValue">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/GetValue?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="Import">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/Import?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="ListSDSLocks">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/ListSDSLocks?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="Ping">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/Ping?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="SaveSDSStore">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/SaveSDSStore?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetLogicalFilePartAttr">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/SetLogicalFilePartAttr?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetProtected">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/SetProtected?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetTraceSlowTransactions">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/SetTraceSlowTransactions?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetTraceTransactions">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/SetTraceTransactions?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetUnprotected">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/SetUnprotected?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="SetValue">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/SetValue?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="UnlockSDSLock">
+			
+      
+			<soap:operation style="document" soapAction="WSDali/UnlockSDSLock?ver_=1.07"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+  
+	</binding>
+	
+  
+	<service name="WSDali">
+		
+    
+		<port name="WSDaliServiceSoap" binding="tns:WSDaliServiceSoap">
+			
+      
+			<soap:address location="http://172.27.163.120:8010/WSDali?ver_=1.07"/>
+			
+    
+		</port>
+		
+  
+	</service>
+	
+
+</definitions>

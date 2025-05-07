@@ -26,6 +26,7 @@ public class WUDetailsMetaPropertyWrapper
 {
     protected String local_name;
     protected WUDetailsAttrValueTypeWrapper local_valueType;
+    protected String local_description;
 
     public WUDetailsMetaPropertyWrapper() {}
 
@@ -33,10 +34,11 @@ public class WUDetailsMetaPropertyWrapper
     {
         copy( wudetailsmetaproperty );
     }
-    public WUDetailsMetaPropertyWrapper( String _name, WUDetailsAttrValueTypeWrapper _valueType )
+    public WUDetailsMetaPropertyWrapper( String _name, WUDetailsAttrValueTypeWrapper _valueType, String _description )
     {
         this.local_name = _name;
         this.local_valueType = _valueType;
+        this.local_description = _description;
 
     }
 
@@ -48,13 +50,14 @@ public class WUDetailsMetaPropertyWrapper
         this.local_name = raw.getName();
         if (raw.getValueType() != null)
             this.local_valueType = new WUDetailsAttrValueTypeWrapper( raw.getValueType());
+        this.local_description = raw.getDescription();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUDetailsMetaPropertyWrapper [" + "name = " + local_name + ", " + "valueType = " + local_valueType + "]";
+        return "WUDetailsMetaPropertyWrapper [" + "name = " + local_name + ", " + "valueType = " + local_valueType + ", " + "description = " + local_description + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty getRaw()
     {
@@ -62,6 +65,7 @@ public class WUDetailsMetaPropertyWrapper
         raw.setName( local_name);
         if (local_valueType != null)
             raw.setValueType( local_valueType.getRaw());
+        raw.setDescription( local_description);
         return raw;
     }
 
@@ -81,5 +85,13 @@ public class WUDetailsMetaPropertyWrapper
     public WUDetailsAttrValueTypeWrapper getValueType( )
     {
         return this.local_valueType;
+    }
+    public void setDescription( String _description )
+    {
+        this.local_description = _description;
+    }
+    public String getDescription( )
+    {
+        return this.local_description;
     }
 }

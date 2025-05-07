@@ -1553,7 +1553,7 @@
 		<port name="WsDFUXRefServiceSoap" binding="tns:WsDFUXRefServiceSoap">
 			
       
-			<soap:address location="http://eclwatch-66ff99685c-4bl4k:8888/WsDFUXRef?ver_=1.04"/>
+			<soap:address location="http://172.27.163.120:8010/WsDFUXRef?ver_=1.04"/>
 			
     
 		</port>

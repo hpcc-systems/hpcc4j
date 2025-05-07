@@ -24,7 +24,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wstopology;
  */
 public class TpMachineQueryRequestWrapper
 {
-    protected String local_type;
+    protected TpMachineTypeWrapper local_type;
     protected String local_cluster;
     protected String local_oldIP;
     protected String local_path;
@@ -37,7 +37,7 @@ public class TpMachineQueryRequestWrapper
     {
         copy( tpmachinequeryrequest );
     }
-    public TpMachineQueryRequestWrapper( String _type, String _cluster, String _oldIP, String _path, String _directory, String _logDirectory )
+    public TpMachineQueryRequestWrapper( TpMachineTypeWrapper _type, String _cluster, String _oldIP, String _path, String _directory, String _logDirectory )
     {
         this.local_type = _type;
         this.local_cluster = _cluster;
@@ -53,7 +53,8 @@ public class TpMachineQueryRequestWrapper
         if (raw == null)
             return;
 
-        this.local_type = raw.getType();
+        if (raw.getType() != null)
+            this.local_type = new TpMachineTypeWrapper( raw.getType());
         this.local_cluster = raw.getCluster();
         this.local_oldIP = raw.getOldIP();
         this.local_path = raw.getPath();
@@ -70,7 +71,8 @@ public class TpMachineQueryRequestWrapper
     public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryRequest getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryRequest raw = new org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryRequest();
-        raw.setType( local_type);
+        if (local_type != null)
+            raw.setType( local_type.getRaw());
         raw.setCluster( local_cluster);
         raw.setOldIP( local_oldIP);
         raw.setPath( local_path);
@@ -80,11 +82,11 @@ public class TpMachineQueryRequestWrapper
     }
 
 
-    public void setType( String _type )
+    public void setType( TpMachineTypeWrapper _type )
     {
         this.local_type = _type;
     }
-    public String getType( )
+    public TpMachineTypeWrapper getType( )
     {
         return this.local_type;
     }

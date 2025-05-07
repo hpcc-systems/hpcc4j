@@ -110,6 +110,7 @@ public class WSResroucesClientTest extends BaseRemoteTest
         // Set the request parameters
         request.setType(null);
 
+        System.out.println("testTargetQueryNullType using request: '" + request.toString() + "'");
         try
         {
             TargetQueryResponseWrapper response = wsResourcesClient.targetQuery(request);
@@ -124,7 +125,7 @@ public class WSResroucesClientTest extends BaseRemoteTest
         }
         catch (Exception e)
         {
-             Assert.fail("Unexpected Exception type");
+             Assert.fail("testTargetQueryNullType failed due to receiving an unexpected Exception TYPE");
         }
     }
 
@@ -136,10 +137,31 @@ public class WSResroucesClientTest extends BaseRemoteTest
         TargetQueryRequestWrapper request = new TargetQueryRequestWrapper();
         request.setType(new HPCCQueueTypeWrapper(HPCCQueueType._All));
 
-        // Call the targetQuery method
-        TargetQueryResponseWrapper response = wsResourcesClient.targetQuery(request);
+        System.out.println("testTargetQueryAllType using request: '" + request.toString() + "'");
 
-        Assert.assertNotNull(response);
+        try
+        {
+            // Call the targetQuery method
+            TargetQueryResponseWrapper response = wsResourcesClient.targetQuery(request);
+            Assert.assertNotNull(response);
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            String messages = "testTargetQueryAllType failed due to unexpected execption: '";
+            List<EspExceptionWrapper> espexceptions = e.getEspExceptions();
+            Assert.assertNotNull(espexceptions);
+            Assert.assertNotNull(espexceptions.get(0));
+            for (EspExceptionWrapper exception : espexceptions)
+            {
+                messages += "\n" + exception.getMessage();
+            }
+
+            Assert.fail(messages + "'");
+        }
+        catch (Exception e)
+        {
+            Assert.fail("testTargetQueryAllType failed due to unexpected execption: '" + e.getMessage() + "'");
+        }
     }
 
     @Test
@@ -150,10 +172,31 @@ public class WSResroucesClientTest extends BaseRemoteTest
         TargetQueryRequestWrapper request = new TargetQueryRequestWrapper();
         request.setType(new HPCCQueueTypeWrapper(HPCCQueueType._Roxie));
 
-        // Call the targetQuery method
-        TargetQueryResponseWrapper response = wsResourcesClient.targetQuery(request);
+        System.out.println("testTargetQueryRoxieType using request: '" + request.toString() + "'");
 
-        Assert.assertNotNull(response);
+        try
+        {
+            // Call the targetQuery method
+            TargetQueryResponseWrapper response = wsResourcesClient.targetQuery(request);
+            Assert.assertNotNull(response);
+        }
+        catch (ArrayOfEspExceptionWrapper e)
+        {
+            String messages = "testTargetQueryRoxieType failed due to unexpected execption: '";
+            List<EspExceptionWrapper> espexceptions = e.getEspExceptions();
+            Assert.assertNotNull(espexceptions);
+            Assert.assertNotNull(espexceptions.get(0));
+            for (EspExceptionWrapper exception : espexceptions)
+            {
+                messages += "\n" + exception.getMessage();
+            }
+
+            Assert.fail(messages + "'");
+        }
+        catch (Exception e)
+        {
+            Assert.fail("testTargetQueryRoxieType failed due to unexpected execption: '" + e.getMessage() + "'");
+        }
     }
 
     @Test

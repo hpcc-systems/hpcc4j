@@ -3,7 +3,7 @@ Generated Axis2 ADB stub class wrapper package report:
   Wrapper package name: org.hpccsystems.ws.client.wrappers.gen.wstopology
   Wrapped service name: WsTopology
   Wrapped package: org.hpccsystems.ws.client.gen.axis2.wstopology.latest
-  Wrapped service version: 1.31
+  Wrapped service version: 1.32
 Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclAgent
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLdapServer
@@ -25,6 +25,7 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDkcSlave
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLogicalCluster
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalCluster
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesRequest
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileRequest
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryResponse
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetCluster
@@ -32,15 +33,18 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachine
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineType
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Plugins_type0
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryResponse
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpBinding
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEclAgent
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogRequest
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGenesisServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesResponse
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclScheduler
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSashaServer
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSparkThor
@@ -72,6 +76,7 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoRequest
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServices
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfLogFileStruct
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogResponse
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpThorStatusResponse

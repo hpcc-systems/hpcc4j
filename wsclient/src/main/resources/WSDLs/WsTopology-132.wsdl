@@ -89,6 +89,48 @@
 			</xsd:simpleType>
 			
       
+			<xsd:simpleType name="TpMachineType">
+				
+        
+				<xsd:restriction base="xsd:string">
+					
+          
+					<xsd:enumeration value="ALLNODES"/>
+					
+          
+					<xsd:enumeration value="THORMACHINES"/>
+					
+          
+					<xsd:enumeration value="HOLEMACHINES"/>
+					
+          
+					<xsd:enumeration value="ROXIEMACHINES"/>
+					
+          
+					<xsd:enumeration value="MACHINES"/>
+					
+          
+					<xsd:enumeration value="AVAILABLEMACHINES"/>
+					
+          
+					<xsd:enumeration value="DROPZONE"/>
+					
+          
+					<xsd:enumeration value="STANDBYNNODE"/>
+					
+          
+					<xsd:enumeration value="THORSPARENODES"/>
+					
+          
+					<xsd:enumeration value="HOLESTANDBYNODES"/>
+					
+        
+				</xsd:restriction>
+				
+      
+			</xsd:simpleType>
+			
+      
 			<xsd:complexType name="TpQueue">
 				
         
@@ -1604,7 +1646,7 @@
 					<xsd:all>
 						
             
-						<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="Type" type="tns:TpMachineType"/>
 						
             
 						<xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
@@ -2183,7 +2225,7 @@
 						<xsd:element minOccurs="0" name="HasThorSpareProcess" type="xsd:boolean"/>
 						
             
-						<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="Type" type="tns:TpMachineType"/>
 						
             
 						<xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
@@ -3950,7 +3992,7 @@
 		<port name="WsTopologyServiceSoap" binding="tns:WsTopologyServiceSoap">
 			
       
-			<soap:address location="http://eclwatch-65768756c6-9sm8c:8888/WsTopology?ver_=1.32"/>
+			<soap:address location="http://172.27.163.120:8010/WsTopology?ver_=1.32"/>
 			
     
 		</port>

@@ -1,487 +1,851 @@
 <?xml version="1.0" ?>
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:hpccsystems:ws:wsresources" targetNamespace="urn:hpccsystems:ws:wsresources">
+	
+  
 	<types>
+		
+    
 		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:wsresources">
 			
-
+      
 			<xsd:complexType name="EspException">
+				
+        
 				<xsd:all>
+					
+          
 					<xsd:element name="Code" type="xsd:string" minOccurs="0"/>
+					
+          
 					<xsd:element name="Audience" type="xsd:string" minOccurs="0"/>
+					
+          
 					<xsd:element name="Source" type="xsd:string" minOccurs="0"/>
+					
+          
 					<xsd:element name="Message" type="xsd:string" minOccurs="0"/>
+					
+        
 				</xsd:all>
+				
+      
 			</xsd:complexType>
 			
-
+      
 			<xsd:complexType name="ArrayOfEspException">
+				
+        
 				<xsd:sequence>
+					
+          
 					<xsd:element name="Source" type="xsd:string" minOccurs="0"/>
+					
+          
 					<xsd:element name="Exception" type="tns:EspException" minOccurs="0" maxOccurs="unbounded"/>
+					
+        
 				</xsd:sequence>
+				
+      
 			</xsd:complexType>
 			
-
+      
 			<xsd:element name="Exceptions" type="tns:ArrayOfEspException"/>
 			
-
-			<xsd:element name="WsResourcesPingRequest">
-				<xsd:complexType>
-					<xsd:all/>
-				</xsd:complexType>
-			</xsd:element>
-			
-
-			<xsd:element name="WsResourcesPingResponse">
-				<xsd:complexType>
-					<xsd:all/>
-				</xsd:complexType>
-			</xsd:element>
-			
-
-			<xsd:element name="ServiceQueryRequest">
-				<xsd:complexType>
+      
+			<xsd:complexType name="EspStringArray">
+				
+        
+				<xsd:sequence>
 					
-
-					<xsd:all>
-						<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
-						
-
-						<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
-						
-
-					</xsd:all>
+          
+					<xsd:element name="Item" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
 					
-
-				</xsd:complexType>
-			</xsd:element>
+        
+				</xsd:sequence>
+				
+      
+			</xsd:complexType>
 			
-
-			<xsd:element name="ServiceQueryResponse">
-				<xsd:complexType>
+      
+			<xsd:simpleType name="HPCCQueueType">
+				
+        
+				<xsd:restriction base="xsd:string">
 					
-
-					<xsd:all>
-						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
-						<xsd:element minOccurs="0" name="Services">
-							
-
-							<xsd:complexType>
-								<xsd:sequence>
-									
-
-									<xsd:element minOccurs="0" maxOccurs="unbounded" name="Service" type="tns:HPCCService"/>
-								</xsd:sequence>
-							</xsd:complexType>
-						</xsd:element>
-					</xsd:all>
+          
+					<xsd:enumeration value="Thor"/>
 					
-
-				</xsd:complexType>
-			</xsd:element>
+          
+					<xsd:enumeration value="HThor"/>
+					
+          
+					<xsd:enumeration value="Roxie"/>
+					
+          
+					<xsd:enumeration value="All"/>
+					
+        
+				</xsd:restriction>
+				
+      
+			</xsd:simpleType>
 			
-
+      
+			<xsd:simpleType name="ExternalIPStatus">
+				
+        
+				<xsd:restriction base="xsd:string">
+					
+          
+					<xsd:enumeration value="Unknown"/>
+					
+          
+					<xsd:enumeration value="None"/>
+					
+          
+					<xsd:enumeration value="Pending"/>
+					
+        
+				</xsd:restriction>
+				
+      
+			</xsd:simpleType>
+			
+      
 			<xsd:complexType name="HPCCService">
 				
-
+        
 				<xsd:all>
+					
+          
 					<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
 					
-
+          
 					<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
 					
-
+          
 					<xsd:element minOccurs="0" name="Port" type="xsd:unsignedInt"/>
 					
-
+          
 					<xsd:element minOccurs="0" name="TLSSecure" type="xsd:boolean"/>
 					
-
+        
 				</xsd:all>
 				
-
+      
 			</xsd:complexType>
 			
-
-			<xsd:element name="TargetQueryRequest">
-				<xsd:complexType>
-					
-
-					<xsd:all>
-						<xsd:element minOccurs="0" name="Type" type="tns:HPCCQueueType"/>
-						
-
-					</xsd:all>
-					
-
-				</xsd:complexType>
-			</xsd:element>
-			
-
-			<xsd:simpleType name="HPCCQueueType">
-				<xsd:restriction base="xsd:string">
-					<xsd:enumeration value="Thor"/>
-					<xsd:enumeration value="HThor"/>
-					<xsd:enumeration value="Roxie"/>
-					<xsd:enumeration value="All"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-			<xsd:element name="TargetQueryResponse">
-				<xsd:complexType>
-					
-
-					<xsd:all>
-						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
-						<xsd:element minOccurs="0" name="Queues" type="tns:ArrayOfHPCCQueue"/>
-						
-
-						<xsd:element minOccurs="0" name="Roxies" type="tns:EspStringArray"/>
-						
-
-					</xsd:all>
-					
-
-				</xsd:complexType>
-			</xsd:element>
-			
-
+      
 			<xsd:complexType name="HPCCQueue">
 				
-
+        
 				<xsd:all>
+					
+          
 					<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
 					
-
+          
 					<xsd:element minOccurs="0" name="Type" type="tns:HPCCQueueType"/>
 					
-
+        
 				</xsd:all>
 				
-
+      
 			</xsd:complexType>
 			
-
-			<xsd:complexType name="EspStringArray">
-				<xsd:sequence>
-					<xsd:element name="Item" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
-				</xsd:sequence>
-			</xsd:complexType>
-			
-
+      
 			<xsd:complexType name="ArrayOfHPCCQueue">
 				
-
+        
 				<xsd:sequence>
 					
-
+          
 					<xsd:element minOccurs="0" maxOccurs="unbounded" name="HPCCQueue" type="tns:HPCCQueue"/>
 					
-
+        
 				</xsd:sequence>
 				
-
+      
 			</xsd:complexType>
 			
-
-			<xsd:element name="WebLinksQueryRequest">
-				<xsd:complexType>
-					<xsd:all/>
-				</xsd:complexType>
-			</xsd:element>
-			
-
-			<xsd:element name="WebLinksQueryResponse">
-				<xsd:complexType>
-					
-
-					<xsd:all>
-						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
-						<xsd:element minOccurs="0" name="DiscoveredWebLinks" type="tns:ArrayOfDiscoveredWebLink"/>
-						
-
-						<xsd:element minOccurs="0" name="ConfiguredWebLinks" type="tns:ArrayOfConfiguredWebLink"/>
-						
-
-					</xsd:all>
-					
-
-				</xsd:complexType>
-			</xsd:element>
-			
-
-			<xsd:complexType name="DiscoveredWebLink">
-				
-
-				<xsd:all>
-					<xsd:element minOccurs="0" name="ServiceName" type="xsd:string"/>
-					
-
-					<xsd:element minOccurs="0" name="NameSpace" type="xsd:string"/>
-					
-
-					<xsd:element minOccurs="0" name="Annotations" type="tns:ArrayOfNamedValue"/>
-					
-
-					<xsd:element minOccurs="0" name="Connection" type="tns:ServiceConnection"/>
-					
-
-				</xsd:all>
-				
-
-			</xsd:complexType>
-			
-
+      
 			<xsd:complexType name="NamedValue">
 				
-
+        
 				<xsd:all>
+					
+          
 					<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
 					
-
+          
 					<xsd:element minOccurs="0" name="Value" type="xsd:string"/>
 					
-
+        
 				</xsd:all>
 				
-
+      
 			</xsd:complexType>
 			
-
-			<xsd:complexType name="ServiceConnection">
-				
-
-				<xsd:all>
-					<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
-					
-
-					<xsd:element minOccurs="0" name="ExternalIPs" type="tns:EspStringArray"/>
-					
-
-					<xsd:element minOccurs="0" name="ExternalIPStatus" type="tns:ExternalIPStatus"/>
-					
-
-					<xsd:element minOccurs="0" name="Ports" type="tns:ArrayOfServicePorts"/>
-					
-
-				</xsd:all>
-				
-
-			</xsd:complexType>
-			
-
-			<xsd:simpleType name="ExternalIPStatus">
-				<xsd:restriction base="xsd:string">
-					<xsd:enumeration value="Unknown"/>
-					<xsd:enumeration value="None"/>
-					<xsd:enumeration value="Pending"/>
-				</xsd:restriction>
-			</xsd:simpleType>
-			<xsd:complexType name="ServicePorts">
-				
-
-				<xsd:all>
-					<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
-					
-
-					<xsd:element minOccurs="0" name="Protocol" type="xsd:string"/>
-					
-
-					<xsd:element minOccurs="0" name="Port" type="xsd:unsignedInt"/>
-					
-
-				</xsd:all>
-				
-
-			</xsd:complexType>
-			
-
-			<xsd:complexType name="ArrayOfServicePorts">
-				
-
-				<xsd:sequence>
-					
-
-					<xsd:element minOccurs="0" maxOccurs="unbounded" name="ServicePorts" type="tns:ServicePorts"/>
-					
-
-				</xsd:sequence>
-				
-
-			</xsd:complexType>
-			
-
+      
 			<xsd:complexType name="ArrayOfNamedValue">
 				
-
+        
 				<xsd:sequence>
 					
-
+          
 					<xsd:element minOccurs="0" maxOccurs="unbounded" name="NamedValue" type="tns:NamedValue"/>
 					
-
+        
 				</xsd:sequence>
 				
-
+      
 			</xsd:complexType>
 			
-
-			<xsd:complexType name="ConfiguredWebLink">
+      
+			<xsd:complexType name="ServicePorts">
 				
-
+        
 				<xsd:all>
+					
+          
 					<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
 					
-
-					<xsd:element minOccurs="0" name="Description" type="xsd:string"/>
+          
+					<xsd:element minOccurs="0" name="Protocol" type="xsd:string"/>
 					
-
-					<xsd:element minOccurs="0" name="URL" type="xsd:string"/>
+          
+					<xsd:element minOccurs="0" name="Port" type="xsd:unsignedInt"/>
 					
-
+        
 				</xsd:all>
 				
-
+      
 			</xsd:complexType>
 			
-
-			<xsd:complexType name="ArrayOfConfiguredWebLink">
+      
+			<xsd:complexType name="ArrayOfServicePorts">
 				
-
+        
 				<xsd:sequence>
 					
-
-					<xsd:element minOccurs="0" maxOccurs="unbounded" name="ConfiguredWebLink" type="tns:ConfiguredWebLink"/>
+          
+					<xsd:element minOccurs="0" maxOccurs="unbounded" name="ServicePorts" type="tns:ServicePorts"/>
 					
-
+        
 				</xsd:sequence>
 				
-
+      
 			</xsd:complexType>
 			
-
+      
+			<xsd:complexType name="ServiceConnection">
+				
+        
+				<xsd:all>
+					
+          
+					<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="ExternalIPs" type="tns:EspStringArray"/>
+					
+          
+					<xsd:element minOccurs="0" name="ExternalIPStatus" type="tns:ExternalIPStatus"/>
+					
+          
+					<xsd:element minOccurs="0" name="Ports" type="tns:ArrayOfServicePorts"/>
+					
+        
+				</xsd:all>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="DiscoveredWebLink">
+				
+        
+				<xsd:all>
+					
+          
+					<xsd:element minOccurs="0" name="ServiceName" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="NameSpace" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="Annotations" type="tns:ArrayOfNamedValue"/>
+					
+          
+					<xsd:element minOccurs="0" name="Connection" type="tns:ServiceConnection"/>
+					
+        
+				</xsd:all>
+				
+      
+			</xsd:complexType>
+			
+      
 			<xsd:complexType name="ArrayOfDiscoveredWebLink">
 				
-
+        
 				<xsd:sequence>
 					
-
+          
 					<xsd:element minOccurs="0" maxOccurs="unbounded" name="DiscoveredWebLink" type="tns:DiscoveredWebLink"/>
 					
-
+        
 				</xsd:sequence>
 				
-
+      
 			</xsd:complexType>
 			
-
+      
+			<xsd:complexType name="ConfiguredWebLink">
+				
+        
+				<xsd:all>
+					
+          
+					<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="Description" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="URL" type="xsd:string"/>
+					
+        
+				</xsd:all>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="ArrayOfConfiguredWebLink">
+				
+        
+				<xsd:sequence>
+					
+          
+					<xsd:element minOccurs="0" maxOccurs="unbounded" name="ConfiguredWebLink" type="tns:ConfiguredWebLink"/>
+					
+        
+				</xsd:sequence>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:element name="WsResourcesPingRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="ServiceQueryRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="TargetQueryRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Type" type="tns:HPCCQueueType"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="WebLinksQueryRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="WsResourcesPingResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="ServiceQueryResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="Services">
+							
+              
+							<xsd:complexType>
+								
+                
+								<xsd:sequence>
+									
+                  
+									<xsd:element minOccurs="0" maxOccurs="unbounded" name="Service" type="tns:HPCCService"/>
+									
+                
+								</xsd:sequence>
+								
+              
+							</xsd:complexType>
+							
+            
+						</xsd:element>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="TargetQueryResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="Queues" type="tns:ArrayOfHPCCQueue"/>
+						
+            
+						<xsd:element minOccurs="0" name="Roxies" type="tns:EspStringArray"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="WebLinksQueryResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="DiscoveredWebLinks" type="tns:ArrayOfDiscoveredWebLink"/>
+						
+            
+						<xsd:element minOccurs="0" name="ConfiguredWebLinks" type="tns:ArrayOfConfiguredWebLink"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
 			<xsd:element name="string" nillable="true" type="xsd:string"/>
 			
-
+    
 		</xsd:schema>
+		
+  
 	</types>
-	<message name="PingSoapIn">
-		<part name="parameters" element="tns:WsResourcesPingRequest"/>
-	</message>
-	<message name="PingSoapOut">
-		<part name="parameters" element="tns:WsResourcesPingResponse"/>
-	</message>
-	<message name="ServiceQuerySoapIn">
-		<part name="parameters" element="tns:ServiceQueryRequest"/>
-	</message>
-	<message name="ServiceQuerySoapOut">
-		<part name="parameters" element="tns:ServiceQueryResponse"/>
-	</message>
-	<message name="TargetQuerySoapIn">
-		<part name="parameters" element="tns:TargetQueryRequest"/>
-	</message>
-	<message name="TargetQuerySoapOut">
-		<part name="parameters" element="tns:TargetQueryResponse"/>
-	</message>
-	<message name="WebLinksQuerySoapIn">
-		<part name="parameters" element="tns:WebLinksQueryRequest"/>
-	</message>
-	<message name="WebLinksQuerySoapOut">
-		<part name="parameters" element="tns:WebLinksQueryResponse"/>
-	</message>
+	
+  
 	<message name="EspSoapFault">
+		
+    
 		<part name="parameters" element="tns:Exceptions"/>
+		
+  
 	</message>
+	
+  
+	<message name="PingSoapIn">
+		
+    
+		<part name="parameters" element="tns:WsResourcesPingRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="PingSoapOut">
+		
+    
+		<part name="parameters" element="tns:WsResourcesPingResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="ServiceQuerySoapIn">
+		
+    
+		<part name="parameters" element="tns:ServiceQueryRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="ServiceQuerySoapOut">
+		
+    
+		<part name="parameters" element="tns:ServiceQueryResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="TargetQuerySoapIn">
+		
+    
+		<part name="parameters" element="tns:TargetQueryRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="TargetQuerySoapOut">
+		
+    
+		<part name="parameters" element="tns:TargetQueryResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="WebLinksQuerySoapIn">
+		
+    
+		<part name="parameters" element="tns:WebLinksQueryRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="WebLinksQuerySoapOut">
+		
+    
+		<part name="parameters" element="tns:WebLinksQueryResponse"/>
+		
+  
+	</message>
+	
+  
 	<portType name="WsResourcesServiceSoap">
+		
+    
 		<operation name="Ping">
+			
+      
 			<input message="tns:PingSoapIn"/>
+			
+      
 			<output message="tns:PingSoapOut"/>
+			
+      
 			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
 		</operation>
+		
+    
 		<operation name="ServiceQuery">
+			
+      
 			<input message="tns:ServiceQuerySoapIn"/>
+			
+      
 			<output message="tns:ServiceQuerySoapOut"/>
+			
+      
 			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
 		</operation>
+		
+    
 		<operation name="TargetQuery">
+			
+      
 			<input message="tns:TargetQuerySoapIn"/>
+			
+      
 			<output message="tns:TargetQuerySoapOut"/>
+			
+      
 			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
 		</operation>
+		
+    
 		<operation name="WebLinksQuery">
+			
+      
 			<input message="tns:WebLinksQuerySoapIn"/>
+			
+      
 			<output message="tns:WebLinksQuerySoapOut"/>
+			
+      
 			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
 		</operation>
+		
+  
 	</portType>
+	
+  
 	<binding name="WsResourcesServiceSoap" type="tns:WsResourcesServiceSoap">
+		
+    
 		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		
+    
 		<operation name="Ping">
-			<soap:operation soapAction="WsResources/Ping?ver_=1.03" style="document"/>
+			
+      
+			<soap:operation style="document" soapAction="WsResources/Ping?ver_=1.03"/>
+			
+      
 			<input>
+				
+        
 				<soap:body use="literal"/>
+				
+      
 			</input>
+			
+      
 			<output>
+				
+        
 				<soap:body use="literal"/>
+				
+      
 			</output>
+			
+      
 			<fault name="excfault">
+				
+        
 				<soap:fault name="excfault" use="literal"/>
+				
+      
 			</fault>
+			
+    
 		</operation>
+		
+    
 		<operation name="ServiceQuery">
-			<soap:operation soapAction="WsResources/ServiceQuery?ver_=1.03" style="document"/>
+			
+      
+			<soap:operation style="document" soapAction="WsResources/ServiceQuery?ver_=1.03"/>
+			
+      
 			<input>
+				
+        
 				<soap:body use="literal"/>
+				
+      
 			</input>
+			
+      
 			<output>
+				
+        
 				<soap:body use="literal"/>
+				
+      
 			</output>
+			
+      
 			<fault name="excfault">
+				
+        
 				<soap:fault name="excfault" use="literal"/>
+				
+      
 			</fault>
+			
+    
 		</operation>
+		
+    
 		<operation name="TargetQuery">
-			<soap:operation soapAction="WsResources/TargetQuery?ver_=1.03" style="document"/>
+			
+      
+			<soap:operation style="document" soapAction="WsResources/TargetQuery?ver_=1.03"/>
+			
+      
 			<input>
+				
+        
 				<soap:body use="literal"/>
+				
+      
 			</input>
+			
+      
 			<output>
+				
+        
 				<soap:body use="literal"/>
+				
+      
 			</output>
+			
+      
 			<fault name="excfault">
+				
+        
 				<soap:fault name="excfault" use="literal"/>
+				
+      
 			</fault>
+			
+    
 		</operation>
+		
+    
 		<operation name="WebLinksQuery">
-			<soap:operation soapAction="WsResources/WebLinksQuery?ver_=1.03" style="document"/>
+			
+      
+			<soap:operation style="document" soapAction="WsResources/WebLinksQuery?ver_=1.03"/>
+			
+      
 			<input>
+				
+        
 				<soap:body use="literal"/>
+				
+      
 			</input>
+			
+      
 			<output>
+				
+        
 				<soap:body use="literal"/>
+				
+      
 			</output>
+			
+      
 			<fault name="excfault">
+				
+        
 				<soap:fault name="excfault" use="literal"/>
+				
+      
 			</fault>
+			
+    
 		</operation>
+		
+  
 	</binding>
+	
+  
 	<service name="WsResources">
+		
+    
 		<port name="WsResourcesServiceSoap" binding="tns:WsResourcesServiceSoap">
-			<soap:address location="http://10.1.2.160:8888/WsResources?ver_=1.03"/>
+			
+      
+			<soap:address location="http://172.27.163.120:8010/WsResources?ver_=1.03"/>
+			
+    
 		</port>
+		
+  
 	</service>
+	
+
 </definitions>

@@ -1,8 +1,8 @@
 /**
  * DFUFilePublishRequest.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsdfu.latest;
 
@@ -82,7 +82,7 @@ public class DFUFilePublishRequest implements org.apache.axis2.databinding.ADBBe
   }
 
   /** field for FileDescriptorBlob */
-  protected javax.activation.DataHandler localFileDescriptorBlob;
+  protected jakarta.activation.DataHandler localFileDescriptorBlob;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -97,9 +97,9 @@ public class DFUFilePublishRequest implements org.apache.axis2.databinding.ADBBe
   /**
    * Auto generated getter method
    *
-   * @return javax.activation.DataHandler
+   * @return jakarta.activation.DataHandler
    */
-  public javax.activation.DataHandler getFileDescriptorBlob() {
+  public jakarta.activation.DataHandler getFileDescriptorBlob() {
     return localFileDescriptorBlob;
   }
 
@@ -108,14 +108,15 @@ public class DFUFilePublishRequest implements org.apache.axis2.databinding.ADBBe
    *
    * @param param FileDescriptorBlob
    */
-  public void setFileDescriptorBlob(javax.activation.DataHandler param) {
+  public void setFileDescriptorBlob(jakarta.activation.DataHandler param) {
     localFileDescriptorBlobTracker = param != null;
 
     this.localFileDescriptorBlob = param;
   }
 
   /** field for SessionId */
-  protected long localSessionId;
+  protected long localSessionId =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -375,8 +376,11 @@ public class DFUFilePublishRequest implements org.apache.axis2.databinding.ADBBe
 
       if (localFileDescriptorBlob != null) {
         try {
-          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeDataHandler(
-              xmlWriter, localFileDescriptorBlob, null, true);
+          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeBlob(
+              xmlWriter,
+              org.apache.axiom.util.activation.DataHandlerUtils.toBlob(localFileDescriptorBlob),
+              null,
+              true);
         } catch (java.io.IOException ex) {
           throw new javax.xml.stream.XMLStreamException(
               "Unable to read data handler for FileDescriptorBlob", ex);
@@ -749,8 +753,8 @@ public class DFUFilePublishRequest implements org.apache.axis2.databinding.ADBBe
                     .equals(reader.getName())) {
 
               object.setFileDescriptorBlob(
-                  org.apache.axiom.util.stax.XMLStreamReaderUtils.getDataHandlerFromElement(
-                      reader));
+                  org.apache.axiom.util.activation.DataHandlerUtils.toDataHandler(
+                      org.apache.axiom.util.stax.XMLStreamReaderUtils.getBlobFromElement(reader)));
 
               reader.next();
 

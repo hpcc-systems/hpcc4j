@@ -60,6 +60,7 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.OutParams_type0
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLHelpFile
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.PublishedQuery
+    org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLWUProcess
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLHelpFile
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLGraph
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.EspSoapFault
@@ -90,6 +91,7 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.ExecutePreparedSQLResponse
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.SetRelatedIndexesRequest
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.RelatedIndexSets_type2
+    org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWUProcess
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfApplicationValue
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.Values_type0
     org.hpccsystems.ws.client.gen.axis2.wssql.latest.CreateTableAndLoadResponse

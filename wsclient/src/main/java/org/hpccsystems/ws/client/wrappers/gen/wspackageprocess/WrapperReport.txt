@@ -3,7 +3,7 @@ Generated Axis2 ADB stub class wrapper package report:
   Wrapper package name: org.hpccsystems.ws.client.wrappers.gen.wspackageprocess
   Wrapped service name: WsPackageProcess
   Wrapped package: org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest
-  Wrapped service version: 1.05
+  Wrapped service version: 1.06
 Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.PackageMapEntry
     org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.RemovePartFromPackageMapResponse

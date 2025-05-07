@@ -33,6 +33,7 @@ public class WUGetZAPInfoResponseWrapper
     protected String local_emailTo;
     protected String local_emailFrom;
     protected String local_message;
+    protected boolean local_isContainerized;
 
     public WUGetZAPInfoResponseWrapper() {}
 
@@ -40,7 +41,7 @@ public class WUGetZAPInfoResponseWrapper
     {
         copy( wugetzapinforesponse );
     }
-    public WUGetZAPInfoResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _wUID, String _eSPApplication, String _thorProcesses, String _buildVersion, String _archive, String _emailTo, String _emailFrom, String _message )
+    public WUGetZAPInfoResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _wUID, String _eSPApplication, String _thorProcesses, String _buildVersion, String _archive, String _emailTo, String _emailFrom, String _message, boolean _isContainerized )
     {
         this.local_exceptions = _exceptions;
         this.local_wUID = _wUID;
@@ -51,6 +52,7 @@ public class WUGetZAPInfoResponseWrapper
         this.local_emailTo = _emailTo;
         this.local_emailFrom = _emailFrom;
         this.local_message = _message;
+        this.local_isContainerized = _isContainerized;
 
     }
 
@@ -69,13 +71,14 @@ public class WUGetZAPInfoResponseWrapper
         this.local_emailTo = raw.getEmailTo();
         this.local_emailFrom = raw.getEmailFrom();
         this.local_message = raw.getMessage();
+        this.local_isContainerized = raw.getIsContainerized();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUGetZAPInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wUID = " + local_wUID + ", " + "eSPApplication = " + local_eSPApplication + ", " + "thorProcesses = " + local_thorProcesses + ", " + "buildVersion = " + local_buildVersion + ", " + "archive = " + local_archive + ", " + "emailTo = " + local_emailTo + ", " + "emailFrom = " + local_emailFrom + ", " + "message = " + local_message + "]";
+        return "WUGetZAPInfoResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "wUID = " + local_wUID + ", " + "eSPApplication = " + local_eSPApplication + ", " + "thorProcesses = " + local_thorProcesses + ", " + "buildVersion = " + local_buildVersion + ", " + "archive = " + local_archive + ", " + "emailTo = " + local_emailTo + ", " + "emailFrom = " + local_emailFrom + ", " + "message = " + local_message + ", " + "isContainerized = " + local_isContainerized + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetZAPInfoResponse getRaw()
     {
@@ -90,6 +93,7 @@ public class WUGetZAPInfoResponseWrapper
         raw.setEmailTo( local_emailTo);
         raw.setEmailFrom( local_emailFrom);
         raw.setMessage( local_message);
+        raw.setIsContainerized( local_isContainerized);
         return raw;
     }
 
@@ -165,5 +169,13 @@ public class WUGetZAPInfoResponseWrapper
     public String getMessage( )
     {
         return this.local_message;
+    }
+    public void setIsContainerized( boolean _isContainerized )
+    {
+        this.local_isContainerized = _isContainerized;
+    }
+    public boolean getIsContainerized( )
+    {
+        return this.local_isContainerized;
     }
 }

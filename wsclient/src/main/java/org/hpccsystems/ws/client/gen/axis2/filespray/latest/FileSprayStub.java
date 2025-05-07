@@ -1,8 +1,8 @@
 /**
  * FileSprayStub.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:46:59 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:49:45 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.filespray.latest;
 
@@ -829,13 +829,13 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
   public FileSprayStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://eclwatch-66ff99685c-4bl4k:8888/FileSpray?ver_=1.26");
+    this(configurationContext, "http://172.27.163.120:8010/FileSpray?ver_=1.26");
   }
 
   /** Default Constructor */
   public FileSprayStub() throws org.apache.axis2.AxisFault {
 
-    this("http://eclwatch-66ff99685c-4bl4k:8888/FileSpray?ver_=1.26");
+    this("http://172.27.163.120:8010/FileSpray?ver_=1.26");
   }
 
   /** Constructor taking the target endpoint */
@@ -4860,7 +4860,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     }
     return false;
   }
-  // http://eclwatch-66ff99685c-4bl4k:8888/FileSpray?ver_=1.26
+  // http://172.27.163.120:8010/FileSpray?ver_=1.26
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayVariable param,
       boolean optimizeContent)

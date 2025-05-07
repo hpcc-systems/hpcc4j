@@ -1,8 +1,8 @@
 /**
  * WUGetZAPInfoResponse.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest;
 
@@ -314,6 +314,42 @@ public class WUGetZAPInfoResponse implements org.apache.axis2.databinding.ADBBea
     this.localMessage = param;
   }
 
+  /** field for IsContainerized */
+  protected boolean localIsContainerized =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIsContainerizedTracker = false;
+
+  public boolean isIsContainerizedSpecified() {
+    return localIsContainerizedTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIsContainerized() {
+    return localIsContainerized;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param IsContainerized
+   */
+  public void setIsContainerized(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localIsContainerizedTracker = true;
+
+    this.localIsContainerized = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -496,6 +532,21 @@ public class WUGetZAPInfoResponse implements org.apache.axis2.databinding.ADBBea
       } else {
 
         xmlWriter.writeCharacters(localMessage);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localIsContainerizedTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "IsContainerized", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("IsContainerized cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localIsContainerized));
       }
 
       xmlWriter.writeEndElement();
@@ -902,6 +953,26 @@ public class WUGetZAPInfoResponse implements org.apache.axis2.databinding.ADBBea
 
               object.setMessage(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "IsContainerized")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "IsContainerized" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIsContainerized(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();
 

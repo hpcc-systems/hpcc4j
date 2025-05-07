@@ -53,6 +53,8 @@ public class WUQuerysetCopyQueryWrapper
     protected boolean local_dfuOverwrite;
     protected boolean local_onlyCopyFiles;
     protected boolean local_stopIfFilesCopied;
+    protected String local_dfuPublisherWuid;
+    protected String local_remoteStorage;
 
     public WUQuerysetCopyQueryWrapper() {}
 
@@ -60,7 +62,7 @@ public class WUQuerysetCopyQueryWrapper
     {
         copy( wuquerysetcopyquery );
     }
-    public WUQuerysetCopyQueryWrapper( String _source, String _target, String _cluster, String _daliServer, int _activate, boolean _overwrite, boolean _dontCopyFiles, int _wait, boolean _noReload, String _memoryLimit, NonNegativeInteger _timeLimit, NonNegativeInteger _warnTimeLimit, String _priority, String _comment, String _sourceProcess, String _destName, boolean _allowForeignFiles, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _sourceSSL, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied )
+    public WUQuerysetCopyQueryWrapper( String _source, String _target, String _cluster, String _daliServer, int _activate, boolean _overwrite, boolean _dontCopyFiles, int _wait, boolean _noReload, String _memoryLimit, NonNegativeInteger _timeLimit, NonNegativeInteger _warnTimeLimit, String _priority, String _comment, String _sourceProcess, String _destName, boolean _allowForeignFiles, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _sourceSSL, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied, String _dfuPublisherWuid, String _remoteStorage )
     {
         this.local_source = _source;
         this.local_target = _target;
@@ -90,6 +92,8 @@ public class WUQuerysetCopyQueryWrapper
         this.local_dfuOverwrite = _dfuOverwrite;
         this.local_onlyCopyFiles = _onlyCopyFiles;
         this.local_stopIfFilesCopied = _stopIfFilesCopied;
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+        this.local_remoteStorage = _remoteStorage;
 
     }
 
@@ -126,13 +130,15 @@ public class WUQuerysetCopyQueryWrapper
         this.local_dfuOverwrite = raw.getDfuOverwrite();
         this.local_onlyCopyFiles = raw.getOnlyCopyFiles();
         this.local_stopIfFilesCopied = raw.getStopIfFilesCopied();
+        this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
+        this.local_remoteStorage = raw.getRemoteStorage();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUQuerysetCopyQueryWrapper [" + "source = " + local_source + ", " + "target = " + local_target + ", " + "cluster = " + local_cluster + ", " + "daliServer = " + local_daliServer + ", " + "activate = " + local_activate + ", " + "overwrite = " + local_overwrite + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "wait = " + local_wait + ", " + "noReload = " + local_noReload + ", " + "memoryLimit = " + local_memoryLimit + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "sourceProcess = " + local_sourceProcess + ", " + "destName = " + local_destName + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "sourceSSL = " + local_sourceSSL + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + "]";
+        return "WUQuerysetCopyQueryWrapper [" + "source = " + local_source + ", " + "target = " + local_target + ", " + "cluster = " + local_cluster + ", " + "daliServer = " + local_daliServer + ", " + "activate = " + local_activate + ", " + "overwrite = " + local_overwrite + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "wait = " + local_wait + ", " + "noReload = " + local_noReload + ", " + "memoryLimit = " + local_memoryLimit + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "sourceProcess = " + local_sourceProcess + ", " + "destName = " + local_destName + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "sourceSSL = " + local_sourceSSL + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "remoteStorage = " + local_remoteStorage + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetCopyQuery getRaw()
     {
@@ -165,6 +171,8 @@ public class WUQuerysetCopyQueryWrapper
         raw.setDfuOverwrite( local_dfuOverwrite);
         raw.setOnlyCopyFiles( local_onlyCopyFiles);
         raw.setStopIfFilesCopied( local_stopIfFilesCopied);
+        raw.setDfuPublisherWuid( local_dfuPublisherWuid);
+        raw.setRemoteStorage( local_remoteStorage);
         return raw;
     }
 
@@ -392,5 +400,21 @@ public class WUQuerysetCopyQueryWrapper
     public boolean getStopIfFilesCopied( )
     {
         return this.local_stopIfFilesCopied;
+    }
+    public void setDfuPublisherWuid( String _dfuPublisherWuid )
+    {
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+    }
+    public String getDfuPublisherWuid( )
+    {
+        return this.local_dfuPublisherWuid;
+    }
+    public void setRemoteStorage( String _remoteStorage )
+    {
+        this.local_remoteStorage = _remoteStorage;
+    }
+    public String getRemoteStorage( )
+    {
+        return this.local_remoteStorage;
     }
 }

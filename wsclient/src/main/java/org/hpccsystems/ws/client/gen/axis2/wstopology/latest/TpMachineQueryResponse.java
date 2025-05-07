@@ -1,8 +1,8 @@
 /**
  * TpMachineQueryResponse.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wstopology.latest;
 
@@ -120,7 +120,7 @@ public class TpMachineQueryResponse implements org.apache.axis2.databinding.ADBB
   }
 
   /** field for Type */
-  protected java.lang.String localType;
+  protected org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineType localType;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -135,9 +135,9 @@ public class TpMachineQueryResponse implements org.apache.axis2.databinding.ADBB
   /**
    * Auto generated getter method
    *
-   * @return java.lang.String
+   * @return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineType
    */
-  public java.lang.String getType() {
+  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineType getType() {
     return localType;
   }
 
@@ -146,7 +146,7 @@ public class TpMachineQueryResponse implements org.apache.axis2.databinding.ADBB
    *
    * @param param Type
    */
-  public void setType(java.lang.String param) {
+  public void setType(org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineType param) {
     localTypeTracker = param != null;
 
     this.localType = param;
@@ -680,20 +680,11 @@ public class TpMachineQueryResponse implements org.apache.axis2.databinding.ADBB
       xmlWriter.writeEndElement();
     }
     if (localTypeTracker) {
-      namespace = "urn:hpccsystems:ws:wstopology";
-      writeStartElement(null, namespace, "Type", xmlWriter);
-
       if (localType == null) {
-        // write the nil attribute
-
         throw new org.apache.axis2.databinding.ADBException("Type cannot be null!!");
-
-      } else {
-
-        xmlWriter.writeCharacters(localType);
       }
-
-      xmlWriter.writeEndElement();
+      localType.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Type"), xmlWriter);
     }
     if (localClusterTracker) {
       namespace = "urn:hpccsystems:ws:wstopology";
@@ -1189,17 +1180,9 @@ public class TpMachineQueryResponse implements org.apache.axis2.databinding.ADBB
                 && new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "Type")
                     .equals(reader.getName())) {
 
-              nillableValue =
-                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
-              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "Type" + "  cannot be null");
-              }
-
-              java.lang.String content = reader.getElementText();
-
               object.setType(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+                  org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineType.Factory.parse(
+                      reader));
 
               reader.next();
 

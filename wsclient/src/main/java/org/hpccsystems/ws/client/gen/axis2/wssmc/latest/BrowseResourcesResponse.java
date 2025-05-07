@@ -1,8 +1,8 @@
 /**
  * BrowseResourcesResponse.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssmc.latest;
 
@@ -111,39 +111,6 @@ public class BrowseResourcesResponse implements org.apache.axis2.databinding.ADB
     localESPInstanceTracker = param != null;
 
     this.localESPInstance = param;
-  }
-
-  /** field for NetAddress */
-  protected java.lang.String localNetAddress;
-
-  /*  This tracker boolean wil be used to detect whether the user called the set method
-   *   for this attribute. It will be used to determine whether to include this field
-   *   in the serialized XML
-   */
-  protected boolean localNetAddressTracker = false;
-
-  public boolean isNetAddressSpecified() {
-    return localNetAddressTracker;
-  }
-
-  /**
-   * Auto generated getter method
-   *
-   * @return java.lang.String
-   */
-  public java.lang.String getNetAddress() {
-    return localNetAddress;
-  }
-
-  /**
-   * Auto generated setter method
-   *
-   * @param param NetAddress
-   */
-  public void setNetAddress(java.lang.String param) {
-    localNetAddressTracker = param != null;
-
-    this.localNetAddress = param;
   }
 
   /** field for OS */
@@ -337,22 +304,6 @@ public class BrowseResourcesResponse implements org.apache.axis2.databinding.ADB
       } else {
 
         xmlWriter.writeCharacters(localESPInstance);
-      }
-
-      xmlWriter.writeEndElement();
-    }
-    if (localNetAddressTracker) {
-      namespace = "urn:hpccsystems:ws:wssmc";
-      writeStartElement(null, namespace, "NetAddress", xmlWriter);
-
-      if (localNetAddress == null) {
-        // write the nil attribute
-
-        throw new org.apache.axis2.databinding.ADBException("NetAddress cannot be null!!");
-
-      } else {
-
-        xmlWriter.writeCharacters(localNetAddress);
       }
 
       xmlWriter.writeEndElement();
@@ -683,25 +634,6 @@ public class BrowseResourcesResponse implements org.apache.axis2.databinding.ADB
               java.lang.String content = reader.getElementText();
 
               object.setESPInstance(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-
-              reader.next();
-
-            } // End of if for expected property start element
-            else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "NetAddress")
-                    .equals(reader.getName())) {
-
-              nillableValue =
-                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
-              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "NetAddress" + "  cannot be null");
-              }
-
-              java.lang.String content = reader.getElementText();
-
-              object.setNetAddress(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();

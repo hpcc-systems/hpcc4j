@@ -15,6 +15,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+import org.apache.axiom.om.OMElement;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -26,7 +27,7 @@ public class CreateTableAndLoadRequestWrapper
 {
     protected String local_tableName;
     protected String local_tableDescription;
-    protected boolean local_overwrite;
+    protected OMElement local_overwrite;
     protected EclFields_type0Wrapper local_eclFields;
     protected String local_targetCluster;
     protected String local_owner;
@@ -40,7 +41,7 @@ public class CreateTableAndLoadRequestWrapper
     {
         copy( createtableandloadrequest );
     }
-    public CreateTableAndLoadRequestWrapper( String _tableName, String _tableDescription, boolean _overwrite, EclFields_type0Wrapper _eclFields, String _targetCluster, String _owner, DataSourceInfoWrapper _dataSource, DataTypeWrapper _dataSourceType, int _wait )
+    public CreateTableAndLoadRequestWrapper( String _tableName, String _tableDescription, OMElement _overwrite, EclFields_type0Wrapper _eclFields, String _targetCluster, String _owner, DataSourceInfoWrapper _dataSource, DataTypeWrapper _dataSourceType, int _wait )
     {
         this.local_tableName = _tableName;
         this.local_tableDescription = _tableDescription;
@@ -114,11 +115,11 @@ public class CreateTableAndLoadRequestWrapper
     {
         return this.local_tableDescription;
     }
-    public void setOverwrite( boolean _overwrite )
+    public void setOverwrite( OMElement _overwrite )
     {
         this.local_overwrite = _overwrite;
     }
-    public boolean getOverwrite( )
+    public OMElement getOverwrite( )
     {
         return this.local_overwrite;
     }
