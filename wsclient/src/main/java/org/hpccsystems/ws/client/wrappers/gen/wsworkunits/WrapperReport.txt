@@ -3,7 +3,7 @@ Generated Axis2 ADB stub class wrapper package report:
   Wrapper package name: org.hpccsystems.ws.client.wrappers.gen.wsworkunits
   Wrapped service name: WsWorkunits
   Wrapped package: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest
-  Wrapped service version: 1.96
+  Wrapped service version: 2
 Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ClusterQueryState
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDebugResponse
@@ -126,6 +126,7 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.FileErrors_type0
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetGraphResponse
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobXLS
+    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.TimeRange
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetThorJobQueue
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEvent
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfoResponse
@@ -141,6 +142,7 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryConfig
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateResponse
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QueryUsingFile
+    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogEventClass
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetStatsResponse
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyLogicalFiles
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultResponse
@@ -240,6 +242,7 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetNumFileToCopyResponse
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ThorQueue
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Properties_type0
+    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWUProcess
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLHelpFile
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.QuerySetQueryActionTypes
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetGraph
@@ -264,6 +267,7 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetDetails
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogSelectColumnMode
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetExportResponse
+    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessFilter
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Files_type2
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAnalyseHotspot
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetailsLightWeight
@@ -323,11 +327,13 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfThorQueue
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetails
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPropertiesToReturn
+    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.SortDirection
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWUActions
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGVCGraphInfoResponse
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfECLGraphEx
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUMultiQuerySetDetailsResponse
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Scopes_type1
+    org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfECLWUProcess
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaProperty
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSyntaxCheckECL
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPublishWorkunit

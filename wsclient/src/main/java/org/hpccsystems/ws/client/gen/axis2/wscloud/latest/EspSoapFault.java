@@ -8,7 +8,7 @@ package org.hpccsystems.ws.client.gen.axis2.wscloud.latest;
 
 public class EspSoapFault extends java.lang.Exception {
 
-  private static final long serialVersionUID = 1710381997019L;
+  private static final long serialVersionUID = 1746631725281L;
 
   private org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Exceptions faultMessage;
 

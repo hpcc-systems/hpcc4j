@@ -50,7 +50,7 @@ public class WUDetailsResponse implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for MaxVersion */
-  protected java.lang.String localMaxVersion;
+  protected org.apache.axiom.om.OMElement localMaxVersion;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -65,9 +65,9 @@ public class WUDetailsResponse implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated getter method
    *
-   * @return java.lang.String
+   * @return org.apache.axiom.om.OMElement
    */
-  public java.lang.String getMaxVersion() {
+  public org.apache.axiom.om.OMElement getMaxVersion() {
     return localMaxVersion;
   }
 
@@ -76,7 +76,7 @@ public class WUDetailsResponse implements org.apache.axis2.databinding.ADBBean {
    *
    * @param param MaxVersion
    */
-  public void setMaxVersion(java.lang.String param) {
+  public void setMaxVersion(org.apache.axiom.om.OMElement param) {
     localMaxVersionTracker = param != null;
 
     this.localMaxVersion = param;
@@ -217,7 +217,7 @@ public class WUDetailsResponse implements org.apache.axis2.databinding.ADBBean {
 
       } else {
 
-        xmlWriter.writeCharacters(localMaxVersion);
+        localMaxVersion.serialize(xmlWriter);
       }
 
       xmlWriter.writeEndElement();
@@ -499,9 +499,7 @@ public class WUDetailsResponse implements org.apache.axis2.databinding.ADBBean {
               reader.next();
 
             } // End of if for expected property start element
-            else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "MaxVersion")
-                    .equals(reader.getName())) {
+            else if (reader.isStartElement()) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
@@ -512,8 +510,14 @@ public class WUDetailsResponse implements org.apache.axis2.databinding.ADBBean {
 
               java.lang.String content = reader.getElementText();
 
-              object.setMaxVersion(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+              org.apache.axiom.om.OMFactory fac =
+                  org.apache.axiom.om.OMAbstractFactory.getOMFactory();
+              org.apache.axiom.om.OMNamespace omNs =
+                  fac.createOMNamespace("urn:hpccsystems:ws:wsworkunits", "");
+              org.apache.axiom.om.OMElement _valueMaxVersion =
+                  fac.createOMElement("MaxVersion", omNs);
+              _valueMaxVersion.addChild(fac.createOMText(_valueMaxVersion, content));
+              object.setMaxVersion(_valueMaxVersion);
 
               reader.next();
 
