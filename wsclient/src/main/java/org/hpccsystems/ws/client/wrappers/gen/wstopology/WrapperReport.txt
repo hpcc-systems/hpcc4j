@@ -1,97 +1,101 @@
 Generated Axis2 ADB stub class wrapper package report:
   WrapperMaker version: 1.9
   Wrapper package name: org.hpccsystems.ws.client.wrappers.gen.wstopology
-  Wrapped service name: WsTopology
+  Wrapped service name: wstopology
   Wrapped package: org.hpccsystems.ws.client.gen.axis2.wstopology.latest
-  Wrapped service version: 1.31
+  Wrapped service version: 1.32
 Wrapped Classes:
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclAgent
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLdapServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSashaServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroup
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGenesisServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspException
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetClusterQueryResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDkcSlave
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpFTSlave
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfEspException
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpClusterNameType
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyPingResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.RoxieQueueFilter
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDkcSlave
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLogicalCluster
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalCluster
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetCluster
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZone
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachine
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Plugins_type0
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpBinding
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEclAgent
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGenesisServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclScheduler
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSashaServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSparkThor
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListTargetClustersResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyPingRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpTargetCluster
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfLogFileStruct
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpBinding
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMySqlServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEclServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterNameType
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetComponentFileRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListTargetClustersRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEspServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpCluster
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpClusterNameType
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDali
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDfuServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpThorStatusRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDfuServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDkcSlave
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDropZone
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclAgent
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclScheduler
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEclServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpEspServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpFTSlave
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGenesisServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGroup
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLdapServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpLogicalCluster
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpMachine
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpMySqlServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpQueue
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSashaServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpSparkThor
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpTargetCluster
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspException
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSparkThor
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEspServicePlugin
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetComponentFileResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetClusterQueryRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServices
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Exceptions
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.LogFileStruct
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Plugins_type0
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.RoxieQueueFilter
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogRequest
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.SystemLogResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpThorStatusResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpBinding
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpCluster
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterNameType
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterQueryRequest
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterQueryResponse
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEclScheduler
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryRequest
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEspServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpQueue
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpCluster
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpQueue
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDfuServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpMachine
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDropZone
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpGroup
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLdapServer
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDali
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDfuServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDkcSlave
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZone
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDropZoneQueryResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEclAgent
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEclScheduler
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEclServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEspServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpEspServicePlugin
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpFTSlave
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpCluster
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpMySqlServer
-    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Exceptions
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGenesisServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetComponentFileRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetComponentFileResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroup
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGroupQueryResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLdapServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListLogFilesResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListTargetClustersRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpListTargetClustersResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogFileResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalCluster
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpLogicalClusterQueryResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachine
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineInfoResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineQueryResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMySqlServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpQueue
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSashaServer
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServiceQueryResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpServices
     org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSetMachineStatusResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSparkThor
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetCluster
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetClusterQueryRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpTargetClusterQueryResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpThorStatusRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpThorStatusResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpXMLFileResponse
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyPingRequest
+    org.hpccsystems.ws.client.gen.axis2.wstopology.latest.WsTopologyPingResponse

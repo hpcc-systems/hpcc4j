@@ -6,9 +6,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Arrays;
 
-import javax.activation.DataHandler;
-
-import org.apache.axiom.attachments.ByteArrayDataSource;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
 import org.apache.logging.log4j.LogManager;
@@ -28,6 +25,9 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 
 import io.opentelemetry.instrumentation.annotations.SpanAttribute;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.mail.util.ByteArrayDataSource;
 
 /**
  * Facilitates File I/O actions on target HPCC instance.
@@ -375,8 +375,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
             subdata = Arrays.copyOfRange(data, dataindex, dataindex + payloadsize);
             dataindex += payloadsize;
 
-            ByteArrayDataSource ds = new ByteArrayDataSource(subdata);
-
+            DataSource ds = new ByteArrayDataSource(subdata, "text/plain;charset=UTF-8");
             request.setData(new DataHandler(ds));
             request.setAppend(dataindex > 0);
             request.setOffset((long) dataindex);
@@ -493,7 +492,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         }
 
         String data = null;
-        DataHandler handler = resp.getData();
+        jakarta.activation.DataHandler handler = resp.getData();
         if (handler != null)
         {
             ByteArrayOutputStream output = new ByteArrayOutputStream();

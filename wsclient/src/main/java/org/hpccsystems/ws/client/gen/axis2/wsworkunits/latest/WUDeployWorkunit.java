@@ -1,8 +1,8 @@
 /**
  * WUDeployWorkunit.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest;
 
@@ -181,7 +181,7 @@ public class WUDeployWorkunit implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for Object */
-  protected javax.activation.DataHandler localObject;
+  protected jakarta.activation.DataHandler localObject;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -196,9 +196,9 @@ public class WUDeployWorkunit implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated getter method
    *
-   * @return javax.activation.DataHandler
+   * @return jakarta.activation.DataHandler
    */
-  public javax.activation.DataHandler getObject() {
+  public jakarta.activation.DataHandler getObject() {
     return localObject;
   }
 
@@ -207,7 +207,7 @@ public class WUDeployWorkunit implements org.apache.axis2.databinding.ADBBean {
    *
    * @param param Object
    */
-  public void setObject(javax.activation.DataHandler param) {
+  public void setObject(jakarta.activation.DataHandler param) {
     localObjectTracker = param != null;
 
     this.localObject = param;
@@ -521,8 +521,11 @@ public class WUDeployWorkunit implements org.apache.axis2.databinding.ADBBean {
 
       if (localObject != null) {
         try {
-          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeDataHandler(
-              xmlWriter, localObject, null, true);
+          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeBlob(
+              xmlWriter,
+              org.apache.axiom.util.activation.DataHandlerUtils.toBlob(localObject),
+              null,
+              true);
         } catch (java.io.IOException ex) {
           throw new javax.xml.stream.XMLStreamException(
               "Unable to read data handler for Object", ex);
@@ -946,8 +949,8 @@ public class WUDeployWorkunit implements org.apache.axis2.databinding.ADBBean {
                     .equals(reader.getName())) {
 
               object.setObject(
-                  org.apache.axiom.util.stax.XMLStreamReaderUtils.getDataHandlerFromElement(
-                      reader));
+                  org.apache.axiom.util.activation.DataHandlerUtils.toDataHandler(
+                      org.apache.axiom.util.stax.XMLStreamReaderUtils.getBlobFromElement(reader)));
 
               reader.next();
 

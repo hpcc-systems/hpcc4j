@@ -1,8 +1,8 @@
 /**
  * WUResultBinResponse.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest;
 
@@ -291,7 +291,7 @@ public class WUResultBinResponse implements org.apache.axis2.databinding.ADBBean
   }
 
   /** field for Result */
-  protected javax.activation.DataHandler localResult;
+  protected jakarta.activation.DataHandler localResult;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -306,9 +306,9 @@ public class WUResultBinResponse implements org.apache.axis2.databinding.ADBBean
   /**
    * Auto generated getter method
    *
-   * @return javax.activation.DataHandler
+   * @return jakarta.activation.DataHandler
    */
-  public javax.activation.DataHandler getResult() {
+  public jakarta.activation.DataHandler getResult() {
     return localResult;
   }
 
@@ -317,7 +317,7 @@ public class WUResultBinResponse implements org.apache.axis2.databinding.ADBBean
    *
    * @param param Result
    */
-  public void setResult(javax.activation.DataHandler param) {
+  public void setResult(jakarta.activation.DataHandler param) {
     localResultTracker = param != null;
 
     this.localResult = param;
@@ -527,8 +527,11 @@ public class WUResultBinResponse implements org.apache.axis2.databinding.ADBBean
 
       if (localResult != null) {
         try {
-          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeDataHandler(
-              xmlWriter, localResult, null, true);
+          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeBlob(
+              xmlWriter,
+              org.apache.axiom.util.activation.DataHandlerUtils.toBlob(localResult),
+              null,
+              true);
         } catch (java.io.IOException ex) {
           throw new javax.xml.stream.XMLStreamException(
               "Unable to read data handler for Result", ex);
@@ -947,8 +950,8 @@ public class WUResultBinResponse implements org.apache.axis2.databinding.ADBBean
                     .equals(reader.getName())) {
 
               object.setResult(
-                  org.apache.axiom.util.stax.XMLStreamReaderUtils.getDataHandlerFromElement(
-                      reader));
+                  org.apache.axiom.util.activation.DataHandlerUtils.toDataHandler(
+                      org.apache.axiom.util.stax.XMLStreamReaderUtils.getBlobFromElement(reader)));
 
               reader.next();
 

@@ -15,7 +15,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -33,6 +33,7 @@ public class SprayFixedWrapper
     protected int local_sourceRecordSize;
     protected String local_destGroup;
     protected String local_destLogicalName;
+    protected int local_destNumParts;
     protected boolean local_overwrite;
     protected boolean local_replicate;
     protected int local_replicateOffset;
@@ -61,7 +62,7 @@ public class SprayFixedWrapper
     {
         copy( sprayfixed );
     }
-    public SprayFixedWrapper( String _sourceIP, String _sourcePlane, String _sourcePath, DataHandler _srcxml, String _sourceFormat, int _sourceRecordSize, String _destGroup, String _destLogicalName, boolean _overwrite, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, String _prefix, boolean _nosplit, boolean _norecover, boolean _compress, boolean _push, boolean _pull, boolean _noCommon, String _encrypt, String _decrypt, boolean _wrap, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, int _expireDays, String _dFUServerQueue )
+    public SprayFixedWrapper( String _sourceIP, String _sourcePlane, String _sourcePath, DataHandler _srcxml, String _sourceFormat, int _sourceRecordSize, String _destGroup, String _destLogicalName, int _destNumParts, boolean _overwrite, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, String _prefix, boolean _nosplit, boolean _norecover, boolean _compress, boolean _push, boolean _pull, boolean _noCommon, String _encrypt, String _decrypt, boolean _wrap, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, int _expireDays, String _dFUServerQueue )
     {
         this.local_sourceIP = _sourceIP;
         this.local_sourcePlane = _sourcePlane;
@@ -71,6 +72,7 @@ public class SprayFixedWrapper
         this.local_sourceRecordSize = _sourceRecordSize;
         this.local_destGroup = _destGroup;
         this.local_destLogicalName = _destLogicalName;
+        this.local_destNumParts = _destNumParts;
         this.local_overwrite = _overwrite;
         this.local_replicate = _replicate;
         this.local_replicateOffset = _replicateOffset;
@@ -108,6 +110,7 @@ public class SprayFixedWrapper
         this.local_sourceRecordSize = raw.getSourceRecordSize();
         this.local_destGroup = raw.getDestGroup();
         this.local_destLogicalName = raw.getDestLogicalName();
+        this.local_destNumParts = raw.getDestNumParts();
         this.local_overwrite = raw.getOverwrite();
         this.local_replicate = raw.getReplicate();
         this.local_replicateOffset = raw.getReplicateOffset();
@@ -135,7 +138,7 @@ public class SprayFixedWrapper
     @Override
     public String toString()
     {
-        return "SprayFixedWrapper [" + "sourceIP = " + local_sourceIP + ", " + "sourcePlane = " + local_sourcePlane + ", " + "sourcePath = " + local_sourcePath + ", " + "srcxml = " + local_srcxml + ", " + "sourceFormat = " + local_sourceFormat + ", " + "sourceRecordSize = " + local_sourceRecordSize + ", " + "destGroup = " + local_destGroup + ", " + "destLogicalName = " + local_destLogicalName + ", " + "overwrite = " + local_overwrite + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "prefix = " + local_prefix + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "noCommon = " + local_noCommon + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "wrap = " + local_wrap + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "expireDays = " + local_expireDays + ", " + "dFUServerQueue = " + local_dFUServerQueue + "]";
+        return "SprayFixedWrapper [" + "sourceIP = " + local_sourceIP + ", " + "sourcePlane = " + local_sourcePlane + ", " + "sourcePath = " + local_sourcePath + ", " + "srcxml = " + local_srcxml + ", " + "sourceFormat = " + local_sourceFormat + ", " + "sourceRecordSize = " + local_sourceRecordSize + ", " + "destGroup = " + local_destGroup + ", " + "destLogicalName = " + local_destLogicalName + ", " + "destNumParts = " + local_destNumParts + ", " + "overwrite = " + local_overwrite + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "prefix = " + local_prefix + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "noCommon = " + local_noCommon + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "wrap = " + local_wrap + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "expireDays = " + local_expireDays + ", " + "dFUServerQueue = " + local_dFUServerQueue + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayFixed getRaw()
     {
@@ -148,6 +151,7 @@ public class SprayFixedWrapper
         raw.setSourceRecordSize( local_sourceRecordSize);
         raw.setDestGroup( local_destGroup);
         raw.setDestLogicalName( local_destLogicalName);
+        raw.setDestNumParts( local_destNumParts);
         raw.setOverwrite( local_overwrite);
         raw.setReplicate( local_replicate);
         raw.setReplicateOffset( local_replicateOffset);
@@ -236,6 +240,14 @@ public class SprayFixedWrapper
     public String getDestLogicalName( )
     {
         return this.local_destLogicalName;
+    }
+    public void setDestNumParts( int _destNumParts )
+    {
+        this.local_destNumParts = _destNumParts;
+    }
+    public int getDestNumParts( )
+    {
+        return this.local_destNumParts;
     }
     public void setOverwrite( boolean _overwrite )
     {

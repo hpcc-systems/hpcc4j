@@ -44,6 +44,7 @@ public class WUInfoDetailsWrapper
     protected boolean local_includeAllowedClusters;
     protected boolean local_includeTotalClusterTime;
     protected boolean local_includeServiceNames;
+    protected boolean local_includeProcesses;
     protected boolean local_suppressResultSchemas;
     protected String local_thorSlaveIP;
 
@@ -53,7 +54,7 @@ public class WUInfoDetailsWrapper
     {
         copy( wuinfodetails );
     }
-    public WUInfoDetailsWrapper( String _wuid, boolean _truncateEclTo64K, String _type, boolean _includeExceptions, boolean _includeGraphs, boolean _includeSourceFiles, boolean _includeResults, boolean _includeResultsViewNames, boolean _includeVariables, boolean _includeTimers, boolean _includeDebugValues, boolean _includeApplicationValues, boolean _includeWorkflows, boolean _includeXmlSchemas, boolean _includeResourceURLs, boolean _includeECL, boolean _includeHelpers, boolean _includeAllowedClusters, boolean _includeTotalClusterTime, boolean _includeServiceNames, boolean _suppressResultSchemas, String _thorSlaveIP )
+    public WUInfoDetailsWrapper( String _wuid, boolean _truncateEclTo64K, String _type, boolean _includeExceptions, boolean _includeGraphs, boolean _includeSourceFiles, boolean _includeResults, boolean _includeResultsViewNames, boolean _includeVariables, boolean _includeTimers, boolean _includeDebugValues, boolean _includeApplicationValues, boolean _includeWorkflows, boolean _includeXmlSchemas, boolean _includeResourceURLs, boolean _includeECL, boolean _includeHelpers, boolean _includeAllowedClusters, boolean _includeTotalClusterTime, boolean _includeServiceNames, boolean _includeProcesses, boolean _suppressResultSchemas, String _thorSlaveIP )
     {
         this.local_wuid = _wuid;
         this.local_truncateEclTo64K = _truncateEclTo64K;
@@ -75,6 +76,7 @@ public class WUInfoDetailsWrapper
         this.local_includeAllowedClusters = _includeAllowedClusters;
         this.local_includeTotalClusterTime = _includeTotalClusterTime;
         this.local_includeServiceNames = _includeServiceNames;
+        this.local_includeProcesses = _includeProcesses;
         this.local_suppressResultSchemas = _suppressResultSchemas;
         this.local_thorSlaveIP = _thorSlaveIP;
 
@@ -105,6 +107,7 @@ public class WUInfoDetailsWrapper
         this.local_includeAllowedClusters = raw.getIncludeAllowedClusters();
         this.local_includeTotalClusterTime = raw.getIncludeTotalClusterTime();
         this.local_includeServiceNames = raw.getIncludeServiceNames();
+        this.local_includeProcesses = raw.getIncludeProcesses();
         this.local_suppressResultSchemas = raw.getSuppressResultSchemas();
         this.local_thorSlaveIP = raw.getThorSlaveIP();
 
@@ -113,7 +116,7 @@ public class WUInfoDetailsWrapper
     @Override
     public String toString()
     {
-        return "WUInfoDetailsWrapper [" + "wuid = " + local_wuid + ", " + "truncateEclTo64K = " + local_truncateEclTo64K + ", " + "type = " + local_type + ", " + "includeExceptions = " + local_includeExceptions + ", " + "includeGraphs = " + local_includeGraphs + ", " + "includeSourceFiles = " + local_includeSourceFiles + ", " + "includeResults = " + local_includeResults + ", " + "includeResultsViewNames = " + local_includeResultsViewNames + ", " + "includeVariables = " + local_includeVariables + ", " + "includeTimers = " + local_includeTimers + ", " + "includeDebugValues = " + local_includeDebugValues + ", " + "includeApplicationValues = " + local_includeApplicationValues + ", " + "includeWorkflows = " + local_includeWorkflows + ", " + "includeXmlSchemas = " + local_includeXmlSchemas + ", " + "includeResourceURLs = " + local_includeResourceURLs + ", " + "includeECL = " + local_includeECL + ", " + "includeHelpers = " + local_includeHelpers + ", " + "includeAllowedClusters = " + local_includeAllowedClusters + ", " + "includeTotalClusterTime = " + local_includeTotalClusterTime + ", " + "includeServiceNames = " + local_includeServiceNames + ", " + "suppressResultSchemas = " + local_suppressResultSchemas + ", " + "thorSlaveIP = " + local_thorSlaveIP + "]";
+        return "WUInfoDetailsWrapper [" + "wuid = " + local_wuid + ", " + "truncateEclTo64K = " + local_truncateEclTo64K + ", " + "type = " + local_type + ", " + "includeExceptions = " + local_includeExceptions + ", " + "includeGraphs = " + local_includeGraphs + ", " + "includeSourceFiles = " + local_includeSourceFiles + ", " + "includeResults = " + local_includeResults + ", " + "includeResultsViewNames = " + local_includeResultsViewNames + ", " + "includeVariables = " + local_includeVariables + ", " + "includeTimers = " + local_includeTimers + ", " + "includeDebugValues = " + local_includeDebugValues + ", " + "includeApplicationValues = " + local_includeApplicationValues + ", " + "includeWorkflows = " + local_includeWorkflows + ", " + "includeXmlSchemas = " + local_includeXmlSchemas + ", " + "includeResourceURLs = " + local_includeResourceURLs + ", " + "includeECL = " + local_includeECL + ", " + "includeHelpers = " + local_includeHelpers + ", " + "includeAllowedClusters = " + local_includeAllowedClusters + ", " + "includeTotalClusterTime = " + local_includeTotalClusterTime + ", " + "includeServiceNames = " + local_includeServiceNames + ", " + "includeProcesses = " + local_includeProcesses + ", " + "suppressResultSchemas = " + local_suppressResultSchemas + ", " + "thorSlaveIP = " + local_thorSlaveIP + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoDetails getRaw()
     {
@@ -138,6 +141,7 @@ public class WUInfoDetailsWrapper
         raw.setIncludeAllowedClusters( local_includeAllowedClusters);
         raw.setIncludeTotalClusterTime( local_includeTotalClusterTime);
         raw.setIncludeServiceNames( local_includeServiceNames);
+        raw.setIncludeProcesses( local_includeProcesses);
         raw.setSuppressResultSchemas( local_suppressResultSchemas);
         raw.setThorSlaveIP( local_thorSlaveIP);
         return raw;
@@ -303,6 +307,14 @@ public class WUInfoDetailsWrapper
     public boolean getIncludeServiceNames( )
     {
         return this.local_includeServiceNames;
+    }
+    public void setIncludeProcesses( boolean _includeProcesses )
+    {
+        this.local_includeProcesses = _includeProcesses;
+    }
+    public boolean getIncludeProcesses( )
+    {
+        return this.local_includeProcesses;
     }
     public void setSuppressResultSchemas( boolean _suppressResultSchemas )
     {

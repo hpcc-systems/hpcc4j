@@ -15,7 +15,7 @@ package org.hpccsystems.ws.client.wrappers.gen.filespray;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -39,6 +39,7 @@ public class SprayVariableWrapper
     protected String local_sourceRowTag;
     protected String local_destGroup;
     protected String local_destLogicalName;
+    protected int local_destNumParts;
     protected boolean local_overwrite;
     protected boolean local_replicate;
     protected int local_replicateOffset;
@@ -70,7 +71,7 @@ public class SprayVariableWrapper
     {
         copy( sprayvariable );
     }
-    public SprayVariableWrapper( String _sourceIP, String _sourcePlane, String _sourcePath, DataHandler _srcxml, int _sourceMaxRecordSize, int _sourceFormat, boolean _noSourceCsvSeparator, String _sourceCsvSeparate, String _sourceCsvTerminate, String _sourceCsvQuote, String _sourceCsvEscape, String _sourceRowTag, String _destGroup, String _destLogicalName, boolean _overwrite, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, String _prefix, boolean _nosplit, boolean _norecover, boolean _compress, boolean _push, boolean _pull, boolean _noCommon, String _encrypt, String _decrypt, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, String _sourceRowPath, boolean _isJSON, int _expireDays, String _dFUServerQueue, String _srcUsername, String _srcPassword )
+    public SprayVariableWrapper( String _sourceIP, String _sourcePlane, String _sourcePath, DataHandler _srcxml, int _sourceMaxRecordSize, int _sourceFormat, boolean _noSourceCsvSeparator, String _sourceCsvSeparate, String _sourceCsvTerminate, String _sourceCsvQuote, String _sourceCsvEscape, String _sourceRowTag, String _destGroup, String _destLogicalName, int _destNumParts, boolean _overwrite, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, String _prefix, boolean _nosplit, boolean _norecover, boolean _compress, boolean _push, boolean _pull, boolean _noCommon, String _encrypt, String _decrypt, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, String _sourceRowPath, boolean _isJSON, int _expireDays, String _dFUServerQueue, String _srcUsername, String _srcPassword )
     {
         this.local_sourceIP = _sourceIP;
         this.local_sourcePlane = _sourcePlane;
@@ -86,6 +87,7 @@ public class SprayVariableWrapper
         this.local_sourceRowTag = _sourceRowTag;
         this.local_destGroup = _destGroup;
         this.local_destLogicalName = _destLogicalName;
+        this.local_destNumParts = _destNumParts;
         this.local_overwrite = _overwrite;
         this.local_replicate = _replicate;
         this.local_replicateOffset = _replicateOffset;
@@ -132,6 +134,7 @@ public class SprayVariableWrapper
         this.local_sourceRowTag = raw.getSourceRowTag();
         this.local_destGroup = raw.getDestGroup();
         this.local_destLogicalName = raw.getDestLogicalName();
+        this.local_destNumParts = raw.getDestNumParts();
         this.local_overwrite = raw.getOverwrite();
         this.local_replicate = raw.getReplicate();
         this.local_replicateOffset = raw.getReplicateOffset();
@@ -162,7 +165,7 @@ public class SprayVariableWrapper
     @Override
     public String toString()
     {
-        return "SprayVariableWrapper [" + "sourceIP = " + local_sourceIP + ", " + "sourcePlane = " + local_sourcePlane + ", " + "sourcePath = " + local_sourcePath + ", " + "srcxml = " + local_srcxml + ", " + "sourceMaxRecordSize = " + local_sourceMaxRecordSize + ", " + "sourceFormat = " + local_sourceFormat + ", " + "noSourceCsvSeparator = " + local_noSourceCsvSeparator + ", " + "sourceCsvSeparate = " + local_sourceCsvSeparate + ", " + "sourceCsvTerminate = " + local_sourceCsvTerminate + ", " + "sourceCsvQuote = " + local_sourceCsvQuote + ", " + "sourceCsvEscape = " + local_sourceCsvEscape + ", " + "sourceRowTag = " + local_sourceRowTag + ", " + "destGroup = " + local_destGroup + ", " + "destLogicalName = " + local_destLogicalName + ", " + "overwrite = " + local_overwrite + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "prefix = " + local_prefix + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "noCommon = " + local_noCommon + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "sourceRowPath = " + local_sourceRowPath + ", " + "isJSON = " + local_isJSON + ", " + "expireDays = " + local_expireDays + ", " + "dFUServerQueue = " + local_dFUServerQueue + ", " + "srcUsername = " + local_srcUsername + ", " + "srcPassword = " + local_srcPassword + "]";
+        return "SprayVariableWrapper [" + "sourceIP = " + local_sourceIP + ", " + "sourcePlane = " + local_sourcePlane + ", " + "sourcePath = " + local_sourcePath + ", " + "srcxml = " + local_srcxml + ", " + "sourceMaxRecordSize = " + local_sourceMaxRecordSize + ", " + "sourceFormat = " + local_sourceFormat + ", " + "noSourceCsvSeparator = " + local_noSourceCsvSeparator + ", " + "sourceCsvSeparate = " + local_sourceCsvSeparate + ", " + "sourceCsvTerminate = " + local_sourceCsvTerminate + ", " + "sourceCsvQuote = " + local_sourceCsvQuote + ", " + "sourceCsvEscape = " + local_sourceCsvEscape + ", " + "sourceRowTag = " + local_sourceRowTag + ", " + "destGroup = " + local_destGroup + ", " + "destLogicalName = " + local_destLogicalName + ", " + "destNumParts = " + local_destNumParts + ", " + "overwrite = " + local_overwrite + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "prefix = " + local_prefix + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "noCommon = " + local_noCommon + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "sourceRowPath = " + local_sourceRowPath + ", " + "isJSON = " + local_isJSON + ", " + "expireDays = " + local_expireDays + ", " + "dFUServerQueue = " + local_dFUServerQueue + ", " + "srcUsername = " + local_srcUsername + ", " + "srcPassword = " + local_srcPassword + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayVariable getRaw()
     {
@@ -181,6 +184,7 @@ public class SprayVariableWrapper
         raw.setSourceRowTag( local_sourceRowTag);
         raw.setDestGroup( local_destGroup);
         raw.setDestLogicalName( local_destLogicalName);
+        raw.setDestNumParts( local_destNumParts);
         raw.setOverwrite( local_overwrite);
         raw.setReplicate( local_replicate);
         raw.setReplicateOffset( local_replicateOffset);
@@ -320,6 +324,14 @@ public class SprayVariableWrapper
     public String getDestLogicalName( )
     {
         return this.local_destLogicalName;
+    }
+    public void setDestNumParts( int _destNumParts )
+    {
+        this.local_destNumParts = _destNumParts;
+    }
+    public int getDestNumParts( )
+    {
+        return this.local_destNumParts;
     }
     public void setOverwrite( boolean _overwrite )
     {
