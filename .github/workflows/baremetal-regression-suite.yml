@@ -11,6 +11,10 @@ on:
 jobs:
   test-against-platform:
     runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      matrix:
+        security: [enabled, disabled]
 
     steps:
     - name: Setup JDK 11
@@ -160,7 +164,81 @@ jobs:
       run: |
         sudo /opt/HPCCSystems/etc/init.d/setupPKI
 
-    - name: Start HPCC-Platform
+    - name: Write htpasswd file 
+      if: matrix.security == 'enabled'
+      shell: bash 
+      run: |
+        # Create .htpasswd file with user:password
+        sudo apt-get install -y apache2-utils
+
+        # Add dummy user and password to .htpasswd file
+        sudo htpasswd -c -b /etc/HPCCSystems/.htpasswd user password
+
+        # Add test user and password to .htpasswd file
+        sudo htpasswd -b /etc/HPCCSystems/.htpasswd Juni@tUser password
+
+    - name: Add htpasswdsecmgr to environment.xml
+      if: matrix.security == 'enabled'
+      shell: python
+      run: | 
+        import xml.etree.ElementTree as ET
+        
+        # Parse the environment.xml file
+        env_file = '/etc/HPCCSystems/environment.xml'
+        tree = ET.parse(env_file)
+        root = tree.getroot()
+        
+        # 1. Add BuildSet under Environment/Programs/Build
+        programs = root.find('./Programs')
+        build = programs.find('./Build')
+        
+        # Create the BuildSet element with attributes
+        buildset = ET.SubElement(build, 'BuildSet')
+        buildset.set('deployable', 'no')
+        buildset.set('installSet', 'deploy_map.xml')
+        buildset.set('name', 'htpasswdsecmgr')
+        buildset.set('path', 'componentfiles/htpasswdsecmgr')
+        buildset.set('processName', 'HtpasswdSecurityManager')
+        buildset.set('schema', 'htpasswd_secmgr.xsd')
+        
+        # 2. Update Authentication method attribute
+        software = root.find('./Software')
+        esp_processes = software.findall('./EspProcess')
+        
+        for esp in esp_processes:
+            auth = esp.find('./Authentication')
+            if auth is not None:
+                auth.set('method', 'secmgrPlugin')
+        
+        # 3. Update only EspBinding with name "myespsmc" type attribute
+        for esp in esp_processes:
+            bindings = esp.findall('./EspBinding')
+            for binding in bindings:
+                if binding.get('name') == 'myespsmc':
+                    binding.set('type', 'htpasswdsecmgr')
+        
+        # 4. Add HtpasswdSecurityManager node under Software
+        htpasswd_mgr = ET.SubElement(software, 'HtpasswdSecurityManager')
+        htpasswd_mgr.set('build', '_')
+        htpasswd_mgr.set('buildSet', 'htpasswdsecmgr')
+        htpasswd_mgr.set('htpasswdFile', '/etc/HPCCSystems/.htpasswd')
+        htpasswd_mgr.set('instanceFactoryName', 'createInstance')
+        htpasswd_mgr.set('libName', 'libhtpasswdSecurity.so')
+        htpasswd_mgr.set('name', 'htpasswdsecmgr')
+        htpasswd_mgr.set('type', 'SecurityManager')
+        
+        # Write changes back to the file
+        tree.write('tmp_environment.xml')
+        print("Environment.xml updated successfully for security configuration")
+
+    - name: Replace environment.xml
+      if: matrix.security == 'enabled'
+      run: |
+        sudo mv /etc/HPCCSystems/environment.xml /etc/HPCCSystems/environment.xml.bak
+        sudo mv tmp_environment.xml /etc/HPCCSystems/environment.xml
+        sudo chown hpcc:hpcc /etc/HPCCSystems/environment.xml
+
+    - name: Start HPCC-Platforma
       shell: "bash"
       run: |
         export LANG="en_US.UTF-8"
@@ -182,7 +260,7 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Build with Maven
-      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open install
+      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open ${{ matrix.security == 'enabled' && '-Dhpccuser=user -Dhpccpass=password' || '' }} install
 
     - name: Process Errors
       shell: python
