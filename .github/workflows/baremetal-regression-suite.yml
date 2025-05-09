@@ -48,6 +48,10 @@ jobs:
         COMMENTS_URL: ${{ github.event.pull_request.comments_url }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH_NAME: ${{ github.base_ref }}
+        DUMMY_USER: ${{ secrets.DUMMY_USER }}
+        DUMMY_PASS: ${{ secrets.DUMMY_PASS }}
+        JUNIT_USER: ${{ secrets.JUNIT_USER }}
+        JUNIT_PASS: ${{ secrets.JUNIT_PASS }}
       shell: python
       run: |
         import os
@@ -172,10 +176,10 @@ jobs:
         sudo apt-get install -y apache2-utils
 
         # Add dummy user and password to .htpasswd file
-        sudo htpasswd -c -b /etc/HPCCSystems/.htpasswd user password
+        sudo htpasswd -c -b /etc/HPCCSystems/.htpasswd ${{ env.DUMMY_USER }} ${{ env.DUMMY_PASS }}
 
         # Add test user and password to .htpasswd file
-        sudo htpasswd -b /etc/HPCCSystems/.htpasswd Juni@tUser password
+        sudo htpasswd -b /etc/HPCCSystems/.htpasswd ${{ env.JUNIT_USER }} ${{ env.JUNIT_PASS }}
 
     - name: Add htpasswdsecmgr to environment.xml
       if: matrix.security == 'enabled'
@@ -259,8 +263,13 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
 
-    - name: Build with Maven
-      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open ${{ matrix.security == 'enabled' && '-Dhpccuser=user -Dhpccpass=password' || '' }} install
+    - name: Build with Maven (Secure)
+      if: matrix.security == 'enabled'
+      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open -Dhpccuser=${{ env.DUMMY_USER }} -Dhpccpass=${{ env.DUMMY_PASS }} install
+    
+    - name: Build with Maven (Insecure)
+      if: matrix.security == 'disabled'
+      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open install
 
     - name: Process Errors
       shell: python
