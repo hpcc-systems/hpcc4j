@@ -3,7 +3,7 @@ Generated Axis2 ADB stub class wrapper package report:
   Wrapper package name: org.hpccsystems.ws.client.wrappers.gen.wsdfuxref
   Wrapped service name: WsDFUXRef
   Wrapped package: org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest
-  Wrapped service version: 1.03
+  Wrapped service version: 1.04
 Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryResponse
     org.hpccsystems.ws.client.gen.axis2.wsdfuxref.latest.DFUXRefFoundFilesQueryRequest

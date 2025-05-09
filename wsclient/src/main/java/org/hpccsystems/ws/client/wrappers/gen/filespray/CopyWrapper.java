@@ -32,6 +32,7 @@ public class CopyWrapper
     protected String local_srcusername;
     protected String local_srcpassword;
     protected boolean local_overwrite;
+    protected boolean local_ensure;
     protected boolean local_replicate;
     protected int local_replicateOffset;
     protected int local_maxConnections;
@@ -61,7 +62,7 @@ public class CopyWrapper
     {
         copy( copy );
     }
-    public CopyWrapper( String _sourceLogicalName, String _destGroup, String _destGroupRoxie, String _destLogicalName, String _sourceDali, String _srcusername, String _srcpassword, boolean _overwrite, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, boolean _nosplit, boolean _norecover, boolean _compress, boolean _wrap, boolean _multicopy, String _sourceDiffKeyName, String _destDiffKeyName, boolean _superCopy, boolean _push, boolean _pull, boolean _ifnewer, boolean _noCommon, String _encrypt, String _decrypt, boolean _preserveCompression, String _dFUServerQueue, int _expireDays )
+    public CopyWrapper( String _sourceLogicalName, String _destGroup, String _destGroupRoxie, String _destLogicalName, String _sourceDali, String _srcusername, String _srcpassword, boolean _overwrite, boolean _ensure, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, boolean _nosplit, boolean _norecover, boolean _compress, boolean _wrap, boolean _multicopy, String _sourceDiffKeyName, String _destDiffKeyName, boolean _superCopy, boolean _push, boolean _pull, boolean _ifnewer, boolean _noCommon, String _encrypt, String _decrypt, boolean _preserveCompression, String _dFUServerQueue, int _expireDays )
     {
         this.local_sourceLogicalName = _sourceLogicalName;
         this.local_destGroup = _destGroup;
@@ -71,6 +72,7 @@ public class CopyWrapper
         this.local_srcusername = _srcusername;
         this.local_srcpassword = _srcpassword;
         this.local_overwrite = _overwrite;
+        this.local_ensure = _ensure;
         this.local_replicate = _replicate;
         this.local_replicateOffset = _replicateOffset;
         this.local_maxConnections = _maxConnections;
@@ -109,6 +111,7 @@ public class CopyWrapper
         this.local_srcusername = raw.getSrcusername();
         this.local_srcpassword = raw.getSrcpassword();
         this.local_overwrite = raw.getOverwrite();
+        this.local_ensure = raw.getEnsure();
         this.local_replicate = raw.getReplicate();
         this.local_replicateOffset = raw.getReplicateOffset();
         this.local_maxConnections = raw.getMaxConnections();
@@ -137,7 +140,7 @@ public class CopyWrapper
     @Override
     public String toString()
     {
-        return "CopyWrapper [" + "sourceLogicalName = " + local_sourceLogicalName + ", " + "destGroup = " + local_destGroup + ", " + "destGroupRoxie = " + local_destGroupRoxie + ", " + "destLogicalName = " + local_destLogicalName + ", " + "sourceDali = " + local_sourceDali + ", " + "srcusername = " + local_srcusername + ", " + "srcpassword = " + local_srcpassword + ", " + "overwrite = " + local_overwrite + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "wrap = " + local_wrap + ", " + "multicopy = " + local_multicopy + ", " + "sourceDiffKeyName = " + local_sourceDiffKeyName + ", " + "destDiffKeyName = " + local_destDiffKeyName + ", " + "superCopy = " + local_superCopy + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "ifnewer = " + local_ifnewer + ", " + "noCommon = " + local_noCommon + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "preserveCompression = " + local_preserveCompression + ", " + "dFUServerQueue = " + local_dFUServerQueue + ", " + "expireDays = " + local_expireDays + "]";
+        return "CopyWrapper [" + "sourceLogicalName = " + local_sourceLogicalName + ", " + "destGroup = " + local_destGroup + ", " + "destGroupRoxie = " + local_destGroupRoxie + ", " + "destLogicalName = " + local_destLogicalName + ", " + "sourceDali = " + local_sourceDali + ", " + "srcusername = " + local_srcusername + ", " + "srcpassword = " + local_srcpassword + ", " + "overwrite = " + local_overwrite + ", " + "ensure = " + local_ensure + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "wrap = " + local_wrap + ", " + "multicopy = " + local_multicopy + ", " + "sourceDiffKeyName = " + local_sourceDiffKeyName + ", " + "destDiffKeyName = " + local_destDiffKeyName + ", " + "superCopy = " + local_superCopy + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "ifnewer = " + local_ifnewer + ", " + "noCommon = " + local_noCommon + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "preserveCompression = " + local_preserveCompression + ", " + "dFUServerQueue = " + local_dFUServerQueue + ", " + "expireDays = " + local_expireDays + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.Copy getRaw()
     {
@@ -150,6 +153,7 @@ public class CopyWrapper
         raw.setSrcusername( local_srcusername);
         raw.setSrcpassword( local_srcpassword);
         raw.setOverwrite( local_overwrite);
+        raw.setEnsure( local_ensure);
         raw.setReplicate( local_replicate);
         raw.setReplicateOffset( local_replicateOffset);
         raw.setMaxConnections( local_maxConnections);
@@ -239,6 +243,14 @@ public class CopyWrapper
     public boolean getOverwrite( )
     {
         return this.local_overwrite;
+    }
+    public void setEnsure( boolean _ensure )
+    {
+        this.local_ensure = _ensure;
+    }
+    public boolean getEnsure( )
+    {
+        return this.local_ensure;
     }
     public void setReplicate( boolean _replicate )
     {

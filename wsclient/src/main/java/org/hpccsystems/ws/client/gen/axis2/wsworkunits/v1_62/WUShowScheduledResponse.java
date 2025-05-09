@@ -1,880 +1,833 @@
 /**
  * WUShowScheduledResponse.java
  *
- * This file was auto-generated from WSDL
- * by the Apache Axis2 version: 1.7.9  Built on : Nov 16, 2018 (12:06:07 GMT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62;
 
-
-/**
- *  WUShowScheduledResponse bean class
- */
-@SuppressWarnings({"unchecked",
-    "unused"
-})
+/** WUShowScheduledResponse bean class */
+@SuppressWarnings({"unchecked", "unused"})
 public class WUShowScheduledResponse implements org.apache.axis2.databinding.ADBBean {
-    public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits",
-            "WUShowScheduledResponse", "ns8");
 
-    /**
-     * field for Exceptions
-     */
-    protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfEspException localExceptions;
+  public static final javax.xml.namespace.QName MY_QNAME =
+      new javax.xml.namespace.QName(
+          "urn:hpccsystems:ws:wsworkunits", "WUShowScheduledResponse", "ns1");
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localExceptionsTracker = false;
+  /** field for Exceptions */
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfEspException
+      localExceptions;
 
-    /**
-     * field for ClusterSelected
-     */
-    protected int localClusterSelected;
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localExceptionsTracker = false;
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localClusterSelectedTracker = false;
+  public boolean isExceptionsSpecified() {
+    return localExceptionsTracker;
+  }
 
-    /**
-     * field for EventName
-     */
-    protected java.lang.String localEventName = org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-            "");
+  /**
+   * Auto generated getter method
+   *
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfEspException
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfEspException getExceptions() {
+    return localExceptions;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localEventNameTracker = false;
+  /**
+   * Auto generated setter method
+   *
+   * @param param Exceptions
+   */
+  public void setExceptions(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfEspException param) {
+    localExceptionsTracker = param != null;
 
-    /**
-     * field for PushEventName
-     */
-    protected java.lang.String localPushEventName = org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-            "");
+    this.localExceptions = param;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localPushEventNameTracker = false;
+  /** field for ClusterSelected */
+  protected int localClusterSelected;
 
-    /**
-     * field for PushEventText
-     */
-    protected java.lang.String localPushEventText = org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-            "");
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localClusterSelectedTracker = false;
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localPushEventTextTracker = false;
+  public boolean isClusterSelectedSpecified() {
+    return localClusterSelectedTracker;
+  }
 
-    /**
-     * field for Query
-     */
-    protected java.lang.String localQuery = org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-            "");
+  /**
+   * Auto generated getter method
+   *
+   * @return int
+   */
+  public int getClusterSelected() {
+    return localClusterSelected;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localQueryTracker = false;
+  /**
+   * Auto generated setter method
+   *
+   * @param param ClusterSelected
+   */
+  public void setClusterSelected(int param) {
 
-    /**
-     * field for Clusters
-     */
-    protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfServerInfo localClusters;
+    // setting primitive attribute tracker to true
+    localClusterSelectedTracker = param != java.lang.Integer.MIN_VALUE;
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localClustersTracker = false;
+    this.localClusterSelected = param;
+  }
 
-    /**
-     * field for Workunits
-     */
-    protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfScheduledWU localWorkunits;
+  /** field for EventName */
+  protected java.lang.String localEventName =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToString("");
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localWorkunitsTracker = false;
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localEventNameTracker = false;
 
-    public boolean isExceptionsSpecified() {
-        return localExceptionsTracker;
-    }
+  public boolean isEventNameSpecified() {
+    return localEventNameTracker;
+  }
 
-    /**
-     * Auto generated getter method
-     * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfEspException
-     */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfEspException getExceptions() {
-        return localExceptions;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getEventName() {
+    return localEventName;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param Exceptions
-     */
-    public void setExceptions(
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfEspException param) {
-        localExceptionsTracker = param != null;
+  /**
+   * Auto generated setter method
+   *
+   * @param param EventName
+   */
+  public void setEventName(java.lang.String param) {
+    localEventNameTracker = param != null;
 
-        this.localExceptions = param;
-    }
+    this.localEventName = param;
+  }
 
-    public boolean isClusterSelectedSpecified() {
-        return localClusterSelectedTracker;
-    }
+  /** field for PushEventName */
+  protected java.lang.String localPushEventName =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToString("");
 
-    /**
-     * Auto generated getter method
-     * @return int
-     */
-    public int getClusterSelected() {
-        return localClusterSelected;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localPushEventNameTracker = false;
 
-    /**
-     * Auto generated setter method
-     * @param param ClusterSelected
-     */
-    public void setClusterSelected(int param) {
-        // setting primitive attribute tracker to true
-        localClusterSelectedTracker = param != java.lang.Integer.MIN_VALUE;
+  public boolean isPushEventNameSpecified() {
+    return localPushEventNameTracker;
+  }
 
-        this.localClusterSelected = param;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getPushEventName() {
+    return localPushEventName;
+  }
 
-    public boolean isEventNameSpecified() {
-        return localEventNameTracker;
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param PushEventName
+   */
+  public void setPushEventName(java.lang.String param) {
+    localPushEventNameTracker = param != null;
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getEventName() {
-        return localEventName;
-    }
+    this.localPushEventName = param;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param EventName
-     */
-    public void setEventName(java.lang.String param) {
-        localEventNameTracker = param != null;
+  /** field for PushEventText */
+  protected java.lang.String localPushEventText =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToString("");
 
-        this.localEventName = param;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localPushEventTextTracker = false;
 
-    public boolean isPushEventNameSpecified() {
-        return localPushEventNameTracker;
-    }
+  public boolean isPushEventTextSpecified() {
+    return localPushEventTextTracker;
+  }
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getPushEventName() {
-        return localPushEventName;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getPushEventText() {
+    return localPushEventText;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param PushEventName
-     */
-    public void setPushEventName(java.lang.String param) {
-        localPushEventNameTracker = param != null;
+  /**
+   * Auto generated setter method
+   *
+   * @param param PushEventText
+   */
+  public void setPushEventText(java.lang.String param) {
+    localPushEventTextTracker = param != null;
 
-        this.localPushEventName = param;
-    }
+    this.localPushEventText = param;
+  }
 
-    public boolean isPushEventTextSpecified() {
-        return localPushEventTextTracker;
-    }
+  /** field for Query */
+  protected java.lang.String localQuery =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToString("");
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getPushEventText() {
-        return localPushEventText;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localQueryTracker = false;
 
-    /**
-     * Auto generated setter method
-     * @param param PushEventText
-     */
-    public void setPushEventText(java.lang.String param) {
-        localPushEventTextTracker = param != null;
+  public boolean isQuerySpecified() {
+    return localQueryTracker;
+  }
 
-        this.localPushEventText = param;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getQuery() {
+    return localQuery;
+  }
 
-    public boolean isQuerySpecified() {
-        return localQueryTracker;
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param Query
+   */
+  public void setQuery(java.lang.String param) {
+    localQueryTracker = param != null;
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getQuery() {
-        return localQuery;
-    }
+    this.localQuery = param;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param Query
-     */
-    public void setQuery(java.lang.String param) {
-        localQueryTracker = param != null;
+  /** field for Clusters */
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfServerInfo localClusters;
 
-        this.localQuery = param;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localClustersTracker = false;
 
-    public boolean isClustersSpecified() {
-        return localClustersTracker;
-    }
+  public boolean isClustersSpecified() {
+    return localClustersTracker;
+  }
 
-    /**
-     * Auto generated getter method
-     * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfServerInfo
-     */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfServerInfo getClusters() {
-        return localClusters;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfServerInfo
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfServerInfo getClusters() {
+    return localClusters;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param Clusters
-     */
-    public void setClusters(
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfServerInfo param) {
-        localClustersTracker = param != null;
+  /**
+   * Auto generated setter method
+   *
+   * @param param Clusters
+   */
+  public void setClusters(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfServerInfo param) {
+    localClustersTracker = param != null;
 
-        this.localClusters = param;
-    }
+    this.localClusters = param;
+  }
 
-    public boolean isWorkunitsSpecified() {
-        return localWorkunitsTracker;
-    }
+  /** field for Workunits */
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfScheduledWU localWorkunits;
 
-    /**
-     * Auto generated getter method
-     * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfScheduledWU
-     */
-    public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfScheduledWU getWorkunits() {
-        return localWorkunits;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localWorkunitsTracker = false;
 
-    /**
-     * Auto generated setter method
-     * @param param Workunits
-     */
-    public void setWorkunits(
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfScheduledWU param) {
-        localWorkunitsTracker = param != null;
+  public boolean isWorkunitsSpecified() {
+    return localWorkunitsTracker;
+  }
 
-        this.localWorkunits = param;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfScheduledWU
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfScheduledWU getWorkunits() {
+    return localWorkunits;
+  }
 
-    /**
-     *
-     * @param parentQName
-     * @param factory
-     * @return org.apache.axiom.om.OMElement
-     */
-    public org.apache.axiom.om.OMElement getOMElement(
-        final javax.xml.namespace.QName parentQName,
-        final org.apache.axiom.om.OMFactory factory)
-        throws org.apache.axis2.databinding.ADBException {
-        return factory.createOMElement(new org.apache.axis2.databinding.ADBDataSource(
-                this, MY_QNAME));
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param Workunits
+   */
+  public void setWorkunits(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfScheduledWU param) {
+    localWorkunitsTracker = param != null;
 
-    public void serialize(final javax.xml.namespace.QName parentQName,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException,
-            org.apache.axis2.databinding.ADBException {
-        serialize(parentQName, xmlWriter, false);
-    }
+    this.localWorkunits = param;
+  }
 
-    public void serialize(final javax.xml.namespace.QName parentQName,
-        javax.xml.stream.XMLStreamWriter xmlWriter, boolean serializeType)
-        throws javax.xml.stream.XMLStreamException,
-            org.apache.axis2.databinding.ADBException {
-        java.lang.String prefix = null;
-        java.lang.String namespace = null;
+  /**
+   * @param parentQName
+   * @param factory
+   * @return org.apache.axiom.om.OMElement
+   */
+  public org.apache.axiom.om.OMElement getOMElement(
+      final javax.xml.namespace.QName parentQName, final org.apache.axiom.om.OMFactory factory)
+      throws org.apache.axis2.databinding.ADBException {
 
-        prefix = parentQName.getPrefix();
-        namespace = parentQName.getNamespaceURI();
-        writeStartElement(prefix, namespace, parentQName.getLocalPart(),
+    return factory.createOMElement(new org.apache.axis2.databinding.ADBDataSource(this, MY_QNAME));
+  }
+
+  public void serialize(
+      final javax.xml.namespace.QName parentQName, javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
+    serialize(parentQName, xmlWriter, false);
+  }
+
+  public void serialize(
+      final javax.xml.namespace.QName parentQName,
+      javax.xml.stream.XMLStreamWriter xmlWriter,
+      boolean serializeType)
+      throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
+
+    java.lang.String prefix = null;
+    java.lang.String namespace = null;
+
+    prefix = parentQName.getPrefix();
+    namespace = parentQName.getNamespaceURI();
+    writeStartElement(prefix, namespace, parentQName.getLocalPart(), xmlWriter);
+
+    if (serializeType) {
+
+      java.lang.String namespacePrefix =
+          registerPrefix(xmlWriter, "urn:hpccsystems:ws:wsworkunits");
+      if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
+        writeAttribute(
+            "xsi",
+            "http://www.w3.org/2001/XMLSchema-instance",
+            "type",
+            namespacePrefix + ":WUShowScheduledResponse",
             xmlWriter);
+      } else {
+        writeAttribute(
+            "xsi",
+            "http://www.w3.org/2001/XMLSchema-instance",
+            "type",
+            "WUShowScheduledResponse",
+            xmlWriter);
+      }
+    }
+    if (localExceptionsTracker) {
+      if (localExceptions == null) {
+        throw new org.apache.axis2.databinding.ADBException("Exceptions cannot be null!!");
+      }
+      localExceptions.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions"), xmlWriter);
+    }
+    if (localClusterSelectedTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "ClusterSelected", xmlWriter);
 
-        if (serializeType) {
-            java.lang.String namespacePrefix = registerPrefix(xmlWriter,
-                    "urn:hpccsystems:ws:wsworkunits");
+      if (localClusterSelected == java.lang.Integer.MIN_VALUE) {
 
-            if ((namespacePrefix != null) &&
-                    (namespacePrefix.trim().length() > 0)) {
-                writeAttribute("xsi",
-                    "http://www.w3.org/2001/XMLSchema-instance", "type",
-                    namespacePrefix + ":WUShowScheduledResponse", xmlWriter);
-            } else {
-                writeAttribute("xsi",
-                    "http://www.w3.org/2001/XMLSchema-instance", "type",
-                    "WUShowScheduledResponse", xmlWriter);
-            }
-        }
+        throw new org.apache.axis2.databinding.ADBException("ClusterSelected cannot be null!!");
 
-        if (localExceptionsTracker) {
-            if (localExceptions == null) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "Exceptions cannot be null!!");
-            }
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localClusterSelected));
+      }
 
-            localExceptions.serialize(new javax.xml.namespace.QName(
-                    "urn:hpccsystems:ws:wsworkunits", "Exceptions"), xmlWriter);
-        }
+      xmlWriter.writeEndElement();
+    }
+    if (localEventNameTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "EventName", xmlWriter);
 
-        if (localClusterSelectedTracker) {
-            namespace = "urn:hpccsystems:ws:wsworkunits";
-            writeStartElement(null, namespace, "ClusterSelected", xmlWriter);
+      if (localEventName == null) {
+        // write the nil attribute
 
-            if (localClusterSelected == java.lang.Integer.MIN_VALUE) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "ClusterSelected cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        localClusterSelected));
-            }
+        throw new org.apache.axis2.databinding.ADBException("EventName cannot be null!!");
 
-            xmlWriter.writeEndElement();
-        }
+      } else {
 
-        if (localEventNameTracker) {
-            namespace = "urn:hpccsystems:ws:wsworkunits";
-            writeStartElement(null, namespace, "EventName", xmlWriter);
+        xmlWriter.writeCharacters(localEventName);
+      }
 
-            if (localEventName == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "EventName cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localEventName);
-            }
+      xmlWriter.writeEndElement();
+    }
+    if (localPushEventNameTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "PushEventName", xmlWriter);
 
-            xmlWriter.writeEndElement();
-        }
+      if (localPushEventName == null) {
+        // write the nil attribute
 
-        if (localPushEventNameTracker) {
-            namespace = "urn:hpccsystems:ws:wsworkunits";
-            writeStartElement(null, namespace, "PushEventName", xmlWriter);
+        throw new org.apache.axis2.databinding.ADBException("PushEventName cannot be null!!");
 
-            if (localPushEventName == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "PushEventName cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localPushEventName);
-            }
+      } else {
 
-            xmlWriter.writeEndElement();
-        }
+        xmlWriter.writeCharacters(localPushEventName);
+      }
 
-        if (localPushEventTextTracker) {
-            namespace = "urn:hpccsystems:ws:wsworkunits";
-            writeStartElement(null, namespace, "PushEventText", xmlWriter);
+      xmlWriter.writeEndElement();
+    }
+    if (localPushEventTextTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "PushEventText", xmlWriter);
 
-            if (localPushEventText == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "PushEventText cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localPushEventText);
-            }
+      if (localPushEventText == null) {
+        // write the nil attribute
 
-            xmlWriter.writeEndElement();
-        }
+        throw new org.apache.axis2.databinding.ADBException("PushEventText cannot be null!!");
 
-        if (localQueryTracker) {
-            namespace = "urn:hpccsystems:ws:wsworkunits";
-            writeStartElement(null, namespace, "Query", xmlWriter);
+      } else {
 
-            if (localQuery == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "Query cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localQuery);
-            }
+        xmlWriter.writeCharacters(localPushEventText);
+      }
 
-            xmlWriter.writeEndElement();
-        }
+      xmlWriter.writeEndElement();
+    }
+    if (localQueryTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "Query", xmlWriter);
 
-        if (localClustersTracker) {
-            if (localClusters == null) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "Clusters cannot be null!!");
-            }
+      if (localQuery == null) {
+        // write the nil attribute
 
-            localClusters.serialize(new javax.xml.namespace.QName(
-                    "urn:hpccsystems:ws:wsworkunits", "Clusters"), xmlWriter);
-        }
+        throw new org.apache.axis2.databinding.ADBException("Query cannot be null!!");
 
-        if (localWorkunitsTracker) {
-            if (localWorkunits == null) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "Workunits cannot be null!!");
-            }
+      } else {
 
-            localWorkunits.serialize(new javax.xml.namespace.QName(
-                    "urn:hpccsystems:ws:wsworkunits", "Workunits"), xmlWriter);
-        }
+        xmlWriter.writeCharacters(localQuery);
+      }
 
-        xmlWriter.writeEndElement();
+      xmlWriter.writeEndElement();
+    }
+    if (localClustersTracker) {
+      if (localClusters == null) {
+        throw new org.apache.axis2.databinding.ADBException("Clusters cannot be null!!");
+      }
+      localClusters.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Clusters"), xmlWriter);
+    }
+    if (localWorkunitsTracker) {
+      if (localWorkunits == null) {
+        throw new org.apache.axis2.databinding.ADBException("Workunits cannot be null!!");
+      }
+      localWorkunits.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Workunits"), xmlWriter);
+    }
+    xmlWriter.writeEndElement();
+  }
+
+  private static java.lang.String generatePrefix(java.lang.String namespace) {
+    if (namespace.equals("urn:hpccsystems:ws:wsworkunits")) {
+      return "ns1";
+    }
+    return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+  }
+
+  /** Utility method to write an element start tag. */
+  private void writeStartElement(
+      java.lang.String prefix,
+      java.lang.String namespace,
+      java.lang.String localPart,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+    if (writerPrefix != null) {
+      xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
+    } else {
+      if (namespace.length() == 0) {
+        prefix = "";
+      } else if (prefix == null) {
+        prefix = generatePrefix(namespace);
+      }
+
+      xmlWriter.writeStartElement(prefix, localPart, namespace);
+      xmlWriter.writeNamespace(prefix, namespace);
+      xmlWriter.setPrefix(prefix, namespace);
+    }
+  }
+
+  /** Util method to write an attribute with the ns prefix */
+  private void writeAttribute(
+      java.lang.String prefix,
+      java.lang.String namespace,
+      java.lang.String attName,
+      java.lang.String attValue,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+    if (writerPrefix != null) {
+      xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
+    } else {
+      xmlWriter.writeNamespace(prefix, namespace);
+      xmlWriter.setPrefix(prefix, namespace);
+      xmlWriter.writeAttribute(prefix, namespace, attName, attValue);
+    }
+  }
+
+  /** Util method to write an attribute without the ns prefix */
+  private void writeAttribute(
+      java.lang.String namespace,
+      java.lang.String attName,
+      java.lang.String attValue,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    if (namespace.equals("")) {
+      xmlWriter.writeAttribute(attName, attValue);
+    } else {
+      xmlWriter.writeAttribute(registerPrefix(xmlWriter, namespace), namespace, attName, attValue);
+    }
+  }
+
+  /** Util method to write an attribute without the ns prefix */
+  private void writeQNameAttribute(
+      java.lang.String namespace,
+      java.lang.String attName,
+      javax.xml.namespace.QName qname,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+
+    java.lang.String attributeNamespace = qname.getNamespaceURI();
+    java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+    if (attributePrefix == null) {
+      attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
+    }
+    java.lang.String attributeValue;
+    if (attributePrefix.trim().length() > 0) {
+      attributeValue = attributePrefix + ":" + qname.getLocalPart();
+    } else {
+      attributeValue = qname.getLocalPart();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
-        if (namespace.equals("urn:hpccsystems:ws:wsworkunits")) {
-            return "ns8";
-        }
-
-        return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+    if (namespace.equals("")) {
+      xmlWriter.writeAttribute(attName, attributeValue);
+    } else {
+      registerPrefix(xmlWriter, namespace);
+      xmlWriter.writeAttribute(attributePrefix, namespace, attName, attributeValue);
     }
+  }
+  /** method to handle Qnames */
+  private void writeQName(
+      javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String namespaceURI = qname.getNamespaceURI();
+    if (namespaceURI != null) {
+      java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+      if (prefix == null) {
+        prefix = generatePrefix(namespaceURI);
+        xmlWriter.writeNamespace(prefix, namespaceURI);
+        xmlWriter.setPrefix(prefix, namespaceURI);
+      }
 
-    /**
-     * Utility method to write an element start tag.
-     */
-    private void writeStartElement(java.lang.String prefix,
-        java.lang.String namespace, java.lang.String localPart,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      if (prefix.trim().length() > 0) {
+        xmlWriter.writeCharacters(
+            prefix + ":" + org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
+      } else {
+        // i.e this is the default namespace
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
+      }
 
-        if (writerPrefix != null) {
-            xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
-        } else {
-            if (namespace.length() == 0) {
-                prefix = "";
-            } else if (prefix == null) {
-                prefix = generatePrefix(namespace);
-            }
-
-            xmlWriter.writeStartElement(prefix, localPart, namespace);
-            xmlWriter.writeNamespace(prefix, namespace);
-            xmlWriter.setPrefix(prefix, namespace);
-        }
+    } else {
+      xmlWriter.writeCharacters(
+          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
     }
+  }
 
-    /**
-     * Util method to write an attribute with the ns prefix
-     */
-    private void writeAttribute(java.lang.String prefix,
-        java.lang.String namespace, java.lang.String attName,
-        java.lang.String attValue, javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+  private void writeQNames(
+      javax.xml.namespace.QName[] qnames, javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
 
-        if (writerPrefix != null) {
-            xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
-        } else {
-            xmlWriter.writeNamespace(prefix, namespace);
-            xmlWriter.setPrefix(prefix, namespace);
-            xmlWriter.writeAttribute(prefix, namespace, attName, attValue);
+    if (qnames != null) {
+      // we have to store this data until last moment since it is not possible to write any
+      // namespace data after writing the charactor data
+      java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
+      java.lang.String namespaceURI = null;
+      java.lang.String prefix = null;
+
+      for (int i = 0; i < qnames.length; i++) {
+        if (i > 0) {
+          stringToWrite.append(" ");
         }
-    }
-
-    /**
-     * Util method to write an attribute without the ns prefix
-     */
-    private void writeAttribute(java.lang.String namespace,
-        java.lang.String attName, java.lang.String attValue,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        if (namespace.equals("")) {
-            xmlWriter.writeAttribute(attName, attValue);
-        } else {
-            xmlWriter.writeAttribute(registerPrefix(xmlWriter, namespace),
-                namespace, attName, attValue);
-        }
-    }
-
-    /**
-     * Util method to write an attribute without the ns prefix
-     */
-    private void writeQNameAttribute(java.lang.String namespace,
-        java.lang.String attName, javax.xml.namespace.QName qname,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String attributeNamespace = qname.getNamespaceURI();
-        java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
-
-        if (attributePrefix == null) {
-            attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
-        }
-
-        java.lang.String attributeValue;
-
-        if (attributePrefix.trim().length() > 0) {
-            attributeValue = attributePrefix + ":" + qname.getLocalPart();
-        } else {
-            attributeValue = qname.getLocalPart();
-        }
-
-        if (namespace.equals("")) {
-            xmlWriter.writeAttribute(attName, attributeValue);
-        } else {
-            registerPrefix(xmlWriter, namespace);
-            xmlWriter.writeAttribute(attributePrefix, namespace, attName,
-                attributeValue);
-        }
-    }
-
-    /**
-     *  method to handle Qnames
-     */
-    private void writeQName(javax.xml.namespace.QName qname,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String namespaceURI = qname.getNamespaceURI();
-
+        namespaceURI = qnames[i].getNamespaceURI();
         if (namespaceURI != null) {
-            java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+          prefix = xmlWriter.getPrefix(namespaceURI);
+          if ((prefix == null) || (prefix.length() == 0)) {
+            prefix = generatePrefix(namespaceURI);
+            xmlWriter.writeNamespace(prefix, namespaceURI);
+            xmlWriter.setPrefix(prefix, namespaceURI);
+          }
 
-            if (prefix == null) {
-                prefix = generatePrefix(namespaceURI);
-                xmlWriter.writeNamespace(prefix, namespaceURI);
-                xmlWriter.setPrefix(prefix, namespaceURI);
-            }
-
-            if (prefix.trim().length() > 0) {
-                xmlWriter.writeCharacters(prefix + ":" +
-                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        qname));
-            } else {
-                // i.e this is the default namespace
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        qname));
-            }
+          if (prefix.trim().length() > 0) {
+            stringToWrite
+                .append(prefix)
+                .append(":")
+                .append(
+                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
+          } else {
+            stringToWrite.append(
+                org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
+          }
         } else {
-            xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                    qname));
+          stringToWrite.append(
+              org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
         }
+      }
+      xmlWriter.writeCharacters(stringToWrite.toString());
     }
+  }
 
-    private void writeQNames(javax.xml.namespace.QName[] qnames,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        if (qnames != null) {
-            // we have to store this data until last moment since it is not possible to write any
-            // namespace data after writing the charactor data
-            java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-            java.lang.String namespaceURI = null;
-            java.lang.String prefix = null;
-
-            for (int i = 0; i < qnames.length; i++) {
-                if (i > 0) {
-                    stringToWrite.append(" ");
-                }
-
-                namespaceURI = qnames[i].getNamespaceURI();
-
-                if (namespaceURI != null) {
-                    prefix = xmlWriter.getPrefix(namespaceURI);
-
-                    if ((prefix == null) || (prefix.length() == 0)) {
-                        prefix = generatePrefix(namespaceURI);
-                        xmlWriter.writeNamespace(prefix, namespaceURI);
-                        xmlWriter.setPrefix(prefix, namespaceURI);
-                    }
-
-                    if (prefix.trim().length() > 0) {
-                        stringToWrite.append(prefix).append(":")
-                                     .append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                qnames[i]));
-                    } else {
-                        stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                qnames[i]));
-                    }
-                } else {
-                    stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                            qnames[i]));
-                }
-            }
-
-            xmlWriter.writeCharacters(stringToWrite.toString());
+  /** Register a namespace prefix */
+  private java.lang.String registerPrefix(
+      javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String prefix = xmlWriter.getPrefix(namespace);
+    if (prefix == null) {
+      prefix = generatePrefix(namespace);
+      javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
+      while (true) {
+        java.lang.String uri = nsContext.getNamespaceURI(prefix);
+        if (uri == null || uri.length() == 0) {
+          break;
         }
+        prefix = org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+      }
+      xmlWriter.writeNamespace(prefix, namespace);
+      xmlWriter.setPrefix(prefix, namespace);
     }
+    return prefix;
+  }
+
+  /** Factory class that keeps the parse method */
+  public static class Factory {
+    private static org.apache.commons.logging.Log log =
+        org.apache.commons.logging.LogFactory.getLog(Factory.class);
 
     /**
-     * Register a namespace prefix
+     * static method to create the object Precondition: If this object is an element, the current or
+     * next start element starts this object and any intervening reader events are ignorable If this
+     * object is not an element, it is a complex type and the reader is at the event just after the
+     * outer start element Postcondition: If this object is an element, the reader is positioned at
+     * its end element If this object is a complex type, the reader is positioned at the end element
+     * of its outer element
      */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String prefix = xmlWriter.getPrefix(namespace);
+    public static WUShowScheduledResponse parse(javax.xml.stream.XMLStreamReader reader)
+        throws java.lang.Exception {
+      WUShowScheduledResponse object = new WUShowScheduledResponse();
 
-        if (prefix == null) {
-            prefix = generatePrefix(namespace);
+      int event;
+      javax.xml.namespace.QName currentQName = null;
+      java.lang.String nillableValue = null;
+      java.lang.String prefix = "";
+      java.lang.String namespaceuri = "";
+      try {
 
-            javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
+        while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
 
-            while (true) {
-                java.lang.String uri = nsContext.getNamespaceURI(prefix);
+        currentQName = reader.getName();
 
-                if ((uri == null) || (uri.length() == 0)) {
-                    break;
-                }
-
-                prefix = org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+        if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type") != null) {
+          java.lang.String fullTypeName =
+              reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
+          if (fullTypeName != null) {
+            java.lang.String nsPrefix = null;
+            if (fullTypeName.indexOf(":") > -1) {
+              nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
             }
+            nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-            xmlWriter.writeNamespace(prefix, namespace);
-            xmlWriter.setPrefix(prefix, namespace);
+            java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+
+            if (!"WUShowScheduledResponse".equals(type)) {
+              // find namespace for the prefix
+              java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+              return (WUShowScheduledResponse)
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ExtensionMapper
+                      .getTypeObject(nsUri, type, reader);
+            }
+          }
         }
 
-        return prefix;
+        // Note all attributes that were handled. Used to differ normal attributes
+        // from anyAttributes.
+        java.util.Vector handledAttributes = new java.util.Vector();
+
+        reader.next();
+
+        while (!reader.isEndElement()) {
+          if (reader.isStartElement()) {
+
+            if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions")
+                    .equals(reader.getName())) {
+
+              object.setExceptions(
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfEspException.Factory
+                      .parse(reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "ClusterSelected")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "ClusterSelected" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setClusterSelected(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "EventName")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "EventName" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setEventName(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "PushEventName")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "PushEventName" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setPushEventName(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "PushEventText")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "PushEventText" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setPushEventText(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Query")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Query" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setQuery(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Clusters")
+                    .equals(reader.getName())) {
+
+              object.setClusters(
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfServerInfo.Factory
+                      .parse(reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Workunits")
+                    .equals(reader.getName())) {
+
+              object.setWorkunits(
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfScheduledWU.Factory
+                      .parse(reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else {
+              // 3 - A start element we are not expecting indicates an invalid parameter was passed
+
+              throw new org.apache.axis2.databinding.ADBException(
+                  "Unexpected subelement " + reader.getName());
+            }
+
+          } else {
+            reader.next();
+          }
+        } // end of while loop
+
+      } catch (javax.xml.stream.XMLStreamException e) {
+        throw new java.lang.Exception(e);
+      }
+
+      return object;
     }
-
-    /**
-     *  Factory class that keeps the parse method
-     */
-    public static class Factory {
-        private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(Factory.class);
-
-        /**
-         * static method to create the object
-         * Precondition:  If this object is an element, the current or next start element starts this object and any intervening reader events are ignorable
-         *                If this object is not an element, it is a complex type and the reader is at the event just after the outer start element
-         * Postcondition: If this object is an element, the reader is positioned at its end element
-         *                If this object is a complex type, the reader is positioned at the end element of its outer element
-         */
-        public static WUShowScheduledResponse parse(
-            javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
-            WUShowScheduledResponse object = new WUShowScheduledResponse();
-
-            int event;
-            javax.xml.namespace.QName currentQName = null;
-            java.lang.String nillableValue = null;
-            java.lang.String prefix = "";
-            java.lang.String namespaceuri = "";
-
-            try {
-                while (!reader.isStartElement() && !reader.isEndElement())
-                    reader.next();
-
-                currentQName = reader.getName();
-
-                if (reader.getAttributeValue(
-                            "http://www.w3.org/2001/XMLSchema-instance", "type") != null) {
-                    java.lang.String fullTypeName = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                            "type");
-
-                    if (fullTypeName != null) {
-                        java.lang.String nsPrefix = null;
-
-                        if (fullTypeName.indexOf(":") > -1) {
-                            nsPrefix = fullTypeName.substring(0,
-                                    fullTypeName.indexOf(":"));
-                        }
-
-                        nsPrefix = (nsPrefix == null) ? "" : nsPrefix;
-
-                        java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(
-                                    ":") + 1);
-
-                        if (!"WUShowScheduledResponse".equals(type)) {
-                            //find namespace for the prefix
-                            java.lang.String nsUri = reader.getNamespaceContext()
-                                                           .getNamespaceURI(nsPrefix);
-
-                            return (WUShowScheduledResponse) org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ExtensionMapper.getTypeObject(nsUri,
-                                type, reader);
-                        }
-                    }
-                }
-
-                // Note all attributes that were handled. Used to differ normal attributes
-                // from anyAttributes.
-                java.util.Vector handledAttributes = new java.util.Vector();
-
-                reader.next();
-
-                while (!reader.isEndElement()) {
-                    if (reader.isStartElement()) {
-                        if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsworkunits",
-                                    "Exceptions").equals(reader.getName())) {
-                            object.setExceptions(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfEspException.Factory.parse(
-                                    reader));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsworkunits",
-                                    "ClusterSelected").equals(reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "ClusterSelected" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setClusterSelected(org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsworkunits",
-                                    "EventName").equals(reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "EventName" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setEventName(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsworkunits",
-                                    "PushEventName").equals(reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "PushEventName" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setPushEventName(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsworkunits",
-                                    "PushEventText").equals(reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "PushEventText" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setPushEventText(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsworkunits", "Query").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "Query" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setQuery(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsworkunits", "Clusters").equals(
-                                    reader.getName())) {
-                            object.setClusters(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfServerInfo.Factory.parse(
-                                    reader));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsworkunits",
-                                    "Workunits").equals(reader.getName())) {
-                            object.setWorkunits(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfScheduledWU.Factory.parse(
-                                    reader));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else {
-                            // 3 - A start element we are not expecting indicates an invalid parameter was passed
-                            throw new org.apache.axis2.databinding.ADBException(
-                                "Unexpected subelement " + reader.getName());
-                        }
-                    } else {
-                        reader.next();
-                    }
-                } // end of while loop
-            } catch (javax.xml.stream.XMLStreamException e) {
-                throw new java.lang.Exception(e);
-            }
-
-            return object;
-        }
-    } //end of factory class
+  } // end of factory class
 }

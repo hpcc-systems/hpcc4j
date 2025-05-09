@@ -15,6 +15,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+import org.apache.axiom.om.OMElement;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -25,7 +26,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsworkunits;
 public class WUDetailsResponseWrapper
 {
     protected ArrayOfEspExceptionWrapper local_exceptions;
-    protected String local_maxVersion;
+    protected OMElement local_maxVersion;
     protected String local_wUID;
     protected Scopes_type1Wrapper local_scopes;
 
@@ -35,7 +36,7 @@ public class WUDetailsResponseWrapper
     {
         copy( wudetailsresponse );
     }
-    public WUDetailsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, String _maxVersion, String _wUID, Scopes_type1Wrapper _scopes )
+    public WUDetailsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, OMElement _maxVersion, String _wUID, Scopes_type1Wrapper _scopes )
     {
         this.local_exceptions = _exceptions;
         this.local_maxVersion = _maxVersion;
@@ -84,11 +85,11 @@ public class WUDetailsResponseWrapper
     {
         return this.local_exceptions;
     }
-    public void setMaxVersion( String _maxVersion )
+    public void setMaxVersion( OMElement _maxVersion )
     {
         this.local_maxVersion = _maxVersion;
     }
-    public String getMaxVersion( )
+    public OMElement getMaxVersion( )
     {
         return this.local_maxVersion;
     }

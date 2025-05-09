@@ -1,8 +1,8 @@
 /**
  * DFURecordTypeInfoResponse.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsdfu.latest;
 
@@ -47,7 +47,7 @@ public class DFURecordTypeInfoResponse implements org.apache.axis2.databinding.A
   }
 
   /** field for BinInfo */
-  protected javax.activation.DataHandler localBinInfo;
+  protected jakarta.activation.DataHandler localBinInfo;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -62,9 +62,9 @@ public class DFURecordTypeInfoResponse implements org.apache.axis2.databinding.A
   /**
    * Auto generated getter method
    *
-   * @return javax.activation.DataHandler
+   * @return jakarta.activation.DataHandler
    */
-  public javax.activation.DataHandler getBinInfo() {
+  public jakarta.activation.DataHandler getBinInfo() {
     return localBinInfo;
   }
 
@@ -73,7 +73,7 @@ public class DFURecordTypeInfoResponse implements org.apache.axis2.databinding.A
    *
    * @param param BinInfo
    */
-  public void setBinInfo(javax.activation.DataHandler param) {
+  public void setBinInfo(jakarta.activation.DataHandler param) {
     localBinInfoTracker = param != null;
 
     this.localBinInfo = param;
@@ -151,8 +151,11 @@ public class DFURecordTypeInfoResponse implements org.apache.axis2.databinding.A
 
       if (localBinInfo != null) {
         try {
-          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeDataHandler(
-              xmlWriter, localBinInfo, null, true);
+          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeBlob(
+              xmlWriter,
+              org.apache.axiom.util.activation.DataHandlerUtils.toBlob(localBinInfo),
+              null,
+              true);
         } catch (java.io.IOException ex) {
           throw new javax.xml.stream.XMLStreamException(
               "Unable to read data handler for binInfo", ex);
@@ -430,8 +433,8 @@ public class DFURecordTypeInfoResponse implements org.apache.axis2.databinding.A
                     .equals(reader.getName())) {
 
               object.setBinInfo(
-                  org.apache.axiom.util.stax.XMLStreamReaderUtils.getDataHandlerFromElement(
-                      reader));
+                  org.apache.axiom.util.activation.DataHandlerUtils.toDataHandler(
+                      org.apache.axiom.util.stax.XMLStreamReaderUtils.getBlobFromElement(reader)));
 
               reader.next();
 

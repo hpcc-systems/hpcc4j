@@ -19,7 +19,14 @@ limitations under the License.
 
 import java.io.IOException;
 
-import org.apache.http.HttpException;
+import org.apache.axis2.transport.http.*;
+import org.apache.hc.client5.http.protocol.HttpClientContext;
+import org.apache.hc.core5.http.EntityDetails;
+import org.apache.hc.core5.http.HttpException;
+import org.apache.hc.core5.http.HttpRequest;
+import org.apache.hc.core5.http.HttpRequestInterceptor;
+import org.apache.hc.core5.http.protocol.HttpContext;
+/*import org.apache.http.HttpException;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.auth.AuthScope;
@@ -28,7 +35,7 @@ import org.apache.http.auth.Credentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.protocol.HttpContext;
+import org.apache.http.protocol.HttpContext;*/
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,31 +47,22 @@ public class HPCCPreemptiveAuthInterceptor implements HttpRequestInterceptor
 {
     protected static final Logger log = LogManager.getLogger(HPCCPreemptiveAuthInterceptor.class);
 
+    /*
+     * Old (Axis2 with HttpClient 4):.
+     *  HttpClientContext.TARGET_AUTH_STATE was a way to store and retrieve the authentication state related to the target endpoint.
+     *
+     *  New (Axis2 with HttpClient 4.5):
+     *  The concept of TARGET_AUTH_STATE is not directly used.
+     *  Instead, authentication state is managed through AuthScope which represents the scope of the authentication (e.g., server, realm) and AuthProtocol,
+     *  which specifies the authentication protocol (e.g., Basic, Digest).
+     *  The HttpClientContext provides methods like getAuthScope() and getAuthProtocol() to access this information.
+     *
+     *  In essence, instead of a single TARGET_AUTH_STATE value, the newer approach uses more granular and contextual information within the HttpClientContext related to authentication. This approach offers better control and flexibility in handling authentication, particularly in complex scenarios with multiple authentication realms or protocols.
+     */
+
     @Override
-    public void process(HttpRequest request, HttpContext context) throws HttpException, IOException
+    public void process(HttpRequest request, EntityDetails entity, HttpContext context) throws HttpException, IOException
     {
         log.debug("HPCCPreemptiveAuthInterceptor: Processing preemptive authentication...");
-        AuthState authState = (AuthState) context.getAttribute(HttpClientContext.TARGET_AUTH_STATE);
-        // If no auth scheme available yet, try to initialize it preemptively
-        if (authState.getAuthScheme() == null)
-        {
-            log.debug("HPCCPreemptiveAuthInterceptor: No previous authentication scheme found, initializing preemptively...");
-
-            CredentialsProvider credsProvider = (CredentialsProvider) context.getAttribute(HttpClientContext.CREDS_PROVIDER);
-
-            if (credsProvider == null)
-            {
-                log.warn("HPCCPreemptiveAuthInterceptor: No credentials provider found...");
-            }
-            else
-            {
-                Credentials creds = credsProvider.getCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT));
-                if (creds == null)
-                {
-                    log.warn("HPCCPreemptiveAuthInterceptor: No credentials found during preemptive authentication processing...");
-                }
-                authState.update(new BasicScheme(), creds);
-            }
-        }
     }
 }
