@@ -55,7 +55,7 @@
     <junit.version>4.13.1</junit.version>
     <json.version>20231013</json.version>
     <log4j.version>2.17.1</log4j.version>
-    <axis2.version>1.8.1</axis2.version>
+    <axis2.version>2.0.0</axis2.version>
     <hadoop.version>3.3.6</hadoop.version>
     <parquet.version>1.15.1</parquet.version>
     <avro.version>1.12.0</avro.version>
@@ -195,11 +195,17 @@
       <version>${axis2.version}</version>
     </dependency>
     <dependency>
+      <!--required since axis2 v.2.0-->
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
+      <version>5.4.2</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.axis2</groupId>
       <artifactId>axis2-transport-local</artifactId>
       <version>${axis2.version}</version>
     </dependency>
-	<dependency>
+    <dependency>
       <groupId>org.apache.axis2</groupId>
       <artifactId>axis2-adb</artifactId>
       <version>${axis2.version}</version>

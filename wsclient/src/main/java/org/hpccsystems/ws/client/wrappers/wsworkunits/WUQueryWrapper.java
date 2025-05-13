@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ApplicationValue;
+import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ArrayOfApplicationValue;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.hpccsystems.ws.client.wrappers.ApplicationValueWrapper;
 import org.hpccsystems.ws.client.wrappers.WUState;
@@ -666,9 +667,17 @@ public class WUQueryWrapper
             {
                 throw new Exception("Can't use application value at 0-based index " + appvalue + ", there are only " + applicationValues.size() + " values");
             }
-            raw.setApplicationName(applicationValues.get(appvalue).getApplication());
-            raw.setApplicationKey(applicationValues.get(appvalue).getName());
-            raw.setApplicationData(applicationValues.get(appvalue).getValue());
+
+            ArrayOfApplicationValue applications = new ArrayOfApplicationValue();
+            for (ApplicationValueWrapper applicationValue : applicationValues)
+            {
+                org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ApplicationValue apv = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ApplicationValue();
+                apv.setApplication(applicationValue.getApplication());
+                apv.setName(applicationValue.getName());
+                apv.setValue(applicationValue.getValue());
+                applications.addApplicationValue(apv);
+            }
+            raw.setApplicationValues(applications);
         }
         return raw;
     }

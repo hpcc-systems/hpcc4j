@@ -1,8 +1,8 @@
 /**
  * WUGetDependancyTreesResponse.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest;
 
@@ -85,7 +85,7 @@ public class WUGetDependancyTreesResponse implements org.apache.axis2.databindin
   }
 
   /** field for DependancyTrees */
-  protected javax.activation.DataHandler localDependancyTrees;
+  protected jakarta.activation.DataHandler localDependancyTrees;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -100,9 +100,9 @@ public class WUGetDependancyTreesResponse implements org.apache.axis2.databindin
   /**
    * Auto generated getter method
    *
-   * @return javax.activation.DataHandler
+   * @return jakarta.activation.DataHandler
    */
-  public javax.activation.DataHandler getDependancyTrees() {
+  public jakarta.activation.DataHandler getDependancyTrees() {
     return localDependancyTrees;
   }
 
@@ -111,7 +111,7 @@ public class WUGetDependancyTreesResponse implements org.apache.axis2.databindin
    *
    * @param param DependancyTrees
    */
-  public void setDependancyTrees(javax.activation.DataHandler param) {
+  public void setDependancyTrees(jakarta.activation.DataHandler param) {
     localDependancyTreesTracker = param != null;
 
     this.localDependancyTrees = param;
@@ -188,8 +188,11 @@ public class WUGetDependancyTreesResponse implements org.apache.axis2.databindin
 
       if (localDependancyTrees != null) {
         try {
-          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeDataHandler(
-              xmlWriter, localDependancyTrees, null, true);
+          org.apache.axiom.util.stax.XMLStreamWriterUtils.writeBlob(
+              xmlWriter,
+              org.apache.axiom.util.activation.DataHandlerUtils.toBlob(localDependancyTrees),
+              null,
+              true);
         } catch (java.io.IOException ex) {
           throw new javax.xml.stream.XMLStreamException(
               "Unable to read data handler for DependancyTrees", ex);
@@ -471,8 +474,8 @@ public class WUGetDependancyTreesResponse implements org.apache.axis2.databindin
                     .equals(reader.getName())) {
 
               object.setDependancyTrees(
-                  org.apache.axiom.util.stax.XMLStreamReaderUtils.getDataHandlerFromElement(
-                      reader));
+                  org.apache.axiom.util.activation.DataHandlerUtils.toDataHandler(
+                      org.apache.axiom.util.stax.XMLStreamReaderUtils.getBlobFromElement(reader)));
 
               reader.next();
 

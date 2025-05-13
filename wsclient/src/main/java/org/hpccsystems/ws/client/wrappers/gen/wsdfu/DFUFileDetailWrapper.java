@@ -18,7 +18,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsdfu;
 import java.util.List;
 import java.util.ArrayList;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspStringArray;
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 /**
  * Generated Axis2 ADB stub class wrapper

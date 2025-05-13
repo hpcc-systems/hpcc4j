@@ -3,9 +3,9 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import javax.activation.DataHandler;
-
 import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WULogFileResponse;
+
+import jakarta.activation.DataHandler;
 
 @Deprecated
 public class WULogFileWrapper
