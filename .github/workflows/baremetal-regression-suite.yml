@@ -168,14 +168,25 @@ jobs:
       if: matrix.security == 'enabled'
       shell: bash 
       run: |
+        # Generate random credentials
+        DUMMY_USER=$(openssl rand -hex 8)
+        DUMMY_PASS=$(openssl rand -hex 16)
+        JUNIT_USER=$(openssl rand -hex 4)@$(openssl rand -hex 4)
+
+        # Export credentials as environment variables
+        echo "DUMMY_USER=$DUMMY_USER" >> $GITHUB_ENV
+        echo "DUMMY_PASS=$DUMMY_PASS" >> $GITHUB_ENV
+        echo "JUNIT_USER=$JUNIT_USER" >> $GITHUB_ENV
+
         # Create .htpasswd file with user:password
         sudo apt-get install -y apache2-utils
 
         # Add dummy user and password to .htpasswd file
-        sudo htpasswd -c -b /etc/HPCCSystems/.htpasswd user password
+        sudo htpasswd -c -b /etc/HPCCSystems/.htpasswd $DUMMY_USER $DUMMY_PASS
 
         # Add test user and password to .htpasswd file
-        sudo htpasswd -b /etc/HPCCSystems/.htpasswd Juni@tUser password
+        sudo htpasswd -b /etc/HPCCSystems/.htpasswd $JUNIT_USER $DUMMY_PASS
+
 
     - name: Add htpasswdsecmgr to environment.xml
       if: matrix.security == 'enabled'
@@ -259,8 +270,13 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
 
-    - name: Build with Maven
-      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open ${{ matrix.security == 'enabled' && '-Dhpccuser=user -Dhpccpass=password' || '' }} install
+    - name: Build with Maven (Secure)
+      if: matrix.security == 'enabled'
+      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open -Dhpccuser=${{ env.DUMMY_USER}} -Dhpccpass=${{ env.DUMMY_PASS }} -DencodedUserName=${{ env.JUNIT_USER }} install
+    
+    - name: Build with Maven (Insecure)
+      if: matrix.security == 'disabled'
+      run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open install
 
     - name: Process Errors
       shell: python
