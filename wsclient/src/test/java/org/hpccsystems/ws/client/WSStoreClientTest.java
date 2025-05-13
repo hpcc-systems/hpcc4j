@@ -48,6 +48,8 @@ public class WSStoreClientTest extends BaseRemoteTest
     public final static String defaultNS = "Junittests";
 
     public final static String defaultEncodedUserName = "Juni@tUser";
+    private final static String encodedUserName = System.getProperty("encodedUserName", defaultEncodedUserName);
+
     public final static String defaultEncodedStoreName = "WsCli@ntT_estStore";
     public final static String defaultEncodedNS = "Junit_t@ests";
     private static Connection encodedUserConn = null;
@@ -59,6 +61,11 @@ public class WSStoreClientTest extends BaseRemoteTest
 
     static
     {
+        if (System.getProperty("encodedUserName") == null)
+            System.out.println("'encodedUserName' not provided, defaulting to: '" + defaultEncodedUserName + "'");
+        else
+            System.out.println("'encodedUserName' set to: '" + encodedUserName + "'");
+
         if (System.getProperty("storename") == null)
             System.out.println("'storename' not provided, defaulting to: '" + defaultStoreName + "'");
 
@@ -89,7 +96,7 @@ public class WSStoreClientTest extends BaseRemoteTest
 
         if (encodedUserConn != null)
         {
-            encodedUserConn.setCredentials(defaultEncodedUserName, hpccPass);
+            encodedUserConn.setCredentials(encodedUserName, hpccPass);
 
             if (connTO != null)
                 encodedUserConn.setConnectTimeoutMilli(connTO);
