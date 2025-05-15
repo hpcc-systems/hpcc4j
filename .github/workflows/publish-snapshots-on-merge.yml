@@ -18,15 +18,15 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-          server-id: ossrh
+          server-id: central
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
       - name: Publish package
         if: contains(github.ref_name, '-release') == false
         run: mvn --batch-mode -DskipITs deploy
         env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USER_NAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASS }}
+          MAVEN_USERNAME: ${{ secrets.CENTRAL_USER_NAME }}
+          MAVEN_PASSWORD: ${{ secrets.CENTRAL_PASS }}
   publish-jfrog-artifactory:
     runs-on: ubuntu-latest
     steps:
@@ -39,11 +39,11 @@ jobs:
           server-id: 'jfrog-snapshot'
           server-username: JFROG_USER
           server-password: JFROG_TOKEN
-          gpg-private-key: ${{ secrets.SIGNING_SECRET }}
+          gpg-private-key: ${{ secrets.CENTRAL_SIGNING_SECRET }}
           gpg-passphrase: JFROG_GPG_PASSPHRASE
       - name: Publish package
         if: contains(github.ref_name, '-release') == false
-        run: mvn -Pjfrog-artifactory -Dgpg.passphrase=${{ secrets.SIGN_MODULES_PASSPHRASE }} -DstagingProgressTimeoutMinutes=20 -DskipITs clean deploy -e
+        run: mvn -Pjfrog-artifactory -Dgpg.passphrase=${{ secrets.CENTRAL_SIGN_MODULES_PASSPHRASE }} -DstagingProgressTimeoutMinutes=20 -DskipITs clean deploy -e
         env:
           JFROG_USER: ${{ secrets.JFROG_USER }}
           JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
