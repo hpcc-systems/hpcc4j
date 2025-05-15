@@ -31,6 +31,9 @@ public class WUCheckFeaturesResponseWrapper
     protected int local_buildVersionPoint;
     protected UnsignedInt local_maxRequestEntityLength;
     protected DeploymentFeaturesWrapper local_deployment;
+    protected String local_buildVersion;
+    protected String local_buildMaturity;
+    protected String local_buildTagTimestamp;
 
     public WUCheckFeaturesResponseWrapper() {}
 
@@ -38,7 +41,7 @@ public class WUCheckFeaturesResponseWrapper
     {
         copy( wucheckfeaturesresponse );
     }
-    public WUCheckFeaturesResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, int _buildVersionMajor, int _buildVersionMinor, int _buildVersionPoint, UnsignedInt _maxRequestEntityLength, DeploymentFeaturesWrapper _deployment )
+    public WUCheckFeaturesResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, int _buildVersionMajor, int _buildVersionMinor, int _buildVersionPoint, UnsignedInt _maxRequestEntityLength, DeploymentFeaturesWrapper _deployment, String _buildVersion, String _buildMaturity, String _buildTagTimestamp )
     {
         this.local_exceptions = _exceptions;
         this.local_buildVersionMajor = _buildVersionMajor;
@@ -46,6 +49,9 @@ public class WUCheckFeaturesResponseWrapper
         this.local_buildVersionPoint = _buildVersionPoint;
         this.local_maxRequestEntityLength = _maxRequestEntityLength;
         this.local_deployment = _deployment;
+        this.local_buildVersion = _buildVersion;
+        this.local_buildMaturity = _buildMaturity;
+        this.local_buildTagTimestamp = _buildTagTimestamp;
 
     }
 
@@ -62,13 +68,16 @@ public class WUCheckFeaturesResponseWrapper
         this.local_maxRequestEntityLength = raw.getMaxRequestEntityLength();
         if (raw.getDeployment() != null)
             this.local_deployment = new DeploymentFeaturesWrapper( raw.getDeployment());
+        this.local_buildVersion = raw.getBuildVersion();
+        this.local_buildMaturity = raw.getBuildMaturity();
+        this.local_buildTagTimestamp = raw.getBuildTagTimestamp();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUCheckFeaturesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "buildVersionMajor = " + local_buildVersionMajor + ", " + "buildVersionMinor = " + local_buildVersionMinor + ", " + "buildVersionPoint = " + local_buildVersionPoint + ", " + "maxRequestEntityLength = " + local_maxRequestEntityLength + ", " + "deployment = " + local_deployment + "]";
+        return "WUCheckFeaturesResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "buildVersionMajor = " + local_buildVersionMajor + ", " + "buildVersionMinor = " + local_buildVersionMinor + ", " + "buildVersionPoint = " + local_buildVersionPoint + ", " + "maxRequestEntityLength = " + local_maxRequestEntityLength + ", " + "deployment = " + local_deployment + ", " + "buildVersion = " + local_buildVersion + ", " + "buildMaturity = " + local_buildMaturity + ", " + "buildTagTimestamp = " + local_buildTagTimestamp + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeaturesResponse getRaw()
     {
@@ -81,6 +90,9 @@ public class WUCheckFeaturesResponseWrapper
         raw.setMaxRequestEntityLength( local_maxRequestEntityLength);
         if (local_deployment != null)
             raw.setDeployment( local_deployment.getRaw());
+        raw.setBuildVersion( local_buildVersion);
+        raw.setBuildMaturity( local_buildMaturity);
+        raw.setBuildTagTimestamp( local_buildTagTimestamp);
         return raw;
     }
 
@@ -132,5 +144,29 @@ public class WUCheckFeaturesResponseWrapper
     public DeploymentFeaturesWrapper getDeployment( )
     {
         return this.local_deployment;
+    }
+    public void setBuildVersion( String _buildVersion )
+    {
+        this.local_buildVersion = _buildVersion;
+    }
+    public String getBuildVersion( )
+    {
+        return this.local_buildVersion;
+    }
+    public void setBuildMaturity( String _buildMaturity )
+    {
+        this.local_buildMaturity = _buildMaturity;
+    }
+    public String getBuildMaturity( )
+    {
+        return this.local_buildMaturity;
+    }
+    public void setBuildTagTimestamp( String _buildTagTimestamp )
+    {
+        this.local_buildTagTimestamp = _buildTagTimestamp;
+    }
+    public String getBuildTagTimestamp( )
+    {
+        return this.local_buildTagTimestamp;
     }
 }

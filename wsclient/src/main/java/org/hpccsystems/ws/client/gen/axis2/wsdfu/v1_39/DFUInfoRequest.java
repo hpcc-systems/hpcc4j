@@ -1,987 +1,933 @@
 /**
  * DFUInfoRequest.java
  *
- * This file was auto-generated from WSDL
- * by the Apache Axis2 version: 1.7.9  Built on : Nov 16, 2018 (12:06:07 GMT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39;
 
-
-/**
- *  DFUInfoRequest bean class
- */
-@SuppressWarnings({"unchecked",
-    "unused"
-})
+/** DFUInfoRequest bean class */
+@SuppressWarnings({"unchecked", "unused"})
 public class DFUInfoRequest implements org.apache.axis2.databinding.ADBBean {
-    public static final javax.xml.namespace.QName MY_QNAME = new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu",
-            "DFUInfoRequest", "ns3");
 
-    /**
-     * field for Name
-     */
-    protected java.lang.String localName;
+  public static final javax.xml.namespace.QName MY_QNAME =
+      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUInfoRequest", "ns1");
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localNameTracker = false;
+  /** field for Name */
+  protected java.lang.String localName;
 
-    /**
-     * field for Cluster
-     */
-    protected java.lang.String localCluster;
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localNameTracker = false;
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localClusterTracker = false;
+  public boolean isNameSpecified() {
+    return localNameTracker;
+  }
 
-    /**
-     * field for UpdateDescription
-     */
-    protected boolean localUpdateDescription = org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(
-            "false");
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getName() {
+    return localName;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localUpdateDescriptionTracker = false;
+  /**
+   * Auto generated setter method
+   *
+   * @param param Name
+   */
+  public void setName(java.lang.String param) {
+    localNameTracker = param != null;
 
-    /**
-     * field for QuerySet
-     */
-    protected java.lang.String localQuerySet;
+    this.localName = param;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localQuerySetTracker = false;
+  /** field for Cluster */
+  protected java.lang.String localCluster;
 
-    /**
-     * field for Query
-     */
-    protected java.lang.String localQuery;
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localClusterTracker = false;
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localQueryTracker = false;
+  public boolean isClusterSpecified() {
+    return localClusterTracker;
+  }
 
-    /**
-     * field for FileDesc
-     */
-    protected java.lang.String localFileDesc;
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getCluster() {
+    return localCluster;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localFileDescTracker = false;
+  /**
+   * Auto generated setter method
+   *
+   * @param param Cluster
+   */
+  public void setCluster(java.lang.String param) {
+    localClusterTracker = param != null;
 
-    /**
-     * field for IncludeJsonTypeInfo
-     */
-    protected boolean localIncludeJsonTypeInfo = org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(
-            "false");
+    this.localCluster = param;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localIncludeJsonTypeInfoTracker = false;
+  /** field for UpdateDescription */
+  protected boolean localUpdateDescription =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
 
-    /**
-     * field for IncludeBinTypeInfo
-     */
-    protected boolean localIncludeBinTypeInfo = org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(
-            "false");
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localUpdateDescriptionTracker = false;
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localIncludeBinTypeInfoTracker = false;
+  public boolean isUpdateDescriptionSpecified() {
+    return localUpdateDescriptionTracker;
+  }
 
-    /**
-     * field for Protect
-     */
-    protected org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUChangeProtection localProtect;
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getUpdateDescription() {
+    return localUpdateDescription;
+  }
 
-    /*  This tracker boolean wil be used to detect whether the user called the set method
-     *   for this attribute. It will be used to determine whether to include this field
-     *   in the serialized XML
-     */
-    protected boolean localProtectTracker = false;
+  /**
+   * Auto generated setter method
+   *
+   * @param param UpdateDescription
+   */
+  public void setUpdateDescription(boolean param) {
 
-    public boolean isNameSpecified() {
-        return localNameTracker;
-    }
+    // setting primitive attribute tracker to true
+    localUpdateDescriptionTracker = true;
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getName() {
-        return localName;
-    }
+    this.localUpdateDescription = param;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param Name
-     */
-    public void setName(java.lang.String param) {
-        localNameTracker = param != null;
+  /** field for QuerySet */
+  protected java.lang.String localQuerySet;
 
-        this.localName = param;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localQuerySetTracker = false;
 
-    public boolean isClusterSpecified() {
-        return localClusterTracker;
-    }
+  public boolean isQuerySetSpecified() {
+    return localQuerySetTracker;
+  }
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getCluster() {
-        return localCluster;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getQuerySet() {
+    return localQuerySet;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param Cluster
-     */
-    public void setCluster(java.lang.String param) {
-        localClusterTracker = param != null;
+  /**
+   * Auto generated setter method
+   *
+   * @param param QuerySet
+   */
+  public void setQuerySet(java.lang.String param) {
+    localQuerySetTracker = param != null;
 
-        this.localCluster = param;
-    }
+    this.localQuerySet = param;
+  }
 
-    public boolean isUpdateDescriptionSpecified() {
-        return localUpdateDescriptionTracker;
-    }
+  /** field for Query */
+  protected java.lang.String localQuery;
 
-    /**
-     * Auto generated getter method
-     * @return boolean
-     */
-    public boolean getUpdateDescription() {
-        return localUpdateDescription;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localQueryTracker = false;
 
-    /**
-     * Auto generated setter method
-     * @param param UpdateDescription
-     */
-    public void setUpdateDescription(boolean param) {
-        // setting primitive attribute tracker to true
-        localUpdateDescriptionTracker = true;
+  public boolean isQuerySpecified() {
+    return localQueryTracker;
+  }
 
-        this.localUpdateDescription = param;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getQuery() {
+    return localQuery;
+  }
 
-    public boolean isQuerySetSpecified() {
-        return localQuerySetTracker;
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param Query
+   */
+  public void setQuery(java.lang.String param) {
+    localQueryTracker = param != null;
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getQuerySet() {
-        return localQuerySet;
-    }
+    this.localQuery = param;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param QuerySet
-     */
-    public void setQuerySet(java.lang.String param) {
-        localQuerySetTracker = param != null;
+  /** field for FileDesc */
+  protected java.lang.String localFileDesc;
 
-        this.localQuerySet = param;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localFileDescTracker = false;
 
-    public boolean isQuerySpecified() {
-        return localQueryTracker;
-    }
+  public boolean isFileDescSpecified() {
+    return localFileDescTracker;
+  }
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getQuery() {
-        return localQuery;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getFileDesc() {
+    return localFileDesc;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param Query
-     */
-    public void setQuery(java.lang.String param) {
-        localQueryTracker = param != null;
+  /**
+   * Auto generated setter method
+   *
+   * @param param FileDesc
+   */
+  public void setFileDesc(java.lang.String param) {
+    localFileDescTracker = param != null;
 
-        this.localQuery = param;
-    }
+    this.localFileDesc = param;
+  }
 
-    public boolean isFileDescSpecified() {
-        return localFileDescTracker;
-    }
+  /** field for IncludeJsonTypeInfo */
+  protected boolean localIncludeJsonTypeInfo =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
 
-    /**
-     * Auto generated getter method
-     * @return java.lang.String
-     */
-    public java.lang.String getFileDesc() {
-        return localFileDesc;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIncludeJsonTypeInfoTracker = false;
 
-    /**
-     * Auto generated setter method
-     * @param param FileDesc
-     */
-    public void setFileDesc(java.lang.String param) {
-        localFileDescTracker = param != null;
+  public boolean isIncludeJsonTypeInfoSpecified() {
+    return localIncludeJsonTypeInfoTracker;
+  }
 
-        this.localFileDesc = param;
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIncludeJsonTypeInfo() {
+    return localIncludeJsonTypeInfo;
+  }
 
-    public boolean isIncludeJsonTypeInfoSpecified() {
-        return localIncludeJsonTypeInfoTracker;
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param IncludeJsonTypeInfo
+   */
+  public void setIncludeJsonTypeInfo(boolean param) {
 
-    /**
-     * Auto generated getter method
-     * @return boolean
-     */
-    public boolean getIncludeJsonTypeInfo() {
-        return localIncludeJsonTypeInfo;
-    }
+    // setting primitive attribute tracker to true
+    localIncludeJsonTypeInfoTracker = true;
 
-    /**
-     * Auto generated setter method
-     * @param param IncludeJsonTypeInfo
-     */
-    public void setIncludeJsonTypeInfo(boolean param) {
-        // setting primitive attribute tracker to true
-        localIncludeJsonTypeInfoTracker = true;
+    this.localIncludeJsonTypeInfo = param;
+  }
 
-        this.localIncludeJsonTypeInfo = param;
-    }
+  /** field for IncludeBinTypeInfo */
+  protected boolean localIncludeBinTypeInfo =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
 
-    public boolean isIncludeBinTypeInfoSpecified() {
-        return localIncludeBinTypeInfoTracker;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIncludeBinTypeInfoTracker = false;
 
-    /**
-     * Auto generated getter method
-     * @return boolean
-     */
-    public boolean getIncludeBinTypeInfo() {
-        return localIncludeBinTypeInfo;
-    }
+  public boolean isIncludeBinTypeInfoSpecified() {
+    return localIncludeBinTypeInfoTracker;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param IncludeBinTypeInfo
-     */
-    public void setIncludeBinTypeInfo(boolean param) {
-        // setting primitive attribute tracker to true
-        localIncludeBinTypeInfoTracker = true;
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIncludeBinTypeInfo() {
+    return localIncludeBinTypeInfo;
+  }
 
-        this.localIncludeBinTypeInfo = param;
-    }
+  /**
+   * Auto generated setter method
+   *
+   * @param param IncludeBinTypeInfo
+   */
+  public void setIncludeBinTypeInfo(boolean param) {
 
-    public boolean isProtectSpecified() {
-        return localProtectTracker;
-    }
+    // setting primitive attribute tracker to true
+    localIncludeBinTypeInfoTracker = true;
 
-    /**
-     * Auto generated getter method
-     * @return org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUChangeProtection
-     */
-    public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUChangeProtection getProtect() {
-        return localProtect;
-    }
+    this.localIncludeBinTypeInfo = param;
+  }
 
-    /**
-     * Auto generated setter method
-     * @param param Protect
-     */
-    public void setProtect(
-        org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUChangeProtection param) {
-        localProtectTracker = param != null;
+  /** field for Protect */
+  protected org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUChangeProtection localProtect;
 
-        this.localProtect = param;
-    }
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localProtectTracker = false;
 
-    /**
-     *
-     * @param parentQName
-     * @param factory
-     * @return org.apache.axiom.om.OMElement
-     */
-    public org.apache.axiom.om.OMElement getOMElement(
-        final javax.xml.namespace.QName parentQName,
-        final org.apache.axiom.om.OMFactory factory)
-        throws org.apache.axis2.databinding.ADBException {
-        return factory.createOMElement(new org.apache.axis2.databinding.ADBDataSource(
-                this, MY_QNAME));
-    }
+  public boolean isProtectSpecified() {
+    return localProtectTracker;
+  }
 
-    public void serialize(final javax.xml.namespace.QName parentQName,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException,
-            org.apache.axis2.databinding.ADBException {
-        serialize(parentQName, xmlWriter, false);
-    }
+  /**
+   * Auto generated getter method
+   *
+   * @return org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUChangeProtection
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUChangeProtection getProtect() {
+    return localProtect;
+  }
 
-    public void serialize(final javax.xml.namespace.QName parentQName,
-        javax.xml.stream.XMLStreamWriter xmlWriter, boolean serializeType)
-        throws javax.xml.stream.XMLStreamException,
-            org.apache.axis2.databinding.ADBException {
-        java.lang.String prefix = null;
-        java.lang.String namespace = null;
+  /**
+   * Auto generated setter method
+   *
+   * @param param Protect
+   */
+  public void setProtect(
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUChangeProtection param) {
+    localProtectTracker = param != null;
 
-        prefix = parentQName.getPrefix();
-        namespace = parentQName.getNamespaceURI();
-        writeStartElement(prefix, namespace, parentQName.getLocalPart(),
+    this.localProtect = param;
+  }
+
+  /**
+   * @param parentQName
+   * @param factory
+   * @return org.apache.axiom.om.OMElement
+   */
+  public org.apache.axiom.om.OMElement getOMElement(
+      final javax.xml.namespace.QName parentQName, final org.apache.axiom.om.OMFactory factory)
+      throws org.apache.axis2.databinding.ADBException {
+
+    return factory.createOMElement(new org.apache.axis2.databinding.ADBDataSource(this, MY_QNAME));
+  }
+
+  public void serialize(
+      final javax.xml.namespace.QName parentQName, javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
+    serialize(parentQName, xmlWriter, false);
+  }
+
+  public void serialize(
+      final javax.xml.namespace.QName parentQName,
+      javax.xml.stream.XMLStreamWriter xmlWriter,
+      boolean serializeType)
+      throws javax.xml.stream.XMLStreamException, org.apache.axis2.databinding.ADBException {
+
+    java.lang.String prefix = null;
+    java.lang.String namespace = null;
+
+    prefix = parentQName.getPrefix();
+    namespace = parentQName.getNamespaceURI();
+    writeStartElement(prefix, namespace, parentQName.getLocalPart(), xmlWriter);
+
+    if (serializeType) {
+
+      java.lang.String namespacePrefix = registerPrefix(xmlWriter, "urn:hpccsystems:ws:wsdfu");
+      if ((namespacePrefix != null) && (namespacePrefix.trim().length() > 0)) {
+        writeAttribute(
+            "xsi",
+            "http://www.w3.org/2001/XMLSchema-instance",
+            "type",
+            namespacePrefix + ":DFUInfoRequest",
             xmlWriter);
+      } else {
+        writeAttribute(
+            "xsi",
+            "http://www.w3.org/2001/XMLSchema-instance",
+            "type",
+            "DFUInfoRequest",
+            xmlWriter);
+      }
+    }
+    if (localNameTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "Name", xmlWriter);
 
-        if (serializeType) {
-            java.lang.String namespacePrefix = registerPrefix(xmlWriter,
-                    "urn:hpccsystems:ws:wsdfu");
+      if (localName == null) {
+        // write the nil attribute
 
-            if ((namespacePrefix != null) &&
-                    (namespacePrefix.trim().length() > 0)) {
-                writeAttribute("xsi",
-                    "http://www.w3.org/2001/XMLSchema-instance", "type",
-                    namespacePrefix + ":DFUInfoRequest", xmlWriter);
-            } else {
-                writeAttribute("xsi",
-                    "http://www.w3.org/2001/XMLSchema-instance", "type",
-                    "DFUInfoRequest", xmlWriter);
-            }
-        }
+        throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
 
-        if (localNameTracker) {
-            namespace = "urn:hpccsystems:ws:wsdfu";
-            writeStartElement(null, namespace, "Name", xmlWriter);
+      } else {
 
-            if (localName == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "Name cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localName);
-            }
+        xmlWriter.writeCharacters(localName);
+      }
 
-            xmlWriter.writeEndElement();
-        }
+      xmlWriter.writeEndElement();
+    }
+    if (localClusterTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "Cluster", xmlWriter);
 
-        if (localClusterTracker) {
-            namespace = "urn:hpccsystems:ws:wsdfu";
-            writeStartElement(null, namespace, "Cluster", xmlWriter);
+      if (localCluster == null) {
+        // write the nil attribute
 
-            if (localCluster == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "Cluster cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localCluster);
-            }
+        throw new org.apache.axis2.databinding.ADBException("Cluster cannot be null!!");
 
-            xmlWriter.writeEndElement();
-        }
+      } else {
 
-        if (localUpdateDescriptionTracker) {
-            namespace = "urn:hpccsystems:ws:wsdfu";
-            writeStartElement(null, namespace, "UpdateDescription", xmlWriter);
+        xmlWriter.writeCharacters(localCluster);
+      }
 
-            if (false) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "UpdateDescription cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        localUpdateDescription));
-            }
+      xmlWriter.writeEndElement();
+    }
+    if (localUpdateDescriptionTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "UpdateDescription", xmlWriter);
 
-            xmlWriter.writeEndElement();
-        }
+      if (false) {
 
-        if (localQuerySetTracker) {
-            namespace = "urn:hpccsystems:ws:wsdfu";
-            writeStartElement(null, namespace, "QuerySet", xmlWriter);
+        throw new org.apache.axis2.databinding.ADBException("UpdateDescription cannot be null!!");
 
-            if (localQuerySet == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "QuerySet cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localQuerySet);
-            }
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localUpdateDescription));
+      }
 
-            xmlWriter.writeEndElement();
-        }
+      xmlWriter.writeEndElement();
+    }
+    if (localQuerySetTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "QuerySet", xmlWriter);
 
-        if (localQueryTracker) {
-            namespace = "urn:hpccsystems:ws:wsdfu";
-            writeStartElement(null, namespace, "Query", xmlWriter);
+      if (localQuerySet == null) {
+        // write the nil attribute
 
-            if (localQuery == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "Query cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localQuery);
-            }
+        throw new org.apache.axis2.databinding.ADBException("QuerySet cannot be null!!");
 
-            xmlWriter.writeEndElement();
-        }
+      } else {
 
-        if (localFileDescTracker) {
-            namespace = "urn:hpccsystems:ws:wsdfu";
-            writeStartElement(null, namespace, "FileDesc", xmlWriter);
+        xmlWriter.writeCharacters(localQuerySet);
+      }
 
-            if (localFileDesc == null) {
-                // write the nil attribute
-                throw new org.apache.axis2.databinding.ADBException(
-                    "FileDesc cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(localFileDesc);
-            }
+      xmlWriter.writeEndElement();
+    }
+    if (localQueryTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "Query", xmlWriter);
 
-            xmlWriter.writeEndElement();
-        }
+      if (localQuery == null) {
+        // write the nil attribute
 
-        if (localIncludeJsonTypeInfoTracker) {
-            namespace = "urn:hpccsystems:ws:wsdfu";
-            writeStartElement(null, namespace, "IncludeJsonTypeInfo", xmlWriter);
+        throw new org.apache.axis2.databinding.ADBException("Query cannot be null!!");
 
-            if (false) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "IncludeJsonTypeInfo cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        localIncludeJsonTypeInfo));
-            }
+      } else {
 
-            xmlWriter.writeEndElement();
-        }
+        xmlWriter.writeCharacters(localQuery);
+      }
 
-        if (localIncludeBinTypeInfoTracker) {
-            namespace = "urn:hpccsystems:ws:wsdfu";
-            writeStartElement(null, namespace, "IncludeBinTypeInfo", xmlWriter);
+      xmlWriter.writeEndElement();
+    }
+    if (localFileDescTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "FileDesc", xmlWriter);
 
-            if (false) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "IncludeBinTypeInfo cannot be null!!");
-            } else {
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        localIncludeBinTypeInfo));
-            }
+      if (localFileDesc == null) {
+        // write the nil attribute
 
-            xmlWriter.writeEndElement();
-        }
+        throw new org.apache.axis2.databinding.ADBException("FileDesc cannot be null!!");
 
-        if (localProtectTracker) {
-            if (localProtect == null) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "Protect cannot be null!!");
-            }
+      } else {
 
-            localProtect.serialize(new javax.xml.namespace.QName(
-                    "urn:hpccsystems:ws:wsdfu", "Protect"), xmlWriter);
-        }
+        xmlWriter.writeCharacters(localFileDesc);
+      }
 
-        xmlWriter.writeEndElement();
+      xmlWriter.writeEndElement();
+    }
+    if (localIncludeJsonTypeInfoTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "IncludeJsonTypeInfo", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("IncludeJsonTypeInfo cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localIncludeJsonTypeInfo));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localIncludeBinTypeInfoTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "IncludeBinTypeInfo", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("IncludeBinTypeInfo cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localIncludeBinTypeInfo));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localProtectTracker) {
+      if (localProtect == null) {
+        throw new org.apache.axis2.databinding.ADBException("Protect cannot be null!!");
+      }
+      localProtect.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Protect"), xmlWriter);
+    }
+    xmlWriter.writeEndElement();
+  }
+
+  private static java.lang.String generatePrefix(java.lang.String namespace) {
+    if (namespace.equals("urn:hpccsystems:ws:wsdfu")) {
+      return "ns1";
+    }
+    return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+  }
+
+  /** Utility method to write an element start tag. */
+  private void writeStartElement(
+      java.lang.String prefix,
+      java.lang.String namespace,
+      java.lang.String localPart,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+    if (writerPrefix != null) {
+      xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
+    } else {
+      if (namespace.length() == 0) {
+        prefix = "";
+      } else if (prefix == null) {
+        prefix = generatePrefix(namespace);
+      }
+
+      xmlWriter.writeStartElement(prefix, localPart, namespace);
+      xmlWriter.writeNamespace(prefix, namespace);
+      xmlWriter.setPrefix(prefix, namespace);
+    }
+  }
+
+  /** Util method to write an attribute with the ns prefix */
+  private void writeAttribute(
+      java.lang.String prefix,
+      java.lang.String namespace,
+      java.lang.String attName,
+      java.lang.String attValue,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+    if (writerPrefix != null) {
+      xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
+    } else {
+      xmlWriter.writeNamespace(prefix, namespace);
+      xmlWriter.setPrefix(prefix, namespace);
+      xmlWriter.writeAttribute(prefix, namespace, attName, attValue);
+    }
+  }
+
+  /** Util method to write an attribute without the ns prefix */
+  private void writeAttribute(
+      java.lang.String namespace,
+      java.lang.String attName,
+      java.lang.String attValue,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    if (namespace.equals("")) {
+      xmlWriter.writeAttribute(attName, attValue);
+    } else {
+      xmlWriter.writeAttribute(registerPrefix(xmlWriter, namespace), namespace, attName, attValue);
+    }
+  }
+
+  /** Util method to write an attribute without the ns prefix */
+  private void writeQNameAttribute(
+      java.lang.String namespace,
+      java.lang.String attName,
+      javax.xml.namespace.QName qname,
+      javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+
+    java.lang.String attributeNamespace = qname.getNamespaceURI();
+    java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
+    if (attributePrefix == null) {
+      attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
+    }
+    java.lang.String attributeValue;
+    if (attributePrefix.trim().length() > 0) {
+      attributeValue = attributePrefix + ":" + qname.getLocalPart();
+    } else {
+      attributeValue = qname.getLocalPart();
     }
 
-    private static java.lang.String generatePrefix(java.lang.String namespace) {
-        if (namespace.equals("urn:hpccsystems:ws:wsdfu")) {
-            return "ns3";
-        }
-
-        return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+    if (namespace.equals("")) {
+      xmlWriter.writeAttribute(attName, attributeValue);
+    } else {
+      registerPrefix(xmlWriter, namespace);
+      xmlWriter.writeAttribute(attributePrefix, namespace, attName, attributeValue);
     }
+  }
+  /** method to handle Qnames */
+  private void writeQName(
+      javax.xml.namespace.QName qname, javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String namespaceURI = qname.getNamespaceURI();
+    if (namespaceURI != null) {
+      java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+      if (prefix == null) {
+        prefix = generatePrefix(namespaceURI);
+        xmlWriter.writeNamespace(prefix, namespaceURI);
+        xmlWriter.setPrefix(prefix, namespaceURI);
+      }
 
-    /**
-     * Utility method to write an element start tag.
-     */
-    private void writeStartElement(java.lang.String prefix,
-        java.lang.String namespace, java.lang.String localPart,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+      if (prefix.trim().length() > 0) {
+        xmlWriter.writeCharacters(
+            prefix + ":" + org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
+      } else {
+        // i.e this is the default namespace
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
+      }
 
-        if (writerPrefix != null) {
-            xmlWriter.writeStartElement(writerPrefix, localPart, namespace);
-        } else {
-            if (namespace.length() == 0) {
-                prefix = "";
-            } else if (prefix == null) {
-                prefix = generatePrefix(namespace);
-            }
-
-            xmlWriter.writeStartElement(prefix, localPart, namespace);
-            xmlWriter.writeNamespace(prefix, namespace);
-            xmlWriter.setPrefix(prefix, namespace);
-        }
+    } else {
+      xmlWriter.writeCharacters(
+          org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qname));
     }
+  }
 
-    /**
-     * Util method to write an attribute with the ns prefix
-     */
-    private void writeAttribute(java.lang.String prefix,
-        java.lang.String namespace, java.lang.String attName,
-        java.lang.String attValue, javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String writerPrefix = xmlWriter.getPrefix(namespace);
+  private void writeQNames(
+      javax.xml.namespace.QName[] qnames, javax.xml.stream.XMLStreamWriter xmlWriter)
+      throws javax.xml.stream.XMLStreamException {
 
-        if (writerPrefix != null) {
-            xmlWriter.writeAttribute(writerPrefix, namespace, attName, attValue);
-        } else {
-            xmlWriter.writeNamespace(prefix, namespace);
-            xmlWriter.setPrefix(prefix, namespace);
-            xmlWriter.writeAttribute(prefix, namespace, attName, attValue);
+    if (qnames != null) {
+      // we have to store this data until last moment since it is not possible to write any
+      // namespace data after writing the charactor data
+      java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
+      java.lang.String namespaceURI = null;
+      java.lang.String prefix = null;
+
+      for (int i = 0; i < qnames.length; i++) {
+        if (i > 0) {
+          stringToWrite.append(" ");
         }
-    }
-
-    /**
-     * Util method to write an attribute without the ns prefix
-     */
-    private void writeAttribute(java.lang.String namespace,
-        java.lang.String attName, java.lang.String attValue,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        if (namespace.equals("")) {
-            xmlWriter.writeAttribute(attName, attValue);
-        } else {
-            xmlWriter.writeAttribute(registerPrefix(xmlWriter, namespace),
-                namespace, attName, attValue);
-        }
-    }
-
-    /**
-     * Util method to write an attribute without the ns prefix
-     */
-    private void writeQNameAttribute(java.lang.String namespace,
-        java.lang.String attName, javax.xml.namespace.QName qname,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String attributeNamespace = qname.getNamespaceURI();
-        java.lang.String attributePrefix = xmlWriter.getPrefix(attributeNamespace);
-
-        if (attributePrefix == null) {
-            attributePrefix = registerPrefix(xmlWriter, attributeNamespace);
-        }
-
-        java.lang.String attributeValue;
-
-        if (attributePrefix.trim().length() > 0) {
-            attributeValue = attributePrefix + ":" + qname.getLocalPart();
-        } else {
-            attributeValue = qname.getLocalPart();
-        }
-
-        if (namespace.equals("")) {
-            xmlWriter.writeAttribute(attName, attributeValue);
-        } else {
-            registerPrefix(xmlWriter, namespace);
-            xmlWriter.writeAttribute(attributePrefix, namespace, attName,
-                attributeValue);
-        }
-    }
-
-    /**
-     *  method to handle Qnames
-     */
-    private void writeQName(javax.xml.namespace.QName qname,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String namespaceURI = qname.getNamespaceURI();
-
+        namespaceURI = qnames[i].getNamespaceURI();
         if (namespaceURI != null) {
-            java.lang.String prefix = xmlWriter.getPrefix(namespaceURI);
+          prefix = xmlWriter.getPrefix(namespaceURI);
+          if ((prefix == null) || (prefix.length() == 0)) {
+            prefix = generatePrefix(namespaceURI);
+            xmlWriter.writeNamespace(prefix, namespaceURI);
+            xmlWriter.setPrefix(prefix, namespaceURI);
+          }
 
-            if (prefix == null) {
-                prefix = generatePrefix(namespaceURI);
-                xmlWriter.writeNamespace(prefix, namespaceURI);
-                xmlWriter.setPrefix(prefix, namespaceURI);
-            }
-
-            if (prefix.trim().length() > 0) {
-                xmlWriter.writeCharacters(prefix + ":" +
-                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        qname));
-            } else {
-                // i.e this is the default namespace
-                xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                        qname));
-            }
+          if (prefix.trim().length() > 0) {
+            stringToWrite
+                .append(prefix)
+                .append(":")
+                .append(
+                    org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
+          } else {
+            stringToWrite.append(
+                org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
+          }
         } else {
-            xmlWriter.writeCharacters(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                    qname));
+          stringToWrite.append(
+              org.apache.axis2.databinding.utils.ConverterUtil.convertToString(qnames[i]));
         }
+      }
+      xmlWriter.writeCharacters(stringToWrite.toString());
     }
+  }
 
-    private void writeQNames(javax.xml.namespace.QName[] qnames,
-        javax.xml.stream.XMLStreamWriter xmlWriter)
-        throws javax.xml.stream.XMLStreamException {
-        if (qnames != null) {
-            // we have to store this data until last moment since it is not possible to write any
-            // namespace data after writing the charactor data
-            java.lang.StringBuffer stringToWrite = new java.lang.StringBuffer();
-            java.lang.String namespaceURI = null;
-            java.lang.String prefix = null;
-
-            for (int i = 0; i < qnames.length; i++) {
-                if (i > 0) {
-                    stringToWrite.append(" ");
-                }
-
-                namespaceURI = qnames[i].getNamespaceURI();
-
-                if (namespaceURI != null) {
-                    prefix = xmlWriter.getPrefix(namespaceURI);
-
-                    if ((prefix == null) || (prefix.length() == 0)) {
-                        prefix = generatePrefix(namespaceURI);
-                        xmlWriter.writeNamespace(prefix, namespaceURI);
-                        xmlWriter.setPrefix(prefix, namespaceURI);
-                    }
-
-                    if (prefix.trim().length() > 0) {
-                        stringToWrite.append(prefix).append(":")
-                                     .append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                qnames[i]));
-                    } else {
-                        stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                qnames[i]));
-                    }
-                } else {
-                    stringToWrite.append(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                            qnames[i]));
-                }
-            }
-
-            xmlWriter.writeCharacters(stringToWrite.toString());
+  /** Register a namespace prefix */
+  private java.lang.String registerPrefix(
+      javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
+      throws javax.xml.stream.XMLStreamException {
+    java.lang.String prefix = xmlWriter.getPrefix(namespace);
+    if (prefix == null) {
+      prefix = generatePrefix(namespace);
+      javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
+      while (true) {
+        java.lang.String uri = nsContext.getNamespaceURI(prefix);
+        if (uri == null || uri.length() == 0) {
+          break;
         }
+        prefix = org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+      }
+      xmlWriter.writeNamespace(prefix, namespace);
+      xmlWriter.setPrefix(prefix, namespace);
     }
+    return prefix;
+  }
+
+  /** Factory class that keeps the parse method */
+  public static class Factory {
+    private static org.apache.commons.logging.Log log =
+        org.apache.commons.logging.LogFactory.getLog(Factory.class);
 
     /**
-     * Register a namespace prefix
+     * static method to create the object Precondition: If this object is an element, the current or
+     * next start element starts this object and any intervening reader events are ignorable If this
+     * object is not an element, it is a complex type and the reader is at the event just after the
+     * outer start element Postcondition: If this object is an element, the reader is positioned at
+     * its end element If this object is a complex type, the reader is positioned at the end element
+     * of its outer element
      */
-    private java.lang.String registerPrefix(
-        javax.xml.stream.XMLStreamWriter xmlWriter, java.lang.String namespace)
-        throws javax.xml.stream.XMLStreamException {
-        java.lang.String prefix = xmlWriter.getPrefix(namespace);
+    public static DFUInfoRequest parse(javax.xml.stream.XMLStreamReader reader)
+        throws java.lang.Exception {
+      DFUInfoRequest object = new DFUInfoRequest();
 
-        if (prefix == null) {
-            prefix = generatePrefix(namespace);
+      int event;
+      javax.xml.namespace.QName currentQName = null;
+      java.lang.String nillableValue = null;
+      java.lang.String prefix = "";
+      java.lang.String namespaceuri = "";
+      try {
 
-            javax.xml.namespace.NamespaceContext nsContext = xmlWriter.getNamespaceContext();
+        while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
 
-            while (true) {
-                java.lang.String uri = nsContext.getNamespaceURI(prefix);
+        currentQName = reader.getName();
 
-                if ((uri == null) || (uri.length() == 0)) {
-                    break;
-                }
-
-                prefix = org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
+        if (reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type") != null) {
+          java.lang.String fullTypeName =
+              reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "type");
+          if (fullTypeName != null) {
+            java.lang.String nsPrefix = null;
+            if (fullTypeName.indexOf(":") > -1) {
+              nsPrefix = fullTypeName.substring(0, fullTypeName.indexOf(":"));
             }
+            nsPrefix = nsPrefix == null ? "" : nsPrefix;
 
-            xmlWriter.writeNamespace(prefix, namespace);
-            xmlWriter.setPrefix(prefix, namespace);
+            java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
+
+            if (!"DFUInfoRequest".equals(type)) {
+              // find namespace for the prefix
+              java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
+              return (DFUInfoRequest)
+                  org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.ExtensionMapper.getTypeObject(
+                      nsUri, type, reader);
+            }
+          }
         }
 
-        return prefix;
+        // Note all attributes that were handled. Used to differ normal attributes
+        // from anyAttributes.
+        java.util.Vector handledAttributes = new java.util.Vector();
+
+        reader.next();
+
+        while (!reader.isEndElement()) {
+          if (reader.isStartElement()) {
+
+            if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Name")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Name" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setName(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Cluster")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Cluster" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setCluster(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "UpdateDescription")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "UpdateDescription" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setUpdateDescription(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "QuerySet")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "QuerySet" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setQuerySet(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Query")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Query" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setQuery(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "FileDesc")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "FileDesc" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setFileDesc(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "IncludeJsonTypeInfo")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "IncludeJsonTypeInfo" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIncludeJsonTypeInfo(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "IncludeBinTypeInfo")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "IncludeBinTypeInfo" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIncludeBinTypeInfo(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Protect")
+                    .equals(reader.getName())) {
+
+              object.setProtect(
+                  org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUChangeProtection.Factory.parse(
+                      reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else {
+              // 3 - A start element we are not expecting indicates an invalid parameter was passed
+
+              throw new org.apache.axis2.databinding.ADBException(
+                  "Unexpected subelement " + reader.getName());
+            }
+
+          } else {
+            reader.next();
+          }
+        } // end of while loop
+
+      } catch (javax.xml.stream.XMLStreamException e) {
+        throw new java.lang.Exception(e);
+      }
+
+      return object;
     }
-
-    /**
-     *  Factory class that keeps the parse method
-     */
-    public static class Factory {
-        private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(Factory.class);
-
-        /**
-         * static method to create the object
-         * Precondition:  If this object is an element, the current or next start element starts this object and any intervening reader events are ignorable
-         *                If this object is not an element, it is a complex type and the reader is at the event just after the outer start element
-         * Postcondition: If this object is an element, the reader is positioned at its end element
-         *                If this object is a complex type, the reader is positioned at the end element of its outer element
-         */
-        public static DFUInfoRequest parse(
-            javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
-            DFUInfoRequest object = new DFUInfoRequest();
-
-            int event;
-            javax.xml.namespace.QName currentQName = null;
-            java.lang.String nillableValue = null;
-            java.lang.String prefix = "";
-            java.lang.String namespaceuri = "";
-
-            try {
-                while (!reader.isStartElement() && !reader.isEndElement())
-                    reader.next();
-
-                currentQName = reader.getName();
-
-                if (reader.getAttributeValue(
-                            "http://www.w3.org/2001/XMLSchema-instance", "type") != null) {
-                    java.lang.String fullTypeName = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                            "type");
-
-                    if (fullTypeName != null) {
-                        java.lang.String nsPrefix = null;
-
-                        if (fullTypeName.indexOf(":") > -1) {
-                            nsPrefix = fullTypeName.substring(0,
-                                    fullTypeName.indexOf(":"));
-                        }
-
-                        nsPrefix = (nsPrefix == null) ? "" : nsPrefix;
-
-                        java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(
-                                    ":") + 1);
-
-                        if (!"DFUInfoRequest".equals(type)) {
-                            //find namespace for the prefix
-                            java.lang.String nsUri = reader.getNamespaceContext()
-                                                           .getNamespaceURI(nsPrefix);
-
-                            return (DFUInfoRequest) org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.ExtensionMapper.getTypeObject(nsUri,
-                                type, reader);
-                        }
-                    }
-                }
-
-                // Note all attributes that were handled. Used to differ normal attributes
-                // from anyAttributes.
-                java.util.Vector handledAttributes = new java.util.Vector();
-
-                reader.next();
-
-                while (!reader.isEndElement()) {
-                    if (reader.isStartElement()) {
-                        if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsdfu", "Name").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "Name" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setName(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsdfu", "Cluster").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "Cluster" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setCluster(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsdfu",
-                                    "UpdateDescription").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "UpdateDescription" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setUpdateDescription(org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsdfu", "QuerySet").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "QuerySet" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setQuerySet(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsdfu", "Query").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "Query" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setQuery(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsdfu", "FileDesc").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "FileDesc" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setFileDesc(org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsdfu",
-                                    "IncludeJsonTypeInfo").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "IncludeJsonTypeInfo" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setIncludeJsonTypeInfo(org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsdfu",
-                                    "IncludeBinTypeInfo").equals(
-                                    reader.getName())) {
-                            nillableValue = reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance",
-                                    "nil");
-
-                            if ("true".equals(nillableValue) ||
-                                    "1".equals(nillableValue)) {
-                                throw new org.apache.axis2.databinding.ADBException(
-                                    "The element: " + "IncludeBinTypeInfo" +
-                                    "  cannot be null");
-                            }
-
-                            java.lang.String content = reader.getElementText();
-
-                            object.setIncludeBinTypeInfo(org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(
-                                    content));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else
-                         if (reader.isStartElement() &&
-                                new javax.xml.namespace.QName(
-                                    "urn:hpccsystems:ws:wsdfu", "Protect").equals(
-                                    reader.getName())) {
-                            object.setProtect(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUChangeProtection.Factory.parse(
-                                    reader));
-
-                            reader.next();
-                        } // End of if for expected property start element
-
-                        else {
-                            // 3 - A start element we are not expecting indicates an invalid parameter was passed
-                            throw new org.apache.axis2.databinding.ADBException(
-                                "Unexpected subelement " + reader.getName());
-                        }
-                    } else {
-                        reader.next();
-                    }
-                } // end of while loop
-            } catch (javax.xml.stream.XMLStreamException e) {
-                throw new java.lang.Exception(e);
-            }
-
-            return object;
-        }
-    } //end of factory class
+  } // end of factory class
 }

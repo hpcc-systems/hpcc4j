@@ -6,9 +6,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Arrays;
 
-import javax.activation.DataHandler;
-
-import org.apache.axiom.attachments.ByteArrayDataSource;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
 import org.apache.logging.log4j.LogManager;
@@ -28,6 +25,9 @@ import org.hpccsystems.ws.client.wrappers.EspSoapFaultWrapper;
 
 import io.opentelemetry.instrumentation.annotations.SpanAttribute;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.mail.util.ByteArrayDataSource;
 
 /**
  * Facilitates File I/O actions on target HPCC instance.
@@ -319,11 +319,15 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         return success;
     }
 
+
     /**
      * Write HPCC file data.
      *
      * @param data
      *            - The data to write
+     * @param dataTypeDescriptor Describes the data type to be written. Must be in Mime header format "image/jpeg", "text/plain", "application/octet-stream"
+     *              String descriptor should include a charset parameter
+     *              This parameter is required, but will be defaulted to generic "application/octet-stream"
      * @param fileName
      *            - The target HPCC file to write to
      * @param targetLandingZone
@@ -342,13 +346,15 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    @WithSpan
-    public boolean writeHPCCFileData(byte[] data, @SpanAttribute String fileName, @SpanAttribute String targetLandingZone,
-                                     @SpanAttribute boolean append, @SpanAttribute long offset, @SpanAttribute int uploadchunksize, @SpanAttribute String lzAddress)
-            throws Exception, ArrayOfEspExceptionWrapper
+    public boolean writeHPCCFileData(byte[] data, @SpanAttribute String dataTypeDescriptor, @SpanAttribute String fileName, @SpanAttribute String targetLandingZone,
+            @SpanAttribute boolean append, @SpanAttribute long offset, @SpanAttribute int uploadchunksize, @SpanAttribute String lzAddress)
+    throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = true;
-        log.debug("Attempting to write data to HPCC File: " + fileName);
+        if (dataTypeDescriptor == null || dataTypeDescriptor.isEmpty())
+            dataTypeDescriptor = "application/octet-stream";
+
+        log.debug("Attempting to write data to HPCC File: " + fileName + "Data type and encoding: " + dataTypeDescriptor);
 
         verifyStub(); // Throws exception if stub failed
 
@@ -375,8 +381,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
             subdata = Arrays.copyOfRange(data, dataindex, dataindex + payloadsize);
             dataindex += payloadsize;
 
-            ByteArrayDataSource ds = new ByteArrayDataSource(subdata);
-
+            DataSource ds = new ByteArrayDataSource(subdata, dataTypeDescriptor);
             request.setData(new DataHandler(ds));
             request.setAppend(dataindex > 0);
             request.setOffset((long) dataindex);
@@ -408,6 +413,40 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
             }
         }
         return success;
+    }
+
+    /**
+     * @deprecated Due to change in underlying library behavior
+     *             Use boolean writeHPCCFileData(byte[] data, String dataTypeDescriptor, String fileName, String targetLandingZone, boolean append, long offset, int uploadchunksize, String lzAddress)
+     *             and provide a data type descriptor in mime header format
+     * Write HPCC file data.
+     *
+     * @param data
+     *            - The data to write
+     * @param fileName
+     *            - The target HPCC file to write to
+     * @param targetLandingZone
+     *            - The "netaddress" of the target landing, can be localhost, should be fetched from landingzones in filesprayclient
+     * @param append
+     *            - Should this data be appended?
+     * @param offset
+     *            - At what offset should this be written - Specify 0 if necessary
+     * @param uploadchunksize
+     *            - Chunksize to upload the data
+     * @param lzAddress
+     *            - The Landing zone address
+     * @return true, if successful
+     * @throws java.lang.Exception
+     *             the exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    @WithSpan
+    public boolean writeHPCCFileData(byte[] data, @SpanAttribute String fileName, @SpanAttribute String targetLandingZone,
+                                     @SpanAttribute boolean append, @SpanAttribute long offset, @SpanAttribute int uploadchunksize, @SpanAttribute String lzAddress)
+            throws Exception, ArrayOfEspExceptionWrapper
+    {
+        return writeHPCCFileData(data, null, fileName, targetLandingZone, append, offset, uploadchunksize, lzAddress);
     }
 
     /**
@@ -493,7 +532,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         }
 
         String data = null;
-        DataHandler handler = resp.getData();
+        jakarta.activation.DataHandler handler = resp.getData();
         if (handler != null)
         {
             ByteArrayOutputStream output = new ByteArrayOutputStream();
