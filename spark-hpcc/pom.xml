@@ -217,9 +217,9 @@
             <version>${maven.source.version}</version>
           </plugin>
           <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>${sonatype.staging.version}</version>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>${central.publishing.version}</version>
           </plugin>
         </plugins>
       </build>
