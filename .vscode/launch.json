@@ -5,6 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Generate all services 9.12.x",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wsclient/utils/wsInterfaceUpdater.py",
+            "console": "integratedTerminal",
+            "justMyCode": true, 
+            "args": ["-b", "candidate-9.12.x"],
+            "cwd": "${workspaceFolder}"
+        },
+        {
             "name": "Generate all services 9.0.x",
             "type": "python",
             "request": "launch",

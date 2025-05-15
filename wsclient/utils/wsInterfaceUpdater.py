@@ -93,7 +93,7 @@ def main():
                 ("wssql", "ws_sql.ecm", "WsSQL", "wssql", "8510"),
                 ("wsstore", "ws_store.ecm", "WsStore", "wsstore", None),
                 ("wstopology", "ws_topology.ecm", "WsTopology", "wstopology", None),
-                #("wsworkunits", "ws_workunits.ecm", "WsWorkunits", "wsworkunits", None),
+                ("wsworkunits", "ws_workunits.ecm", "WsWorkunits", "wsworkunits", None),
                 ("wsdali", "ws_dali.ecm", "WsDali", "wsdali", None),
                 ("wscloud", "ws_cloud.ecm", "WsCloud", "wscloud", None),
     ]
@@ -136,9 +136,9 @@ def main():
             print("Working Directory does not appear to be contain wsclient source code directory")
             return
 
-    print("Building local wsclient...")
-    build_hpcc4j()
-    print("Done...")
+    #print("Building local wsclient...")
+    #build_hpcc4j()
+    #print("Done...")
 
     for service_name, ecm_file, wsdl_prefix, service_uri, non_eclwatch_port in services:
         if args.service != "all" and service_name != args.service:
@@ -184,8 +184,8 @@ def main():
             print(f"Generating latest stub for {wsdl_prefix}-{version}...")
             generate_stubcode(service_name)
 
-    print(f"Rebuilding wsclient...")
-    build_hpcc4j()
+    #print(f"Rebuilding wsclient...")
+    #build_hpcc4j()
 
     wsclient_classpath = get_wsclient_runtime_classpath()
     if wsclient_classpath == None:
