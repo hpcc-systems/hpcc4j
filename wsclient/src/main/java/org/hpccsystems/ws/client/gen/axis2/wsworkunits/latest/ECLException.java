@@ -355,6 +355,41 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
     this.localPriority = param;
   }
 
+  /** field for Cost */
+  protected double localCost;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localCostTracker = false;
+
+  public boolean isCostSpecified() {
+    return localCostTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return double
+   */
+  public double getCost() {
+    return localCost;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Cost
+   */
+  public void setCost(double param) {
+
+    // setting primitive attribute tracker to true
+    localCostTracker = !java.lang.Double.isNaN(param);
+
+    this.localCost = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -554,6 +589,21 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
       } else {
         xmlWriter.writeCharacters(
             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPriority));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localCostTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "Cost", xmlWriter);
+
+      if (java.lang.Double.isNaN(localCost)) {
+
+        throw new org.apache.axis2.databinding.ADBException("Cost cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCost));
       }
 
       xmlWriter.writeEndElement();
@@ -987,6 +1037,25 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
 
               object.setPriority(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Cost")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Cost" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setCost(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
 
               reader.next();
 
