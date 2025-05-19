@@ -293,7 +293,7 @@ public class LogAccessFilter implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for Format */
-  protected org.apache.axiom.om.OMElement localFormat;
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessLogFormat localFormat;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -308,9 +308,9 @@ public class LogAccessFilter implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated getter method
    *
-   * @return org.apache.axiom.om.OMElement
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessLogFormat
    */
-  public org.apache.axiom.om.OMElement getFormat() {
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessLogFormat getFormat() {
     return localFormat;
   }
 
@@ -319,7 +319,8 @@ public class LogAccessFilter implements org.apache.axis2.databinding.ADBBean {
    *
    * @param param Format
    */
-  public void setFormat(org.apache.axiom.om.OMElement param) {
+  public void setFormat(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessLogFormat param) {
     localFormatTracker = param != null;
 
     this.localFormat = param;
@@ -547,20 +548,11 @@ public class LogAccessFilter implements org.apache.axis2.databinding.ADBBean {
           xmlWriter);
     }
     if (localFormatTracker) {
-      namespace = "urn:hpccsystems:ws:wsworkunits";
-      writeStartElement(null, namespace, "Format", xmlWriter);
-
       if (localFormat == null) {
-        // write the nil attribute
-
         throw new org.apache.axis2.databinding.ADBException("Format cannot be null!!");
-
-      } else {
-
-        localFormat.serialize(xmlWriter);
       }
-
-      xmlWriter.writeEndElement();
+      localFormat.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Format"), xmlWriter);
     }
     if (localSortByTimeDirectionTracker) {
       if (localSortByTimeDirection == null) {
@@ -945,24 +937,13 @@ public class LogAccessFilter implements org.apache.axis2.databinding.ADBBean {
               reader.next();
 
             } // End of if for expected property start element
-            else if (reader.isStartElement()) {
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Format")
+                    .equals(reader.getName())) {
 
-              nillableValue =
-                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
-              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "Format" + "  cannot be null");
-              }
-
-              java.lang.String content = reader.getElementText();
-
-              org.apache.axiom.om.OMFactory fac =
-                  org.apache.axiom.om.OMAbstractFactory.getOMFactory();
-              org.apache.axiom.om.OMNamespace omNs =
-                  fac.createOMNamespace("urn:hpccsystems:ws:wsworkunits", "");
-              org.apache.axiom.om.OMElement _valueFormat = fac.createOMElement("Format", omNs);
-              _valueFormat.addChild(fac.createOMText(_valueFormat, content));
-              object.setFormat(_valueFormat);
+              object.setFormat(
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessLogFormat.Factory
+                      .parse(reader));
 
               reader.next();
 

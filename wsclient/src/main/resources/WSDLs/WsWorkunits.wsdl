@@ -1856,7 +1856,7 @@
 					<xsd:element minOccurs="0" name="ComponentsFilter" type="tns:EspStringArray"/>
 					
           
-					<xsd:element minOccurs="0" name="Format" type="xsd:LogAccessLogFormat" default="CSV"/>
+					<xsd:element minOccurs="0" name="Format" type="tns:LogAccessLogFormat" default="CSV"/>
 					
           
 					<xsd:element minOccurs="0" name="sortByTimeDirection" type="tns:SortDirection" default="1"/>
@@ -2123,7 +2123,7 @@
 					<xsd:element minOccurs="0" name="AllNotes" type="xsd:boolean" default="false"/>
 					
           
-					<xsd:element minOccurs="0" name="MinVersion" type="xsd:uint64"/>
+					<xsd:element minOccurs="0" name="MinVersion" type="xsd:string"/>
 					
           
 					<xsd:element minOccurs="0" name="Measure" type="xsd:string"/>
@@ -7838,7 +7838,7 @@
 						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
 						
             
-						<xsd:element minOccurs="0" name="MaxVersion" type="xsd:uint64"/>
+						<xsd:element minOccurs="0" name="MaxVersion" type="xsd:string"/>
 						
             
 						<xsd:element minOccurs="0" name="WUID" type="xsd:string"/>

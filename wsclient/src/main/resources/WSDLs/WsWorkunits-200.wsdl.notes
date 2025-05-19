@@ -1,0 +1,6 @@
+WsWorkunits 2.00 required manual changes to WSDL to force successful compilation.
+
+The following fields were manually changed:
+LogAccessFilter.Format type="xsd:LogAccessLogFormat" -> type="tns:LogAccessLogFormat"
+WUPropertiesToReturn.MinVersion" type="xsd:uint64" -> type="xsd:string"
+WUDetailsResponse.MaxVersion" type="xsd:uint64" -> type="xsd:string"

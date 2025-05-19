@@ -3,7 +3,7 @@ Generated Axis2 ADB stub class wrapper package report:
   Wrapper package name: org.hpccsystems.ws.client.wrappers.gen.wsworkunits
   Wrapped service name: wsworkunits
   Wrapped package: org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest
-  Wrapped service version: 1.99
+  Wrapped service version: 2
 Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type0
     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Activities_type1
