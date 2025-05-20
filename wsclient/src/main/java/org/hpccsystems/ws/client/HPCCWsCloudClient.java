@@ -31,6 +31,7 @@ import org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloud;
 import org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloudPingRequest;
 import org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloudStub;
 import org.hpccsystems.ws.client.utils.Connection;
+import org.hpccsystems.ws.client.wrappers.gen.wscloud.*;
 
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 
@@ -218,8 +219,9 @@ public class HPCCWsCloudClient extends BaseHPCCWsClient
      * @return a JSON formatted list of available pods - in raw k8s format.
      * @throws java.lang.Exception if any.
      */
-    @WithSpan
-    public String getPods() throws Exception
+    //@Deprecated starting HPCC 9.12.x wscloud 1.02
+    //@WithSpan
+    /*public String getPods() throws Exception
     {
         verifyStub();
 
@@ -234,7 +236,36 @@ public class HPCCWsCloudClient extends BaseHPCCWsClient
             throw new Exception("HPCCWsCloud.getPods() encountered RemoteException.", e);
         }
 
-        if (resp == null || !resp.isResultSpecified())
+        if (resp == null)
+            throw new Exception("HPCCWsCloud.getPods() received invalid respose.");
+
+        return resp.getResult();
+    }*/
+
+    /**
+     * <p>getPods.</p>
+     *
+     * @return a wrapped representation of the getpods method response
+     * @throws java.lang.Exception if any.
+     */
+    @WithSpan
+    public GetPODsResponseWrapper getPods() throws Exception
+    {
+        verifyStub();
+
+        GetPODsResponseWrapper wrappedResp = null;
+        GetPODsResponse resp = null;
+
+        try
+        {
+            resp = ((WsCloud) stub).getPODs(new GetPODsRequest());
+        }
+        catch (RemoteException e)
+        {
+            throw new Exception("HPCCWsCloud.getPods() encountered RemoteException.", e);
+        }
+
+        if (resp == null)
             throw new Exception("HPCCWsCloud.getPods() received invalid respose.");
 
         /*Current version of this method does not return inline exceptions
@@ -244,7 +275,11 @@ public class HPCCWsCloudClient extends BaseHPCCWsClient
             handleEspExceptions(new ArrayOfEspExceptionWrapper(exceptions), "Error getting pods");
         }
         */
-        return resp.getResult();
+
+        if (resp != null)
+            wrappedResp = new GetPODsResponseWrapper(resp);
+
+        return wrappedResp;
     }
 
     /**

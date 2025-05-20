@@ -95,6 +95,16 @@
             "args": ["-b", "candidate-9.0.x", "-s", "wscloud"]
         },
         {
+            "name": "Generate 9.12.x wsCloud",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wsclient/utils/wsInterfaceUpdater.py",
+            "console": "integratedTerminal",
+            "justMyCode": true, 
+            "cwd": "${workspaceFolder}",
+            "args": ["-b", "candidate-9.12.x", "-s", "wscloud"]
+        },
+        {
             "type": "java",
             "name": "Axis2ADBStubWrapperMaker",
             "request": "launch",

@@ -1,49 +1,78 @@
 /**
- * GetPODsResponse.java
+ * Pods_type0.java
  *
  * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
  * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wscloud.latest;
 
-/** GetPODsResponse bean class */
+/** Pods_type0 bean class */
 @SuppressWarnings({"unchecked", "unused"})
-public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
+public class Pods_type0 implements org.apache.axis2.databinding.ADBBean {
+  /* This type was generated from the piece of schema that had
+  name = Pods_type0
+  Namespace URI = urn:hpccsystems:ws:wscloud
+  Namespace Prefix = ns1
+  */
 
-  public static final javax.xml.namespace.QName MY_QNAME =
-      new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "GetPODsResponse", "ns1");
-
-  /** field for Pods */
-  protected org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0 localPods;
+  /** field for Pod This was an Array! */
+  protected org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem[] localPod;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localPodsTracker = false;
+  protected boolean localPodTracker = false;
 
-  public boolean isPodsSpecified() {
-    return localPodsTracker;
+  public boolean isPodSpecified() {
+    return localPodTracker;
   }
 
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0
+   * @return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem[]
    */
-  public org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0 getPods() {
-    return localPods;
+  public org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem[] getPod() {
+    return localPod;
   }
+
+  /** validate the array for Pod */
+  protected void validatePod(org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem[] param) {}
 
   /**
    * Auto generated setter method
    *
-   * @param param Pods
+   * @param param Pod
    */
-  public void setPods(org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0 param) {
-    localPodsTracker = param != null;
+  public void setPod(org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem[] param) {
 
-    this.localPods = param;
+    validatePod(param);
+
+    localPodTracker = param != null;
+
+    this.localPod = param;
+  }
+
+  /**
+   * Auto generated add method for the array for convenience
+   *
+   * @param param org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem
+   */
+  public void addPod(org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem param) {
+    if (localPod == null) {
+      localPod = new org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem[] {};
+    }
+
+    // update the setting tracker
+    localPodTracker = true;
+
+    java.util.List list = org.apache.axis2.databinding.utils.ConverterUtil.toList(localPod);
+    list.add(param);
+    this.localPod =
+        (org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem[])
+            list.toArray(
+                new org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem[list.size()]);
   }
 
   /**
@@ -55,7 +84,8 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
       final javax.xml.namespace.QName parentQName, final org.apache.axiom.om.OMFactory factory)
       throws org.apache.axis2.databinding.ADBException {
 
-    return factory.createOMElement(new org.apache.axis2.databinding.ADBDataSource(this, MY_QNAME));
+    return factory.createOMElement(
+        new org.apache.axis2.databinding.ADBDataSource(this, parentQName));
   }
 
   public void serialize(
@@ -85,23 +115,29 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
             "xsi",
             "http://www.w3.org/2001/XMLSchema-instance",
             "type",
-            namespacePrefix + ":GetPODsResponse",
+            namespacePrefix + ":Pods_type0",
             xmlWriter);
       } else {
         writeAttribute(
-            "xsi",
-            "http://www.w3.org/2001/XMLSchema-instance",
-            "type",
-            "GetPODsResponse",
-            xmlWriter);
+            "xsi", "http://www.w3.org/2001/XMLSchema-instance", "type", "Pods_type0", xmlWriter);
       }
     }
-    if (localPodsTracker) {
-      if (localPods == null) {
-        throw new org.apache.axis2.databinding.ADBException("Pods cannot be null!!");
+    if (localPodTracker) {
+      if (localPod != null) {
+        for (int i = 0; i < localPod.length; i++) {
+          if (localPod[i] != null) {
+            localPod[i].serialize(
+                new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Pod"), xmlWriter);
+          } else {
+
+            // we don't have to do any thing since minOccures is zero
+
+          }
+        }
+      } else {
+
+        throw new org.apache.axis2.databinding.ADBException("Pod cannot be null!!");
       }
-      localPods.serialize(
-          new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Pods"), xmlWriter);
     }
     xmlWriter.writeEndElement();
   }
@@ -300,9 +336,9 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
      * its end element If this object is a complex type, the reader is positioned at the end element
      * of its outer element
      */
-    public static GetPODsResponse parse(javax.xml.stream.XMLStreamReader reader)
+    public static Pods_type0 parse(javax.xml.stream.XMLStreamReader reader)
         throws java.lang.Exception {
-      GetPODsResponse object = new GetPODsResponse();
+      Pods_type0 object = new Pods_type0();
 
       int event;
       javax.xml.namespace.QName currentQName = null;
@@ -327,10 +363,10 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
 
             java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
-            if (!"GetPODsResponse".equals(type)) {
+            if (!"Pods_type0".equals(type)) {
               // find namespace for the prefix
               java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-              return (GetPODsResponse)
+              return (Pods_type0)
                   org.hpccsystems.ws.client.gen.axis2.wscloud.latest.ExtensionMapper.getTypeObject(
                       nsUri, type, reader);
             }
@@ -343,31 +379,62 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
 
         reader.next();
 
-        while (!reader.isEndElement()) {
-          if (reader.isStartElement()) {
+        java.util.ArrayList list1 = new java.util.ArrayList();
 
-            if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Pods")
-                    .equals(reader.getName())) {
+        while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
 
-              object.setPods(
-                  org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0.Factory.parse(
-                      reader));
+        if (reader.isStartElement()
+            && new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Pod")
+                .equals(reader.getName())) {
 
-              reader.next();
+          // Process the array and step past its final element's end.
 
-            } // End of if for expected property start element
-            else {
-              // 3 - A start element we are not expecting indicates an invalid parameter was passed
+          list1.add(
+              org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem.Factory.parse(reader));
 
-              throw new org.apache.axis2.databinding.ADBException(
-                  "Unexpected subelement " + reader.getName());
-            }
-
-          } else {
+          // loop until we find a start element that is not part of this array
+          boolean loopDone1 = false;
+          while (!loopDone1) {
+            // We should be at the end element, but make sure
+            while (!reader.isEndElement()) reader.next();
+            // Step out of this element
             reader.next();
+            // Step to next element event.
+            while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+            if (reader.isEndElement()) {
+              // two continuous end elements means we are exiting the xml structure
+              loopDone1 = true;
+            } else {
+              if (new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Pod")
+                  .equals(reader.getName())) {
+                list1.add(
+                    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem.Factory.parse(
+                        reader));
+
+              } else {
+                loopDone1 = true;
+              }
+            }
           }
-        } // end of while loop
+          // call the converter utility  to convert and set the array
+
+          object.setPod(
+              (org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem[])
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToArray(
+                      org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem.class, list1));
+
+        } // End of if for expected property start element
+        else {
+
+        }
+
+        while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
+
+        if (reader.isStartElement())
+          // 2 - A start element we are not expecting indicates a trailing invalid property
+
+          throw new org.apache.axis2.databinding.ADBException(
+              "Unexpected subelement " + reader.getName());
 
       } catch (javax.xml.stream.XMLStreamException e) {
         throw new java.lang.Exception(e);

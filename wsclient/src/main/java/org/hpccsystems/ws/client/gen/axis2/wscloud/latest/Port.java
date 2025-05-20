@@ -1,49 +1,119 @@
 /**
- * GetPODsResponse.java
+ * Port.java
  *
  * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
  * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wscloud.latest;
 
-/** GetPODsResponse bean class */
+/** Port bean class */
 @SuppressWarnings({"unchecked", "unused"})
-public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
+public class Port implements org.apache.axis2.databinding.ADBBean {
+  /* This type was generated from the piece of schema that had
+  name = Port
+  Namespace URI = urn:hpccsystems:ws:wscloud
+  Namespace Prefix = ns1
+  */
 
-  public static final javax.xml.namespace.QName MY_QNAME =
-      new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "GetPODsResponse", "ns1");
-
-  /** field for Pods */
-  protected org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0 localPods;
+  /** field for ContainerPort */
+  protected int localContainerPort;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localPodsTracker = false;
+  protected boolean localContainerPortTracker = false;
 
-  public boolean isPodsSpecified() {
-    return localPodsTracker;
+  public boolean isContainerPortSpecified() {
+    return localContainerPortTracker;
   }
 
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0
+   * @return int
    */
-  public org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0 getPods() {
-    return localPods;
+  public int getContainerPort() {
+    return localContainerPort;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param Pods
+   * @param param ContainerPort
    */
-  public void setPods(org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0 param) {
-    localPodsTracker = param != null;
+  public void setContainerPort(int param) {
 
-    this.localPods = param;
+    // setting primitive attribute tracker to true
+    localContainerPortTracker = param != java.lang.Integer.MIN_VALUE;
+
+    this.localContainerPort = param;
+  }
+
+  /** field for Name */
+  protected java.lang.String localName;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localNameTracker = false;
+
+  public boolean isNameSpecified() {
+    return localNameTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getName() {
+    return localName;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Name
+   */
+  public void setName(java.lang.String param) {
+    localNameTracker = param != null;
+
+    this.localName = param;
+  }
+
+  /** field for Protocol */
+  protected java.lang.String localProtocol;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localProtocolTracker = false;
+
+  public boolean isProtocolSpecified() {
+    return localProtocolTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getProtocol() {
+    return localProtocol;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Protocol
+   */
+  public void setProtocol(java.lang.String param) {
+    localProtocolTracker = param != null;
+
+    this.localProtocol = param;
   }
 
   /**
@@ -55,7 +125,8 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
       final javax.xml.namespace.QName parentQName, final org.apache.axiom.om.OMFactory factory)
       throws org.apache.axis2.databinding.ADBException {
 
-    return factory.createOMElement(new org.apache.axis2.databinding.ADBDataSource(this, MY_QNAME));
+    return factory.createOMElement(
+        new org.apache.axis2.databinding.ADBDataSource(this, parentQName));
   }
 
   public void serialize(
@@ -85,23 +156,59 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
             "xsi",
             "http://www.w3.org/2001/XMLSchema-instance",
             "type",
-            namespacePrefix + ":GetPODsResponse",
+            namespacePrefix + ":Port",
             xmlWriter);
       } else {
         writeAttribute(
-            "xsi",
-            "http://www.w3.org/2001/XMLSchema-instance",
-            "type",
-            "GetPODsResponse",
-            xmlWriter);
+            "xsi", "http://www.w3.org/2001/XMLSchema-instance", "type", "Port", xmlWriter);
       }
     }
-    if (localPodsTracker) {
-      if (localPods == null) {
-        throw new org.apache.axis2.databinding.ADBException("Pods cannot be null!!");
+    if (localContainerPortTracker) {
+      namespace = "urn:hpccsystems:ws:wscloud";
+      writeStartElement(null, namespace, "ContainerPort", xmlWriter);
+
+      if (localContainerPort == java.lang.Integer.MIN_VALUE) {
+
+        throw new org.apache.axis2.databinding.ADBException("ContainerPort cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localContainerPort));
       }
-      localPods.serialize(
-          new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Pods"), xmlWriter);
+
+      xmlWriter.writeEndElement();
+    }
+    if (localNameTracker) {
+      namespace = "urn:hpccsystems:ws:wscloud";
+      writeStartElement(null, namespace, "Name", xmlWriter);
+
+      if (localName == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("Name cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localName);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localProtocolTracker) {
+      namespace = "urn:hpccsystems:ws:wscloud";
+      writeStartElement(null, namespace, "Protocol", xmlWriter);
+
+      if (localProtocol == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("Protocol cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localProtocol);
+      }
+
+      xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
   }
@@ -300,9 +407,8 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
      * its end element If this object is a complex type, the reader is positioned at the end element
      * of its outer element
      */
-    public static GetPODsResponse parse(javax.xml.stream.XMLStreamReader reader)
-        throws java.lang.Exception {
-      GetPODsResponse object = new GetPODsResponse();
+    public static Port parse(javax.xml.stream.XMLStreamReader reader) throws java.lang.Exception {
+      Port object = new Port();
 
       int event;
       javax.xml.namespace.QName currentQName = null;
@@ -327,10 +433,10 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
 
             java.lang.String type = fullTypeName.substring(fullTypeName.indexOf(":") + 1);
 
-            if (!"GetPODsResponse".equals(type)) {
+            if (!"Port".equals(type)) {
               // find namespace for the prefix
               java.lang.String nsUri = reader.getNamespaceContext().getNamespaceURI(nsPrefix);
-              return (GetPODsResponse)
+              return (Port)
                   org.hpccsystems.ws.client.gen.axis2.wscloud.latest.ExtensionMapper.getTypeObject(
                       nsUri, type, reader);
             }
@@ -347,12 +453,58 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
           if (reader.isStartElement()) {
 
             if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Pods")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "ContainerPort")
                     .equals(reader.getName())) {
 
-              object.setPods(
-                  org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0.Factory.parse(
-                      reader));
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "ContainerPort" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setContainerPort(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Name")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Name" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setName(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Protocol")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Protocol" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setProtocol(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 

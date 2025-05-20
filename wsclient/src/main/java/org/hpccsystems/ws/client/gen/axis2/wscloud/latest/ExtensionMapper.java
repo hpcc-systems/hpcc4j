@@ -23,9 +23,29 @@ public class ExtensionMapper {
           reader);
     }
 
+    if ("urn:hpccsystems:ws:wscloud".equals(namespaceURI) && "Port".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Port.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wscloud".equals(namespaceURI) && "PodItem".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wscloud".equals(namespaceURI) && "Pods_type0".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0.Factory.parse(reader);
+    }
+
     if ("urn:hpccsystems:ws:wscloud".equals(namespaceURI) && "EspException".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.EspException.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wscloud".equals(namespaceURI) && "Ports_type0".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Ports_type0.Factory.parse(reader);
     }
 
     throw new org.apache.axis2.databinding.ADBException(

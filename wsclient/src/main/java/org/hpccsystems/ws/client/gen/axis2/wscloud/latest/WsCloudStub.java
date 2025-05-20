@@ -143,13 +143,13 @@ public class WsCloudStub extends org.apache.axis2.client.Stub implements WsCloud
   public WsCloudStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://eclwatch-66ff99685c-4bl4k:8888/WsCloud?ver_=1.01");
+    this(configurationContext, "http://eclwatch-565c5886f6-j59jv:8888/WsCloud?ver_=1.02");
   }
 
   /** Default Constructor */
   public WsCloudStub() throws org.apache.axis2.AxisFault {
 
-    this("http://eclwatch-66ff99685c-4bl4k:8888/WsCloud?ver_=1.01");
+    this("http://eclwatch-565c5886f6-j59jv:8888/WsCloud?ver_=1.02");
   }
 
   /** Constructor taking the target endpoint */
@@ -173,7 +173,7 @@ public class WsCloudStub extends org.apache.axis2.client.Stub implements WsCloud
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("WsCloud/Ping?ver_=1.01");
+      _operationClient.getOptions().setAction("WsCloud/Ping?ver_=1.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -294,7 +294,7 @@ public class WsCloudStub extends org.apache.axis2.client.Stub implements WsCloud
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("WsCloud/GetPODs?ver_=1.01");
+      _operationClient.getOptions().setAction("WsCloud/GetPODs?ver_=1.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -416,7 +416,7 @@ public class WsCloudStub extends org.apache.axis2.client.Stub implements WsCloud
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("WsCloud/GetServices?ver_=1.01");
+      _operationClient.getOptions().setAction("WsCloud/GetServices?ver_=1.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -536,7 +536,7 @@ public class WsCloudStub extends org.apache.axis2.client.Stub implements WsCloud
     }
     return false;
   }
-  // http://eclwatch-66ff99685c-4bl4k:8888/WsCloud?ver_=1.01
+  // http://eclwatch-565c5886f6-j59jv:8888/WsCloud?ver_=1.02
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloudPingRequest param,
       boolean optimizeContent)
