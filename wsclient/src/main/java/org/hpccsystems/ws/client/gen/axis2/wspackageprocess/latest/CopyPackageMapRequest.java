@@ -1,8 +1,8 @@
 /**
  * CopyPackageMapRequest.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest;
 
@@ -740,6 +740,105 @@ public class CopyPackageMapRequest implements org.apache.axis2.databinding.ADBBe
     this.localStopIfFilesCopied = param;
   }
 
+  /** field for DfuPublisherWuid */
+  protected java.lang.String localDfuPublisherWuid;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localDfuPublisherWuidTracker = false;
+
+  public boolean isDfuPublisherWuidSpecified() {
+    return localDfuPublisherWuidTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getDfuPublisherWuid() {
+    return localDfuPublisherWuid;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param DfuPublisherWuid
+   */
+  public void setDfuPublisherWuid(java.lang.String param) {
+    localDfuPublisherWuidTracker = param != null;
+
+    this.localDfuPublisherWuid = param;
+  }
+
+  /** field for RemoteStorage */
+  protected java.lang.String localRemoteStorage;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localRemoteStorageTracker = false;
+
+  public boolean isRemoteStorageSpecified() {
+    return localRemoteStorageTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getRemoteStorage() {
+    return localRemoteStorage;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param RemoteStorage
+   */
+  public void setRemoteStorage(java.lang.String param) {
+    localRemoteStorageTracker = param != null;
+
+    this.localRemoteStorage = param;
+  }
+
+  /** field for KeyCompression */
+  protected java.lang.String localKeyCompression;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localKeyCompressionTracker = false;
+
+  public boolean isKeyCompressionSpecified() {
+    return localKeyCompressionTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getKeyCompression() {
+    return localKeyCompression;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param KeyCompression
+   */
+  public void setKeyCompression(java.lang.String param) {
+    localKeyCompressionTracker = param != null;
+
+    this.localKeyCompression = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -1117,6 +1216,54 @@ public class CopyPackageMapRequest implements org.apache.axis2.databinding.ADBBe
         xmlWriter.writeCharacters(
             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
                 localStopIfFilesCopied));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localDfuPublisherWuidTracker) {
+      namespace = "urn:hpccsystems:ws:wspackageprocess";
+      writeStartElement(null, namespace, "DfuPublisherWuid", xmlWriter);
+
+      if (localDfuPublisherWuid == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("DfuPublisherWuid cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localDfuPublisherWuid);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localRemoteStorageTracker) {
+      namespace = "urn:hpccsystems:ws:wspackageprocess";
+      writeStartElement(null, namespace, "RemoteStorage", xmlWriter);
+
+      if (localRemoteStorage == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("RemoteStorage cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localRemoteStorage);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localKeyCompressionTracker) {
+      namespace = "urn:hpccsystems:ws:wspackageprocess";
+      writeStartElement(null, namespace, "KeyCompression", xmlWriter);
+
+      if (localKeyCompression == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("KeyCompression cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localKeyCompression);
       }
 
       xmlWriter.writeEndElement();
@@ -1774,6 +1921,66 @@ public class CopyPackageMapRequest implements org.apache.axis2.databinding.ADBBe
 
               object.setStopIfFilesCopied(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wspackageprocess", "DfuPublisherWuid")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "DfuPublisherWuid" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setDfuPublisherWuid(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wspackageprocess", "RemoteStorage")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "RemoteStorage" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setRemoteStorage(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wspackageprocess", "KeyCompression")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "KeyCompression" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setKeyCompression(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 
