@@ -168,21 +168,22 @@ def main():
         if version == None:
             logging.warning(f"Version for {service_name} is None, skipping generation")
             continue
-        for file in wsdl_files:
-            if version_stripped in file:
-                wsdl_found = True
-        if not wsdl_found:
+        #for file in wsdl_files:
+        #    if version_stripped in file:
+        #        wsdl_found = True
+        #if not wsdl_found:
             #generate wsdl & new stubcode
-            if buildfromESDL == True:
-                print(f"Generating WSDLs for {service_name}...")
-                generate_wsdl(service_name, ecm_file, wsdl_prefix, version)
-            else:
-                print(f"Fetching WSDL for {service_name}...")
-                fetch_wsdl(service_name, service_uri, wsdl_prefix, "http", args.targethpcchost, targetPort, version)
-            print(f"Cleaning up previous stub for {wsdl_prefix}...")
-            remove_latest_stub(service_name)
-            print(f"Generating latest stub for {wsdl_prefix}-{version}...")
-            generate_stubcode(service_name)
+            #if buildfromESDL == True:
+            #    print(f"Generating WSDLs for {service_name}...")
+            #    generate_wsdl(service_name, ecm_file, wsdl_prefix, version)
+            #else:
+            #    print(f"Fetching WSDL for {service_name}...")
+            #    fetch_wsdl(service_name, service_uri, wsdl_prefix, "http", args.targethpcchost, targetPort, version)
+         #   print(f"Cleaning up previous stub for {wsdl_prefix}...")
+         #   remove_latest_stub(service_name)
+         #   print(f"Generating latest stub for {wsdl_prefix}-{version}...")
+         #   generate_stubcode(service_name)
+         #   break
 
     #print(f"Rebuilding wsclient...")
     #build_hpcc4j()

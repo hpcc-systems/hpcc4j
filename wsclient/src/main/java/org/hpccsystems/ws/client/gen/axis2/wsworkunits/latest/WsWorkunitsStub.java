@@ -2014,13 +2014,13 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
   public WsWorkunitsStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://172.27.163.120:8010/WsWorkunits?ver_=2");
+    this(configurationContext, "http://172.27.163.120:8010/WsWorkunits?ver_=2.02");
   }
 
   /** Default Constructor */
   public WsWorkunitsStub() throws org.apache.axis2.AxisFault {
 
-    this("http://172.27.163.120:8010/WsWorkunits?ver_=2");
+    this("http://172.27.163.120:8010/WsWorkunits?ver_=2.02");
   }
 
   /** Constructor taking the target endpoint */
@@ -2046,7 +2046,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetAliasAction?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetAliasAction?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2175,7 +2175,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetStats?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetStats?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2298,7 +2298,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryDetails?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryDetails?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2423,7 +2423,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUListArchiveFiles?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUListArchiveFiles?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2552,7 +2552,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[4].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCopyQuerySet?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUCopyQuerySet?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2677,7 +2677,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[5].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUPublishWorkunit?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUPublishWorkunit?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2804,7 +2804,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[6].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryConfig?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryConfig?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2926,7 +2926,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[7].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCompileECL?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUCompileECL?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3048,7 +3048,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[8].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUProtect?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUProtect?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3172,7 +3172,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[9].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUListLocalFileRequired?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUListLocalFileRequired?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3303,7 +3303,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[10].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WURecreateQuery?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WURecreateQuery?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3430,7 +3430,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[11].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCheckFeatures?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUCheckFeatures?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3556,7 +3556,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[12].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCreateAndUpdate?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUCreateAndUpdate?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3681,7 +3681,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[13].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGraphInfo?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGraphInfo?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3805,7 +3805,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[14].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetGraphNameAndTypes?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetGraphNameAndTypes?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3936,7 +3936,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[15].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUListQueriesUsingFile?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUListQueriesUsingFile?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4067,7 +4067,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[16].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUSyntaxCheckECL?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUSyntaxCheckECL?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4194,7 +4194,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[17].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUDeployWorkunit?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUDeployWorkunit?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4322,7 +4322,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[18].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCreateZAPInfo?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUCreateZAPInfo?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4450,7 +4450,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[19].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUUpdateQueryEntry?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUUpdateQueryEntry?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4578,7 +4578,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[20].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUResultBin?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUResultBin?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4701,7 +4701,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[21].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUShowScheduled?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUShowScheduled?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4829,7 +4829,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[22].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetArchiveFile?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetArchiveFile?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4956,7 +4956,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[23].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUFullResult?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUFullResult?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5080,7 +5080,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[24].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetExport?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetExport?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5209,7 +5209,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[25].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WULightWeightQuery?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WULightWeightQuery?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5340,7 +5340,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[26].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryDetailsLightWeight?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryDetailsLightWeight?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5469,7 +5469,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[27].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetDetails?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetDetails?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5596,7 +5596,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[28].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUSchedule?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUSchedule?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5720,7 +5720,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[29].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobQueueLOG?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobQueueLOG?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5849,7 +5849,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[30].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUResultSummary?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUResultSummary?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5975,7 +5975,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[31].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetPlugins?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetPlugins?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6097,7 +6097,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[32].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuery?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuery?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6219,7 +6219,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[33].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUAbort?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUAbort?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6341,7 +6341,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[34].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUWaitComplete?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUWaitComplete?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6464,7 +6464,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[35].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUResultView?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUResultView?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6586,7 +6586,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[36].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUInfo?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUInfo?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6708,7 +6708,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[37].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUDetailsMeta?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUDetailsMeta?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6830,7 +6830,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[38].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUDelete?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUDelete?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6954,7 +6954,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[39].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryGetSummaryStats?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryGetSummaryStats?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7085,7 +7085,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[40].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobSummaryXLS?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobSummaryXLS?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7216,7 +7216,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[41].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCopyLogicalFiles?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUCopyLogicalFiles?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7344,7 +7344,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[42].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetGraph?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetGraph?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7468,7 +7468,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[43].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetNumFileToCopy?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetNumFileToCopy?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7598,7 +7598,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[44].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetImport?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetImport?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7725,7 +7725,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[45].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUDetails?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUDetails?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7847,7 +7847,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[46].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCDebug?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUCDebug?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7971,7 +7971,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[47].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUEclDefinitionAction?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUEclDefinitionAction?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8100,7 +8100,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[48].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUUpdate?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUUpdate?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8224,7 +8224,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[49].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetDependancyTrees?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetDependancyTrees?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8354,7 +8354,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[50].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetThorJobList?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetThorJobList?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8483,7 +8483,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[51].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetQueryAction?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetQueryAction?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8612,7 +8612,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[52].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUWaitCompiled?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUWaitCompiled?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8735,7 +8735,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[53].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUResubmit?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUResubmit?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8857,7 +8857,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[54].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGraphTiming?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGraphTiming?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8980,7 +8980,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[55].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGVCGraphInfo?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGVCGraphInfo?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9103,7 +9103,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[56].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUResult?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUResult?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9225,7 +9225,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[57].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysets?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysets?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9347,7 +9347,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[58].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/GVCAjaxGraph?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/GVCAjaxGraph?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9470,7 +9470,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[59].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUProcessGraph?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUProcessGraph?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9593,7 +9593,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[60].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUExport?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUExport?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9715,7 +9715,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[61].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/Ping?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/Ping?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9838,7 +9838,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[62].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUInfoDetails?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUInfoDetails?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9960,7 +9960,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[63].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUJobList?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUJobList?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10082,7 +10082,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[64].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCreate?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUCreate?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10206,7 +10206,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[65].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUAnalyseHotspot?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUAnalyseHotspot?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10333,7 +10333,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[66].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUAction?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUAction?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10455,7 +10455,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[67].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUListQueries?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUListQueries?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10577,7 +10577,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[68].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryFiles?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryFiles?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10700,7 +10700,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[69].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryGetGraph?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryGetGraph?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10827,7 +10827,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[70].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobXLS?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobXLS?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10955,7 +10955,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[71].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetThorJobQueue?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetThorJobQueue?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11082,7 +11082,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[72].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WURun?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WURun?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11204,7 +11204,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[73].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUFile?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUFile?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11328,7 +11328,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[74].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetCopyQuery?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetCopyQuery?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11456,7 +11456,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[75].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetZAPInfo?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetZAPInfo?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11580,7 +11580,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[76].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobQueueXLS?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobQueueXLS?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11710,7 +11710,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[77].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUMultiQuerysetDetails?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUMultiQuerysetDetails?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11842,7 +11842,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[78].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUAddLocalFileToWorkunit?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUAddLocalFileToWorkunit?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11972,7 +11972,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[79].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUPushEvent?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUPushEvent?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -12094,7 +12094,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[80].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUSubmit?ver_=2");
+      _operationClient.getOptions().setAction("WsWorkunits/WUSubmit?ver_=2.02");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -12214,7 +12214,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     }
     return false;
   }
-  // http://172.27.163.120:8010/WsWorkunits?ver_=2
+  // http://172.27.163.120:8010/WsWorkunits?ver_=2.02
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetAliasAction param,
       boolean optimizeContent)

@@ -57,6 +57,7 @@ public class WUPublishWorkunitWrapper
     protected boolean local_stopIfFilesCopied;
     protected String local_dfuPublisherWuid;
     protected String local_remoteStorage;
+    protected String local_keyCompression;
 
     public WUPublishWorkunitWrapper() {}
 
@@ -64,7 +65,7 @@ public class WUPublishWorkunitWrapper
     {
         copy( wupublishworkunit );
     }
-    public WUPublishWorkunitWrapper( String _wuid, String _cluster, String _queryName, String _workUnitJobName, String _jobName, int _activate, boolean _notifyCluster, int _wait, boolean _noReload, boolean _updateWorkUnitName, String _memoryLimit, NonNegativeInteger _timeLimit, NonNegativeInteger _warnTimeLimit, String _priority, String _remoteDali, String _comment, boolean _dontCopyFiles, String _sourceProcess, boolean _allowForeignFiles, boolean _updateDfs, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied, String _dfuPublisherWuid, String _remoteStorage )
+    public WUPublishWorkunitWrapper( String _wuid, String _cluster, String _queryName, String _workUnitJobName, String _jobName, int _activate, boolean _notifyCluster, int _wait, boolean _noReload, boolean _updateWorkUnitName, String _memoryLimit, NonNegativeInteger _timeLimit, NonNegativeInteger _warnTimeLimit, String _priority, String _remoteDali, String _comment, boolean _dontCopyFiles, String _sourceProcess, boolean _allowForeignFiles, boolean _updateDfs, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied, String _dfuPublisherWuid, String _remoteStorage, String _keyCompression )
     {
         this.local_wuid = _wuid;
         this.local_cluster = _cluster;
@@ -98,6 +99,7 @@ public class WUPublishWorkunitWrapper
         this.local_stopIfFilesCopied = _stopIfFilesCopied;
         this.local_dfuPublisherWuid = _dfuPublisherWuid;
         this.local_remoteStorage = _remoteStorage;
+        this.local_keyCompression = _keyCompression;
 
     }
 
@@ -138,13 +140,14 @@ public class WUPublishWorkunitWrapper
         this.local_stopIfFilesCopied = raw.getStopIfFilesCopied();
         this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
         this.local_remoteStorage = raw.getRemoteStorage();
+        this.local_keyCompression = raw.getKeyCompression();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUPublishWorkunitWrapper [" + "wuid = " + local_wuid + ", " + "cluster = " + local_cluster + ", " + "queryName = " + local_queryName + ", " + "workUnitJobName = " + local_workUnitJobName + ", " + "jobName = " + local_jobName + ", " + "activate = " + local_activate + ", " + "notifyCluster = " + local_notifyCluster + ", " + "wait = " + local_wait + ", " + "noReload = " + local_noReload + ", " + "updateWorkUnitName = " + local_updateWorkUnitName + ", " + "memoryLimit = " + local_memoryLimit + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "priority = " + local_priority + ", " + "remoteDali = " + local_remoteDali + ", " + "comment = " + local_comment + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "sourceProcess = " + local_sourceProcess + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "updateDfs = " + local_updateDfs + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "remoteStorage = " + local_remoteStorage + "]";
+        return "WUPublishWorkunitWrapper [" + "wuid = " + local_wuid + ", " + "cluster = " + local_cluster + ", " + "queryName = " + local_queryName + ", " + "workUnitJobName = " + local_workUnitJobName + ", " + "jobName = " + local_jobName + ", " + "activate = " + local_activate + ", " + "notifyCluster = " + local_notifyCluster + ", " + "wait = " + local_wait + ", " + "noReload = " + local_noReload + ", " + "updateWorkUnitName = " + local_updateWorkUnitName + ", " + "memoryLimit = " + local_memoryLimit + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "priority = " + local_priority + ", " + "remoteDali = " + local_remoteDali + ", " + "comment = " + local_comment + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "sourceProcess = " + local_sourceProcess + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "updateDfs = " + local_updateDfs + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "remoteStorage = " + local_remoteStorage + ", " + "keyCompression = " + local_keyCompression + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPublishWorkunit getRaw()
     {
@@ -181,6 +184,7 @@ public class WUPublishWorkunitWrapper
         raw.setStopIfFilesCopied( local_stopIfFilesCopied);
         raw.setDfuPublisherWuid( local_dfuPublisherWuid);
         raw.setRemoteStorage( local_remoteStorage);
+        raw.setKeyCompression( local_keyCompression);
         return raw;
     }
 
@@ -440,5 +444,13 @@ public class WUPublishWorkunitWrapper
     public String getRemoteStorage( )
     {
         return this.local_remoteStorage;
+    }
+    public void setKeyCompression( String _keyCompression )
+    {
+        this.local_keyCompression = _keyCompression;
+    }
+    public String getKeyCompression( )
+    {
+        return this.local_keyCompression;
     }
 }

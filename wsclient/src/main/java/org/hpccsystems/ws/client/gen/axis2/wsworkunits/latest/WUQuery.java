@@ -723,6 +723,114 @@ public class WUQuery implements org.apache.axis2.databinding.ADBBean {
     this.localProtected = param;
   }
 
+  /** field for MinimumExecuteCost */
+  protected double localMinimumExecuteCost =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble("0");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localMinimumExecuteCostTracker = false;
+
+  public boolean isMinimumExecuteCostSpecified() {
+    return localMinimumExecuteCostTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return double
+   */
+  public double getMinimumExecuteCost() {
+    return localMinimumExecuteCost;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param MinimumExecuteCost
+   */
+  public void setMinimumExecuteCost(double param) {
+
+    // setting primitive attribute tracker to true
+    localMinimumExecuteCostTracker = !java.lang.Double.isNaN(param);
+
+    this.localMinimumExecuteCost = param;
+  }
+
+  /** field for MinimumFileAccessCost */
+  protected double localMinimumFileAccessCost =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble("0");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localMinimumFileAccessCostTracker = false;
+
+  public boolean isMinimumFileAccessCostSpecified() {
+    return localMinimumFileAccessCostTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return double
+   */
+  public double getMinimumFileAccessCost() {
+    return localMinimumFileAccessCost;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param MinimumFileAccessCost
+   */
+  public void setMinimumFileAccessCost(double param) {
+
+    // setting primitive attribute tracker to true
+    localMinimumFileAccessCostTracker = !java.lang.Double.isNaN(param);
+
+    this.localMinimumFileAccessCost = param;
+  }
+
+  /** field for MinimumCompileCost */
+  protected double localMinimumCompileCost =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble("0");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localMinimumCompileCostTracker = false;
+
+  public boolean isMinimumCompileCostSpecified() {
+    return localMinimumCompileCostTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return double
+   */
+  public double getMinimumCompileCost() {
+    return localMinimumCompileCost;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param MinimumCompileCost
+   */
+  public void setMinimumCompileCost(double param) {
+
+    // setting primitive attribute tracker to true
+    localMinimumCompileCostTracker = !java.lang.Double.isNaN(param);
+
+    this.localMinimumCompileCost = param;
+  }
+
   /** field for Sortby */
   protected java.lang.String localSortby;
 
@@ -1192,6 +1300,55 @@ public class WUQuery implements org.apache.axis2.databinding.ADBBean {
       }
       localProtected.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Protected"), xmlWriter);
+    }
+    if (localMinimumExecuteCostTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "MinimumExecuteCost", xmlWriter);
+
+      if (java.lang.Double.isNaN(localMinimumExecuteCost)) {
+
+        throw new org.apache.axis2.databinding.ADBException("MinimumExecuteCost cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localMinimumExecuteCost));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localMinimumFileAccessCostTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "MinimumFileAccessCost", xmlWriter);
+
+      if (java.lang.Double.isNaN(localMinimumFileAccessCost)) {
+
+        throw new org.apache.axis2.databinding.ADBException(
+            "MinimumFileAccessCost cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localMinimumFileAccessCost));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localMinimumCompileCostTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "MinimumCompileCost", xmlWriter);
+
+      if (java.lang.Double.isNaN(localMinimumCompileCost)) {
+
+        throw new org.apache.axis2.databinding.ADBException("MinimumCompileCost cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localMinimumCompileCost));
+      }
+
+      xmlWriter.writeEndElement();
     }
     if (localSortbyTracker) {
       namespace = "urn:hpccsystems:ws:wsworkunits";
@@ -1864,6 +2021,66 @@ public class WUQuery implements org.apache.axis2.databinding.ADBBean {
               object.setProtected(
                   org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUProtectFilter.Factory
                       .parse(reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "MinimumExecuteCost")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "MinimumExecuteCost" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setMinimumExecuteCost(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "MinimumFileAccessCost")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "MinimumFileAccessCost" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setMinimumFileAccessCost(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "MinimumCompileCost")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "MinimumCompileCost" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setMinimumCompileCost(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
 
               reader.next();
 
