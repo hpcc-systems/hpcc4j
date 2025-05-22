@@ -30,6 +30,7 @@ public class WUResponseNoteWrapper
     protected NonNegativeInteger local_errorCode;
     protected String local_severity;
     protected NonNegativeInteger local_cost;
+    protected String local_id;
 
     public WUResponseNoteWrapper() {}
 
@@ -37,13 +38,14 @@ public class WUResponseNoteWrapper
     {
         copy( wuresponsenote );
     }
-    public WUResponseNoteWrapper( String _source, String _message, NonNegativeInteger _errorCode, String _severity, NonNegativeInteger _cost )
+    public WUResponseNoteWrapper( String _source, String _message, NonNegativeInteger _errorCode, String _severity, NonNegativeInteger _cost, String _id )
     {
         this.local_source = _source;
         this.local_message = _message;
         this.local_errorCode = _errorCode;
         this.local_severity = _severity;
         this.local_cost = _cost;
+        this.local_id = _id;
 
     }
 
@@ -57,13 +59,14 @@ public class WUResponseNoteWrapper
         this.local_errorCode = raw.getErrorCode();
         this.local_severity = raw.getSeverity();
         this.local_cost = raw.getCost();
+        this.local_id = raw.getId();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUResponseNoteWrapper [" + "source = " + local_source + ", " + "message = " + local_message + ", " + "errorCode = " + local_errorCode + ", " + "severity = " + local_severity + ", " + "cost = " + local_cost + "]";
+        return "WUResponseNoteWrapper [" + "source = " + local_source + ", " + "message = " + local_message + ", " + "errorCode = " + local_errorCode + ", " + "severity = " + local_severity + ", " + "cost = " + local_cost + ", " + "id = " + local_id + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResponseNote getRaw()
     {
@@ -73,6 +76,7 @@ public class WUResponseNoteWrapper
         raw.setErrorCode( local_errorCode);
         raw.setSeverity( local_severity);
         raw.setCost( local_cost);
+        raw.setId( local_id);
         return raw;
     }
 
@@ -116,5 +120,13 @@ public class WUResponseNoteWrapper
     public NonNegativeInteger getCost( )
     {
         return this.local_cost;
+    }
+    public void setId( String _id )
+    {
+        this.local_id = _id;
+    }
+    public String getId( )
+    {
+        return this.local_id;
     }
 }

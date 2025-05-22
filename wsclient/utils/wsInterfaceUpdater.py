@@ -95,7 +95,7 @@ def main():
                 ("wstopology", "ws_topology.ecm", "WsTopology", "wstopology", None),
                 #("wsworkunits", "ws_workunits.ecm", "WsWorkunits", "wsworkunits", None),
                 ("wsdali", "ws_dali.ecm", "WsDali", "wsdali", None),
-                ("wscloud", "ws_cloud.ecm", "WsCloud", "wscloud", None),
+                ("wscloud", "ws_cloud.ecm", "WsCloud", "WsCloud", None),
     ]
 
     if args.verbose:
@@ -155,7 +155,7 @@ def main():
             version = request_runtime_wsdl_version(service_name, service_uri, "http", args.targethpcchost, targetPort)
         else:
             version = request_wsdl_version(service_name, ecm_file)
-        
+
         print("-----------------------------")
         print(f"service : {service_name}")
         print(f"version : {version}")
@@ -183,9 +183,10 @@ def main():
             remove_latest_stub(service_name)
             print(f"Generating latest stub for {wsdl_prefix}-{version}...")
             generate_stubcode(service_name)
+            #break
 
-    print(f"Rebuilding wsclient...")
-    build_hpcc4j()
+    #print(f"Rebuilding wsclient...")
+    #build_hpcc4j()
 
     wsclient_classpath = get_wsclient_runtime_classpath()
     if wsclient_classpath == None:

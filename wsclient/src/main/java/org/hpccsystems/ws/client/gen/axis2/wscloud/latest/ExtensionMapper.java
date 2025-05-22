@@ -1,8 +1,8 @@
 /**
  * ExtensionMapper.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wscloud.latest;
 
@@ -23,9 +23,29 @@ public class ExtensionMapper {
           reader);
     }
 
+    if ("urn:hpccsystems:ws:wscloud".equals(namespaceURI) && "Port".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Port.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wscloud".equals(namespaceURI) && "PodItem".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wscloud".equals(namespaceURI) && "Pods_type0".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0.Factory.parse(reader);
+    }
+
     if ("urn:hpccsystems:ws:wscloud".equals(namespaceURI) && "EspException".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.EspException.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wscloud".equals(namespaceURI) && "Ports_type0".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Ports_type0.Factory.parse(reader);
     }
 
     throw new org.apache.axis2.databinding.ADBException(
