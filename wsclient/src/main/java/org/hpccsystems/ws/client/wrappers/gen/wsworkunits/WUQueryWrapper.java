@@ -46,6 +46,9 @@ public class WUQueryWrapper
     protected long local_pageStartFrom;
     protected long local_pageEndAt;
     protected WUProtectFilterWrapper local_protected;
+    protected double local_minimumExecuteCost;
+    protected double local_minimumFileAccessCost;
+    protected double local_minimumCompileCost;
     protected String local_sortby;
     protected boolean local_descending;
     protected long local_cacheHint;
@@ -56,7 +59,7 @@ public class WUQueryWrapper
     {
         copy( wuquery );
     }
-    public WUQueryWrapper( String _wuid, String _type, String _cluster, String _roxieCluster, String _owner, String _state, String _startDate, String _endDate, String _eCL, String _jobname, String _logicalFile, String _logicalFileSearchType, ArrayOfApplicationValueWrapper _applicationValues, String _beforeWU, String _afterWU, UnsignedInt _totalClusterTimeThresholdMilliSec, int _count, long _pageSize, long _pageStartFrom, long _pageEndAt, WUProtectFilterWrapper _protected, String _sortby, boolean _descending, long _cacheHint )
+    public WUQueryWrapper( String _wuid, String _type, String _cluster, String _roxieCluster, String _owner, String _state, String _startDate, String _endDate, String _eCL, String _jobname, String _logicalFile, String _logicalFileSearchType, ArrayOfApplicationValueWrapper _applicationValues, String _beforeWU, String _afterWU, UnsignedInt _totalClusterTimeThresholdMilliSec, int _count, long _pageSize, long _pageStartFrom, long _pageEndAt, WUProtectFilterWrapper _protected, double _minimumExecuteCost, double _minimumFileAccessCost, double _minimumCompileCost, String _sortby, boolean _descending, long _cacheHint )
     {
         this.local_wuid = _wuid;
         this.local_type = _type;
@@ -79,6 +82,9 @@ public class WUQueryWrapper
         this.local_pageStartFrom = _pageStartFrom;
         this.local_pageEndAt = _pageEndAt;
         this.local_protected = _protected;
+        this.local_minimumExecuteCost = _minimumExecuteCost;
+        this.local_minimumFileAccessCost = _minimumFileAccessCost;
+        this.local_minimumCompileCost = _minimumCompileCost;
         this.local_sortby = _sortby;
         this.local_descending = _descending;
         this.local_cacheHint = _cacheHint;
@@ -113,6 +119,9 @@ public class WUQueryWrapper
         this.local_pageEndAt = raw.getPageEndAt();
         if (raw.getProtected() != null)
             this.local_protected = new WUProtectFilterWrapper( raw.getProtected());
+        this.local_minimumExecuteCost = raw.getMinimumExecuteCost();
+        this.local_minimumFileAccessCost = raw.getMinimumFileAccessCost();
+        this.local_minimumCompileCost = raw.getMinimumCompileCost();
         this.local_sortby = raw.getSortby();
         this.local_descending = raw.getDescending();
         this.local_cacheHint = raw.getCacheHint();
@@ -122,7 +131,7 @@ public class WUQueryWrapper
     @Override
     public String toString()
     {
-        return "WUQueryWrapper [" + "wuid = " + local_wuid + ", " + "type = " + local_type + ", " + "cluster = " + local_cluster + ", " + "roxieCluster = " + local_roxieCluster + ", " + "owner = " + local_owner + ", " + "state = " + local_state + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "eCL = " + local_eCL + ", " + "jobname = " + local_jobname + ", " + "logicalFile = " + local_logicalFile + ", " + "logicalFileSearchType = " + local_logicalFileSearchType + ", " + "applicationValues = " + local_applicationValues + ", " + "beforeWU = " + local_beforeWU + ", " + "afterWU = " + local_afterWU + ", " + "totalClusterTimeThresholdMilliSec = " + local_totalClusterTimeThresholdMilliSec + ", " + "count = " + local_count + ", " + "pageSize = " + local_pageSize + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "pageEndAt = " + local_pageEndAt + ", " + "protected = " + local_protected + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "cacheHint = " + local_cacheHint + "]";
+        return "WUQueryWrapper [" + "wuid = " + local_wuid + ", " + "type = " + local_type + ", " + "cluster = " + local_cluster + ", " + "roxieCluster = " + local_roxieCluster + ", " + "owner = " + local_owner + ", " + "state = " + local_state + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "eCL = " + local_eCL + ", " + "jobname = " + local_jobname + ", " + "logicalFile = " + local_logicalFile + ", " + "logicalFileSearchType = " + local_logicalFileSearchType + ", " + "applicationValues = " + local_applicationValues + ", " + "beforeWU = " + local_beforeWU + ", " + "afterWU = " + local_afterWU + ", " + "totalClusterTimeThresholdMilliSec = " + local_totalClusterTimeThresholdMilliSec + ", " + "count = " + local_count + ", " + "pageSize = " + local_pageSize + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "pageEndAt = " + local_pageEndAt + ", " + "protected = " + local_protected + ", " + "minimumExecuteCost = " + local_minimumExecuteCost + ", " + "minimumFileAccessCost = " + local_minimumFileAccessCost + ", " + "minimumCompileCost = " + local_minimumCompileCost + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "cacheHint = " + local_cacheHint + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuery getRaw()
     {
@@ -150,6 +159,9 @@ public class WUQueryWrapper
         raw.setPageEndAt( local_pageEndAt);
         if (local_protected != null)
             raw.setProtected( local_protected.getRaw());
+        raw.setMinimumExecuteCost( local_minimumExecuteCost);
+        raw.setMinimumFileAccessCost( local_minimumFileAccessCost);
+        raw.setMinimumCompileCost( local_minimumCompileCost);
         raw.setSortby( local_sortby);
         raw.setDescending( local_descending);
         raw.setCacheHint( local_cacheHint);
@@ -324,6 +336,30 @@ public class WUQueryWrapper
     public WUProtectFilterWrapper getProtected( )
     {
         return this.local_protected;
+    }
+    public void setMinimumExecuteCost( double _minimumExecuteCost )
+    {
+        this.local_minimumExecuteCost = _minimumExecuteCost;
+    }
+    public double getMinimumExecuteCost( )
+    {
+        return this.local_minimumExecuteCost;
+    }
+    public void setMinimumFileAccessCost( double _minimumFileAccessCost )
+    {
+        this.local_minimumFileAccessCost = _minimumFileAccessCost;
+    }
+    public double getMinimumFileAccessCost( )
+    {
+        return this.local_minimumFileAccessCost;
+    }
+    public void setMinimumCompileCost( double _minimumCompileCost )
+    {
+        this.local_minimumCompileCost = _minimumCompileCost;
+    }
+    public double getMinimumCompileCost( )
+    {
+        return this.local_minimumCompileCost;
     }
     public void setSortby( String _sortby )
     {

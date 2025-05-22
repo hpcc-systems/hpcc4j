@@ -1,8 +1,8 @@
 /**
  * FileSprayStub.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:46:59 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:49:45 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.filespray.latest;
 
@@ -829,13 +829,13 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
   public FileSprayStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://eclwatch-66ff99685c-4bl4k:8888/FileSpray?ver_=1.26");
+    this(configurationContext, "http://172.27.163.120:8010/FileSpray?ver_=1.27");
   }
 
   /** Default Constructor */
   public FileSprayStub() throws org.apache.axis2.AxisFault {
 
-    this("http://eclwatch-66ff99685c-4bl4k:8888/FileSpray?ver_=1.26");
+    this("http://172.27.163.120:8010/FileSpray?ver_=1.27");
   }
 
   /** Constructor taking the target endpoint */
@@ -859,7 +859,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("FileSpray/SprayVariable?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/SprayVariable?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -981,7 +981,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("FileSpray/DFUWUFile?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/DFUWUFile?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1104,7 +1104,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("FileSpray/Ping?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/Ping?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1227,7 +1227,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("FileSpray/Copy?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/Copy?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1349,7 +1349,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[4].getName());
-      _operationClient.getOptions().setAction("FileSpray/Replicate?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/Replicate?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1473,7 +1473,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[5].getName());
-      _operationClient.getOptions().setAction("FileSpray/CreateDFUWorkunit?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/CreateDFUWorkunit?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1599,7 +1599,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[6].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetDFUWorkunit?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/GetDFUWorkunit?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1721,7 +1721,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[7].getName());
-      _operationClient.getOptions().setAction("FileSpray/Rename?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/Rename?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1843,7 +1843,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[8].getName());
-      _operationClient.getOptions().setAction("FileSpray/SprayFixed?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/SprayFixed?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1965,7 +1965,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[9].getName());
-      _operationClient.getOptions().setAction("FileSpray/ShowResult?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/ShowResult?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2088,7 +2088,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[10].getName());
-      _operationClient.getOptions().setAction("FileSpray/AbortDFUWorkunit?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/AbortDFUWorkunit?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2215,7 +2215,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[11].getName());
-      _operationClient.getOptions().setAction("FileSpray/DropZoneFileSearch?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/DropZoneFileSearch?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2345,7 +2345,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[12].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetRemoteTargets?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/GetRemoteTargets?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2473,7 +2473,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[13].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetDFUServerQueues?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/GetDFUServerQueues?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2603,7 +2603,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[14].getName());
-      _operationClient.getOptions().setAction("FileSpray/DeleteDFUWorkunits?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/DeleteDFUWorkunits?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2730,7 +2730,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[15].getName());
-      _operationClient.getOptions().setAction("FileSpray/Despray?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/Despray?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2852,7 +2852,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[16].getName());
-      _operationClient.getOptions().setAction("FileSpray/FileList?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/FileList?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2976,7 +2976,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[17].getName());
-      _operationClient.getOptions().setAction("FileSpray/DFUWorkunitsAction?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/DFUWorkunitsAction?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3105,7 +3105,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[18].getName());
-      _operationClient.getOptions().setAction("FileSpray/DropZoneFiles?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/DropZoneFiles?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3230,7 +3230,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[19].getName());
-      _operationClient.getOptions().setAction("FileSpray/DeleteDFUWorkunit?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/DeleteDFUWorkunit?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3358,7 +3358,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[20].getName());
-      _operationClient.getOptions().setAction("FileSpray/SubmitDFUWorkunit?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/SubmitDFUWorkunit?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3484,7 +3484,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[21].getName());
-      _operationClient.getOptions().setAction("FileSpray/DfuMonitor?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/DfuMonitor?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3606,7 +3606,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[22].getName());
-      _operationClient.getOptions().setAction("FileSpray/DFUWUSearch?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/DFUWUSearch?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3729,7 +3729,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[23].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetDFUWorkunits?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/GetDFUWorkunits?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3855,7 +3855,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[24].getName());
-      _operationClient.getOptions().setAction("FileSpray/DeleteDropZoneFiles?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/DeleteDropZoneFiles?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3985,7 +3985,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[25].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetSprayTargets?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/GetSprayTargets?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4111,7 +4111,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[26].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetDFUExceptions?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/GetDFUExceptions?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4236,7 +4236,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[27].getName());
-      _operationClient.getOptions().setAction("FileSpray/EchoDateTime?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/EchoDateTime?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4360,7 +4360,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[28].getName());
-      _operationClient.getOptions().setAction("FileSpray/CreateDFUPublisherWorkunit?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/CreateDFUPublisherWorkunit?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4492,7 +4492,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[29].getName());
-      _operationClient.getOptions().setAction("FileSpray/UpdateDFUWorkunit?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/UpdateDFUWorkunit?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4618,7 +4618,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[30].getName());
-      _operationClient.getOptions().setAction("FileSpray/GetDFUProgress?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/GetDFUProgress?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4740,7 +4740,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[31].getName());
-      _operationClient.getOptions().setAction("FileSpray/OpenSave?ver_=1.26");
+      _operationClient.getOptions().setAction("FileSpray/OpenSave?ver_=1.27");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4860,7 +4860,7 @@ public class FileSprayStub extends org.apache.axis2.client.Stub implements FileS
     }
     return false;
   }
-  // http://eclwatch-66ff99685c-4bl4k:8888/FileSpray?ver_=1.26
+  // http://172.27.163.120:8010/FileSpray?ver_=1.27
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.filespray.latest.SprayVariable param,
       boolean optimizeContent)

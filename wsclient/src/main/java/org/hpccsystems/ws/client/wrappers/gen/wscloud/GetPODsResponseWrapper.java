@@ -24,7 +24,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wscloud;
  */
 public class GetPODsResponseWrapper
 {
-    protected String local_result;
+    protected Pods_type0Wrapper local_pods;
 
     public GetPODsResponseWrapper() {}
 
@@ -32,9 +32,9 @@ public class GetPODsResponseWrapper
     {
         copy( getpodsresponse );
     }
-    public GetPODsResponseWrapper( String _result )
+    public GetPODsResponseWrapper( Pods_type0Wrapper _pods )
     {
-        this.local_result = _result;
+        this.local_pods = _pods;
 
     }
 
@@ -43,29 +43,31 @@ public class GetPODsResponseWrapper
         if (raw == null)
             return;
 
-        this.local_result = raw.getResult();
+        if (raw.getPods() != null)
+            this.local_pods = new Pods_type0Wrapper( raw.getPods());
 
     }
 
     @Override
     public String toString()
     {
-        return "GetPODsResponseWrapper [" + "result = " + local_result + "]";
+        return "GetPODsResponseWrapper [" + "pods = " + local_pods + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetPODsResponse getRaw()
     {
         org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetPODsResponse raw = new org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetPODsResponse();
-        raw.setResult( local_result);
+        if (local_pods != null)
+            raw.setPods( local_pods.getRaw());
         return raw;
     }
 
 
-    public void setResult( String _result )
+    public void setPods( Pods_type0Wrapper _pods )
     {
-        this.local_result = _result;
+        this.local_pods = _pods;
     }
-    public String getResult( )
+    public Pods_type0Wrapper getPods( )
     {
-        return this.local_result;
+        return this.local_pods;
     }
 }

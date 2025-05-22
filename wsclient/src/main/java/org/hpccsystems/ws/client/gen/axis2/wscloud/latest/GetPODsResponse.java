@@ -1,8 +1,8 @@
 /**
  * GetPODsResponse.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wscloud.latest;
 
@@ -13,37 +13,37 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "GetPODsResponse", "ns1");
 
-  /** field for Result */
-  protected java.lang.String localResult;
+  /** field for Pods */
+  protected org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0 localPods;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localResultTracker = false;
+  protected boolean localPodsTracker = false;
 
-  public boolean isResultSpecified() {
-    return localResultTracker;
+  public boolean isPodsSpecified() {
+    return localPodsTracker;
   }
 
   /**
    * Auto generated getter method
    *
-   * @return java.lang.String
+   * @return org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0
    */
-  public java.lang.String getResult() {
-    return localResult;
+  public org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0 getPods() {
+    return localPods;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param Result
+   * @param param Pods
    */
-  public void setResult(java.lang.String param) {
-    localResultTracker = param != null;
+  public void setPods(org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0 param) {
+    localPodsTracker = param != null;
 
-    this.localResult = param;
+    this.localPods = param;
   }
 
   /**
@@ -96,21 +96,12 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
             xmlWriter);
       }
     }
-    if (localResultTracker) {
-      namespace = "urn:hpccsystems:ws:wscloud";
-      writeStartElement(null, namespace, "Result", xmlWriter);
-
-      if (localResult == null) {
-        // write the nil attribute
-
-        throw new org.apache.axis2.databinding.ADBException("Result cannot be null!!");
-
-      } else {
-
-        xmlWriter.writeCharacters(localResult);
+    if (localPodsTracker) {
+      if (localPods == null) {
+        throw new org.apache.axis2.databinding.ADBException("Pods cannot be null!!");
       }
-
-      xmlWriter.writeEndElement();
+      localPods.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Pods"), xmlWriter);
     }
     xmlWriter.writeEndElement();
   }
@@ -356,20 +347,12 @@ public class GetPODsResponse implements org.apache.axis2.databinding.ADBBean {
           if (reader.isStartElement()) {
 
             if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Result")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wscloud", "Pods")
                     .equals(reader.getName())) {
 
-              nillableValue =
-                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
-              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "Result" + "  cannot be null");
-              }
-
-              java.lang.String content = reader.getElementText();
-
-              object.setResult(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+              object.setPods(
+                  org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0.Factory.parse(
+                      reader));
 
               reader.next();
 

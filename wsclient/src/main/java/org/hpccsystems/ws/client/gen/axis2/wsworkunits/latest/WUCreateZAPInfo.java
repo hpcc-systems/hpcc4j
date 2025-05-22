@@ -549,6 +549,78 @@ public class WUCreateZAPInfo implements org.apache.axis2.databinding.ADBBean {
     this.localLogFilter = param;
   }
 
+  /** field for IncludeRelatedLogs */
+  protected boolean localIncludeRelatedLogs =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("true");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIncludeRelatedLogsTracker = false;
+
+  public boolean isIncludeRelatedLogsSpecified() {
+    return localIncludeRelatedLogsTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIncludeRelatedLogs() {
+    return localIncludeRelatedLogs;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param IncludeRelatedLogs
+   */
+  public void setIncludeRelatedLogs(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localIncludeRelatedLogsTracker = true;
+
+    this.localIncludeRelatedLogs = param;
+  }
+
+  /** field for IncludePerComponentLogs */
+  protected boolean localIncludePerComponentLogs =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIncludePerComponentLogsTracker = false;
+
+  public boolean isIncludePerComponentLogsSpecified() {
+    return localIncludePerComponentLogsTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIncludePerComponentLogs() {
+    return localIncludePerComponentLogs;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param IncludePerComponentLogs
+   */
+  public void setIncludePerComponentLogs(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localIncludePerComponentLogsTracker = true;
+
+    this.localIncludePerComponentLogs = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -846,6 +918,39 @@ public class WUCreateZAPInfo implements org.apache.axis2.databinding.ADBBean {
       }
       localLogFilter.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "LogFilter"), xmlWriter);
+    }
+    if (localIncludeRelatedLogsTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "IncludeRelatedLogs", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException("IncludeRelatedLogs cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localIncludeRelatedLogs));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localIncludePerComponentLogsTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "IncludePerComponentLogs", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException(
+            "IncludePerComponentLogs cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localIncludePerComponentLogs));
+      }
+
+      xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
   }
@@ -1385,6 +1490,46 @@ public class WUCreateZAPInfo implements org.apache.axis2.databinding.ADBBean {
               object.setLogFilter(
                   org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessFilter.Factory
                       .parse(reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "IncludeRelatedLogs")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "IncludeRelatedLogs" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIncludeRelatedLogs(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "IncludePerComponentLogs")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "IncludePerComponentLogs" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIncludePerComponentLogs(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();
 

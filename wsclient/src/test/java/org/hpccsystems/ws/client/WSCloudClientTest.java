@@ -18,14 +18,18 @@
 package org.hpccsystems.ws.client;
 
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assume.assumeTrue;
 
+import org.hpccsystems.ws.client.wrappers.gen.wscloud.GetPODsResponseWrapper;
+import org.hpccsystems.ws.client.wrappers.gen.wscloud.PodItemWrapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import java.util.List;
 
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 
@@ -59,18 +63,15 @@ public class WSCloudClientTest extends BaseRemoteTest
         try
         {
             System.out.println("Fetching all User Pods...");
-            String resp = client.getPods();
+            //String resp = client.getPods();
+            //WsCloud.getPods return type has changed since HPCC 9.12.x - wscloud 1.02
+            GetPODsResponseWrapper resp = client.getPods();
             Assert.assertNotNull(resp);
-            Assert.assertTrue(!resp.isEmpty());
+            List<PodItemWrapper> pods = resp.getPods().getPod();
 
-            JSONObject getPodsJson = new JSONObject(resp);
-            JSONArray items = (JSONArray) getPodsJson.get("items");
-
-            for(int i = 0; i < items.length(); i++)
+            for (PodItemWrapper pod : pods)
             {
-                JSONObject jsonobj = (JSONObject) items.get(i);
-                JSONObject meta = (JSONObject) jsonobj.get("metadata");
-                System.out.println("pod name.namespace: " + meta.getString("name") + "." + meta.getString("namespace"));
+                System.out.println("pod name: '" + pod.getName() + "'' pod container name: '" + pod.getContainerName() + "'");
             }
         }
         catch (Exception e)

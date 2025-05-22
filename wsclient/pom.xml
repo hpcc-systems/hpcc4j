@@ -208,7 +208,7 @@
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest</packageName>
                  <wsdlFile>src/main/resources/WSDLs/WsWorkunits.wsdl</wsdlFile>
-                 <wsdlVersion>1.92</wsdlVersion>
+                 <wsdlVersion>2.00</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
@@ -289,7 +289,7 @@
                  <unpackClasses>true</unpackClasses>
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.filespray.latest</packageName>
-                 <wsdlFile>src/main/resources/WSDLs/WsFileSpray.wsdl</wsdlFile>
+                 <wsdlFile>src/main/resources/WSDLs/FileSpray.wsdl</wsdlFile>
                  <wsdlVersion>1.23</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>

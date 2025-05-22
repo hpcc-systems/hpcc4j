@@ -851,6 +851,39 @@ public class WUQuerysetImport implements org.apache.axis2.databinding.ADBBean {
     this.localRemoteStorage = param;
   }
 
+  /** field for KeyCompression */
+  protected java.lang.String localKeyCompression;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localKeyCompressionTracker = false;
+
+  public boolean isKeyCompressionSpecified() {
+    return localKeyCompressionTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getKeyCompression() {
+    return localKeyCompression;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param KeyCompression
+   */
+  public void setKeyCompression(java.lang.String param) {
+    localKeyCompressionTracker = param != null;
+
+    this.localKeyCompression = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -1268,6 +1301,22 @@ public class WUQuerysetImport implements org.apache.axis2.databinding.ADBBean {
       } else {
 
         xmlWriter.writeCharacters(localRemoteStorage);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localKeyCompressionTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "KeyCompression", xmlWriter);
+
+      if (localKeyCompression == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("KeyCompression cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localKeyCompression);
       }
 
       xmlWriter.writeEndElement();
@@ -1957,6 +2006,25 @@ public class WUQuerysetImport implements org.apache.axis2.databinding.ADBBean {
               java.lang.String content = reader.getElementText();
 
               object.setRemoteStorage(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "KeyCompression")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "KeyCompression" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setKeyCompression(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();

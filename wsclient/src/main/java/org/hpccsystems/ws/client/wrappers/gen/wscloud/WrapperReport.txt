@@ -3,15 +3,19 @@ Generated Axis2 ADB stub class wrapper package report:
   Wrapper package name: org.hpccsystems.ws.client.wrappers.gen.wscloud
   Wrapped service name: WsCloud
   Wrapped package: org.hpccsystems.ws.client.gen.axis2.wscloud.latest
-  Wrapped service version: 1.01
+  Wrapped service version: 1.02
 Wrapped Classes:
-    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.ArrayOfEspException
+    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Ports_type0
+    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloudPingResponse
+    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloudPingRequest
     org.hpccsystems.ws.client.gen.axis2.wscloud.latest.EspException
+    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Port
+    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.ArrayOfEspException
+    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetServicesResponse
+    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetServicesRequest
+    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.PodItem
+    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Pods_type0
     org.hpccsystems.ws.client.gen.axis2.wscloud.latest.EspSoapFault
-    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Exceptions
     org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetPODsRequest
     org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetPODsResponse
-    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetServicesRequest
-    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.GetServicesResponse
-    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloudPingRequest
-    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.WsCloudPingResponse
+    org.hpccsystems.ws.client.gen.axis2.wscloud.latest.Exceptions
