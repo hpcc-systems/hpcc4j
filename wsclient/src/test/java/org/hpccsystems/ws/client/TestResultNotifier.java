@@ -24,10 +24,31 @@ import org.junit.runner.notification.RunListener;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.ZoneId;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 
 public class TestResultNotifier extends RunListener
 {
     PrintWriter failedTestsFile = null;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss")
+                                          .withZone(ZoneId.systemDefault());
+
+    public void testStarted(Description description) throws Exception
+    {
+        Instant instant = Instant.now();
+        String formattedTime = formatter.format(instant);
+        System.out.println("\n" + formattedTime +  " Starting: " + description.getClassName() + "." + description.getMethodName());
+        System.out.println("---------------------------------------------------------");
+    }
+
+    public void testFinished(Description description) throws Exception
+    {
+        Instant instant = Instant.now();
+        String formattedTime = formatter.format(instant);
+        System.out.println("\n" + formattedTime +  " Finished: " + description.getClassName() + "." + description.getMethodName());
+        System.out.println("---------------------------------------------------------");
+    }
 
     public void testFailure(Failure failure) throws Exception
     {
