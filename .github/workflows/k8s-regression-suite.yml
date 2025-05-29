@@ -146,6 +146,14 @@ jobs:
     - name: Build with Maven
       run: mvn -B --activate-profiles jenkins-on-demand,spark33 -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=https://eclwatch.default:8010 -Dwssqlconn=https://sql2ecl.default:8510 -DHPCC30117=open  install
 
+    - name: Print Rowservice Logs on Failure
+      if: hashFiles('./dfsclient/FailedTests.csv') != ''
+      run: |
+        echo "DFSClient tests failed - collecting rowservice pod logs"
+        ROWSERVICE_POD=$(kubectl get pods -l server=rowservice -o jsonpath='{.items[0].metadata.name}')
+        echo "Rowservice pod: $ROWSERVICE_POD"
+        kubectl logs $ROWSERVICE_POD | grep -v "meta info did not mark file"
+
     - name: Process Errors
       shell: python
       run: |
