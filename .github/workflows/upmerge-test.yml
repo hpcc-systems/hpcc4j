@@ -186,7 +186,7 @@ jobs:
 
             def getTargetInBranchVersion(targetBranch):
                 # Use git show to get the version from the top-level pom.xml
-                cmd = ["git", "show", f"{targetBranch}:pom.xml"]
+                cmd = ["git", "show", f"origin/{targetBranch}:pom.xml"]
                 result = subprocess.run(cmd, capture_output=True, text=True, check=True)
                 pom_content = result.stdout
 
