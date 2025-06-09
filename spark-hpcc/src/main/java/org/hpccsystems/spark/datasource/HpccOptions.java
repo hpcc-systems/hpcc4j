@@ -12,6 +12,9 @@ import org.hpccsystems.ws.client.utils.Connection;
  */
 public class HpccOptions
 {
+    public static final double MIN_SAMPLING_RATE = 1e-9;
+    public static final double MAX_SAMPLING_RATE = 1.0;
+
     public Connection           connectionInfo = null;
     public String               clusterName    = null;
     public String               fileName       = null;
@@ -20,6 +23,7 @@ public class HpccOptions
     public String               filterString   = null;
     public int                  expirySeconds  = 120;
     public int                  filePartLimit  = -1;
+    public double               samplingRate = 1.0;
     public boolean              useTLK         = false;
     public List<Integer>        fileParts      = new ArrayList<Integer>();
 
@@ -141,6 +145,27 @@ public class HpccOptions
         if (parameters.containsKey("spanid"))
         {
             spanID = (String) parameters.get("spanid");
+        }
+
+        if (parameters.containsKey("samplingrate"))
+        {
+            String samplingRateStr = (String) parameters.get("samplingrate");
+            try
+            {
+                samplingRate = Double.parseDouble(samplingRateStr);
+                if (samplingRate < MIN_SAMPLING_RATE)
+                {
+                    samplingRate = MIN_SAMPLING_RATE;
+                }
+                else if (samplingRate > MAX_SAMPLING_RATE)
+                {
+                    samplingRate = MAX_SAMPLING_RATE;
+                }
+            }
+            catch (NumberFormatException e)
+            {
+                throw new Exception("Invalid sampling rate: " + samplingRateStr, e);
+            }
         }
 
         if (parameters.containsKey("fileParts"))

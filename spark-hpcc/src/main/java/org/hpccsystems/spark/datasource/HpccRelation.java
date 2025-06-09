@@ -68,6 +68,7 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
             }
 
             hpccFile.setFilePartRecordLimit(options.filePartLimit);
+            hpccFile.setSamplingRate(options.samplingRate);
 
             try
             {
@@ -249,8 +250,10 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
 
             boolean hostMatches = options.connectionInfo.getHost().equals(otherOptions.connectionInfo.getHost());
             boolean filePartLimitMatches = otherOptions.filePartLimit == options.filePartLimit;
+            boolean samplingRateMatches = otherOptions.samplingRate == options.samplingRate;
 
-            return hostMatches && nameMatches && projectListMatches && filterStringMatches && filePartLimitMatches;
+            return hostMatches && nameMatches && projectListMatches 
+                && filterStringMatches && filePartLimitMatches && samplingRateMatches;
         }
 
         return false;
