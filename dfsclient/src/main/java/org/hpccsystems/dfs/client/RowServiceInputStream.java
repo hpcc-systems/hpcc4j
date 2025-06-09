@@ -82,7 +82,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         public FieldDef recordDefinition = null;
         public FieldDef projectedRecordDefinition = null;
-        public double samplingRate = 1.0f; // Default to no sampling
+        public double samplingRate = 1.0; // Default to no sampling
         public int recordReadLimit = -1;
         public int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
         public int initialReadSizeKB = DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
