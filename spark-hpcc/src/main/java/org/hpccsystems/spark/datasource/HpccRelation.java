@@ -250,7 +250,8 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
 
             boolean hostMatches = options.connectionInfo.getHost().equals(otherOptions.connectionInfo.getHost());
             boolean filePartLimitMatches = otherOptions.filePartLimit == options.filePartLimit;
-            boolean samplingRateMatches = otherOptions.samplingRate == options.samplingRate;
+            final double EPSILON = 1e-9;
+            boolean samplingRateMatches = Math.abs(otherOptions.samplingRate - options.samplingRate) < EPSILON;
 
             return hostMatches && nameMatches && projectListMatches 
                 && filterStringMatches && filePartLimitMatches && samplingRateMatches;
