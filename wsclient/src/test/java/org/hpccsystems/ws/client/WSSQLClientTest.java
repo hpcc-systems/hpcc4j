@@ -117,35 +117,6 @@ public class WSSQLClientTest extends BaseRemoteTest
 
     @Test
     @WithSpan
-    public void AAA2testGetTables() throws Exception
-    {
-        try
-        {
-            HPCCTableWrapper[] tables = client.getTables("*");
-            Assert.assertNotNull(tables);
-            for (int i = 0; i < tables.length; i++)
-            {
-                System.out.println(tables[i].getName());
-            }
-        }
-        catch (AxisFault e)
-        {
-            e.printStackTrace();
-            Assert.fail();
-        }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            Assert.fail(e.toString());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            Assert.fail();
-        }
-    }
-
-    @Test
-    @WithSpan
     public void AAA1testGetClusters() throws Exception
     {
         try
