@@ -69,6 +69,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
     private FieldDef                   projectedRecordDef = null;
     private int                        connectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
     private int                        recordLimit = -1;
+    private double                     samplingRate = 1.0;
 
     private static void registerPicklingFunctions()
     {
@@ -126,6 +127,20 @@ public class HpccRDD extends RDD<Row> implements Serializable
     */
     public HpccRDD(SparkContext sc, DataPartition[] dataParts, FieldDef originalRD, FieldDef projectedRD, int connectTimeout, int limit)
     {
+        this(sc, dataParts, originalRD, projectedRD, connectTimeout, limit, 1.0);
+    }
+    
+    /**
+     * @param sc spark context
+     * @param dataParts data parts
+     * @param originalRD original record definition
+     * @param projectedRD projected record definition
+     * @param connectTimeout connection timeout
+     * @param limit file limit
+     * @param samplingRate record sampling rate
+    */
+    public HpccRDD(SparkContext sc, DataPartition[] dataParts, FieldDef originalRD, FieldDef projectedRD, int connectTimeout, int limit, double samplingRate)
+    {
         super(sc, new ArrayBuffer<Dependency<?>>(), CT_RECORD);
         this.parts = new InternalPartition[dataParts.length];
         for (int i = 0; i < dataParts.length; i++)
@@ -139,6 +154,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
         this.projectedRecordDef = projectedRD;
         this.connectionTimeout = connectTimeout;
         this.recordLimit = limit;
+        this.samplingRate = samplingRate;
     }
 
     /**
@@ -209,6 +225,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
             context.connectTimeout = connectionTimeout;
             context.recordReadLimit = recordLimit;
             context.parentSpan = sparkPartReadSpan;
+            context.samplingRate = samplingRate;
             final HpccRemoteFileReader<Row> fileReader = new HpccRemoteFileReader<Row>(context, this_part.partition, new GenericRowRecordBuilder(projectedRD));
 
             // This will be called for both failure & success

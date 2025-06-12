@@ -176,4 +176,50 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
         Dataset<Row> diff = writtenDataSet.exceptAll(readDataSet);
         Assert.assertTrue("Difference found between written and read datasets", diff.isEmpty());
     }
+
+    @Test
+    public void samplingTest()
+    {
+        SparkSession spark = getOrCreateSparkSession();
+
+        // Create the schema
+        StructType schema = DataTypes.createStructType(new StructField[] {
+            DataTypes.createStructField("key", DataTypes.LongType, false),
+            DataTypes.createStructField("value", DataTypes.LongType, false)
+        });
+
+        // Write dataset to HPCC
+        List<Row> rows = new ArrayList<Row>();
+        for (int i = 0; i < 1000; i++) {
+            Object[] fields = new Object[2];
+            fields[0] = Long.valueOf(i);
+            fields[1] = Long.valueOf(i);
+            rows.add(new GenericRowWithSchema(fields, schema));
+        }
+
+        Dataset<Row> writtenDataSet = spark.createDataFrame(rows, schema);
+
+        String datasetPath = "spark::test::integer_kv_sampling";
+        writtenDataSet.write()
+                      .format("hpcc")
+                      .mode("overwrite")
+                      .option("cluster", getThorCluster())
+                      .option("host", getHPCCClusterURL())
+                      .option("username", getHPCCClusterUser())
+                      .option("password", getHPCCClusterPass())
+                      .save(datasetPath);
+
+        // Read dataset from HPCC with sampling
+        Dataset<Row> readDataSet = spark.read()
+                                    .format("hpcc")
+                                    .option("cluster", getThorCluster())
+                                    .option("host", getHPCCClusterURL())
+                                    .option("username", getHPCCClusterUser())
+                                    .option("password", getHPCCClusterPass())
+                                    .option("samplingRate", 0.1) // 10% sampling rate
+                                    .load(datasetPath);
+
+        Assert.assertTrue("Should have read 100 records", readDataSet.count() == 100);
+
+    }
 }
