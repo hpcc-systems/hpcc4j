@@ -7,14 +7,13 @@ import java.util.TreeMap;
 import org.hpccsystems.dfs.client.CompressionAlgorithm;
 import org.hpccsystems.ws.client.utils.Connection;
 
+import org.hpccsystems.spark.HpccFile;
+
 /**
  * A helper class that extracts options from the key value pairs provided by Spark.
  */
 public class HpccOptions
 {
-    public static final double MIN_SAMPLING_RATE = 1e-9;
-    public static final double MAX_SAMPLING_RATE = 1.0;
-
     public Connection           connectionInfo = null;
     public String               clusterName    = null;
     public String               fileName       = null;
@@ -23,7 +22,7 @@ public class HpccOptions
     public String               filterString   = null;
     public int                  expirySeconds  = 120;
     public int                  filePartLimit  = -1;
-    public double               samplingRate = 1.0;
+    public double               recordSamplingRate   = HpccFile.MAX_RECORD_SAMPLING_RATE;
     public boolean              useTLK         = false;
     public List<Integer>        fileParts      = new ArrayList<Integer>();
 
@@ -147,24 +146,24 @@ public class HpccOptions
             spanID = (String) parameters.get("spanid");
         }
 
-        if (parameters.containsKey("samplingrate"))
+        if (parameters.containsKey("recordSamplingRate"))
         {
-            String samplingRateStr = (String) parameters.get("samplingrate");
+            String recordSamplingRateStr = (String) parameters.get("recordSamplingRate");
             try
             {
-                samplingRate = Double.parseDouble(samplingRateStr);
-                if (samplingRate < MIN_SAMPLING_RATE)
+                recordSamplingRate = Double.parseDouble(recordSamplingRateStr);
+                if (recordSamplingRate < HpccFile.MIN_RECORD_SAMPLING_RATE)
                 {
-                    samplingRate = MIN_SAMPLING_RATE;
+                    recordSamplingRate = HpccFile.MIN_RECORD_SAMPLING_RATE;
                 }
-                else if (samplingRate > MAX_SAMPLING_RATE)
+                else if (recordSamplingRate > HpccFile.MAX_RECORD_SAMPLING_RATE)
                 {
-                    samplingRate = MAX_SAMPLING_RATE;
+                    recordSamplingRate = HpccFile.MAX_RECORD_SAMPLING_RATE;
                 }
             }
             catch (NumberFormatException e)
             {
-                throw new Exception("Invalid sampling rate: " + samplingRateStr, e);
+                throw new Exception("Invalid sampling rate: " + recordSamplingRateStr, e);
             }
         }
 

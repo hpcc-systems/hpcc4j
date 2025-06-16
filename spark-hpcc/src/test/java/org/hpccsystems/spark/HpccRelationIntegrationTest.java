@@ -122,7 +122,7 @@ public class HpccRelationIntegrationTest extends BaseIntegrationTest
         paramTreeMap.put("useTLK", "True"); // Defaults to false, also should be case insensitive
         paramTreeMap.put("fileAccessTimeout", "120000");
         paramTreeMap.put("limitPerFilePart", "100");
-        paramTreeMap.put("samplingRate", "0.5");
+        paramTreeMap.put("recordSamplingRate", "0.5");
 
         String projectList = "key, value";
         paramTreeMap.put("projectList", projectList);
@@ -148,7 +148,7 @@ public class HpccRelationIntegrationTest extends BaseIntegrationTest
         Assert.assertEquals(path, hpccRelation.getFile().getFileName());
         Assert.assertEquals(120000, hpccRelation.getFile().getFileAccessExpirySecs());
         Assert.assertEquals(100, hpccRelation.getFile().getFilePartRecordLimit());
-        Assert.assertEquals(0.5, hpccRelation.getFile().getSamplingRate(), 0.0001);
+        Assert.assertEquals(0.5, hpccRelation.getFile().getRecordSamplingRate(), 0.0001);
         Assert.assertEquals(projectList, hpccRelation.getFile().getProjectList());
     }
 

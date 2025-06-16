@@ -178,7 +178,7 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
     }
 
     @Test
-    public void samplingTest()
+    public void recordSamplingTest()
     {
         SparkSession spark = getOrCreateSparkSession();
 
@@ -216,10 +216,9 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
                                     .option("host", getHPCCClusterURL())
                                     .option("username", getHPCCClusterUser())
                                     .option("password", getHPCCClusterPass())
-                                    .option("samplingRate", 0.1) // 10% sampling rate
+                                    .option("recordSamplingRate", 0.1) // 10% sampling rate
                                     .load(datasetPath);
 
         Assert.assertTrue("Should have read 100 records", readDataSet.count() == 100);
-
     }
 }

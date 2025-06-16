@@ -44,11 +44,15 @@ import io.opentelemetry.api.trace.Span;
 public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Serializable
 {
   static private final long serialVersionUID = 2L;
+
+  public static final double MIN_RECORD_SAMPLING_RATE = 1e-9;
+  public static final double MAX_RECORD_SAMPLING_RATE = 1.0;
+
   private String parentTraceID = "";
   private String parentSpanID = "";
 
   private int recordLimit = -1;
-  private double samplingRate = 1.0;
+  private double recordSamplingRate = MAX_RECORD_SAMPLING_RATE;
 
   // Make sure Python picklers have been registered
   static { EvaluatePython.registerPicklers(); }
@@ -137,20 +141,25 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
 
   /**
    * Set the record sampling rate when reading the file.
-   * @param recordSamplingRate the percentage of records to read from the file.
+   * @param recSamplingRate the percentage of records to read from the file.
    */
-  public void setSamplingRate(double recordSamplingRate)
+  public void setRecordSamplingRate(double recSamplingRate) throws IllegalArgumentException
   {
-    this.samplingRate = recordSamplingRate;
+    if (recSamplingRate < MIN_RECORD_SAMPLING_RATE || recSamplingRate > MAX_RECORD_SAMPLING_RATE)
+    {
+      throw new IllegalArgumentException("Record sampling rate must be between " + MIN_RECORD_SAMPLING_RATE + " and " + MAX_RECORD_SAMPLING_RATE);
+    }
+
+    this.recordSamplingRate = recSamplingRate;
   }
 
   /**
    * Returns the current record sampling rate
    * @return returns record sampling rate
    */
-  public double getSamplingRate()
+  public double getRecordSamplingRate()
   {
-    return this.samplingRate;
+    return this.recordSamplingRate;
   }
 
   /**
@@ -184,7 +193,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
   public HpccRDD getRDD(SparkContext sc) throws HpccFileException
   {
 	  HpccRDD rdd = new HpccRDD(sc, getFileParts(), this.getRecordDefinition(), this.getProjectedRecordDefinition(), this.getFileAccessExpirySecs(), 
-                        this.recordLimit, this.samplingRate);
+                        this.recordLimit, this.recordSamplingRate);
     rdd.setTraceContext(parentTraceID, parentSpanID);
     return rdd;
   }
@@ -219,7 +228,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
     }
 
 	  HpccRDD rdd = new HpccRDD(sc, filteredFileParts.toArray(new DataPartition[0]), this.getRecordDefinition(), this.getProjectedRecordDefinition(), this.getFileAccessExpirySecs(), 
-                              this.recordLimit, this.samplingRate);
+                              this.recordLimit, this.recordSamplingRate);
     rdd.setTraceContext(parentTraceID, parentSpanID);
     return rdd;
   }
@@ -235,7 +244,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
     FieldDef projectedRD = this.getProjectedRecordDefinition();
     DataPartition[] fp = this.getFileParts();
 
-    HpccRDD hpccRDD = new HpccRDD(session.sparkContext(), fp, originalRD, projectedRD, this.getFileAccessExpirySecs(), this.recordLimit, this.samplingRate);
+    HpccRDD hpccRDD = new HpccRDD(session.sparkContext(), fp, originalRD, projectedRD, this.getFileAccessExpirySecs(), this.recordLimit, this.recordSamplingRate);
     hpccRDD.setTraceContext(parentTraceID, parentSpanID);
     JavaRDD<Row > rdd = (hpccRDD).toJavaRDD();
 

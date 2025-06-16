@@ -69,7 +69,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
     private FieldDef                   projectedRecordDef = null;
     private int                        connectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
     private int                        recordLimit = -1;
-    private double                     samplingRate = 1.0;
+    private double                     recordSamplingRate = HpccFile.MAX_RECORD_SAMPLING_RATE;
 
     private static void registerPicklingFunctions()
     {
@@ -137,9 +137,9 @@ public class HpccRDD extends RDD<Row> implements Serializable
      * @param projectedRD projected record definition
      * @param connectTimeout connection timeout
      * @param limit file limit
-     * @param samplingRate record sampling rate
+     * @param recSamplingRate record sampling rate
     */
-    public HpccRDD(SparkContext sc, DataPartition[] dataParts, FieldDef originalRD, FieldDef projectedRD, int connectTimeout, int limit, double samplingRate)
+    public HpccRDD(SparkContext sc, DataPartition[] dataParts, FieldDef originalRD, FieldDef projectedRD, int connectTimeout, int limit, double recSamplingRate)
     {
         super(sc, new ArrayBuffer<Dependency<?>>(), CT_RECORD);
         this.parts = new InternalPartition[dataParts.length];
@@ -154,7 +154,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
         this.projectedRecordDef = projectedRD;
         this.connectionTimeout = connectTimeout;
         this.recordLimit = limit;
-        this.samplingRate = samplingRate;
+        this.recordSamplingRate = recSamplingRate;
     }
 
     /**
@@ -225,7 +225,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
             context.connectTimeout = connectionTimeout;
             context.recordReadLimit = recordLimit;
             context.parentSpan = sparkPartReadSpan;
-            context.samplingRate = samplingRate;
+            context.recordSamplingRate = recordSamplingRate;
             final HpccRemoteFileReader<Row> fileReader = new HpccRemoteFileReader<Row>(context, this_part.partition, new GenericRowRecordBuilder(projectedRD));
 
             // This will be called for both failure & success

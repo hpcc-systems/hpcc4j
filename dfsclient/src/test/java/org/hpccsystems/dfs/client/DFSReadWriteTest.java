@@ -283,7 +283,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
     }
 
     @Test
-    public void samplingRateTest() throws Exception
+    public void recordSamplingRateTest() throws Exception
     {
         // Read file with sampling
         HPCCFile file = new HPCCFile(datasets[0], connString , hpccUser, hpccPass);
@@ -306,7 +306,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
 
             HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
             readContext.originalRD = originalRD;
-            readContext.samplingRate = 0.1; // 10% sampling rate
+            readContext.recordSamplingRate = 0.1; // 10% sampling rate
             
             HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, fileParts[i], recordBuilder);
 
@@ -329,7 +329,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         // Validate the number of records read
         int expectedSampleCount = (int) (expectedCounts[0] * 0.1);
         assertTrue("Number of sampled records did not match expected count. Expected: " + expectedSampleCount + ", Actual: " + records.size(),
-                   records.size() >= expectedSampleCount);
+                   records.size() == expectedSampleCount);
     }
 
     @Test

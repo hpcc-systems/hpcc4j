@@ -68,7 +68,17 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
             }
 
             hpccFile.setFilePartRecordLimit(options.filePartLimit);
-            hpccFile.setSamplingRate(options.samplingRate);
+
+            try
+            {
+                hpccFile.setRecordSamplingRate(options.recordSamplingRate);
+            }
+            catch (IllegalArgumentException e)
+            {
+                String error = "Invalid record sampling rate: " + options.recordSamplingRate + " with error: " + e.getMessage();
+                log.error(error);
+                throw new RuntimeException(error);
+            }
 
             try
             {
@@ -250,10 +260,11 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
 
             boolean hostMatches = options.connectionInfo.getHost().equals(otherOptions.connectionInfo.getHost());
             boolean filePartLimitMatches = otherOptions.filePartLimit == options.filePartLimit;
-            boolean samplingRateMatches = otherOptions.samplingRate == options.samplingRate;
+            final double EPSILON = 1e-9;
+            boolean recordSamplingRateMatches = Math.abs(otherOptions.recordSamplingRate - options.recordSamplingRate) < EPSILON;
 
             return hostMatches && nameMatches && projectListMatches 
-                && filterStringMatches && filePartLimitMatches && samplingRateMatches;
+                && filterStringMatches && filePartLimitMatches && recordSamplingRateMatches;
         }
 
         return false;

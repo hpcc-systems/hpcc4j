@@ -82,7 +82,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         public FieldDef recordDefinition = null;
         public FieldDef projectedRecordDefinition = null;
-        public double samplingRate = 1.0f; // Default to no sampling
+        public double recordSamplingRate = RowServiceInputStream.MIN_RECORD_SAMPLING_RATE;
         public int recordReadLimit = -1;
         public int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
         public int initialReadSizeKB = DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
@@ -120,7 +120,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     public static final int          DEFAULT_MAX_READ_SIZE_KB = 4096;
     public static final int          DEFAULT_INITIAL_REQUEST_READ_SIZE_KB = 256;
     public static final int          DEFAULT_READ_BUFFER_SIZE_KB = 4096;
-    public static final double       MIN_SAMPLING_RATE = 1e-9;
+
+    public static final double       MIN_RECORD_SAMPLING_RATE = 1e-9;
+    public static final double       MAX_RECORD_SAMPLING_RATE = 1.0;
 
     private static final int         SHORT_SLEEP_MS           = 1;
     private static final int         LONG_WAIT_THRESHOLD_US   = 100;
@@ -196,8 +198,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private long                     streamPos = 0;
     private long                     streamMarkPos = 0;
 
-    private boolean                  shouldSample = false;
-    private double                   samplingRate = 1.0f; // Default to no sampling   
+    private boolean                  shouldSampleRecords = false;
+    private double                   recordSamplingRate = MAX_RECORD_SAMPLING_RATE; // Default to no sampling
 
     // Used for restarts
     private long                     streamPosOfFetchStart = 0;
@@ -510,14 +512,14 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         this.recordLimit = context.recordReadLimit;
 
-        if (context.samplingRate < 1.0)
+        if (context.recordSamplingRate < MAX_RECORD_SAMPLING_RATE)
         {
-            this.shouldSample = true;
+            this.shouldSampleRecords = true;
 
-            this.samplingRate = context.samplingRate;
-            if (this.samplingRate < MIN_SAMPLING_RATE)
+            this.recordSamplingRate = context.recordSamplingRate;
+            if (this.recordSamplingRate < MIN_RECORD_SAMPLING_RATE)
             {
-                this.samplingRate = MIN_SAMPLING_RATE;
+                this.recordSamplingRate = MIN_RECORD_SAMPLING_RATE;
             }
         }
 
@@ -2396,9 +2398,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 sb.append(",\n");
             }
 
-            if (this.shouldSample)
+            if (this.shouldSampleRecords)
             {
-                sb.append("\"samplingRate\" : \"" + this.samplingRate + "\",\n");
+                sb.append("\"recordSamplingRate\" : \"" + this.recordSamplingRate + "\",\n");
             }
 
             if (this.recordLimit > -1)
