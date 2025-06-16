@@ -220,5 +220,45 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
                                     .load(datasetPath);
 
         Assert.assertTrue("Should have read 100 records", readDataSet.count() == 100);
+
+        // Check recordSamplingRate upper bound 
+        try
+        {
+            Dataset<Row> invalidReadDataSet = spark.read()
+                .format("hpcc")
+                .option("cluster", getThorCluster())
+                .option("host", getHPCCClusterURL())
+                .option("username", getHPCCClusterUser())
+                .option("password", getHPCCClusterPass())
+                .option("recordSamplingRate", 1.5) // Invalid sampling rate
+                .load(datasetPath);
+            invalidReadDataSet.count();
+            Assert.fail("Expected an exception due to invalid recordSamplingRate");
+        }
+        catch (Exception e)
+        {
+            // Expected exception due to invalid sampling rate
+            System.out.println("Caught expected exception: " + e.getMessage());
+        }
+
+        // Check recordSamplingRate lower bound
+        try
+        {
+            Dataset<Row> invalidReadDataSet = spark.read()
+                .format("hpcc")
+                .option("cluster", getThorCluster())
+                .option("host", getHPCCClusterURL())
+                .option("username", getHPCCClusterUser())
+                .option("password", getHPCCClusterPass())
+                .option("recordSamplingRate", 0.0) // Invalid sampling rate
+                .load(datasetPath);
+            invalidReadDataSet.count();
+            Assert.fail("Expected an exception due to invalid recordSamplingRate");
+        }
+        catch (Exception e)
+        {
+            // Expected exception due to invalid sampling rate
+            System.out.println("Caught expected exception: " + e.getMessage());
+        }
     }
 }
