@@ -16,6 +16,9 @@
 package org.hpccsystems.spark;
 
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -190,7 +193,7 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
 
         // Write dataset to HPCC
         List<Row> rows = new ArrayList<Row>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             Object[] fields = new Object[2];
             fields[0] = Long.valueOf(i);
             fields[1] = Long.valueOf(i);
@@ -218,8 +221,11 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
                                     .option("password", getHPCCClusterPass())
                                     .option("recordSamplingRate", 0.1) // 10% sampling rate
                                     .load(datasetPath);
-
-        Assert.assertTrue("Should have read 100 records", readDataSet.count() == 100);
+        long count = readDataSet.count();
+        long expectedCount = (long) (10000 * 0.1); // Expect around 1000 records
+        float percentageDiff = Math.abs((count - expectedCount) / (float) expectedCount) * 100;
+        assertTrue("Count should be within 10% of expected count, actual percentage difference: " + percentageDiff,
+                   percentageDiff < 10.0);
 
         // Check recordSamplingRate upper bound 
         try
