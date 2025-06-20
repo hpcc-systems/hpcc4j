@@ -283,6 +283,59 @@ public class DFSReadWriteTest extends BaseRemoteTest
     }
 
     @Test
+    public void recordSamplingRateTest() throws Exception
+    {
+        double samplingRate = 0.1; // 10% sampling rate
+        // Read file with sampling
+        HPCCFile file = new HPCCFile(datasets[1], connString , hpccUser, hpccPass);
+        DataPartition[] fileParts = file.getFileParts();
+        if (fileParts == null || fileParts.length == 0)
+        {
+            Assert.fail("No file parts found");
+        }
+
+        FieldDef originalRD = file.getRecordDefinition();
+        if (originalRD == null || originalRD.getNumDefs() == 0)
+        {
+            Assert.fail("Invalid or null record definition");
+        }
+
+        ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < fileParts.length; i++)
+        {
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+
+            HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
+            readContext.originalRD = originalRD;
+            readContext.recordSamplingRate = samplingRate;
+            
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, fileParts[i], recordBuilder);
+
+            while (fileReader.hasNext())
+            {
+                HPCCRecord record = fileReader.next();
+                if (record == null)
+                {
+                    Assert.fail("Received null record during read");
+                }
+
+                records.add(record);
+            }
+            fileReader.close();
+
+            if (fileReader.getRemoteReadMessageCount() > 0)
+                System.out.println("Messages from file part (" + i + ") read operation:\n" + fileReader.getRemoteReadMessages());
+        }
+
+        int expectedSampleCount = (int) (expectedCounts[1] * samplingRate);
+        float percentageDiff = (Math.abs(records.size() - expectedSampleCount) / (float) expectedSampleCount) * 100;
+
+        // Allowing 10% variance due to sampling
+        assertTrue("Percentage difference in sampled records is too high: " + percentageDiff + " should be less than 10%",
+                   percentageDiff < 10.0); 
+    }
+
+    @Test
     public void readBufferResizeTest() throws Exception
     {
         HPCCFile file = new HPCCFile(datasets[0], connString , hpccUser, hpccPass);
