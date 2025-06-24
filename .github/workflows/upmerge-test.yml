@@ -1,4 +1,4 @@
-name: upmerge-test 
+name: Upmerge Test
 
 on:
   pull_request:
@@ -303,7 +303,6 @@ jobs:
                     f.write(f"  Status: {branch_result['status']}\n")
                     if branch_result.get('conflict_details'):
                         f.write(f"  Conflict Details:\n{branch_result['conflict_details']}\n")
-            print(test_results["summary"])
 
       - name: "Upload Upmerge Test Results"
         uses: actions/upload-artifact@v4
@@ -313,3 +312,27 @@ jobs:
             upmerge-test-results.json
             upmerge-test-summary.txt
           retention-days: 30
+
+      - name: "Process Results"
+        shell: python
+        run: |
+            import json
+            import sys
+            import os
+
+            results_file = 'upmerge-test-results.json'
+
+            if not os.path.exists(results_file):
+                print(f"Results file {results_file} not found.")
+                sys.exit(1)
+            with open(results_file, 'r') as f:
+                test_results = json.load(f)
+
+            conflicts = test_results.get('conflicts', [])
+            if not isinstance(conflicts, list):
+                print("Error: 'conflicts' in results file is not a list.")
+                sys.exit(1)
+
+            print(test_results["summary"])
+            if len(conflicts) > 0:
+                sys.exit(1)
