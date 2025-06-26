@@ -28,4 +28,4 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Build with Maven
-      run: mvn -B -Dmaven.test.skip=True clean install javadoc:javadoc
+      run: mvn -B -Dmaven.test.skip=true clean javadoc:javadoc
