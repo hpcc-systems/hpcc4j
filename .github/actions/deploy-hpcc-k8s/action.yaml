@@ -1,0 +1,143 @@
+name: 'Deploy HPCC on K8s'
+description: 'Builds a docker image and deploys a HPCC cluster on K8s'
+inputs:
+  use-local-image:
+    description: 'Use Local Docker Image'
+    required: false
+    default: 'false'
+  platform-folder:
+    description: 'Platform Folder'
+    required: false
+    default: './HPCC-Platform'
+
+runs:
+  using: "composite"
+  steps:
+
+    # Note: IP Address range below is the IP address range that will be made available for load balancers
+    # on the host machine, they aren't actual load balancers so they will not be accessible externally
+    - name: Enable LoadBalancers
+      run: |
+        sudo microk8s enable metallb:10.64.140.43-10.64.140.69
+      shell: bash
+
+    - name: Create Root Certificates
+      run: |
+        echo "[req]
+        default_bits           = 2048
+        default_keyfile        = ca.key
+        distinguished_name     = dn
+        prompt                 = no
+        x509_extensions        = x509_ca
+
+        [dn]
+        C                      = US
+        ST                     = GA
+        L                      = Alparetta
+        O                      = Lexis Nexis Risk
+        OU                     = Platform Development
+        CN                     = TestCluster
+        emailAddress           = support@lexisnexisrisk.com
+
+        [x509_ca]
+        basicConstraints=CA:true,pathlen:1" > ca-req.cfg
+        openssl req -x509 -newkey rsa:2048 -nodes -keyout ca.key -sha256 -days 1825 -out ca.crt -config ca-req.cfg
+        kubectl create secret tls hpcc-signing-issuer-key-pair --cert=ca.crt --key=ca.key
+        kubectl create secret tls hpcc-local-issuer-key-pair --cert=ca.crt --key=ca.key
+        sudo keytool -import -trustcacerts -cacerts -storepass changeit -noprompt -alias hpcc-local-issuer -file ca.crt
+      shell: bash
+
+    - name: Install JetStack Cert Manager
+      run: |
+        sudo microk8s helm repo add jetstack https://charts.jetstack.io
+        sudo microk8s helm repo update
+        kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
+        sudo microk8s helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.11.0
+      shell: bash
+
+    - name: Install HPCC Cluster
+      run: |
+        cat <<EOF > values.yaml
+        certificates:
+          enabled: true
+        dafilesrv:
+          - name: rowservice
+            disabled: false
+            application: stream
+            service:
+              servicePort: 7600
+              visibility: global
+          - name: direct-access
+            disabled: true
+            application: directio
+            service:
+              servicePort: 7200
+              visibility: local
+          - name: spray-service
+            application: spray
+            service:
+              servicePort: 7300
+              visibility: cluster
+        EOF
+        # if use-local-image is true, install from local
+        if [ "${{ inputs.use-local-image }}" == "true" ]; then
+          sudo microk8s helm install myhpcc ${{ inputs.platform-folder }}/helm/hpcc --set global.image.root=localhost:32000/hpccsystems --set global.image.version=latest -f values.yaml
+        else
+          helm repo add hpcc https://hpcc-systems.github.io/helm-chart
+          helm repo update
+          helm install myhpcc hpcc/hpcc -f values.yaml
+        fi
+      shell: bash
+
+    - name: Wait for Deployment Rollout & Grab Service IPs
+      run: |
+        sleep 10
+        deploy=$(kubectl get deploy -o name)
+        for i in $deploy; do
+          if ! kubectl rollout status $i -w --timeout=180s; then
+            echo "Deployment $i failed to roll out within timeout"
+            echo "kubectl get $i -o yaml"
+            kubectl get $i -o yaml
+            echo "kubectl describe $i"
+            kubectl describe $i
+            echo "kubectl get pods"
+            kubectl get pods
+            echo "Getting information for all pods"
+            for pod in $(kubectl get pods --no-headers | awk '{ print $1 }'); do
+              echo "Pod name: $pod"
+              echo "$pod: kubectl get pod"
+              kubectl get pod $pod -o yaml || echo "Failed to get pod for $pod"
+              echo "$pod: kubectl describe pod"
+              kubectl describe pod $pod || echo "Failed to describe pod for $pod"
+              echo "$pod: getting recent logs"
+              kubectl logs --tail=50 $pod || echo "Failed to get logs for $pod"
+            done
+            echo "kubectl get rs"
+            kubectl get rs
+            exit 1
+          fi
+        done
+        echo "ECLWATCH_IP=$(kubectl get svc eclwatch -o jsonpath='{.spec.clusterIP}')" >> $GITHUB_ENV
+        echo "ROWSERVICE_IP=$(kubectl get svc rowservice -o jsonpath='{.spec.clusterIP}')" >> $GITHUB_ENV
+        echo "SQL_TO_ECL_IP=$(kubectl get svc sql2ecl -o jsonpath='{.spec.clusterIP}')" >> $GITHUB_ENV
+        kubectl get pods
+        kubectl get svc
+      shell: bash
+
+    - name: Add Host File Entries
+      run: |
+        sudo -- sh -c -e "echo '${{ env.ECLWATCH_IP }} eclwatch.default' >> /etc/hosts";
+        sudo -- sh -c -e "echo '${{ env.ROWSERVICE_IP }} rowservice.default' >> /etc/hosts";
+        sudo -- sh -c -e "echo '${{ env.SQL_TO_ECL_IP }} sql2ecl.default' >> /etc/hosts";
+      shell: bash
+
+    - name: Trust Certs
+      run: |
+        openssl s_client -showcerts -connect eclwatch.default:8010 < /dev/null | openssl x509 -outform DER > cert.der
+        sudo keytool -import -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -noprompt -alias eclwatch-tls -file cert.der
+        openssl s_client -showcerts -connect rowservice.default:7600 < /dev/null | openssl x509 -outform DER > cert.der
+        sudo keytool -import -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -noprompt -alias dafilesrv-tls -file cert.der
+        openssl s_client -showcerts -connect sql2ecl.default:8510 < /dev/null | openssl x509 -outform DER > cert.der
+        sudo keytool -import -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -noprompt -alias sqltoecl-tls -file cert.der
+      shell: bash
+
