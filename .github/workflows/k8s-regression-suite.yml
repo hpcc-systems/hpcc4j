@@ -9,9 +9,104 @@ on:
   workflow_dispatch:
 
 jobs:
+  parse-pr-body:
+    runs-on: ubuntu-latest
+    outputs:
+      repository: ${{ steps.parse-pr-body.outputs.repository }}
+      branch: ${{ steps.parse-pr-body.outputs.branch }}
+      has-custom-platform: ${{ steps.parse-pr-body.outputs.has-custom-platform == 'true' }}
+    steps:
+    - name: Parse PR Body
+      id: parse-pr-body
+      uses: actions/github-script@v7
+      env:
+        PROJECT_CONFIG: ${{ vars.PROJECT_CONFIG }}
+      with:
+        script: |
+          if (context.eventName === 'workflow_dispatch') {
+            core.info('Manual trigger - using default platform');
+            core.setOutput("repository", "");
+            core.setOutput("branch", "");
+            core.setOutput("has-custom-platform", false);
+            return;
+          }
+
+          const body = context.payload.pull_request?.body || "";
+          console.log(`PR body: ${body}`);
+
+          let repository = "";
+          let branch = "";
+
+          // Parse the project config from environment variable
+          // This should be a JSON object containing the "allowedRepositories" field,
+          // which is an array of fully qualified repository names IE: [ "hpcc-systems/hpcc-platform", "..."]
+          let projectConfig = {};
+          try {
+            const configStr = process.env.PROJECT_CONFIG || "{}";
+            projectConfig = JSON.parse(configStr);
+            console.log(`Parsed project config:`, projectConfig);
+          } catch (error) {
+            console.log(`Failed to parse PROJECT_CONFIG: ${error.message}`);
+            projectConfig = {};
+          }
+          
+          // Get allowed repositories from project config
+          const allowedRepos = projectConfig.allowedRepositories || [];
+          if (allowedRepos.length > 0) {
+            console.log(`Allowed repositories: ${allowedRepos.join(", ")}`);
+          } else {
+            console.log(`No fully qualified repository whitelist configured - no external repositories allowed`);
+          }
+
+          const repoMatch = body.match(/repository:\s*([^\n]+)/);
+          if (repoMatch) repository = repoMatch[1].trim();
+
+          const branchMatch = body.match(/branch:\s*([^\n]+)/);
+          if (branchMatch) branch = branchMatch[1].trim();
+
+          if (repository && !allowedRepos.includes(repository)) {
+            console.log(`Repository ${repository} is not allowed. Using default platform.`);
+            repository = "";
+            branch = "";
+          }
+
+          // Sanitize branch name, limit to branches with the following: [a-zA-Z0-9._-/]
+          // If the branch contains any invalid characters, it will be set to an empty string.
+          const branchRegex = /^[a-zA-Z0-9._\-\/]+$/;
+          if (branch && !branchRegex.test(branch)) {
+            console.log(`Branch name contains invalid characters. Using default platform.`);
+            branch = "";
+          }
+
+          const hasCustomPlatform = repository != "" && branch != "";
+
+          if (!hasCustomPlatform) {
+            console.log(`No custom repository/branch specified. Using default platform.`);
+          } else {
+            console.log(`Custom platform found: ${repository}@${branch}`);
+          }
+
+          core.setOutput("repository", repository);
+          core.setOutput("branch", branch);
+          core.setOutput("has-custom-platform", hasCustomPlatform);
+
+  build-docker:
+    name: build-docker-ubuntu-22.04
+    needs: parse-pr-body
+    uses: ./.github/workflows/build-docker.yml
+    with:
+      os: ubuntu-22.04
+      should-build: ${{ needs.parse-pr-body.outputs.has-custom-platform == 'true' }}
+      repository: ${{ needs.parse-pr-body.outputs.repository }}
+      branch: ${{ needs.parse-pr-body.outputs.branch }}
+      upload-package: true
+      containerized: true
+      asset-name: docker-ubuntu-22_04-containerized
+    secrets: inherit
+
   test-against-platform:
     runs-on: ubuntu-latest
-
+    needs: [parse-pr-body, build-docker]
     steps:
 
     - name: Setup JDK 11
@@ -26,114 +121,31 @@ jobs:
         devMode: 'true'
         addons: '["dns", "rbac", "hostpath-storage", "registry"]'
 
-    # Note: IP Address range below is the IP address range that will be made available for load balancers
-    # on the host machine, they aren't actual load balancers so they will not be accessible externally
-    - name: Enable LoadBalancers
-      run: |
-        sudo microk8s enable metallb:10.64.140.43-10.64.140.49
-
-    - name: Install JetStack Cert Manager
-      run: |
-        helm repo add jetstack https://charts.jetstack.io
-        helm repo update
-        kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
-        helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.11.0
-
-    - name: Create Root Certificates
-      run: |
-        echo "[req]
-        default_bits           = 2048
-        default_keyfile        = ca.key
-        distinguished_name     = dn
-        prompt                 = no
-        x509_extensions        = x509_ca
-
-        [dn]
-        C                      = US
-        ST                     = GA
-        L                      = Alparetta
-        O                      = Lexis Nexis Risk
-        OU                     = Platform Development
-        CN                     = TestCluster
-        emailAddress           = support@lexisnexisrisk.com
-
-        [x509_ca]
-        basicConstraints=CA:true,pathlen:1" > ca-req.cfg
-        openssl req -x509 -newkey rsa:2048 -nodes -keyout ca.key -sha256 -days 1825 -out ca.crt -config ca-req.cfg
-        kubectl create secret tls hpcc-signing-issuer-key-pair --cert=ca.crt --key=ca.key
-        kubectl create secret tls hpcc-local-issuer-key-pair --cert=ca.crt --key=ca.key
-        sudo keytool -import -trustcacerts -cacerts -storepass changeit -noprompt -alias hpcc-local-issuer -file ca.crt
-
-    - name: Install HPCC Cluster
-      run: |
-        cat <<EOF > values.yaml
-        certificates:
-          enabled: true
-        dafilesrv:
-          - name: rowservice
-            disabled: false
-            application: stream
-            service:
-              servicePort: 7600
-              visibility: global
-          - name: direct-access
-            disabled: true
-            application: directio
-            service:
-              servicePort: 7200
-              visibility: local
-          - name: spray-service
-            application: spray
-            service:
-              servicePort: 7300
-              visibility: cluster
-        EOF
-        helm repo add hpcc https://hpcc-systems.github.io/helm-chart
-        helm repo update
-        helm install myhpcc hpcc/hpcc -f values.yaml
-
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
 
-    - name: Rebase
-      run: |
-        git config user.email 'hpccsystems@lexisnexisrisk.com'
-        git config user.name 'hpccsystems development'
-        git rebase origin/${{ github.event.pull_request.base.ref }}
-        git log --pretty=one -n 15
+    - name: Checkout HPCC-Platform
+      if: ${{ needs.parse-pr-body.outputs.has-custom-platform == 'true' }}
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        path: ./HPCC-Platform
+        repository: ${{ needs.parse-pr-body.outputs.repository }}
+        ref: ${{ needs.parse-pr-body.outputs.branch }}
 
-    - name: Wait for ECLWatch Startup
-      run: |
-          echo "Waiting for ECLWatch startup" && kubectl wait --for=condition=ready pod --timeout=180s -l app=eclwatch
-          echo "Waiting for Rowservice startup" && kubectl wait --for=condition=ready pod --timeout=180s -l server=rowservice
-          echo "Waiting for SQL2ECL startup" && kubectl wait --for=condition=ready pod --timeout=180s -l app=sql2ecl
-          echo "ECLWATCH_IP=$(kubectl get svc eclwatch -o jsonpath='{.spec.clusterIP}')" >> $GITHUB_ENV
-          echo "ROWSERVICE_IP=$(kubectl get svc rowservice -o jsonpath='{.spec.clusterIP}')" >> $GITHUB_ENV
-          echo "SQL_TO_ECL_IP=$(kubectl get svc sql2ecl -o jsonpath='{.spec.clusterIP}')" >> $GITHUB_ENV
-          kubectl get pods
-          kubectl get svc
+    - name: Build HPCC Docker Image
+      if: ${{ needs.parse-pr-body.outputs.has-custom-platform == 'true' }}
+      uses: ./.github/actions/build-k8s
+      with:
+        platform-folder: ./HPCC-Platform
 
-    - name: Add Host File Entries
-      run: |
-        sudo -- sh -c -e "echo '${{ env.ECLWATCH_IP }} eclwatch.default' >> /etc/hosts";
-        sudo -- sh -c -e "echo '${{ env.ROWSERVICE_IP }} rowservice.default' >> /etc/hosts";
-        sudo -- sh -c -e "echo '${{ env.SQL_TO_ECL_IP }} sql2ecl.default' >> /etc/hosts";
-
-    # Notes:
-    # Using keytool -import -cacerts doesn't work as expected, need to specify the cacerts path explicitly
-    # Path changed between JDK 8 & 11, Command for JDK 8:
-    # sudo keytool -import -keystore $JAVA_HOME/jre/lib/security/cacerts -storepass changeit -noprompt -alias eclwatch-tls -file cert.der
-    - name: Trust Certs
-      run: |
-        openssl s_client -showcerts -connect eclwatch.default:8010 < /dev/null | openssl x509 -outform DER > cert.der
-        sudo keytool -import -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -noprompt -alias eclwatch-tls -file cert.der
-        openssl s_client -showcerts -connect rowservice.default:7600 < /dev/null | openssl x509 -outform DER > cert.der
-        sudo keytool -import -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -noprompt -alias dafilesrv-tls -file cert.der
-        openssl s_client -showcerts -connect sql2ecl.default:8510 < /dev/null | openssl x509 -outform DER > cert.der
-        sudo keytool -import -keystore $JAVA_HOME/lib/security/cacerts -storepass changeit -noprompt -alias sqltoecl-tls -file cert.der
-
+    - name: Deploy HPCC on K8s
+      uses: ./.github/actions/deploy-hpcc-k8s
+      with:
+        use-local-image: ${{ needs.parse-pr-body.outputs.has-custom-platform == 'true' }}
+        platform-folder: ./HPCC-Platform
 
     # speed things up with caching from https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
     - name: Cache Maven packages
@@ -151,19 +163,32 @@ jobs:
         echo "DFSClient tests failed - collecting rowservice pod logs"
         ROWSERVICE_POD=$(kubectl get pods -l server=rowservice -o jsonpath='{.items[0].metadata.name}')
         echo "Rowservice pod: $ROWSERVICE_POD"
-        kubectl logs $ROWSERVICE_POD | grep -v "meta info did not mark file"
+        kubectl logs $ROWSERVICE_POD > rowservice.log
 
     - name: ECLWatch Logs
       run: |
         ESP_POD=$(kubectl get pods -l app=eclwatch -o jsonpath='{.items[0].metadata.name}')
         echo "ESP pod: $ESP_POD"
-        kubectl logs $ESP_POD
+        kubectl logs $ESP_POD > eclwatch.log
 
     - name: SQL2ECL Logs
       run: |
         SQL_TO_ECL_POD=$(kubectl get pods -l app=sql2ecl -o jsonpath='{.items[0].metadata.name}')
         echo "SQL to ECL pod: $SQL_TO_ECL_POD"
-        kubectl logs $SQL_TO_ECL_POD
+        kubectl logs $SQL_TO_ECL_POD > sql2ecl.log
+
+    - name: Upload Logs and Test Results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: k8s-test-results-${{ github.run_number }}
+        path: |
+          rowservice.log
+          eclwatch.log
+          sql2ecl.log
+          **/FailedTests.csv
+          **/*.log
+        retention-days: 30
 
     - name: Process Errors
       shell: python
