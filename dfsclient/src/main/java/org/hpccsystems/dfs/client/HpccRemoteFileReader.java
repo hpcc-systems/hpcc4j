@@ -74,6 +74,8 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         public int readSizeKB = -1;
         public int readBufferSizeKB = -1;
         public int readRequestSpanBatchSize = -1; // The number of read requests before creating a new span
+        public double recordSamplingRate = RowServiceInputStream.MAX_RECORD_SAMPLING_RATE;
+        public long recordSamplingSeed = RowServiceInputStream.USE_RANDOM_SEED;
         public Span parentSpan = null;
 
         private long getReadSizeKB()
@@ -121,6 +123,8 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
         context.socketOpTimeoutMS = readContext.socketOpTimeoutMS;
         context.createPrefetchThread = readContext.createPrefetchThread;
         context.readBufferSizeKB = readContext.readBufferSizeKB;
+        context.recordSamplingRate = readContext.recordSamplingRate;
+        context.recordSamplingSeed = readContext.recordSamplingSeed;
 
         return context;
     }
