@@ -232,6 +232,11 @@ jobs:
             conflicts = []
             successful_merges = []
 
+            # Remember current head to restore later
+            cmd = ["git", "rev-parse", "HEAD"]
+            current_head = subprocess.run(cmd, capture_output=True, text=True).stdout.strip()
+            print(f"Current HEAD: {current_head}")
+
             # Loop over upmerge versions and check if an upmerge would cause a conflict
             for targetBranch in upmergeBranches:
                 print(f"Testing upmerge to {targetBranch}")
@@ -259,6 +264,22 @@ jobs:
                         print(f"Error changing pom version to {inBranchVersion} for {targetBranch}: {mvn_result.stderr}")
                         sys.exit(1)
 
+                    # Add pom changes to git
+                    print(f"Committing version changes for {targetBranch}")
+                    
+                    # Add all pom.xml files that were modified
+                    add_result = subprocess.run(["git", "add", "-A", "*.xml", "**/pom.xml"], capture_output=True, text=True)
+                    if add_result.returncode != 0:
+                        print(f"Warning: git add failed: {add_result.stderr}")
+                    
+                    # Commit the changes
+                    commit_result = subprocess.run(
+                        ["git", "commit", "-m", "Test version changes"], 
+                        capture_output=True, text=True
+                    )
+                    if commit_result.returncode != 0:
+                        print(f"Warning: git commit failed (may be no changes): {commit_result.stderr}")
+
                     # Check if there is a merge conflict
                     merge_conflict = get_merge_conflict("HEAD", f"origin/{targetBranch}")
 
@@ -271,6 +292,15 @@ jobs:
                         print(f"Upmerge to {targetBranch} should succeed.")
                         branch_result["status"] = "success"
                         successful_merges.append(targetBranch)
+                        
+                    # Restore head to original state after testing
+                    print(f"Restoring HEAD to {current_head}")
+                    reset_result = subprocess.run(
+                        ["git", "reset", "--hard", current_head], 
+                        capture_output=True, text=True
+                    )
+                    if reset_result.returncode != 0:
+                        print(f"Warning: git reset failed: {reset_result.stderr}")
                         
                 except Exception as e:
                     error_msg = f"Error during test: {str(e)}"
