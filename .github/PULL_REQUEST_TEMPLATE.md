@@ -23,6 +23,24 @@
 - [ ] This change is a new feature (non-breaking change which adds functionality).
 - [ ] This change is a breaking change (fix or feature that will cause existing behavior to change).
 
+## Custom Platform Testing (Optional)
+<!-- If you want to test against a custom HPCC-Platform build, fill out the fields below.
+     Leave blank to use the default platform. -->
+
+**Custom HPCC-Platform Repository:**
+repository: 
+
+**Custom HPCC-Platform Branch:**
+branch: 
+
+<!-- Examples:
+repository: myusername/HPCC-Platform
+branch: feature-branch-name
+
+repository: hpcc-systems/HPCC-Platform
+branch: candidate-9.6.x
+-->
+
 ## Checklist:
 - [ ] I have created a corresponding JIRA ticket for this submission
 - [ ] My code follows the code style of this project.
