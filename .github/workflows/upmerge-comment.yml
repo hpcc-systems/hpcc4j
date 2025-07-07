@@ -24,6 +24,9 @@ jobs:
         with:
           python-version: "3.8"
 
+      - name: "Install Dependencies"
+        run: pip install jsonschema
+
       - name: "Process Results and Post Comment"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -37,6 +40,71 @@ jobs:
           import sys
           import subprocess
           from pathlib import Path
+          from jsonschema import validate, ValidationError
+          
+          # Define the JSON schema for validation
+          UPMERGE_TEST_SCHEMA = {
+              "$schema": "http://json-schema.org/draft-07/schema#",
+              "title": "Upmerge Test Results",
+              "type": "object",
+              "required": [
+                  "pr_number",
+                  "pr_title", 
+                  "pr_author",
+                  "pr_url",
+                  "base_branch",
+                  "test_timestamp",
+                  "branches_tested",
+                  "conflicts",
+                  "successful_merges",
+                  "summary"
+              ],
+              "properties": {
+                  "pr_number": {
+                      "type": ["string"]
+                  },
+                  "pr_title": {
+                      "type": "string"
+                  },
+                  "pr_author": {
+                      "type": "string"
+                  },
+                  "pr_url": {
+                      "type": "string"
+                  },
+                  "base_branch": {
+                      "type": "string"
+                  },
+                  "test_timestamp": {
+                      "type": "string"
+                  },
+                  "branches_tested": {
+                      "type": "array",
+                      "items": {
+                          "type": "object",
+                          "required": ["branch", "version", "status", "conflict_details"],
+                          "properties": {
+                              "branch": {"type": "string"},
+                              "version": {"type": "string"},
+                              "status": {"type": "string"},
+                              "conflict_details": {"type": ["string", "null"]}
+                          }
+                      }
+                  },
+                  "conflicts": {
+                      "type": "array",
+                      "items": {"type": "string"}
+                  },
+                  "successful_merges": {
+                      "type": "array", 
+                      "items": {"type": "string"}
+                  },
+                  "summary": {
+                      "type": "string"
+                  }
+              },
+              "additionalProperties": False
+          }
           def find_results_files():
               artifacts_path = Path('artifacts')
               
@@ -60,12 +128,31 @@ jobs:
           def load_test_results(results_file):
               try:
                   with open(results_file, 'r') as f:
-                      return json.load(f)
+                      data = json.load(f)
+                  
+                  # Validate the data against the schema
+                  validate(instance=data, schema=UPMERGE_TEST_SCHEMA)
+                
+                  # Ensure pr_number is a string of digits only
+                  data['pr_number'] = ''.join(filter(str.isdigit, str(data.get('pr_number', ''))))
+
+                  print('Schema validation passed for test results')
+                  return data
+                  
+              except json.JSONDecodeError as e:
+                  print(f'Error: Invalid JSON in results file: {e}')
+                  sys.exit(1)
+              except ValidationError as e:
+                  print(f'Error: Schema validation failed: {e.message}')
+                  print(f'Failed at path: {" -> ".join(str(p) for p in e.absolute_path)}')
+                  print('Test results do not match expected schema. Please check the upmerge test workflow.')
+                  sys.exit(1)
               except Exception as e:
                   print(f'Error loading results file: {e}')
-                  return None
+                  sys.exit(1)
           def build_comment_body(test_results):
               pr_number = test_results.get('pr_number', 'unknown')
+
               conflicts = test_results.get('conflicts', [])
               successful_merges = test_results.get('successful_merges', [])
               # if conflicts is empty, we assume all branches merged successfully
@@ -130,8 +217,6 @@ jobs:
               print(f'Found results file: {results_file.name}')
               
               test_results = load_test_results(results_file)
-              if not test_results:
-                  raise Exception('Failed to load test results')
               
               print(f'Test results loaded: {json.dumps(test_results, indent=2)}')
               
