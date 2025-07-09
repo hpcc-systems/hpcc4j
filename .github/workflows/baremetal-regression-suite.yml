@@ -127,13 +127,13 @@ jobs:
           previousVersion = [latestVersion[0], latestVersion[1], latestVersion[2] - 2]
 
         previousVersionStr = ".".join(map(str, previousVersion))
-        previousVersionURL = 'https://cdn.hpccsystems.com/releases/CE-Candidate-' + previousVersionStr \
-                           + '/bin/platform/hpccsystems-platform-community_' + previousVersionStr + '-1jammy_amd64_withsymbols.deb'
+        previousVersionURL = 'https://github.com/hpcc-systems/HPCC-Platform/releases/download/community_' + previousVersionStr \
+                           + '-1/hpccsystems-platform-community_' + previousVersionStr + '-1jammy_amd64_withsymbols.deb'
 
         latestVersionStr = ".".join(map(str, latestVersion))
-        latestVersionURL = 'https://cdn.hpccsystems.com/releases/CE-Candidate-' + latestVersionStr \
-                         + '/bin/platform/hpccsystems-platform-community_' + latestVersionStr + '-1jammy_amd64_withsymbols.deb'
-        
+        latestVersionURL = 'https://github.com/hpcc-systems/HPCC-Platform/releases/download/community_' + latestVersionStr \
+                           + '-1/hpccsystems-platform-community_' + latestVersionStr + '-1jammy_amd64_withsymbols.deb'
+
         github_output_path = os.getenv('GITHUB_OUTPUT')
         if github_output_path:
           with open(github_output_path, 'a') as output_file:
