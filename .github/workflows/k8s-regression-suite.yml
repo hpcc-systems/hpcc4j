@@ -56,15 +56,22 @@ jobs:
             console.log(`Allowed repositories: ${allowedRepos.join(", ")}`);
           } else {
             console.log(`No fully qualified repository whitelist configured - no external repositories allowed`);
+            allowedRepos.push("hpcc-systems/hpcc-platform"); // Default to HPCC-Platform if no whitelist is configured
           }
 
           const repoMatch = body.match(/repository:\s*([^\n]+)/);
-          if (repoMatch) repository = repoMatch[1].trim();
+          if (repoMatch) repository = repoMatch[1].trim().toLowerCase();
+          console.log(`Parsed repository: ${repository}`);
 
           const branchMatch = body.match(/branch:\s*([^\n]+)/);
-          if (branchMatch) branch = branchMatch[1].trim();
+          if (branchMatch) branch = branchMatch[1].trim().toLowerCase();
+          console.log(`Parsed branch: ${branch}`);
 
-          if (repository && !allowedRepos.includes(repository)) {
+          // Lowercase allowed repository names to ensure case-insensitive matching
+          const lowerCaseAllowedRepos = allowedRepos.map(repo => repo.toLowerCase());
+          console.log(`Allowed repositories: ${lowerCaseAllowedRepos.join(", ")}`);
+
+          if (repository && !lowerCaseAllowedRepos.includes(repository)) {
             console.log(`Repository ${repository} is not allowed. Using default platform.`);
             repository = "";
             branch = "";
