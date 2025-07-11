@@ -283,6 +283,128 @@ public class DFSReadWriteTest extends BaseRemoteTest
     }
 
     @Test
+    public void recordSamplingRateTest() throws Exception
+    {
+        double samplingRate = 0.1; // 10% sampling rate
+        // Read file with sampling
+        HPCCFile file = new HPCCFile(datasets[1], connString , hpccUser, hpccPass);
+        DataPartition[] fileParts = file.getFileParts();
+        if (fileParts == null || fileParts.length == 0)
+        {
+            Assert.fail("No file parts found");
+        }
+
+        FieldDef originalRD = file.getRecordDefinition();
+        if (originalRD == null || originalRD.getNumDefs() == 0)
+        {
+            Assert.fail("Invalid or null record definition");
+        }
+
+        ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < fileParts.length; i++)
+        {
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+
+            HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
+            readContext.originalRD = originalRD;
+            readContext.recordSamplingRate = samplingRate;
+            
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, fileParts[i], recordBuilder);
+
+            while (fileReader.hasNext())
+            {
+                HPCCRecord record = fileReader.next();
+                if (record == null)
+                {
+                    Assert.fail("Received null record during read");
+                }
+
+                records.add(record);
+            }
+            fileReader.close();
+
+            if (fileReader.getRemoteReadMessageCount() > 0)
+                System.out.println("Messages from file part (" + i + ") read operation:\n" + fileReader.getRemoteReadMessages());
+        }
+
+        int expectedSampleCount = (int) (expectedCounts[1] * samplingRate);
+        float percentageDiff = (Math.abs(records.size() - expectedSampleCount) / (float) expectedSampleCount) * 100;
+        System.out.println("Expected sample count: " + expectedSampleCount + ", Actual sample count: " + records.size() +
+                           ", Percentage difference: " + percentageDiff + "%");
+
+        // Allowing 10% variance due to sampling
+        assertTrue("Percentage difference in sampled records is too high: " + percentageDiff + " should be less than 10%",
+                   percentageDiff < 10.0); 
+    }
+
+    @Test
+    public void recordSamplingSeedTest() throws Exception
+    {
+        // Read file with the same seed multiple times to ensure consistent sampling
+        long samplingSeed = 42; // Fixed seed for consistent sampling
+
+        long expectedRecordCount = 0;
+        HPCCRecord exppectedLastRecord = null;
+        for (int i = 0; i < 3; i++)
+        {
+            // Read file with the fixed seed
+            HPCCFile file = new HPCCFile(datasets[1], connString , hpccUser, hpccPass);
+            DataPartition[] fileParts = file.getFileParts();
+            if (fileParts == null || fileParts.length == 0)
+            {
+                Assert.fail("No file parts found");
+            }
+
+            FieldDef originalRD = file.getRecordDefinition();
+            if (originalRD == null || originalRD.getNumDefs() == 0)
+            {
+                Assert.fail("Invalid or null record definition");
+            }
+
+            ArrayList<HPCCRecord> records = new ArrayList<HPCCRecord>();
+            for (int j = 0; j < fileParts.length; j++)
+            {
+                HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(file.getProjectedRecordDefinition());
+
+                HpccRemoteFileReader.FileReadContext readContext = new HpccRemoteFileReader.FileReadContext();
+                readContext.originalRD = originalRD;
+                readContext.recordSamplingRate = 0.1; // 10% sampling rate
+                readContext.recordSamplingSeed = samplingSeed;
+
+                HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, fileParts[j], recordBuilder);
+
+                while (fileReader.hasNext())
+                {
+                    HPCCRecord record = fileReader.next();
+                    if (record == null)
+                    {
+                        Assert.fail("Received null record during read");
+                    }
+
+                    records.add(record);
+                }
+                fileReader.close();
+
+                if (fileReader.getRemoteReadMessageCount() > 0)
+                    System.out.println("Messages from file part (" + j + ") read operation:\n" + fileReader.getRemoteReadMessages());
+            }
+
+            // Validate the records read
+            if (i == 0)
+            {
+                expectedRecordCount = records.size();
+                exppectedLastRecord = records.get(records.size() - 1);
+            }
+            else
+            {
+                // Ensure that subsequent reads with the same seed yield the same number of records
+                Assert.assertEquals("Record count mismatch on read " + (i + 1) + " with fixed seed", expectedRecordCount, records.size());
+                Assert.assertEquals(exppectedLastRecord, records.get(records.size() - 1));
+            }
+        }
+    }
+
+    @Test
     public void readBufferResizeTest() throws Exception
     {
         HPCCFile file = new HPCCFile(datasets[0], connString , hpccUser, hpccPass);

@@ -16,6 +16,9 @@
 package org.hpccsystems.spark;
 
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -175,5 +178,94 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
 
         Dataset<Row> diff = writtenDataSet.exceptAll(readDataSet);
         Assert.assertTrue("Difference found between written and read datasets", diff.isEmpty());
+    }
+
+    @Test
+    public void recordSamplingTest()
+    {
+        SparkSession spark = getOrCreateSparkSession();
+
+        // Create the schema
+        StructType schema = DataTypes.createStructType(new StructField[] {
+            DataTypes.createStructField("key", DataTypes.LongType, false),
+            DataTypes.createStructField("value", DataTypes.LongType, false)
+        });
+
+        // Write dataset to HPCC
+        List<Row> rows = new ArrayList<Row>();
+        for (int i = 0; i < 10000; i++) {
+            Object[] fields = new Object[2];
+            fields[0] = Long.valueOf(i);
+            fields[1] = Long.valueOf(i);
+            rows.add(new GenericRowWithSchema(fields, schema));
+        }
+
+        Dataset<Row> writtenDataSet = spark.createDataFrame(rows, schema);
+
+        String datasetPath = "spark::test::integer_kv_sampling";
+        writtenDataSet.write()
+                      .format("hpcc")
+                      .mode("overwrite")
+                      .option("cluster", getThorCluster())
+                      .option("host", getHPCCClusterURL())
+                      .option("username", getHPCCClusterUser())
+                      .option("password", getHPCCClusterPass())
+                      .save(datasetPath);
+
+        // Read dataset from HPCC with sampling
+        Dataset<Row> readDataSet = spark.read()
+                                    .format("hpcc")
+                                    .option("cluster", getThorCluster())
+                                    .option("host", getHPCCClusterURL())
+                                    .option("username", getHPCCClusterUser())
+                                    .option("password", getHPCCClusterPass())
+                                    .option("recordSamplingRate", 0.1) // 10% sampling rate
+                                    .option("recordSamplingSeed", 42) // Fixed seed for reproducibility
+                                    .load(datasetPath);
+        long count = readDataSet.count();
+        long expectedCount = (long) (10000 * 0.1); // Expect around 1000 records
+        float percentageDiff = Math.abs((count - expectedCount) / (float) expectedCount) * 100;
+        assertTrue("Count should be within 10% of expected count, actual percentage difference: " + percentageDiff,
+                   percentageDiff < 10.0);
+
+        // Check recordSamplingRate upper bound 
+        try
+        {
+            Dataset<Row> invalidReadDataSet = spark.read()
+                .format("hpcc")
+                .option("cluster", getThorCluster())
+                .option("host", getHPCCClusterURL())
+                .option("username", getHPCCClusterUser())
+                .option("password", getHPCCClusterPass())
+                .option("recordSamplingRate", 1.5) // Invalid sampling rate
+                .load(datasetPath);
+            invalidReadDataSet.count();
+            Assert.fail("Expected an exception due to invalid recordSamplingRate");
+        }
+        catch (Exception e)
+        {
+            // Expected exception due to invalid sampling rate
+            System.out.println("Caught expected exception: " + e.getMessage());
+        }
+
+        // Check recordSamplingRate lower bound
+        try
+        {
+            Dataset<Row> invalidReadDataSet = spark.read()
+                .format("hpcc")
+                .option("cluster", getThorCluster())
+                .option("host", getHPCCClusterURL())
+                .option("username", getHPCCClusterUser())
+                .option("password", getHPCCClusterPass())
+                .option("recordSamplingRate", 0.0) // Invalid sampling rate
+                .load(datasetPath);
+            invalidReadDataSet.count();
+            Assert.fail("Expected an exception due to invalid recordSamplingRate");
+        }
+        catch (Exception e)
+        {
+            // Expected exception due to invalid sampling rate
+            System.out.println("Caught expected exception: " + e.getMessage());
+        }
     }
 }
