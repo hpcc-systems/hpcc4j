@@ -7,6 +7,8 @@ import java.util.TreeMap;
 import org.hpccsystems.dfs.client.CompressionAlgorithm;
 import org.hpccsystems.ws.client.utils.Connection;
 
+import org.hpccsystems.spark.HpccFile;
+
 /**
  * A helper class that extracts options from the key value pairs provided by Spark.
  */
@@ -20,6 +22,8 @@ public class HpccOptions
     public String               filterString   = null;
     public int                  expirySeconds  = 120;
     public int                  filePartLimit  = -1;
+    public double               recordSamplingRate   = HpccFile.MAX_RECORD_SAMPLING_RATE;
+    public long                 recordSamplingSeed   = HpccFile.USE_RANDOM_SEED;
     public boolean              useTLK         = false;
     public List<Integer>        fileParts      = new ArrayList<Integer>();
 
@@ -143,9 +147,47 @@ public class HpccOptions
             spanID = (String) parameters.get("spanid");
         }
 
-        if (parameters.containsKey("fileParts"))
+        if (parameters.containsKey("recordsamplingrate"))
         {
-            String filePartsStr = (String) parameters.get("fileParts");
+            String recordSamplingRateStr = (String) parameters.get("recordsamplingrate");
+            try
+            {
+                recordSamplingRate = Double.parseDouble(recordSamplingRateStr);
+                if (recordSamplingRate < HpccFile.MIN_RECORD_SAMPLING_RATE)
+                {
+                    recordSamplingRate = HpccFile.MIN_RECORD_SAMPLING_RATE;
+                }
+                else if (recordSamplingRate > HpccFile.MAX_RECORD_SAMPLING_RATE)
+                {
+                    recordSamplingRate = HpccFile.MAX_RECORD_SAMPLING_RATE;
+                }
+            }
+            catch (NumberFormatException e)
+            {
+                throw new Exception("Invalid sampling rate: " + recordSamplingRateStr, e);
+            }
+        }
+
+        if (parameters.containsKey("recordsamplingseed"))
+        {
+            String recordSamplingSeedStr = (String) parameters.get("recordsamplingseed");
+            try
+            {
+                recordSamplingSeed = Long.parseLong(recordSamplingSeedStr);
+                if (recordSamplingSeed < 0)
+                {
+                    recordSamplingSeed = HpccFile.USE_RANDOM_SEED;
+                }
+            }
+            catch (NumberFormatException e)
+            {
+                throw new Exception("Invalid sampling seed: " + recordSamplingSeedStr, e);
+            }
+        }
+
+        if (parameters.containsKey("fileparts"))
+        {
+            String filePartsStr = (String) parameters.get("fileparts");
             String[] filePartsStrArray = filePartsStr.split(",");
             for (String filePartStr : filePartsStrArray)
             {
