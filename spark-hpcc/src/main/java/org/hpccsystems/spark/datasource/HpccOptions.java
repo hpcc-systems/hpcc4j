@@ -142,7 +142,6 @@ public class HpccOptions
             String[] flagParts = flagsStr.split(",");
             for (String part : flagParts)
             {
-                stringProcessingFlags = 0;
                 switch (part.trim().toLowerCase())
                 {
                     case "none":
