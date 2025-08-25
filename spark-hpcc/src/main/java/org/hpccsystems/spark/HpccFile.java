@@ -55,6 +55,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
   private int recordLimit = -1;
   private double recordSamplingRate = MAX_RECORD_SAMPLING_RATE;
   private long recordSamplingSeed = USE_RANDOM_SEED;
+  private int stringProcessingFlags = org.hpccsystems.dfs.client.BinaryRecordReader.NO_STRING_PROCESSING;
 
   // Make sure Python picklers have been registered
   static { EvaluatePython.registerPicklers(); }
@@ -197,6 +198,24 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
   }
 
   /**
+   * Set the string processing flags
+   * @param flags the string processing flags
+   */
+  public void setStringProcessingFlags(int flags)
+  {
+    this.stringProcessingFlags = flags;
+  }
+
+  /**
+   * Get the string processing flags
+   * @return the string processing flags
+   */
+  public int getStringProcessingFlags()
+  {
+    return this.stringProcessingFlags;
+  }
+
+  /**
    * Make a Spark Resilient Distributed Dataset (RDD) that provides access
    * to THOR based datasets. Uses existing SparkContext, allows this function
    * to be used from PySpark.
@@ -220,6 +239,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
 	  HpccRDD rdd = new HpccRDD(sc, getFileParts(), this.getRecordDefinition(), this.getProjectedRecordDefinition(), this.getFileAccessExpirySecs(), 
                         this.recordLimit, this.recordSamplingRate, this.recordSamplingSeed);
     rdd.setTraceContext(parentTraceID, parentSpanID);
+    rdd.setStringProcessingFlags(stringProcessingFlags);
     return rdd;
   }
 
@@ -255,6 +275,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
 	  HpccRDD rdd = new HpccRDD(sc, filteredFileParts.toArray(new DataPartition[0]), this.getRecordDefinition(), this.getProjectedRecordDefinition(), this.getFileAccessExpirySecs(), 
                               this.recordLimit, this.recordSamplingRate, this.recordSamplingSeed);
     rdd.setTraceContext(parentTraceID, parentSpanID);
+    rdd.setStringProcessingFlags(stringProcessingFlags);
     return rdd;
   }
   
@@ -271,6 +292,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
 
     HpccRDD hpccRDD = new HpccRDD(session.sparkContext(), fp, originalRD, projectedRD, this.getFileAccessExpirySecs(), this.recordLimit, this.recordSamplingRate, this.recordSamplingSeed);
     hpccRDD.setTraceContext(parentTraceID, parentSpanID);
+    hpccRDD.setStringProcessingFlags(stringProcessingFlags);
     JavaRDD<Row > rdd = (hpccRDD).toJavaRDD();
 
     StructType schema = null;

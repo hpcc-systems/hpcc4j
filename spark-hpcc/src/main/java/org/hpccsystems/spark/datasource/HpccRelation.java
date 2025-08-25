@@ -54,6 +54,7 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
                 hpccFile.setUseTLK(options.useTLK);
 
                 hpccFile.setTraceContext(options.traceID, options.spanID);
+                hpccFile.setStringProcessingFlags(options.stringProcessingFlags);
 
                 if (options.projectList != null)
                 {
