@@ -33,7 +33,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.types.StructType;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-
+import org.hpccsystems.dfs.client.BinaryRecordReader;
 import org.hpccsystems.dfs.client.DataPartition;
 import org.hpccsystems.dfs.client.HpccRemoteFileReader;
 
@@ -71,6 +71,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
     private int                        recordLimit = -1;
     private double                     recordSamplingRate = HpccFile.MAX_RECORD_SAMPLING_RATE;
     private long                       recordSamplingSeed = HpccFile.USE_RANDOM_SEED;
+    private int                        stringProcessingFlags = BinaryRecordReader.NO_STRING_PROCESSING;
 
     private static void registerPicklingFunctions()
     {
@@ -186,6 +187,15 @@ public class HpccRDD extends RDD<Row> implements Serializable
     }
 
     /**
+     * Set the string processing flags
+     * @param flags the string processing flags
+     */
+    public void setStringProcessingFlags(int flags)
+    {
+        this.stringProcessingFlags = flags;
+    }
+
+    /**
      * Wrap this RDD as a JavaRDD so the Java API can be used.
      * @return a JavaRDD wrapper of the HpccRDD.
      */
@@ -245,6 +255,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
             context.recordSamplingRate = recordSamplingRate;
             context.recordSamplingSeed = recordSamplingSeed;
             final HpccRemoteFileReader<Row> fileReader = new HpccRemoteFileReader<Row>(context, this_part.partition, new GenericRowRecordBuilder(projectedRD));
+            fileReader.getRecordReader().setStringProcessingFlags(stringProcessingFlags);
 
             // This will be called for both failure & success
             ctx.addTaskCompletionListener(taskContext ->
