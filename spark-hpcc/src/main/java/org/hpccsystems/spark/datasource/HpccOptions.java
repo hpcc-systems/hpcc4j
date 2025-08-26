@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import org.hpccsystems.dfs.client.BinaryRecordReader;
 import org.hpccsystems.dfs.client.CompressionAlgorithm;
 import org.hpccsystems.ws.client.utils.Connection;
 
@@ -25,6 +26,7 @@ public class HpccOptions
     public double               recordSamplingRate   = HpccFile.MAX_RECORD_SAMPLING_RATE;
     public long                 recordSamplingSeed   = HpccFile.USE_RANDOM_SEED;
     public boolean              useTLK         = false;
+    public int                  stringProcessingFlags = BinaryRecordReader.NO_STRING_PROCESSING;
     public List<Integer>        fileParts      = new ArrayList<Integer>();
 
     public String               traceID        = "";
@@ -128,6 +130,34 @@ public class HpccOptions
                 {
                     compression = CompressionAlgorithm.DEFAULT;
                     break;
+                }
+            }
+        }
+
+        if (parameters.containsKey("stringprocessing"))
+        {
+            String flagsStr = (String) parameters.get("stringprocessing");
+            flagsStr = flagsStr.toLowerCase();
+
+            String[] flagParts = flagsStr.split(",");
+            for (String part : flagParts)
+            {
+                switch (part.trim())
+                {
+                    case "none":
+                        stringProcessingFlags = BinaryRecordReader.NO_STRING_PROCESSING;
+                        break;
+                    case "trim":
+                        stringProcessingFlags |= BinaryRecordReader.TRIM_STRINGS;
+                        break;
+                    case "trim_fixed":
+                        stringProcessingFlags |= BinaryRecordReader.TRIM_FIXED_LEN_STRINGS;
+                        break;
+                    case "empty_to_null":
+                        stringProcessingFlags |= BinaryRecordReader.CONVERT_EMPTY_STRINGS_TO_NULL;
+                        break;
+                    default:
+                        throw new Exception("Invalid string processing flag: " + part);
                 }
             }
         }
