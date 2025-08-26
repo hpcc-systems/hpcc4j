@@ -181,6 +181,53 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
     }
 
     @Test
+    public void stringProcessingTest()
+    {
+        SparkSession spark = getOrCreateSparkSession();
+     
+        // Create the schema
+        StructType schema = DataTypes.createStructType(new StructField[] {
+            DataTypes.createStructField("key", DataTypes.StringType, false),
+            DataTypes.createStructField("value", DataTypes.StringType, false)
+        });
+
+        // Write dataset to HPCC
+        List<Row> rows = new ArrayList<Row>();
+        for (int i = 0; i < 1000; i++) {
+            Object[] fields = new Object[2];
+            fields[0] = "KEY" + i;
+            fields[1] = " VALUE ";
+            rows.add(new GenericRowWithSchema(fields, schema));
+        }
+
+        Dataset<Row> writtenDataSet = spark.createDataFrame(rows, schema);
+
+        String datasetPath = "spark::test::string_processing";
+        writtenDataSet.write()
+                      .format("hpcc")
+                      .mode("overwrite")
+                      .option("cluster", getThorCluster())
+                      .option("host", getHPCCClusterURL())
+                      .option("username", getHPCCClusterUser())
+                      .option("password", getHPCCClusterPass())
+                      .save(datasetPath);
+
+        // Read dataset from HPCC
+        Dataset<Row> readDataSet = spark.read()
+                                    .format("hpcc")
+                                    .option("cluster", getThorCluster())
+                                    .option("host", getHPCCClusterURL())
+                                    .option("username", getHPCCClusterUser())
+                                    .option("password", getHPCCClusterPass())
+                                    .option("stringProcessing", "TRIM")
+                                    .load(datasetPath);
+
+        // Get first row
+        Row firstRow = readDataSet.first();
+        Assert.assertEquals(firstRow.getString(1),"VALUE");
+    }
+
+    @Test
     public void recordSamplingTest()
     {
         SparkSession spark = getOrCreateSparkSession();
