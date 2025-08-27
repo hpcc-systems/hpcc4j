@@ -25,6 +25,9 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install atlassian-python-api==4.0.4
           python -m pip --version
+      - name: "Echo Python Version"
+        run: |
+          python -VV
       - name: "Run"
         env:
           JIRABOT_USERNAME : ${{ secrets.JIRABOT_USERNAME }}
