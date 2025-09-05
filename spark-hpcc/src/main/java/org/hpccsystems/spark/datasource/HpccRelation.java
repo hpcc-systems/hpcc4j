@@ -55,6 +55,7 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
 
                 hpccFile.setTraceContext(options.traceID, options.spanID);
                 hpccFile.setStringProcessingFlags(options.stringProcessingFlags);
+                hpccFile.setUnsignedEightToDecimal(options.unsignedEightToDecimal);
 
                 if (options.projectList != null)
                 {
