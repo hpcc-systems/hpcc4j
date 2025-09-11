@@ -26,6 +26,7 @@ public class HpccOptions
     public double               recordSamplingRate   = HpccFile.MAX_RECORD_SAMPLING_RATE;
     public long                 recordSamplingSeed   = HpccFile.USE_RANDOM_SEED;
     public boolean              useTLK         = false;
+    public boolean              unsignedEightToDecimal = false;
     public int                  stringProcessingFlags = BinaryRecordReader.NO_STRING_PROCESSING;
     public List<Integer>        fileParts      = new ArrayList<Integer>();
 
@@ -95,6 +96,12 @@ public class HpccOptions
         {
             String useTLKStr = (String) parameters.get("usetlk");
             useTLK = Boolean.parseBoolean(useTLKStr.toLowerCase());
+        }
+
+        if (parameters.containsKey("unsignedeighttodecimal"))
+        {
+            String unsignedEightToDecimalStr = (String) parameters.get("unsignedeighttodecimal");
+            unsignedEightToDecimal = Boolean.parseBoolean(unsignedEightToDecimalStr.toLowerCase());
         }
 
         compression = CompressionAlgorithm.DEFAULT;

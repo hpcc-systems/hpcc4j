@@ -56,6 +56,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
   private double recordSamplingRate = MAX_RECORD_SAMPLING_RATE;
   private long recordSamplingSeed = USE_RANDOM_SEED;
   private int stringProcessingFlags = org.hpccsystems.dfs.client.BinaryRecordReader.NO_STRING_PROCESSING;
+  private boolean unsignedEightToDecimal = false;
 
   // Make sure Python picklers have been registered
   static { EvaluatePython.registerPicklers(); }
@@ -216,6 +217,24 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
   }
 
   /**
+   * Set whether to convert unsigned 8 byte unsigned to decimal
+   * @param convert true to convert, false to not convert
+   */
+  public void setUnsignedEightToDecimal(boolean convert)
+  {
+    this.unsignedEightToDecimal = convert;
+  }
+
+  /**
+   * Get whether to convert unsigned 8 byte unsigned to decimal
+   * @return true if converting, false if not
+   */
+  public boolean getUnsignedEightToDecimal()
+  {
+    return this.unsignedEightToDecimal;
+  }
+
+  /**
    * Make a Spark Resilient Distributed Dataset (RDD) that provides access
    * to THOR based datasets. Uses existing SparkContext, allows this function
    * to be used from PySpark.
@@ -240,6 +259,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
                         this.recordLimit, this.recordSamplingRate, this.recordSamplingSeed);
     rdd.setTraceContext(parentTraceID, parentSpanID);
     rdd.setStringProcessingFlags(stringProcessingFlags);
+    rdd.setUnsignedEightToDecimal(unsignedEightToDecimal);
     return rdd;
   }
 
@@ -276,6 +296,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
                               this.recordLimit, this.recordSamplingRate, this.recordSamplingSeed);
     rdd.setTraceContext(parentTraceID, parentSpanID);
     rdd.setStringProcessingFlags(stringProcessingFlags);
+    rdd.setUnsignedEightToDecimal(unsignedEightToDecimal);
     return rdd;
   }
   
@@ -293,6 +314,7 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
     HpccRDD hpccRDD = new HpccRDD(session.sparkContext(), fp, originalRD, projectedRD, this.getFileAccessExpirySecs(), this.recordLimit, this.recordSamplingRate, this.recordSamplingSeed);
     hpccRDD.setTraceContext(parentTraceID, parentSpanID);
     hpccRDD.setStringProcessingFlags(stringProcessingFlags);
+    hpccRDD.setUnsignedEightToDecimal(unsignedEightToDecimal);
     JavaRDD<Row > rdd = (hpccRDD).toJavaRDD();
 
     StructType schema = null;

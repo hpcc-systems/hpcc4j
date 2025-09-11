@@ -72,6 +72,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
     private double                     recordSamplingRate = HpccFile.MAX_RECORD_SAMPLING_RATE;
     private long                       recordSamplingSeed = HpccFile.USE_RANDOM_SEED;
     private int                        stringProcessingFlags = BinaryRecordReader.NO_STRING_PROCESSING;
+    private boolean                    unsignedEightToDecimal = false;
 
     private static void registerPicklingFunctions()
     {
@@ -196,6 +197,15 @@ public class HpccRDD extends RDD<Row> implements Serializable
     }
 
     /**
+     * Set whether to convert unsigned 8 byte unsigneds to decimal
+     * @param convert true to convert, false to not convert
+     */
+    public void setUnsignedEightToDecimal(boolean convert)
+    {
+        this.unsignedEightToDecimal = convert;
+    }
+
+    /**
      * Wrap this RDD as a JavaRDD so the Java API can be used.
      * @return a JavaRDD wrapper of the HpccRDD.
      */
@@ -256,6 +266,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
             context.recordSamplingSeed = recordSamplingSeed;
             final HpccRemoteFileReader<Row> fileReader = new HpccRemoteFileReader<Row>(context, this_part.partition, new GenericRowRecordBuilder(projectedRD));
             fileReader.getRecordReader().setStringProcessingFlags(stringProcessingFlags);
+            fileReader.getRecordReader().setUseDecimalForUnsigned8(unsignedEightToDecimal);
 
             // This will be called for both failure & success
             ctx.addTaskCompletionListener(taskContext ->
