@@ -11,8 +11,10 @@ import javax.xml.xpath.XPathExpressionException;
 import org.hpccsystems.ws.client.utils.Utils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.xml.sax.SAXException;
 
+@Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class XMLParsing
 {
     final static String externalEntityFile = "src/test/resources/security/externalentity.xml";
@@ -127,7 +129,6 @@ catch (SAXException e)
     /*
      * Illustrates security vulnerable XML parsing:
      *
-     *@Test
     @Test
     public void unsafeLocalFileXXETest() throws XPathExpressionException, ParserConfigurationException, SAXException, IOException
     {
