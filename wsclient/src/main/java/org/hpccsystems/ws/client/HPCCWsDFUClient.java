@@ -290,7 +290,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             }
             catch (AxisFault e)
             {
-                initErrMessage += "\nCould not initialize HPCCWsDFUStub - Review all HPCC connection values";
+                String hostname = (conn != null && conn.getHost() != null) ? conn.getHost() : "unknown";
+                initErrMessage += "\nCould not initialize HPCCWsDFUStub - Review all HPCC connection values (host: " + hostname + ")";
             }
         }
         else

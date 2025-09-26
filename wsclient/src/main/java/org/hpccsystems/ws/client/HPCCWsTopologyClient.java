@@ -226,7 +226,8 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         }
         catch (AxisFault e)
         {
-            initErrMessage = "Could not initialize WsTopologyStub - Review all HPCC connection values";
+            String hostname = (connection != null && connection.getHost() != null) ? connection.getHost() : "unknown";
+            initErrMessage = "Could not initialize WsTopologyStub - Review all HPCC connection values (host: " + hostname + ")";
             if (!e.getLocalizedMessage().isEmpty())
             {
                 initErrMessage += "\n" + e.getLocalizedMessage();
