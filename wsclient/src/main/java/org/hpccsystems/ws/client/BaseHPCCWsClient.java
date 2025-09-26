@@ -311,7 +311,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             }
             catch (Exception e)
             {
-                initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values";
+                String hostname = (connection != null && connection.getHost() != null) ? connection.getHost() : "unknown";
+                initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values (host: " + hostname + ")";
                 if (!e.getLocalizedMessage().isEmpty())
                     initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
                 success = false;
@@ -323,7 +324,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             }
             catch (Exception e)
             {
-                initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values";
+                String hostname = (connection != null && connection.getHost() != null) ? connection.getHost() : "unknown";
+                initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values (host: " + hostname + ")";
                 if (!e.getLocalizedMessage().isEmpty())
                     initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
 
