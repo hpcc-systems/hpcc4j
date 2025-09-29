@@ -9,7 +9,7 @@
 					<xsd:element name="Code" type="xsd:string" minOccurs="0"/>
 					<xsd:element name="Audience" type="xsd:string" minOccurs="0"/>
 					<xsd:element name="Source" type="xsd:string" minOccurs="0"/>
-					<xsd:element name="Message" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Messages" type="xsd:string" minOccurs="0"/>
 				</xsd:all>
 			</xsd:complexType>
 			
