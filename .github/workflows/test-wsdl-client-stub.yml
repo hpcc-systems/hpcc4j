@@ -32,7 +32,6 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Test WSDL Client Stub Generation
-        working-directory: ./HPCC4j
         run: |
           echo "Testing WSDL client stub generation..."
           echo "Available Maven profiles:"
@@ -51,7 +50,6 @@ jobs:
           fi
 
       - name: Verify Stub Generation Results
-        working-directory: ./HPCC4j
         run: |
           echo "Checking for generated stub files..."
           find wsclient/src/main/java -name "*.java" -newer wsclient/pom.xml | head -10 || true
