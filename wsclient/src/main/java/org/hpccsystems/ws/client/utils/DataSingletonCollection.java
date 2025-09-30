@@ -10,7 +10,6 @@ package org.hpccsystems.ws.client.utils;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
 
 public class DataSingletonCollection extends Observable
 {
