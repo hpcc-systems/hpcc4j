@@ -280,6 +280,10 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             {
                 String connectionInfo = getConnectionInfo(conn);
                 initErrMessage += "\nHPCCWsWorkUnitsClient: Could not retrieve version appropriate stub object " + connectionInfo + ": " + e.getMessage();
+                initErrMessage += "\nPossible causes: (1) HPCC platform version incompatibility - this client supports versions 6.0, 6.2, 6.4+ and 7+";
+                initErrMessage += "\n(2) WsWorkunits service unavailable or not accessible at the target host";
+                initErrMessage += "\n(3) Network connectivity issues preventing version detection";
+                initErrMessage += "\nSuggested actions: Verify HPCC platform version, check service availability, and confirm network connectivity";
             }
         }
         else
