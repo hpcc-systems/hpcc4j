@@ -311,8 +311,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             }
             catch (Exception e)
             {
-                String hostname = (connection != null && connection.getHost() != null) ? connection.getHost() : "unknown";
-                initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values (host: " + hostname + ")";
+                String connectionInfo = getConnectionInfo(connection);
+                initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values " + connectionInfo;
                 if (!e.getLocalizedMessage().isEmpty())
                     initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
                 success = false;
@@ -324,8 +324,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             }
             catch (Exception e)
             {
-                String hostname = (connection != null && connection.getHost() != null) ? connection.getHost() : "unknown";
-                initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values (host: " + hostname + ")";
+                String connectionInfo = getConnectionInfo(connection);
+                initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values " + connectionInfo;
                 if (!e.getLocalizedMessage().isEmpty())
                     initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
 
@@ -890,6 +890,57 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     protected void setActiveConnectionInfo(Connection conn)
     {
         wsconn = conn;
+    }
+
+    /**
+     * Formats connection information for error logging
+     *
+     * @param connection Connection object
+     * @return formatted connection information string
+     */
+    protected String getConnectionInfo(Connection connection)
+    {
+        if (connection == null)
+        {
+            return "(connection: null)";
+        }
+        
+        StringBuilder info = new StringBuilder("(");
+        
+        // Add host
+        String host = connection.getHost();
+        info.append("host: ").append(host != null ? host : "unknown");
+        
+        // Add port
+        String port = connection.getPort();
+        if (port != null && !port.isEmpty())
+        {
+            info.append(", port: ").append(port);
+        }
+        
+        // Add protocol
+        String protocol = connection.getProtocol();
+        if (protocol != null && !protocol.isEmpty())
+        {
+            info.append(", protocol: ").append(protocol);
+        }
+        
+        // Add base URL for full context
+        try 
+        {
+            String baseUrl = connection.getBaseUrl();
+            if (baseUrl != null && !baseUrl.isEmpty())
+            {
+                info.append(", url: ").append(baseUrl);
+            }
+        }
+        catch (Exception e)
+        {
+            // In case getBaseUrl() throws an exception, continue without it
+        }
+        
+        info.append(")");
+        return info.toString();
     }
 
 
