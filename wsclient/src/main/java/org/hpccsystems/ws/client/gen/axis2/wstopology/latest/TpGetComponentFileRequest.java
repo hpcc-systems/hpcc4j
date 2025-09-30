@@ -12,7 +12,7 @@ public class TpGetComponentFileRequest implements org.apache.axis2.databinding.A
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:wstopology", "TpGetComponentFileRequest", "ns1");
+          "urn:hpccsystems:ws:wstopology", "TpGetComponentFileRequest", "ns12");
 
   /** field for CompType */
   protected java.lang.String localCompType;
@@ -413,7 +413,7 @@ public class TpGetComponentFileRequest implements org.apache.axis2.databinding.A
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wstopology")) {
-      return "ns1";
+      return "ns12";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

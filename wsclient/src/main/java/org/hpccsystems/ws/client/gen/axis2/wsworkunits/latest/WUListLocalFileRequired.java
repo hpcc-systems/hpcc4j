@@ -12,7 +12,7 @@ public class WUListLocalFileRequired implements org.apache.axis2.databinding.ADB
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:wsworkunits", "WUListLocalFileRequired", "ns1");
+          "urn:hpccsystems:ws:wsworkunits", "WUListLocalFileRequired", "ns13");
 
   /** field for Wuid */
   protected java.lang.String localWuid;
@@ -119,7 +119,7 @@ public class WUListLocalFileRequired implements org.apache.axis2.databinding.ADB
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsworkunits")) {
-      return "ns1";
+      return "ns13";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

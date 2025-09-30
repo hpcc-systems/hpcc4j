@@ -12,7 +12,7 @@ public class CopyPackageMapRequest implements org.apache.axis2.databinding.ADBBe
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:wspackageprocess", "CopyPackageMapRequest", "ns1");
+          "urn:hpccsystems:ws:wspackageprocess", "CopyPackageMapRequest", "ns7");
 
   /** field for SourcePath */
   protected java.lang.String localSourcePath;
@@ -1273,7 +1273,7 @@ public class CopyPackageMapRequest implements org.apache.axis2.databinding.ADBBe
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wspackageprocess")) {
-      return "ns1";
+      return "ns7";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

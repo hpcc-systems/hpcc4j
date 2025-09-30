@@ -12,7 +12,7 @@ public class WUClusterJobSummaryXLSResponse implements org.apache.axis2.databind
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:wsworkunits", "WUClusterJobSummaryXLSResponse", "ns1");
+          "urn:hpccsystems:ws:wsworkunits", "WUClusterJobSummaryXLSResponse", "ns13");
 
   /** field for Exceptions */
   protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfEspException
@@ -167,7 +167,7 @@ public class WUClusterJobSummaryXLSResponse implements org.apache.axis2.databind
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsworkunits")) {
-      return "ns1";
+      return "ns13";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

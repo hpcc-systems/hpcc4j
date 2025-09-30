@@ -12,7 +12,7 @@ public class SubfileNames_type0 implements org.apache.axis2.databinding.ADBBean 
   /* This type was generated from the piece of schema that had
   name = SubfileNames_type0
   Namespace URI = urn:hpccsystems:ws:wsdfu
-  Namespace Prefix = ns1
+  Namespace Prefix = ns4
   */
 
   /** field for SubfileName This was an Array! */
@@ -154,7 +154,7 @@ public class SubfileNames_type0 implements org.apache.axis2.databinding.ADBBean 
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsdfu")) {
-      return "ns1";
+      return "ns4";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }
@@ -438,15 +438,10 @@ public class SubfileNames_type0 implements org.apache.axis2.databinding.ADBBean 
         while (!reader.isStartElement() && !reader.isEndElement()) reader.next();
 
         if (reader.isStartElement())
-        // 2 - A start element we are not expecting indicates a trailing invalid property
+          // 2 - A start element we are not expecting indicates a trailing invalid property
 
-        {
-          log.warn("Unexpected subelement " + reader.getLocalName());
-          // consume everything, ending on the current element's endtag
-          while (!(reader.isEndElement() && reader.getName().equals(currentQName))) {
-            reader.next();
-          }
-        }
+          throw new org.apache.axis2.databinding.ADBException(
+              "Unexpected subelement " + reader.getName());
 
       } catch (javax.xml.stream.XMLStreamException e) {
         throw new java.lang.Exception(e);

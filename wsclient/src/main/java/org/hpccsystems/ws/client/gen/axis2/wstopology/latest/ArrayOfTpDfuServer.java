@@ -12,7 +12,7 @@ public class ArrayOfTpDfuServer implements org.apache.axis2.databinding.ADBBean 
   /* This type was generated from the piece of schema that had
   name = ArrayOfTpDfuServer
   Namespace URI = urn:hpccsystems:ws:wstopology
-  Namespace Prefix = ns1
+  Namespace Prefix = ns12
   */
 
   /** field for TpDfuServer This was an Array! */
@@ -152,7 +152,7 @@ public class ArrayOfTpDfuServer implements org.apache.axis2.databinding.ADBBean 
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wstopology")) {
-      return "ns1";
+      return "ns12";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

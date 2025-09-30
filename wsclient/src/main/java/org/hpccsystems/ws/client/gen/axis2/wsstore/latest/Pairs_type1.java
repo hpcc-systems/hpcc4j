@@ -1,8 +1,8 @@
 /**
  * Pairs_type1.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsstore.latest;
 
@@ -12,7 +12,7 @@ public class Pairs_type1 implements org.apache.axis2.databinding.ADBBean {
   /* This type was generated from the piece of schema that had
   name = Pairs_type1
   Namespace URI = urn:hpccsystems:ws:wsstore
-  Namespace Prefix = ns1
+  Namespace Prefix = ns11
   */
 
   /** field for Pair This was an Array! */
@@ -144,7 +144,7 @@ public class Pairs_type1 implements org.apache.axis2.databinding.ADBBean {
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsstore")) {
-      return "ns1";
+      return "ns11";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

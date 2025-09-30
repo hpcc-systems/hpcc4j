@@ -12,7 +12,7 @@ public class LogicalFileError implements org.apache.axis2.databinding.ADBBean {
   /* This type was generated from the piece of schema that had
   name = LogicalFileError
   Namespace URI = urn:hpccsystems:ws:wsworkunits
-  Namespace Prefix = ns1
+  Namespace Prefix = ns13
   */
 
   /** field for Error */
@@ -170,7 +170,7 @@ public class LogicalFileError implements org.apache.axis2.databinding.ADBBean {
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsworkunits")) {
-      return "ns1";
+      return "ns13";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

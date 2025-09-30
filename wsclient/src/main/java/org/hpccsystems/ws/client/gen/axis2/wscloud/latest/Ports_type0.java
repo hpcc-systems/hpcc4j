@@ -12,7 +12,7 @@ public class Ports_type0 implements org.apache.axis2.databinding.ADBBean {
   /* This type was generated from the piece of schema that had
   name = Ports_type0
   Namespace URI = urn:hpccsystems:ws:wscloud
-  Namespace Prefix = ns1
+  Namespace Prefix = ns3
   */
 
   /** field for Port This was an Array! */
@@ -143,7 +143,7 @@ public class Ports_type0 implements org.apache.axis2.databinding.ADBBean {
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wscloud")) {
-      return "ns1";
+      return "ns3";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

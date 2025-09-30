@@ -11,7 +11,7 @@ package org.hpccsystems.ws.client.gen.axis2.wsdfu.latest;
 public class DFUGetFileMetaDataRequest implements org.apache.axis2.databinding.ADBBean {
 
   public static final javax.xml.namespace.QName MY_QNAME =
-      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUGetFileMetaDataRequest", "ns1");
+      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUGetFileMetaDataRequest", "ns4");
 
   /** field for LogicalFileName */
   protected java.lang.String localLogicalFileName;
@@ -377,7 +377,7 @@ public class DFUGetFileMetaDataRequest implements org.apache.axis2.databinding.A
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsdfu")) {
-      return "ns1";
+      return "ns4";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }
@@ -734,14 +734,8 @@ public class DFUGetFileMetaDataRequest implements org.apache.axis2.databinding.A
             else {
               // 3 - A start element we are not expecting indicates an invalid parameter was passed
 
-              log.warn("Unexpected subelement " + reader.getLocalName());
-              // consume everything, ending on the unexpected subelement's endtag
-              javax.xml.namespace.QName subQName = reader.getName();
-              while (!(reader.isEndElement() && reader.getName().equals(subQName))) {
-                reader.next();
-              }
-              // skip past this extra element completely
-              reader.next();
+              throw new org.apache.axis2.databinding.ADBException(
+                  "Unexpected subelement " + reader.getName());
             }
 
           } else {

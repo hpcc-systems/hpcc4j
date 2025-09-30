@@ -11,7 +11,8 @@ package org.hpccsystems.ws.client.gen.axis2.wstopology.latest;
 public class TpClusterInfoRequest implements org.apache.axis2.databinding.ADBBean {
 
   public static final javax.xml.namespace.QName MY_QNAME =
-      new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpClusterInfoRequest", "ns1");
+      new javax.xml.namespace.QName(
+          "urn:hpccsystems:ws:wstopology", "TpClusterInfoRequest", "ns12");
 
   /** field for Name */
   protected java.lang.String localName;
@@ -117,7 +118,7 @@ public class TpClusterInfoRequest implements org.apache.axis2.databinding.ADBBea
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wstopology")) {
-      return "ns1";
+      return "ns12";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

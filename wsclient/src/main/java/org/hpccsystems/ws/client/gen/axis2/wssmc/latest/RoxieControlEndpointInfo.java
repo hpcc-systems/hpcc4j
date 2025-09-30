@@ -1,8 +1,8 @@
 /**
  * RoxieControlEndpointInfo.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssmc.latest;
 
@@ -12,7 +12,7 @@ public class RoxieControlEndpointInfo implements org.apache.axis2.databinding.AD
   /* This type was generated from the piece of schema that had
   name = RoxieControlEndpointInfo
   Namespace URI = urn:hpccsystems:ws:wssmc
-  Namespace Prefix = ns1
+  Namespace Prefix = ns9
   */
 
   /** field for Address */
@@ -318,7 +318,7 @@ public class RoxieControlEndpointInfo implements org.apache.axis2.databinding.AD
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wssmc")) {
-      return "ns1";
+      return "ns9";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

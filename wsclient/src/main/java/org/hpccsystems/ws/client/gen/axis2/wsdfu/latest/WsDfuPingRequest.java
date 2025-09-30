@@ -11,7 +11,7 @@ package org.hpccsystems.ws.client.gen.axis2.wsdfu.latest;
 public class WsDfuPingRequest implements org.apache.axis2.databinding.ADBBean {
 
   public static final javax.xml.namespace.QName MY_QNAME =
-      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "WsDfuPingRequest", "ns1");
+      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "WsDfuPingRequest", "ns4");
 
   /**
    * @param parentQName
@@ -69,7 +69,7 @@ public class WsDfuPingRequest implements org.apache.axis2.databinding.ADBBean {
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsdfu")) {
-      return "ns1";
+      return "ns4";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

@@ -11,7 +11,7 @@ package org.hpccsystems.ws.client.gen.axis2.wsfileio.latest;
 public class String implements org.apache.axis2.databinding.ADBBean {
 
   public static final javax.xml.namespace.QName MY_QNAME =
-      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsfileio", "string", "ns1");
+      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsfileio", "string", "ns6");
 
   /** field for String */
   protected java.lang.String localString;
@@ -97,7 +97,7 @@ public class String implements org.apache.axis2.databinding.ADBBean {
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsfileio")) {
-      return "ns1";
+      return "ns6";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

@@ -12,7 +12,7 @@ public class WURecreateQueryResponse implements org.apache.axis2.databinding.ADB
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:wsworkunits", "WURecreateQueryResponse", "ns1");
+          "urn:hpccsystems:ws:wsworkunits", "WURecreateQueryResponse", "ns13");
 
   /** field for Exceptions */
   protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfEspException
@@ -844,7 +844,7 @@ public class WURecreateQueryResponse implements org.apache.axis2.databinding.ADB
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsworkunits")) {
-      return "ns1";
+      return "ns13";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

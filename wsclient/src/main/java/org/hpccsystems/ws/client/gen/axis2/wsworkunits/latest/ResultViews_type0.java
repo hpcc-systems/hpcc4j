@@ -12,7 +12,7 @@ public class ResultViews_type0 implements org.apache.axis2.databinding.ADBBean {
   /* This type was generated from the piece of schema that had
   name = ResultViews_type0
   Namespace URI = urn:hpccsystems:ws:wsworkunits
-  Namespace Prefix = ns1
+  Namespace Prefix = ns13
   */
 
   /** field for View This was an Array! */
@@ -154,7 +154,7 @@ public class ResultViews_type0 implements org.apache.axis2.databinding.ADBBean {
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsworkunits")) {
-      return "ns1";
+      return "ns13";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

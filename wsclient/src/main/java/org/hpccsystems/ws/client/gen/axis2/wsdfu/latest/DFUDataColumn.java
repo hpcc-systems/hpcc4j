@@ -12,7 +12,7 @@ public class DFUDataColumn implements org.apache.axis2.databinding.ADBBean {
   /* This type was generated from the piece of schema that had
   name = DFUDataColumn
   Namespace URI = urn:hpccsystems:ws:wsdfu
-  Namespace Prefix = ns1
+  Namespace Prefix = ns4
   */
 
   /** field for ColumnID */
@@ -604,7 +604,7 @@ public class DFUDataColumn implements org.apache.axis2.databinding.ADBBean {
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsdfu")) {
-      return "ns1";
+      return "ns4";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }
@@ -1046,14 +1046,8 @@ public class DFUDataColumn implements org.apache.axis2.databinding.ADBBean {
             else {
               // 3 - A start element we are not expecting indicates an invalid parameter was passed
 
-              log.warn("Unexpected subelement " + reader.getLocalName());
-              // consume everything, ending on the unexpected subelement's endtag
-              javax.xml.namespace.QName subQName = reader.getName();
-              while (!(reader.isEndElement() && reader.getName().equals(subQName))) {
-                reader.next();
-              }
-              // skip past this extra element completely
-              reader.next();
+              throw new org.apache.axis2.databinding.ADBException(
+                  "Unexpected subelement " + reader.getName());
             }
 
           } else {

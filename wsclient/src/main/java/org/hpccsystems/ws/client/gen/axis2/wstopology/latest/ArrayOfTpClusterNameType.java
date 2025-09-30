@@ -12,7 +12,7 @@ public class ArrayOfTpClusterNameType implements org.apache.axis2.databinding.AD
   /* This type was generated from the piece of schema that had
   name = ArrayOfTpClusterNameType
   Namespace URI = urn:hpccsystems:ws:wstopology
-  Namespace Prefix = ns1
+  Namespace Prefix = ns12
   */
 
   /** field for TpClusterNameType This was an Array! */
@@ -157,7 +157,7 @@ public class ArrayOfTpClusterNameType implements org.apache.axis2.databinding.AD
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wstopology")) {
-      return "ns1";
+      return "ns12";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

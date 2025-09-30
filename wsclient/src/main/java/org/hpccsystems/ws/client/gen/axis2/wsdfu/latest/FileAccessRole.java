@@ -11,7 +11,7 @@ package org.hpccsystems.ws.client.gen.axis2.wsdfu.latest;
 public class FileAccessRole implements org.apache.axis2.databinding.ADBBean {
 
   public static final javax.xml.namespace.QName MY_QNAME =
-      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "FileAccessRole", "ns1");
+      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "FileAccessRole", "ns4");
 
   /** field for FileAccessRole */
   protected java.lang.String localFileAccessRole;
@@ -125,7 +125,7 @@ public class FileAccessRole implements org.apache.axis2.databinding.ADBBean {
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsdfu")) {
-      return "ns1";
+      return "ns4";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }
@@ -316,7 +316,7 @@ public class FileAccessRole implements org.apache.axis2.databinding.ADBBean {
       // handle unexpected enumeration values properly
       if (enumeration == null) {
 
-        log.warn("Unexpected value " + value + " for enumeration FileAccessRole");
+        throw new java.lang.IllegalArgumentException();
       }
       return enumeration;
     }

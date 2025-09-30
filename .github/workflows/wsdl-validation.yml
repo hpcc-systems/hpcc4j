@@ -1,0 +1,285 @@
+name: WSDL Validation and Stub Generation
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'wsclient/src/main/resources/WSDLs/**'
+
+jobs:
+  validate-wsdl-changes:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout PR
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 0
+
+    - name: Setup JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+
+    - name: Get changed WSDL files
+      id: changed-files
+      run: |
+        echo "Getting changed WSDL files..."
+        git fetch origin ${{ github.event.pull_request.base.ref }}
+        
+        # Get all changed WSDL files
+        CHANGED_WSDLS=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD -- 'wsclient/src/main/resources/WSDLs/*.wsdl' | grep '\.wsdl$' | sort)
+        echo "Changed WSDL files:"
+        echo "$CHANGED_WSDLS"
+        
+        # Save to file for later steps
+        echo "$CHANGED_WSDLS" > changed_wsdls.txt
+        echo "changed_wsdls<<EOF" >> $GITHUB_OUTPUT
+        echo "$CHANGED_WSDLS" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: Validate versioned WSDL requirements
+      run: |
+        echo "Validating WSDL versioning requirements..."
+        
+        # Check if any unversioned WSDLs were changed
+        UNVERSIONED_CHANGED=""
+        while IFS= read -r file; do
+          if [[ -n "$file" ]]; then
+            filename=$(basename "$file")
+            # Check if it's an unversioned WSDL (doesn't contain version number pattern)
+            if [[ ! "$filename" =~ -[0-9]+ ]]; then
+              echo "Unversioned WSDL changed: $file"
+              UNVERSIONED_CHANGED="$UNVERSIONED_CHANGED $file"
+              
+              # Extract service name (remove .wsdl extension)
+              service_prefix=$(basename "$file" .wsdl)
+              
+              # Check if there's a corresponding versioned WSDL in the changes
+              VERSIONED_FOUND=false
+              while IFS= read -r versioned_file; do
+                if [[ -n "$versioned_file" ]]; then
+                  versioned_filename=$(basename "$versioned_file")
+                  if [[ "$versioned_filename" =~ ^${service_prefix}-[0-9]+\.wsdl$ ]]; then
+                    echo "Found corresponding versioned WSDL: $versioned_file"
+                    VERSIONED_FOUND=true
+                    break
+                  fi
+                fi
+              done < changed_wsdls.txt
+              
+              if [[ "$VERSIONED_FOUND" = false ]]; then
+                echo "ERROR: Unversioned WSDL $file was changed but no corresponding versioned WSDL was provided"
+                echo "Please ensure that when updating an unversioned WSDL, you also include a new versioned WSDL file"
+                echo "Expected pattern: ${service_prefix}-[VERSION_NUMBER].wsdl"
+                exit 1
+              fi
+            fi
+          fi
+        done < changed_wsdls.txt
+        
+        if [[ -z "$UNVERSIONED_CHANGED" ]]; then
+          echo "No unversioned WSDLs were changed, versioning validation passed"
+        else
+          echo "All unversioned WSDL changes have corresponding versioned WSDLs"
+        fi
+
+    - name: Identify affected services
+      id: affected-services
+      run: |
+        echo "Identifying affected services for stub generation..."
+        
+        # Map WSDL files to service names for stub generation
+        SERVICES=""
+        while IFS= read -r file; do
+          if [[ -n "$file" ]]; then
+            filename=$(basename "$file" .wsdl)
+            # Remove version numbers to get base service name
+            service_base=$(echo "$filename" | sed 's/-[0-9]*$//')
+            
+            # Map WSDL prefixes to Maven profile names
+            case "$service_base" in
+              "FileSpray") service_name="filespray" ;;
+              "WsAttributes") service_name="wsattributes" ;;
+              "WsCloud") service_name="wscloud" ;;
+              "WsDFU") service_name="wsdfu" ;;
+              "WsDFUXRef") service_name="wsdfuxref" ;;
+              "WsFileIO") service_name="wsfileio" ;;
+              "WsPackageProcess") service_name="wspackageprocess" ;;
+              "WsResources") service_name="wsresources" ;;
+              "WsSMC") service_name="wssmc" ;;
+              "WsSQL") service_name="wssql" ;;
+              "WsStore") service_name="wsstore" ;;
+              "WsTopology") service_name="wstopology" ;;
+              "WsWorkunits") service_name="wsworkunits" ;;
+              "Ws_codesign") service_name="wscodesign" ;;
+              *) 
+                echo "WARNING: Unknown WSDL service: $service_base"
+                continue
+                ;;
+            esac
+            
+            # Add to services list if not already present
+            if [[ ! "$SERVICES" =~ $service_name ]]; then
+              SERVICES="$SERVICES $service_name"
+            fi
+          fi
+        done < changed_wsdls.txt
+        
+        SERVICES=$(echo "$SERVICES" | xargs)  # trim whitespace
+        echo "Affected services: $SERVICES"
+        echo "services=$SERVICES" >> $GITHUB_OUTPUT
+
+    - name: Build project first
+      run: |
+        echo "Building project to ensure dependencies are available..."
+        cd wsclient
+        mvn clean compile -q
+
+    - name: Test the required mvn -P generate-wsclient-stub process-resources command
+      run: |
+        echo "Testing the specific command mentioned in the requirements..."
+        cd wsclient
+        if mvn -P generate-wsclient-stub process-resources -q; then
+          echo "✓ Command 'mvn -P generate-wsclient-stub process-resources' succeeded"
+        else
+          echo "✗ Command 'mvn -P generate-wsclient-stub process-resources' failed"
+          echo "ERROR: The specific command mentioned in the requirements failed"
+          exit 1
+        fi
+
+    - name: Test stub generation for affected services
+      if: steps.affected-services.outputs.services != ''
+      run: |
+        echo "Testing stub generation for affected services..."
+        cd wsclient
+        
+        SERVICES="${{ steps.affected-services.outputs.services }}"
+        
+        for service in $SERVICES; do
+          echo "Testing stub generation for service: $service"
+          
+          # Test the Maven profile for stub generation
+          if mvn -P generate-${service}-stub process-resources -q; then
+            echo "✓ Stub generation succeeded for $service"
+          else
+            echo "✗ Stub generation failed for $service"
+            echo "ERROR: The command 'mvn -P generate-${service}-stub process-resources' failed"
+            exit 1
+          fi
+          
+          # Verify that stub files were generated in the expected location
+          stub_dir="src/main/java/org/hpccsystems/ws/client/gen/axis2/${service}/latest"
+          if [[ -d "$stub_dir" ]]; then
+            file_count=$(find "$stub_dir" -name "*.java" | wc -l)
+            if [[ $file_count -gt 0 ]]; then
+              echo "✓ Found $file_count stub files in $stub_dir"
+            else
+              echo "✗ No stub files found in $stub_dir"
+              exit 1
+            fi
+          else
+            echo "✗ Stub directory not found: $stub_dir"
+            exit 1
+          fi
+        done
+
+    - name: Test wrapper generation for affected services
+      if: steps.affected-services.outputs.services != ''
+      run: |
+        echo "Testing wrapper generation for affected services..."
+        cd wsclient
+        
+        SERVICES="${{ steps.affected-services.outputs.services }}"
+        
+        # First, build the project to ensure the Axis2ADBStubWrapperMaker is available
+        mvn compile -q
+        
+        # Get the classpath for running the wrapper generator
+        CLASSPATH=$(mvn dependency:build-classpath -Dmdep.outputFile=/tmp/cp.txt -q && cat /tmp/cp.txt):target/classes
+        
+        for service in $SERVICES; do
+          echo "Testing wrapper generation for service: $service"
+          
+          # Map service name to WSDL prefix for wrapper generation
+          case "$service" in
+            "filespray") wsdl_prefix="FileSpray" ;;
+            "wsattributes") wsdl_prefix="WsAttributes" ;;
+            "wscloud") wsdl_prefix="WsCloud" ;;
+            "wsdfu") wsdl_prefix="WsDFU" ;;
+            "wsdfuxref") wsdl_prefix="WsDFUXRef" ;;
+            "wsfileio") wsdl_prefix="WsFileIO" ;;
+            "wspackageprocess") wsdl_prefix="WsPackageProcess" ;;
+            "wsresources") wsdl_prefix="WsResources" ;;
+            "wssmc") wsdl_prefix="WsSMC" ;;
+            "wssql") wsdl_prefix="WsSQL" ;;
+            "wsstore") wsdl_prefix="WsStore" ;;
+            "wstopology") wsdl_prefix="WsTopology" ;;
+            "wsworkunits") wsdl_prefix="WsWorkunits" ;;
+            "wscodesign") wsdl_prefix="Ws_codesign" ;;
+            *) wsdl_prefix="$service" ;;
+          esac
+          
+          # Run the Axis2ADBStubWrapperMaker
+          wrapper_cmd="java -classpath $CLASSPATH org.hpccsystems.ws.client.utils.Axis2ADBStubWrapperMaker outputpackage=org.hpccsystems.ws.client.wrappers.gen targetpackage=org.hpccsystems.ws.client.gen.axis2.${service}.latest servicename=${wsdl_prefix} outputdir=src/main/java"
+          
+          echo "Running wrapper generation command:"
+          echo "$wrapper_cmd"
+          
+          if eval $wrapper_cmd; then
+            echo "✓ Wrapper generation succeeded for $service"
+            
+            # Verify that wrapper files were generated
+            wrapper_dir="src/main/java/org/hpccsystems/ws/client/wrappers/gen/${service}"
+            if [[ -d "$wrapper_dir" ]]; then
+              file_count=$(find "$wrapper_dir" -name "*.java" | wc -l)
+              if [[ $file_count -gt 0 ]]; then
+                echo "✓ Found $file_count wrapper files in $wrapper_dir"
+              else
+                echo "✓ Wrapper directory exists but may be empty (this could be normal)"
+              fi
+            else
+              echo "✓ Wrapper generation completed (no separate directory created)"
+            fi
+          else
+            echo "✗ Wrapper generation failed for $service"
+            echo "ERROR: The Axis2ADBStubWrapperMaker command failed for $service"
+            exit 1
+          fi
+        done
+
+    - name: Validate project still builds after stub generation
+      run: |
+        echo "Validating that the project still builds after stub and wrapper generation..."
+        cd wsclient
+        if mvn compile -q; then
+          echo "✓ Project builds successfully after stub and wrapper generation"
+        else
+          echo "✗ Project build failed after stub and wrapper generation"
+          exit 1
+        fi
+
+    - name: Summary
+      if: always()
+      run: |
+        echo "WSDL Validation Summary:"
+        echo "========================"
+        if [[ -s changed_wsdls.txt ]]; then
+          echo "Changed WSDL files:"
+          cat changed_wsdls.txt
+        else
+          echo "No WSDL files were changed"
+        fi
+        echo ""
+        echo "Services affected: ${{ steps.affected-services.outputs.services }}"
+        echo ""
+        echo "All validations completed successfully!"

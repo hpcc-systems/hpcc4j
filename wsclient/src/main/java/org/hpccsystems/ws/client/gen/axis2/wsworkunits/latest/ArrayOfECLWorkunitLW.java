@@ -12,7 +12,7 @@ public class ArrayOfECLWorkunitLW implements org.apache.axis2.databinding.ADBBea
   /* This type was generated from the piece of schema that had
   name = ArrayOfECLWorkunitLW
   Namespace URI = urn:hpccsystems:ws:wsworkunits
-  Namespace Prefix = ns1
+  Namespace Prefix = ns13
   */
 
   /** field for ECLWorkunitLW This was an Array! */
@@ -157,7 +157,7 @@ public class ArrayOfECLWorkunitLW implements org.apache.axis2.databinding.ADBBea
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsworkunits")) {
-      return "ns1";
+      return "ns13";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

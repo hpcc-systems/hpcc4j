@@ -12,7 +12,7 @@ public class TpLogicalClusterQueryRequest implements org.apache.axis2.databindin
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:wstopology", "TpLogicalClusterQueryRequest", "ns1");
+          "urn:hpccsystems:ws:wstopology", "TpLogicalClusterQueryRequest", "ns12");
 
   /** field for EclServerQueue */
   protected java.lang.String localEclServerQueue;
@@ -162,7 +162,7 @@ public class TpLogicalClusterQueryRequest implements org.apache.axis2.databindin
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wstopology")) {
-      return "ns1";
+      return "ns12";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

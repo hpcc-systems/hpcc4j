@@ -55,6 +55,7 @@ public class CopyWrapper
     protected boolean local_preserveCompression;
     protected String local_dFUServerQueue;
     protected int local_expireDays;
+    protected String local_keyCompression;
 
     public CopyWrapper() {}
 
@@ -62,7 +63,7 @@ public class CopyWrapper
     {
         copy( copy );
     }
-    public CopyWrapper( String _sourceLogicalName, String _destGroup, String _destGroupRoxie, String _destLogicalName, String _sourceDali, String _srcusername, String _srcpassword, boolean _overwrite, boolean _ensure, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, boolean _nosplit, boolean _norecover, boolean _compress, boolean _wrap, boolean _multicopy, String _sourceDiffKeyName, String _destDiffKeyName, boolean _superCopy, boolean _push, boolean _pull, boolean _ifnewer, boolean _noCommon, String _encrypt, String _decrypt, boolean _preserveCompression, String _dFUServerQueue, int _expireDays )
+    public CopyWrapper( String _sourceLogicalName, String _destGroup, String _destGroupRoxie, String _destLogicalName, String _sourceDali, String _srcusername, String _srcpassword, boolean _overwrite, boolean _ensure, boolean _replicate, int _replicateOffset, int _maxConnections, int _throttle, int _transferBufferSize, boolean _nosplit, boolean _norecover, boolean _compress, boolean _wrap, boolean _multicopy, String _sourceDiffKeyName, String _destDiffKeyName, boolean _superCopy, boolean _push, boolean _pull, boolean _ifnewer, boolean _noCommon, String _encrypt, String _decrypt, boolean _preserveCompression, String _dFUServerQueue, int _expireDays, String _keyCompression )
     {
         this.local_sourceLogicalName = _sourceLogicalName;
         this.local_destGroup = _destGroup;
@@ -95,6 +96,7 @@ public class CopyWrapper
         this.local_preserveCompression = _preserveCompression;
         this.local_dFUServerQueue = _dFUServerQueue;
         this.local_expireDays = _expireDays;
+        this.local_keyCompression = _keyCompression;
 
     }
 
@@ -134,13 +136,14 @@ public class CopyWrapper
         this.local_preserveCompression = raw.getPreserveCompression();
         this.local_dFUServerQueue = raw.getDFUServerQueue();
         this.local_expireDays = raw.getExpireDays();
+        this.local_keyCompression = raw.getKeyCompression();
 
     }
 
     @Override
     public String toString()
     {
-        return "CopyWrapper [" + "sourceLogicalName = " + local_sourceLogicalName + ", " + "destGroup = " + local_destGroup + ", " + "destGroupRoxie = " + local_destGroupRoxie + ", " + "destLogicalName = " + local_destLogicalName + ", " + "sourceDali = " + local_sourceDali + ", " + "srcusername = " + local_srcusername + ", " + "srcpassword = " + local_srcpassword + ", " + "overwrite = " + local_overwrite + ", " + "ensure = " + local_ensure + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "wrap = " + local_wrap + ", " + "multicopy = " + local_multicopy + ", " + "sourceDiffKeyName = " + local_sourceDiffKeyName + ", " + "destDiffKeyName = " + local_destDiffKeyName + ", " + "superCopy = " + local_superCopy + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "ifnewer = " + local_ifnewer + ", " + "noCommon = " + local_noCommon + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "preserveCompression = " + local_preserveCompression + ", " + "dFUServerQueue = " + local_dFUServerQueue + ", " + "expireDays = " + local_expireDays + "]";
+        return "CopyWrapper [" + "sourceLogicalName = " + local_sourceLogicalName + ", " + "destGroup = " + local_destGroup + ", " + "destGroupRoxie = " + local_destGroupRoxie + ", " + "destLogicalName = " + local_destLogicalName + ", " + "sourceDali = " + local_sourceDali + ", " + "srcusername = " + local_srcusername + ", " + "srcpassword = " + local_srcpassword + ", " + "overwrite = " + local_overwrite + ", " + "ensure = " + local_ensure + ", " + "replicate = " + local_replicate + ", " + "replicateOffset = " + local_replicateOffset + ", " + "maxConnections = " + local_maxConnections + ", " + "throttle = " + local_throttle + ", " + "transferBufferSize = " + local_transferBufferSize + ", " + "nosplit = " + local_nosplit + ", " + "norecover = " + local_norecover + ", " + "compress = " + local_compress + ", " + "wrap = " + local_wrap + ", " + "multicopy = " + local_multicopy + ", " + "sourceDiffKeyName = " + local_sourceDiffKeyName + ", " + "destDiffKeyName = " + local_destDiffKeyName + ", " + "superCopy = " + local_superCopy + ", " + "push = " + local_push + ", " + "pull = " + local_pull + ", " + "ifnewer = " + local_ifnewer + ", " + "noCommon = " + local_noCommon + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "preserveCompression = " + local_preserveCompression + ", " + "dFUServerQueue = " + local_dFUServerQueue + ", " + "expireDays = " + local_expireDays + ", " + "keyCompression = " + local_keyCompression + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.Copy getRaw()
     {
@@ -176,6 +179,7 @@ public class CopyWrapper
         raw.setPreserveCompression( local_preserveCompression);
         raw.setDFUServerQueue( local_dFUServerQueue);
         raw.setExpireDays( local_expireDays);
+        raw.setKeyCompression( local_keyCompression);
         return raw;
     }
 
@@ -427,5 +431,13 @@ public class CopyWrapper
     public int getExpireDays( )
     {
         return this.local_expireDays;
+    }
+    public void setKeyCompression( String _keyCompression )
+    {
+        this.local_keyCompression = _keyCompression;
+    }
+    public String getKeyCompression( )
+    {
+        return this.local_keyCompression;
     }
 }

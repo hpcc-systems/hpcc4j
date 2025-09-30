@@ -12,7 +12,7 @@ public class TpListLogFilesResponse implements org.apache.axis2.databinding.ADBB
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:wstopology", "TpListLogFilesResponse", "ns1");
+          "urn:hpccsystems:ws:wstopology", "TpListLogFilesResponse", "ns12");
 
   /** field for Exceptions */
   protected org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfEspException
@@ -152,7 +152,7 @@ public class TpListLogFilesResponse implements org.apache.axis2.databinding.ADBB
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wstopology")) {
-      return "ns1";
+      return "ns12";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

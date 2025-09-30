@@ -12,7 +12,7 @@ public class WUQueryActivationMode implements org.apache.axis2.databinding.ADBBe
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:wsworkunits", "WUQueryActivationMode", "ns1");
+          "urn:hpccsystems:ws:wsworkunits", "WUQueryActivationMode", "ns13");
 
   /** field for WUQueryActivationMode */
   protected int localWUQueryActivationMode;
@@ -134,7 +134,7 @@ public class WUQueryActivationMode implements org.apache.axis2.databinding.ADBBe
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsworkunits")) {
-      return "ns1";
+      return "ns13";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

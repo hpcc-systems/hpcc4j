@@ -1,8 +1,8 @@
 /**
  * NamedValue.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsresources.latest;
 
@@ -12,7 +12,7 @@ public class NamedValue implements org.apache.axis2.databinding.ADBBean {
   /* This type was generated from the piece of schema that had
   name = NamedValue
   Namespace URI = urn:hpccsystems:ws:wsresources
-  Namespace Prefix = ns1
+  Namespace Prefix = ns8
   */
 
   /** field for Name */
@@ -166,7 +166,7 @@ public class NamedValue implements org.apache.axis2.databinding.ADBBean {
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsresources")) {
-      return "ns1";
+      return "ns8";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

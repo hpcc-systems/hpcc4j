@@ -12,7 +12,7 @@ public class ArrayOfPackageListMapData implements org.apache.axis2.databinding.A
   /* This type was generated from the piece of schema that had
   name = ArrayOfPackageListMapData
   Namespace URI = urn:hpccsystems:ws:wspackageprocess
-  Namespace Prefix = ns1
+  Namespace Prefix = ns7
   */
 
   /** field for PackageListMapData This was an Array! */
@@ -159,7 +159,7 @@ public class ArrayOfPackageListMapData implements org.apache.axis2.databinding.A
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wspackageprocess")) {
-      return "ns1";
+      return "ns7";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

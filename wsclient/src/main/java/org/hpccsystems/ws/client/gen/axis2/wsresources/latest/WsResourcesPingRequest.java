@@ -1,8 +1,8 @@
 /**
  * WsResourcesPingRequest.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsresources.latest;
 
@@ -12,7 +12,7 @@ public class WsResourcesPingRequest implements org.apache.axis2.databinding.ADBB
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:wsresources", "WsResourcesPingRequest", "ns1");
+          "urn:hpccsystems:ws:wsresources", "WsResourcesPingRequest", "ns8");
 
   /**
    * @param parentQName
@@ -71,7 +71,7 @@ public class WsResourcesPingRequest implements org.apache.axis2.databinding.ADBB
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsresources")) {
-      return "ns1";
+      return "ns8";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

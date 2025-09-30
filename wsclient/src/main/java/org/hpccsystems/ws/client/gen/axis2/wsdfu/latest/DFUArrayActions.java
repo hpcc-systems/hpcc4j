@@ -11,7 +11,7 @@ package org.hpccsystems.ws.client.gen.axis2.wsdfu.latest;
 public class DFUArrayActions implements org.apache.axis2.databinding.ADBBean {
 
   public static final javax.xml.namespace.QName MY_QNAME =
-      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUArrayActions", "ns1");
+      new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUArrayActions", "ns4");
 
   /** field for DFUArrayActions */
   protected java.lang.String localDFUArrayActions;
@@ -130,7 +130,7 @@ public class DFUArrayActions implements org.apache.axis2.databinding.ADBBean {
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wsdfu")) {
-      return "ns1";
+      return "ns4";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }
@@ -321,7 +321,7 @@ public class DFUArrayActions implements org.apache.axis2.databinding.ADBBean {
       // handle unexpected enumeration values properly
       if (enumeration == null) {
 
-        log.warn("Unexpected value " + value + " for enumeration DFUArrayActions");
+        throw new java.lang.IllegalArgumentException();
       }
       return enumeration;
     }

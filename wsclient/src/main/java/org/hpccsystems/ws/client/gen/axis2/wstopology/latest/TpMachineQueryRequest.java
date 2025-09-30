@@ -12,7 +12,7 @@ public class TpMachineQueryRequest implements org.apache.axis2.databinding.ADBBe
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:wstopology", "TpMachineQueryRequest", "ns1");
+          "urn:hpccsystems:ws:wstopology", "TpMachineQueryRequest", "ns12");
 
   /** field for Type */
   protected java.lang.String localType;
@@ -363,7 +363,7 @@ public class TpMachineQueryRequest implements org.apache.axis2.databinding.ADBBe
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wstopology")) {
-      return "ns1";
+      return "ns12";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

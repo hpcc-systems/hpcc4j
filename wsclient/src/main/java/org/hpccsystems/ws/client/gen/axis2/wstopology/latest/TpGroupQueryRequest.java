@@ -11,7 +11,7 @@ package org.hpccsystems.ws.client.gen.axis2.wstopology.latest;
 public class TpGroupQueryRequest implements org.apache.axis2.databinding.ADBBean {
 
   public static final javax.xml.namespace.QName MY_QNAME =
-      new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpGroupQueryRequest", "ns1");
+      new javax.xml.namespace.QName("urn:hpccsystems:ws:wstopology", "TpGroupQueryRequest", "ns12");
 
   /** field for Kind */
   protected java.lang.String localKind;
@@ -117,7 +117,7 @@ public class TpGroupQueryRequest implements org.apache.axis2.databinding.ADBBean
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wstopology")) {
-      return "ns1";
+      return "ns12";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }

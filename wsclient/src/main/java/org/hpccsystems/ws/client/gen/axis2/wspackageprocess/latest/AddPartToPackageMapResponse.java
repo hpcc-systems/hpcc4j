@@ -12,7 +12,7 @@ public class AddPartToPackageMapResponse implements org.apache.axis2.databinding
 
   public static final javax.xml.namespace.QName MY_QNAME =
       new javax.xml.namespace.QName(
-          "urn:hpccsystems:ws:wspackageprocess", "AddPartToPackageMapResponse", "ns1");
+          "urn:hpccsystems:ws:wspackageprocess", "AddPartToPackageMapResponse", "ns7");
 
   /** field for Exceptions */
   protected org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.ArrayOfEspException
@@ -299,7 +299,7 @@ public class AddPartToPackageMapResponse implements org.apache.axis2.databinding
 
   private static java.lang.String generatePrefix(java.lang.String namespace) {
     if (namespace.equals("urn:hpccsystems:ws:wspackageprocess")) {
-      return "ns1";
+      return "ns7";
     }
     return org.apache.axis2.databinding.utils.BeanUtil.getUniquePrefix();
   }
