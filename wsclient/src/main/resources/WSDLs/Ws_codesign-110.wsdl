@@ -228,7 +228,7 @@
 				<soap:fault name="excfault" use="literal"/>
 			</fault>
 		</operation>
-		<operation name="Pings">
+		<operation name="Ping">
 			<soap:operation soapAction="ws_codesign/Ping?ver_=1.1" style="document"/>
 			<input>
 				<soap:body use="literal"/>
@@ -240,7 +240,7 @@
 				<soap:fault name="excfault" use="literal"/>
 			</fault>
 		</operation>
-		<operation name="Signs">
+		<operation name="Sign">
 			<soap:operation soapAction="ws_codesign/Sign?ver_=1.1" style="document"/>
 			<input>
 				<soap:body use="literal"/>
@@ -252,7 +252,7 @@
 				<soap:fault name="excfault" use="literal"/>
 			</fault>
 		</operation>
-		<operation name="Verifyx">
+		<operation name="Verify">
 			<soap:operation soapAction="ws_codesign/Verify?ver_=1.1" style="document"/>
 			<input>
 				<soap:body use="literal"/>
