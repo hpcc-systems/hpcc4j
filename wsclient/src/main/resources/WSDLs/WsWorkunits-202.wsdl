@@ -8,7 +8,7 @@
 		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hpccsystems:ws:wsworkunits">
 			
       
-			<xsd:complexType name="EspException">
+			<xsd:complexType name="EspExceptionx">
 				
         
 				<xsd:all>
