@@ -306,7 +306,8 @@ public class HpccFile extends org.hpccsystems.dfs.client.HPCCFile implements Ser
     * @return a Dataframe of THOR data
     * @throws HpccFileException when htere are errors reaching the THOR data.
     */
-    public Dataset<Row> getDataframe(SparkSession session) throws HpccFileException{
+    public Dataset<Row> getDataframe(SparkSession session) throws HpccFileException
+    {
         FieldDef originalRD = this.getRecordDefinition();
         FieldDef projectedRD = this.getProjectedRecordDefinition();
         DataPartition[] fp = this.getFileParts();
