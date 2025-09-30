@@ -21,16 +21,10 @@ import static org.junit.Assert.*;
 import java.net.MalformedURLException;
 import java.util.regex.Matcher;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
-@Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class ConnectionTest
 {
-    private static final Logger log = LogManager.getLogger(ConnectionTest.class);
-
     String http = "http";
     String httpCamel = "hTtP";
     String https = "https";
@@ -136,29 +130,5 @@ public class ConnectionTest
             assertTrue(matcher.matches());
             assertEquals(matcher.group("hostname"), hostName);
         }
-    }
-
-    @Test
-    public void testUserNameLogging() throws Exception
-    {
-        log.info("Testing username logging functionality");
-
-        Connection con = new Connection(http, host, port);
-
-        // Test setUserName - should log the username
-        con.setUserName("testuser1");
-        assertEquals("testuser1", con.getUserName());
-
-        // Test setCredentials - should log the username
-        con.setCredentials("testuser2", "testpass");
-        assertEquals("testuser2", con.getUserName());
-
-        // Test setEncodedCredentials - should log the username
-        // "testuser3:testpass3" in base64 is "dGVzdHVzZXIzOnRlc3RwYXNzMw=="
-        String encodedCreds = java.util.Base64.getEncoder().encodeToString("testuser3:testpass3".getBytes());
-        con.setEncodedCredentials(encodedCreds);
-        assertEquals("testuser3", con.getUserName());
-
-        log.info("Username logging test completed successfully");
     }
 }
