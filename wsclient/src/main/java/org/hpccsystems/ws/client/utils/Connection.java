@@ -593,6 +593,11 @@ public class Connection
         synchronized (credentials)
         {
             credentials.setEncodedCreds(encodedcreds);
+            String userName = credentials.getUserName();
+            if (userName != null && userName.length() > 0)
+            {
+                log.info("HPCC connection user name set: " + userName);
+            }
         }
     }
 
@@ -668,6 +673,10 @@ public class Connection
         synchronized (credentials)
         {
             credentials.setUserName(userName);
+            if (userName != null && userName.length() > 0)
+            {
+                log.info("HPCC connection user name set: " + userName);
+            }
         }
     }
 
@@ -752,6 +761,10 @@ public class Connection
         synchronized (credentials)
         {
             credentials.setCredentials(username, password);
+            if (username != null && username.length() > 0)
+            {
+                log.info("HPCC connection user name set: " + username);
+            }
         }
     }
 
