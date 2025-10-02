@@ -939,6 +939,44 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             // In case getBaseUrl() throws an exception, continue without it
         }
         
+        // Add authentication information
+        if (connection.hasCredentials())
+        {
+            String username = connection.getUserName();
+            if (username != null && !username.isEmpty())
+            {
+                info.append(", user: ").append(username);
+            }
+            
+            // Indicate if password is set without revealing it
+            String password = connection.getPassword();
+            if (password != null && !password.isEmpty())
+            {
+                info.append(", password: [set]");
+            }
+            else
+            {
+                info.append(", password: [empty]");
+            }
+        }
+        else
+        {
+            info.append(", auth: anonymous");
+        }
+        
+        // Add timeout information
+        int connectTimeout = connection.getConnectTimeoutMilli();
+        if (connectTimeout > 0)
+        {
+            info.append(", connectTimeout: ").append(connectTimeout).append("ms");
+        }
+        
+        int socketTimeout = connection.getSocketTimeoutMilli();
+        if (socketTimeout > 0)
+        {
+            info.append(", socketTimeout: ").append(socketTimeout).append("ms");
+        }
+        
         info.append(")");
         return info.toString();
     }
