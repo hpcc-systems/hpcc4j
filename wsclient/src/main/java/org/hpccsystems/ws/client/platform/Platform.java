@@ -205,7 +205,6 @@ public class Platform extends DataSingleton
 
     static int                              LATENCY_TEST = 0;
 
-
     /**
      * Instantiates a new platform.
      *

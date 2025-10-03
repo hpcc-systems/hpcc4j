@@ -327,7 +327,7 @@ public class DropZone extends DataSingleton
         {
             dzInfo = dz;
             update(dz.getTpMachines().getTpMachine());
-            setChanged();
+
         }
     }
 

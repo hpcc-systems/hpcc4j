@@ -154,7 +154,7 @@ public class Result extends DataSingleton
         info = new ECLResult();
         info.setSequence(sequence);
         data = new ResultData();
-        setChanged();
+
     }
 
     /**
@@ -339,7 +339,7 @@ public class Result extends DataSingleton
             if (UpdateState(result))
             {
                 retVal = true;
-                notifyObservers(Notification.RESULT);
+
             }
         }
         monitor();
@@ -360,7 +360,7 @@ public class Result extends DataSingleton
 
             assert (result.getECLSchemas() != null);
             info = result;
-            setChanged();
+
             return true;
         }
         return false;

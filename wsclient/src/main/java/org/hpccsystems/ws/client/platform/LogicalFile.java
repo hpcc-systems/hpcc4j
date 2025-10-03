@@ -169,7 +169,7 @@ public class LogicalFile extends DataSingleton
         {
             e.printStackTrace();
         }
-        notifyObservers(Notification.LOGICALFILE);
+
     }
 
     /**
