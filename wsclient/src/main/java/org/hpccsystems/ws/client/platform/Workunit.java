@@ -755,50 +755,42 @@ public class Workunit extends DataSingleton
         boolean retVal = false;
         if (wu != null && info.getWuid().equals(wu.getWuid()) && !info.equals(wu))
         {
-            if (updateState(wu))
+            retVal = true;
+            if (!updateState(wu))
             {
-                retVal = true;
-
+                retVal = false;
             }
-            if (updateOwner(wu.getOwner()))
+            if (!updateOwner(wu.getOwner()))
             {
-                retVal = true;
-
+                retVal = false;
             }
-            if (updateJobname(wu.getJobname()))
+            if (!updateJobname(wu.getJobname()))
             {
-                retVal = true;
-
+                retVal = false;
             }
-            if (updateCluster(wu.getCluster()))
+            if (!updateCluster(wu.getCluster()))
             {
-                retVal = true;
-
+                retVal = false;
             }
-            if (updateQuery(wu.getQuery()))
+            if (!updateQuery(wu.getQuery()))
             {
-                retVal = true;
-
+                retVal = false;
             }
-            if (updateApplicationValues(wu.getApplicationValues().getApplicationValue()))
+            if (!updateApplicationValues(wu.getApplicationValues().getApplicationValue()))
             {
-                retVal = true;
-
+                retVal = false;
             }
-            if (updateResults(wu.getResults().getECLResult()))
+            if (!updateResults(wu.getResults().getECLResult()))
             {
-                retVal = true;
-
+                retVal = false;
             }
-            if (updateGraphs(wu.getGraphs().getECLGraph()))
+            if (!updateGraphs(wu.getGraphs().getECLGraph()))
             {
-                retVal = true;
-
+                retVal = false;
             }
-            if (updateSourceFiles(wu.getSourceFiles().getECLSourceFile()))
+            if (!updateSourceFiles(wu.getSourceFiles().getECLSourceFile()))
             {
-                retVal = true;
-
+                retVal = false;
             }
         }
         monitor();

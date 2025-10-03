@@ -275,13 +275,14 @@ public class FileSprayWorkunit extends DataSingleton
         boolean retVal = false;
         if (dfuWorkunitWrapper != null && info.getID().equals(dfuWorkunitWrapper.getID()) && !info.equals(dfuWorkunitWrapper))
         {
-            if (updateState(dfuWorkunitWrapper))
+            retVal = true;
+            if (!updateState(dfuWorkunitWrapper))
             {
-                retVal = true;
+                retVal = false;
             }
-            if (updateLogicalFiles(dfuWorkunitWrapper))
+            if (!updateLogicalFiles(dfuWorkunitWrapper))
             {
-                retVal = true;
+                retVal = false;
             }
         }
         monitor();

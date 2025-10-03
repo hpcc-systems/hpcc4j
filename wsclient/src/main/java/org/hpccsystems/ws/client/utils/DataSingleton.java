@@ -88,7 +88,7 @@ public abstract class DataSingleton
 
                 void refresh(boolean full)
                 {
-                    if (full || isComplete())
+                    if (full)
                     {
                         fullRefresh();
                     }
