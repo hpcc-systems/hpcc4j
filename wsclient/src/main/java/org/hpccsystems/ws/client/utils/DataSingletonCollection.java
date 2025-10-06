@@ -10,9 +10,8 @@ package org.hpccsystems.ws.client.utils;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
 
-public class DataSingletonCollection extends Observable
+public class DataSingletonCollection
 {
     Map<Integer, DataSingleton> items;
     CollectionDelta             notificationDelta;
@@ -37,7 +36,6 @@ public class DataSingletonCollection extends Observable
             {
                 pushTransaction("DataSingletonCollection.get");
                 items.put(item.hashCode(), item);
-                setChanged();
             }
             finally
             {
@@ -83,7 +81,6 @@ public class DataSingletonCollection extends Observable
         --notifcationDepth;
         if (notifcationDepth == 0)
         {
-            notifyObservers(notificationDelta.calcChanges(items.values()));
             notificationDelta = null;
         }
     }
@@ -91,6 +88,5 @@ public class DataSingletonCollection extends Observable
     public synchronized void clear()
     {
         items.clear();
-        setChanged();
     }
 }
