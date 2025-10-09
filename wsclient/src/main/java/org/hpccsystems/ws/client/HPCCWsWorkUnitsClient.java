@@ -278,7 +278,8 @@ public class HPCCWsWorkUnitsClient extends BaseHPCCWsClient
             }
             catch (AxisFault e)
             {
-                initErrMessage += "\nHPCCWsWorkUnitsClient: Could not retrieve version appropriate stub object:" + e.getMessage();
+                String connectionInfo = getConnectionInfo(conn);
+                initErrMessage += "\nHPCCWsWorkUnitsClient: Could not retrieve version appropriate stub object " + connectionInfo + ": " + e.getMessage();
             }
         }
         else

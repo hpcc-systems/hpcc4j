@@ -95,6 +95,13 @@ public class Utils
 
     public static Span createChildSpan(String traceID, String parentSpanID, String childName)
     {
+        // Default to sampled for backward compatibility - this preserves existing behavior
+        // In a real scenario, the sampling decision should be passed from the caller
+        return createChildSpan(traceID, parentSpanID, TraceFlags.getSampled(), childName);
+    }
+
+    public static Span createChildSpan(String traceID, String parentSpanID, TraceFlags traceFlags, String childName)
+    {
         // Check if traceID & parentSpanID are valid
         if (!TraceId.isValid(traceID))
         {
@@ -111,7 +118,7 @@ public class Utils
         SpanContext parentSpanContext = SpanContext.createFromRemoteParent(
             traceID,
             parentSpanID,
-            TraceFlags.getSampled(),
+            traceFlags,
             TraceState.getDefault()
         );
         Context parentContext = Context.current().with(Span.wrap(parentSpanContext));
@@ -122,6 +129,45 @@ public class Utils
                                     .startSpan();
         childSpan.makeCurrent();
         return childSpan;
+    }
+
+    /**
+     * Creates a child span from a W3C traceparent header
+     * @param traceparent W3C traceparent header (format: "version-trace_id-span_id-trace_flags")
+     * @param childName name for the child span
+     * @return child span with proper sampling flags inherited from parent
+     */
+    public static Span createChildSpanFromTraceParent(String traceparent, String childName)
+    {
+        if (traceparent == null || traceparent.isEmpty())
+        {
+            log.error("Invalid traceparent header provided. Creating a disconnected span.");
+            return createSpan(childName);
+        }
+
+        String[] parts = traceparent.split("-");
+        if (parts.length != 4)
+        {
+            log.error("Invalid traceparent format: " + traceparent + ". Expected version-trace_id-span_id-trace_flags. Creating a disconnected span.");
+            return createSpan(childName);
+        }
+
+        try
+        {
+            String traceId = parts[1];
+            String spanId = parts[2];
+            String traceFlagsHex = parts[3];
+            
+            // Parse trace flags from hex string
+            TraceFlags traceFlags = TraceFlags.fromHex(traceFlagsHex, 0);
+            
+            return createChildSpan(traceId, spanId, traceFlags, childName);
+        }
+        catch (Exception e)
+        {
+            log.error("Error parsing traceparent header: " + traceparent + ". Creating a disconnected span.", e);
+            return createSpan(childName);
+        }
     }
 
 }
