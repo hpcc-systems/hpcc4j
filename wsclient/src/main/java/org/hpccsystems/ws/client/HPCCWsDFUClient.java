@@ -290,7 +290,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             }
             catch (AxisFault e)
             {
-                initErrMessage += "\nCould not initialize HPCCWsDFUStub - Review all HPCC connection values";
+                String connectionInfo = getConnectionInfo(conn);
+                initErrMessage += "\nCould not initialize HPCCWsDFUStub - Review all HPCC connection values " + connectionInfo;
             }
         }
         else
