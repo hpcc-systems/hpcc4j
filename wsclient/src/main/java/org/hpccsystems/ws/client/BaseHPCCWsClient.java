@@ -306,7 +306,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             }
             catch (Exception e)
             {
-                initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values";
+                String connectionInfo = getConnectionInfo(connection);
+                initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values " + connectionInfo;
                 if (!e.getLocalizedMessage().isEmpty())
                     initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
                 success = false;
@@ -318,7 +319,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             }
             catch (Exception e)
             {
-                initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values";
+                String connectionInfo = getConnectionInfo(connection);
+                initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values " + connectionInfo;
                 if (!e.getLocalizedMessage().isEmpty())
                     initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
 
@@ -868,6 +870,95 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     protected void setActiveConnectionInfo(Connection conn)
     {
         wsconn = conn;
+    }
+
+    /**
+     * Formats connection information for error logging
+     *
+     * @param connection Connection object
+     * @return formatted connection information string
+     */
+    protected String getConnectionInfo(Connection connection)
+    {
+        if (connection == null)
+        {
+            return "(connection: null)";
+        }
+        
+        StringBuilder info = new StringBuilder("(");
+        
+        // Add host
+        String host = connection.getHost();
+        info.append("host: ").append(host != null ? host : "unknown");
+        
+        // Add port
+        String port = connection.getPort();
+        if (port != null && !port.isEmpty())
+        {
+            info.append(", port: ").append(port);
+        }
+        
+        // Add protocol
+        String protocol = connection.getProtocol();
+        if (protocol != null && !protocol.isEmpty())
+        {
+            info.append(", protocol: ").append(protocol);
+        }
+        
+        // Add base URL for full context
+        try 
+        {
+            String baseUrl = connection.getBaseUrl();
+            if (baseUrl != null && !baseUrl.isEmpty())
+            {
+                info.append(", url: ").append(baseUrl);
+            }
+        }
+        catch (Exception e)
+        {
+            // In case getBaseUrl() throws an exception, continue without it
+        }
+        
+        // Add authentication information
+        if (connection.hasCredentials())
+        {
+            String username = connection.getUserName();
+            if (username != null && !username.isEmpty())
+            {
+                info.append(", user: ").append(username);
+            }
+            
+            // Indicate if password is set without revealing it
+            String password = connection.getPassword();
+            if (password != null && !password.isEmpty())
+            {
+                info.append(", password: [set]");
+            }
+            else
+            {
+                info.append(", password: [empty]");
+            }
+        }
+        else
+        {
+            info.append(", auth: anonymous");
+        }
+        
+        // Add timeout information
+        int connectTimeout = connection.getConnectTimeoutMilli();
+        if (connectTimeout > 0)
+        {
+            info.append(", connectTimeout: ").append(connectTimeout).append("ms");
+        }
+        
+        int socketTimeout = connection.getSocketTimeoutMilli();
+        if (socketTimeout > 0)
+        {
+            info.append(", socketTimeout: ").append(socketTimeout).append("ms");
+        }
+        
+        info.append(")");
+        return info.toString();
     }
 
 
