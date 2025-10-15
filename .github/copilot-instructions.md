@@ -13,6 +13,11 @@ HPCC4J is a multi-module Maven project providing Java libraries for interacting 
 - **clienttools**: Java interface to HPCC client tools (eclcc)
 - **rdf2hpcc**: RDF data ingestion tool
 
+## Pull Request patterns
+- Ensure the hpcc4j/.github/PULL_REQUEST_TEMPLATE.md checklist is honored
+- Copilot should determine if the change causes users to reconfigure or restructure their code, and if so, a markdown blurb should be provided to be added to the project wiki
+- Pull request commit messages should always start with "HPCC4J-" followed by the corresponding Jira number from hpccsystems.atlassian.net, a high-level description, and a bulleted list of individual changes included in the commit
+
 ## Architecture Patterns
 
 ### Web Service Client Architecture (wsclient)
@@ -112,7 +117,8 @@ df.write()
 - **File access timeouts**: Configurable for long-running operations
 
 ## Common Anti-Patterns to Avoid
-- Don't access Axis2 generated stubs directly - use wrapper classes
+- Don't access Axis2 generated stubs directly – always use wrapper classes.
+- **High-level client methods** should never accept nor return **Generated Axis2 stubs**, always expose primitive or **Wrapper layer** types
 - Don't hardcode HPCC cluster endpoints - use Connection objects
 - Don't ignore OpenTelemetry tracing context in new methods
 - Don't create new client instances without using object pooling pattern
