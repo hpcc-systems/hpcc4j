@@ -29,6 +29,11 @@ import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.ListKeysRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.ListKeysResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.ListNamespacesRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.ListNamespacesResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.ListStoresRequest;
+import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.ListStoresResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.StoreInfo;
+import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.Stores_type0;
+import org.hpccsystems.ws.client.wrappers.gen.wsstore.StoreInfoWrapper;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.Namespaces_type0;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.Pairs_type0;
 import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.Pairs_type1;
@@ -787,6 +792,82 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         }
 
         return false;
+    }
+
+    /**
+     * List stores.
+     *
+     * @return the StoreInfoWrapper[]
+     * @throws java.lang.Exception
+     *             the exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    @WithSpan
+    public StoreInfoWrapper[] listStores() throws Exception, ArrayOfEspExceptionWrapper
+    {
+        return listStores(null, null, null);
+    }
+
+    /**
+     * List stores with filters.
+     *
+     * @param nameFilter
+     *            the name filter (optional)
+     * @param typeFilter
+     *            the type filter (optional)
+     * @param ownerFilter
+     *            the owner filter (optional)
+     * @return the StoreInfoWrapper[]
+     * @throws java.lang.Exception
+     *             the exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    @WithSpan
+    public StoreInfoWrapper[] listStores(@SpanAttribute String nameFilter, @SpanAttribute String typeFilter, @SpanAttribute String ownerFilter) throws Exception, ArrayOfEspExceptionWrapper
+    {
+        StoreInfoWrapper[] stores = new StoreInfoWrapper[0];
+        ListStoresRequest request = new ListStoresRequest();
+        if (nameFilter != null && !nameFilter.isEmpty())
+            request.setNameFilter(nameFilter);
+        if (typeFilter != null && !typeFilter.isEmpty())
+            request.setTypeFilter(typeFilter);
+        if (ownerFilter != null && !ownerFilter.isEmpty())
+            request.setOwnerFilter(ownerFilter);
+
+        try
+        {
+            ListStoresResponse response = ((WsstoreStub) stub).listStores(request);
+            if (response.getExceptions() != null)
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could not list stores");
+
+            Stores_type0 storesresp = response.getStores();
+            if (storesresp != null)
+            {
+                StoreInfo[] rawStores = storesresp.getStore();
+                if (rawStores != null && rawStores.length > 0)
+                {
+                    stores = new StoreInfoWrapper[rawStores.length];
+                    for (int i = 0; i < rawStores.length; i++)
+                    {
+                        stores[i] = new StoreInfoWrapper(rawStores[i]);
+                    }
+                }
+            }
+        }
+        catch (RemoteException e)
+        {
+            log.error("Could not list stores");
+            log.error(e);
+        }
+        catch (EspSoapFault e)
+        {
+            log.error("Could not list stores");
+            log.error(e);
+        }
+
+        return stores;
     }
 
     /*
