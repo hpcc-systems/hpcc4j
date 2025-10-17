@@ -14,7 +14,6 @@ import org.hpccsystems.ws.client.HPCCWsSMCClient;
 import org.hpccsystems.ws.client.HPCCWsSQLClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
 import org.hpccsystems.ws.client.extended.HPCCWsAttributesClient;
-import org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType;
 import org.hpccsystems.ws.client.platform.PhysicalFile;
 import org.hpccsystems.ws.client.platform.PhysicalMachine;
 import org.hpccsystems.ws.client.platform.Platform;
@@ -383,12 +382,11 @@ public class PlatformTester
                 HPCCWsDFUClient wsDFUClient = connector.getWsDFUClient();
                 if (v.getMajor() == 7 && v.getMinor() == 0)
                 {
-                    System.out.println("Attempting file access on HPCC 7.0.x cluster...");
-                    DFUFileAccessInfoWrapper a = wsDFUClient.getFileAccess(SecAccessType.Read, "benchmark::integer::2mb", "thor_160", 120, "random", true, true, true);
+                    System.out.println("HPCCWsDFUClient.getFileAccess() not supported on HPCC 7.0.x cluster...");
                 }
-                else if (v.getMajor() == 7 && v.getMinor() > 0)
+                else if (v.getMajor() > 7 || (v.getMajor() == 7 && v.getMinor() > 0))
                 {
-                    System.out.println("Attempting file access on HPCC 7.0.x cluster...");
+                    System.out.println("Attempting file access on HPCC 7.x+ cluster...");
                     wsDFUClient.getFileAccess("benchmark::integer::2mb", "thor_160", 120, "random");
                 }
                 platform.checkInHPCCWsClient(connector);
