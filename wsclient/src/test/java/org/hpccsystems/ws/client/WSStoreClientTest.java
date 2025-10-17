@@ -30,6 +30,8 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.axis2.AxisFault;
 import org.hpccsystems.commons.utils.CryptoHelper;
 import org.hpccsystems.commons.utils.DigestAlgorithmType;
+import org.hpccsystems.ws.client.gen.axis2.wsstore.latest.StoreInfo;
+import org.hpccsystems.ws.client.wrappers.gen.wsstore.StoreInfoWrapper;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 import org.junit.Assert;
@@ -784,6 +786,153 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             e.printStackTrace();
             Assert.fail();
+        }
+    }
+
+    @Test
+    @WithSpan
+    public void a5deleteValueTest() throws Exception, ArrayOfEspExceptionWrapper
+    {
+        try
+        {
+            System.out.println("Testing deleteValue on " + storename + "." + namespace + ".testkey...");
+            // First set a value
+            Assert.assertTrue(client.setValue(storename, namespace, "testkey", "testvalue", true));
+            
+            // Verify it exists
+            String value = client.fetchValue(storename, namespace, "testkey", true);
+            Assert.assertNotNull(value);
+            Assert.assertEquals("testvalue", value);
+            
+            // Now delete it
+            Assert.assertTrue(client.deleteValue(storename, namespace, "testkey", true));
+            
+            // Verify it's deleted
+            String deletedValue = client.fetchValue(storename, namespace, "testkey", true);
+            Assert.assertNull("Value should be null after deletion", deletedValue);
+
+            if (targetHPCCAuthenticates)
+            {
+                System.out.println("Testing deleteValue on user-specific key...");
+                // Test user-specific key deletion
+                Assert.assertTrue(client.setValue(storename, namespace, "user.testkey", "user.testvalue", false));
+                String userValue = client.fetchValue(storename, namespace, "user.testkey", false);
+                Assert.assertNotNull(userValue);
+                Assert.assertEquals("user.testvalue", userValue);
+                
+                Assert.assertTrue(client.deleteValue(storename, namespace, "user.testkey", false));
+                String deletedUserValue = client.fetchValue(storename, namespace, "user.testkey", false);
+                Assert.assertNull("User value should be null after deletion", deletedUserValue);
+            }
+            else
+            {
+                System.out.println("Avoiding a5deleteValueTest tests of per-user data because target HPCC does not authenticate");
+            }
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    @WithSpan
+    public void listStoresTest() throws Exception, ArrayOfEspExceptionWrapper
+    {
+        try
+        {
+            System.out.println("Listing all stores...");
+            StoreInfoWrapper[] stores = client.listStores();
+            Assert.assertNotNull("listStores should not return null", stores);
+            System.out.println("Found " + stores.length + " stores");
+            
+            boolean foundTestStore = false;
+            for (StoreInfoWrapper store : stores)
+            {
+                System.out.println("  Store: " + store.getName() + 
+                                   " (Type: " + (store.getType() != null ? store.getType() : "N/A") + 
+                                   ", Owner: " + (store.getOwner() != null ? store.getOwner() : "N/A") + ")");
+                if (storename.equals(store.getName()))
+                {
+                    foundTestStore = true;
+                }
+            }
+            Assert.assertTrue("Test store '" + storename + "' should be in the list", foundTestStore);
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    @WithSpan
+    public void listStoresWithFilterTest() throws Exception, ArrayOfEspExceptionWrapper
+    {
+        try
+        {
+            System.out.println("Listing stores with name filter...");
+            StoreInfoWrapper[] stores = client.listStores(storename, null, null);
+            Assert.assertNotNull("listStores with filter should not return null", stores);
+            
+            // All returned stores should match our filter
+            for (StoreInfoWrapper store : stores)
+            {
+                Assert.assertTrue("Store name should match filter", 
+                                  store.getName().contains(storename) || storename.contains(store.getName()));
+            }
+            
+            System.out.println("Testing listStores with type filter...");
+            StoreInfoWrapper[] testStores = client.listStores(null, "TEST", null);
+            if (testStores != null && testStores.length > 0)
+            {
+                for (StoreInfoWrapper store : testStores)
+                {
+                    System.out.println("  Found TEST store: " + store.getName());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    @WithSpan
+    public void a6listNSKeysTest() throws Exception, ArrayOfEspExceptionWrapper
+    {
+        try
+        {
+            System.out.println("Testing listNSKeys on " + storename + "." + namespace + "...");
+            
+            // Set some test keys first
+            Assert.assertTrue(client.setValue(storename, namespace, "key1", "value1", true));
+            Assert.assertTrue(client.setValue(storename, namespace, "key2", "value2", true));
+            Assert.assertTrue(client.setValue(storename, namespace, "key3", "value3", true));
+            
+            // List the keys
+            String[] keys = client.listNSKeys(storename, namespace, true);
+            Assert.assertNotNull("listNSKeys should not return null", keys);
+            Assert.assertTrue("Should have at least 3 keys", keys.length >= 3);
+            
+            System.out.println("Found " + keys.length + " keys in namespace");
+            boolean foundKey1 = false, foundKey2 = false, foundKey3 = false;
+            for (String key : keys)
+            {
+                System.out.println("  Key: " + key);
+                if ("key1".equals(key)) foundKey1 = true;
+                if ("key2".equals(key)) foundKey2 = true;
+                if ("key3".equals(key)) foundKey3 = true;
+            }
+            
+            Assert.assertTrue("Should find key1", foundKey1);
+            Assert.assertTrue("Should find key2", foundKey2);
+            Assert.assertTrue("Should find key3", foundKey3);
+        }
+        catch (Exception e)
+        {
+            Assert.fail(e.getLocalizedMessage());
         }
     }
 }
