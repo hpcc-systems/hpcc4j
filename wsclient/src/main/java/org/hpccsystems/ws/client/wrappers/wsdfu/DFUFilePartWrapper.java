@@ -74,31 +74,7 @@ public class DFUFilePartWrapper
         }
     }
 
-    /**
-     * Instantiates a new DFU file part wrapper.
-     *
-     * @param dfuFilePart
-     *            the dfu file part
-     * @param availableLocations
-     *            the available locations
-     */
-    public DFUFilePartWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFilePart dfuFilePart, Hashtable<Integer, String> availableLocations)
-    {
-        partIndex = dfuFilePart.getPartIndex();
-        org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileCopy[] dfufilecopies = dfuFilePart.getCopies().getDFUFileCopy();
-        wrappedDFUFileCopies = new DFUFileCopyWrapper[dfufilecopies.length];
-        for (int i = 0; i < dfufilecopies.length; i++)
-        {
-            Integer copyindex = dfufilecopies[i].getCopyIndex();
-            if (copyindex == null || copyindex < 1 || copyindex > dfufilecopies.length)
-                throw new IndexOutOfBoundsException("Encountered invalid Filepart Copy index: '" + copyindex + "'");
 
-            if (wrappedDFUFileCopies[copyindex - 1] != null)
-                throw new IndexOutOfBoundsException("Encountered duplicate Filepart copy index: '" + copyindex + "'");
-            wrappedDFUFileCopies[copyindex - 1] = new DFUFileCopyWrapper(dfufilecopies[i],
-                    availableLocations.get(dfufilecopies[i].getLocationIndex()));
-        }
-    }
 
     /**
      * Gets the part index.
