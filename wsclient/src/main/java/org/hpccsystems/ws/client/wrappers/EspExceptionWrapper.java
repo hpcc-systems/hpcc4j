@@ -102,19 +102,7 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
         this.message = raw.getMessage();
     }
 
-    /**
-     * Instantiates a new esp exception wrapper.
-     *
-     * @param raw
-     *            the raw
-     */
-    public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.EspException raw)
-    {
-        this.code = raw.getCode();
-        this.audience = raw.getAudience();
-        this.source = raw.getSource();
-        this.message = raw.getMessage();
-    }
+
 
     /**
      * Instantiates a new esp exception wrapper.

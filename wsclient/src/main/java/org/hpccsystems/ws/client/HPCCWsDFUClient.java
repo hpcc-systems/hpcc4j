@@ -74,7 +74,6 @@ import org.hpccsystems.ws.client.wrappers.wsdfu.DFUFileTypeWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUInfoWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFULogicalFileWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUResultWrapper;
-import org.hpccsystems.ws.client.wrappers.wsdfu.WsDFUClientStubWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -121,13 +120,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     public static final String     ROW_ELEMENT        = "Row";
     /** Constant <code>DATASET_ELEMENT="Dataset"</code> */
     public static final String     DATASET_ELEMENT    = "Dataset";
-    private WsDFUClientStubWrapper stubwrapper        = null;
-    private Options                stuboptions        = null;
 
     private static int             DEFAULTSERVICEPORT = -1;
     private static String          WSDLURL            = null;
-
-    private static final Version HPCC700              = new Version("7.0.0");
 
     /**
      * Load WSDLURL.
@@ -280,21 +275,18 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     {
         initBaseWsClient(conn, true); //Preemptively fetch HPCC build version, Containerized mode
 
-        if (targetHPCCBuildVersion != null)
+        try
         {
-            try
-            {
-                stubwrapper = new WsDFUClientStubWrapper(conn.getBaseUrl() + WSDFUURI, targetHPCCBuildVersion);
-                stub = stubwrapper.getLatestStub(null);
-                stub = setStubOptions(stub, conn);
-            }
-            catch (AxisFault e)
-            {
-                initErrMessage += "\nCould not initialize HPCCWsDFUStub - Review all HPCC connection values";
-            }
+            stub = setStubOptions(new WsDfuStub(conn.getBaseUrl() + WSDFUURI), conn);
         }
-        else
-            initErrMessage += "\nCannot initialize HPCCWsDFUStub without valid HPCC version object";
+        catch (AxisFault e)
+        {
+            String connectionInfo = getConnectionInfo(conn);
+            initErrMessage += "\nCould not initialize HPCCWsDFUStub - Review all HPCC connection values " + connectionInfo;
+        }
+
+        if (!initErrMessage.isEmpty())
+            log.error(initErrMessage);
     }
 
     /**
@@ -1353,50 +1345,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         return result;
     }
-    /**
-     * getFileAccessBlob - HPCC 7.0.x version
-     * The response is to be used in conjunction with DAFILESRV's rowservice distributed file read stream.
-     * The response grants the holder access to the target file for the duration of 'expiryseconds' seconds
-     * since the Accessblob is generated.
-     *
-     * This version is to be used when targeting a 7.0.x HPCC (ESP and DAFILESRV)
-     *
-     * @param accesstype
-     *            - the file access level to request to request
-     * @param filename
-     *            - the name of the target file to be accessed
-     * @param clustername
-     *            - the name of the target file's HPCC cluster (can be empty)
-     * @param expiryseconds
-     *            - the number of seconds file access is granted
-     * @param jobid
-     *            - unique identifier for access token
-     * @return - Access artifact to be propagated as part of DAFILESERV file access requests
-     * @throws java.lang.Exception
-     *             the exception
-     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
-     *             the array of esp exception wrapper
-     */
-    public String getFileAccessBlob(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype, String filename, String clustername,
-            int expiryseconds, String jobid) throws Exception, ArrayOfEspExceptionWrapper
-    {
-        if (targetHPCCBuildVersion == null || stub == null)
-            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
-        {
-            DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(accesstype, filename, clustername, expiryseconds, jobid, false, false, false);
-            if (fileaccessinfo == null) throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
-
-            return fileaccessinfo.getFileAccessInfoBlob();
-        }
-        else if (targetHPCCBuildVersion.isNewerThan(HPCC700))
-        {
-            return getFileAccessBlob(filename, clustername, expiryseconds, jobid);
-        }
-        else
-            throw new Exception("File access not supported in HPCC version: " + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor() + ".x");
-    }
 
     /**
      * getFileAccessBlob
@@ -1423,105 +1372,13 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         if (targetHPCCBuildVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetHPCCBuildVersion.isNewerThan(HPCC700))
-        {
-            DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(filename, clustername, expiryseconds, jobid);
-            if (fileaccessinfo == null) throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
+        DFUFileAccessInfoWrapper fileaccessinfo = getFileAccess(filename, clustername, expiryseconds, jobid);
+        if (fileaccessinfo == null) throw new Exception("Could not acquire file access for '" + filename + "' on cluster: '" + clustername + "'");
 
-            return fileaccessinfo.getFileAccessInfoBlob();
-        }
-        else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
-        {
-            return getFileAccessBlob(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Full, filename, clustername, expiryseconds, jobid);
-        }
-        else
-            throw new Exception("File access blob not supported in HPCC version: " + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor() + ".x");
+        return fileaccessinfo.getFileAccessInfoBlob();
     }
 
-    /**
-     * To be used in conjunction with DAFILESRV's rowservice distributed file read stream.
-     * The response wrapper provides access to the 'accessblob' which grants the holder read access
-     * to the target file for the duration of 'expiryseconds' seconds. Other access details can be
-     * fetched from the wrapper.
-     *
-     * since the Accessblob is generated.
-     *
-     * @param accesstype
-     *            HPCC 7.0.x version
-     *            - the file access level to request to request
-     * @param filename
-     *            - the name of the target file to be accessed
-     * @param clustername
-     *            - the name of the target file's HPCC cluster (can be empty)
-     * @param expiryseconds
-     *            - the number of seconds file access is granted
-     * @param jobid
-     *            - unique identifier for access token
-     * @param includejsonTypeInfo
-     *            - flag to request file info in JSON format
-     * @param includebinTypeInfo
-     *            - flag to request file info in Binary format
-     * @param requestfileinfo
-     *            the requestfileinfo
-     * @return - Access artifact to be propagated as part of DAFILESERV file access requests
-     * @throws java.lang.Exception
-     *             the exception
-     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
-     *             the array of esp exception wrapper
-     */
-    public DFUFileAccessInfoWrapper getFileAccess(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype, String filename,
-            String clustername, int expiryseconds, String jobid, boolean includejsonTypeInfo, boolean includebinTypeInfo, boolean requestfileinfo)
-            throws Exception, ArrayOfEspExceptionWrapper
-    {
-        if (targetHPCCBuildVersion == null || stub == null)
-            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
-        {
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub stub1_39 = stubwrapper.get1_39Stub(stuboptions);
-
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileAccessRequest request = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileAccessRequest();
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileAccessRequestBase requestbase = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileAccessRequestBase();
-
-            requestbase.setAccessRole(requestfileinfo ? org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.FileAccessRole.External
-                    : org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.FileAccessRole.Token);
-            requestbase.setAccessType(accesstype);
-            requestbase.setCluster(clustername);
-            requestbase.setExpirySeconds(expiryseconds);
-            requestbase.setJobId(jobid);
-            requestbase.setName(filename);
-            requestbase.setReturnBinTypeInfo(includebinTypeInfo);
-            requestbase.setReturnJsonTypeInfo(includejsonTypeInfo);
-
-            request.setRequestBase(requestbase);
-
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileAccessResponse resp = null;
-
-            try
-            {
-                resp = stub1_39.dFUFileAccess(request);
-            }
-            catch (RemoteException e)
-            {
-                throw new Exception("HPCCWsDFUClient.getFileAccess(...) encountered RemoteException.", e);
-            }
-
-            if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()),
-                    "Error acquiring read access for: '" + clustername + "::" + filename + "'");
-
-            if (resp == null || resp.getAccessInfo() == null)
-            {
-                throw new Exception("Did not receive DFUFileAccess response");
-            }
-            return new DFUFileAccessInfoWrapper(resp.getAccessInfo());
-        }
-        else if (targetHPCCBuildVersion.isNewerThan(HPCC700))
-        {
-            return getFileAccess(filename, clustername, expiryseconds, jobid);
-        }
-        else
-            throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
-    }
 
     /**
      * To be used in conjunction with DAFILESRV's rowservice distributed file read/write stream.
@@ -1549,54 +1406,59 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         if (targetHPCCBuildVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetHPCCBuildVersion.isNewerThan(HPCC700))
+        verifyStub(); // Throws exception if stub failed
+
+        DFUFileAccessV2Request request = new DFUFileAccessV2Request();
+
+        request.setCluster(clustername);
+        request.setExpirySeconds(expiryseconds);
+        request.setRequestId(jobid);
+        request.setName(filename);
+        request.setReturnTextResponse(true);
+
+        DFUFileAccessResponse resp = null;
+
+        try
         {
-            verifyStub(); // Throws exception if stub failed
-
-            DFUFileAccessV2Request request = new DFUFileAccessV2Request();
-
-            request.setCluster(clustername);
-            request.setExpirySeconds(expiryseconds);
-            request.setRequestId(jobid);
-            request.setName(filename);
-            request.setReturnTextResponse(true);
-
-            DFUFileAccessResponse resp = null;
-
-            try
-            {
-                resp = ((WsDfuStub) stub).dFUFileAccessV2(request);
-            }
-            catch (RemoteException e)
-            {
-                throw new Exception("Error acquiring read access for: '" + clustername + "::" + filename + "'", e);
-            }
-            catch (EspSoapFault e)
-            {
-                handleEspSoapFaults(new EspSoapFaultWrapper(e), "Error acquiring read access for: '" + clustername + "::" + filename + "'");
-            }
-
-            if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()),
-                    "Error acquiring read access for: '" + clustername + "::" + filename + "'");
-
-            if (resp == null || resp.getAccessInfo() == null && (resp.getExceptions() == null || resp.getExceptions().getException().length == 0))
-            {
-                throw new Exception("Did not receive DFUFileAccess response");
-            }
-
-            return new DFUFileAccessInfoWrapper(resp.getAccessInfo(), resp.getType());
+            resp = ((WsDfuStub) stub).dFUFileAccessV2(request);
         }
-        else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
+        catch (RemoteException e)
         {
-            return getFileAccess(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Read, filename, clustername, expiryseconds, jobid, true, false, true);
+            throw new Exception("Error acquiring read access for: '" + clustername + "::" + filename + "'", e);
         }
-        else
-            throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Error acquiring read access for: '" + clustername + "::" + filename + "'");
+        }
+
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()),
+                "Error acquiring read access for: '" + clustername + "::" + filename + "'");
+
+        if (resp == null || resp.getAccessInfo() == null && (resp.getExceptions() == null || resp.getExceptions().getException().length == 0))
+        {
+            throw new Exception("Did not receive DFUFileAccess response");
+        }
+
+        return new DFUFileAccessInfoWrapper(resp.getAccessInfo(), resp.getType());
     }
 
     /**
-     * Create a new (unpublished) dfu file. Does not request all file metadata.
-     * DAFILESERV fileaccess token is requested
+     * Create a new (unpublished) dfu file with partition host mapping.
+     * 
+     * @deprecated This method was removed in HPCC4J 10.0.0 as it required HPCC Platform v7.0.0 (wsdfu v1_39) which is no longer supported.
+     *             The partition host mapping feature was only available in HPCC Platform v7.0.0.
+     *             
+     *             <p><b>Migration:</b> Use {@link #createFileAndAcquireAccess(String, String, String, int, Boolean, DFUFileTypeWrapper, String)}
+     *             without the partitionHostMap parameter. HPCC Platform versions &gt; 7.0.0 handle file part placement automatically.</p>
+     *             
+     *             <p><b>Example:</b></p>
+     *             <pre>
+     *             // Old code (no longer supported):
+     *             // createFile(fileName, cluster, eclRecordDef, partitionHostMap, expirySeconds)
+     *             
+     *             // New code:
+     *             createFileAndAcquireAccess(fileName, cluster, eclRecordDef, expirySeconds, false, null, null)
+     *             </pre>
      *
      * @param fileName
      *            the file name
@@ -1605,114 +1467,26 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @param eclRecordDefinition
      *            the ecl record definition
      * @param partitionHostMap
-     *            Array declaring the Filepart[i] to Node mapping
+     *            Array declaring the Filepart[i] to Node mapping (no longer supported)
      * @param expirySeconds
      *            the expiry seconds
      * @return the DFU create file wrapper
      * @throws java.lang.Exception
-     *             the exception
+     *             always thrown - this method is no longer supported
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
+    @Deprecated
     public DFUCreateFileWrapper createFile(String fileName, String cluster, String eclRecordDefinition, String[] partitionHostMap, int expirySeconds)
             throws Exception, ArrayOfEspExceptionWrapper
     {
-        return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, partitionHostMap, expirySeconds, false, false,
-                org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.FileAccessRole.External,
-                org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Write);
-    }
-
-    /**
-     * Create a new (unpublished) dfu file. All file metadata can be requested.
-     * DAFILESERV fileaccess token is requested
-     *
-     * @param fileName
-     *            the file name
-     * @param cluster
-     *            the cluster
-     * @param eclRecordDefinition
-     *            the ecl record definition
-     * @param partitionHostMap
-     *            Array declaring the Filepart[i] to Node mapping
-     * @param expirySeconds
-     *            the expiry seconds
-     * @param returnBinTypeInfo
-     *            the return bin type info
-     * @param returnJsonTypeInfo
-     *            the return json type info
-     * @param accessrole
-     *            the accessrole
-     * @param accesstype
-     *            the accesstype
-     * @return the DFU create file wrapper
-     * @throws java.lang.Exception
-     *             the exception
-     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
-     *             the array of esp exception wrapper
-     */
-    public DFUCreateFileWrapper createFileAndAcquireAccess(String fileName, String cluster, String eclRecordDefinition, String[] partitionHostMap,
-            int expirySeconds, Boolean returnBinTypeInfo, Boolean returnJsonTypeInfo,
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.FileAccessRole accessrole,
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType accesstype) throws Exception, ArrayOfEspExceptionWrapper
-    {
-        if (targetHPCCBuildVersion == null || stub == null)
-            throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
-
-        if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
-        {
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub stub1_39 = stubwrapper.get1_39Stub(stuboptions);
-
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileCreateRequest request = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileCreateRequest();
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileAccessRequestBase requestbase = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileAccessRequestBase();
-
-            request.setECLRecordDefinition(eclRecordDefinition);
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.EspStringArray espStringArray = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.EspStringArray();
-
-            for (int i = 0; i < partitionHostMap.length; i++)
-            {
-                espStringArray.addItem(partitionHostMap[i]);
-            }
-            request.setPartLocations(espStringArray);
-
-            requestbase.setCluster(cluster);
-            requestbase.setExpirySeconds(expirySeconds);
-            requestbase.setName(fileName);
-            if (returnBinTypeInfo != null)
-                requestbase.setReturnBinTypeInfo(returnBinTypeInfo);
-            if (returnJsonTypeInfo != null)
-                requestbase.setReturnJsonTypeInfo(returnJsonTypeInfo);
-            requestbase.setAccessRole(accessrole);
-            requestbase.setAccessType(accesstype);
-
-            request.setRequestBase(requestbase);
-
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileCreateResponse resp = null;
-
-            try
-            {
-                resp = stub1_39.dFUFileCreate(request);
-            }
-            catch (RemoteException e)
-            {
-                throw new Exception("HPCCWsDFUClient.getFileAccess(...) encountered RemoteException.", e);
-            }
-
-            if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()),
-                    "Error creating DFU file: '" + cluster + "::" + fileName + "'");
-
-            if (resp == null || resp.getAccessInfo() == null)
-            {
-                throw new Exception("Did not receive DFUFileCreateResponse response");
-            }
-
-            return new DFUCreateFileWrapper(resp);
-        }
-        else if (targetHPCCBuildVersion.isNewerThan(HPCC700))
-        {
-            return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, null, null, null);
-        }
-        else
-            throw new Exception("WSDFU File Create not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
+        throw new UnsupportedOperationException(
+            "createFile() with partitionHostMap parameter is no longer supported. " +
+            "This method required HPCC Platform v7.0.0 (wsdfu v1_39) which is no longer supported in HPCC4J 10.0.0+. " +
+            "HPCC Platform versions > 7.0.0 handle file part placement automatically. " +
+            "Use createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, compressed, type, requestId) instead. " +
+            "See migration guide: https://github.com/hpcc-systems/hpcc4j/blob/candidate-10.0.x/MIGRATION-10.0.md"
+        );
     }
 
     /**
@@ -1827,64 +1601,54 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         if (targetHPCCBuildVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
 
-        if (targetHPCCBuildVersion.isNewerThan(HPCC700))
+        verifyStub(); // Throws exception if stub failed
+
+        DFUFileCreateV2Request request = new DFUFileCreateV2Request();
+
+        request.setECLRecordDefinition(eclRecordDefinition);
+        request.setCluster(cluster);
+        request.setExpirySeconds(expirySeconds);
+        request.setName(fileName);
+        request.setReturnTextResponse(true);
+        if (compressed != null) request.setCompressed(compressed);
+        if (type != null) request.setType(type.getFUFileType());
+        if (requestId != null) request.setRequestId(requestId);
+
+        DFUFileCreateResponse resp = null;
+
+        try
         {
-            verifyStub(); // Throws exception if stub failed
-
-            DFUFileCreateV2Request request = new DFUFileCreateV2Request();
-
-            request.setECLRecordDefinition(eclRecordDefinition);
-            request.setCluster(cluster);
-            request.setExpirySeconds(expirySeconds);
-            request.setName(fileName);
-            request.setReturnTextResponse(true);
-            if (compressed != null) request.setCompressed(compressed);
-            if (type != null) request.setType(type.getFUFileType());
-            if (requestId != null) request.setRequestId(requestId);
-
-            DFUFileCreateResponse resp = null;
-
-            try
-            {
-                resp = ((WsDfuStub) stub).dFUFileCreateV2(request);
-            }
-            catch (RemoteException e)
-            {
-                throw new Exception("HPCCWsDFUClient.createFileAndAcquireAccess(...) encountered RemoteException.", e);
-            }
-            catch (EspSoapFault e)
-            {
-                handleEspSoapFaults(new EspSoapFaultWrapper(e), "Error creating DFU file: '" + cluster + "::" + fileName + "'");
-            }
-
-            if (resp == null || resp.getAccessInfo() == null && (resp.getExceptions() == null || resp.getExceptions().getException().length == 0))
-            {
-                throw new Exception("Did not receive DFUFileCreateResponse");
-            }
-            if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()),
-                    "Error creating DFU file: '" + cluster + "::" + fileName + "'");
-
-            if (resp.getFileId() == null)
-            {
-                throw new Exception("Invalid DFUFileCreateResponse. FildId is null.");
-            }
-
-            try
-            {
-                return new DFUCreateFileWrapper(resp);
-            }
-            catch (Exception e)
-            {
-                throw new Exception("createFileAndAcquireAccess('" + fileName +"', '"+cluster+"'): Could not wrap response from server", e);
-            }
+            resp = ((WsDfuStub) stub).dFUFileCreateV2(request);
         }
-        else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
+        catch (RemoteException e)
         {
-            throw new Exception("Must provide filepart mapping via createFileAndAcquireAccess() when targeting HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
+            throw new Exception("HPCCWsDFUClient.createFileAndAcquireAccess(...) encountered RemoteException.", e);
         }
-        else
-            throw new Exception("WSDFU File Create not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
+        catch (EspSoapFault e)
+        {
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Error creating DFU file: '" + cluster + "::" + fileName + "'");
+        }
 
+        if (resp == null || resp.getAccessInfo() == null && (resp.getExceptions() == null || resp.getExceptions().getException().length == 0))
+        {
+            throw new Exception("Did not receive DFUFileCreateResponse");
+        }
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()),
+                "Error creating DFU file: '" + cluster + "::" + fileName + "'");
+
+        if (resp.getFileId() == null)
+        {
+            throw new Exception("Invalid DFUFileCreateResponse. FildId is null.");
+        }
+
+        try
+        {
+            return new DFUCreateFileWrapper(resp);
+        }
+        catch (Exception e)
+        {
+            throw new Exception("createFileAndAcquireAccess('" + fileName +"', '"+cluster+"'): Could not wrap response from server", e);
+        }
     }
 
     /**

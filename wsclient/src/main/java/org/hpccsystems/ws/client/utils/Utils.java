@@ -43,6 +43,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.TraceFlags;
 import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
 import io.opentelemetry.context.Context;
 import io.opentelemetry.context.propagation.TextMapSetter;
@@ -1256,7 +1257,17 @@ public class Utils
             TextMapSetter<Map<String, String>> setter = Map::put;
             W3CTraceContextPropagator.getInstance().inject(Context.current(), carrier, setter);
 
-            traceparent = carrier.getOrDefault("traceparent", "00-" + span.getSpanContext().getTraceId() + "-" + span.getSpanContext().getSpanId() + "-00");
+            // If the propagator didn't inject a traceparent (should not happen with valid span),
+            // create one manually using the span's actual sampling flags
+            if (!carrier.containsKey("traceparent"))
+            {
+                String traceFlags = span.getSpanContext().getTraceFlags().asHex();
+                traceparent = "00-" + span.getSpanContext().getTraceId() + "-" + span.getSpanContext().getSpanId() + "-" + traceFlags;
+            }
+            else
+            {
+                traceparent = carrier.get("traceparent");
+            }
             carrier.clear();
         }
 

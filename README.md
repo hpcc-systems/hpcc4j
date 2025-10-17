@@ -42,6 +42,8 @@ Everybody is encouraged to report issues and contribute to the project. When ope
   - The project is based on stub code generated from WSDLs using Eclipse tools based on Apache Axis and JSch(Java Secure Channel) for secure ftp transfers
   - [Open Issues](https://track.hpccsystems.com/issues/?jql=project%20%3D%20JAPI%20AND%20status%20%3D%20Open)
   - [Sample code](https://github.com/hpcc-systems/hpcc4j/blob/master/wsclient/src/test/java/org/hpccsystems/ws/client/platform/test/PlatformTester.java)
+  - Migration Guide:
+    - [Migration Guide for v10.0.x](MIGRATION-10.0.md)
 
 - [DFS Client](https://github.com/hpcc-systems/hpcc4j/tree/master/dfsclient/README.md)
   - Java based interface into HPCC's dfs backend

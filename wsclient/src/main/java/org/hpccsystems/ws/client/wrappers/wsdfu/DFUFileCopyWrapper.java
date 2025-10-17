@@ -42,21 +42,7 @@ public class DFUFileCopyWrapper
         path = dfuFileCopy.getPath();
     }
 
-    /**
-     * Instantiates a new DFU file copy wrapper.
-     *
-     * @param dfuFileCopy
-     *            the dfu file copy
-     * @param resolvedhost
-     *            the resolvedhost
-     */
-    public DFUFileCopyWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileCopy dfuFileCopy, String resolvedhost)
-    {
-        resolvedHost = resolvedhost;
-        copyIndex = dfuFileCopy.getCopyIndex();
-        locationIndex = dfuFileCopy.getLocationIndex();
-        path = dfuFileCopy.getPath();
-    }
+
 
     /**
      * Gets the copy host.
