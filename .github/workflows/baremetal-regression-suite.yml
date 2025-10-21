@@ -71,7 +71,7 @@ jobs:
             versionPattern = re.compile(r'.*([0-9]+\.[0-9]+\.[0-9]+).*')
 
             # Get latest release version
-            gitTagProcess = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+            gitTagProcess = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
             (output, err) = gitTagProcess.communicate()
             gitTagProcessStatus = gitTagProcess.wait()
 
@@ -79,7 +79,7 @@ jobs:
                 print('Unable to retrieve latest git tag. With error: ' + str(err))
                 return None
 
-            latestGitTag = str(output)
+            latestGitTag = output.strip()
 
             versionMatch = versionPattern.match(latestGitTag)
             if versionMatch:
