@@ -1,4 +1,4 @@
 package org.hpccsystems.commons.annotations;
 
-public interface RegressionTests{}
+public @interface RegressionTests{}
 

@@ -17,4 +17,4 @@
 
 package org.hpccsystems.commons.annotations;
 
-public interface KnownServerIssueTests{}
+public @interface KnownServerIssueTests{}
