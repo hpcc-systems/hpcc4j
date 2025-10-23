@@ -22,12 +22,12 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 /**
- * Sample test class demonstrating the use of KnownServerSideFailure annotation.
+ * Sample test class demonstrating the use of KnownServerIssueTests annotation.
  * Tests in this class are known to fail due to server-side issues and should be
  * excluded from normal test runs but can be executed with the 
  * known-server-side-failures profile to verify server fixes.
  */
-@Category(org.hpccsystems.commons.annotations.KnownServerSideFailure.class)
+@Category(org.hpccsystems.commons.annotations.KnownServerIssueTests.class)
 public class KnownServerSideFailureTest extends BaseRemoteTest
 {
     /**

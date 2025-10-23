@@ -476,6 +476,13 @@
       </build>
     </profile>
     <profile>
+      <id>known-server-issues</id>
+      <properties>
+        <maven.gpg.skip>true</maven.gpg.skip>
+        <groups>org.hpccsystems.commons.annotations.KnownServerIssueTests</groups>
+      </properties>
+    </profile>
+    <profile>
       <id>jenkins-release</id>
       <properties>
         <central.publishing.autopublish>true</central.publishing.autopublish>
@@ -606,7 +613,7 @@
       <id>known-server-side-failures</id>
       <properties>
         <maven.gpg.skip>true</maven.gpg.skip>
-        <groups>org.hpccsystems.commons.annotations.KnownServerSideFailure</groups>
+        <groups>org.hpccsystems.commons.annotations.KnownServerIssueTests</groups>
       </properties>
       <build>
         <plugins>

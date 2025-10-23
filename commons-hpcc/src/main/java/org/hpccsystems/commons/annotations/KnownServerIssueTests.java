@@ -17,4 +17,4 @@
 
 package org.hpccsystems.commons.annotations;
 
-public interface KnownServerSideFailure{}
+public interface KnownServerIssueTests{}
