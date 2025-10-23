@@ -46,24 +46,7 @@ public class DFUCreateFileWrapper
             throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
     }
 
-    /**
-     * Instantiates a new DFU create file wrapper.
-     *
-     * @param resp
-     *            the resp
-     * @throws Exception
-     *             the exception
-     */
-    public DFUCreateFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.DFUFileCreateResponse resp) throws Exception
-    {
-        if (resp != null && resp.getAccessInfo() != null)
-        {
-            fileId = resp.getFileId();
-            wrappedDFUFileAccessInfo = new DFUFileAccessInfoWrapper(resp.getAccessInfo(), null);
-        }
-        else
-            throw new Exception("Could not construct DFUCreateFileWrapper: response or response.getAccessInfo is null");
-    }
+
 
     /**
      * Gets the ExpiryTime value for this DFUFileAccessInfo.

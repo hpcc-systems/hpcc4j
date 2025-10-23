@@ -69,17 +69,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
         copy(arrayofespexception);
     }
 
-    /**
-     * Instantiates a new array of esp exception wrapper.
-     *
-     * @param arrayofespexception
-     *            the arrayofespexception
-     */
-    public ArrayOfEspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.ArrayOfEspException arrayofespexception)
-    {
-        super();
-        copy(arrayofespexception);
-    }
+
 
     /**
      * Instantiates a new array of esp exception wrapper.
@@ -455,22 +445,7 @@ public class ArrayOfEspExceptionWrapper extends ArrayOfBaseExceptionWrapper
      * @param arrayofespexception
      *            the arrayofespexception
      */
-    private void copy(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.ArrayOfEspException arrayofespexception)
-    {
-        if (arrayofespexception != null)
-        {
-            this.source = arrayofespexception.getSource();
-            org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.EspException[] exceptionarray = arrayofespexception.getException();
-            if (exceptionarray != null)
-            {
-                this.exceptions = new ArrayList<BaseExceptionWrapper>();
-                for (int i = 0; i < exceptionarray.length; i++)
-                {
-                    this.exceptions.add(new EspExceptionWrapper(exceptionarray[i]));
-                }
-            }
-        }
-    }
+
 
     /**
      * Copy.
