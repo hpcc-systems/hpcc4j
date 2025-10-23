@@ -28,6 +28,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActions;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataResponse;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUDataColumn;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDataColumn;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessV2Request;
@@ -864,10 +865,22 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
                 final Object r = m.invoke(resp);
                 if (r != null)
                 {
-                    DFUDataColumn[] thesecols = (DFUDataColumn[]) r;
-                    for (DFUDataColumn col : Arrays.asList(thesecols))
+                    DFUDataColumn[] thesecols = null;
+                    if (r instanceof ArrayOfDFUDataColumn)
                     {
-                        cols.add(new DFUDataColumnWrapper(col));
+                        thesecols = ((ArrayOfDFUDataColumn) r).getDFUDataColumn();
+                    }
+                    else if (r instanceof DFUDataColumn[])
+                    {
+                        thesecols = (DFUDataColumn[]) r;
+                    }
+                    
+                    if (thesecols != null)
+                    {
+                        for (DFUDataColumn col : Arrays.asList(thesecols))
+                        {
+                            cols.add(new DFUDataColumnWrapper(col));
+                        }
                     }
                 }
             }
@@ -876,10 +889,22 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
                 final Object r = m.invoke(resp);
                 if (r != null)
                 {
-                    DFUDataColumn[] thesecols = (DFUDataColumn[]) r;
-                    for (DFUDataColumn col : Arrays.asList(thesecols))
+                    DFUDataColumn[] thesecols = null;
+                    if (r instanceof ArrayOfDFUDataColumn)
                     {
-                        cols.add(new DFUDataColumnWrapper(col));
+                        thesecols = ((ArrayOfDFUDataColumn) r).getDFUDataColumn();
+                    }
+                    else if (r instanceof DFUDataColumn[])
+                    {
+                        thesecols = (DFUDataColumn[]) r;
+                    }
+                    
+                    if (thesecols != null)
+                    {
+                        for (DFUDataColumn col : Arrays.asList(thesecols))
+                        {
+                            cols.add(new DFUDataColumnWrapper(col));
+                        }
                     }
                 }
             }
