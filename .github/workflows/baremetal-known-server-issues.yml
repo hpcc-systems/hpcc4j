@@ -1,0 +1,388 @@
+name: Baremetal Known Server Issues
+
+on:
+  workflow_dispatch:
+    inputs:
+      hpcc_version:
+        description: 'HPCC Platform version (optional - defaults to latest)'
+        required: false
+        type: string
+      security_mode:
+        description: 'Security configuration'
+        required: true
+        default: 'disabled'
+        type: choice
+        options:
+        - enabled
+        - disabled
+
+jobs:
+  test-known-server-issues:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+    - name: Setup JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+
+    - name: Setup Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: "Install Python dependencies"
+      run: |
+        set -xe
+        python -VV
+        python -m site
+        python -m pip install --upgrade pip setuptools wheel
+
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        fetch-tags: true
+
+    - name: Extract HPCC Version
+      id: extract_version
+      env:
+        MANUAL_VERSION: ${{ github.event.inputs.hpcc_version }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH_NAME: ${{ github.ref_name }}
+        ACTIONS_STEP_DEBUG: true
+      shell: python
+      run: |
+        import os
+        import re
+        import subprocess
+        import time
+        import sys
+
+        def extractVersion(versionStr):
+            parts = versionStr.split('.')
+            if len(parts) != 3:
+                print('Invalid version: ' + versionStr)
+                sys.exit(1)
+            if parts[2].lower() == 'x':
+                parts[2] = '0'
+
+            major, minor, point = map(int, parts)
+            return [major, minor, point]
+
+        def getTagVersionForCmd(cmd):
+            versionPattern = re.compile(r'.*hpcc4j_([0-9]+\.[0-9]+\.[0-9]+).*')
+
+            # Handle shell pipe commands by extracting git command and using Python for "head -n 1"
+            try:
+                if ' | head -n 1' in cmd:
+                    # Extract git command without shell pipe
+                    git_cmd = cmd.replace(' | head -n 1', '').strip()
+                    cmd_args = ['git'] + git_cmd.split()[1:]  # Split git command properly
+                else:
+                    import shlex
+                    cmd_args = shlex.split(cmd)
+                
+                result = subprocess.run(cmd_args, capture_output=True, text=True, check=True)
+                output_lines = result.stdout.strip().splitlines()
+                
+                if not output_lines or not output_lines[0]:
+                    print('No git tags found')
+                    return None
+                
+                # Get the first line (equivalent to head -n 1)
+                latestGitTag = output_lines[0].strip()
+                
+            except subprocess.CalledProcessError as e:
+                print(f'Unable to retrieve latest git tag. Error: {e}')
+                return None
+
+            versionMatch = versionPattern.match(latestGitTag)
+            if versionMatch:
+                return extractVersion(versionMatch.group(1))
+            else:
+                print('Unable to extract version from git tag: ' + latestGitTag)
+                return None
+
+        def getLatestBranchVersion(branchName):
+
+            latestVersion = getTagVersionForCmd("git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 1")
+            if latestVersion is None:
+                print('Unable to find latest release version')
+                sys.exit(2)
+
+            if branchName == 'master':
+                return [latestVersion[0], latestVersion[1], latestVersion[2]]
+            else:
+                # Extract candidate branch major / minor version
+                candidateBranchPattern = re.compile(r'candidate-([0-9]+\.[0-9]+\.([0-9]+|x)).*')
+                branchVersionMatch = candidateBranchPattern.match(branchName)
+                if branchVersionMatch is None:
+                    print('Unable to extract version from branch name: ' + branchName)
+                    sys.exit(3)
+
+                branchVersion = extractVersion(branchVersionMatch.group(1))
+
+                # Get latest release in branch
+                findLatestBranchVer = "git tag --list 'hpcc4j_" + str(branchVersion[0]) + "." + str(branchVersion[1]) + "*-release' --sort=-v:refname | head -n 1"
+                latestBranchVersion = getTagVersionForCmd(findLatestBranchVer)
+                if latestBranchVersion is None:
+                    print('No release found for branch: ' + branchName + ' using latest release: ' + str(latestVersion))
+                    return latestVersion
+                else:
+                    return latestBranchVersion
+
+        # Check if manual version was provided
+        manual_version = os.environ.get('MANUAL_VERSION', '').strip()
+        if manual_version:
+            print(f'Using manually specified version: {manual_version}')
+            try:
+                targetVersion = extractVersion(manual_version)
+            except (ValueError, IndexError) as e:
+                print(f'Invalid manual version format: {manual_version}')
+                sys.exit(1)
+        else:
+            # Use automatic version detection
+            branch_name = os.environ['BRANCH_NAME']
+            targetVersion = getLatestBranchVersion(branch_name)
+
+        targetVersionStr = ".".join(map(str, targetVersion))
+        targetVersionURL = 'https://github.com/hpcc-systems/HPCC-Platform/releases/download/community_' + targetVersionStr \
+                           + '-1/hpccsystems-platform-community_' + targetVersionStr + '-1jammy_amd64_withsymbols.deb'
+
+        github_output_path = os.getenv('GITHUB_OUTPUT')
+        if github_output_path:
+          with open(github_output_path, 'a') as output_file:
+            output_file.write(f"targetVersion={targetVersionStr}\n")
+            output_file.write(f"targetVersionURL={targetVersionURL}\n")
+        else:
+          print('GITHUB_OUTPUT environment variable is not set.')
+
+    - name: Install HPCC Platform
+      run: |
+        if wget -q --spider ${{ steps.extract_version.outputs.targetVersionURL }}; then
+          wget -q ${{ steps.extract_version.outputs.targetVersionURL }}
+        else
+          echo "Unable to find HPCC version to install: ${{ steps.extract_version.outputs.targetVersion }}"
+          exit 1
+        fi
+
+        sudo apt-get update
+        sudo apt-get install -y expect
+        sudo dpkg -i hpccsystems-platform-community_*.deb
+        sudo apt-get -f install -y
+
+    - name: Setup Certificates
+      run: |
+        sudo /opt/HPCCSystems/etc/init.d/setupPKI
+
+    - name: Write htpasswd file 
+      if: github.event.inputs.security_mode == 'enabled'
+      shell: bash 
+      run: |
+        # Generate random credentials
+        DUMMY_USER=$(openssl rand -hex 8)
+        DUMMY_PASS=$(openssl rand -hex 16)
+        JUNIT_USER=$(openssl rand -hex 4)@$(openssl rand -hex 4)
+
+        # Export credentials as environment variables
+        echo "DUMMY_USER=$DUMMY_USER" >> $GITHUB_ENV
+        echo "DUMMY_PASS=$DUMMY_PASS" >> $GITHUB_ENV
+        echo "JUNIT_USER=$JUNIT_USER" >> $GITHUB_ENV
+
+        # Create .htpasswd file with user:password
+        sudo apt-get install -y apache2-utils
+
+        # Add dummy user and password to .htpasswd file
+        sudo htpasswd -c -b /etc/HPCCSystems/.htpasswd $DUMMY_USER $DUMMY_PASS
+
+        # Add test user and password to .htpasswd file
+        sudo htpasswd -b /etc/HPCCSystems/.htpasswd $JUNIT_USER $DUMMY_PASS
+
+    - name: Add htpasswdsecmgr to environment.xml
+      if: github.event.inputs.security_mode == 'enabled'
+      shell: python
+      run: | 
+        import xml.etree.ElementTree as ET
+        
+        # Parse the environment.xml file
+        env_file = '/etc/HPCCSystems/environment.xml'
+        tree = ET.parse(env_file)
+        root = tree.getroot()
+        
+        # 1. Add BuildSet under Environment/Programs/Build
+        programs = root.find('./Programs')
+        build = programs.find('./Build')
+        
+        # Create the BuildSet element with attributes
+        buildset = ET.SubElement(build, 'BuildSet')
+        buildset.set('deployable', 'no')
+        buildset.set('installSet', 'deploy_map.xml')
+        buildset.set('name', 'htpasswdsecmgr')
+        buildset.set('path', 'componentfiles/htpasswdsecmgr')
+        buildset.set('processName', 'HtpasswdSecurityManager')
+        buildset.set('schema', 'htpasswd_secmgr.xsd')
+        
+        # 2. Update Authentication method attribute
+        software = root.find('./Software')
+        esp_processes = software.findall('./EspProcess')
+        
+        for esp in esp_processes:
+            auth = esp.find('./Authentication')
+            if auth is not None:
+                auth.set('method', 'secmgrPlugin')
+        
+        # 3. Update only EspBinding with name "myespsmc" type attribute
+        for esp in esp_processes:
+            bindings = esp.findall('./EspBinding')
+            for binding in bindings:
+                if binding.get('name') == 'myespsmc':
+                    binding.set('type', 'htpasswdsecmgr')
+        
+        # 4. Add HtpasswdSecurityManager node under Software
+        htpasswd_mgr = ET.SubElement(software, 'HtpasswdSecurityManager')
+        htpasswd_mgr.set('build', '_')
+        htpasswd_mgr.set('buildSet', 'htpasswdsecmgr')
+        htpasswd_mgr.set('htpasswdFile', '/etc/HPCCSystems/.htpasswd')
+        htpasswd_mgr.set('instanceFactoryName', 'createInstance')
+        htpasswd_mgr.set('libName', 'libhtpasswdSecurity.so')
+        htpasswd_mgr.set('name', 'htpasswdsecmgr')
+        htpasswd_mgr.set('type', 'SecurityManager')
+        
+        # Write changes back to the file
+        tree.write('tmp_environment.xml')
+        print("Environment.xml updated successfully for security configuration")
+
+    - name: Replace environment.xml
+      if: github.event.inputs.security_mode == 'enabled'
+      run: |
+        sudo mv /etc/HPCCSystems/environment.xml /etc/HPCCSystems/environment.xml.bak
+        sudo mv tmp_environment.xml /etc/HPCCSystems/environment.xml
+        sudo chown hpcc:hpcc /etc/HPCCSystems/environment.xml
+
+    - name: Start HPCC Platform
+      shell: "bash"
+      run: |
+        export LANG="en_US.UTF-8"
+        sudo update-locale
+        sudo /etc/init.d/hpcc-init start
+
+    - name: Add Host File Entries
+      run: |
+        sudo -- sh -c -e "echo '127.0.0.1 eclwatch.default' >> /etc/hosts";
+        sudo -- sh -c -e "echo '127.0.0.1 rowservice.default' >> /etc/hosts";
+        sudo -- sh -c -e "echo '127.0.0.1 sql2ecl.default' >> /etc/hosts";
+
+    # speed things up with caching from https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
+    - name: Cache Maven packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+
+    - name: Run Known Server Issues Tests (Secure)
+      if: github.event.inputs.security_mode == 'enabled'
+      run: mvn -B test -P known-server-issues -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open -Dhpccuser=${{ env.DUMMY_USER }} -Dhpccpass=${{ env.DUMMY_PASS }} -DencodedUserName=${{ env.JUNIT_USER }}
+    
+    - name: Run Known Server Issues Tests (Insecure)
+      if: github.event.inputs.security_mode == 'disabled'
+      run: mvn -B test -P known-server-issues -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open
+
+    - name: Process Test Results
+      shell: python
+      run: |
+        import os
+        import csv
+        import textwrap
+        import json
+        import sys
+        import glob
+
+        hadErrors = False
+        hadKnownIssues = False
+
+        # Look for FailedTests.csv files in all modules
+        failedTestPaths = glob.glob("**/FailedTests.csv", recursive=True)
+        
+        for file_path in failedTestPaths:
+          if os.path.exists(file_path):
+            print(f"Processing failed tests from: {file_path}")
+            with open(file_path, 'r') as file:
+              csv_reader = csv.reader(file)
+              for row in csv_reader:
+
+                # If row is empty skip
+                if not row:
+                  continue
+
+                hadKnownIssues = True
+
+                # Each row in the CSV file is a failed test with: TestClass,Test,Error
+                if len(row) == 3:
+                  print(f"::warning file={row[0]}.{row[1]} title=Known Server Issue: {row[2]}")
+                else:
+                  print(f"::warning file={file_path} title=Invalid test result row: {row}")
+          else:
+            print(f"No FailedTests.csv found at {file_path}")
+
+        # Check surefire reports for any unexpected failures
+        surefire_paths = glob.glob("**/target/surefire-reports/*.xml", recursive=True)
+        
+        for report_path in surefire_paths:
+          try:
+            import xml.etree.ElementTree as ET
+            tree = ET.parse(report_path)
+            root = tree.getroot()
+            
+            # Look for testcase elements with failures or errors
+            testcases = root.findall('.//testcase')
+            
+            for testcase in testcases:
+              failures = testcase.findall('.//failure')
+              errors = testcase.findall('.//error')
+              
+              for failure in failures + errors:
+                class_name = testcase.get('classname', 'Unknown')
+                test_name = testcase.get('name', 'Unknown')
+                message = failure.get('message', 'Unknown error')
+                
+                # Check if this is a known server issue (these should be warnings, not errors)
+                if 'KnownServerIssue' not in class_name and 'KnownServerIssueTests' not in str(failure.text):
+                  hadErrors = True
+                  print(f"::error file={class_name}.{test_name} title=Unexpected Test Failure: {message}")
+              
+          except Exception as e:
+            print(f"Error parsing surefire report {report_path}: {e}")
+
+        if hadKnownIssues:
+          print(f"::notice title=Known Server Issues Detected::Found {len(failedTestPaths)} modules with known server issues. This is expected behavior for this test suite.")
+
+        if hadErrors:
+          print("::error title=Unexpected Failures::Found unexpected test failures that are not categorized as known server issues.")
+          sys.exit(1)
+        else:
+          print("::notice title=Test Suite Complete::All failures are properly categorized as known server issues.")
+
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: known-server-issues-test-results-${{ github.event.inputs.security_mode }}
+        path: |
+          **/target/surefire-reports/
+          **/FailedTests.csv
+        retention-days: 30
+
+    - name: Summary
+      if: always()
+      run: |
+        echo "## Known Server Issues Test Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**HPCC Platform Version:** ${{ steps.extract_version.outputs.targetVersion }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Security Mode:** ${{ github.event.inputs.security_mode }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "This workflow specifically tests known server-side issues and bugs." >> $GITHUB_STEP_SUMMARY
+        echo "Failures in this test suite are expected and help track known platform limitations." >> $GITHUB_STEP_SUMMARY
