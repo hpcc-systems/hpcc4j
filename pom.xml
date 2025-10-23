@@ -476,6 +476,25 @@
       </build>
     </profile>
     <profile>
+      <id>known-server-issues</id>
+      <properties>
+        <maven.gpg.skip>true</maven.gpg.skip>
+        <groups>org.hpccsystems.commons.annotations.KnownServerIssueTests</groups>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven.surefire.version}</version>
+            <configuration>
+              <argLine>${argLine}</argLine>
+              <groups>${groups}</groups>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
       <id>jenkins-release</id>
       <properties>
         <central.publishing.autopublish>true</central.publishing.autopublish>
