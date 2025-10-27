@@ -7,12 +7,10 @@
  ******************************************************************************/
 package org.hpccsystems.ws.client.utils;
 
-import java.util.Observable;
-
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
 
-public abstract class DataSingleton extends Observable
+public abstract class DataSingleton
 {
     static final int MONITOR_SLEEP = 1000;
 
@@ -90,16 +88,13 @@ public abstract class DataSingleton extends Observable
 
                 void refresh(boolean full)
                 {
-                    if (countObservers() > 0)
+                    if (full)
                     {
-                        if (full || isComplete())
-                        {
-                            fullRefresh();
-                        }
-                        else
-                        {
-                            fastRefresh();
-                        }
+                        fullRefresh();
+                    }
+                    else
+                    {
+                        fastRefresh();
                     }
                 }
             });

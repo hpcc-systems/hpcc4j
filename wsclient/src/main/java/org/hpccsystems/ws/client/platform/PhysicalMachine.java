@@ -248,7 +248,7 @@ public class PhysicalMachine extends DataSingleton
             log.error("Could not refresh files list for PhysicalMachine: '" + physicalmachinestruct.getName() + "'");
             e.printStackTrace();
         }
-        notifyObservers(Notification.PHYSICALMACHINE);
+
     }
 
     /**
