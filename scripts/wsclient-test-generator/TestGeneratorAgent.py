@@ -102,14 +102,27 @@ if not os.path.exists(esp_dir):
 
 print(f"✅ Using HPCC Platform source: {HPCC_SOURCE_DIR}")
 
+# Create output directory for all test generation artifacts
+OUTPUT_DIR = f"{SERVICE_NAME}_{METHOD_NAME}TestGeneration"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+print(f"📁 Output directory: {os.path.abspath(OUTPUT_DIR)}")
+
 PROMPT_FILE = "MethodAnalysisPrompt.md"
-ANALYSIS_FILE = f"{SERVICE_NAME}.{METHOD_NAME}Analysis.md"
-EXPECTED_RESULTS_FILE = f"{SERVICE_NAME}.{METHOD_NAME}ExpectedTestResults.md"
+ANALYSIS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}Analysis.md")
+EXPECTED_RESULTS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}ExpectedTestResults.md")
 TEST_FILE_GLOB = f"**/{SERVICE_NAME}ClientTest.java"
-FAILURE_ANALYSIS_FILE = f"{SERVICE_NAME}.{METHOD_NAME}FailureAnalysis.md"
+FAILURE_ANALYSIS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FailureAnalysis.md")
 
 # Maximum iterations for test fixing and categorization
 MAX_TEST_FIX_ITERATIONS = 5
+
+# Get workspace directories for copilot context
+HPCC4J_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+TMP_DIR = "/tmp"
+
+print(f"📂 HPCC4J directory: {HPCC4J_DIR}")
+print(f"📂 HPCC Platform directory: {HPCC_SOURCE_DIR}")
+print(f"📂 Tmp directory: {TMP_DIR}")
 
 # === Helper Functions ===
 def run_cmd(cmd, cwd=None, capture=False, check=True):
@@ -125,41 +138,82 @@ def run_cmd(cmd, cwd=None, capture=False, check=True):
 
 # ========== Copilot CLI whitelist configuration ==========
 # List of tools the Copilot CLI is allowed to use when invoked by this script.
-# Edit this list to add or remove allowed tools. Keep names as the Copilot CLI expects
-# (the script will pass each entry as "--allow-tool <name>").
-# Suggested tools useful for generating and fixing tests:
-# - git: to read repository history/branches and manage patches
-# - mvn: to run builds and tests
-# - bash / sh: for running shell commands or helper scripts
-# - python: to run small python helpers or inspections
-# - curl: to fetch remote schemas or WSDLs when needed
-# - docker: to manage ephemeral test services or containers
-# - sed/awk/find/ls: common shell utilities used in small helpers
-# These are suggestions — adapt to your environment and Copilot CLI tool names.
+# Tools are specified using the format: shell(command) for shell commands
+# See: copilot help permissions for more details
+#
+# Note: Each entry will be passed as "--allow-tool <entry>"
 COPILOT_WHITELIST = [
-    "mvn",
-    "bash",
-    "python",
-    "curl",
-    "sed",
-    "awk",
-    "find",
-    "grep",
-    "ls",
+    # Build and test execution
+    "shell(mvn)",           # CRITICAL - Maven operations (build, test, package)
+    
+    # File reading and content display
+    "shell(cat)",           # CRITICAL - Reading file contents
+    "shell(head)",          # USEFUL - View beginning of files
+    "shell(tail)",          # USEFUL - View end of files (logs)
+    "shell(wc)",            # USEFUL - Count lines/words in files
+    
+    # File system navigation and search
+    "shell(cd)",            # CRITICAL - Change directories
+    "shell(bash)",          # CRITICAL - General shell access
+    "shell(sh)",            # CRITICAL - General shell access
+    "shell(find)",          # CRITICAL - Finding files across project
+    "shell(grep)",          # CRITICAL - Searching existing tests, code patterns
+    "shell(ls)",            # USEFUL - Listing directory contents
+    
+    # Text processing and file manipulation
+    "shell(sed)",           # USEFUL - Quick text replacements
+    "shell(diff)",          # USEFUL - Comparing files
+    "shell(cmp)",           # USEFUL - Binary file comparison
+    
+    # JSON processing
+    "shell(jq)",            # VERY USEFUL - JSON parsing and querying
+    
+    # File operations
+    "shell(mkdir)",         # NEEDED - Create directories
+    "shell(cp)",            # NEEDED - Copy files
+    "shell(mv)",            # NEEDED - Move/rename files
+    "shell(rm)",            # NEEDED - Remove files (use with caution)
+    "shell(touch)",         # USEFUL - Create empty files
+    
+    # Path operations
+    "shell(realpath)",      # USEFUL - Get absolute paths
+    "shell(basename)",      # USEFUL - Extract filename from path
+    "shell(dirname)",       # USEFUL - Extract directory from path
+    
+    # Process management
+    "shell(ps)",            # USEFUL - Check running processes
+    "shell(kill)",          # USEFUL - Stop hung processes (use with caution)
+    
+    # Utility
+    "shell(xargs)",         # USEFUL - Chain commands with find/grep
+    
+    # File writing/editing is handled by Copilot's built-in tools
+    "write",                # Allow file creation and modification
 ]
 
 
 def build_copilot_cmd(prompt_text):
     """Return a list suitable for subprocess.run for invoking the copilot CLI
-    with the current whitelist. Each whitelist entry is passed as '--allow-tool <name>'.
-    This keeps the list easily editable in one place (COPILOT_WHITELIST).
+    with the current whitelist.
+    
+    Tools are passed using the --allow-tool parameter with the correct format:
+    - shell(command) for shell commands
+    - write for file creation/modification
+    - MCP server tools as servername(toolname)
+    
+    Also adds directory context for HPCC4J, HPCC Platform, and tmp directories.
     """
     cmd = ["copilot", "-p", prompt_text]
-    # Add one '--allow-tool <tool>' pair per whitelisted tool
-    # for tool in COPILOT_WHITELIST:
-    #     cmd.extend(["--allow-tool", tool])
-
-    cmd.extend(["--allow-all-tools"])
+    
+    # Add each whitelisted tool
+    for tool in COPILOT_WHITELIST:
+        cmd.extend(["--allow-tool", tool])
+    
+    # Add directory context for better code awareness
+    cmd.extend(["--add-dir", HPCC4J_DIR])
+    cmd.extend(["--add-dir", HPCC_SOURCE_DIR])
+    cmd.extend(["--add-dir", TMP_DIR])
+    
     return cmd
 
 
@@ -339,7 +393,7 @@ def run_individual_test(test_class, test_name, hpcc_conn="http://eclwatch.defaul
     
     # Disable dataset generation for iterations after the first
     if disable_dataset_generation:
-        cmd.append("-Ddisabledatasetgeneration=true")
+        cmd.append("-disableDatasetGeneration=true")
     
     cmd.extend([
         f"-Dtest={test_spec}",
@@ -393,7 +447,7 @@ def load_test_metadata(metadata_file):
 
 def save_test_results(results, iteration):
     """Save test results to a JSON file."""
-    results_file = f"{SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration{iteration}.json"
+    results_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration{iteration}.json")
     
     with open(results_file, 'w') as f:
         json.dump(results, f, indent=2)
@@ -558,7 +612,7 @@ def generate_failure_summary(all_analyses, iteration):
     """
     Generate a comprehensive summary document of all test failures and their analyses.
     """
-    summary_file = f"{SERVICE_NAME}.{METHOD_NAME}FailureSummary_Iteration{iteration}.md"
+    summary_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FailureSummary_Iteration{iteration}.md")
     
     summary_prompt = f"""
 # Test Failure Summary - Iteration {iteration}
@@ -648,7 +702,7 @@ if START_FROM_STEP <= 2:
     with open(ANALYSIS_FILE) as f:
         analysis_content = f.read()
 
-    TEST_METADATA_FILE = f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata.json"
+    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata.json")
     
     test_generation_prompt = (
         f"Read {ANALYSIS_FILE} and implement the recommended test cases "
@@ -696,7 +750,7 @@ if START_FROM_STEP <= 2:
         print(f"⚠️  Please populate it with test information before proceeding to Step 4")
 else:
     print(f"⏭️  Skipping Step 2: Starting from Step {START_FROM_STEP}")
-    TEST_METADATA_FILE = f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata.json"
+    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata.json")
 
 # === Step 3: Build Project and Fix Compilation Issues ===
 if START_FROM_STEP <= 3:
@@ -720,7 +774,7 @@ if START_FROM_STEP <= 4:
     print(f"📋 Maximum iterations: {MAX_TEST_FIX_ITERATIONS}")
 
     # Load test metadata
-    TEST_METADATA_FILE = f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata.json"
+    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata.json")
     test_metadata = load_test_metadata(TEST_METADATA_FILE)
     
     if not test_metadata:
@@ -882,7 +936,7 @@ if START_FROM_STEP <= 4:
 """
         
         # Save the comprehensive failure report
-        failure_report_file = f"{SERVICE_NAME}.{METHOD_NAME}FailureReport_Iteration{iteration}.md"
+        failure_report_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FailureReport_Iteration{iteration}.md")
         with open(failure_report_file, 'w') as f:
             f.write(failure_report)
         
@@ -986,7 +1040,7 @@ Test results: {results_file}
         subprocess.run(build_copilot_cmd(batch_analysis_prompt))
         
         # Check if analysis file was created
-        analysis_summary_file = f"{SERVICE_NAME}.{METHOD_NAME}BatchAnalysis_Iteration{iteration}.md"
+        analysis_summary_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}BatchAnalysis_Iteration{iteration}.md")
         if os.path.exists(analysis_summary_file):
             print(f"✅ Analysis summary created: {analysis_summary_file}")
             with open(analysis_summary_file, 'r') as f:
@@ -1062,23 +1116,24 @@ Create a final comprehensive test report for {SERVICE_NAME}.{METHOD_NAME} that i
 
 Review all test result files (*TestResults_Iteration*.json) and analysis files to compile this report.
 
-Save this report to: {SERVICE_NAME}.{METHOD_NAME}FinalReport.md
+Save this report to: {os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FinalReport.md")}
 """
 
     print("\n📝 Generating final comprehensive report...")
     subprocess.run(build_copilot_cmd(final_report_prompt))
 
-    if os.path.exists(f"{SERVICE_NAME}.{METHOD_NAME}FinalReport.md"):
-        print(f"✅ Final report created: {SERVICE_NAME}.{METHOD_NAME}FinalReport.md")
+    final_report_path = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FinalReport.md")
+    if os.path.exists(final_report_path):
+        print(f"✅ Final report created: {final_report_path}")
     else:
         print(f"⚠️  Final report not created")
 
     print("\n🎉 Test analysis and categorization complete!")
-    print(f"\n📁 Generated Files:")
-    print(f"   - {ANALYSIS_FILE}")
-    print(f"   - {EXPECTED_RESULTS_FILE}")
-    print(f"   - {TEST_METADATA_FILE}")
-    print(f"   - {FAILURE_ANALYSIS_FILE}")
+    print(f"\n📁 Generated Files in {OUTPUT_DIR}:")
+    print(f"   - {os.path.basename(ANALYSIS_FILE)}")
+    print(f"   - {os.path.basename(EXPECTED_RESULTS_FILE)}")
+    print(f"   - {SERVICE_NAME}.{METHOD_NAME}TestMetadata.json")
+    print(f"   - {os.path.basename(FAILURE_ANALYSIS_FILE)}")
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}FinalReport.md")
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}FailureSummary_Iteration*.md")
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration*.json")

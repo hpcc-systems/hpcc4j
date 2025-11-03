@@ -2,6 +2,12 @@
 
 ## 📋 Quick Reference
 
+**⚠️ CRITICAL: Analyze Existing Tests First**
+- **Before generating any test cases**, review all existing test methods for the target method
+- **Document what is already tested** in the "Existing Test Coverage Analysis" section
+- **Only generate test cases for scenarios NOT covered** by existing tests
+- If an existing test adequately covers a scenario, **DO NOT** create a duplicate test case
+
 **Test Categories:**
 1. **Core Functionality Tests (CFT)**: Basic operation, complete requests, data variations, typical workflows
 2. **Edge Case Tests (ECT)**: Boundary values, optional parameters, unusual inputs, performance limits  
@@ -14,12 +20,13 @@
 
 **Output Structure:**
 1. Method Summary
-2. Request Structure  
-3. Server Behavior and Responses
-4. Error Handling
-5. Existing Dataset Analysis
-6. Test Case Plan (organized by category with dataset mappings)
-7. New Dataset Specifications (if needed)
+2. **Existing Test Coverage Analysis** ⚠️ NEW - Document what's already tested
+3. Request Structure  
+4. Server Behavior and Responses
+5. Error Handling
+6. Existing Dataset Analysis
+7. Test Case Plan (organized by category with dataset mappings) - **ONLY for gaps in coverage**
+8. New Dataset Specifications (if needed)
 
 ---
 
@@ -77,7 +84,11 @@ Follow the steps below carefully.
 3. Inspect the corresponding Java request and response wrapper classes for this method
 4. Review the server-side C++ implementation located in `esp/services/ws_${ServiceName}`
 5. Reference the IDL definition (`esp/scm/ws_${ServiceName}.ecm`) to understand required/optional fields and constraints
-6. Review existing test files (`${ServiceName}ClientTest.java`) to understand current test patterns and dataset usage
+6. **Review existing test files** (`${ServiceName}ClientTest.java`) to:
+   - Understand current test patterns and dataset usage
+   - **Identify all existing test methods for `${MethodName}`**
+   - **Analyze what scenarios are already covered by existing tests**
+   - **Document which test cases DO NOT need to be generated because they already exist**
 
 ### Step 2 — Create the Analysis Output
 
@@ -90,7 +101,26 @@ The output file must include the following Markdown-formatted sections:
 - Overview of its role within the service
 - Description of inputs, outputs, and side effects
 
-#### 2. Request Structure
+#### 2. Existing Test Coverage Analysis
+
+**CRITICAL**: Before defining any new test cases, analyze all existing tests for this method.
+
+For each existing test found:
+
+| Existing Test Method Name | Test Category | Scenario Covered | Input Data Summary | Pass Criteria | Notes |
+|---------------------------|---------------|------------------|---------------------|---------------|-------|
+| ... | CFT/ECT/EHT | ... | ... | ... | ... |
+
+**Coverage Summary:**
+- Total existing test methods: [number]
+- Core Functionality Tests covered: [count and brief description]
+- Edge Case Tests covered: [count and brief description]
+- Error Handling Tests covered: [count and brief description]
+- **Gaps identified**: [List scenarios that are NOT covered by existing tests]
+
+**Important**: Any test scenario that is adequately covered by an existing test **MUST NOT** be included in the new test case plan (Step 7). Only generate test cases for scenarios that have gaps or no coverage.
+
+#### 3. Request Structure
 - List all request fields in a table:
 
 | Field Name | Type | Required | Description | Valid Range / Format | Notes |
@@ -100,16 +130,16 @@ The output file must include the following Markdown-formatted sections:
 - Identify dependencies between fields (e.g., conditional requirements)
 - Specify default behavior for optional fields
 
-#### 3. Server Behavior and Responses
+#### 4. Server Behavior and Responses
 - Describe the server-side logic for processing the request
 - List all valid response types and their meanings
 - List possible invalid responses, errors, or exceptions
 
-#### 4. Error Handling
+#### 5. Error Handling
 - **Server-side errors**: validation issues, missing data, or internal failures
 - **Client-side errors**: API misuse, unexpected responses, or communication failures
 
-#### 5. Existing Dataset Analysis
+#### 6. Existing Dataset Analysis
 
 Review available test datasets and their applicability:
 
@@ -121,7 +151,14 @@ Review available test datasets and their applicability:
 | `~benchmark::all_types::superfile` | Yes/No | [Explain why it can or cannot be used] |
 | `~benchmark::integer::20kb::key` | Yes/No | [Explain why it can or cannot be used] |
 
-#### 6. Test Case Plan
+#### 7. Test Case Plan
+
+**CRITICAL REQUIREMENT**: Only define test cases for scenarios that are **NOT** already covered by existing tests (as documented in Step 2 - Existing Test Coverage Analysis).
+
+**Before including any test case below:**
+1. Verify it was not listed in the "Existing Test Coverage Analysis" section
+2. Verify it addresses a gap identified in the coverage summary
+3. If a similar test exists, explain why the new test is still necessary (e.g., different dataset, different edge case variant)
 
 Test cases must be organized into three primary categories with clearly labeled subcategories:
 
@@ -225,7 +262,7 @@ Structure:
 Rationale: Existing datasets don't contain null values, which are critical for testing null-handling logic in the method
 ```
 
-#### 7. New Dataset Specifications
+#### 8. New Dataset Specifications
 
 If any test cases require new datasets, consolidate all requirements here with complete ECL code snippets for dataset generation.
 
@@ -270,7 +307,9 @@ By the end of this task, you will have produced a detailed analysis file: `${Ser
 This file will:
 
 - Document the functional behavior of the method
+- **Catalog all existing test coverage for this method**
+- **Identify gaps in existing test coverage**
 - Identify all request/response constraints
-- Enumerate valid and invalid test scenarios categorized by test type
+- Enumerate valid and invalid test scenarios categorized by test type **that are not already covered by existing tests**
 - Map test cases to existing datasets or define new dataset requirements
-- Provide a foundation for generating integration tests with full coverage
+- Provide a foundation for generating integration tests with full coverage **without duplicating existing tests**

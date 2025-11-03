@@ -8,10 +8,14 @@ TestGeneratorAgent.py is an AI-powered Python script that automates the complete
 
 - 🤖 **AI-Powered Test Generation**: Uses Copilot CLI to analyze HPCC Platform source code and generate comprehensive test cases
 - 🔍 **Method Analysis**: Deep analysis of server-side ESDL/ECM definitions and ESP service implementations
+- 🎯 **Smart Duplicate Prevention**: Analyzes existing test coverage before generating new tests
 - 🧪 **Test Metadata**: Generates structured JSON metadata for precise test execution and tracking
 - 🏗️ **Automated Build Fixing**: Iteratively fixes compilation errors with AI assistance
 - 🔄 **Iterative Test Execution**: Runs tests individually with detailed failure analysis
-- 📊 **Intelligent Categorization**: Automatically classifies failures as client-side, server-side, or invalid tests
+- � **Batch Failure Analysis**: Analyzes all test failures together for efficiency
+- 🔐 **Authentication Support**: Handles secured HPCC clusters with username/password
+- �📊 **Intelligent Categorization**: Automatically classifies failures as client-side, server-side, or invalid tests
+- 🔒 **Strict Security**: Whitelisted tool execution prevents unauthorized commands
 - 📝 **Comprehensive Reporting**: Generates detailed analysis documents and final reports
 
 ## Prerequisites
@@ -53,17 +57,43 @@ chmod +x TestGeneratorAgent.py
 |----------|-------------|---------|
 | `--skip-analysis` | Skip Step 1 if analysis file exists | `false` |
 | `--start-from-step N` | Start from specific step (1-4) | `1` |
+| `--hpccconn URL` | HPCC cluster connection URL | `http://eclwatch.default:8010` |
+| `--wssqlconn URL` | WsSQL connection URL | `http://sql2ecl.default:8510` |
+| `--hpccuser USERNAME` | HPCC cluster username | Empty string |
+| `--hpccpass PASSWORD` | HPCC cluster password | Empty string |
 
 ### Environment Variables
 
-Configure HPCC cluster connections (used in Step 4):
+Connection settings can also be configured via environment variables (command-line arguments take precedence):
 
 ```bash
 export HPCCCONN="http://eclwatch.default:8010"
 export WSSQLCONN="http://sql2ecl.default:8510"
+export HPCCUSER="myusername"
+export HPCCPASS="mypassword"
 ```
 
 ## The Four-Step Process
+
+### Step 0: Analysis Prompt Template
+
+The agent uses [`MethodAnalysisPrompt.md`](../MethodAnalysisPrompt.md) as the template for Step 1. This prompt:
+
+**Key Requirements**:
+- ⚠️ **CRITICAL**: Analyze ALL existing tests before generating new ones
+- Document what is already tested in "Existing Test Coverage Analysis" section
+- Only generate test cases for scenarios NOT covered by existing tests
+- Prevent duplicate test creation
+
+**Output Structure**:
+1. Method Summary
+2. **Existing Test Coverage Analysis** (documents what's already tested)
+3. Request Structure
+4. Server Behavior and Responses
+5. Error Handling
+6. Existing Dataset Analysis
+7. Test Case Plan (ONLY for gaps in coverage)
+8. New Dataset Specifications
 
 ### Step 1: Method Analysis
 
@@ -71,14 +101,28 @@ export WSSQLCONN="http://sql2ecl.default:8510"
 
 **Actions**:
 - Reads `MethodAnalysisPrompt.md` template
-- Analyzes HPCC Platform source code (ESDL definitions, ESP implementations)
-- Generates detailed method documentation
+- **Analyzes existing test coverage** to avoid generating duplicate tests
+- Reviews HPCC Platform source code (ESDL definitions, ESP implementations)
+- Identifies gaps in test coverage
+- Generates detailed method documentation with test case recommendations
 
 **Output**: `{Service}.{Method}Analysis.md`
 
+**Key Features**:
+- Documents all existing tests for the method
+- Identifies scenarios already covered by tests
+- Only recommends new tests for coverage gaps
+- Prevents duplicate test generation
+
 **Example**:
 ```bash
-./TestGeneratorAgent.py WsDFU getDatasetFields --hpcc-source ../HPCC-Platform
+# Set connection parameters
+./TestGeneratorAgent.py WsDFU getDatasetFields \
+    --hpcc-source ../HPCC-Platform \
+    --hpccconn http://play.hpccsystems.com:8010 \
+    --wssqlconn http://play.hpccsystems.com:8510 \
+    --hpccuser myuser \
+    --hpccpass mypass
 ```
 
 ### Step 2: Test Generation
@@ -149,40 +193,55 @@ export WSSQLCONN="http://sql2ecl.default:8510"
 
 **Actions**:
 1. **Load Test Metadata**: Reads the JSON file from Step 2
-2. **Individual Test Execution**: Runs each test separately:
+2. **Dataset Generation**: On first iteration only, generates required datasets
+3. **Individual Test Execution**: Runs each test separately with Maven:
    ```bash
-   mvn -B --activate-profiles jenkins-on-demand \
+   mvn -B --activate-profiles jenkins-on-demand,remote-test \
+       -pl wsclient \
        -Dhpccconn=<HPCCCONN> \
        -Dwssqlconn=<WSSQLCONN> \
+       -Dhpccuser=<USERNAME> \
+       -Dhpccpass=<PASSWORD> \
        -Dtest={TestClass}#{testName} \
        package
    ```
-3. **Failure Analysis**: For each failed test:
-   - Analyzes error messages and stack traces
-   - Determines if test is valid or invalid
-   - Classifies as client-side or server-side issue
-   - Performs root cause analysis
-4. **Automated Actions**:
-   - **Invalid Tests**: Fixes test logic and retries
+4. **Batch Failure Analysis**: Analyzes all failures together:
+   - Creates comprehensive failure report
+   - Determines if tests are valid or invalid
+   - Classifies valid test failures as client-side or server-side issues
+   - Performs root cause analysis for each failure
+5. **Automated Actions**:
+   - **Invalid Tests**: Fixes test logic directly in test file
    - **Client Issues**: Adds `@Category(UnverifiedClientIssues.class)`
    - **Server Issues**: Adds `@Category(UnverifiedServerIssues.class)`
-5. **Iteration**: Repeats up to 5 times or until all tests pass/are categorized
+   - **Data Issues**: Marks appropriately or documents for manual review
+6. **Iteration**: Repeats up to 5 times, re-running only failed tests (without dataset generation)
 
 **Outputs**:
 - `{Service}.{Method}TestResults_Iteration{N}.json` - Detailed results per iteration
-- `{Service}.{Method}FailureAnalysis.md` - Analysis of failures
-- `{Service}.{Method}FailureSummary_Iteration{N}.md` - Summary per iteration
+- `{Service}.{Method}FailureReport_Iteration{N}.md` - Comprehensive failure details
+- `{Service}.{Method}BatchAnalysis_Iteration{N}.md` - Batch analysis summary
 - `{Service}.{Method}FinalReport.md` - Comprehensive final report
-- Modified test files with categorization annotations
+- Modified test files with fixes and categorization annotations
 
 **Example**:
 ```bash
-# Set connection URLs
-export HPCCCONN="http://my-cluster:8010"
-export WSSQLCONN="http://my-sql:8510"
+# With authentication
+./TestGeneratorAgent.py WsDFU getDatasetFields \
+    --hpcc-source ../HPCC-Platform \
+    --hpccconn http://my-cluster:8010 \
+    --hpccuser admin \
+    --hpccpass secret123 \
+    --start-from-step 4
 
-# Run Step 4 only
-./TestGeneratorAgent.py WsDFU getDatasetFields --hpcc-source ../HPCC-Platform --start-from-step 4
+# Or using environment variables
+export HPCCCONN="http://my-cluster:8010"
+export HPCCUSER="admin"
+export HPCCPASS="secret123"
+
+./TestGeneratorAgent.py WsDFU getDatasetFields \
+    --hpcc-source ../HPCC-Platform \
+    --start-from-step 4
 ```
 
 ## Complete Examples
@@ -208,11 +267,21 @@ This will:
     --skip-analysis
 ```
 
-### Example 3: Resume from Test Execution
+### Example 3: Resume from Test Execution with Authentication
 
 ```bash
-# If Steps 1-3 completed, just run tests
+# Using command-line arguments
+./TestGeneratorAgent.py WsDFU getDatasetFields \
+    --hpcc-source ../HPCC-Platform \
+    --hpccconn http://play.hpccsystems.com:8010 \
+    --hpccuser myuser \
+    --hpccpass mypassword \
+    --start-from-step 4
+
+# Or using environment variables
 export HPCCCONN="http://play.hpccsystems.com:8010"
+export HPCCUSER="myuser"
+export HPCCPASS="mypassword"
 
 ./TestGeneratorAgent.py WsDFU getDatasetFields \
     --hpcc-source ../HPCC-Platform \
@@ -237,8 +306,8 @@ After a complete run, the following files are created:
 | `{Service}.{Method}TestMetadata.json` | Test execution metadata | 2 |
 | `{Service}ClientTest.java` | Modified test class with new tests | 2 |
 | `{Service}.{Method}TestResults_Iteration{N}.json` | Results per iteration | 4 |
-| `{Service}.{Method}FailureAnalysis.md` | Detailed failure analysis | 4 |
-| `{Service}.{Method}FailureSummary_Iteration{N}.md` | Summary per iteration | 4 |
+| `{Service}.{Method}FailureReport_Iteration{N}.md` | Comprehensive failure details | 4 |
+| `{Service}.{Method}BatchAnalysis_Iteration{N}.md` | Batch analysis summary | 4 |
 | `{Service}.{Method}FinalReport.md` | Final comprehensive report | 4 |
 
 ## Test Categorization System
@@ -275,21 +344,55 @@ Tests with incorrect logic - these are fixed and re-run:
 
 ### Copilot Tool Whitelist
 
-Edit the `COPILOT_WHITELIST` in [`TestGeneratorAgent.py`](TestGeneratorAgent.py ) to control which tools Copilot can use:
+The agent uses a strict whitelist of tools that Copilot CLI can execute. Edit the `COPILOT_WHITELIST` in [`TestGeneratorAgent.py`](TestGeneratorAgent.py ) to control permissions:
 
 ```python
 COPILOT_WHITELIST = [
-    "mvn",      # Maven build tool
-    "bash",     # Shell commands
-    "python",   # Python scripts
-    "curl",     # HTTP requests
-    "sed",      # Text processing
-    "awk",      # Text processing
-    "find",     # File search
-    "grep",     # Text search
-    "ls",       # Directory listing
+    # Build and test execution
+    "shell(mvn)",           # Maven operations (build, test, package)
+    
+    # File reading and content display
+    "shell(cat)",           # Reading file contents
+    "shell(head)",          # View beginning of files
+    "shell(tail)",          # View end of files (logs)
+    "shell(wc)",            # Count lines/words
+    
+    # File system navigation and search
+    "shell(find)",          # Finding files across project
+    "shell(grep)",          # Searching code patterns
+    "shell(ls)",            # Listing directory contents
+    
+    # Text processing and file manipulation
+    "shell(sed)",           # Quick text replacements
+    "shell(diff)",          # Comparing files
+    "shell(cmp)",           # Binary file comparison
+    "shell(jq)",            # JSON parsing and querying
+    
+    # File operations
+    "shell(mkdir)",         # Create directories
+    "shell(cp)",            # Copy files
+    "shell(mv)",            # Move/rename files
+    "shell(rm)",            # Remove files
+    "shell(touch)",         # Create empty files
+    
+    # Path operations
+    "shell(realpath)",      # Get absolute paths
+    "shell(basename)",      # Extract filename
+    "shell(dirname)",       # Extract directory
+    
+    # Process management
+    "shell(ps)",            # Check running processes
+    "shell(kill)",          # Stop hung processes
+    
+    # Utility
+    "shell(xargs)",         # Chain commands
+    
+    # File writing/editing
+    "write",                # File creation and modification
 ]
 ```
+
+**Security Note**: Each tool is explicitly whitelisted using the `shell(command)` format. The agent will NOT allow execution of commands not in this list.
 
 ### Maximum Iterations
 
@@ -471,14 +574,21 @@ For issues or questions:
 
 ## Changelog
 
-### Current Version
+### Current Version (November 2025)
 - ✅ Four-step automated test generation
-- ✅ Individual test execution with Maven profiles
+- ✅ Individual test execution with Maven profiles (`jenkins-on-demand`, `remote-test`)
 - ✅ JSON metadata for test tracking
-- ✅ Iterative failure analysis and categorization
-- ✅ Comprehensive reporting
+- ✅ **Batch failure analysis** (analyzes all failures together instead of one-by-one)
+- ✅ **Dataset generation control** (only generates on first iteration)
+- ✅ Iterative failure analysis and categorization (up to 5 iterations)
+- ✅ Comprehensive reporting with multiple report types
 - ✅ HPCC Platform source code integration
-- ✅ Environment variable configuration
+- ✅ **Command-line and environment variable configuration** for connections and credentials
+- ✅ **Existing test coverage analysis** to prevent duplicate test generation
+- ✅ **Strict Copilot tool whitelist** using `shell(command)` format
+- ✅ **Automatic test file fixes** and categorization annotations
+- ✅ Support for authenticated HPCC clusters
+- ✅ Multi-module Maven project support (`-pl wsclient`)
 
 ---
 
