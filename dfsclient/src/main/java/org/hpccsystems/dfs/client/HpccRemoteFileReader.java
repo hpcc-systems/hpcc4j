@@ -364,6 +364,11 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
             this.binaryRecordReader = new BinaryRecordReader(this.inputStream, resumeInfo.recordReaderStreamPos, this.readSpan);
             this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * context.getReadSizeKB());
             this.binaryRecordReader.initialize(this.recordBuilder);
+
+            if (dp.getFileType() == DataPartition.FileType.INDEX)
+            {
+                this.binaryRecordReader.setIsIndex(true);
+            }
         }
 
         log.info("HPCCRemoteFileReader: Opening file part: " + dataPartition.getThisPart()
@@ -447,9 +452,20 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
                     bytesToSkip -= this.inputStream.skip(bytesToSkip);
                 } while (bytesToSkip > 0);
 
-                this.binaryRecordReader = new BinaryRecordReader(this.inputStream, resumeInfo.recordReaderStreamPos, this.readSpan);
-                this.binaryRecordReader.setRecordBuildingSpanBatchSizeKB(context.getReadRequestSpanBatchSize() * context.getReadSizeKB());
+                // Capture settings from previous reader
+                boolean useDecimalForUnsigned8 = binaryRecordReader.getUseDecimalForUnsigned8();
+                int stringProcessingFlags = binaryRecordReader.getStringProcessingFlags();
+
+                this.binaryRecordReader = new BinaryRecordReader(this.inputStream, resumeInfo.recordReaderStreamPos);
                 this.binaryRecordReader.initialize(this.recordBuilder);
+
+                if (dataPartition.getFileType() == DataPartition.FileType.INDEX)
+                {
+                    this.binaryRecordReader.setIsIndex(true);
+                }
+
+                this.binaryRecordReader.setUseDecimalForUnsigned8(useDecimalForUnsigned8);
+                this.binaryRecordReader.setStringProcessingFlags(stringProcessingFlags);
             }
             catch (Exception e)
             {
@@ -474,6 +490,33 @@ public class HpccRemoteFileReader<T> implements Iterator<T>
     public void setMaxReadRetries(int maxReadRetries)
     {
         this.maxReadRetries = maxReadRetries;
+    }
+
+    /**
+     * Forces a read retry for testing purposes. This method simulates a read failure
+     * and triggers the retry mechanism to test retry functionality.
+     *
+     * @return true if retry was successful, false if maximum retries exceeded
+     * @throws Exception if retry fails
+     */
+    public boolean forceReadRetry() throws Exception
+    {
+        if (isClosed)
+        {
+            throw new Exception("Cannot force retry on a closed file reader.");
+        }
+
+        return retryRead();
+    }
+
+    /**
+     * Gets the current retry count for testing purposes.
+     *
+     * @return the current retry count
+     */
+    public int getRetryCount()
+    {
+        return retryCount;
     }
 
     /**
