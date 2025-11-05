@@ -1204,47 +1204,194 @@ public class DFSReadWriteTest extends BaseRemoteTest
     @Test
     public void filePartReadRetryTest()
     {
+        // Test basic retry functionality
         {
             HPCCFile readFile = null;
             try
             {
                 readFile = new HPCCFile(datasets[0], connString, hpccUser, hpccPass);
                 DataPartition[] fileParts = readFile.getFileParts();
-                for (int i = 0; i < fileParts.length; i++)
+                
+                if (fileParts == null || fileParts.length == 0)
                 {
-                    String firstCopyIP = fileParts[i].getCopyIP(0);
-                    String firstCopyPath = fileParts[i].getCopyPath(0);
-                    fileParts[i].setCopyIP(0, "1.1.1.1");
-                    fileParts[i].add(1, firstCopyIP, firstCopyPath);
+                    Assert.fail("No file parts found for testing");
                 }
 
-                List<HPCCRecord> records = readFile(readFile, null, false);
-                System.out.println("Record count: " + records.size());
+                FieldDef originalRD = readFile.getRecordDefinition();
+                if (originalRD == null || originalRD.getNumDefs() == 0)
+                {
+                    Assert.fail("Invalid or null record definition");
+                }
+
+                // Create a file reader for the first partition
+                HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(readFile.getProjectedRecordDefinition());
+                HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(
+                    fileParts[0], 
+                    originalRD, 
+                    recordBuilder, 
+                    HpccRemoteFileReader.DEFAULT_CONNECT_TIMEOUT_OPTION, 
+                    10, // limit to 10 records for test
+                    true, 
+                    DEFAULT_READ_SIZE_OPTION
+                );
+
+                // Verify initial retry count is 0
+                assertEquals("Initial retry count should be 0", 0, fileReader.getRetryCount());
+
+                // Force a retry and verify it worked
+                boolean retryResult = fileReader.forceReadRetry();
+                assertTrue("Forced retry should succeed", retryResult);
+                assertEquals("Retry count should be 1 after forced retry", 1, fileReader.getRetryCount());
+
+                // Read some records to verify the reader still works after retry
+                int recordsRead = 0;
+                while (fileReader.hasNext() && recordsRead < 5)
+                {
+                    HPCCRecord record = fileReader.next();
+                    assertNotNull("Record should not be null", record);
+                    recordsRead++;
+                }
+
+                assertTrue("Should have read at least one record after retry", recordsRead > 0);
+                
+                fileReader.close();
+                System.out.println("Basic retry test completed successfully. Records read: " + recordsRead);
             }
             catch (Exception e)
             {
-                Assert.fail(e.getMessage());
+                e.printStackTrace();
+                Assert.fail("Basic retry test failed: " + e.getMessage());
             }
         }
 
+        // Test maximum retry limit
         {
             HPCCFile readFile = null;
             try
             {
                 readFile = new HPCCFile(datasets[0], connString, hpccUser, hpccPass);
                 DataPartition[] fileParts = readFile.getFileParts();
-                for (int i = 0; i < fileParts.length; i++)
-                {
-                    fileParts[i].add(0,"1.1.1.1", "");
-                }
+                
+                FieldDef originalRD = readFile.getRecordDefinition();
+                HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(readFile.getProjectedRecordDefinition());
+                HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(
+                    fileParts[0], 
+                    originalRD, 
+                    recordBuilder, 
+                    HpccRemoteFileReader.DEFAULT_CONNECT_TIMEOUT_OPTION, 
+                    10,
+                    true, 
+                    DEFAULT_READ_SIZE_OPTION
+                );
 
-                List<HPCCRecord> records = readFile(readFile, null, false);
-                System.out.println("Record count: " + records.size());
+                // Set max retries to 2
+                fileReader.setMaxReadRetries(2);
+
+                // Force retries up to the limit
+                assertTrue("First retry should succeed", fileReader.forceReadRetry());
+                assertEquals("Retry count should be 1", 1, fileReader.getRetryCount());
+                
+                assertTrue("Second retry should succeed", fileReader.forceReadRetry());
+                assertEquals("Retry count should be 2", 2, fileReader.getRetryCount());
+                
+                // Third retry should fail (exceed limit)
+                assertFalse("Third retry should fail (exceed limit)", fileReader.forceReadRetry());
+                assertEquals("Retry count should still be 2", 2, fileReader.getRetryCount());
+                
+                fileReader.close();
+                System.out.println("Maximum retry limit test completed successfully");
             }
             catch (Exception e)
             {
-                Assert.fail(e.getMessage());
+                e.printStackTrace();
+                Assert.fail("Maximum retry limit test failed: " + e.getMessage());
             }
+        }
+    }
+
+    @Test
+    public void readRetryOptionsPreservationTest()
+    {
+        // Test that string processing and decimal processing options are preserved during read retries
+        HPCCFile readFile = null;
+        try
+        {
+            // Use dataset with string and numeric data to test both options
+            readFile = new HPCCFile(datasets[1], connString, hpccUser, hpccPass);
+            DataPartition[] fileParts = readFile.getFileParts();
+            
+            if (fileParts == null || fileParts.length == 0)
+            {
+                Assert.fail("No file parts found for testing");
+            }
+
+            FieldDef originalRD = readFile.getRecordDefinition();
+            if (originalRD == null || originalRD.getNumDefs() == 0)
+            {
+                Assert.fail("Invalid or null record definition");
+            }
+
+            // Create a file reader with specific string processing and decimal options
+            HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(readFile.getProjectedRecordDefinition());
+            HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(
+                fileParts[0], 
+                originalRD, 
+                recordBuilder, 
+                HpccRemoteFileReader.DEFAULT_CONNECT_TIMEOUT_OPTION, 
+                NO_RECORD_LIMIT, 
+                true, 
+                DEFAULT_READ_SIZE_OPTION,
+                null,
+                15000  // 15 second socket timeout
+            );
+
+            // Set specific processing options
+            int expectedStringFlags = BinaryRecordReader.TRIM_STRINGS | BinaryRecordReader.CONVERT_EMPTY_STRINGS_TO_NULL;
+            boolean expectedUseDecimal = true;
+            
+            fileReader.getRecordReader().setStringProcessingFlags(expectedStringFlags);
+            fileReader.getRecordReader().setUseDecimalForUnsigned8(expectedUseDecimal);
+
+            // Verify initial options are set correctly
+            assertEquals("Initial string processing flags should be set", 
+                expectedStringFlags, 
+                fileReader.getRecordReader().getStringProcessingFlags());
+            assertEquals("Initial decimal processing option should be set", 
+                expectedUseDecimal, 
+                fileReader.getRecordReader().getUseDecimalForUnsigned8());
+
+            // Force a retry to test option preservation
+            boolean retryResult = fileReader.forceReadRetry();
+            assertTrue("Forced retry should succeed", retryResult);
+            assertEquals("Retry count should be 1 after forced retry", 1, fileReader.getRetryCount());
+
+            // Verify options are still set after the retry
+            assertEquals("String processing flags should be preserved after retry", 
+                expectedStringFlags, 
+                fileReader.getRecordReader().getStringProcessingFlags());
+            assertEquals("Decimal processing option should be preserved after retry", 
+                expectedUseDecimal, 
+                fileReader.getRecordReader().getUseDecimalForUnsigned8());
+
+            // Read some records to verify the reader still works correctly
+            int recordsRead = 0;
+            while (fileReader.hasNext() && recordsRead < 10)
+            {
+                HPCCRecord record = fileReader.next();
+                assertNotNull("Record should not be null", record);
+                recordsRead++;
+            }
+
+            assertTrue("Should have read at least one record to verify functionality", recordsRead > 0);
+
+            fileReader.close();
+            
+            System.out.println("Read retry options preservation test completed successfully. Records read: " + recordsRead);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail("Read retry options preservation test failed: " + e.getMessage());
         }
     }
 
