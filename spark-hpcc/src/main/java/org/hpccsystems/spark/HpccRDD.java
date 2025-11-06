@@ -230,13 +230,13 @@ public class HpccRDD extends RDD<Row> implements Serializable
         if (originalRD == null)
         {
             log.error("Original record defintion is null. Aborting.");
-            return null;
+            return new InterruptibleIterator<Row>(ctx, JavaConverters.asScalaIteratorConverter(Arrays.asList(new Row[0]).iterator()).asScala());
         }
 
         if (projectedRD == null)
         {
             log.error("Projected record defintion is null. Aborting.");
-            return null;
+            return new InterruptibleIterator<Row>(ctx, JavaConverters.asScalaIteratorConverter(Arrays.asList(new Row[0]).iterator()).asScala());
         }
 
         scala.collection.Iterator<Row> iter = null;
@@ -306,7 +306,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
         catch (Exception e)
         {
             log.error("Failed to create remote file reader with error: " + e.getMessage());
-            return null;
+            return new InterruptibleIterator<Row>(ctx, JavaConverters.asScalaIteratorConverter(Arrays.asList(new Row[0]).iterator()).asScala());
         }
 
         return new InterruptibleIterator<Row>(ctx, iter);

@@ -9,6 +9,7 @@ import javax.xml.validation.Schema;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.SparkContext;
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.rdd.RDD;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -192,5 +193,71 @@ public class HpccRelationIntegrationTest extends BaseIntegrationTest
         Filter[] unhandledsparkfilters = hpccRelation.unhandledFilters(unsupportedSparkFilters);
 
         Assert.assertTrue("Unexpected unhandled filters detected" , unhandledsparkfilters.length == unsupportedSparkFilters.length);
+    }
+
+    @Test
+    public void testHpccRDDReturnsEmptyDatasetOnError() throws Exception
+    {
+        SparkSession spark = getOrCreateSparkSession();
+        SparkContext sc = spark.sparkContext();
+
+        // Create a simple record definition with two integer fields
+        org.hpccsystems.commons.ecl.FieldDef[] fields = new org.hpccsystems.commons.ecl.FieldDef[2];
+        fields[0] = new org.hpccsystems.commons.ecl.FieldDef(
+            "key",
+            org.hpccsystems.commons.ecl.FieldType.INTEGER,
+            "integer8",
+            8,
+            true,
+            false,
+            org.hpccsystems.commons.ecl.HpccSrcType.LITTLE_ENDIAN,
+            null
+        );
+        fields[1] = new org.hpccsystems.commons.ecl.FieldDef(
+            "value",
+            org.hpccsystems.commons.ecl.FieldType.INTEGER,
+            "integer8",
+            8,
+            true,
+            false,
+            org.hpccsystems.commons.ecl.HpccSrcType.LITTLE_ENDIAN,
+            null
+        );
+        org.hpccsystems.commons.ecl.FieldDef recordDef = new org.hpccsystems.commons.ecl.FieldDef(
+            "",
+            org.hpccsystems.commons.ecl.FieldType.RECORD,
+            "",
+            0,
+            false,
+            false,
+            org.hpccsystems.commons.ecl.HpccSrcType.UNKNOWN,
+            fields
+        );
+
+        // Create an invalid DataPartition that will cause an error during reading
+        // Using invalid IP addresses and paths to simulate connection/read failure
+        String[] copyLocations = new String[] { "0.0.0.0" };
+        String[] copyPaths = new String[] { "/invalid/path/nonexistent.file" };
+        org.hpccsystems.dfs.client.DataPartition[] dataParts = new org.hpccsystems.dfs.client.DataPartition[1];
+        dataParts[0] = new org.hpccsystems.dfs.client.DataPartition(
+            copyLocations,
+            copyPaths,
+            1,  // partNum
+            1,  // numParts
+            7100,  // rowServicePort
+            false,  // shouldUseSSL
+            ""  // fileAccessBlob
+        );
+
+        // Create HpccRDD with invalid data partitions
+        HpccRDD hpccRDD = new HpccRDD(sc, dataParts, recordDef);
+
+        // Collect the results - should get an empty dataset, not null
+        JavaRDD<Row> javaRDD = hpccRDD.asJavaRDD();
+        java.util.List<Row> results = javaRDD.collect();
+
+        // Verify we got an empty list instead of null or an exception
+        Assert.assertNotNull("HpccRDD.compute() should return an empty dataset, not null", results);
+        Assert.assertEquals("HpccRDD.compute() should return an empty dataset on error", 0, results.size());
     }
 }
