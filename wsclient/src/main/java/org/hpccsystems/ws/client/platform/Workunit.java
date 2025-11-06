@@ -87,7 +87,7 @@ public class Workunit extends DataSingleton
         graphs = new ArrayList<Graph>();
         sourceFiles = new ArrayList<LogicalFile>();
         applicationValues = new HashMap<String, String>();
-        setChanged();
+
     }
 
     /**
@@ -655,7 +655,6 @@ public class Workunit extends DataSingleton
             e1.printStackTrace();
         }
 
-
         if (previousState != getStateID())
         {
             fullRefresh();
@@ -726,8 +725,7 @@ public class Workunit extends DataSingleton
                         //if (e.getCode().equals("20082") || e.getCode().equals("20080"))
                         //{ //  No longer exists... //$NON-NLS-1$ //$NON-NLS-2$
                         //    info.setStateID(999);
-                            setChanged();
-                            notifyObservers(Notification.WORKUNIT);
+
                         //    break;
                         //}
                     }       
@@ -757,50 +755,42 @@ public class Workunit extends DataSingleton
         boolean retVal = false;
         if (wu != null && info.getWuid().equals(wu.getWuid()) && !info.equals(wu))
         {
-            if (updateState(wu))
+            retVal = true;
+            if (!updateState(wu))
             {
-                retVal = true;
-                notifyObservers(Notification.WORKUNIT);
+                retVal = false;
             }
-            if (updateOwner(wu.getOwner()))
+            if (!updateOwner(wu.getOwner()))
             {
-                retVal = true;
-                notifyObservers(Notification.OWNER);
+                retVal = false;
             }
-            if (updateJobname(wu.getJobname()))
+            if (!updateJobname(wu.getJobname()))
             {
-                retVal = true;
-                notifyObservers(Notification.JOBNAME);
+                retVal = false;
             }
-            if (updateCluster(wu.getCluster()))
+            if (!updateCluster(wu.getCluster()))
             {
-                retVal = true;
-                notifyObservers(Notification.CLUSTER);
+                retVal = false;
             }
-            if (updateQuery(wu.getQuery()))
+            if (!updateQuery(wu.getQuery()))
             {
-                retVal = true;
-                notifyObservers(Notification.QUERY);
+                retVal = false;
             }
-            if (updateApplicationValues(wu.getApplicationValues().getApplicationValue()))
+            if (!updateApplicationValues(wu.getApplicationValues().getApplicationValue()))
             {
-                retVal = true;
-                notifyObservers(Notification.APPLICATIONVALUES);
+                retVal = false;
             }
-            if (updateResults(wu.getResults().getECLResult()))
+            if (!updateResults(wu.getResults().getECLResult()))
             {
-                retVal = true;
-                notifyObservers(Notification.RESULTS);
+                retVal = false;
             }
-            if (updateGraphs(wu.getGraphs().getECLGraph()))
+            if (!updateGraphs(wu.getGraphs().getECLGraph()))
             {
-                retVal = true;
-                notifyObservers(Notification.GRAPHS);
+                retVal = false;
             }
-            if (updateSourceFiles(wu.getSourceFiles().getECLSourceFile()))
+            if (!updateSourceFiles(wu.getSourceFiles().getECLSourceFile()))
             {
-                retVal = true;
-                notifyObservers(Notification.SOURCEFILES);
+                retVal = false;
             }
         }
         monitor();
@@ -823,7 +813,7 @@ public class Workunit extends DataSingleton
             info.setStateID(wu.getStateID());
             info.setStateEx(wu.getStateEx());
             info.setState(wu.getState());
-            setChanged();
+
             retVal = true;
         }
         return retVal;
@@ -841,7 +831,7 @@ public class Workunit extends DataSingleton
         if (cluster != null && EqualsUtil.hasChanged(info.getCluster(), cluster))
         {
             info.setCluster(cluster);
-            setChanged();
+
             return true;
         }
         return false;
@@ -859,7 +849,7 @@ public class Workunit extends DataSingleton
         if (owner != null && EqualsUtil.hasChanged(info.getOwner(), owner))
         {
             info.setOwner(owner);
-            setChanged();
+
             return true;
         }
         return false;
@@ -877,7 +867,7 @@ public class Workunit extends DataSingleton
         if (jobname != null && EqualsUtil.hasChanged(info.getJobname(), jobname))
         {
             info.setJobname(jobname);
-            setChanged();
+
             return true;
         }
         return false;
@@ -895,7 +885,7 @@ public class Workunit extends DataSingleton
         if (q != null && EqualsUtil.hasChanged(info.getQuery(), q))
         {
             info.setQuery(q);
-            setChanged();
+
             return true;
         }
         return false;
@@ -928,7 +918,7 @@ public class Workunit extends DataSingleton
 
             if (applicationValuesCount != applicationValues.size())
             {
-                setChanged();
+
                 return true;
             }
         }
@@ -955,7 +945,7 @@ public class Workunit extends DataSingleton
             }
             if (resultCount != results.size())
             {
-                setChanged();
+
                 return true;
             }
         }
@@ -982,7 +972,7 @@ public class Workunit extends DataSingleton
             }
             if (graphCount != graphs.size())
             {
-                setChanged();
+
                 return true;
             }
         }
@@ -1009,7 +999,7 @@ public class Workunit extends DataSingleton
             }
             if (sourceFileCount != sourceFiles.size())
             {
-                setChanged();
+
                 return true;
             }
         }

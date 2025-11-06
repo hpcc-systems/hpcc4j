@@ -162,7 +162,7 @@ public class Graph extends DataSingleton
             if (UpdateState(graph))
             {
                 retVal = true;
-                notifyObservers(Notification.GRAPH);
+
             }
         }
         monitor();
@@ -181,7 +181,7 @@ public class Graph extends DataSingleton
         if (info.getName().equals(graph.getName()) && EqualsUtil.hasChanged(info, graph))
         {
             info = graph;
-            setChanged();
+
             return true;
         }
         return false;
