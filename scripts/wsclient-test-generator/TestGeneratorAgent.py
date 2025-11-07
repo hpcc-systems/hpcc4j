@@ -106,7 +106,7 @@ OUTPUT_DIR = f"{SERVICE_NAME}_{METHOD_NAME}TestGeneration"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 print(f"📁 Output directory: {os.path.abspath(OUTPUT_DIR)}")
 
-PROMPT_FILE = "MethodAnalysisPrompt.md"
+PROMPT_FILE = os.path.join(os.path.dirname(__file__), "MethodAnalysisPrompt.md")
 ANALYSIS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}Analysis.md")
 EXPECTED_RESULTS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}ExpectedTestResults.md")
 TEST_FILE_GLOB = f"**/{SERVICE_NAME}ClientTest.java"
@@ -114,6 +114,8 @@ FAILURE_ANALYSIS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}F
 
 # Maximum iterations for test fixing and categorization
 MAX_TEST_FIX_ITERATIONS = 5
+# Maximum iterations for attempting the Maven build (to avoid infinite retries)
+MAX_BUILD_ITERATIONS = 5
 
 # Get workspace directories for copilot context
 HPCC4J_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
@@ -123,9 +125,60 @@ print(f"📂 HPCC4J directory: {HPCC4J_DIR}")
 print(f"📂 HPCC Platform directory: {HPCC_SOURCE_DIR}")
 print(f"📂 Tmp directory: {TMP_DIR}")
 
-# === Helper Functions ===
-# (Removed previously unused helper functions and CLI whitelist configuration.)
-
+# ========== Copilot CLI whitelist configuration ==========
+# List of tools the Copilot CLI is allowed to use when invoked by this script.
+# Tools are specified using the format: shell(command) for shell commands
+# See: copilot help permissions for more details
+#
+# Note: Each entry will be passed as "--allow-tool <entry>"
+COPILOT_WHITELIST = [
+    # Build and test execution
+    "shell(mvn)",           # CRITICAL - Maven operations (build, test, package)
+    
+    # File reading and content display
+    "shell(cat)",           # CRITICAL - Reading file contents
+    "shell(head)",          # USEFUL - View beginning of files
+    "shell(tail)",          # USEFUL - View end of files (logs)
+    "shell(wc)",            # USEFUL - Count lines/words in files
+    
+    # File system navigation and search
+    "shell(cd)",            # CRITICAL - Change directories
+    "shell(bash)",          # CRITICAL - General shell access
+    "shell(sh)",            # CRITICAL - General shell access
+    "shell(find)",          # CRITICAL - Finding files across project
+    "shell(grep)",          # CRITICAL - Searching existing tests, code patterns
+    "shell(ls)",            # USEFUL - Listing directory contents
+    
+    # Text processing and file manipulation
+    "shell(sed)",           # USEFUL - Quick text replacements
+    "shell(diff)",          # USEFUL - Comparing files
+    "shell(cmp)",           # USEFUL - Binary file comparison
+    
+    # JSON processing
+    "shell(jq)",            # VERY USEFUL - JSON parsing and querying
+    
+    # File operations
+    "shell(mkdir)",         # NEEDED - Create directories
+    "shell(cp)",            # NEEDED - Copy files
+    "shell(mv)",            # NEEDED - Move/rename files
+    "shell(rm)",            # NEEDED - Remove files (use with caution)
+    "shell(touch)",         # USEFUL - Create empty files
+    
+    # Path operations
+    "shell(realpath)",      # USEFUL - Get absolute paths
+    "shell(basename)",      # USEFUL - Extract filename from path
+    "shell(dirname)",       # USEFUL - Extract directory from path
+    
+    # Process management
+    "shell(ps)",            # USEFUL - Check running processes
+    "shell(kill)",          # USEFUL - Stop hung processes (use with caution)
+    
+    # Utility
+    "shell(xargs)",         # USEFUL - Chain commands with find/grep
+    
+    # File writing/editing is handled by Copilot's built-in tools
+    "write",                # Allow file creation and modification
+]
 
 def build_copilot_cmd(prompt_text):
     """Return a list suitable for subprocess.run for invoking the copilot CLI
@@ -140,9 +193,9 @@ def build_copilot_cmd(prompt_text):
     """
     cmd = ["copilot", "-p", prompt_text]
     
-    # Previously used a whitelist; now relying on --allow-all-tools for simplicity.
-    # Allow all tools
-    cmd.extend(["--allow-all-tools"])
+    # Add each whitelisted tool
+    for tool in COPILOT_WHITELIST:
+        cmd.extend(["--allow-tool", tool])
 
     # Add directory context for better code awareness
     cmd.extend(["--add-dir", HPCC4J_DIR])
@@ -254,10 +307,6 @@ If you need to reference server-side code, use these absolute paths.
     
     print("✅ Copilot fix completed!")
 
-
-# (Removed previously unused functions: run_maven_goal, find_test_results, parse_test_failures.)
-
-
 def run_individual_test(test_class, test_name, hpcc_conn="http://eclwatch.default:8010", wssql_conn="http://sql2ecl.default:8510", hpcc_user="", hpcc_pass="", disable_dataset_generation=False):
     """
     Run an individual test method and return the result.
@@ -353,9 +402,6 @@ def save_test_results(results, iteration):
     print(f"✅ Test results saved to: {results_file}")
     return results_file
 
-
-
-
 # === Step 1: Generate Method Analysis ===
 if START_FROM_STEP <= 1:
     if SKIP_ANALYSIS and os.path.exists(ANALYSIS_FILE):
@@ -432,7 +478,10 @@ else:
 # === Step 3: Build Project and Fix Compilation Issues ===
 if START_FROM_STEP <= 3:
     print("🏗️ Step 3: Building Java project with Maven...")
-    while True:
+    build_iteration = 0
+    while build_iteration < MAX_BUILD_ITERATIONS:
+        build_iteration += 1
+        print(f"🔁 Build iteration {build_iteration}/{MAX_BUILD_ITERATIONS}...")
         result = subprocess.run(["mvn", "package", "-B"], capture_output=True, text=True)
         if result.returncode == 0:
             print("✅ Build succeeded!")
@@ -442,6 +491,9 @@ if START_FROM_STEP <= 3:
             error_text = result.stderr[:8000]  # limit for context
             copilot_fix("Fix compilation errors ONLY in the test files", [ANALYSIS_FILE, EXPECTED_RESULTS_FILE])
             print("🔁 Retrying build...")
+    else:
+        print(f"❌ Build failed after {MAX_BUILD_ITERATIONS} attempts. Please inspect the build output.")
+        sys.exit(1)
 else:
     print(f"⏭️  Skipping Step 3: Starting from Step {START_FROM_STEP}")
 
