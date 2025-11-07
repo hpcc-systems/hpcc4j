@@ -36,7 +36,6 @@ The script will:
 import subprocess
 import os
 import sys
-import shlex
 import argparse
 import glob
 import json
@@ -125,71 +124,7 @@ print(f"📂 HPCC Platform directory: {HPCC_SOURCE_DIR}")
 print(f"📂 Tmp directory: {TMP_DIR}")
 
 # === Helper Functions ===
-def run_cmd(cmd, cwd=None, capture=False, check=True):
-    """Run a shell command with optional capture."""
-    print(f"\n🧩 Running: {cmd}")
-    result = subprocess.run(shlex.split(cmd), cwd=cwd, capture_output=capture, text=True)
-    if result.returncode != 0 and check:
-        print(f"❌ Command failed: {cmd}")
-        print(result.stderr)
-        sys.exit(result.returncode)
-    return result.stdout if capture else None
-
-
-# ========== Copilot CLI whitelist configuration ==========
-# List of tools the Copilot CLI is allowed to use when invoked by this script.
-# Tools are specified using the format: shell(command) for shell commands
-# See: copilot help permissions for more details
-#
-# Note: Each entry will be passed as "--allow-tool <entry>"
-COPILOT_WHITELIST = [
-    # Build and test execution
-    "shell(mvn)",           # CRITICAL - Maven operations (build, test, package)
-    
-    # File reading and content display
-    "shell(cat)",           # CRITICAL - Reading file contents
-    "shell(head)",          # USEFUL - View beginning of files
-    "shell(tail)",          # USEFUL - View end of files (logs)
-    "shell(wc)",            # USEFUL - Count lines/words in files
-    
-    # File system navigation and search
-    "shell(cd)",            # CRITICAL - Change directories
-    "shell(bash)",          # CRITICAL - General shell access
-    "shell(sh)",            # CRITICAL - General shell access
-    "shell(find)",          # CRITICAL - Finding files across project
-    "shell(grep)",          # CRITICAL - Searching existing tests, code patterns
-    "shell(ls)",            # USEFUL - Listing directory contents
-    
-    # Text processing and file manipulation
-    "shell(sed)",           # USEFUL - Quick text replacements
-    "shell(diff)",          # USEFUL - Comparing files
-    "shell(cmp)",           # USEFUL - Binary file comparison
-    
-    # JSON processing
-    "shell(jq)",            # VERY USEFUL - JSON parsing and querying
-    
-    # File operations
-    "shell(mkdir)",         # NEEDED - Create directories
-    "shell(cp)",            # NEEDED - Copy files
-    "shell(mv)",            # NEEDED - Move/rename files
-    "shell(rm)",            # NEEDED - Remove files (use with caution)
-    "shell(touch)",         # USEFUL - Create empty files
-    
-    # Path operations
-    "shell(realpath)",      # USEFUL - Get absolute paths
-    "shell(basename)",      # USEFUL - Extract filename from path
-    "shell(dirname)",       # USEFUL - Extract directory from path
-    
-    # Process management
-    "shell(ps)",            # USEFUL - Check running processes
-    "shell(kill)",          # USEFUL - Stop hung processes (use with caution)
-    
-    # Utility
-    "shell(xargs)",         # USEFUL - Chain commands with find/grep
-    
-    # File writing/editing is handled by Copilot's built-in tools
-    "write",                # Allow file creation and modification
-]
+# (Removed previously unused helper functions and CLI whitelist configuration.)
 
 
 def build_copilot_cmd(prompt_text):
@@ -205,10 +140,10 @@ def build_copilot_cmd(prompt_text):
     """
     cmd = ["copilot", "-p", prompt_text]
     
-    # Add each whitelisted tool
-    for tool in COPILOT_WHITELIST:
-        cmd.extend(["--allow-tool", tool])
-    
+    # Previously used a whitelist; now relying on --allow-all-tools for simplicity.
+    # Allow all tools
+    cmd.extend(["--allow-all-tools"])
+
     # Add directory context for better code awareness
     cmd.extend(["--add-dir", HPCC4J_DIR])
     cmd.extend(["--add-dir", HPCC_SOURCE_DIR])
@@ -320,44 +255,7 @@ If you need to reference server-side code, use these absolute paths.
     print("✅ Copilot fix completed!")
 
 
-def run_maven_goal(goal):
-    """Run a Maven goal and stream output."""
-    cmd = f"mvn {goal} -B"
-    run_cmd(cmd)
-
-
-def find_test_results():
-    """Collect test results from surefire reports."""
-    results_dir = "target/surefire-reports"
-    if not os.path.exists(results_dir):
-        return ""
-    results = []
-    for file in os.listdir(results_dir):
-        if file.endswith(".txt") or file.endswith(".xml"):
-            with open(os.path.join(results_dir, file)) as f:
-                results.append(f.read())
-    return "\n".join(results)
-
-
-def parse_test_failures():
-    """Parse test results and extract detailed failure information."""
-    results_dir = "target/surefire-reports"
-    if not os.path.exists(results_dir):
-        return []
-    
-    failures = []
-    for file in os.listdir(results_dir):
-        if file.endswith(".txt"):
-            with open(os.path.join(results_dir, file)) as f:
-                content = f.read()
-                # Extract test failures - this is a simplified parser
-                # In practice, you might want to parse XML for more structured data
-                if "FAILURE!" in content or "ERROR!" in content:
-                    failures.append({
-                        "file": file,
-                        "content": content
-                    })
-    return failures
+# (Removed previously unused functions: run_maven_goal, find_test_results, parse_test_failures.)
 
 
 def run_individual_test(test_class, test_name, hpcc_conn="http://eclwatch.default:8010", wssql_conn="http://sql2ecl.default:8510", hpcc_user="", hpcc_pass="", disable_dataset_generation=False):
@@ -456,227 +354,6 @@ def save_test_results(results, iteration):
     return results_file
 
 
-
-def analyze_test_failure(test_name, failure_details, iteration):
-    """
-    Use Copilot to analyze a test failure and categorize it.
-    Returns a dict with analysis results.
-    """
-    analysis_prompt = f"""
-# Test Failure Analysis - Iteration {iteration}
-
-## Test Information
-**Test Name:** {test_name}
-**Failure Details:**
-```
-{failure_details}
-```
-
-## Analysis Requirements
-
-Please analyze this test failure and provide a comprehensive assessment:
-
-### 1. Test Case Validity
-Determine if the test case itself is valid:
-- **VALID**: The test is correctly written and tests a legitimate scenario
-- **INVALID**: The test has incorrect logic, wrong assertions, or tests an impossible scenario
-
-### 2. Failure Classification (if test is VALID)
-If the test is valid, classify where the issue occurs:
-- **CLIENT-SIDE**: Issue in the Java client code (wrapper classes, request building, response parsing)
-- **SERVER-SIDE**: Issue in the HPCC Platform ESP service implementation
-- **TEST-ENVIRONMENT**: Issue with test setup, data, or configuration (not a code bug)
-
-### 3. Root Cause Analysis
-Provide a detailed root cause analysis:
-- What is the specific error or failure?
-- What is the expected behavior vs. actual behavior?
-- What component is responsible for the failure?
-- Are there any stack traces, error messages, or logs that provide clues?
-
-### 4. Recommended Action
-Based on the analysis, recommend ONE of the following:
-- **FIX-TEST**: Test case is invalid and needs correction
-- **CATEGORIZE-CLIENT**: Valid test, client-side issue, add @Category(UnverifiedClientIssues.class)
-- **CATEGORIZE-SERVER**: Valid test, server-side issue, add @Category(UnverifiedServerIssues.class)
-- **INVESTIGATE**: Needs more information or manual investigation
-
-### 5. Proposed Solution (if applicable)
-If FIX-TEST is recommended, provide the specific code changes needed.
-
-## Output Format
-
-Provide your analysis in the following JSON-compatible format:
-
-```json
-{{
-  "test_name": "{test_name}",
-  "iteration": {iteration},
-  "validity": "VALID|INVALID",
-  "classification": "CLIENT-SIDE|SERVER-SIDE|TEST-ENVIRONMENT|N/A",
-  "root_cause": "Detailed explanation of the root cause",
-  "recommended_action": "FIX-TEST|CATEGORIZE-CLIENT|CATEGORIZE-SERVER|INVESTIGATE",
-  "proposed_solution": "Specific solution or code changes if FIX-TEST, otherwise explanation",
-  "confidence": "HIGH|MEDIUM|LOW"
-}}
-```
-
-Also save a detailed markdown analysis to: {FAILURE_ANALYSIS_FILE}
-"""
-    
-    print(f"\n🔍 Analyzing failure for: {test_name}")
-    
-    # Use subprocess with proper argument passing
-    result = subprocess.run(build_copilot_cmd(analysis_prompt))
-    
-    print(f"✅ Analysis completed for: {test_name}")
-    
-    # Read the analysis file if it was created
-    if os.path.exists(FAILURE_ANALYSIS_FILE):
-        with open(FAILURE_ANALYSIS_FILE, 'r') as f:
-            analysis_content = f.read()
-        return analysis_content
-    else:
-        print(f"⚠️  Warning: Analysis file not created, using default categorization")
-        return None
-
-
-def apply_test_categorization(test_name, category, test_file_path):
-    """
-    Apply a category annotation to a specific test method.
-    """
-    categorization_prompt = f"""
-Please add the appropriate @Category annotation to the test method `{test_name}` in the test file.
-
-**Category to apply:** {category}
-
-**Instructions:**
-1. Find the test method named `{test_name}` in {test_file_path}
-2. Add the import statement if not already present:
-   - For CLIENT issues: `import org.hpccsystems.commons.annotations.UnverifiedClientIssues;`
-   - For SERVER issues: `import org.hpccsystems.commons.annotations.UnverifiedServerIssues;`
-3. Add the annotation line:
-   - For CLIENT issues: `@Category(UnverifiedClientIssues.class)`
-   - For SERVER issues: `@Category(UnverifiedServerIssues.class)`
-4. Place the annotation immediately before the @Test annotation
-
-**Example:**
-```java
-@Category(UnverifiedClientIssues.class)
-@Test
-public void testMethodName() {{
-    // test code
-}}
-```
-
-Make sure to preserve all existing annotations and code structure.
-"""
-    
-    print(f"\n🏷️  Categorizing test: {test_name} as {category}")
-    
-    # Use subprocess with proper argument passing
-    result = subprocess.run(build_copilot_cmd(categorization_prompt))
-    
-    print(f"✅ Categorization applied to: {test_name}")
-
-
-def fix_invalid_test(test_name, proposed_solution, test_file_path):
-    """
-    Fix an invalid test case based on the proposed solution.
-    """
-    fix_prompt = f"""
-Please fix the invalid test case `{test_name}` in {test_file_path}.
-
-**Proposed Solution:**
-{proposed_solution}
-
-**Instructions:**
-1. Find the test method named `{test_name}`
-2. Apply the proposed fixes carefully
-3. Ensure the test logic is correct and assertions are valid
-4. Maintain code style and formatting
-5. Do not modify other tests
-
-Make the necessary changes to fix this test.
-"""
-    
-    print(f"\n🔧 Fixing invalid test: {test_name}")
-    
-    # Use subprocess with proper argument passing
-    result = subprocess.run(build_copilot_cmd(fix_prompt))
-    
-    print(f"✅ Test fix applied to: {test_name}")
-
-
-def generate_failure_summary(all_analyses, iteration):
-    """
-    Generate a comprehensive summary document of all test failures and their analyses.
-    """
-    summary_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FailureSummary_Iteration{iteration}.md")
-    
-    summary_prompt = f"""
-# Test Failure Summary - Iteration {iteration}
-
-Please create a comprehensive summary document of all test failure analyses.
-
-**Summary File:** {summary_file}
-
-## Required Sections:
-
-### 1. Executive Summary
-- Total tests analyzed
-- Tests fixed
-- Tests categorized as client issues
-- Tests categorized as server issues
-- Tests requiring investigation
-
-### 2. Detailed Analysis Results
-For each test, include:
-- Test name
-- Validity assessment
-- Classification
-- Root cause
-- Action taken
-
-### 3. Client-Side Issues
-List all tests categorized as client-side issues with:
-- Brief description of each issue
-- Affected component
-- Potential fix location
-
-### 4. Server-Side Issues
-List all tests categorized as server-side issues with:
-- Brief description of each issue
-- Affected service/method
-- Expected vs actual behavior
-
-### 5. Fixed Tests
-List all invalid tests that were corrected with:
-- What was wrong
-- How it was fixed
-
-### 6. Recommendations
-- Next steps for addressing client issues
-- Next steps for addressing server issues
-- Suggestions for improving test coverage
-
-Please read the analysis file {FAILURE_ANALYSIS_FILE} and create this comprehensive summary in {summary_file}.
-"""
-    
-    print(f"\n📊 Generating failure summary for iteration {iteration}...")
-    
-    # Use subprocess with proper argument passing
-    result = subprocess.run(build_copilot_cmd(summary_prompt))
-    
-    if os.path.exists(summary_file):
-        print(f"✅ Summary generated: {summary_file}")
-    else:
-        print(f"⚠️  Warning: Summary file not created")
-
-
-def compare_results(expected, actual):
-    """Compare expected vs actual test outcomes."""
-    return expected.strip() == actual.strip()
 
 
 # === Step 1: Generate Method Analysis ===
