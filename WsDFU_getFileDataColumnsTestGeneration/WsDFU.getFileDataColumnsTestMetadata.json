@@ -1,0 +1,263 @@
+{
+  "service": "WsDFU",
+  "method": "getFileDataColumns",
+  "testClass": "WsDFUClientTest",
+  "description": "Comprehensive test suite for WsDFU.getFileDataColumns method covering core functionality, edge cases, and error handling",
+  "totalTests": 18,
+  "tests": [
+    {
+      "testName": "testGetFileDataColumnsBasicInteger",
+      "description": "Retrieve column metadata from a simple integer dataset with minimal parameters",
+      "category": "basic",
+      "expectedOutcome": "PASS",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::integer::20KB",
+      "notes": "Simplest valid use case validating basic method operation with 2 integer columns"
+    },
+    {
+      "testName": "testGetFileDataColumnsMultiType",
+      "description": "Retrieve column metadata from a dataset containing multiple data types",
+      "category": "basic",
+      "expectedOutcome": "PASS",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::all_types::200KB",
+      "notes": "Validates handling of diverse data types including primitives, strings, decimals, and nested structures (21+ columns)"
+    },
+    {
+      "testName": "testGetFileDataColumnsNoCluster",
+      "description": "Retrieve column metadata without specifying cluster, relying on automatic file location",
+      "category": "basic",
+      "expectedOutcome": "PASS",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::integer::20KB",
+      "notes": "Tests default behavior when cluster parameter is null - system should locate file automatically"
+    },
+    {
+      "testName": "testGetFileDataColumnsLargeFile",
+      "description": "Retrieve column metadata from a large dataset to validate performance and handling",
+      "category": "basic",
+      "expectedOutcome": "PASS",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::string::100MB",
+      "notes": "Validates that metadata retrieval is fast (< 5 seconds) and not dependent on file size (6.25M records)"
+    },
+    {
+      "testName": "testGetFileDataColumnsKeyedColumns",
+      "description": "Validate that keyed and non-keyed columns are correctly identified",
+      "category": "basic",
+      "expectedOutcome": "SKIP",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::integer::20kb::key",
+      "notes": "Tests INDEX file handling and keyed column detection - behavior may differ from regular datasets, exception acceptable"
+    },
+    {
+      "testName": "testGetFileDataColumnsNestedDataset",
+      "description": "Validate retrieval of nested dataset columns (child columns)",
+      "category": "basic",
+      "expectedOutcome": "PASS",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::all_types::200KB",
+      "notes": "Critical test for nested/complex type handling - childDataset should contain 3 child columns"
+    },
+    {
+      "testName": "testGetFileDataColumnsEmptyCluster",
+      "description": "Test behavior when cluster parameter is empty string (not null)",
+      "category": "edge-case",
+      "expectedOutcome": "PASS",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::integer::20KB",
+      "notes": "Empty string should be treated same as null cluster parameter"
+    },
+    {
+      "testName": "testGetFileDataColumnsNoTildePrefix",
+      "description": "Test retrieval using logical name without '~' prefix",
+      "category": "edge-case",
+      "expectedOutcome": "SKIP",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::integer::20KB",
+      "notes": "Tests name normalization - system may or may not require tilde prefix, exception acceptable"
+    },
+    {
+      "testName": "testGetFileDataColumnsWithWhitespace",
+      "description": "Test retrieval with leading/trailing whitespace in logical name",
+      "category": "edge-case",
+      "expectedOutcome": "PASS",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::integer::20KB",
+      "notes": "Server-side code performs trim operation, whitespace should be handled correctly"
+    },
+    {
+      "testName": "testGetFileDataColumnsSuperfile",
+      "description": "Retrieve columns from a superfile without specifying chooseFile (default to first subfile)",
+      "category": "edge-case",
+      "expectedOutcome": "PASS",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::all_types::superfile",
+      "notes": "Validates superfile handling - should return columns from first subfile (all_types::200KB)"
+    },
+    {
+      "testName": "testGetFileDataColumnsURIFormat",
+      "description": "Test retrieval using URI-style logical name (forward slashes instead of ::)",
+      "category": "edge-case",
+      "expectedOutcome": "SKIP",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::integer::20KB",
+      "notes": "Tests modern URI format compatibility (/benchmark/integer/20KB) - may not be supported, exception acceptable"
+    },
+    {
+      "testName": "testGetFileDataColumnsCaseSensitivity",
+      "description": "Test if logical file names are case-sensitive",
+      "category": "edge-case",
+      "expectedOutcome": "SKIP",
+      "requiresData": true,
+      "datasetRequired": "~benchmark::integer::20KB",
+      "notes": "Tests uppercase filename - behavior depends on HPCC configuration (typically case-insensitive)"
+    },
+    {
+      "testName": "testGetFileDataColumnsNullFilename",
+      "description": "Test behavior when logical filename is null",
+      "category": "error-handling",
+      "expectedOutcome": "PASS",
+      "requiresData": false,
+      "notes": "Should handle null gracefully - either empty list or meaningful exception, never NullPointerException"
+    },
+    {
+      "testName": "testGetFileDataColumnsEmptyFilename",
+      "description": "Test behavior when logical filename is empty string",
+      "category": "error-handling",
+      "expectedOutcome": "PASS",
+      "requiresData": false,
+      "notes": "Should throw exception or handle gracefully with meaningful error message"
+    },
+    {
+      "testName": "testGetFileDataColumnsNonExistentFile",
+      "description": "Test behavior when logical filename doesn't exist",
+      "category": "error-handling",
+      "expectedOutcome": "PASS",
+      "requiresData": false,
+      "notes": "Should throw ArrayOfEspExceptionWrapper with 'not found' message"
+    },
+    {
+      "testName": "testGetFileDataColumnsInvalidCluster",
+      "description": "Test behavior when cluster name doesn't exist",
+      "category": "error-handling",
+      "expectedOutcome": "PASS",
+      "requiresData": false,
+      "notes": "Should throw ArrayOfEspExceptionWrapper indicating cluster not found or file not found on cluster"
+    },
+    {
+      "testName": "testGetFileDataColumnsMalformedName",
+      "description": "Test behavior with special/invalid characters in logical name",
+      "category": "error-handling",
+      "expectedOutcome": "PASS",
+      "requiresData": false,
+      "notes": "Security test for input validation - should throw exception, no XSS or injection vulnerability"
+    },
+    {
+      "testName": "testGetFileDataColumnsLongFilename",
+      "description": "Test behavior with excessively long logical filename (10,000+ characters)",
+      "category": "error-handling",
+      "expectedOutcome": "PASS",
+      "requiresData": false,
+      "notes": "Boundary test for input length limits - should handle gracefully, no buffer overflow or system crash"
+    }
+  ],
+  "testExecution": {
+    "command": "mvn -B --activate-profiles jenkins-on-demand,remote-test -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -Dtest=WsDFUClientTest#<testName> package",
+    "notes": "Replace <testName> with specific test method name to run individual test"
+  },
+  "datasetRequirements": {
+    "required": [
+      {
+        "name": "~benchmark::integer::20KB",
+        "description": "Simple 2-column integer dataset (key, fill)",
+        "recordCount": 1250,
+        "usedInTests": ["testGetFileDataColumnsBasicInteger", "testGetFileDataColumnsNoCluster", "testGetFileDataColumnsEmptyCluster", "testGetFileDataColumnsNoTildePrefix", "testGetFileDataColumnsWithWhitespace", "testGetFileDataColumnsURIFormat", "testGetFileDataColumnsCaseSensitivity"]
+      },
+      {
+        "name": "~benchmark::all_types::200KB",
+        "description": "Multi-type dataset with 21+ columns including nested structures",
+        "recordCount": 5600,
+        "usedInTests": ["testGetFileDataColumnsMultiType", "testGetFileDataColumnsNestedDataset"]
+      },
+      {
+        "name": "~benchmark::string::100MB",
+        "description": "Large file with 2 STRING8 columns",
+        "recordCount": 6250000,
+        "usedInTests": ["testGetFileDataColumnsLargeFile"]
+      },
+      {
+        "name": "~benchmark::all_types::superfile",
+        "description": "Superfile containing all_types::200KB as subfile",
+        "usedInTests": ["testGetFileDataColumnsSuperfile"]
+      },
+      {
+        "name": "~benchmark::integer::20kb::key",
+        "description": "Index file for keyed column testing",
+        "usedInTests": ["testGetFileDataColumnsKeyedColumns"]
+      }
+    ],
+    "optional": [
+      {
+        "name": "~test::single_column::integer",
+        "description": "Single column dataset for boundary testing",
+        "status": "Not implemented - test not included in current suite"
+      },
+      {
+        "name": "~test::many_columns::100fields",
+        "description": "Dataset with 100+ columns for stress testing",
+        "status": "Not implemented - test not included in current suite"
+      },
+      {
+        "name": "~test::csv::no_record_def",
+        "description": "CSV file without record definition",
+        "status": "Not implemented - test not included in current suite"
+      },
+      {
+        "name": "~test::xml::no_record_def",
+        "description": "XML file without record definition",
+        "status": "Not implemented - test not included in current suite"
+      }
+    ]
+  },
+  "testCoverage": {
+    "coreFeatures": {
+      "basicRetrieval": true,
+      "multipleDataTypes": true,
+      "nullClusterParameter": true,
+      "largeFileHandling": true,
+      "keyedColumnDetection": true,
+      "nestedDatasetColumns": true
+    },
+    "edgeCases": {
+      "emptyClusterString": true,
+      "noTildePrefix": true,
+      "whitespaceHandling": true,
+      "superfileHandling": true,
+      "uriFormat": true,
+      "caseSensitivity": true
+    },
+    "errorHandling": {
+      "nullFilename": true,
+      "emptyFilename": true,
+      "nonExistentFile": true,
+      "invalidCluster": true,
+      "malformedName": true,
+      "longFilename": true
+    }
+  },
+  "expectedResults": {
+    "totalTests": 18,
+    "expectedPass": 13,
+    "expectedSkip": 5,
+    "expectedFail": 0
+  },
+  "notes": [
+    "This test suite provides comprehensive coverage for getFileDataColumns method",
+    "All tests extend BaseRemoteTest and follow project testing patterns",
+    "Tests marked SKIP are valid tests but may not pass depending on system configuration",
+    "Error handling tests validate graceful failure without system crashes",
+    "Performance tests ensure metadata retrieval is fast regardless of file size",
+    "Nested structure tests validate complex type handling critical for schema discovery"
+  ]
+}
