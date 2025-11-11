@@ -336,6 +336,16 @@ public class BinaryRecordReader implements IRecordReader
     }
 
     /**
+     * Returns whether unsigned 8 values are parsed into BigDecimals to avoid long overflow.
+     *
+     * @return use decimal
+     */
+    public boolean getUseDecimalForUnsigned8()
+    {
+        return useDecimalForUnsigned8;
+    }
+
+    /**
      * Should be set if this record reader is reading an index file.
      *
      * @param isIdx Is this an index file?
@@ -355,6 +365,20 @@ public class BinaryRecordReader implements IRecordReader
         shouldTrimStrings = (flags & TRIM_STRINGS) != 0;
         shouldTrimFixedLenStrings = (flags & TRIM_FIXED_LEN_STRINGS) != 0;
         convertEmptyStringsToNull = (flags & CONVERT_EMPTY_STRINGS_TO_NULL) != 0;
+    }
+
+    /**
+     * Get string processing flags.
+     * 
+     * @return string processing flags
+     */
+    public int getStringProcessingFlags()
+    {
+        int flags = 0;
+        if (shouldTrimStrings) flags |= TRIM_STRINGS;
+        if (shouldTrimFixedLenStrings) flags |= TRIM_FIXED_LEN_STRINGS;
+        if (convertEmptyStringsToNull) flags |= CONVERT_EMPTY_STRINGS_TO_NULL;
+        return flags;
     }
 
     /*
