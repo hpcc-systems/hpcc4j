@@ -70,6 +70,9 @@ public abstract class BaseRemoteTest
     protected final static String hpccPass = System.getProperty("hpccpass", "");
     protected final static Integer connTO = System.getProperty("connecttimeoutmillis")==null?null:Integer.valueOf(System.getProperty("connecttimeoutmillis"));
     protected final static String sockTO = System.getProperty("sockettimeoutmillis");
+    
+    // Check system property first, then environment variable, default to false
+    protected final static boolean disableDatasetGeneration = Boolean.parseBoolean(System.getProperty("disableDatasetGeneration", "false"));
 
     protected final static int  testThreadCount = Integer.parseInt(System.getProperty("testthreadcount", "10"));
     public static final String DEFAULTHPCCFILENAME      = "benchmark::all_types::200kb";
