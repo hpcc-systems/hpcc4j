@@ -39,6 +39,7 @@ import sys
 import argparse
 import glob
 import json
+from datetime import datetime
 
 # === Configuration ===
 def parse_arguments():
@@ -85,6 +86,10 @@ METHOD_NAME = args.METHOD_NAME
 HPCC_SOURCE_DIR = os.path.abspath(args.HPCC_SOURCE_DIR)  # Convert to absolute path
 SKIP_ANALYSIS = args.skip_analysis
 START_FROM_STEP = args.start_from_step
+
+# Generate datestamp for this test generation run
+DATESTAMP = datetime.now().strftime("%Y-%m-%d")
+print(f"🕐 Test generation started: {DATESTAMP}")
 
 # Validate that the HPCC source directory exists
 if not os.path.exists(HPCC_SOURCE_DIR):
@@ -259,6 +264,11 @@ Make sure the file is created in: {os.path.abspath(output_file)}
     # Use subprocess with proper argument passing (build flags from whitelist)
     result = subprocess.run(build_copilot_cmd(full_prompt))
     
+    # Check if Copilot command failed
+    if result.returncode != 0:
+        print(f"\n⚠️  Warning: Copilot command exited with code {result.returncode}")
+        print("The analysis generation may not have completed successfully.")
+    
     # Check if the output file was created
     if not os.path.exists(output_file):
         print(f"\n⚠️  Warning: Expected output file {output_file} was not created.")
@@ -274,6 +284,15 @@ Make sure the file is created in: {os.path.abspath(output_file)}
             print(f"❌ Error: File {output_file} still not found at {os.path.abspath(output_file)}")
             print("Exiting. Please create the file manually and restart from this step.")
             sys.exit(1)
+    
+    # Append datestamp to the generated markdown file
+    if output_file.endswith('.md'):
+        try:
+            with open(output_file, 'a') as f:
+                f.write(f"\n\n---\n*Generated: {DATESTAMP}*\n")
+            print(f"✅ Datestamp appended to {output_file}")
+        except Exception as e:
+            print(f"⚠️  Warning: Could not append datestamp to {output_file}: {e}")
     
     print(f"✅ Analysis file {output_file} was created successfully!")
 
@@ -340,7 +359,7 @@ def run_individual_test(test_class, test_name, hpcc_conn="http://eclwatch.defaul
     
     # Disable dataset generation for iterations after the first
     if disable_dataset_generation:
-        cmd.append("-disableDatasetGeneration=true")
+        cmd.append("-DdisableDatasetGeneration=true")
     
     cmd.extend([
         f"-Dtest={test_spec}",
@@ -394,7 +413,7 @@ def load_test_metadata(metadata_file):
 
 def save_test_results(results, iteration):
     """Save test results to a JSON file."""
-    results_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration{iteration}.json")
+    results_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration{iteration}_{DATESTAMP}.json")
     
     with open(results_file, 'w') as f:
         json.dump(results, f, indent=2)
@@ -425,7 +444,7 @@ if START_FROM_STEP <= 2:
     with open(ANALYSIS_FILE) as f:
         analysis_content = f.read()
 
-    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata.json")
+    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
     
     test_generation_prompt = (
         f"Read {ANALYSIS_FILE} and implement the recommended test cases "
@@ -473,7 +492,7 @@ if START_FROM_STEP <= 2:
         print(f"⚠️  Please populate it with test information before proceeding to Step 4")
 else:
     print(f"⏭️  Skipping Step 2: Starting from Step {START_FROM_STEP}")
-    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata.json")
+    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
 
 # === Step 3: Build Project and Fix Compilation Issues ===
 if START_FROM_STEP <= 3:
@@ -503,7 +522,7 @@ if START_FROM_STEP <= 4:
     print(f"📋 Maximum iterations: {MAX_TEST_FIX_ITERATIONS}")
 
     # Load test metadata
-    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata.json")
+    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
     test_metadata = load_test_metadata(TEST_METADATA_FILE)
     
     if not test_metadata:
@@ -537,7 +556,6 @@ if START_FROM_STEP <= 4:
             print(f"✅ Found test file: {test_file_path}")
 
     iteration = 0
-    all_analyses = []
 
     # Get HPCC connection settings from command-line args, environment, or use defaults
     hpcc_conn = args.HPCC_CONN or os.environ.get("HPCCCONN", "http://eclwatch.default:8010")
@@ -664,6 +682,9 @@ if START_FROM_STEP <= 4:
 
 """
         
+        # Append datestamp to failure report
+        failure_report += f"\n\n---\n*Generated: {DATESTAMP}*\n"
+        
         # Save the comprehensive failure report
         failure_report_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FailureReport_Iteration{iteration}.md")
         with open(failure_report_file, 'w') as f:
@@ -750,6 +771,9 @@ Structure:
 - Fixed X invalid tests
 - Categorized Y as client issues
 - Categorized Z as server issues
+
+---
+*Generated: {DATESTAMP}*
 ```
 
 **IMPORTANT**: Make ALL necessary changes to {test_file_path} NOW. Don't just create the analysis file - actually modify the test code.
@@ -771,6 +795,13 @@ Test results: {results_file}
         # Check if analysis file was created
         analysis_summary_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}BatchAnalysis_Iteration{iteration}.md")
         if os.path.exists(analysis_summary_file):
+            # Append datestamp if not already present
+            with open(analysis_summary_file, 'r') as f:
+                content = f.read()
+            if f"*Generated: {DATESTAMP}*" not in content:
+                with open(analysis_summary_file, 'a') as f:
+                    f.write(f"\n\n---\n*Generated: {DATESTAMP}*\n")
+            
             print(f"✅ Analysis summary created: {analysis_summary_file}")
             with open(analysis_summary_file, 'r') as f:
                 analysis_content = f.read()
@@ -779,11 +810,12 @@ Test results: {results_file}
             print(f"⚠️  Warning: Analysis summary not created at {analysis_summary_file}")
         
         # Prepare to re-run only the failed tests in next iteration
-        tests_to_execute = failures
+        # Extract metadata from failures since failures have structure: {"metadata": {...}, "result": {...}}
+        tests_to_execute = [f["metadata"] for f in failures]
         
         print(f"\n🔁 Next iteration will re-run {len(failures)} failed test(s)")
         
-                # Give user a chance to review before continuing
+        # Give user a chance to review before continuing
         print(f"\n⏸️  Iteration {iteration} complete. Copilot should have made fixes.")
         print(f"   - Review {analysis_summary_file} for details")
         print(f"   - Check {test_file_path} for changes")
@@ -811,7 +843,7 @@ Create a final comprehensive test report for {SERVICE_NAME}.{METHOD_NAME} that i
 
 1. **Test Execution Summary**
    - Total iterations: {iteration}
-   - Total test failures analyzed: {len(all_analyses)}
+   - Total tests in suite: {len(tests_to_run)}
    - Final test status: {final_passed} passed, {final_failed} failed
    - Test metadata file: {TEST_METADATA_FILE}
    - Latest results file: {results_file if 'results_file' in locals() else 'N/A'}
@@ -845,14 +877,31 @@ Create a final comprehensive test report for {SERVICE_NAME}.{METHOD_NAME} that i
 
 Review all test result files (*TestResults_Iteration*.json) and analysis files to compile this report.
 
+**IMPORTANT**: Include a datestamp at the end of the report:
+```markdown
+---
+*Generated: {DATESTAMP}*
+```
+
 Save this report to: {os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FinalReport.md")}
 """
 
     print("\n📝 Generating final comprehensive report...")
-    subprocess.run(build_copilot_cmd(final_report_prompt))
+    result = subprocess.run(build_copilot_cmd(final_report_prompt))
+    
+    if result.returncode != 0:
+        print(f"⚠️  Warning: Copilot command exited with code {result.returncode}")
+        print("The final report generation may not have completed successfully.")
 
     final_report_path = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FinalReport.md")
     if os.path.exists(final_report_path):
+        # Append datestamp if not already present
+        with open(final_report_path, 'r') as f:
+            content = f.read()
+        if f"*Generated: {DATESTAMP}*" not in content:
+            with open(final_report_path, 'a') as f:
+                f.write(f"\n\n---\n*Generated: {DATESTAMP}*\n")
+        
         print(f"✅ Final report created: {final_report_path}")
     else:
         print(f"⚠️  Final report not created")
@@ -861,11 +910,11 @@ Save this report to: {os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}Fin
     print(f"\n📁 Generated Files in {OUTPUT_DIR}:")
     print(f"   - {os.path.basename(ANALYSIS_FILE)}")
     print(f"   - {os.path.basename(EXPECTED_RESULTS_FILE)}")
-    print(f"   - {SERVICE_NAME}.{METHOD_NAME}TestMetadata.json")
+    print(f"   - {SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
     print(f"   - {os.path.basename(FAILURE_ANALYSIS_FILE)}")
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}FinalReport.md")
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}FailureSummary_Iteration*.md")
-    print(f"   - {SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration*.json")
+    print(f"   - {SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration*_{DATESTAMP}.json")
 else:
     print(f"⏭️  Skipping Step 4: Not requested")
 

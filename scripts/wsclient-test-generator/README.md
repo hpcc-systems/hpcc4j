@@ -10,11 +10,11 @@ TestGeneratorAgent.py is an AI-powered Python script that automates the complete
 - 🔍 **Method Analysis**: Deep analysis of server-side ESDL/ECM definitions and ESP service implementations
 - 🎯 **Smart Duplicate Prevention**: Analyzes existing test coverage before generating new tests
 - 🧪 **Test Metadata**: Generates structured JSON metadata for precise test execution and tracking
-- 🏗️ **Automated Build Fixing**: Iteratively fixes compilation errors with AI assistance
+- 🔨 **Automated Build Fixing**: Iteratively fixes compilation errors with AI assistance
 - 🔄 **Iterative Test Execution**: Runs tests individually with detailed failure analysis
-- � **Batch Failure Analysis**: Analyzes all test failures together for efficiency
+- 📊 **Batch Failure Analysis**: Analyzes all test failures together for efficiency
 - 🔐 **Authentication Support**: Handles secured HPCC clusters with username/password
-- �📊 **Intelligent Categorization**: Automatically classifies failures as client-side, server-side, or invalid tests
+- 🎯 **Intelligent Categorization**: Automatically classifies failures as client-side, server-side, or invalid tests
 - 🔒 **Strict Security**: Whitelisted tool execution prevents unauthorized commands
 - 📝 **Comprehensive Reporting**: Generates detailed analysis documents and final reports
 
@@ -77,7 +77,7 @@ export HPCCPASS="mypassword"
 
 ### Step 0: Analysis Prompt Template
 
-The agent uses [`MethodAnalysisPrompt.md`](../MethodAnalysisPrompt.md) as the template for Step 1. This prompt:
+The agent uses [`MethodAnalysisPrompt.md`](MethodAnalysisPrompt.md) as the template for Step 1. This prompt:
 
 **Key Requirements**:
 - ⚠️ **CRITICAL**: Analyze ALL existing tests before generating new ones
@@ -344,7 +344,7 @@ Tests with incorrect logic - these are fixed and re-run:
 
 ### Copilot Tool Whitelist
 
-The agent uses a strict whitelist of tools that Copilot CLI can execute. Edit the `COPILOT_WHITELIST` in [`TestGeneratorAgent.py`](TestGeneratorAgent.py ) to control permissions:
+The agent uses a strict whitelist of tools that Copilot CLI can execute. Edit the `COPILOT_WHITELIST` in [`TestGeneratorAgent.py`](TestGeneratorAgent.py) to control permissions:
 
 ```python
 COPILOT_WHITELIST = [
