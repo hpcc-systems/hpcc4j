@@ -740,7 +740,7 @@ if START_FROM_STEP <= 4:
             2. **If CLIENT_ISSUE**: Add categorization annotation to {test_file_path}
                - Add import: `import org.hpccsystems.commons.annotations.UnverifiedClientIssues;`
                - Add annotation: `@Category(UnverifiedClientIssues.class)` before @Test
-               - Correct client side issues if possible
+               - Correct client-side issues if possible
                - Keep test unchanged otherwise
 
             3. **If SERVER_ISSUE**: Add categorization annotation to {test_file_path}
@@ -787,7 +787,7 @@ if START_FROM_STEP <= 4:
             ```
 
             **IMPORTANT**: Make ALL necessary changes to {test_file_path} NOW. Don't just create the analysis file - actually modify the test code.
-            **IMPORTANT**: Make ALL necessary changes to resolve client side issues in the Java client code, all @Category(UnverifiedClientIssues.class) tests should pass.
+            **IMPORTANT**: Make ALL necessary changes to resolve client-side issues in the Java client code, all @Category(UnverifiedClientIssues.class) tests should pass.
 
             After making changes:
             1. Save the analysis summary
