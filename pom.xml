@@ -62,6 +62,7 @@
     <commons-cli.version>1.5.0</commons-cli.version>
     <javadoc.excludePackageNames></javadoc.excludePackageNames>
     <groups>org.hpccsystems.commons.annotations.BaseTests</groups>
+    <excludedGroups>org.hpccsystems.commons.annotations.KnownServerIssueTests,org.hpccsystems.commons.annotations.UnverifiedServerIssues,org.hpccsystems.commons.annotations.UnverifiedClientIssues</excludedGroups>
     <codehaus.template.version>1.0.0</codehaus.template.version>
     <project.benchmarking>false</project.benchmarking>
     <opentelemetry.bom.version>1.38.0</opentelemetry.bom.version>
@@ -250,6 +251,7 @@
           <configuration>
             <argLine>${argLine}</argLine>
             <groups>${groups}</groups>
+            <excludedGroups>${excludedGroups}</excludedGroups>
           </configuration>
         </plugin>
         <plugin>

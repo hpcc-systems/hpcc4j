@@ -29,6 +29,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActions;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataRequest;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDataColumn;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ArrayOfDFUDataColumn;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessResponse;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessV2Request;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateResponse;
@@ -820,6 +821,69 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      */
     public List<DFUDataColumnWrapper> getFileDataColumns(String logicalname, String clustername) throws Exception, ArrayOfEspExceptionWrapper
     {
+        return getFileDataColumns(logicalname, clustername, true);
+    }
+
+    private boolean isVirtual(DFUDataColumn col)
+    {
+        if (col == null)
+            return false;
+        
+        // Not populated by wsdfu service
+        // return col.getIsNaturalColumn(); 
+
+        String colname = col.getColumnLabel();
+        if (colname == null || colname.isEmpty())
+            return false;
+
+        // Virtual columns start with __ and end with __
+        return colname.startsWith("__") && colname.endsWith("__");
+    }
+
+    private List<DFUDataColumnWrapper> extractDataColumns(Object r, boolean includeVirtualColumns)
+    {
+        DFUDataColumn[] thesecols = null;
+        if (r instanceof ArrayOfDFUDataColumn)
+        {
+            thesecols = ((ArrayOfDFUDataColumn) r).getDFUDataColumn();
+        }
+        else if (r instanceof DFUDataColumn[])
+        {
+            thesecols = (DFUDataColumn[]) r;
+        }
+
+        List<DFUDataColumnWrapper> cols = new ArrayList<DFUDataColumnWrapper>();
+        if (thesecols != null)
+        {
+            for (DFUDataColumn col : Arrays.asList(thesecols))
+            {
+                if (includeVirtualColumns || !isVirtual(col))
+                {
+                    cols.add(new DFUDataColumnWrapper(col));
+                }
+            }
+        }
+        return cols;
+    }
+
+    /**
+     * <p>getFileDataColumns.</p>
+     *
+     * @param logicalname
+     *            - logical filename to retrieve the dfu data columns for. Currently this method/service call functions
+     *            for THOR files but will return nothing for CSV/XML/FLAT data files
+     * @param clustername
+     *            - optional. The cluster the logical filename is associated with.
+     * @param includeVirtualColumns
+     *           - whether to include virtual columns in the returned list
+     * @return ArrayList of DFUDataColumns
+     * @throws java.lang.Exception
+     *             the exception
+     * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
+     *             the array of esp exception wrapper
+     */
+    public List<DFUDataColumnWrapper> getFileDataColumns(String logicalname, String clustername, boolean includeVirtualColumns) throws Exception, ArrayOfEspExceptionWrapper
+    {
         verifyStub(); // Throws exception if stub failed
 
         DFUGetDataColumnsRequest request = new DFUGetDataColumnsRequest();
@@ -855,11 +919,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
                 final Object r = m.invoke(resp);
                 if (r != null)
                 {
-                    DFUDataColumn[] thesecols = (DFUDataColumn[]) r;
-                    for (DFUDataColumn col : Arrays.asList(thesecols))
-                    {
-                        cols.add(new DFUDataColumnWrapper(col));
-                    }
+                    cols.addAll(extractDataColumns(r, includeVirtualColumns));
                 }
             }
             if (m.getName().startsWith("getDFUDataNonKeyedColumns") && m.getParameterTypes().length == 0)
@@ -867,11 +927,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
                 final Object r = m.invoke(resp);
                 if (r != null)
                 {
-                    DFUDataColumn[] thesecols = (DFUDataColumn[]) r;
-                    for (DFUDataColumn col : Arrays.asList(thesecols))
-                    {
-                        cols.add(new DFUDataColumnWrapper(col));
-                    }
+                    cols.addAll(extractDataColumns(r, includeVirtualColumns));
                 }
             }
         }
