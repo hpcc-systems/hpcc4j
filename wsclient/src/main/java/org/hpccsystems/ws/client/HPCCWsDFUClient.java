@@ -840,6 +840,32 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         return colname.startsWith("__") && colname.endsWith("__");
     }
 
+    private List<DFUDataColumnWrapper> extractDataColumns(Object r, boolean includeVirtualColumns)
+    {
+        DFUDataColumn[] thesecols = null;
+        if (r instanceof ArrayOfDFUDataColumn)
+        {
+            thesecols = ((ArrayOfDFUDataColumn) r).getDFUDataColumn();
+        }
+        else if (r instanceof DFUDataColumn[])
+        {
+            thesecols = (DFUDataColumn[]) r;
+        }
+
+        List<DFUDataColumnWrapper> cols = new ArrayList<DFUDataColumnWrapper>();
+        if (thesecols != null)
+        {
+            for (DFUDataColumn col : Arrays.asList(thesecols))
+            {
+                if (includeVirtualColumns || !isVirtual(col))
+                {
+                    cols.add(new DFUDataColumnWrapper(col));
+                }
+            }
+        }
+        return cols;
+    }
+
     /**
      * <p>getFileDataColumns.</p>
      *
@@ -893,25 +919,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
                 final Object r = m.invoke(resp);
                 if (r != null)
                 {
-                    DFUDataColumn[] thesecols = null;
-                    if (r instanceof ArrayOfDFUDataColumn)
-                    {
-                        thesecols = ((ArrayOfDFUDataColumn) r).getDFUDataColumn();
-                    }
-                    else if (r instanceof DFUDataColumn[])
-                    {
-                        thesecols = (DFUDataColumn[]) r;
-                    }
-                    if (thesecols != null)
-                    {
-                        for (DFUDataColumn col : Arrays.asList(thesecols))
-                        {
-                            if (!isVirtual(col) || includeVirtualColumns)
-                            {
-                                cols.add(new DFUDataColumnWrapper(col));
-                            }
-                        }
-                    }
+                    cols.addAll(extractDataColumns(r, includeVirtualColumns));
                 }
             }
             if (m.getName().startsWith("getDFUDataNonKeyedColumns") && m.getParameterTypes().length == 0)
@@ -919,25 +927,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
                 final Object r = m.invoke(resp);
                 if (r != null)
                 {
-                    DFUDataColumn[] thesecols = null;
-                    if (r instanceof ArrayOfDFUDataColumn)
-                    {
-                        thesecols = ((ArrayOfDFUDataColumn) r).getDFUDataColumn();
-                    }
-                    else if (r instanceof DFUDataColumn[])
-                    {
-                        thesecols = (DFUDataColumn[]) r;
-                    }
-                    if (thesecols != null)
-                    {
-                        for (DFUDataColumn col : Arrays.asList(thesecols))
-                        {
-                            if (!isVirtual(col) || includeVirtualColumns)
-                            {
-                                cols.add(new DFUDataColumnWrapper(col));
-                            }
-                        }
-                    }
+                    cols.addAll(extractDataColumns(r, includeVirtualColumns));
                 }
             }
         }
