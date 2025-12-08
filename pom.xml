@@ -67,6 +67,7 @@
     <opentelemetry.bom.version>1.38.0</opentelemetry.bom.version>
     <opentelemetry.semconv.version>1.25.0-alpha</opentelemetry.semconv.version>
     <opentelemetry.instrumentation.annotations.version>2.6.0</opentelemetry.instrumentation.annotations.version>
+    <commons-fileupload2.version>2.0.0-M4</commons-fileupload2.version>
   </properties>
 
   <scm>
@@ -106,6 +107,17 @@
         <version>${opentelemetry.bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <!-- Override commons-fileupload2 versions to fix CVE-2025-48976 in transitive dependencies from Axis2 -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-fileupload2-core</artifactId>
+        <version>${commons-fileupload2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-fileupload2-jakarta-servlet6</artifactId>
+        <version>${commons-fileupload2.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
