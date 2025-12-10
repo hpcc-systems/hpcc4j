@@ -136,6 +136,7 @@
         <configuration>
           <argLine>${argLine}</argLine>
           <groups>${groups}</groups>
+          <excludedGroups>${excludedGroups}</excludedGroups>
           <excludes>
             <exclude>*IntegrationTest.java</exclude>
           </excludes>
