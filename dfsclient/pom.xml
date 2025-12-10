@@ -28,6 +28,8 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
           <configuration>
+            <groups>${groups}</groups>
+            <excludedGroups>${excludedGroups}</excludedGroups>
             <properties>
               <property>
                 <name>listener</name>
