@@ -1030,4 +1030,462 @@ public class WsDFUClientTest extends BaseRemoteTest
             assertTrue("Should handle conflicting cluster notation", true);
         }
     }
+
+    // ============================================================================
+    // WsDFU.getLogicalFiles Test Cases
+    // Generated: 2025-12-12
+    // ============================================================================
+
+    // Core Functionality Tests - Basic Operation
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesBasicRetrieval() throws Exception
+    {
+        // CFT-001: Retrieve all files with no filters or pagination
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles(null, null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertNotNull("DFULogicalFiles array should not be null", files);
+        assertTrue("Should return at least 5 files (test datasets)", files.size() >= 5);
+    }
+
+    @Test
+    @WithSpan
+    @Category(UnverifiedServerIssues.class)
+    public void testGetLogicalFilesExactFilenameWithTilde() throws Exception
+    {
+        // CFT-002: Retrieve files matching exact filename with leading tilde
+        // INVESTIGATE: Tilde semantics unclear - may be search modifier, not prefix to strip
+        // Test assumes tilde is stripped and file "benchmark::integer::20kb" is found
+        // But testGetLogicalFilesExactFilenameWithoutTilde passes, so tilde may change search behavior
+        // Needs investigation of HPCC tilde semantics in getLogicalFiles
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("~benchmark::integer::20kb", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return exactly 1 file", 1, files.size());
+        assertEquals("File name should match", "benchmark::integer::20kb", files.get(0).getName());
+        assertNotNull("Owner should be populated", files.get(0).getOwner());
+        assertNotNull("Modified date should be populated", files.get(0).getModified());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesExactFilenameWithoutTilde() throws Exception
+    {
+        // CFT-003: Retrieve files matching exact filename without leading tilde
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::integer::20kb", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return exactly 1 file", 1, files.size());
+        assertEquals("File name should match", "benchmark::integer::20kb", files.get(0).getName());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesWildcardAsterisk() throws Exception
+    {
+        // CFT-004: Retrieve files matching wildcard pattern with asterisk
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::integer::*", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertTrue("Should return at least 2 files", files.size() >= 2);
+        for (DFULogicalFileWrapper file : files)
+        {
+            assertTrue("All files should match pattern benchmark::integer::*", 
+                      file.getName().startsWith("benchmark::integer::"));
+        }
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesScopeLevelWildcard() throws Exception
+    {
+        // CFT-005: Retrieve files matching scope-level wildcard
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertTrue("Should return at least 5 files", files.size() >= 5);
+        for (DFULogicalFileWrapper file : files)
+        {
+            assertTrue("All files should start with benchmark::", 
+                      file.getName().startsWith("benchmark::"));
+        }
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesFileLevelWildcard() throws Exception
+    {
+        // CFT-006: Retrieve files matching wildcard at file level
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::all_types::*", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return 2 files", 2, files.size());
+        
+        Set<String> expectedFiles = new HashSet<>();
+        expectedFiles.add("benchmark::all_types::200kb");
+        expectedFiles.add("benchmark::all_types::superfile");
+        
+        for (DFULogicalFileWrapper file : files)
+        {
+            assertTrue("File should be one of the expected files", 
+                      expectedFiles.contains(file.getName()));
+        }
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesPaginationFirstPage() throws Exception
+    {
+        // CFT-007: Retrieve first page of results with pageSize=2
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 2);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return exactly 2 files", 2, files.size());
+    }
+
+    @Test
+    @WithSpan
+    @Category(UnverifiedServerIssues.class)
+    public void testGetLogicalFilesPaginationSecondPage() throws Exception
+    {
+        // CFT-008: Retrieve second page of results
+        // SERVER ISSUE: Pagination returns duplicate files between pages - pageStartFrom parameter not working
+        List<DFULogicalFileWrapper> firstPage = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 2);
+        List<DFULogicalFileWrapper> secondPage = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 2, 2);
+        
+        assertNotNull("First page should not be null", firstPage);
+        assertNotNull("Second page should not be null", secondPage);
+        
+        // Verify files are different between pages
+        Set<String> firstPageNames = new HashSet<>();
+        for (DFULogicalFileWrapper file : firstPage)
+        {
+            firstPageNames.add(file.getName());
+        }
+        
+        for (DFULogicalFileWrapper file : secondPage)
+        {
+            assertFalse("Files in second page should be different from first page", 
+                       firstPageNames.contains(file.getName()));
+        }
+    }
+
+    @Test
+    @WithSpan
+    @Category(UnverifiedServerIssues.class)
+    public void testGetLogicalFilesPaginationMultiplePages() throws Exception
+    {
+        // CFT-009: Navigate through multiple pages and verify consistency
+        // SERVER ISSUE: Files appear in multiple pages - same root cause as testGetLogicalFilesPaginationSecondPage
+        Set<String> allFiles = new HashSet<>();
+        int pageSize = 2;
+        int pageStart = 0;
+        
+        // Collect files from first 3 pages
+        for (int i = 0; i < 3; i++)
+        {
+            List<DFULogicalFileWrapper> page = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, pageStart, pageSize);
+            assertNotNull("Page " + (i+1) + " should not be null", page);
+            
+            for (DFULogicalFileWrapper file : page)
+            {
+                assertFalse("File " + file.getName() + " should not appear in multiple pages", 
+                           allFiles.contains(file.getName()));
+                allFiles.add(file.getName());
+            }
+            
+            pageStart += pageSize;
+        }
+        
+        assertTrue("Should have collected files across pages", allFiles.size() > 0);
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesFirstNLimit() throws Exception
+    {
+        // CFT-010: Retrieve first N=3 files using firstN parameter
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, 3, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return exactly 3 files", 3, files.size());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesRegularFileMetadata() throws Exception
+    {
+        // CFT-011: Retrieve regular file and verify metadata
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::integer::20kb", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return 1 file", 1, files.size());
+        
+        DFULogicalFileWrapper file = files.get(0);
+        assertFalse("IsSuperfile should be false", file.getIsSuperfile());
+        assertNotNull("Owner should be populated", file.getOwner());
+        assertNotNull("TotalSize should be populated", file.getTotalsize());
+        assertTrue("TotalSize should be > 0", file.getIntSize() != null && file.getIntSize() > 0);
+        assertNotNull("Modified date should be populated", file.getModified());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesSuperfileFlag() throws Exception
+    {
+        // CFT-012: Retrieve superfile and verify superfile flag
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::all_types::superfile", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return 1 file", 1, files.size());
+        
+        DFULogicalFileWrapper file = files.get(0);
+        assertTrue("IsSuperfile should be true", file.getIsSuperfile());
+        assertEquals("File name should match", "benchmark::all_types::superfile", file.getName());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesIndexFile() throws Exception
+    {
+        // CFT-013: Retrieve index file and verify it appears in listing
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::integer::20kb::key", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return 1 file", 1, files.size());
+        assertEquals("File name should match", "benchmark::integer::20kb::key", files.get(0).getName());
+        assertNotNull("Metadata should be populated", files.get(0).getOwner());
+    }
+
+    // Edge Case Tests - Boundary Values
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesPageSizeZero() throws Exception
+    {
+        // ECT-001: Test pageSize = 0 (should default to 100)
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 0);
+        
+        assertNotNull("Response should not be null", files);
+        assertFalse("Files should be returned", files.isEmpty());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesNegativePageSize() throws Exception
+    {
+        // ECT-002: Test negative pageSize (should default to 100)
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, -10);
+        
+        assertNotNull("Response should not be null", files);
+        assertNotNull("Files should be returned", files);
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesPageSizeOne() throws Exception
+    {
+        // ECT-003: Test pageSize = 1 (minimum valid page size)
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 1);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return exactly 1 file per page", 1, files.size());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesLargePageSize() throws Exception
+    {
+        // ECT-004: Test very large pageSize (e.g., 10000)
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 10000);
+        
+        assertNotNull("Response should not be null", files);
+        assertTrue("Should return all matching files", files.size() >= 5);
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesPageStartBeyondAvailable() throws Exception
+    {
+        // ECT-005: Test pageStartFrom beyond available files
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::integer::20kb", null, -1, 1000, 10);
+        
+        assertNotNull("Response should not be null", files);
+        assertTrue("Should return empty results", files == null || files.isEmpty());
+    }
+
+    @Test
+    @WithSpan
+    @Category(UnverifiedServerIssues.class)
+    public void testGetLogicalFilesFirstNZero() throws Exception
+    {
+        // ECT-006: Test firstN = 0 (should return no files)
+        // SERVER ISSUE: Server ignores firstN=0 and returns files anyway
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, 0, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return 0 files", 0, files.size());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesFirstNOne() throws Exception
+    {
+        // ECT-007: Test firstN = 1 (minimum valid firstN)
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, 1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return exactly 1 file", 1, files.size());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesFirstNNoLimit() throws Exception
+    {
+        // ECT-008: Test firstN = -1 (no limit)
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertTrue("Should return files according to pageSize", files.size() > 0);
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesNullFilename() throws Exception
+    {
+        // ECT-009: Test with null filename (should return all files)
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles(null, null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertTrue("Should return some files", files.size() > 0);
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesEmptyFilename() throws Exception
+    {
+        // ECT-010: Test with empty string filename
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertTrue("Should return some files", files.size() > 0);
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesDeprecatedClusterParam() throws Exception
+    {
+        // ECT-011: Test deprecated cluster parameter (should be ignored)
+        List<DFULogicalFileWrapper> withCluster = wsdfuclient.getLogicalFiles("benchmark::integer::20kb", "thor", -1, 0, 100);
+        List<DFULogicalFileWrapper> withoutCluster = wsdfuclient.getLogicalFiles("benchmark::integer::20kb", null, -1, 0, 100);
+        
+        assertNotNull("Response with cluster should not be null", withCluster);
+        assertNotNull("Response without cluster should not be null", withoutCluster);
+        assertEquals("Should return 1 file regardless of cluster param", 1, withCluster.size());
+        assertEquals("Results should be the same", withoutCluster.get(0).getName(), withCluster.get(0).getName());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesSpecialCharactersInScope() throws Exception
+    {
+        // ECT-012: Test filename with special characters in scope (underscores)
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::all_types::*", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return 2 files", 2, files.size());
+        for (DFULogicalFileWrapper file : files)
+        {
+            assertTrue("File name should contain underscores", file.getName().contains("all_types"));
+        }
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesDoubleColons() throws Exception
+    {
+        // ECT-013: Test filename with double colons in pattern
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::all_types::200kb", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertEquals("Should return 1 file", 1, files.size());
+        assertEquals("Name should match exactly", "benchmark::all_types::200kb", files.get(0).getName());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesCaseSensitivity() throws Exception
+    {
+        // ECT-014: Test case sensitivity of filename pattern
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("BENCHMARK::INTEGER::20kb", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        // Result depends on file system case sensitivity - just verify no exception
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesBroadWildcard() throws Exception
+    {
+        // ECT-015: Test with very broad wildcard that matches many files
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("*", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertTrue("Should return files", files.size() > 0);
+    }
+
+    // Error Handling Tests
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesInvalidCharacters() throws Exception
+    {
+        // EHT-001: Test with filename containing invalid characters
+        try
+        {
+            List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::test<>file", null, -1, 0, 100);
+            // Either empty results or exception is acceptable
+            assertNotNull("Response should not be null", files);
+        }
+        catch (Exception e)
+        {
+            // Exception is acceptable for invalid characters
+            assertNotNull("Exception should have a message", e.getMessage());
+        }
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesWildcardOnly() throws Exception
+    {
+        // EHT-002: Test with filename containing only wildcard (valid)
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("*", null, 100, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertTrue("Should return files", files.size() > 0);
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesNonexistentFile() throws Exception
+    {
+        // EHT-003: Test with filename that doesn't exist
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("nonexistent::file::name", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertTrue("Should return empty results", files.isEmpty());
+    }
+
+    @Test
+    @WithSpan
+    public void testGetLogicalFilesNonmatchingWildcard() throws Exception
+    {
+        // EHT-004: Test with wildcard pattern that matches no files
+        List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("bogus::scope::*", null, -1, 0, 100);
+        
+        assertNotNull("Response should not be null", files);
+        assertTrue("Should return empty results", files.isEmpty());
+    }
 }

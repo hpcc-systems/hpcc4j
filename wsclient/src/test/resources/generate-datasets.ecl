@@ -67,6 +67,11 @@ ds7 := DATASET(1250, transform(rec7, self.key := random() % unique_keys; self.fi
 
 IF(~Std.File.FileExists(dataset_name7), OUTPUT(ds7,,dataset_name7,overwrite));
 
+key_name7 := '~benchmark::integer::20KB::key';
+Ptbl7 := DATASET('~benchmark::integer::20KB', {rec7, UNSIGNED8 RecPtr {virtual(fileposition)}}, FLAT);
+indexds7 := INDEX(Ptbl7, {key}, {fill, RecPtr}, key_name7);
+IF(~Std.File.FileExists(key_name7), BUILDINDEX(indexds7, overwrite));
+
 String subfilename := '~benchmark::all_types::200KB';
 String sfname := '~benchmark::all_types::superfile';
 IF(false = STD.file.SuperFileExists(sfname),STD.file.CreateSuperFile(sfname));
