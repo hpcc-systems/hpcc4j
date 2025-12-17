@@ -1,0 +1,64 @@
+name: 'Setup GitHub Copilot CLI'
+description: 'Install and configure GitHub Copilot CLI for use in workflows'
+author: 'HPCC Systems'
+
+inputs:
+  copilot-pat:
+    description: 'GitHub Personal Access Token (PAT) with copilot scope. Note: The standard GITHUB_TOKEN does not have Copilot access.'
+    required: true
+  node-version:
+    description: 'Node.js version to install'
+    required: false
+    default: '20'
+
+outputs:
+  copilot-version:
+    description: 'The installed version of GitHub Copilot CLI'
+    value: ${{ steps.get-version.outputs.version }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 'Setup Node.js'
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: 'Install GitHub Copilot CLI'
+      shell: bash
+      run: |
+        npm install -g @github/copilot
+        echo "✓ Copilot CLI installed successfully"
+
+    - name: 'Get Copilot CLI version'
+      id: get-version
+      shell: bash
+      run: |
+        if ! VERSION=$(copilot --version 2>&1); then
+          echo "❌ ERROR: Failed to get Copilot CLI version (exit code: $?)"
+          echo "Copilot CLI may not be properly installed"
+          exit 1
+        fi
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "✓ Copilot CLI version: $VERSION"
+
+    - name: 'Verify GitHub CLI authentication'
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.copilot-pat }}
+      run: |
+        # Validate token is provided
+        if [ -z "$GH_TOKEN" ]; then
+          echo "❌ ERROR: copilot-pat input is not set!"
+          exit 1
+        fi
+        
+        # Note: GitHub CLI (gh) is pre-installed on GitHub-hosted runners
+        # Verify authentication works
+        if gh auth status > /dev/null 2>&1; then
+          echo "✓ GitHub CLI authenticated successfully via GH_TOKEN"
+        else
+          echo "❌ ERROR: GitHub CLI authentication failed"
+          gh auth status
+          exit 1
+        fi
