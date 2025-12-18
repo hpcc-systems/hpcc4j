@@ -221,7 +221,6 @@ public class HPCCRemoteFileWriter<T>
 
                 throw e;
             }
-            this.recordsWritten++;
         }
     }
 
