@@ -39,6 +39,7 @@ import sys
 import argparse
 import glob
 import json
+import re
 import textwrap
 from datetime import datetime
 
@@ -114,6 +115,11 @@ print(f"📁 Output directory: {os.path.abspath(OUTPUT_DIR)}")
 
 ARCHITECTURE_FILE = os.path.join(os.path.dirname(__file__), "../../CodeArchitectureAnalysis.md")
 PROMPT_FILE = os.path.join(os.path.dirname(__file__), "MethodAnalysisPrompt.md")
+TEST_GENERATION_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "TestGenerationPrompt.md")
+FIX_TEST_COMPILATION_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "FixTestCompilationPrompt.md")
+BATCH_FAILURE_ANALYSIS_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "BatchFailureAnalysisPrompt.md")
+FINAL_REPORT_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "FinalReportPrompt.md")
+UNVERIFIED_SERVER_ISSUES_REPORT_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "UnverifiedServerIssuesReportPrompt.md")
 ANALYSIS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}Analysis_{DATESTAMP}.md")
 EXPECTED_RESULTS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}ExpectedTestResults_{DATESTAMP}.md")
 TEST_FILE_GLOB = f"**/{SERVICE_NAME}ClientTest.java"
@@ -128,8 +134,52 @@ MAX_TEST_FIX_ITERATIONS = 5
 # Maximum iterations for attempting the Maven build (to avoid infinite retries)
 MAX_BUILD_ITERATIONS = 5
 
+def find_hpcc4j_root():
+    """Find the HPCC4J project root directory regardless of where script runs from.
+    
+    Tries multiple strategies:
+    1. Use git root if available (most reliable)
+    2. Walk up directory tree looking for root pom.xml
+    3. Fall back to relative path from script location
+    """
+    # Strategy 1: Try git root
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
+            capture_output=True,
+            text=True,
+            check=True,
+            cwd=os.path.dirname(__file__)
+        )
+        git_root = result.stdout.strip()
+        if os.path.exists(os.path.join(git_root, "pom.xml")):
+            return git_root
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        # Git command failed or git not installed - fall through to next strategy
+        pass
+    
+    # Strategy 2: Walk up directory tree looking for root pom.xml
+    current = os.path.dirname(os.path.abspath(__file__))
+    while current != os.path.dirname(current):  # Not at filesystem root
+        pom_path = os.path.join(current, "pom.xml")
+        if os.path.exists(pom_path):
+            # Check if this looks like root pom by checking for modules
+            try:
+                with open(pom_path, 'r') as f:
+                    content = f.read()
+                    if '<module>wsclient</module>' in content or '<module>commons-hpcc</module>' in content:
+                        return current
+            except Exception:
+                # File read failed - continue searching parent directories
+                pass
+        current = os.path.dirname(current)
+    
+    # Strategy 3: Fall back to relative path (assumes script is in scripts/wsclient-test-generator/)
+    fallback = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+    return fallback
+
 # Get workspace directories for copilot context
-HPCC4J_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+HPCC4J_DIR = find_hpcc4j_root()
 TMP_DIR = "/tmp"
 
 print(f"📂 HPCC4J directory: {HPCC4J_DIR}")
@@ -154,8 +204,9 @@ COPILOT_WHITELIST = [
     
     # File system navigation and search
     "shell(cd)",            # CRITICAL - Change directories
-    "shell(bash)",          # CRITICAL - General shell access
-    "shell(sh)",            # CRITICAL - General shell access
+    "shell",                # CRITICAL - General shell access (enables &&, |, redirection)
+    "bash",
+    "zsh",
     "shell(find)",          # CRITICAL - Finding files across project
     "shell(grep)",          # CRITICAL - Searching existing tests, code patterns
     "shell(ls)",            # USEFUL - Listing directory contents
@@ -216,16 +267,48 @@ def build_copilot_cmd(prompt_text):
     return cmd
 
 
-def copilot_generate(prompt_file, output_file, variables=None):
-    """Invoke Copilot CLI to process a Markdown instruction file with variables."""
-    # Read the prompt file and substitute variables
-    with open(prompt_file, 'r') as f:
-        prompt_content = f.read()
-    
-    # Replace variable placeholders with actual values
+def render_prompt_template(template_text, variables=None):
+    """Render a prompt template by replacing ${KEY} placeholders.
+
+    Uses simple string replacement (not .format) so templates can safely contain
+    JSON braces and other formatting.
+    """
+    rendered = template_text
     if variables:
         for key, value in variables.items():
-            prompt_content = prompt_content.replace(f"${{{key}}}", value)
+            rendered = rendered.replace(f"${{{key}}}", str(value))
+    return rendered
+
+
+def render_prompt_file(prompt_file, variables=None):
+    """Load and render a prompt template file with variable substitution.
+    
+    Args:
+        prompt_file: Path to the prompt template file
+        variables: Dictionary of variables to substitute in the template
+        
+    Returns:
+        Rendered prompt string
+        
+    Raises:
+        FileNotFoundError: If the prompt file doesn't exist
+        IOError: If the file cannot be read
+    """
+    try:
+        with open(prompt_file, 'r') as f:
+            return render_prompt_template(f.read(), variables)
+    except FileNotFoundError:
+        print(f"❌ Error: Prompt file not found: {prompt_file}")
+        print(f"Expected location: {os.path.abspath(prompt_file)}")
+        raise
+    except IOError as e:
+        print(f"❌ Error reading prompt file {prompt_file}: {e}")
+        raise
+
+
+def copilot_generate(prompt_file, output_file, variables=None):
+    """Invoke Copilot CLI to process a Markdown instruction file with variables."""
+    prompt_content = render_prompt_file(prompt_file, variables)
     
     # Add HPCC Platform source directory context
     hpcc_context = textwrap.dedent(f"""
@@ -254,7 +337,7 @@ def copilot_generate(prompt_file, output_file, variables=None):
 
         ## Output Instructions
 
-        Please create the analysis file `{output_file}` in the current directory ({os.getcwd()}).
+        Please create the file `{output_file}` in the current directory ({os.getcwd()}).
 
         **Important**: Use the `create_file` tool or similar file creation capability to save the analysis output to: {output_file}
 
@@ -301,6 +384,55 @@ def copilot_generate(prompt_file, output_file, variables=None):
             print(f"⚠️  Warning: Could not append datestamp to {output_file}: {e}")
     
     print(f"✅ Analysis file {output_file} was created successfully!")
+
+
+def copilot_fix_from_template(prompt_file, context_files, variables=None):
+    prompt_text = render_prompt_file(prompt_file, variables)
+    copilot_fix(prompt_text, context_files)
+
+
+def copilot_run_from_template(prompt_file, variables=None):
+    prompt_text = render_prompt_file(prompt_file, variables)
+    return subprocess.run(build_copilot_cmd(prompt_text))
+
+
+def find_unverified_server_issue_tests(test_file_path):
+    """Return a list of test method names that are annotated with UnverifiedServerIssues."""
+    if not test_file_path or not os.path.exists(test_file_path):
+        return []
+
+    content = ""
+    with open(test_file_path, 'r') as f:
+        content = f.read()
+
+    if "UnverifiedServerIssues" not in content:
+        return []
+
+    patterns = [
+        # Expected order per agent instructions
+        re.compile(
+            r"@Category\(UnverifiedServerIssues\.class\)\s*@Test(?:\s*\([^)]*\))?\s*public\s+void\s+(\w+)\s*\(",
+            re.MULTILINE,
+        ),
+        # Fallback if @Test appears before @Category
+        re.compile(
+            r"@Test(?:\s*\([^)]*\))?\s*@Category\(UnverifiedServerIssues\.class\)\s*public\s+void\s+(\w+)\s*\(",
+            re.MULTILINE,
+        ),
+    ]
+
+    matches = []
+    for pattern in patterns:
+        matches.extend(pattern.findall(content))
+
+    # De-dupe while preserving order
+    seen = set()
+    result = []
+    for name in matches:
+        if name not in seen:
+            seen.add(name)
+            result.append(name)
+    return result
 
 
 def copilot_fix(prompt, context_files):
@@ -368,13 +500,14 @@ def run_individual_test(test_class, test_name, hpcc_conn="http://eclwatch.defaul
     
     cmd.extend([
         f"-Dtest={test_spec}",
-        "package"
+        "test"  # Use 'test' instead of 'package' to skip packaging (compilation already done in Step 3)
     ])
     
     print(f"\n🧪 Running test: {test_name}")
     print(f"   Command: {' '.join(cmd)}")
+    print(f"   Working directory: {HPCC4J_DIR}")
     
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, cwd=HPCC4J_DIR)
     
     # Parse the output to determine success/failure
     passed = result.returncode == 0
@@ -450,39 +583,18 @@ if START_FROM_STEP <= 2:
         analysis_content = f.read()
 
     TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
-    
-    test_generation_prompt = textwrap.dedent(f"""
-        Read {ANALYSIS_FILE} and implement the recommended test cases 
-        for {SERVICE_NAME}.{METHOD_NAME}. Create {EXPECTED_RESULTS_FILE} 
-        with the expected results for each test.
 
-        Additionally, create a JSON file named {TEST_METADATA_FILE} with the following structure:
-        {{
-          "service": "{SERVICE_NAME}",
-          "method": "{METHOD_NAME}",
-          "testClass": "{SERVICE_NAME}ClientTest",
-          "tests": [
-            {{
-              "testName": "testMethodName",
-              "description": "Brief description of what this test validates",
-              "category": "basic|edge-case|error-handling|integration",
-              "expectedOutcome": "PASS|SKIP",
-              "requiresData": true|false,
-              "notes": "Any special considerations or requirements"
-            }}
-          ]
-        }}
-
-        List ALL test methods you create in this JSON file. This metadata will be used to:
-        1. Run each test individually using: mvn -B --activate-profiles jenkins-on-demand,remote-test 
-           -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 
-           -Dtest={SERVICE_NAME}ClientTest#<testName> package
-        2. Track test results and categorize failures
-        3. Generate comprehensive test reports
-
-        Ensure the testName values exactly match the method names in the test class.
-    """)
-    copilot_fix(test_generation_prompt, [ANALYSIS_FILE])
+    copilot_fix_from_template(
+        TEST_GENERATION_PROMPT_FILE,
+        [ANALYSIS_FILE],
+        {
+            "ANALYSIS_FILE": ANALYSIS_FILE,
+            "SERVICE_NAME": SERVICE_NAME,
+            "METHOD_NAME": METHOD_NAME,
+            "EXPECTED_RESULTS_FILE": EXPECTED_RESULTS_FILE,
+            "TEST_METADATA_FILE": TEST_METADATA_FILE,
+        },
+    )
     
     # Verify the metadata file was created
     if not os.path.exists(TEST_METADATA_FILE):
@@ -509,14 +621,30 @@ if START_FROM_STEP <= 3:
     while build_iteration < MAX_BUILD_ITERATIONS:
         build_iteration += 1
         print(f"🔁 Build iteration {build_iteration}/{MAX_BUILD_ITERATIONS}...")
-        result = subprocess.run(["mvn", "package", "-B"], capture_output=True, text=True)
+        
+        # Run Maven from the HPCC4J root directory, skip tests, only compile wsclient module
+        result = subprocess.run(
+            ["mvn", "clean", "compile", "test-compile", "-B", "-DskipTests", "-pl", "wsclient"],
+            capture_output=True,
+            text=True,
+            cwd=HPCC4J_DIR
+        )
+        
+        # Show the build output for debugging
+        if result.stdout:
+            print("\n--- Maven Output (last 1000 chars) ---")
+            print(result.stdout[-1000:])
+        if result.stderr:
+            print("\n--- Maven Errors ---")
+            print(result.stderr[-1000:])
+        
         if result.returncode == 0:
             print("✅ Build succeeded!")
             break
         else:
             print("⚠️ Build failed — attempting to fix test files only...")
             error_text = result.stderr[:8000]  # limit for context
-            copilot_fix("Fix compilation errors ONLY in the test files", [ANALYSIS_FILE, EXPECTED_RESULTS_FILE])
+            copilot_fix_from_template(FIX_TEST_COMPILATION_PROMPT_FILE, [ANALYSIS_FILE, EXPECTED_RESULTS_FILE])
             print("🔁 Retrying build...")
     else:
         print(f"❌ Build failed after {MAX_BUILD_ITERATIONS} attempts. Please inspect the build output.")
@@ -703,109 +831,21 @@ if START_FROM_STEP <= 4:
         # Now analyze ALL failures at once with Copilot
         print(f"\n🤖 Analyzing all {len(failures)} failure(s) with Copilot...")
         
-        batch_analysis_prompt = textwrap.dedent(f"""
-            # Batch Test Failure Analysis - Iteration {iteration}
-
-            Please analyze all test failures in {failure_report_file} and determine the appropriate actions.
-
-            ## Your Task
-
-            Review each failed test and categorize them into:
-
-            1. **INVALID_TEST**: Test case has incorrect logic, wrong assertions, or tests impossible scenarios
-               - These should be FIXED
-               
-            2. **CLIENT_ISSUE**: Valid test that exposes a bug in the Java client wrapper code
-               - These should be marked with @Category(UnverifiedClientIssues.class)
-               - These should be fixed in the client code if possible, otherwise just categorized
-               
-            3. **SERVER_ISSUE**: Valid test that exposes a bug in the HPCC Platform ESP service
-               - These should be marked with @Category(UnverifiedServerIssues.class)
-               
-            4. **DATA_ISSUE**: Valid test but required dataset doesn't exist or has wrong data
-               - These should be marked with @Category annotation or skipped with @Ignore
-               
-            5. **INVESTIGATE**: Unclear classification that needs manual review
-
-            ## Required Actions
-
-            For each test, you must:
-
-            1. **If INVALID_TEST**: Fix the test code in {test_file_path}
-               - Correct assertions
-               - Fix test logic
-               - Update test setup
-               - Make the test valid
-
-            2. **If CLIENT_ISSUE**: Add categorization annotation to {test_file_path}
-               - Add import: `import org.hpccsystems.commons.annotations.UnverifiedClientIssues;`
-               - Add annotation: `@Category(UnverifiedClientIssues.class)` before @Test
-               - Correct client-side issues if possible
-               - Keep test unchanged otherwise
-
-            3. **If SERVER_ISSUE**: Add categorization annotation to {test_file_path}
-               - Add import: `import org.hpccsystems.commons.annotations.UnverifiedServerIssues;`
-               - Add annotation: `@Category(UnverifiedServerIssues.class)` before @Test
-               - Keep test unchanged otherwise
-
-            4. **If DATA_ISSUE**: 
-               - If dataset is expected to exist but missing: mark as CLIENT_ISSUE or SERVER_ISSUE as appropriate
-               - If dataset creation is pending (notes indicate SKIP): leave as-is for now
-               
-            5. **If INVESTIGATE**: Add comment to test explaining why manual review is needed
-
-            ## Analysis Output
-
-            After analyzing all failures, create a summary file: {SERVICE_NAME}.{METHOD_NAME}BatchAnalysis_Iteration{iteration}_{DATESTAMP}.md
-
-            Structure:
-            ```markdown
-            # Batch Analysis Summary - Iteration {iteration}
-
-            ## Tests to Fix (INVALID_TEST)
-            - testName1: reason why invalid, what to fix
-            - testName2: reason why invalid, what to fix
-
-            ## Tests to Categorize as Client Issues
-            - testName3: brief explanation of client bug
-            - testName4: brief explanation of client bug
-
-            ## Tests to Categorize as Server Issues  
-            - testName5: brief explanation of server bug
-            - testName6: brief explanation of server bug
-
-            ## Tests Requiring Investigation
-            - testName7: why unclear
-
-            ## Actions Taken
-            - Fixed X invalid tests
-            - Categorized Y as client issues
-            - Categorized Z as server issues
-
-            ---
-            *Generated: {DATESTAMP}*
-            ```
-
-            **IMPORTANT**: Make ALL necessary changes to {test_file_path} NOW. Don't just create the analysis file - actually modify the test code.
-            **IMPORTANT**: Make ALL necessary changes to resolve client-side issues in the Java client code, all @Category(UnverifiedClientIssues.class) tests should pass.
-
-            After making changes:
-            1. Save the analysis summary
-            2. Ensure all test fixes and categorizations are applied
-            3. The next iteration will re-run the failed tests to verify fixes
-
-            Test file location: {test_file_path}
-            Failure report: {failure_report_file}
-            Test results: {results_file}
-
-            --- Code Architecture ---
-
-            {code_architecture_prompt}
-        """)
-        
         # Run Copilot for batch analysis and fixes
         print(f"\n🔧 Running Copilot to analyze and fix all failures...")
-        subprocess.run(build_copilot_cmd(batch_analysis_prompt))
+        copilot_run_from_template(
+            BATCH_FAILURE_ANALYSIS_PROMPT_FILE,
+            {
+                    "ITERATION": iteration,
+                    "FAILURE_REPORT_FILE": failure_report_file,
+                    "TEST_FILE_PATH": test_file_path,
+                    "RESULTS_FILE": results_file,
+                    "SERVICE_NAME": SERVICE_NAME,
+                    "METHOD_NAME": METHOD_NAME,
+                    "DATESTAMP": DATESTAMP,
+                    "CODE_ARCHITECTURE_PROMPT": code_architecture_prompt,
+            },
+        )
         
         # Check if analysis file was created
         analysis_summary_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}BatchAnalysis_Iteration{iteration}_{DATESTAMP}.md")
@@ -853,65 +893,30 @@ if START_FROM_STEP <= 4:
         print("No test results available")
 
     # Generate final comprehensive report
-    final_report_prompt = textwrap.dedent(f"""
-        Create a final comprehensive test report for {SERVICE_NAME}.{METHOD_NAME} that includes:
-
-        1. **Test Execution Summary**
-           - Total iterations: {iteration}
-           - Total tests in suite: {len(tests_to_run)}
-           - Final test status: {final_passed} passed, {final_failed} failed
-           - Test metadata file: {TEST_METADATA_FILE}
-           - Latest results file: {results_file if 'results_file' in locals() else 'N/A'}
-
-        2. **Issue Categories**
-           - List all tests with @Category(UnverifiedClientIssues.class)
-           - List all tests with @Category(UnverifiedServerIssues.class)
-           - List all fixed tests
-
-        3. **Detailed Findings**
-           - Client-side issues discovered
-           - Server-side issues discovered
-           - Test case problems corrected
-
-        4. **Individual Test Results**
-           For each test, include:
-           - Test name and category
-           - Pass/Fail status
-           - Description and expected outcome
-           - Any issues or notes
-
-        5. **Client side Fixes**
-            - Summary of fixes made to the Java client code
-
-        6. **Recommendations**
-           - Priority items for client-side fixes
-           - Priority items for server-side fixes
-           - Test coverage improvements
-
-        7. **Next Steps**
-           - Actions required before merging
-           - Items requiring manual investigation
-           - Follow-up work needed
-
-        Review all test result files (*TestResults_Iteration*.json) and analysis files to compile this report.
-
-        **IMPORTANT**: Include a datestamp at the end of the report:
-        ```markdown
-        ---
-        *Generated: {DATESTAMP}*
-        ```
-
-        Save this report to: {os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FinalReport_{DATESTAMP}.md")}
-    """)
+    final_report_path = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FinalReport_{DATESTAMP}.md")
+    latest_results_file = results_file if 'results_file' in locals() else 'N/A'
 
     print("\n📝 Generating final comprehensive report...")
-    result = subprocess.run(build_copilot_cmd(final_report_prompt))
+    result = copilot_run_from_template(
+        FINAL_REPORT_PROMPT_FILE,
+        {
+            "SERVICE_NAME": SERVICE_NAME,
+            "METHOD_NAME": METHOD_NAME,
+            "ITERATION": iteration,
+            "TOTAL_TESTS": len(tests_to_run),
+            "FINAL_PASSED": final_passed,
+            "FINAL_FAILED": final_failed,
+            "TEST_METADATA_FILE": TEST_METADATA_FILE,
+            "LATEST_RESULTS_FILE": latest_results_file,
+            "DATESTAMP": DATESTAMP,
+            "FINAL_REPORT_PATH": final_report_path,
+        },
+    )
     
     if result.returncode != 0:
         print(f"⚠️  Warning: Copilot command exited with code {result.returncode}")
         print("The final report generation may not have completed successfully.")
 
-    final_report_path = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FinalReport_{DATESTAMP}.md")
     if os.path.exists(final_report_path):
         # Append datestamp if not already present
         with open(final_report_path, 'r') as f:
@@ -924,6 +929,35 @@ if START_FROM_STEP <= 4:
     else:
         print(f"⚠️  Final report not created")
 
+    # Conditionally generate a separate UnverifiedServerIssues report
+    server_issue_tests = find_unverified_server_issue_tests(test_file_path)
+    if server_issue_tests:
+        unverified_report_path = os.path.join(
+            OUTPUT_DIR,
+            f"{SERVICE_NAME}.{METHOD_NAME}UnverifiedServerIssuesReport_{DATESTAMP}.md",
+        )
+        server_issue_tests_md = "\n".join([f"- {name}" for name in server_issue_tests])
+
+        print("\n🧾 UnverifiedServerIssues found — generating server-issues report...")
+        copilot_generate(
+            UNVERIFIED_SERVER_ISSUES_REPORT_PROMPT_FILE,
+            unverified_report_path,
+            {
+                "SERVICE_NAME": SERVICE_NAME,
+                "METHOD_NAME": METHOD_NAME,
+                "TEST_FILE_PATH": test_file_path,
+                "UNVERIFIED_SERVER_TESTS": server_issue_tests_md,
+                "OUTPUT_DIR": OUTPUT_DIR,
+                "DATESTAMP": DATESTAMP,
+                "ANALYSIS_FILE": ANALYSIS_FILE,
+                "HPCC_SOURCE_DIR": HPCC_SOURCE_DIR,
+                "UNVERIFIED_SERVER_REPORT_PATH": unverified_report_path,
+            },
+        )
+        print(f"✅ Unverified server-issues report created: {unverified_report_path}")
+    else:
+        print("\n✅ No UnverifiedServerIssues found — skipping server-issues report.")
+
     print("\n🎉 Test analysis and categorization complete!")
     print(f"\n📁 Generated Files in {OUTPUT_DIR}:")
     print(f"   - {os.path.basename(ANALYSIS_FILE)}")
@@ -931,6 +965,8 @@ if START_FROM_STEP <= 4:
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
     print(f"   - {os.path.basename(FAILURE_ANALYSIS_FILE)}")
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}FinalReport_{DATESTAMP}.md")
+    if 'server_issue_tests' in locals() and server_issue_tests:
+        print(f"   - {SERVICE_NAME}.{METHOD_NAME}UnverifiedServerIssuesReport_{DATESTAMP}.md")
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}FailureReport_Iteration*_{DATESTAMP}.md")
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}BatchAnalysis_Iteration*_{DATESTAMP}.md")
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration*_{DATESTAMP}.json")
