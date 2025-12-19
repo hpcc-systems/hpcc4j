@@ -54,7 +54,7 @@
     <commons-io.version>2.7</commons-io.version>
     <junit.version>4.13.1</junit.version>
     <json.version>20231013</json.version>
-    <log4j.version>2.17.1</log4j.version>
+    <log4j.version>2.25.3</log4j.version>
     <axis2.version>2.0.0</axis2.version>
     <hadoop.version>3.3.6</hadoop.version>
     <parquet.version>1.15.2</parquet.version>
