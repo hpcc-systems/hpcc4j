@@ -210,7 +210,7 @@
                  <databindingName>adb</databindingName>
                  <packageName>org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest</packageName>
                  <wsdlFile>src/main/resources/WSDLs/WsWorkunits.wsdl</wsdlFile>
-                 <wsdlVersion>1.92</wsdlVersion>
+                 <wsdlVersion>1.99</wsdlVersion>
                  <syncMode>sync</syncMode>
                  <namespaceURIs>
                    <namespaceURI>
