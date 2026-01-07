@@ -34,6 +34,7 @@ public class ECLExceptionWrapper
     protected int local_activity;
     protected String local_scope;
     protected int local_priority;
+    protected double local_cost;
 
     public ECLExceptionWrapper() {}
 
@@ -41,7 +42,7 @@ public class ECLExceptionWrapper
     {
         copy( eclexception );
     }
-    public ECLExceptionWrapper( String _source, String _severity, int _code, String _message, String _fileName, int _lineNo, int _column, int _activity, String _scope, int _priority )
+    public ECLExceptionWrapper( String _source, String _severity, int _code, String _message, String _fileName, int _lineNo, int _column, int _activity, String _scope, int _priority, double _cost )
     {
         this.local_source = _source;
         this.local_severity = _severity;
@@ -53,6 +54,7 @@ public class ECLExceptionWrapper
         this.local_activity = _activity;
         this.local_scope = _scope;
         this.local_priority = _priority;
+        this.local_cost = _cost;
 
     }
 
@@ -71,13 +73,14 @@ public class ECLExceptionWrapper
         this.local_activity = raw.getActivity();
         this.local_scope = raw.getScope();
         this.local_priority = raw.getPriority();
+        this.local_cost = raw.getCost();
 
     }
 
     @Override
     public String toString()
     {
-        return "ECLExceptionWrapper [" + "source = " + local_source + ", " + "severity = " + local_severity + ", " + "code = " + local_code + ", " + "message = " + local_message + ", " + "fileName = " + local_fileName + ", " + "lineNo = " + local_lineNo + ", " + "column = " + local_column + ", " + "activity = " + local_activity + ", " + "scope = " + local_scope + ", " + "priority = " + local_priority + "]";
+        return "ECLExceptionWrapper [" + "source = " + local_source + ", " + "severity = " + local_severity + ", " + "code = " + local_code + ", " + "message = " + local_message + ", " + "fileName = " + local_fileName + ", " + "lineNo = " + local_lineNo + ", " + "column = " + local_column + ", " + "activity = " + local_activity + ", " + "scope = " + local_scope + ", " + "priority = " + local_priority + ", " + "cost = " + local_cost + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLException getRaw()
     {
@@ -92,6 +95,7 @@ public class ECLExceptionWrapper
         raw.setActivity( local_activity);
         raw.setScope( local_scope);
         raw.setPriority( local_priority);
+        raw.setCost( local_cost);
         return raw;
     }
 
@@ -175,5 +179,13 @@ public class ECLExceptionWrapper
     public int getPriority( )
     {
         return this.local_priority;
+    }
+    public void setCost( double _cost )
+    {
+        this.local_cost = _cost;
+    }
+    public double getCost( )
+    {
+        return this.local_cost;
     }
 }
