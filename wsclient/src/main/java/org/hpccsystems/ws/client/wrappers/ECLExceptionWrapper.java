@@ -29,6 +29,7 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
     protected int    activity;
     protected String scope;
     protected int    priority;
+    protected double cost;
 
     /**
      * Instantiates a new ECL exception wrapper.
@@ -71,9 +72,11 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
      *            the scope
      * @param _priority
      *            the priority
+     * @param _cost
+     *            the cost
      */
     public ECLExceptionWrapper(String _source, String _severity, int _code, String _message, String _fileName, int _lineNo, int _column,
-            int _activity, String _scope, int _priority)
+            int _activity, String _scope, int _priority, double _cost)
     {
         this.source = _source;
         this.severity = _severity;
@@ -85,6 +88,7 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
         this.activity = _activity;
         this.scope = _scope;
         this.priority = _priority;
+        this.cost = _cost;
     }
 
     /**
@@ -217,6 +221,7 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
         this.activity = raw.getActivity();
         this.scope = raw.getScope();
         this.priority = raw.getPriority();
+        this.cost = raw.getCost();
     }
 
     /**
@@ -255,6 +260,7 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
         sb.append("file: " + getFileName() + "\t");
         sb.append("line: " + getLineNo() + "\t");
         sb.append("col: " + getColumn() + "\t");
+        sb.append("cost: " + getCost() + "\t");
         sb.append("Message: " + getMessage());
         return sb.toString();
     }
@@ -471,6 +477,27 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
     }
 
     /**
+     * Sets the cost.
+     *
+     * @param _cost
+     *            the new cost
+     */
+    public void setCost(double _cost)
+    {
+        this.cost = _cost;
+    }
+
+    /**
+     * Gets the cost.
+     *
+     * @return the cost
+     */
+    public double getCost()
+    {
+        return this.cost;
+    }
+
+    /**
      * Gets the raw version.
      *
      * @return the raw version
@@ -486,6 +513,9 @@ public class ECLExceptionWrapper extends BaseExceptionWrapper
         ex.setMessage(message);
         ex.setSeverity(severity);
         ex.setSource(source);
+        ex.setPriority(priority);
+        ex.setScope(scope);
+        ex.setCost(cost);
         return ex;
     }
 }
