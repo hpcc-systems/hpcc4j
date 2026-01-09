@@ -799,6 +799,9 @@
           
 					<xsd:element minOccurs="0" name="Priority" type="xsd:int"/>
 					
+          
+					<xsd:element minOccurs="0" name="Cost" type="xsd:double"/>
+					
         
 				</xsd:all>
 				
