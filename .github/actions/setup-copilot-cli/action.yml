@@ -83,7 +83,6 @@ runs:
           
           if [ "$ALLOWED" = "false" ]; then
             echo "❌ ERROR: Actor '$ACTOR' is not whitelisted for this action"
-            echo "Allowed users: $WHITELIST"
             echo "Please contact a repository administrator for access."
             exit 1
           fi
@@ -113,8 +112,8 @@ runs:
         fi
         
         if [ -z "$GH_TOKEN" ]; then
-          echo "⚠️ WARNING: github-token not provided, skipping usage limit check"
-          exit 0
+          echo "❌ ERROR: github-token not provided, cannot check usage limit, preventing workflow run"
+          exit 1
         fi
         
         echo "📊 Checking workflow usage for actor: ${{ github.actor }}"

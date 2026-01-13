@@ -146,7 +146,7 @@ steps:
 
 ## Examples
 
-### Example: Code Review
+### Example Workflow: Code Review
 
 ```yaml
 jobs:
@@ -159,6 +159,10 @@ jobs:
         uses: ./.github/actions/setup-copilot-cli
         with:
           copilot-pat: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          max-runs-per-month: 20
+          actor-whitelist: 'devops-lead,cto,release-manager'
+          actor-blacklist: 'former-employee'
       
       - name: Review changes
         env:
