@@ -10,15 +10,187 @@ inputs:
     description: 'Node.js version to install'
     required: false
     default: '20'
+  max-runs-per-month:
+    description: 'Maximum number of times an actor can run this workflow per month (0 = unlimited)'
+    required: false
+    default: '0'
+  github-token:
+    description: 'GitHub token for API access (can use GITHUB_TOKEN)'
+    required: false
+    default: ''
+  workflow-file:
+    description: 'Workflow filename (e.g., issue-validation.yml) for usage tracking'
+    required: false
+    default: ''
+  actor-whitelist:
+    description: 'Comma-separated list of allowed GitHub usernames (empty = allow all)'
+    required: false
+    default: ''
+  actor-blacklist:
+    description: 'Comma-separated list of blocked GitHub usernames'
+    required: false
+    default: ''
 
 outputs:
   copilot-version:
     description: 'The installed version of GitHub Copilot CLI'
     value: ${{ steps.get-version.outputs.version }}
+  usage-check-passed:
+    description: 'Whether the usage limit check passed (true/false)'
+    value: ${{ steps.check-usage.outputs.passed }}
+  runs-this-month:
+    description: 'Number of times the actor has run this workflow in the past month'
+    value: ${{ steps.check-usage.outputs.run-count }}
 
 runs:
   using: 'composite'
   steps:
+    - name: 'Validate actor access'
+      shell: bash
+      env:
+        ACTOR: ${{ github.actor }}
+        WHITELIST: ${{ inputs.actor-whitelist }}
+        BLACKLIST: ${{ inputs.actor-blacklist }}
+      run: |
+        echo "🔍 Validating actor access for: $ACTOR"
+        
+        # Check blacklist first
+        if [ -n "$BLACKLIST" ]; then
+          IFS=',' read -ra BLOCKED <<< "$BLACKLIST"
+          for blocked_user in "${BLOCKED[@]}"; do
+            # Trim whitespace
+            blocked_user=$(echo "$blocked_user" | xargs)
+            if [ "$ACTOR" = "$blocked_user" ]; then
+              echo "❌ ERROR: Actor '$ACTOR' is blacklisted and cannot use this action"
+              echo "This user has been blocked from running this workflow."
+              exit 1
+            fi
+          done
+        fi
+        
+        # Check whitelist if specified
+        if [ -n "$WHITELIST" ]; then
+          ALLOWED=false
+          IFS=',' read -ra ALLOWED_USERS <<< "$WHITELIST"
+          for allowed_user in "${ALLOWED_USERS[@]}"; do
+            # Trim whitespace
+            allowed_user=$(echo "$allowed_user" | xargs)
+            if [ "$ACTOR" = "$allowed_user" ]; then
+              ALLOWED=true
+              break
+            fi
+          done
+          
+          if [ "$ALLOWED" = "false" ]; then
+            echo "❌ ERROR: Actor '$ACTOR' is not whitelisted for this action"
+            echo "Please contact a repository administrator for access."
+            exit 1
+          fi
+          
+          echo "✅ Actor '$ACTOR' is whitelisted"
+        else
+          echo "ℹ️ No whitelist configured - all non-blacklisted users allowed"
+        fi
+        
+        echo "✅ Actor access validated"
+
+    - name: 'Check usage limit'
+      id: check-usage
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+        MAX_RUNS: ${{ inputs.max-runs-per-month }}
+      run: |
+        # Set outputs
+        echo "passed=true" >> $GITHUB_OUTPUT
+        echo "run-count=0" >> $GITHUB_OUTPUT
+        
+        # Skip check if max-runs is 0 (unlimited) or token not provided
+        if [ "$MAX_RUNS" = "0" ]; then
+          echo "ℹ️ Usage limit checking disabled (max-runs-per-month=0)"
+          exit 0
+        fi
+        
+        if [ -z "$GH_TOKEN" ]; then
+          echo "❌ ERROR: github-token not provided, cannot check usage limit, preventing workflow run"
+          exit 1
+        fi
+        
+        echo "📊 Checking workflow usage for actor: ${{ github.actor }}"
+        
+        WORKFLOW_FILE="${{ inputs.workflow-file }}"
+        
+        # Validate workflow file is provided
+        if [ -z "$WORKFLOW_FILE" ]; then
+          echo "⚠️ WARNING: workflow-file input not provided, skipping usage check"
+          exit 0
+        fi
+        
+        CUTOFF_DATE=$(date -u -d '30 days ago' '+%Y-%m-%dT%H:%M:%SZ')
+        echo "Querying runs since: $CUTOFF_DATE"
+        echo "Workflow file: $WORKFLOW_FILE"
+        echo "Actor: ${{ github.actor }}"
+        
+        # Query workflow runs for this actor in the past month
+        RUN_COUNT=0
+        PAGE=1
+        PER_PAGE=100
+        
+        while true; do
+          # Single API call per iteration - get both total count and filtered count
+          API_RESPONSE=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/${{ github.repository }}/actions/workflows/${WORKFLOW_FILE}/runs?actor=${{ github.actor }}&page=${PAGE}&per_page=${PER_PAGE}" 2>&1)
+          
+          # Check for API errors
+          if echo "$API_RESPONSE" | grep -q "Not Found"; then
+            echo "⚠️ WARNING: Could not query workflow runs (workflow not found or no permissions)"
+            echo "Skipping usage check"
+            break
+          fi
+          
+          TOTAL_RESULTS=$(echo "$API_RESPONSE" | jq -r '.workflow_runs | length' 2>/dev/null || echo "0")
+          
+          
+          if [ "$TOTAL_RESULTS" = "0" ]; then
+            break
+          fi
+          
+          # Count runs created after cutoff date
+          PAGE_COUNT=$(echo "$API_RESPONSE" | jq -r '[.workflow_runs[] | select(.created_at > "'"${CUTOFF_DATE}"'")] | length' 2>/dev/null || echo "0")
+          RUN_COUNT=$((RUN_COUNT + PAGE_COUNT))
+          
+          # Early exit if limit already exceeded - no need to continue paginating
+          if [ "$RUN_COUNT" -ge "$MAX_RUNS" ]; then
+            echo "⚠️ Limit exceeded, stopping pagination early"
+            break
+          fi
+          
+          # If we got fewer results than per_page, we're done
+          if [ "$TOTAL_RESULTS" -lt "$PER_PAGE" ]; then
+            break
+          fi
+          
+          PAGE=$((PAGE + 1))
+        done
+        
+        echo "run-count=$RUN_COUNT" >> $GITHUB_OUTPUT
+        echo "📈 Actor has run this workflow $RUN_COUNT times in the past 30 days"
+        
+        # Check if limit exceeded
+        if [ "$RUN_COUNT" -ge "$MAX_RUNS" ]; then
+          echo "passed=false" >> $GITHUB_OUTPUT
+          echo "❌ ERROR: Usage limit exceeded!"
+          echo "Actor '${{ github.actor }}' has run this workflow $RUN_COUNT times in the past month."
+          echo "Maximum allowed runs per month: $MAX_RUNS"
+          echo ""
+          echo "Please contact a repository administrator if you need an increased limit."
+          exit 1
+        else
+          echo "✅ Usage check passed ($RUN_COUNT/$MAX_RUNS runs this month)"
+        fi
+
     - name: 'Setup Node.js'
       uses: actions/setup-node@v4
       with:
@@ -34,13 +206,15 @@ runs:
       id: get-version
       shell: bash
       run: |
-        if ! VERSION=$(copilot --version 2>&1); then
+        if ! VERSION_OUTPUT=$(copilot --version 2>&1); then
           echo "❌ ERROR: Failed to get Copilot CLI version (exit code: $?)"
           echo "Copilot CLI may not be properly installed"
           exit 1
         fi
+        # Extract just the version number (first line)
+        VERSION=$(echo "$VERSION_OUTPUT" | head -n 1)
         echo "version=$VERSION" >> $GITHUB_OUTPUT
-        echo "✓ Copilot CLI version: $VERSION"
+        echo "✓ Copilot CLI version: $VERSION_OUTPUT"
 
     - name: 'Verify GitHub CLI authentication'
       shell: bash
