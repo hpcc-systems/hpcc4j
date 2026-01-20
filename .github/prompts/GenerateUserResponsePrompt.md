@@ -2,6 +2,12 @@
 
 Create a concise, friendly comment for the issue author based on the comprehensive validation analysis.
 
+## Project-Specific Information
+
+{PROJECT_SPECIFIC_INFO}
+
+---
+
 ## Input Context
 
 You have access to:
@@ -81,15 +87,7 @@ Thank you for submitting this issue! [Personalized opening based on issue type]
 ## Content Guidelines
 
 ### For Missing Information
-Convert validation report's "Critical Missing Information" into user-friendly questions with instructions:
-
-**Bad:** "HPCC4J version not provided"
-**Good:** 
-```
-1. **Provide your HPCC4J version**
-   - Check your `pom.xml` dependency declaration
-   - Or run: `mvn dependency:tree | grep hpccsystems`
-```
+Convert validation report's "Critical Missing Information" into user-friendly questions with instructions. Reference the **Version-Specific Guidance** section from the Project-Specific Information above to provide accurate, project-specific instructions on how to find version numbers and other technical details.
 
 ### For Documentation Hits
 If documentation check found solution:

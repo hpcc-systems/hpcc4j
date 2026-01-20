@@ -33,7 +33,25 @@ class IssueValidationAgent:
         
         self.temp_dir = Path(tempfile.mkdtemp())
         self.prompts_dir = Path(".github/prompts")
+        self.project_info_file = Path(".github/ProjectSpecificInformation.md")
         self.analysis_results = {}
+        
+        # Load project-specific information
+        self.project_info = self._load_project_info()
+    
+    def _load_project_info(self):
+        """Load project-specific information from ProjectSpecificInformation.md."""
+        if not self.project_info_file.exists():
+            print("  Warning: ProjectSpecificInformation.md not found")
+            return "No project-specific information available."
+        
+        try:
+            content = self.project_info_file.read_text()
+            print("  ✓ Loaded project-specific information")
+            return content
+        except Exception as e:
+            print(f"  Warning: Error loading project info: {e}")
+            return "No project-specific information available."
     
     def run_copilot(self, prompt, context_files=None):
         """Execute copilot CLI with given prompt and optional context files (concatenated)."""
@@ -68,12 +86,19 @@ class IssueValidationAgent:
             return None
     
     def load_prompt(self, prompt_name):
-        """Load a prompt template from the prompts directory."""
+        """Load a prompt template from the prompts directory and inject project info."""
         prompt_file = self.prompts_dir / f"{prompt_name}.md"
         if not prompt_file.exists():
             print(f"Warning: {prompt_file} not found")
             return None
-        return prompt_file.read_text()
+        
+        prompt = prompt_file.read_text()
+        
+        # Inject project-specific information if placeholder exists
+        if '{PROJECT_SPECIFIC_INFO}' in prompt:
+            prompt = prompt.replace('{PROJECT_SPECIFIC_INFO}', self.project_info)
+        
+        return prompt
     
     def parse_json_response(self, response):
         """Parse JSON from Copilot response, handling markdown code blocks."""
@@ -127,16 +152,12 @@ class IssueValidationAgent:
         return None
     
     def step2_validate_completeness(self, summary_file):
-        """Validate issue completeness against requirements."""
+        """Validate issue completeness against template requirements."""
         print("Step 2: Validating completeness")
         
-        # Load issue content for prompt substitution
-        issue_content = f"""# Issue #{self.issue_number}: {self.issue_title}
-**Author:** {self.issue_author}
-
-## Description
-{self.issue_body or "(No description provided)"}
-"""
+        # Load issue templates
+        templates = self._load_issue_templates()
+        templates_text = self._format_templates_for_prompt(templates)
         
         prompt_template = self.load_prompt("IssueValidationPrompt")
         if not prompt_template:
@@ -145,6 +166,7 @@ class IssueValidationAgent:
         # Replace placeholders in the prompt
         prompt = prompt_template.replace("{ISSUE_TITLE}", self.issue_title)
         prompt = prompt.replace("{ISSUE_BODY}", self.issue_body or "(No description provided)")
+        prompt = prompt.replace("{ISSUE_TEMPLATES}", templates_text)
         
         # Run validation - output will be markdown, not JSON
         result = self.run_copilot(prompt, [summary_file])
@@ -217,6 +239,44 @@ class IssueValidationAgent:
                 return "\n".join(lines[1:])
         
         return text
+    
+    def _load_issue_templates(self):
+        """Load all issue template files from .github/ISSUE_TEMPLATE directory."""
+        templates = {}
+        template_dir = Path(".github/ISSUE_TEMPLATE")
+        
+        if not template_dir.exists():
+            print("  Warning: Issue template directory not found")
+            return templates
+        
+        # Load all .yml template files
+        for template_file in template_dir.glob("*.yml"):
+            if template_file.name == "config.yml":
+                continue  # Skip config file
+            
+            try:
+                content = template_file.read_text()
+                templates[template_file.name] = content
+                print(f"  Loaded template: {template_file.name}")
+            except Exception as e:
+                print(f"  Warning: Could not load {template_file.name}: {e}")
+        
+        return templates
+    
+    def _format_templates_for_prompt(self, templates):
+        """Format loaded templates for inclusion in the validation prompt."""
+        if not templates:
+            return "No issue templates found in repository."
+        
+        formatted = []
+        for filename, content in templates.items():
+            formatted.append(f"### Template: {filename}")
+            formatted.append("```yaml")
+            formatted.append(content)
+            formatted.append("```")
+            formatted.append("")  # Empty line between templates
+        
+        return "\n".join(formatted)
     
     def step3_check_documentation(self, summary_file):
         """Check if issue is covered in documentation."""

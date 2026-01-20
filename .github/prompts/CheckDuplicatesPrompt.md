@@ -2,6 +2,12 @@
 
 Compare this issue against historical issues to identify duplicates, related issues, or regressions.
 
+## Project-Specific Information
+
+{PROJECT_SPECIFIC_INFO}
+
+---
+
 ## Task
 
 Analyze the issue similarity based on:

@@ -2,6 +2,12 @@
 
 Analyze if this issue is already addressed in available documentation, README files, or wiki pages.
 
+## Project-Specific Information
+
+{PROJECT_SPECIFIC_INFO}
+
+---
+
 ## Task
 
 Determine if:
