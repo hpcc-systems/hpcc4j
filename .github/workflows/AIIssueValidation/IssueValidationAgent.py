@@ -32,17 +32,17 @@ class IssueValidationAgent:
         self.issue = self.repo.get_issue(int(self.issue_number))
         
         self.temp_dir = Path(tempfile.mkdtemp())
-        self.prompts_dir = Path(".github/prompts")
-        self.project_info_file = Path(".github/ProjectSpecificInformation.md")
+        self.prompts_dir = Path(".github/workflows/AIIssueValidation")
+        self.project_info_file = Path(".github/AIIssueValidation_ProjectInformation.md")
         self.analysis_results = {}
         
         # Load project-specific information
         self.project_info = self._load_project_info()
     
     def _load_project_info(self):
-        """Load project-specific information from ProjectSpecificInformation.md."""
+        """Load project-specific information from AIIssueValidation_ProjectInformation.md."""
         if not self.project_info_file.exists():
-            print("  Warning: ProjectSpecificInformation.md not found")
+            print("  Warning: AIIssueValidation_ProjectInformation.md not found")
             return "No project-specific information available."
         
         try:

@@ -75,7 +75,7 @@ Thank you for submitting this issue! [Personalized opening based on issue type]
 </details>
 
 [OPTIONAL: If needs upgrade or known issue]
-**Note:** This may be resolved in HPCC4J version X.X.X. Consider upgrading if possible.
+**Note:** This may be resolved in {PROJECT} version X.X.X. Consider upgrading if possible.
 
 [OPTIONAL: If documented solution exists]
 **Tip:** This appears to be covered in [location]. Please review and let us know if you need clarification.
