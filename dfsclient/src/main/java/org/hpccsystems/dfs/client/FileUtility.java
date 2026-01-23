@@ -2341,6 +2341,7 @@ public class FileUtility
 
     public static void main(String[] args)
     {
+        System.out.println("HPCC File Utility - Version: " + "1.0" + "\n");
         JSONArray results = run(args);
 
         System.out.println("Results:\n--------------------------------------------------\n");
