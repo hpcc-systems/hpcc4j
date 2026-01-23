@@ -36,6 +36,72 @@ Required:
 
 Optional:
 - `COPILOT_PAT` - GitHub token with Copilot access (defaults to GITHUB_TOKEN)
+- `USE_ISSUE_BODY_UPDATE` - Set to `true` to update issue body instead of posting comments (default: `false`)
+
+### Response Mode
+
+The agent supports two modes for delivering validation feedback:
+
+#### Comment Mode (Default)
+Set `USE_ISSUE_BODY_UPDATE=false` or omit the variable.
+
+- Posts validation response as a new comment on the issue
+- Comment history preserved as separate entries
+- Good for maintaining discussion thread chronology
+
+#### Issue Body Update Mode
+Set `USE_ISSUE_BODY_UPDATE=true`
+
+- Embeds validation response directly in the issue body
+- Creates/updates a dedicated `🤖 AI Validation Response` section
+- Keeps all AI feedback in one place within the issue
+- Subsequent validations update the same section
+- Uses HTML comments as markers: `<!-- AI_VALIDATION_START -->` and `<!-- AI_VALIDATION_END -->`
+- **Includes "Ready for re-review" checkbox** to control re-validation
+
+##### Re-validation Control
+
+When using issue body update mode, a checkbox appears at the top of the AI section:
+
+```markdown
+- [ ] **Ready for re-review** _(Check this box when you've addressed the feedback and want the AI to validate again)_
+```
+
+**Behavior:**
+- **First validation**: Runs normally, adds AI section with unchecked checkbox
+- **Issue edited (checkbox unchecked)**: Skips validation - user hasn't indicated they're ready
+- **Issue edited (checkbox checked)**: Runs full validation again, creates new AI section with unchecked checkbox
+- **Comment mode**: Always runs validation (checkbox not used)
+
+This prevents unnecessary re-validation when users are still working on addressing feedback, while allowing them to explicitly request re-review when ready.
+
+##### Workflow Example
+
+```
+Issue Created
+    ↓
+First Validation Runs
+    ↓
+AI Section Added (checkbox unchecked)
+    ↓
+┌────────────────────────────────┐
+│ User edits issue to add info  │
+│ (checkbox still unchecked)    │
+└────────────────────────────────┘
+    ↓
+Validation Triggered → SKIPPED ⏭️
+    ↓
+┌────────────────────────────────┐
+│ User checks "Ready for        │
+│ re-review" checkbox           │
+└────────────────────────────────┘
+    ↓
+Validation Triggered → RUNS ✅
+    ↓
+AI Section Updated (checkbox reset to unchecked)
+```
+
+**Recommendation:** Use issue body update mode for cleaner issue presentation when AI validation runs frequently.
 
 ## Prompt System
 

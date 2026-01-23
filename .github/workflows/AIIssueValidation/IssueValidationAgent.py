@@ -16,6 +16,7 @@ from github import Github
 COPILOT_MODEL = "gpt-4.1"  # Model to use with Copilot CLI
 COPILOT_TIMEOUT = 120  # Timeout in seconds for Copilot calls
 MAX_ISSUES_TO_CHECK = 200  # Limit for duplicate detection
+USE_ISSUE_BODY_UPDATE = 'true'  # Update issue body instead of commenting
 
 class IssueValidationAgent:
     def __init__(self):
@@ -416,17 +417,95 @@ class IssueValidationAgent:
         return None
     
     def post_comment(self, comment):
-        """Post the validation comment to the issue."""
+        """Post the validation comment to the issue or update issue body based on configuration."""
         if not comment:
             print("No comment to post")
             return
         
         try:
-            self.issue.create_comment(comment)
-            print(f"✓ Posted comment to issue #{self.issue_number}")
+            if USE_ISSUE_BODY_UPDATE:
+                self._update_issue_body_with_ai_response(comment)
+            else:
+                self.issue.create_comment(comment)
+                print(f"✓ Posted comment to issue #{self.issue_number}")
         except Exception as e:
             print(f"✗ Failed to post comment: {e}")
             raise
+    
+    def _update_issue_body_with_ai_response(self, ai_response):
+        """Update the issue body with AI validation response in a dedicated section."""
+        AI_SECTION_START = "<!-- AI_VALIDATION_START -->"
+        AI_SECTION_END = "<!-- AI_VALIDATION_END -->"
+        
+        current_body = self.issue.body or ""
+        
+        # Create the AI response section with checkbox
+        ai_section = f"""{AI_SECTION_START}
+
+---
+
+## 🤖 AI Validation Response
+
+- [ ] **Ready for re-review** _(Check this box when you've addressed the feedback and want the AI to validate again)_
+
+{ai_response}
+
+---
+
+{AI_SECTION_END}"""
+        
+        # Check if AI section already exists
+        if AI_SECTION_START in current_body and AI_SECTION_END in current_body:
+            # Replace existing AI section
+            start_idx = current_body.find(AI_SECTION_START)
+            end_idx = current_body.find(AI_SECTION_END) + len(AI_SECTION_END)
+            new_body = current_body[:start_idx] + ai_section + current_body[end_idx:]
+            print(f"✓ Updating existing AI response section in issue #{self.issue_number}")
+        else:
+            # Append AI section to the end
+            new_body = current_body.rstrip() + "\n\n" + ai_section
+            print(f"✓ Adding new AI response section to issue #{self.issue_number}")
+        
+        # Update the issue
+        self.issue.edit(body=new_body)
+        print(f"✓ Issue body updated successfully")
+    
+    def check_if_ready_for_revalidation(self):
+        """Check if issue needs revalidation based on AI section and checkbox state.
+        
+        Returns:
+            tuple: (should_validate, reason)
+                - should_validate: True if validation should run
+                - reason: String explaining why/why not
+        """
+        if not USE_ISSUE_BODY_UPDATE:
+            # Comment mode - always validate
+            return (True, "Comment mode enabled")
+        
+        AI_SECTION_START = "<!-- AI_VALIDATION_START -->"
+        AI_SECTION_END = "<!-- AI_VALIDATION_END -->"
+        CHECKBOX_UNCHECKED = "- [ ] **Ready for re-review**"
+        CHECKBOX_CHECKED = "- [x] **Ready for re-review**"
+        
+        current_body = self.issue.body or ""
+        
+        # Check if AI section exists
+        if AI_SECTION_START not in current_body or AI_SECTION_END not in current_body:
+            return (True, "No AI validation section found - first validation")
+        
+        # Extract AI section
+        start_idx = current_body.find(AI_SECTION_START)
+        end_idx = current_body.find(AI_SECTION_END) + len(AI_SECTION_END)
+        ai_section = current_body[start_idx:end_idx]
+        
+        # Check checkbox state
+        if CHECKBOX_CHECKED in ai_section or "- [X] **Ready for re-review**" in ai_section:
+            return (True, "Ready for re-review checkbox is checked")
+        elif CHECKBOX_UNCHECKED in ai_section:
+            return (False, "AI section exists and checkbox is unchecked - skipping validation")
+        else:
+            # Checkbox not found in expected format - validate anyway
+            return (True, "Checkbox not found - validating")
     
     def run(self):
         """Execute the full validation workflow."""
@@ -435,6 +514,16 @@ class IssueValidationAgent:
         print(f"{'='*60}\n")
         
         try:
+            # Pre-validation check: Should we run validation?
+            should_validate, reason = self.check_if_ready_for_revalidation()
+            print(f"Pre-validation check: {reason}")
+            
+            if not should_validate:
+                print(f"\n{'='*60}")
+                print("⏭️  Skipping validation - waiting for user to check 'Ready for re-review'")
+                print(f"{'='*60}\n")
+                return
+            
             # Step 1: Summarize issue
             summary_file = self.step1_summarize_issue()
             if not summary_file:

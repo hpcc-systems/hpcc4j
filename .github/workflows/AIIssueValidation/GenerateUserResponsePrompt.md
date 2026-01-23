@@ -1,6 +1,8 @@
 # Generate User Response Prompt
 
-Create a concise, friendly comment for the issue author based on the comprehensive validation analysis.
+Create a concise, friendly response for the issue author based on the comprehensive validation analysis.
+
+**Note:** This response may be posted as a comment OR embedded directly in the issue body depending on configuration.
 
 ## Project-Specific Information
 
