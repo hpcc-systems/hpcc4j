@@ -86,3 +86,12 @@ This formatter can be used by the Eclipse IDE to automatically format JAVA sourc
 - Import the HPCC-JAVA-Formatter.xml file and set it as the Active profile.
 
 - From the JAVA editor, choose Source->Format
+
+## AI Knowledge Base (`kb/`) and Tests
+
+This repository includes a machine‑optimized **Knowledge Base** under `kb/` for autonomous agents (RAG/Copilot‑style tooling). It is **documentation for machines**: curated, atomic facts with metadata and provenance.
+
+- `kb/` — curated Markdown with YAML front matter and fenced `chunk` blocks (agent ingestion target)
+- `tests/kb/` — retrieval/reasoning tests that validate KB behavior; intentionally kept **outside** `kb/` to avoid ingestion
+
+These folders do **not** affect builds or runtime. They can be safely reviewed like any other docs. Pipelines may generate embeddings/graphs under `/_generated/` in a follow‑up change.

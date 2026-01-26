@@ -1,0 +1,28 @@
+
+name: KB Validation
+on:
+  pull_request:
+    paths:
+      - 'kb/**'
+      - 'tests/**'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Front matter presence
+        run: |
+          python - << 'PY'
+          import os, sys, re
+          ok=True
+          for dp, dn, fn in os.walk('kb'):
+            for f in fn:
+              if f.endswith('.md'):
+                p=os.path.join(dp,f)
+                with open(p,'r',encoding='utf-8') as fh:
+                  head=fh.read(300)
+                if not head.strip().startswith('---'):
+                  print('Missing front matter in', p)
+                  ok=False
+          sys.exit(0 if ok else 1)
+          PY

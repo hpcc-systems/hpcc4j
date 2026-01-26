@@ -1,0 +1,8 @@
+{
+  "created": "2026-01-23T21:54:48.208602Z",
+  "updates": {
+    "tests/kb/retrieval-smoke.yaml": "93ee98f1debf9fb02797ab049811f7d9b98ce075f754c9b832555149d4095799",
+    "kb/README.md": "a41ede2ffe2296dca6621e7b91fb71d1424f5b4b0b8d86c708435874e27bd8d9",
+    "README_KB_SNIPPET.md": "5e12b5127d61cf7052986f22a92fc9b3aebd5cfab6586f9a5b32ab03fc4b95fa"
+  }
+}

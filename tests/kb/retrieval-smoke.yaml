@@ -1,0 +1,7 @@
+
+- id: t-wsworkunits-path
+  question: "What path does the Workunits client use under ESP?"
+  expect_source_ids: ["conn-endpoint-catalog"]
+- id: t-eclwatch-https-port
+  question: "What is the typical HTTPS port for ECL Watch?"
+  expect_source_ids: ["conn-ports-protocols"]
