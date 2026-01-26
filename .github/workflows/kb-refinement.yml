@@ -1,0 +1,259 @@
+name: KB Refinement + Embeddings (All-in-One)
+
+on:
+  workflow_dispatch:
+    inputs:
+      clean_output:
+        description: "Clear previous .kb_index* outputs before building?"
+        type: boolean
+        default: true
+  push:
+    paths:
+      - "kb/**"
+      - ".github/scripts/kb/**"
+      - ".github/workflows/kb-refinement.yml"
+
+permissions:
+  contents: write      # create/update releases
+  actions: write       # prune artifacts
+
+concurrency:
+  group: kb-refine-embed-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  KB_ROOT: kb/hpcc4j
+  OUT_DIR: .kb_index_enhanced
+  POLICY_FILE: .github/scripts/kb/chunking-policy.yml
+  KB_DB_DIR: .kb_index
+  KB_EMBED_MODEL: sentence-transformers/all-MiniLM-L6-v2
+  KB_COLLECTION: hpcckb
+  KB_BATCH_SIZE: "256"
+
+jobs:
+  refine_and_embed:
+    name: Refine KB -> Build Embeddings -> Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      # --- Checkout + Python -------------------------------------------------
+      - name: Checkout repository (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install KB & embedding deps
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          # Refinement & cleansing helpers
+          pip install nbformat nbconvert beautifulsoup4 pdfminer.six python-docx pyyaml
+          # Embedding stack
+          pip install \
+            chromadb \
+            langchain-huggingface \
+            langchain-community \
+            sentence-transformers \
+            requests \
+            tqdm
+
+      # --- Optional cleanup ---------------------------------------------------
+      - name: Clean previous outputs
+        if: ${{ inputs.clean_output }}
+        run: |
+          set -euo pipefail
+          rm -rf "${OUT_DIR}" .kb_index .kb_tmp || true
+          mkdir -p "${OUT_DIR}"
+
+      # --- Normalize & convert -----------------------------------------------
+      - name: Normalize & convert (any -> Markdown)
+        run: |
+          set -euo pipefail
+          if [ ! -d "${KB_ROOT}" ]; then
+            echo "::error :: KB root '${KB_ROOT}' not found."
+            exit 1
+          fi
+          python .github/scripts/kb/convert_any_to_md.py \
+            --root "${KB_ROOT}" \
+            --out-root "${KB_ROOT}" \
+            --remove-source \
+            --exclude "**/tests-*/**" "*/node_modules/**" \
+            --skip-binaries \
+            --preview 0
+
+      # --- Cleanse ------------------------------------------------------------
+      - name: Cleanse Markdown (folder-aware rules)
+        run: |
+          set -euo pipefail
+          if [ -f .github/scripts/kb/cleanse_markdown.py ]; then
+            python .github/scripts/kb/cleanse_markdown.py --root "${KB_ROOT}"
+          else
+            echo "::warning :: .github/scripts/kb/cleanse_markdown.py not found. Skipping explicit cleansing."
+          fi
+
+      # --- Chunk (policy) -> index.jsonl -------------------------------------
+      - name: Build enhanced chunks & index (semantic, policy)
+        run: |
+          set -euo pipefail
+          test -f ".github/scripts/kb/kb-chunk-with-policy.py" || { echo "::error :: Missing wrapper: .github/scripts/kb/kb-chunk-with-policy.py"; exit 1; }
+          test -f ".github/scripts/kb/kb-source-markdow-chunk.py" || { echo "::error :: Missing underlying chunker: .github/scripts/kb/kb-source-markdow-chunk.py"; exit 1; }
+          test -f "${POLICY_FILE}" || { echo "::error :: Policy file not found at '${POLICY_FILE}'"; exit 1; }
+
+          python .github/scripts/kb/kb-chunk-with-policy.py \
+            --out-dir "${OUT_DIR}" \
+            --source-base "https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}" \
+            --policy "${POLICY_FILE}"
+
+          if [ ! -s "${OUT_DIR}/index.jsonl" ]; then
+            echo "::warning :: No chunks produced (index.jsonl empty). Check policy globs."
+          fi
+
+      # --- Summary ------------------------------------------------------------
+      - name: Produce KB summary
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          FILES=$(find "${KB_ROOT}" -type f -name '*.md' | wc -l | xargs)
+          CHUNKS=$( [ -f "${OUT_DIR}/index.jsonl" ] && wc -l < "${OUT_DIR}/index.jsonl" || echo 0 )
+          {
+            echo "## KB Refinement Summary"
+            echo "- Date: $(date -u +"%Y-%m-%dT%H-%M-%SZ")"
+            echo "- Markdown files scanned: ${FILES}"
+            echo "- Chunks produced: ${CHUNKS}"
+          } > dist/kb-refinement-summary.md
+
+      # --- Versioned packaging of refined output ------------------------------
+      - name: Package versioned KB output
+        id: pkg_kb
+        run: |
+          set -euo pipefail
+          TS=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
+          SHA=$(git rev-parse --short HEAD)
+          VERSION_DIR="kb_output/${TS}_${SHA}"
+          mkdir -p "${VERSION_DIR}"
+          cp "${OUT_DIR}/index.jsonl" "${VERSION_DIR}/index.jsonl"
+          cp dist/kb-refinement-summary.md "${VERSION_DIR}/summary.md"
+          echo "version_dir=${VERSION_DIR}" >> $GITHUB_OUTPUT
+
+      - name: Upload versioned KB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kb-refined-${{ github.run_id }}
+          path: ${{ steps.pkg_kb.outputs.version_dir }}
+          retention-days: 30
+
+      # --- Publish KB 'kb-latest' release (stable endpoint for index.jsonl) ---
+      - name: Publish KB index to kb-latest GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          VERSION_DIR="${{ steps.pkg_kb.outputs.version_dir }}"
+          ASSET_INDEX="${VERSION_DIR}/index.jsonl"
+          ASSET_SUMMARY="${VERSION_DIR}/summary.md"
+
+          if git rev-parse -q --verify "refs/tags/kb-latest" >/dev/null; then
+            git tag -d kb-latest || true
+            git push origin :refs/tags/kb-latest || true
+          fi
+          git tag kb-latest
+          git push origin kb-latest
+
+          EXISTING=$(gh release view kb-latest --json url --jq .url || true)
+          if [ -n "$EXISTING" ]; then
+            gh release delete kb-latest -y || true
+          fi
+
+          gh release create kb-latest \
+            --title "KB Latest (index.jsonl)" \
+            --notes "Automated KB refinement output for latest commit." \
+            "${ASSET_INDEX}" "${ASSET_SUMMARY}"
+
+      # --- Build embeddings directly (no upload/download hop) -----------------
+      - name: Build Chroma embeddings from index.jsonl (with manifest)
+        env:
+          KB_INDEX_JSONL: ${{ env.OUT_DIR }}/index.jsonl
+          KB_DB_DIR: ${{ env.KB_DB_DIR }}
+          KB_EMBED_MODEL: ${{ env.KB_EMBED_MODEL }}
+          KB_COLLECTION: ${{ env.KB_COLLECTION }}
+          KB_BATCH_SIZE: ${{ env.KB_BATCH_SIZE }}
+          KB_SOURCE_SHA: ${{ github.sha }}
+          KB_SOURCE_REF: ${{ github.ref_name }}
+          KB_SOURCE_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          test -f ".github/scripts/kb/kb_index_chroma_from_jsonl.py" \
+            || { echo "::error :: Missing script: .github/scripts/kb/kb_index_chroma_from_jsonl.py"; exit 1; }
+          python .github/scripts/kb/kb_index_chroma_from_jsonl.py
+
+      # --- Upload versioned embeddings artifact (optional for debugging) ------
+      - name: Upload embeddings artifact (Chroma DB + MANIFEST)
+        uses: actions/upload-artifact@v4
+        with:
+          name: kb-chroma-${{ github.run_id }}
+          path: .kb_index/**
+          include-hidden-files: true
+          retention-days: 30
+
+      # --- Package embeddings for release ------------------------------------
+      - name: Package embeddings for release
+        id: pkg_emb
+        run: |
+          set -euo pipefail
+          test -f ".kb_index/MANIFEST.json" || { echo "::error :: MANIFEST.json not found under .kb_index"; exit 1; }
+          tar -czf embeddings_chroma.tgz .kb_index
+          echo "pkg=embeddings_chroma.tgz" >> $GITHUB_OUTPUT
+
+      # --- Publish 'embeddings-latest' release (stable endpoint for embeddings)
+      - name: Update embeddings-latest GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if git rev-parse -q --verify "refs/tags/embeddings-latest" >/dev/null; then
+            git tag -d embeddings-latest || true
+            git push origin :refs/tags/embeddings-latest || true
+          fi
+          git tag embeddings-latest
+          git push origin embeddings-latest
+
+          EXISTING=$(gh release view embeddings-latest --json url --jq .url || true)
+          if [ -n "$EXISTING" ]; then
+            gh release delete embeddings-latest -y || true
+          fi
+
+          gh release create embeddings-latest \
+            --title "Embeddings Latest (Chroma)" \
+            --notes "Automated embeddings artifact built from the latest refined KB index." \
+            "${{ steps.pkg_emb.outputs.pkg }}"
+
+      # --- Prune older artifacts (keep the newest 2) --------------------------
+      - name: Prune older artifacts (keep last 2)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          KEEP=2
+          ARTIFACTS=$(gh api -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.repository }}/actions/artifacts \
+            --paginate | jq -r '.artifacts[] | [.id, .name, .created_at] | @tsv' | sort -k3 -r)
+
+          COUNT=0
+          echo "$ARTIFACTS" | while IFS=$'\t' read -r ID NAME CREATED; do
+            COUNT=$((COUNT+1))
+            if [ "$COUNT" -le "$KEEP" ]; then
+              echo "Keeping: $ID $NAME $CREATED"
+            else
+              echo "Deleting: $ID $NAME $CREATED"
+              gh api \
+                --method DELETE \
+                -H "Accept: application/vnd.github+json" \
+                /repos/${{ github.repository }}/actions/artifacts/$ID || true
+            fi
+          done

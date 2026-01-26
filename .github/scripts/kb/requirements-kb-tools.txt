@@ -1,0 +1,6 @@
+nbformat
+nbconvert
+beautifulsoup4
+pdfminer.six
+python-docx
+pyyaml
