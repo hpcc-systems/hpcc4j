@@ -69,6 +69,7 @@
     <opentelemetry.semconv.version>1.25.0-alpha</opentelemetry.semconv.version>
     <opentelemetry.instrumentation.annotations.version>2.6.0</opentelemetry.instrumentation.annotations.version>
     <commons-fileupload2.version>2.0.0-M4</commons-fileupload2.version>
+    <newdep.version>4.0.0</newdep.version>
   </properties>
 
   <scm>
