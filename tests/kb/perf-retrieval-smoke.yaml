@@ -1,0 +1,4 @@
+
+- id: t-perf-atomics
+  question: "Why can shared Atomic counters degrade throughput under heavy threading, and what pattern is recommended instead?"
+  expect_source_ids: ["perf-atomics", "perf-guidance"]

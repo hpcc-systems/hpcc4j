@@ -1,0 +1,7 @@
+
+- id: t-otel-prereqs
+  question: "What versions and components are required to enable HPCC4J tracing with the OpenTelemetry Java Agent?"
+  expect_source_ids: ["otel-prereqs"]
+- id: t-otel-arch
+  question: "How is tracing architecture arranged between client, hpcc4j, and HPCC Platform?"
+  expect_source_ids: ["otel-arch"]
