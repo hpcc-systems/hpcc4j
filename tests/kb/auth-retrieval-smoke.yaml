@@ -1,0 +1,8 @@
+
+- id: t-auth-core
+  question: "Who enforces authentication when using HPCC4J?"
+  expect_source_ids: ["auth-core-model"]
+
+- id: t-auth-mtls
+  question: "Does HPCC4J implement mutual TLS authentication?"
+  expect_source_ids: ["auth-mtls"]
