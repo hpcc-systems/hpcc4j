@@ -1,0 +1,4 @@
+
+- id: t-k8s-values
+  question: "Which dafilesrv service does HPCC4J depend on in K8s and what port is typical?"
+  expect_source_ids: ["k8s-values-overrides"]

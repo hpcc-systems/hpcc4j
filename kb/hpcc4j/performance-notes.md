@@ -14,12 +14,12 @@ tags: [hpcc4j, performance, concurrency, atomics, tracing]
 ---
 
 ## Summary
-Extracts key lessons from the HPCC4J wiki’s Performance Notes, including concurrency pitfalls with shared Atomics and how tracing helped diagnose bottlenecks.
+Key performance takeaways from the HPCC4J wiki with agent‑safe guidance.
 
 ```chunk id="perf-atomics" kind="concept"
-**Shared Atomic contention:** Under multi‑threaded load, updating a shared Atomic can cause cache line ping‑pong and stall throughput. A per‑thread counter + periodic aggregation removed a bottleneck and yielded ~6× throughput improvement in the noted scenario. (Source: Performance Notes wiki)
+**Shared Atomic contention:** Under heavy threading, a single shared Atomic can cause cache‑line ping‑pong; switching to per‑thread counters with periodic aggregation removed the bottleneck and improved throughput significantly in the reported scenario.
 ```
 
 ```chunk id="perf-guidance" kind="constraint"
-**Guidance:** Avoid hot shared Atomics in read/write loops. Prefer per‑partition/per‑thread metrics and aggregate less frequently. Consider tracing (Otel) to confirm where stalls occur before assuming network limits. (Source: Performance Notes wiki)
+**Guidance:** Avoid hot shared Atomics in tight loops; aggregate less frequently; use tracing to verify where stalls occur before assuming network limits.
 ```

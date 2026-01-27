@@ -1,9 +1,0 @@
-{
-  "created": "2026-01-23T21:19:06.780108Z",
-  "files": {
-    "kb/hpcc4j/connections-and-endpoints.md": "aa33e4ee2a6bed9662a7d9ea9118c0b804d724c7fa4aa84b8281920334ec8b35",
-    "tests/rag/retrieval-smoke.yaml": "93ee98f1debf9fb02797ab049811f7d9b98ce075f754c9b832555149d4095799",
-    ".github/workflows/kb-validate.yml": "0c6293eee4fd31bcb14e2c9b98923d6f1796db26d1eb6ddf239d575fc56090a7",
-    "kb/README.md": "7ec764f70762186de8b75587f7f66acb6bb6cc380169c2f9cae78dbdacab7b08"
-  }
-}

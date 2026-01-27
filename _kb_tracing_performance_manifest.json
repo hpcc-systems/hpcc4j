@@ -1,9 +1,0 @@
-{
-  "created": "2026-01-27T02:02:54.335950Z",
-  "files": {
-    "kb/hpcc4j/tracing-support.md": "a9dc00a08cee84cf659e6eb584ec25a74e0a00a7969d6737668314dc34721550",
-    "kb/hpcc4j/performance-notes.md": "2b7ffcab0691c1612361bf4667eb774d63cdf2cbd84e205367094fe8f5e65c4a",
-    "tests/kb/tracing-retrieval-smoke.yaml": "ed6512032738fc7743af0271ea1dab9bf68b80e13295687d64412c1e1a44c5eb",
-    "tests/kb/perf-retrieval-smoke.yaml": "7b46221ba95e53f84eeda96ef8c296874fab7da85d1799a912cdf660247bae91"
-  }
-}

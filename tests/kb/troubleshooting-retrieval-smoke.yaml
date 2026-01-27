@@ -1,0 +1,7 @@
+
+- id: t-dfs-unauthorized
+  question: "What likely causes 'createRemoteActivity: unauthorized' when using DFSClient?"
+  expect_source_ids: ["issue-dfsclient-unauthorized"]
+- id: t-assert-8029
+  question: "What typically triggers assertion Code '8029' errors during reads?"
+  expect_source_ids: ["issue-assert-8029"]
