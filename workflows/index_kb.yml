@@ -1,0 +1,40 @@
+
+name: Index KB (RAG)
+
+on:
+  push:
+    paths:
+      - 'kb/**'
+  pull_request:
+    paths:
+      - 'kb/**'
+
+jobs:
+  build_index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/scripts/requirements-rag.txt
+
+      - name: Build KB index (HF embeddings)
+        env:
+          KB_EMBED_MODEL: sentence-transformers/all-MiniLM-L6-v2
+        run: |
+          python .github/scripts/kb_index.py
+
+      - name: Upload KB index artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kb-index
+          path: .kb_index
+          if-no-files-found: error
