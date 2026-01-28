@@ -12,6 +12,36 @@ import json
 import time
 
 
+# Global log buffer for artifact generation
+_log_buffer = []
+
+
+def log(message, to_artifact=True):
+    """Print to stdout and optionally buffer for artifact."""
+    print(message)
+    if to_artifact:
+        _log_buffer.append(message)
+
+
+def log_header(title):
+    """Print a formatted header."""
+    separator = "=" * 60
+    log(f"\n{separator}")
+    log(title)
+    log(f"{separator}\n")
+
+
+def log_section(title):
+    """Print a formatted section header."""
+    log(f"\n{title}")
+    log("-" * len(title))
+
+
+def get_buffered_logs():
+    """Return all buffered log messages."""
+    return "\n".join(_log_buffer)
+
+
 def extractVersion(versionStr):
     parts = versionStr.split('.')
     if len(parts) != 3:
@@ -81,8 +111,32 @@ def createReleaseTagPattern(projectConfig, major=None, minor=None, point=None):
 
 
 def getLatestSemVer(projectConfig, major=None, minor=None, point=None):
-    cmd = "git tag --list --sort=-v:refname | grep -E '" + createReleaseTagPattern(projectConfig, major, minor, point) + "' | head -n 1"
-    return getTagVersionForCmd(cmd)
+    """Get latest semantic version tag matching the pattern."""
+    # Get all tags sorted by version
+    result = subprocess.run(
+        ["git", "tag", "--list", "--sort=-v:refname"],
+        capture_output=True, text=True, check=True
+    )
+    
+    if not result.stdout.strip():
+        print('Unable to retrieve git tags.')
+        sys.exit(1)
+    
+    # Build regex pattern for filtering
+    pattern = createReleaseTagPattern(projectConfig, major, minor, point)
+    regex = re.compile(pattern)
+    
+    # Find first matching tag
+    for tag in result.stdout.strip().split('\n'):
+        if regex.match(tag):
+            # Extract version from tag
+            versionPattern = re.compile(r".*[^0-9]+([0-9]+\.[0-9]+\.[0-9]+).*")
+            versionMatch = versionPattern.match(tag)
+            if versionMatch:
+                return extractVersion(versionMatch.group(1))
+    
+    print(f'Unable to find tag matching pattern: {pattern}')
+    sys.exit(2)
 
 
 def generateUpMergeBranchList(projectConfig, branchName):
@@ -100,9 +154,6 @@ def generateUpMergeBranchList(projectConfig, branchName):
             sys.exit(1)
         
         branchVersion = extractVersion(branchVersionMatch.group(1))
-
-        # Get latest release in branch
-        latestBranchVer = getLatestSemVer(projectConfig, branchVersion[0], branchVersion[1])
 
         curMajor = branchVersion[0]
         latestMajor = latestVersion[0]
@@ -146,21 +197,23 @@ def check_merge_conflicts(source_ref, target_ref):
     result = subprocess.run(cmd, capture_output=True, text=True)
     
     # merge-tree outputs conflict markers if there are conflicts
-    # Check for conflict markers in output
     if "<<<<<<" in result.stdout or result.returncode != 0:
-        # Extract conflicting files
+        # Extract conflicting files from merge-tree output
         conflicts = []
-        for line in result.stdout.split('\n'):
-            if line.startswith('+<<<<<<<') or 'changed in both' in line.lower():
+        lines = result.stdout.split('\n')
+        
+        for line in lines:
+            # Look for conflict markers (without + prefix - that's diff output)
+            if line.startswith('<<<<<<<') or 'changed in both' in line.lower():
                 conflicts.append(line)
+        
         return True, conflicts
+    
     return False, []
 
 
 def upmerge_to_branch(source_branch, target_branch, pr_number, pr_title):
-    print(f"\n{'='*60}")
-    print(f"Upmerging {source_branch} to {target_branch}")
-    print(f"{'='*60}\n")
+    log_header(f"Upmerging {source_branch} to {target_branch}")
     
     # Track details for this upmerge attempt
     upmerge_details = {
@@ -171,52 +224,63 @@ def upmerge_to_branch(source_branch, target_branch, pr_number, pr_title):
         "steps_completed": []
     }
     
+    temp_branch = f"upmerge-temp-{target_branch}"
+    original_ref = None  # Track where we started for cleanup
+    
     try:
+        # Record current HEAD for cleanup purposes
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True, text=True, check=True
+        )
+        original_ref = result.stdout.strip()
+        
         # Fetch latest changes
         subprocess.run(["git", "fetch", "origin"], check=True)
         upmerge_details["steps_completed"].append("fetch")
         
         # Get target branch version
         target_version = getTargetInBranchVersion(target_branch)
-        print(f"Target branch version: {target_version}")
+        log(f"Target branch version: {target_version}")
         upmerge_details["target_version"] = target_version
         upmerge_details["steps_completed"].append("get_version")
         
         # Create temporary branch from source with aligned versions for conflict checking
-        print(f"Creating temporary branch for conflict check...")
+        log(f"Creating temporary branch for conflict check...")
         result = subprocess.run(
-            ["git", "checkout", "-B", f"upmerge-temp-{target_branch}", f"origin/{source_branch}"], 
+            ["git", "checkout", "-B", temp_branch, f"origin/{source_branch}"], 
             capture_output=True, text=True
         )
         if result.returncode != 0:
-            print(f"Failed to create temp branch: {result.stderr}")
+            log(f"Failed to create temp branch: {result.stderr}")
             upmerge_details["status"] = "failed"
             upmerge_details["error"] = f"Failed to create temp branch: {result.stderr}"
             return False, upmerge_details
         upmerge_details["steps_completed"].append("create_temp_branch")
     
         # Update Maven version temporarily for conflict check
-        print(f"Aligning version to {target_version} for conflict check...")
-        print(f"  Working directory: {os.getcwd()}")
-        print(f"  Checking Maven availability...")
+        log(f"Aligning version to {target_version} for conflict check...")
+        log(f"  Working directory: {os.getcwd()}")
+        log(f"  Checking Maven availability...")
         mvn_check = subprocess.run(["mvn", "--version"], capture_output=True, text=True)
-        print(f"  Maven version output: {mvn_check.stdout[:200]}")
+        log(f"  Maven version output: {mvn_check.stdout[:200]}")
         
         mvn_result = subprocess.run(
             ["mvn", "versions:set", f"-DnewVersion={target_version}", "-DgenerateBackupPoms=false"],
             capture_output=True, text=True
         )
         if mvn_result.returncode != 0:
-            print(f"Failed to update Maven versions:")
-            print(f"  Return code: {mvn_result.returncode}")
-            print(f"  STDOUT: {mvn_result.stdout}")
-            print(f"  STDERR: {mvn_result.stderr}")
-            subprocess.run(["git", "checkout", target_branch], capture_output=True)
-            subprocess.run(["git", "branch", "-D", f"upmerge-temp-{target_branch}"], capture_output=True)
+            log(f"Failed to update Maven versions:")
+            log(f"  Return code: {mvn_result.returncode}")
+            log(f"  STDOUT: {mvn_result.stdout}")
+            log(f"  STDERR: {mvn_result.stderr}")
+            # Cleanup: detach HEAD before deleting temp branch (we're currently on it)
+            subprocess.run(["git", "checkout", "--detach", original_ref], capture_output=True)
+            subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
             upmerge_details["status"] = "failed"
             upmerge_details["error"] = f"Maven version set failed (conflict check): stdout={mvn_result.stdout}, stderr={mvn_result.stderr}"
             return False, upmerge_details
-        print(f"  ✓ Version alignment successful")
+        log(f"  ✓ Version alignment successful")
         upmerge_details["steps_completed"].append("align_version_temp")
         
         # Commit version changes to temp branch for conflict checking
@@ -228,9 +292,9 @@ def upmerge_to_branch(source_branch, target_branch, pr_number, pr_title):
         upmerge_details["steps_completed"].append("commit_temp_version")
     
         # Check for merge conflicts using merge-tree (dry-run)
-        print("Checking for merge conflicts...")
+        log("Checking for merge conflicts...")
         has_conflicts, conflict_details = check_merge_conflicts(
-            f"upmerge-temp-{target_branch}", 
+            temp_branch, 
             f"origin/{target_branch}"
         )
         
@@ -240,98 +304,104 @@ def upmerge_to_branch(source_branch, target_branch, pr_number, pr_title):
         }
         
         if has_conflicts:
-            print(f"❌ Conflicts detected during upmerge to {target_branch}:")
+            log(f"❌ Conflicts detected during upmerge to {target_branch}:")
             for detail in conflict_details[:10]:  # Show first 10 conflict lines
-                print(f"   {detail}")
-            subprocess.run(["git", "checkout", target_branch], capture_output=True)
-            subprocess.run(["git", "branch", "-D", f"upmerge-temp-{target_branch}"], capture_output=True)
+                log(f"   {detail}")
+            # Cleanup: detach HEAD before deleting temp branch
+            subprocess.run(["git", "checkout", "--detach", original_ref], capture_output=True)
+            subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
             upmerge_details["status"] = "conflicts"
             return False, upmerge_details
         
-        print("✓ No conflicts detected")
+        log("✓ No conflicts detected")
         upmerge_details["steps_completed"].append("conflict_check_passed")
         
         # Now checkout target branch and perform squash merge from temp branch
-        print(f"Checking out {target_branch}...")
+        log(f"Checking out {target_branch}...")
         result = subprocess.run(["git", "checkout", target_branch], capture_output=True, text=True)
         if result.returncode != 0:
-            print(f"Failed to checkout {target_branch}: {result.stderr}")
-            subprocess.run(["git", "branch", "-D", f"upmerge-temp-{target_branch}"], capture_output=True)
+            log(f"Failed to checkout {target_branch}: {result.stderr}")
+            # Cleanup: detach HEAD before deleting temp branch
+            subprocess.run(["git", "checkout", "--detach", original_ref], capture_output=True)
+            subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
             upmerge_details["status"] = "failed"
             upmerge_details["error"] = f"Failed to checkout {target_branch}: {result.stderr}"
             return False, upmerge_details
         
         # Update to latest
-        print(f"Updating {target_branch} to latest from origin...")
+        log(f"Updating {target_branch} to latest from origin...")
         result = subprocess.run(
             ["git", "merge", f"origin/{target_branch}", "--ff-only"], 
             capture_output=True, text=True
         )
         if result.returncode != 0:
-            print(f"Failed to fast-forward {target_branch}: {result.stderr}")
-            subprocess.run(["git", "branch", "-D", f"upmerge-temp-{target_branch}"], capture_output=True)
+            log(f"Failed to fast-forward {target_branch}: {result.stderr}")
+            subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
             upmerge_details["status"] = "failed"
             upmerge_details["error"] = f"Failed to fast-forward {target_branch}: {result.stderr}"
             return False, upmerge_details
         
         # Squash merge temp branch (flattens all commits including version alignment)
-        print(f"Squash-merging temp branch (removes version alignment from history)...")
+        log(f"Squash-merging temp branch (removes version alignment from history)...")
         merge_msg = f"Merge {source_branch} to {target_branch}\n\nAuto-upmerge from PR #{pr_number}: {pr_title}"
         result = subprocess.run(
-            ["git", "merge", "--squash", f"upmerge-temp-{target_branch}"],
+            ["git", "merge", "--squash", temp_branch],
             capture_output=True, text=True
         )
         
         if result.returncode != 0:
-            print(f"Squash merge failed:")
-            print(f"  STDOUT: {result.stdout}")
-            print(f"  STDERR: {result.stderr}")
-            subprocess.run(["git", "merge", "--abort"], capture_output=True)
-            subprocess.run(["git", "branch", "-D", f"upmerge-temp-{target_branch}"], capture_output=True)
+            log(f"Squash merge failed:")
+            log(f"  STDOUT: {result.stdout}")
+            log(f"  STDERR: {result.stderr}")
+            # Squash merge doesn't create merge state, so use reset instead of abort
+            log(f"  Resetting {target_branch} to clean state...")
+            subprocess.run(["git", "reset", "--hard", f"origin/{target_branch}"], capture_output=True)
+            subprocess.run(["git", "clean", "-fd"], capture_output=True)
+            subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
             upmerge_details["status"] = "failed"
             upmerge_details["error"] = f"Squash merge failed: {result.stderr}"
             return False, upmerge_details
         
-        print("✓ Squash merge successful")
+        log("✓ Squash merge successful")
         upmerge_details["steps_completed"].append("squash_merge")
         
         # Clean up temp branch
-        subprocess.run(["git", "branch", "-D", f"upmerge-temp-{target_branch}"], capture_output=True)
+        subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
         upmerge_details["steps_completed"].append("cleanup_temp_branch")
         
         # Commit the merge with version changes included
-        print("Committing merge...")
+        log("Committing merge...")
         result = subprocess.run(
             ["git", "commit", "-s", "-m", merge_msg],
             capture_output=True, text=True
         )
         if result.returncode != 0:
-            print(f"Failed to commit: {result.stderr}")
+            log(f"Failed to commit: {result.stderr}")
             upmerge_details["status"] = "failed"
             upmerge_details["error"] = f"Commit failed: {result.stderr}"
             return False, upmerge_details
         
         # Push to origin
-        print(f"Pushing to origin/{target_branch}...")
+        log(f"Pushing to origin/{target_branch}...")
         result = subprocess.run(
             ["git", "push", "origin", target_branch],
             capture_output=True, text=True
         )
         if result.returncode != 0:
-            print(f"Failed to push: {result.stderr}")
+            log(f"Failed to push: {result.stderr}")
             upmerge_details["status"] = "failed"
             upmerge_details["error"] = f"Push failed: {result.stderr}"
             return False, upmerge_details
         
         upmerge_details["steps_completed"].append("push")
         upmerge_details["status"] = "success"
-        print(f"✅ Successfully upmerged to {target_branch}")
+        log(f"✅ Successfully upmerged to {target_branch}")
         return True, upmerge_details
         
     except Exception as e:
         upmerge_details["status"] = "exception"
         upmerge_details["error"] = str(e)
-        print(f"Exception during upmerge: {e}")
+        log(f"Exception during upmerge: {e}")
         return False, upmerge_details
 
 
@@ -347,7 +417,7 @@ def main():
         projectConfig = json.loads(projectConfigJson)
     else:
         # Fallback to hardcoded config if environment variable is not set
-        print("Warning: PROJECT_CONFIG environment variable not set, using default configuration")
+        log("Warning: PROJECT_CONFIG environment variable not set, using default configuration")
         projectConfig = {
             "projectName": "HPCC4J",
             "projectPrefixes": ["HPCC4J"],
@@ -356,21 +426,22 @@ def main():
         }
     
     if not isinstance(projectConfig, dict):
-        print('Error: PROJECT_CONFIG is not a valid JSON object, aborting.')
+        log('Error: PROJECT_CONFIG is not a valid JSON object, aborting.')
         sys.exit(1)
     
     if 'tagPrefix' not in projectConfig or 'tagPostfix' not in projectConfig:
-        print('Error: PROJECT_CONFIG is missing required fields: tagPrefix and/or tagPostfix')
+        log('Error: PROJECT_CONFIG is missing required fields: tagPrefix and/or tagPostfix')
         sys.exit(1)
     
-    print(f"Starting auto-upmerge for PR #{pr_number}: {pr_title}")
-    print(f"Base branch: {base_branch}")
+    log_header("Auto-Upmerge Process")
+    log(f"PR #{pr_number}: {pr_title}")
+    log(f"Base branch: {base_branch}")
     
     # Generate list of target branches
     target_branches = generateUpMergeBranchList(projectConfig, base_branch)
     target_branches.append("master")
     
-    print(f"\nTarget branches for upmerge: {target_branches}")
+    log(f"\nTarget branches for upmerge: {target_branches}")
     
     # Track results
     successful_upmerges = []
@@ -387,7 +458,7 @@ def main():
             else:
                 failed_upmerges.append(target_branch)
         except Exception as e:
-            print(f"Exception during upmerge to {target_branch}: {e}")
+            log(f"Exception during upmerge to {target_branch}: {e}")
             failed_upmerges.append(target_branch)
             detailed_results.append({
                 "target_branch": target_branch,
@@ -397,17 +468,15 @@ def main():
             })
     
     # Create summary
-    print("\n" + "="*60)
-    print("UPMERGE SUMMARY")
-    print("="*60)
-    print(f"\n✅ Successful upmerges ({len(successful_upmerges)}):")
+    log_header("UPMERGE SUMMARY")
+    log(f"✅ Successful upmerges ({len(successful_upmerges)}):")
     for branch in successful_upmerges:
-        print(f"  - {branch}")
+        log(f"  - {branch}")
     
     if failed_upmerges:
-        print(f"\n❌ Failed upmerges ({len(failed_upmerges)}):")
+        log(f"\n❌ Failed upmerges ({len(failed_upmerges)}):")
         for branch in failed_upmerges:
-            print(f"  - {branch}")
+            log(f"  - {branch}")
     
     # Save results for reporting
     results = {
@@ -423,36 +492,30 @@ def main():
     with open('upmerge-results.json', 'w') as f:
         json.dump(results, f, indent=2)
     
-    # Also create a human-readable summary
+    # Create human-readable summary using buffered logs
     with open('upmerge-summary.txt', 'w') as f:
-        f.write(f"Upmerge Summary for PR #{pr_number}\n")
-        f.write(f"{'='*60}\n\n")
-        f.write(f"Base Branch: {base_branch}\n")
-        f.write(f"PR Title: {pr_title}\n")
-        f.write(f"Timestamp: {results['timestamp']}\n\n")
+        f.write(get_buffered_logs())
+        f.write("\n\n")
+        f.write("=" * 60 + "\n")
+        f.write("DETAILED RESULTS\n")
+        f.write("=" * 60 + "\n\n")
         
-        f.write(f"Successful Upmerges ({len(successful_upmerges)}):\n")
-        for branch in successful_upmerges:
-            f.write(f"  ✅ {branch}\n")
-        
-        f.write(f"\nFailed Upmerges ({len(failed_upmerges)}):\n")
         for detail in detailed_results:
-            if detail.get('status') != 'success':
-                f.write(f"  ❌ {detail['target_branch']}\n")
-                f.write(f"     Status: {detail.get('status', 'unknown')}\n")
-                f.write(f"     Steps Completed: {', '.join(detail.get('steps_completed', []))}\n")
-                if detail.get('error'):
-                    f.write(f"     Error: {detail['error']}\n")
-                if detail.get('conflict_check'):
-                    f.write(f"     Had Conflicts: {detail['conflict_check'].get('has_conflicts', 'unknown')}\n")
-                f.write("\n")
+            f.write(f"Target Branch: {detail['target_branch']}\n")
+            f.write(f"  Status: {detail.get('status', 'unknown')}\n")
+            f.write(f"  Steps Completed: {', '.join(detail.get('steps_completed', []))}\n")
+            if detail.get('error'):
+                f.write(f"  Error: {detail['error']}\n")
+            if detail.get('conflict_check'):
+                f.write(f"  Had Conflicts: {detail['conflict_check'].get('has_conflicts', 'unknown')}\n")
+            f.write("\n")
     
     # Exit with error if any upmerges failed
     if failed_upmerges:
-        print("\n⚠️  Some upmerges failed. Manual intervention may be required.")
+        log("\n⚠️  Some upmerges failed. Manual intervention may be required.")
         sys.exit(1)
     else:
-        print("\n✅ All upmerges completed successfully!")
+        log("\n✅ All upmerges completed successfully!")
 
 
 if __name__ == "__main__":
