@@ -11,6 +11,9 @@ jobs:
     # Only run if PR was merged (not just closed)
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+    permissions:
+      contents: write        # Required for pushing to branches
+      pull-requests: write   # Required for posting PR comments
     steps:
       - name: "Debug Info"
         env:

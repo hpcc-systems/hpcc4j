@@ -89,7 +89,7 @@ def createReleaseTagPattern(projectConfig, major=None, minor=None, point=None):
         print('Error: PROJECT_CONFIG is missing required fields: tagPrefix and/or tagPostfix')
         sys.exit(1)
 
-    releaseTagPattern = releaseTagPrefix
+    releaseTagPattern = re.escape(releaseTagPrefix)
     if major is not None:
         releaseTagPattern += str(major) + '\\.'
     else:
@@ -105,7 +105,7 @@ def createReleaseTagPattern(projectConfig, major=None, minor=None, point=None):
     else:
         releaseTagPattern += '[0-9]+(-[0-9]+)?'
 
-    releaseTagPattern += releaseTagPostfix + '$'
+    releaseTagPattern += re.escape(releaseTagPostfix) + '$'
 
     return releaseTagPattern
 
@@ -193,20 +193,13 @@ def getTargetInBranchVersion(targetBranch):
 
 def check_merge_conflicts(source_ref, target_ref):
     """Use git merge-tree to check for conflicts without touching working tree."""
-    cmd = ["git", "merge-tree", source_ref, target_ref]
+    cmd = ["git", "merge-tree", "--name-only", source_ref, target_ref]
     result = subprocess.run(cmd, capture_output=True, text=True)
     
-    # merge-tree outputs conflict markers if there are conflicts
-    if "<<<<<<" in result.stdout or result.returncode != 0:
-        # Extract conflicting files from merge-tree output
-        conflicts = []
-        lines = result.stdout.split('\n')
-        
-        for line in lines:
-            # Look for conflict markers (without + prefix - that's diff output)
-            if line.startswith('<<<<<<<') or 'changed in both' in line.lower():
-                conflicts.append(line)
-        
+    # merge-tree --name-only: non-zero return code or non-empty output indicates conflicts
+    if result.returncode != 0 or result.stdout.strip():
+        # Parse conflicting file list from output
+        conflicts = [f.strip() for f in result.stdout.strip().split('\n') if f.strip()]
         return True, conflicts
     
     return False, []
@@ -284,11 +277,42 @@ def upmerge_to_branch(source_branch, target_branch, pr_number, pr_title):
         upmerge_details["steps_completed"].append("align_version_temp")
         
         # Commit version changes to temp branch for conflict checking
-        subprocess.run(["git", "add", "pom.xml", "**/pom.xml"], capture_output=True)
-        subprocess.run(
+        add_result = subprocess.run(
+            ["git", "add", "pom.xml", "**/pom.xml"], 
+            capture_output=True, text=True
+        )
+        if add_result.returncode != 0:
+            log(f"Failed to stage version changes: {add_result.stderr}")
+            subprocess.run(["git", "checkout", "--detach", original_ref], capture_output=True)
+            subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
+            upmerge_details["status"] = "failed"
+            upmerge_details["error"] = f"Git add failed: {add_result.stderr}"
+            return False, upmerge_details
+        
+        # Verify there are changes to commit
+        status_result = subprocess.run(
+            ["git", "status", "--porcelain"],
+            capture_output=True, text=True
+        )
+        if not status_result.stdout.strip():
+            log("No version changes to commit (versions already aligned)")
+            subprocess.run(["git", "checkout", "--detach", original_ref], capture_output=True)
+            subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
+            upmerge_details["status"] = "failed"
+            upmerge_details["error"] = "No changes staged for commit"
+            return False, upmerge_details
+        
+        commit_result = subprocess.run(
             ["git", "commit", "-m", f"[TEMP] Align version to {target_version}"],
             capture_output=True, text=True
         )
+        if commit_result.returncode != 0:
+            log(f"Failed to commit version changes: {commit_result.stderr}")
+            subprocess.run(["git", "checkout", "--detach", original_ref], capture_output=True)
+            subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
+            upmerge_details["status"] = "failed"
+            upmerge_details["error"] = f"Git commit failed: {commit_result.stderr}"
+            return False, upmerge_details
         upmerge_details["steps_completed"].append("commit_temp_version")
     
         # Check for merge conflicts using merge-tree (dry-run)
@@ -317,8 +341,12 @@ def upmerge_to_branch(source_branch, target_branch, pr_number, pr_title):
         upmerge_details["steps_completed"].append("conflict_check_passed")
         
         # Now checkout target branch and perform squash merge from temp branch
-        log(f"Checking out {target_branch}...")
-        result = subprocess.run(["git", "checkout", target_branch], capture_output=True, text=True)
+        # Use -B to create/reset local branch from remote ref (handles non-existent local branches)
+        log(f"Checking out {target_branch} from origin...")
+        result = subprocess.run(
+            ["git", "checkout", "-B", target_branch, f"origin/{target_branch}"], 
+            capture_output=True, text=True
+        )
         if result.returncode != 0:
             log(f"Failed to checkout {target_branch}: {result.stderr}")
             # Cleanup: detach HEAD before deleting temp branch
@@ -326,19 +354,6 @@ def upmerge_to_branch(source_branch, target_branch, pr_number, pr_title):
             subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
             upmerge_details["status"] = "failed"
             upmerge_details["error"] = f"Failed to checkout {target_branch}: {result.stderr}"
-            return False, upmerge_details
-        
-        # Update to latest
-        log(f"Updating {target_branch} to latest from origin...")
-        result = subprocess.run(
-            ["git", "merge", f"origin/{target_branch}", "--ff-only"], 
-            capture_output=True, text=True
-        )
-        if result.returncode != 0:
-            log(f"Failed to fast-forward {target_branch}: {result.stderr}")
-            subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
-            upmerge_details["status"] = "failed"
-            upmerge_details["error"] = f"Failed to fast-forward {target_branch}: {result.stderr}"
             return False, upmerge_details
         
         # Squash merge temp branch (flattens all commits including version alignment)
