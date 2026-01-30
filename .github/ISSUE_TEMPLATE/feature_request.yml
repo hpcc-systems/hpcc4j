@@ -1,0 +1,111 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for HPCC4J
+title: "[FEATURE]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please provide as much detail as possible to help us understand your request.
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: A clear and concise description of the feature you'd like to see
+      placeholder: Describe the feature or enhancement...
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve? What is the use case?
+      placeholder: |
+        I'm trying to accomplish... but currently...
+        This would help me/users to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution (optional)
+      description: How would you like this feature to work? (We welcome your ideas, but it's okay if you're not sure about the implementation)
+      placeholder: |
+        Describe your ideal solution:
+        - API changes
+        - New methods/classes
+        - Configuration options
+        - Example usage
+
+  - type: dropdown
+    id: affected-module
+    attributes:
+      label: Affected Module(s)
+      description: Which HPCC4J module(s) would this feature affect?
+      multiple: true
+      options:
+        - wsclient - Web service clients for HPCC ESP services
+        - dfsclient - Direct file system access to HPCC distributed files
+        - spark-hpcc - Spark connector for reading/writing HPCC datasets
+        - commons-hpcc - Common utilities shared across modules
+        - clienttools - Java interface to HPCC client tools (eclcc)
+        - rdf2hpcc - RDF data ingestion tool
+        - All modules
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Have you considered any alternative solutions or workarounds?
+      placeholder: |
+        Current workaround (if any):
+        Other approaches considered:
+
+  - type: textarea
+    id: code-example
+    attributes:
+      label: Example Usage
+      description: Show how you would like to use this feature (pseudo-code is fine)
+      placeholder: |
+        ```java
+        // Example of how the new feature would be used
+        Connection conn = new Connection("http://example.com:8010");
+        // New feature usage here
+        ```
+      render: java
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority/Impact
+      description: How important is this feature to your workflow?
+      options:
+        - Critical - Blocking my work
+        - High - Would significantly improve my workflow
+        - Medium - Would be nice to have
+        - Low - Minor convenience
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context, screenshots, or references
+      placeholder: |
+        Links to related issues, documentation, or examples from other projects...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be willing to contribute to this feature?
+      options:
+        - label: I would be willing to submit a pull request for this feature
+          required: false
