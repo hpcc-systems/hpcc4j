@@ -86,3 +86,28 @@ This formatter can be used by the Eclipse IDE to automatically format JAVA sourc
 - Import the HPCC-JAVA-Formatter.xml file and set it as the Active profile.
 
 - From the JAVA editor, choose Source->Format
+
+## Knowledge Base (`kb/`)
+
+This repository includes a comprehensive **Knowledge Base** under `kb/` designed for AI agents and documentation automation. It contains structured information about the project, issues, and usage patterns.
+
+### Structure
+
+- `kb/hpcc4j/issues/` — 771 JIRA issues converted to markdown format (organized by issue ranges: 00000-00700)
+- `kb/hpcc4j/project-docs/` — Core project documentation including:
+  - `CodeArchitectureAnalysis.md` — Comprehensive architecture overview
+  - `MIGRATION-10.0.md` — Migration guide for version 10.0  
+  - `README.md` — Project documentation index
+- `kb/hpcc4j/spark-hpcc-connector/` — Spark connector documentation and examples
+- `kb/hpcc4j/wiki/` — Git submodule containing wiki content
+
+### Knowledge Base Processing
+
+The KB infrastructure includes several processing and indexing capabilities:
+
+- `.github/scripts/kb/` — Processing scripts for markdown conversion, chunking, and vector indexing
+- `.github/workflows/kb-refinement.yml` — Automated KB refinement workflow  
+- Vector embedding generation using Chroma database and HuggingFace transformers
+- Configurable chunking policies for optimal AI agent consumption
+
+This knowledge base does **not** affect builds or runtime and can be safely reviewed like any other documentation. For detailed build instructions, see [README_KB.md](README_KB.md).

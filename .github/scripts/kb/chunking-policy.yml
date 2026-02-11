@@ -1,0 +1,37 @@
+# .github/scripts/kb/chunking-policy.yml
+
+defaults:
+  max_chars: 2400
+  overlap: 300
+  heading_aware: true
+  preserve_code_fences: true
+
+rules:
+  # Issues are organized into buckets (00100, 00200, ...) under issues/
+  - path_glob: "hpcc4j/kb/hpcc4j/issues/**/*.md"
+    max_chars: 2600
+    overlap: 280
+    respect_front_matter: true
+
+  # Wiki content (submodule)
+  - path_glob: "hpcc4j/kb/hpcc4j/wiki/**/*.md"
+    max_chars: 2000
+    overlap: 300
+    heading_aware: true
+
+  # Project documentation
+  - path_glob: "hpcc4j/kb/hpcc4j/project-docs/**/*.md"
+    max_chars: 2400
+    overlap: 300
+    heading_aware: true
+
+  # Spark HPCC connector docs
+  - path_glob: "hpcc4j/kb/hpcc4j/spark-hpcc-connector/**/*.md"
+    max_chars: 2400
+    overlap: 320
+    preserve_code_fences: true
+
+  # Catch-all to prevent empty indices if a specific rule misses
+  - path_glob: "hpcc4j/kb/hpcc4j/**/*.md"
+    max_chars: 2400
+    overlap: 300
