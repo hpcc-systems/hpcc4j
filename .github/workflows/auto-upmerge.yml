@@ -75,6 +75,7 @@ jobs:
             upmerge-results.json
             upmerge-summary.txt
             upmerge-conflicts.md
+          if-no-files-found: ignore
           retention-days: 30
 
       - name: "Post Comment on Failure"
@@ -149,6 +150,14 @@ jobs:
                           branch = detail['target_branch']
                           error = detail.get('error', 'Unknown error')
                           comment += f"- **`{branch}`**: {error[:100]}\n"
+                      comment += "\n"
+                  
+                  # Fallback: list any failed branches not covered above
+                  uncovered_failures = set(failed_branches) - {d['target_branch'] for d in conflict_branches + other_failures}
+                  if uncovered_failures:
+                      comment += "#### Other Failed Branches\n\n"
+                      for branch in uncovered_failures:
+                          comment += f"- `{branch}`\n"
                       comment += "\n"
                   
                   comment += "**Action Required**: These branches need manual upmerging.\n"

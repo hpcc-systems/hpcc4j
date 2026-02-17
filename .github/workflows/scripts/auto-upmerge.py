@@ -181,6 +181,13 @@ def check_merge_conflicts(source_ref, target_ref):
     cmd = ["git", "merge-tree", source_ref, target_ref]
     result = subprocess.run(cmd, capture_output=True, text=True)
     
+    # Handle git merge-tree failures
+    if result.returncode not in (0, 1):
+        error_msg = f"git merge-tree failed with return code {result.returncode}"
+        if result.stderr:
+            error_msg += f": {result.stderr}"
+        raise RuntimeError(error_msg)
+    
     # Parse the output to find actual conflict markers
     output_lines = result.stdout.strip().split('\n')
     conflicted_files = []
@@ -261,52 +268,58 @@ def parse_merge_tree_conflicts(merge_tree_output, conflicted_files):
                     # Use git merge-file to create conflict markers
                     # For add/add conflicts without base, use empty base
                     if base_blob:
-                        base_cmd = ['git', 'show', base_blob]
+                        base_content = subprocess.run(['git', 'show', base_blob], capture_output=True, text=True).stdout
                     else:
-                        base_cmd = ['echo', '']
+                        base_content = ""
                     
                     ours_cmd = ['git', 'show', blobs['2']]
                     theirs_cmd = ['git', 'show', blobs['3']]
                     
                     # Get blob contents
-                    base_content = subprocess.run(base_cmd, capture_output=True, text=True).stdout
                     ours_content = subprocess.run(ours_cmd, capture_output=True, text=True).stdout
                     theirs_content = subprocess.run(theirs_cmd, capture_output=True, text=True).stdout
                     
                     # Create temp files for merge-file
                     import tempfile
-                    with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.base') as base_f, \
-                         tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.ours') as ours_f, \
-                         tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.theirs') as theirs_f:
+                    import os
+                    
+                    base_path = None
+                    ours_path = None
+                    theirs_path = None
+                    
+                    try:
+                        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.base') as base_f, \
+                             tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.ours') as ours_f, \
+                             tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.theirs') as theirs_f:
+                            
+                            base_f.write(base_content)
+                            ours_f.write(ours_content)
+                            theirs_f.write(theirs_content)
+                            
+                            base_path = base_f.name
+                            ours_path = ours_f.name
+                            theirs_path = theirs_f.name
                         
-                        base_f.write(base_content)
-                        ours_f.write(ours_content)
-                        theirs_f.write(theirs_content)
+                        # Run git merge-file
+                        merge_result = subprocess.run(
+                            ['git', 'merge-file', '-p', '-L', 'ours', '-L', 'base', '-L', 'theirs',
+                             ours_path, base_path, theirs_path],
+                            capture_output=True, text=True
+                        )
                         
-                        base_path = base_f.name
-                        ours_path = ours_f.name
-                        theirs_path = theirs_f.name
-                    
-                    # Run git merge-file
-                    merge_result = subprocess.run(
-                        ['git', 'merge-file', '-p', '-L', 'ours', '-L', 'base', '-L', 'theirs',
-                         ours_path, base_path, theirs_path],
-                        capture_output=True, text=True
-                    )
-                    
-                    # Clean up temp files
-                    os.unlink(base_path)
-                    os.unlink(ours_path)
-                    os.unlink(theirs_path)
-                    
-                    # Extract conflict sections from the merged output
-                    merged_content = merge_result.stdout
-                    conflicts = extract_conflict_sections(merged_content)
-                    
-                    if conflicts:
-                        conflict_details[filepath] = conflicts
-                    else:
-                        conflict_details[filepath] = ["Conflict detected but no conflict markers found"]
+                        # Extract conflict sections from the merged output
+                        merged_content = merge_result.stdout
+                        conflicts = extract_conflict_sections(merged_content)
+                        
+                        if conflicts:
+                            conflict_details[filepath] = conflicts
+                        else:
+                            conflict_details[filepath] = ["Conflict detected but no conflict markers found"]
+                    finally:
+                        # Clean up temp files
+                        for path in [base_path, ours_path, theirs_path]:
+                            if path and os.path.exists(path):
+                                os.unlink(path)
                         
                 except Exception as e:
                     conflict_details[filepath] = [f"Error extracting conflict: {str(e)}"]
@@ -425,6 +438,13 @@ def upmerge_to_branch(source_branch, target_branch, pr_number, pr_title):
             ["find", ".", "-name", "pom.xml", "-type", "f"],
             capture_output=True, text=True
         )
+        if find_poms_result.returncode != 0:
+            log(f"Failed to find pom.xml files: {find_poms_result.stderr}")
+            subprocess.run(["git", "checkout", "--detach", original_ref], capture_output=True)
+            subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
+            upmerge_details["status"] = "failed"
+            upmerge_details["error"] = f"find command failed: {find_poms_result.stderr}"
+            return False, upmerge_details
         pom_files = [f.strip() for f in find_poms_result.stdout.strip().split('\n') if f.strip()]
         
         if pom_files:
@@ -447,8 +467,17 @@ def upmerge_to_branch(source_branch, target_branch, pr_number, pr_title):
             capture_output=True, text=True
         )
         
-        # diff --quiet returns 0 if no changes, 1 if changes exist
-        has_staged_changes = diff_result.returncode != 0
+        # diff --quiet returns 0 if no changes, 1 if changes exist, other values on error
+        if diff_result.returncode not in (0, 1):
+            log(f"git diff --cached failed with return code {diff_result.returncode}")
+            if diff_result.stderr:
+                log(f"  Error: {diff_result.stderr}")
+            subprocess.run(["git", "checkout", "--detach", original_ref], capture_output=True)
+            subprocess.run(["git", "branch", "-D", temp_branch], capture_output=True)
+            upmerge_details["status"] = "failed"
+            upmerge_details["error"] = f"git diff --cached failed: {diff_result.stderr}"
+            return False, upmerge_details
+        has_staged_changes = diff_result.returncode == 1
         
         if not has_staged_changes:
             log("No version changes to commit (versions already aligned)")
