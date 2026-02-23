@@ -5,6 +5,15 @@ on:
     branches:
       - "master"
       - "candidate-*"
+    paths:
+      - 'pom.xml'
+      - '**/pom.xml'
+      - '**/src/**/*.java'
+      - '**/src/**/*.properties'
+      - '**/src/**/*.xml'
+      - '.github/workflows/k8s-regression-suite.yml'
+      - '.github/actions/build-k8s/**'
+      - '.github/actions/deploy-hpcc-k8s/**'
 
   workflow_dispatch:
 

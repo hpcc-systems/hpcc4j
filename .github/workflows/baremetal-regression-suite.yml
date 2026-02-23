@@ -5,6 +5,13 @@ on:
     branches:
       - "master"
       - "candidate-*"
+    paths:
+      - 'pom.xml'
+      - '**/pom.xml'
+      - '**/src/**/*.java'
+      - '**/src/**/*.properties'
+      - '**/src/**/*.xml'
+      - '.github/workflows/baremetal-regression-suite.yml'
 
   workflow_dispatch:
 

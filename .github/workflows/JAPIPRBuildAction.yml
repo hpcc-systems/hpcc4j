@@ -1,6 +1,14 @@
 name: hpcc4j Pull Request Build Tests
 
-on: [pull_request]
+on:
+  pull_request:
+    paths:
+      - 'pom.xml'
+      - '**/pom.xml'
+      - '**/src/**/*.java'
+      - '**/src/**/*.properties'
+      - '**/src/**/*.xml'
+      - '.github/workflows/JAPIPRBuildAction.yml'
 
 jobs:
   build:
