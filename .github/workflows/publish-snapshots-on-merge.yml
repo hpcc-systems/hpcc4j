@@ -4,6 +4,13 @@ on:
     branches:
     - 'master'
     - 'candidate-*'
+    paths:
+      - '**/pom.xml'
+      - 'commons-hpcc/src/main/**'
+      - 'wsclient/src/main/**'
+      - 'dfsclient/src/main/**'
+      - 'spark-hpcc/src/main/**'
+      - '.github/workflows/publish-snapshots-on-merge.yml'
   create:
     branches:
     - 'candidate-*'
