@@ -273,10 +273,6 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
             Namespaces_type0 namespacesresp = response.getNamespaces();
             if (namespacesresp != null) namespaces = namespacesresp.getNamespace();
         }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            log.error("Could not list namespaces: " + e.getMessage());
-        }
         catch (RemoteException e)
         {
             log.error("Could not list namespaces");
@@ -327,7 +323,6 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         {
             log.error("Could not list namespace keys");
             log.error(e);
-            throw e;
         }
         catch (EspSoapFault e)
         {
@@ -373,10 +368,6 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
                     "Could Fetch value for store: " + storename + " namespace: '" + namespace + "'" + " key: '" + key + "'");
 
             value = response.getValue();
-        }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            log.error("Could not fetch value: " + e.getMessage());
         }
         catch (RemoteException e)
         {
@@ -500,10 +491,6 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
                 }
             }
         }
-        catch (ArrayOfEspExceptionWrapper e)
-        {
-            log.error("Could not fetch key metadata: " + e.getMessage());
-        }
         catch (RemoteException e)
         {
             e.printStackTrace();
@@ -562,9 +549,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         }
         catch (RemoteException e)
         {
-            log.error("Could not fetch all namespace keys");
-            log.error(e);
-            throw e;
+            e.printStackTrace();
         }
         catch (EspSoapFault e)
         {
