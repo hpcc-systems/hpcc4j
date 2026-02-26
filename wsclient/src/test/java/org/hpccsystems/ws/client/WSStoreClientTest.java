@@ -54,7 +54,7 @@ import org.junit.runners.MethodSorters;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class WsStoreClientTest extends BaseRemoteTest
+public class WSStoreClientTest extends BaseRemoteTest
 {
     private static HPCCWsStoreClient client;
     public final static String defaultStoreName = "WsClientTestStore";
