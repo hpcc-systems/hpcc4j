@@ -14,10 +14,19 @@ name: "CodeQL"
 on:
   push:
     branches: [ "master", "candidate-*" ]
+    paths:
+      - 'pom.xml'
+      - '**/pom.xml'
+      - '**/src/**/*.java'
+      - '.github/workflows/codeql-analysis.yml'
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ "master", "candidate-*" ]
-  schedule:
+    paths:
+      - 'pom.xml'
+      - '**/pom.xml'
+      - '**/src/**/*.java'
+      - '.github/workflows/codeql-analysis.yml'
+  schedule:  # Keep schedule without filters for comprehensive weekly scan
     - cron: '21 15 * * 4'
 
 jobs:

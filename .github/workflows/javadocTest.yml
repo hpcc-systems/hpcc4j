@@ -5,6 +5,11 @@ on:
     branches:
       - "master"
       - "candidate-*"
+    paths:
+      - 'pom.xml'
+      - '**/pom.xml'
+      - '**/src/main/**/*.java'  # Only main source since tests are skipped
+      - '.github/workflows/javadocTest.yml'
 
 jobs:
   test-javadoc:

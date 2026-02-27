@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - 'candidate-*'
+    paths:
+      - 'pom.xml'
+      - '**/pom.xml'
+      - '**/src/**/*.java'
+      - '**/src/**/*.properties'
+      - '**/src/**/*.xml'
+      - '.github/workflows/BuildTestCandidateAndMaster.yml'
 
 jobs:
   build:
