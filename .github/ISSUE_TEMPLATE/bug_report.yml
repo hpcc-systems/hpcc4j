@@ -1,0 +1,145 @@
+name: Bug Report
+description: Report a bug or issue with HPCC4J
+title: "[BUG]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the information below to help us resolve your issue quickly.
+        
+        **Before submitting**, please check the [Common Issues and Solutions wiki](https://github.com/hpcc-systems/hpcc4j/wiki/Common-Issues-and-Solutions) to see if your issue has already been addressed.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the bug
+      placeholder: Describe what the issue is...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Detailed steps to reproduce the behavior
+      placeholder: |
+        1. Connect to HPCC cluster at...
+        2. Call method...
+        3. Observe error...
+      value: |
+        1. 
+        2. 
+        3. 
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen
+      placeholder: Describe what should have happened...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened (include error messages, stack traces)
+      placeholder: |
+        Include the full error message and stack trace:
+        ```
+        Exception: ...
+        ```
+    validations:
+      required: true
+
+  - type: input
+    id: hpcc-version
+    attributes:
+      label: HPCC Systems Version
+      description: Version of HPCC Systems platform
+      placeholder: e.g., 9.6.0, 9.8.2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: hpcc4j-module
+    attributes:
+      label: HPCC4J Module
+      description: Which HPCC4J module is affected?
+      options:
+        - wsclient - Web service clients for HPCC ESP services
+        - dfsclient - Direct file system access to HPCC distributed files
+        - spark-hpcc - Spark connector for reading/writing HPCC datasets
+        - commons-hpcc - Common utilities shared across modules
+        - clienttools - Java interface to HPCC client tools (eclcc)
+        - rdf2hpcc - RDF data ingestion tool
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: hpcc4j-version
+    attributes:
+      label: HPCC4J Version
+      description: Version of HPCC4J being used
+      placeholder: e.g., 9.6.2, 9.8.0-SNAPSHOT
+    validations:
+      required: true
+
+  - type: input
+    id: java-version
+    attributes:
+      label: Java Version
+      description: Java version being used
+      placeholder: e.g., Java 11, OpenJDK 17
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment/Configuration
+      description: Additional environment details
+      placeholder: |
+        - ESP Endpoint: http://example.com:8010
+        - Authentication: username/password
+        - Operating System: Ubuntu 22.04
+        - Build tool: Maven 3.8.6
+        - Connection details: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: code-sample
+    attributes:
+      label: Code Sample
+      description: Minimal code snippet that reproduces the issue
+      placeholder: |
+        ```java
+        Connection conn = new Connection("http://alpha-dev:8010");
+        conn.setCredentials(username, password);
+        HPCCFileSprayClient client = HPCCFileSprayClient.get(conn);
+        client.ping(); // Fails here
+        ```
+      render: java
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information (logs, configurations, screenshots, etc.)
+      placeholder: Add any other context about the problem here...
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please confirm the following before submitting
+      options:
+        - label: I have checked the [Common Issues and Solutions wiki](https://github.com/hpcc-systems/hpcc4j/wiki/Common-Issues-and-Solutions)
+          required: true
