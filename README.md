@@ -36,6 +36,11 @@ Everybody is encouraged to report issues and contribute to the project. When ope
   </tbody>
 </table>
 
+#### Developer Guide
+A high-level [Developer Guide](docs/developer-guide.md) is available that provides a practical roadmap for interacting with the wsclient and dfsclient libraries. It covers connection setup, common API patterns, record schema definition, and testing conventions — all illustrated with examples drawn from the project's JUnit test suites.
+
+> **Note:** The Developer Guide was generated with AI assistance based on analysis of existing test cases, code patterns, and project documentation to ensure accuracy and practical applicability.
+
 #### Projects contained within:
 - [WsClient](https://github.com/hpcc-systems/hpcc4j/blob/master/wsclient/README.md)
   - Set of APIs which Standardize and facilitate interaction with HPCC Web based Services.
