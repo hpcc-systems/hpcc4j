@@ -4,6 +4,9 @@ wsclient Project [![Maven Central](https://maven-badges.herokuapp.com/maven-cent
 #### Description
 This project allows a user to interact with ESP services in a controlled manner.  The API calls available under org.hpccsystems.ws.client.platform allow for a user to target HPCC Web Services across multiple environments running a range of hpccsystems-platform versions.  There is no guarantee that if a user utilizes org.hpccsystems.ws.client.gen generated stub code from wsdl, that the calls will be backwards compatible with older hpccsystems-platform versions.
 
+#### Developer Guide
+For task-oriented examples covering ECL workunit submission, Roxie query publishing, file management, spray/despray, and more, see the [HPCC4J Developer Guide](../docs/developer-guide.md).
+
 #### Maven dependency
 To utilize this library as a dependency in your own maven project, simply add the following definition to your pom.xml
 

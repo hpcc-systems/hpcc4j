@@ -36,6 +36,9 @@ Everybody is encouraged to report issues and contribute to the project. When ope
   </tbody>
 </table>
 
+#### Developer Guide
+For task-oriented examples covering all major use cases—ECL workunit submission, Roxie query publishing, file management, spray/despray, and direct file I/O—see the **[HPCC4J Developer Guide](docs/developer-guide.md)**.
+
 #### Projects contained within:
 - [WsClient](https://github.com/hpcc-systems/hpcc4j/blob/master/wsclient/README.md)
   - Set of APIs which Standardize and facilitate interaction with HPCC Web based Services.
