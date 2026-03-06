@@ -1,12 +1,30 @@
 name: Baremetal Regression Suite
 
 on:
-  pull_request:
-    branches:
-      - "master"
-      - "candidate-*"
-
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      pull_request_number:
+        required: false
+        type: string
+      pull_request_title:
+        required: false
+        type: string
+      pull_request_author:
+        required: false
+        type: string
+      pull_url:
+        required: false
+        type: string
+      comments_url:
+        required: false
+        type: string
+      base_ref:
+        required: false
+        type: string
+      head_sha:
+        required: false
+        type: string
 
 jobs:
   test-against-platform:
@@ -18,9 +36,10 @@ jobs:
 
     steps:
     - name: Setup JDK 11
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v4
       with:
         java-version: 11
+        distribution: 'temurin'
 
     - uses: "actions/setup-python@v2"
       with:
@@ -35,19 +54,36 @@ jobs:
 
     - uses: actions/checkout@v4
       with:
+        ref: ${{ inputs.head_sha || github.event.pull_request.head.sha || github.sha }}
         fetch-depth: 0
         fetch-tags: true
+
+    - name: Debug Git State
+      run: |
+        echo "=== Git Status ==="
+        git status
+        echo "=== Git Remote ==="
+        git remote -v
+        echo "=== Git Branch ==="
+        git branch -a
+        echo "=== Available Tags (all) ==="
+        git tag --list | head -n 10
+        echo "=== HPCC4J Release Tags ==="
+        git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 5
+        echo "=== Tag Command Test ==="
+        git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 1
+        echo "=== End Debug ==="
 
     - name: Extract Latest Tagged Version
       id: extract_version
       env:
-        PULL_REQUEST_NUMBER : ${{ github.event.pull_request.number }}
-        PULL_REQUEST_TITLE : ${{ github.event.pull_request.title }}
-        PULL_REQUEST_AUTHOR_NAME : ${{ github.event.pull_request.user.login }}
-        PULL_URL: ${{ github.event.pull_request.html_url }}
-        COMMENTS_URL: ${{ github.event.pull_request.comments_url }}
+        PULL_REQUEST_NUMBER : ${{ inputs.pull_request_number || github.event.pull_request.number }}
+        PULL_REQUEST_TITLE : ${{ inputs.pull_request_title || github.event.pull_request.title }}
+        PULL_REQUEST_AUTHOR_NAME : ${{ inputs.pull_request_author || github.event.pull_request.user.login }}
+        PULL_URL: ${{ inputs.pull_url || github.event.pull_request.html_url }}
+        COMMENTS_URL: ${{ inputs.comments_url || github.event.pull_request.comments_url }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH_NAME: ${{ github.base_ref }}
+        BRANCH_NAME: ${{ inputs.base_ref || github.base_ref }}
       shell: python
       run: |
         import os
@@ -79,7 +115,7 @@ jobs:
                 print('Unable to retrieve latest git tag. With error: ' + str(err))
                 return None
 
-            latestGitTag = str(output)
+            latestGitTag = output.decode().strip()
 
             versionMatch = versionPattern.match(latestGitTag)
             if versionMatch:
@@ -264,7 +300,7 @@ jobs:
 
     # speed things up with caching from https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
     - name: Cache Maven packages
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
