@@ -1,12 +1,12 @@
 name: K8s Regression Suite
 
 on:
-  pull_request:
-    branches:
-      - "master"
-      - "candidate-*"
-
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      head_sha:
+        required: false
+        type: string
 
 jobs:
   parse-pr-body:
@@ -117,9 +117,10 @@ jobs:
     steps:
 
     - name: Setup JDK 11
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v4
       with:
         java-version: 11
+        distribution: 'temurin'
 
     - name: Install K8s
       uses: balchua/microk8s-actions@v0.3.2
@@ -130,7 +131,7 @@ jobs:
 
     - uses: actions/checkout@v4
       with:
-        ref: ${{ github.event.pull_request.head.sha }}
+        ref: ${{ inputs.head_sha || github.event.pull_request.head.sha || github.sha }}
         fetch-depth: 0
 
     - name: Checkout HPCC-Platform
@@ -156,7 +157,7 @@ jobs:
 
     # speed things up with caching from https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
     - name: Cache Maven packages
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
