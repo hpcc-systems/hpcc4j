@@ -14,10 +14,17 @@ name: "CodeQL"
 on:
   push:
     branches: [ "master", "candidate-*" ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/LICENSE*'
+      - 'kb/**'
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ "master", "candidate-*" ]
-  schedule:
+    paths-ignore:
+      - '**/*.md'
+      - '**/LICENSE*'
+      - 'kb/**'
+  schedule:  # Weekly comprehensive scan for security vulnerabilities, even without code changes
     - cron: '21 15 * * 4'
 
 jobs:
