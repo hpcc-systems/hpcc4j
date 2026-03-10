@@ -406,6 +406,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
     public String fetchValueEncrypted(@SpanAttribute String storename,@SpanAttribute String namespace,@SpanAttribute String key, boolean global, Cipher cipher)
             throws Exception, ArrayOfEspExceptionWrapper
     {
+        if (cipher == null) throw new IllegalArgumentException("Cipher cannot be null");
+
         String value = fetchValue(storename, namespace, key, global);
 
         if (value != null && !value.isEmpty())
@@ -442,7 +444,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
     public String fetchValueEncrypted(String storename, String namespace, String key, boolean global, String secretKey)
             throws Exception, ArrayOfEspExceptionWrapper
     {
-        return fetchValueEncrypted(storename, namespace, secretKey, global, CryptoHelper.createDefaultCipher(secretKey, false));
+        return fetchValueEncrypted(storename, namespace, key, global, CryptoHelper.createDefaultCipher(secretKey, false));
     }
 
     /**
@@ -519,6 +521,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
     @WithSpan
     public Properties fetchAllNSKeys(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
+        if (stub == null) throw new Exception("WS Client Stub not available");
+
         Properties props = new Properties();
 
         FetchAllRequest request = new FetchAllRequest();
@@ -628,7 +632,11 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
     public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, Cipher cipher)
             throws Exception, ArrayOfEspExceptionWrapper
     {
-        return setValue(storename, namespace, key, CryptoHelper.encrypt(value, cipher), global);
+        if (cipher == null) throw new IllegalArgumentException("Cipher cannot be null");
+        if (value == null) throw new IllegalArgumentException("Value cannot be null");
+        String encrypted = CryptoHelper.encrypt(value, cipher);
+        if (encrypted == null) throw new Exception("Encryption failed — check that cipher is initialized in ENCRYPT_MODE");
+        return setValue(storename, namespace, key, encrypted, global);
     }
 
     /**
@@ -655,6 +663,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
     public boolean setValueEncrypted(String storename, String namespace, String key, String value, boolean global, String secretKey)
             throws Exception, ArrayOfEspExceptionWrapper
     {
+        if (value == null) throw new IllegalArgumentException("Value cannot be null");
         return setValue(storename, namespace, key, CryptoHelper.encryptSHA512AES(value, secretKey), global);
     }
 
