@@ -107,7 +107,7 @@ For unsecured clusters, the user name defaults to `"JunitUser"` in the test suit
 // Connection timeout in milliseconds
 conn.setConnectTimeoutMilli(5000);
 
-// Socket / read timeout (as a string, e.g. "30000")
+// Socket / read timeout in milliseconds (e.g. 30000)
 conn.setSocketTimeoutMilli(30000);
 ```
 
@@ -300,7 +300,7 @@ req.setExistingFile(true);          // set false to create superfile if it doesn
 req.setSuperfile("my::superfile");
 req.setNames(List.of("my::sub::file"));
 
-AddtoSuperfileResponseWrapper resp = wsdfuclient.addToSuperFile(req);
+AddtoSuperfileResponseWrapper resp = dfuClient.addToSuperFile(req);
 ```
 
 **Error cases to handle**:
