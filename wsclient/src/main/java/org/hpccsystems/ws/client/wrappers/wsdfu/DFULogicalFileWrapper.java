@@ -3,20 +3,20 @@ package org.hpccsystems.ws.client.wrappers.wsdfu;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFULogicalFile;
 
 public class DFULogicalFileWrapper
-{   
-    private String totalsize;
-    private String superOwners;
+{
+    private String  totalsize;
+    private String  superOwners;
     private Boolean replicate;
-    private String recordCount;
-    private String prefix;
+    private String  recordCount;
+    private String  prefix;
     private Boolean persistent;
-    private String parts;
-    private String owner;
-    private String nodeGroup;
-    private String filename;
-    private String modified;
-    private String longSize;
-    private String longRecordCount;
+    private String  parts;
+    private String  owner;
+    private String  nodeGroup;
+    private String  filename;
+    private String  modified;
+    private String  longSize;
+    private String  longRecordCount;
     //removed in HPCC 4.2.0
     //private Boolean isZipfile;
     private Boolean isSuperfile;
@@ -25,13 +25,13 @@ public class DFULogicalFileWrapper
     //private Boolean isKeyFile;
     private Boolean isDirectory;
     private Boolean isCompressed;
-    private Long intSize;
-    private Long intRecordCount;
+    private Long    intSize;
+    private Long    intRecordCount;
     private Boolean fromRoxieCluster;
-    private String directory;
-    private String description;
-    private String contentType;
-    private Long compressedFileSize;
+    private String  directory;
+    private String  description;
+    private String  contentType;
+    private Long    compressedFileSize;
 
     //removed in HPCC 5.0.0
     //private String clusterName;
@@ -46,37 +46,37 @@ public class DFULogicalFileWrapper
     //rodrigo this replaces dfulogicalfileinfo from platform package
     public DFULogicalFileWrapper(DFULogicalFile raw)
     {
-        browseData=raw.getBrowseData();
+        browseData = raw.getBrowseData();
         //removed in HPCC 5.0.0
         //clusterName=raw.getClusterName();
-        compressedFileSize=raw.getCompressedFileSize();
-        contentType=raw.getContentType();
-        description=raw.getDescription();
-        directory=raw.getDirectory();
-        fromRoxieCluster=raw.getFromRoxieCluster();
-        intRecordCount=raw.getIntRecordCount();
-        intSize=raw.getIntSize();
-        isCompressed=raw.getIsCompressed();
-        isDirectory=raw.getIsDirectory();
+        compressedFileSize = raw.getCompressedFileSize();
+        contentType = raw.getContentType();
+        description = raw.getDescription();
+        directory = raw.getDirectory();
+        fromRoxieCluster = raw.getFromRoxieCluster();
+        intRecordCount = raw.getIntRecordCount();
+        intSize = raw.getIntSize();
+        isCompressed = raw.getIsCompressed();
+        isDirectory = raw.getIsDirectory();
         //removed in HPCC 5.0.0
         //isKeyFile=raw.getIsKeyFile();
-        isProtected=raw.getIsProtected();
-        isSuperfile=raw.getIsSuperfile();
+        isProtected = raw.getIsProtected();
+        isSuperfile = raw.getIsSuperfile();
         //removed in HPCC 4.2.0
         //isZipfile=raw.getIsZipfile();
-        longRecordCount=raw.getLongRecordCount();
-        longSize=raw.getLongSize();
-        modified=raw.getModified();
-        filename=raw.getName();
-        nodeGroup=raw.getNodeGroup();
-        owner=raw.getOwner();
-        parts=raw.getParts();
-        persistent=raw.getPersistent();
-        prefix=raw.getPrefix();
-        recordCount=raw.getRecordCount();
-        replicate=raw.getReplicate();
-        superOwners=raw.getSuperOwners();
-        totalsize=raw.getTotalsize();
+        longRecordCount = raw.getLongRecordCount();
+        longSize = raw.getLongSize();
+        modified = raw.getModified();
+        filename = raw.getName();
+        nodeGroup = raw.getNodeGroup();
+        owner = raw.getOwner();
+        parts = raw.getParts();
+        persistent = raw.getPersistent();
+        prefix = raw.getPrefix();
+        recordCount = raw.getRecordCount();
+        replicate = raw.getReplicate();
+        superOwners = raw.getSuperOwners();
+        totalsize = raw.getTotalsize();
     }
 
     /**
@@ -285,10 +285,10 @@ public class DFULogicalFileWrapper
      */
     public String getName()
     {
-        String dirname=getDirectory();
-        String filename=getFileName();
-        Boolean isDir=filename != null && !filename.equals("")?false:true;
-        String name=isDir?dirname:filename;
+        String dirname = getDirectory();
+        String filename = getFileName();
+        Boolean isDir = filename != null && !filename.equals("") ? false : true;
+        String name = isDir ? dirname : filename;
         return name;
     }
 
@@ -370,7 +370,7 @@ public class DFULogicalFileWrapper
     public Boolean getIsZipfile() {
         return isZipfile;
     }
-
+    
     public void setIsZipfile(Boolean isZipfile) {
         this.isZipfile = isZipfile;
     }
@@ -422,7 +422,7 @@ public class DFULogicalFileWrapper
     public Boolean getIsKeyFile() {
         return isKeyFile;
     }
-
+    
     public void setIsKeyFile(Boolean isKeyFile) {
         this.isKeyFile = isKeyFile;
     }
@@ -438,7 +438,6 @@ public class DFULogicalFileWrapper
         return isDirectory;
     }
 
-   
     /**
      * Sets the checks if is directory.
      *
@@ -627,11 +626,11 @@ public class DFULogicalFileWrapper
     public String getClusterName() {
         return clusterName;
     }
-
+    
     public void setClusterName(String clusterName) {
         this.clusterName = clusterName;
     }
-*/
+    */
     public Boolean getBrowseData()
     {
         return browseData;
@@ -649,4 +648,3 @@ public class DFULogicalFileWrapper
     }
 
 }
-

@@ -49,11 +49,11 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 public class WSSQLClientTest extends BaseRemoteTest
 {
     private final static HPCCWsSQLClient client;
-    private final static String testwuid = System.getProperty("targetwuid");
-    private final static String wssqlport = System.getProperty("wssqlport", "8510");
-    private final static String wsSqlConnStr = System.getProperty("wssqlconn", "");
+    private final static String          testwuid         = System.getProperty("targetwuid");
+    private final static String          wssqlport        = System.getProperty("wssqlport", "8510");
+    private final static String          wsSqlConnStr     = System.getProperty("wssqlconn", "");
 
-    private static String validClusterName = null;
+    private static String                validClusterName = null;
 
     static
     {
@@ -81,15 +81,13 @@ public class WSSQLClientTest extends BaseRemoteTest
         client = HPCCWsSQLClient.get(wssqlconn);
         Assert.assertNotNull(client);
 
-        if (System.getProperty("targetwuid") == null)
-            System.out.println("No targetwuid provided");
+        if (System.getProperty("targetwuid") == null) System.out.println("No targetwuid provided");
 
-        if (System.getProperty("wssqlport") == null)
-            System.out.println("No wssqlport specified - defaulting to 8510");
+        if (System.getProperty("wssqlport") == null) System.out.println("No wssqlport specified - defaulting to 8510");
     }
 
     //expected to throw since wssql does not usually bind on wseclwatch port
-    @Test (expected = Exception.class)
+    @Test(expected = Exception.class)
     public void getContainerizedModeTest() throws Exception
     {
         System.out.println("Fetching isTargetHPCCContainerized...");
@@ -155,8 +153,7 @@ public class WSSQLClientTest extends BaseRemoteTest
             Assert.assertNotNull(clusters);
             for (int i = 0; i < clusters.length; i++)
             {
-                if (validClusterName == null || validClusterName.isEmpty())
-                    validClusterName = clusters[i];
+                if (validClusterName == null || validClusterName.isEmpty()) validClusterName = clusters[i];
 
                 System.out.println(clusters[i]);
             }
@@ -232,7 +229,7 @@ public class WSSQLClientTest extends BaseRemoteTest
             for (int i = 0; i < storedProcedures.length; i++)
             {
                 HPCCQuerySetWrapper queryset = storedProcedures[i];
-                String qsname  = queryset.getName();
+                String qsname = queryset.getName();
 
                 QuerySetAliases_type0Wrapper arrayofqsaliases = queryset.getQuerySetAliases();
 
@@ -282,11 +279,11 @@ public class WSSQLClientTest extends BaseRemoteTest
         try
         {
             String resultSchema = client.getResultSchemaXML(wuid);
-            Assert.assertNotNull (resultSchema);
+            Assert.assertNotNull(resultSchema);
             System.out.println(resultSchema);
 
             List<List<Object>> resultSchema2 = client.getResultSchema(wuid);
-            Assert.assertNotNull (resultSchema2);
+            Assert.assertNotNull(resultSchema2);
 
             for (List<Object> list : resultSchema2)
             {
@@ -314,7 +311,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         try
         {
             List<List<Object>> resutls = client.getResults(wuid, 0, 10);
-            Assert.assertNotNull (resutls);
+            Assert.assertNotNull(resutls);
             for (List<Object> list : resutls)
             {
                 for (Object object : list)
@@ -402,7 +399,8 @@ public class WSSQLClientTest extends BaseRemoteTest
 
         System.out.println("Executing: " + sql + "; on Cluster: " + validClusterName);
 
-        ExecuteSQLResponseWrapper executeSQLFullResponse = client.executeSQLFullResponse(sql, validClusterName, null, 10, 10, null, false, true, null, null);
+        ExecuteSQLResponseWrapper executeSQLFullResponse = client.executeSQLFullResponse(sql, validClusterName, null, 10, 10, null, false, true, null,
+                null);
         Assert.assertNotNull(executeSQLFullResponse);
     }
 
@@ -420,7 +418,7 @@ public class WSSQLClientTest extends BaseRemoteTest
         ECLWorkunitWrapper prepareSQLresult = client.prepareSQL(sql, validClusterName, null, null);
         Assert.assertNotNull(prepareSQLresult);
 
-        NamedValueWrapper [] arrayofvariables = new NamedValueWrapper[1];
+        NamedValueWrapper[] arrayofvariables = new NamedValueWrapper[1];
 
         NamedValueWrapper namedValue = new NamedValueWrapper();
         namedValue.setName("var1");
@@ -428,7 +426,9 @@ public class WSSQLClientTest extends BaseRemoteTest
 
         arrayofvariables[0] = namedValue;
 
-        System.out.println("Executing prepared sql with param: " + namedValue.getName() + " : " + namedValue.getValue() + " on cluster: " + validClusterName);
-        client.executePreparedSQL(prepareSQLresult.getWuid(), prepareSQLresult.getCluster(), arrayofvariables, -1, 10, 0, 10, "WsClient", true, false);
+        System.out.println(
+                "Executing prepared sql with param: " + namedValue.getName() + " : " + namedValue.getValue() + " on cluster: " + validClusterName);
+        client.executePreparedSQL(prepareSQLresult.getWuid(), prepareSQLresult.getCluster(), arrayofvariables, -1, 10, 0, 10, "WsClient", true,
+                false);
     }
 }

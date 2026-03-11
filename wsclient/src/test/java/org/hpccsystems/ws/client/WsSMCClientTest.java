@@ -87,8 +87,7 @@ public class WsSMCClientTest extends BaseRemoteTest
         {
             String buildnumber = client.getHPCCBuild();
             Assert.assertNotNull(buildnumber);
-            if (buildnumber.isEmpty())
-                Assert.fail("fetched empty build number");
+            if (buildnumber.isEmpty()) Assert.fail("fetched empty build number");
             Version v = new Version(buildnumber);
             Assert.assertNotNull(v);
             System.out.println("HPCC version: " + v.toString());

@@ -17,7 +17,6 @@
 
 package org.hpccsystems.ws.client;
 
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assume.assumeTrue;
 
@@ -37,7 +36,7 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 public class WSCloudClientTest extends BaseRemoteTest
 {
     private static HPCCWsCloudClient client;
-    private static boolean isContainerizedTarget = true;
+    private static boolean           isContainerizedTarget = true;
 
     static
     {
@@ -53,7 +52,6 @@ public class WSCloudClientTest extends BaseRemoteTest
             isContainerizedTarget = false;
         }
     }
-
 
     @Test
     @WithSpan

@@ -50,19 +50,15 @@ import org.hpccsystems.commons.benchmarking.MetricAverageTransformer;
 @Category(org.hpccsystems.commons.annotations.Benchmark.class)
 public class DFSBenchmarkTest extends BaseRemoteTest
 {
-    private static final String[] datasets = {  "benchmark::integer::100mb",
-                                                "benchmark::string::100mb",
-                                                "benchmark::varstring::100mb",
-                                                "benchmark::utf8::100mb",
-                                                "benchmark::unicode::100mb",
-                                                "benchmark::real::100mb",
-                                                "benchmark::decimal::100mb" };
+    private static final String[] datasets                 = { "benchmark::integer::100mb", "benchmark::string::100mb", "benchmark::varstring::100mb",
+            "benchmark::utf8::100mb", "benchmark::unicode::100mb", "benchmark::real::100mb", "benchmark::decimal::100mb" };
 
-    private static final String READ_TIME_METRIC = "readTime";
-    private static final String BANDWIDTH_METRIC = "bandwidth";
-    private static final String RPS_METRIC = "recordsPerSecond";
+    private static final String   READ_TIME_METRIC         = "readTime";
+    private static final String   BANDWIDTH_METRIC         = "bandwidth";
+    private static final String   RPS_METRIC               = "recordsPerSecond";
 
-    private static final String[] JENKINS_SELECTED_METRICS = {BANDWIDTH_METRIC, RowServiceInputStream.WAIT_TIME_METRIC, RowServiceInputStream.SLEEP_TIME_METRIC};
+    private static final String[] JENKINS_SELECTED_METRICS = { BANDWIDTH_METRIC, RowServiceInputStream.WAIT_TIME_METRIC,
+            RowServiceInputStream.SLEEP_TIME_METRIC };
 
     private void setDesiredMetricScales(BenchmarkResult result)
     {
@@ -98,7 +94,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             rawReadTests.add(result);
             setDesiredMetricScales(result);
 
-            result.addParameter(new BenchmarkParam("dataset",datasets[i]));
+            result.addParameter(new BenchmarkParam("dataset", datasets[i]));
 
             // Raw streaming
             List<IMetric> avgdMetrics = new ArrayList<IMetric>();
@@ -112,15 +108,15 @@ public class DFSBenchmarkTest extends BaseRemoteTest
                 {
                     List<IMetric> metrics = new ArrayList<IMetric>();
                     long readTimeNS = System.nanoTime();
-                    readRawFileData(file,metrics);
+                    readRawFileData(file, metrics);
                     readTimeNS = System.nanoTime() - readTimeNS;
 
                     metrics = sumTransformer.transform(metrics);
-                    metrics.add(new SimpleMetric((double)readTimeNS, READ_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+                    metrics.add(new SimpleMetric((double) readTimeNS, READ_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
 
                     avgdMetrics.addAll(metrics);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Assert.fail(e.getMessage());
                 }
@@ -130,10 +126,10 @@ public class DFSBenchmarkTest extends BaseRemoteTest
 
             // Calculate and add bandwidth
             IMetric readTimeMetric = result.getMetric(READ_TIME_METRIC);
-            double avgReadTime = readTimeMetric.getValue() * Units.calculateScaleConversion(readTimeMetric.getUnits().scale,Units.Scale.UNIT);
+            double avgReadTime = readTimeMetric.getValue() * Units.calculateScaleConversion(readTimeMetric.getUnits().scale, Units.Scale.UNIT);
 
             IMetric bytesReadMetric = result.getMetric(RowServiceInputStream.BYTES_READ_METRIC);
-            double fileSize = bytesReadMetric.getValue() * Units.calculateScaleConversion(bytesReadMetric.getUnits().scale,Units.Scale.UNIT);
+            double fileSize = bytesReadMetric.getValue() * Units.calculateScaleConversion(bytesReadMetric.getUnits().scale, Units.Scale.UNIT);
             double avgBandwidth = fileSize / avgReadTime;
             result.addMetric(new SimpleMetric(avgBandwidth, BANDWIDTH_METRIC, new Units(Units.Type.BYTES)));
 
@@ -148,11 +144,11 @@ public class DFSBenchmarkTest extends BaseRemoteTest
         {
             System.out.print(datasets[i] + " samples: [");
 
-            BenchmarkResult result = new BenchmarkResult("DFSClient: Read & Parse",datasets[i]);
+            BenchmarkResult result = new BenchmarkResult("DFSClient: Read & Parse", datasets[i]);
             readParseTests.add(result);
             setDesiredMetricScales(result);
 
-            result.addParameter(new BenchmarkParam("dataset",datasets[i]));
+            result.addParameter(new BenchmarkParam("dataset", datasets[i]));
             List<IMetric> avgdMetrics = new ArrayList<IMetric>();
 
             // Raw streaming
@@ -168,15 +164,15 @@ public class DFSBenchmarkTest extends BaseRemoteTest
 
                     List<IMetric> metrics = new ArrayList<IMetric>();
                     long readTimeNS = System.nanoTime();
-                    numRecords = readFileSerially(file,metrics);
+                    numRecords = readFileSerially(file, metrics);
                     readTimeNS = System.nanoTime() - readTimeNS;
 
                     metrics = sumTransformer.transform(metrics);
-                    metrics.add(new SimpleMetric((double)readTimeNS, READ_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+                    metrics.add(new SimpleMetric((double) readTimeNS, READ_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
 
                     avgdMetrics.addAll(metrics);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Assert.fail(e.getMessage());
                 }
@@ -186,10 +182,10 @@ public class DFSBenchmarkTest extends BaseRemoteTest
 
             // Calculate and add bandwidth
             IMetric readTimeMetric = result.getMetric(READ_TIME_METRIC);
-            double avgReadTime = readTimeMetric.getValue() * Units.calculateScaleConversion(readTimeMetric.getUnits().scale,Units.Scale.UNIT);
+            double avgReadTime = readTimeMetric.getValue() * Units.calculateScaleConversion(readTimeMetric.getUnits().scale, Units.Scale.UNIT);
 
             IMetric bytesReadMetric = result.getMetric(RowServiceInputStream.BYTES_READ_METRIC);
-            double fileSize = bytesReadMetric.getValue() * Units.calculateScaleConversion(bytesReadMetric.getUnits().scale,Units.Scale.UNIT);
+            double fileSize = bytesReadMetric.getValue() * Units.calculateScaleConversion(bytesReadMetric.getUnits().scale, Units.Scale.UNIT);
             double avgBandwidth = fileSize / avgReadTime;
             result.addMetric(new SimpleMetric(avgBandwidth, BANDWIDTH_METRIC, new Units(Units.Type.BYTES)));
 
@@ -204,7 +200,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
         JSONArray testGroups = new JSONArray();
 
         JSONObject rawReadGroup = new JSONObject();
-        rawReadGroup.put("name","Raw Read Tests");
+        rawReadGroup.put("name", "Raw Read Tests");
 
         JSONArray jsonTests = new JSONArray();
         for (int i = 0; i < rawReadTests.size(); i++)
@@ -212,11 +208,11 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             jsonTests.put(rawReadTests.get(i).toJson(JENKINS_SELECTED_METRICS));
         }
 
-        rawReadGroup.put("tests",jsonTests);
+        rawReadGroup.put("tests", jsonTests);
         testGroups.put(rawReadGroup);
 
         JSONObject readParseGroup = new JSONObject();
-        readParseGroup.put("name","Read & Parse Tests");
+        readParseGroup.put("name", "Read & Parse Tests");
 
         jsonTests = new JSONArray();
         for (int i = 0; i < readParseTests.size(); i++)
@@ -224,11 +220,11 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             jsonTests.put(readParseTests.get(i).toJson(JENKINS_SELECTED_METRICS));
         }
 
-        readParseGroup.put("tests",jsonTests);
+        readParseGroup.put("tests", jsonTests);
         testGroups.put(readParseGroup);
 
         JSONObject output = new JSONObject();
-        output.put("groups",testGroups);
+        output.put("groups", testGroups);
 
         String outputPath = "results.json";
         FileWriter fileWriter = new FileWriter(outputPath);
@@ -282,7 +278,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
 
         for (int i = 0; i < fileParts.length; i++)
         {
-            RowServiceInputStream inputStream = new RowServiceInputStream(fileParts[i],originalRD,originalRD,120,-1);
+            RowServiceInputStream inputStream = new RowServiceInputStream(fileParts[i], originalRD, originalRD, 120, -1);
 
             boolean hasMoreData = inputStream.available() > 0;
             if (hasMoreData == false)
@@ -301,13 +297,13 @@ public class DFSBenchmarkTest extends BaseRemoteTest
                 {
                     bytesToRead = buffer.length;
                 }
-                inputStream.read(buffer,0,bytesToRead);
+                inputStream.read(buffer, 0, bytesToRead);
 
                 try
                 {
                     hasMoreData = inputStream.available() > 0;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     hasMoreData = false;
                 }
@@ -358,10 +354,10 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             catch (Exception e)
             {
                 Throwable cause = e.getCause();
-                if (cause instanceof  HpccFileException)
+                if (cause instanceof HpccFileException)
                 {
-                    if (cause.getCause() instanceof java.net.SocketTimeoutException)
-                        Assert.fail("File Read failed due to connect timeout, if filepart location is on an unreachable ip consider setting up a cluster remapper");
+                    if (cause.getCause() instanceof java.net.SocketTimeoutException) Assert.fail(
+                            "File Read failed due to connect timeout, if filepart location is on an unreachable ip consider setting up a cluster remapper");
                 }
 
                 Assert.fail("Error constructing reader: " + e.getMessage());
@@ -413,7 +409,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             recordCounts[i] = new Integer(0);
         }
 
-        int numReadingRounds = (fileParts.length + (numThreads-1)) / numThreads;
+        int numReadingRounds = (fileParts.length + (numThreads - 1)) / numThreads;
         for (int round = 0; round < numReadingRounds; round++)
         {
             int numFilePartsRemaining = fileParts.length - currentFilePartIndex;
@@ -427,11 +423,11 @@ public class DFSBenchmarkTest extends BaseRemoteTest
             for (int threadNum = 0; threadNum < filePartsToRead; threadNum++, currentFilePartIndex++)
             {
                 final int filePartIndex = currentFilePartIndex;
-                Runnable threadTask = new Runnable()
-                {
-                    DataPartition filePart = fileParts[filePartIndex];
-                    Integer filePartRecordCount = 0;
-                    FieldDef recordDefinition = originalRD;
+                Runnable threadTask = new Runnable() {
+                    DataPartition filePart            = fileParts[filePartIndex];
+                    Integer       filePartRecordCount = 0;
+                    FieldDef      recordDefinition    = originalRD;
+
                     public void run()
                     {
                         HpccRemoteFileReader<HPCCRecord> fileReader = null;
@@ -443,10 +439,10 @@ public class DFSBenchmarkTest extends BaseRemoteTest
                         catch (Exception e)
                         {
                             Throwable cause = e.getCause();
-                            if (cause instanceof  HpccFileException)
+                            if (cause instanceof HpccFileException)
                             {
-                                if (cause.getCause() instanceof java.net.SocketTimeoutException)
-                                    Assert.fail("File Read failed due to connect timeout, if filepart location is on an unreachable ip consider setting up a cluster remapper");
+                                if (cause.getCause() instanceof java.net.SocketTimeoutException) Assert.fail(
+                                        "File Read failed due to connect timeout, if filepart location is on an unreachable ip consider setting up a cluster remapper");
                             }
 
                             Assert.fail("Error constructing reader: " + e.getMessage());
@@ -467,7 +463,8 @@ public class DFSBenchmarkTest extends BaseRemoteTest
                         {
                             fileReader.close();
                         }
-                        catch (Exception e){}
+                        catch (Exception e)
+                        {}
                     }
                 };
 

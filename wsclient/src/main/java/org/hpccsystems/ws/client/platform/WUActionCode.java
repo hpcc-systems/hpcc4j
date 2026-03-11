@@ -30,17 +30,17 @@ public enum WUActionCode
     WUActionCheck,
     WUActionRun,
     WUActionExecuteExisting,
-    WUActionPause, 
-    WUActionPauseNow, 
-    WUActionResume, 
+    WUActionPause,
+    WUActionPauseNow,
+    WUActionResume,
     WUActionSize;
-    
-    public static WUActionCode fromInteger(Integer value) 
+
+    public static WUActionCode fromInteger(Integer value)
     {
         if (value == null)
             return WUActionUnknown;
 
-        switch(value)
+        switch (value)
         {
             case 0:
                 return WUActionUnknown;
@@ -64,8 +64,8 @@ public enum WUActionCode
                 return WUActionUnknown;
         }
     }
-    
-    public static WUActionCode fromName(String name) 
+
+    public static WUActionCode fromName(String name)
     {
         if (name == null || name.isEmpty())
             return WUActionUnknown;
@@ -86,7 +86,7 @@ public enum WUActionCode
             return WUActionResume;
         if (name.equalsIgnoreCase("size"))
             return WUActionSize;
-        
+
         return WUActionUnknown;
     }
 }

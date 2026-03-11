@@ -18,7 +18,6 @@ import org.apache.axis2.client.ServiceClient;
 import java.util.zip.ZipEntry;
 import java.util.Properties;
 
-
 /**
  * Generates wrapper classes around generated Axis2 ADB stub classes.
  *
@@ -36,64 +35,50 @@ import java.util.Properties;
  */
 public class Axis2ADBStubWrapperMaker
 {
-    final public static String version = "1.9";
+    final public static String version                = "1.9";
 
-    private static String elementcommentstart = "/**\n"
-                                              + " * Generated Axis2 ADB stub class wrapper\n"
-                                              + " * Class name: %s\n"
-                                              + " * Wraps class: %s\n"
-                                              + " * Output package : %s\n"
-                                              + " */\n";
+    private static String      elementcommentstart    = "/**\n" + " * Generated Axis2 ADB stub class wrapper\n" + " * Class name: %s\n"
+            + " * Wraps class: %s\n" + " * Output package : %s\n" + " */\n";
 
-    private static String wrapperReport =   "Generated Axis2 ADB stub class wrapper package report:\n"
-                                            + "  WrapperMaker version: %s\n"
-                                            + "  Wrapper package name: %s\n"
-                                            + "  Wrapped service name: %s\n"
-                                            + "  Wrapped package: %s\n"
-                                            + "  Wrapped service version: %s\n";
+    private static String      wrapperReport          = "Generated Axis2 ADB stub class wrapper package report:\n" + "  WrapperMaker version: %s\n"
+            + "  Wrapper package name: %s\n" + "  Wrapped service name: %s\n" + "  Wrapped package: %s\n" + "  Wrapped service version: %s\n";
 
-    private String crheader = "\n/*******************************************************************************\n"
-                             + " * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.\n"
-                             + " *\n"
-                             + " * Licensed under the Apache License, Version 2.0 (the \"License\");\n"
-                             + " * you may not use this file except in compliance with the License.\n"
-                             + " * You may obtain a copy of the License at\n"
-                             + " *\n"
-                             + " * http://www.apache.org/licenses/LICENSE-2.0\n"
-                             + " *\n"
-                             + " * Unless required by applicable law or agreed to in writing, software\n"
-                             + " * distributed under the License is distributed on an \"AS IS\" BASIS,\n"
-                             + " * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n"
-                             + " * See the License for the specific language governing permissions and\n"
-                             + " * limitations under the License.\n"
-                             + " *******************************************************************************/\n";
+    private String             crheader               = "\n/*******************************************************************************\n"
+            + " * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.\n" + " *\n"
+            + " * Licensed under the Apache License, Version 2.0 (the \"License\");\n"
+            + " * you may not use this file except in compliance with the License.\n" + " * You may obtain a copy of the License at\n" + " *\n"
+            + " * http://www.apache.org/licenses/LICENSE-2.0\n" + " *\n" + " * Unless required by applicable law or agreed to in writing, software\n"
+            + " * distributed under the License is distributed on an \"AS IS\" BASIS,\n"
+            + " * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n"
+            + " * See the License for the specific language governing permissions and\n" + " * limitations under the License.\n"
+            + " *******************************************************************************/\n";
 
-    private String targetPackage = null;
-    private String targetWsService = null;
-    private String targetWsServiceVer = null;
-    private String generatedPackageToWrap = null;
-    List<String> imports = null;
-    List<SimpleField> fields = null;
+    private String             targetPackage          = null;
+    private String             targetWsService        = null;
+    private String             targetWsServiceVer     = null;
+    private String             generatedPackageToWrap = null;
+    List<String>               imports                = null;
+    List<SimpleField>          fields                 = null;
 
-    private String outputDir;
+    private String             outputDir;
 
     class SimpleField
     {
-        String type;
-        String packagename;
-        String name;
-        boolean isContainer = false;
-        boolean isWrapped = false;
+        String  type;
+        String  packagename;
+        String  name;
+        boolean isContainer      = false;
+        boolean isWrapped        = false;
         boolean isESPStringArray = false;
 
-        public SimpleField (String name)
+        public SimpleField(String name)
         {
             this.packagename = null;
             this.type = null;
             this.name = name;
         }
 
-        public SimpleField (String packagename, String type, String name, boolean iswrapped)
+        public SimpleField(String packagename, String type, String name, boolean iswrapped)
         {
             this.packagename = packagename;
             this.type = type;
@@ -159,14 +144,13 @@ public class Axis2ADBStubWrapperMaker
         public String getActualType()
         {
             String actualtype = type;
-            if (isWrapped)
-                actualtype += "Wrapper";
+            if (isWrapped) actualtype += "Wrapper";
 
-            if (isContainer)
-                actualtype = "List<" + actualtype + ">";
+            if (isContainer) actualtype = "List<" + actualtype + ">";
 
             return actualtype;
         }
+
         /**
          * @param type the type to set
          */
@@ -174,6 +158,7 @@ public class Axis2ADBStubWrapperMaker
         {
             this.type = type;
         }
+
         /**
          * @return the packagename
          */
@@ -181,6 +166,7 @@ public class Axis2ADBStubWrapperMaker
         {
             return packagename;
         }
+
         /**
          * @param packagename the packagename to set
          */
@@ -188,6 +174,7 @@ public class Axis2ADBStubWrapperMaker
         {
             this.packagename = packagename;
         }
+
         /**
          * @return the name
          */
@@ -195,6 +182,7 @@ public class Axis2ADBStubWrapperMaker
         {
             return name;
         }
+
         /**
          * @return the name
          */
@@ -202,6 +190,7 @@ public class Axis2ADBStubWrapperMaker
         {
             return "local_" + name;
         }
+
         /**
          * @param name the name to set
          */
@@ -214,14 +203,16 @@ public class Axis2ADBStubWrapperMaker
         {
             return "protected " + getActualType() + " " + getSafeName() + (isContainer ? " = null" : "") + ";\n";
         }
-     }
+    }
 
-    public Axis2ADBStubWrapperMaker(String outputdir, String generatedPackageToWrap, String targetPackage, String targetWsServiceName, String targetWsVer)
+    public Axis2ADBStubWrapperMaker(String outputdir, String generatedPackageToWrap, String targetPackage, String targetWsServiceName,
+            String targetWsVer)
     {
         this.generatedPackageToWrap = generatedPackageToWrap;
         //Some ESP services are prefixed with 'ws_' rather than 'ws', the generated Stub code normalizes all package names to wsservicename
         //Generated wrapper needs also normalizes the target package name to wsservicename by removing all '_' from targetServicename
-        this.targetPackage = targetPackage + (targetWsServiceName == null  || targetWsServiceName.isEmpty() ? "" : "." + targetWsServiceName.replaceFirst("_", "").toLowerCase());
+        this.targetPackage = targetPackage
+                + (targetWsServiceName == null || targetWsServiceName.isEmpty() ? "" : "." + targetWsServiceName.replaceFirst("_", "").toLowerCase());
         this.targetWsService = targetWsServiceName;
         this.targetWsServiceVer = targetWsVer;
         this.outputDir = outputdir;
@@ -283,7 +274,7 @@ public class Axis2ADBStubWrapperMaker
         try
         {
             writer.write(report);
-            
+
         }
         catch (IOException e)
         {
@@ -316,7 +307,7 @@ public class Axis2ADBStubWrapperMaker
 
         String packagedeclaration = "package " + this.targetPackage + ";\n";
 
-        String wrappedclassname = cls.getSimpleName()+"Wrapper";
+        String wrappedclassname = cls.getSimpleName() + "Wrapper";
         System.out.println(cls.getName() + " to be wrapped as: " + this.targetPackage + "." + targetWsService + "." + wrappedclassname);
 
         String fullpath = outputDir + File.separator + this.targetPackage.replace(".", File.separator);
@@ -349,18 +340,18 @@ public class Axis2ADBStubWrapperMaker
             System.exit(-1);
         }
 
-      FileWriter writer = null;
-      try
-      {
-          writer = new FileWriter(file);
-      }
-      catch (IOException e)
-      {
-          System.out.println("Warning: Could not filewriter for : " + fullpath);
-          System.out.println(e.getLocalizedMessage());
-          e.printStackTrace();
-          System.exit(-1);
-      }
+        FileWriter writer = null;
+        try
+        {
+            writer = new FileWriter(file);
+        }
+        catch (IOException e)
+        {
+            System.out.println("Warning: Could not filewriter for : " + fullpath);
+            System.out.println(e.getLocalizedMessage());
+            e.printStackTrace();
+            System.exit(-1);
+        }
 
         Field[] fields = cls.getDeclaredFields();
         for (Field field : fields)
@@ -375,7 +366,8 @@ public class Axis2ADBStubWrapperMaker
 
         String classcomment = String.format(elementcommentstart, wrappedclassname, cls.getName(), targetPackage);
 
-        String classcontent = packagedeclaration + crheader + importdeclarations +  classcomment + "public class " + wrappedclassname + "\n{\n" + fielddeclarations + "\n" + constructors + "\n" + gettersettermethods +"\n}";
+        String classcontent = packagedeclaration + crheader + importdeclarations + classcomment + "public class " + wrappedclassname + "\n{\n"
+                + fielddeclarations + "\n" + constructors + "\n" + gettersettermethods + "\n}";
 
         try
         {
@@ -420,7 +412,8 @@ public class Axis2ADBStubWrapperMaker
 
         if (fields.size() > 0)
         {
-            constructors += "    public " + wrappedname + "( " + baseclass.getTypeName() + " " + baseclass.getSimpleName().toLowerCase() + ")\n    {\n        copy( " + baseclass.getSimpleName().toLowerCase() +" );\n    }\n";
+            constructors += "    public " + wrappedname + "( " + baseclass.getTypeName() + " " + baseclass.getSimpleName().toLowerCase()
+                    + ")\n    {\n        copy( " + baseclass.getSimpleName().toLowerCase() + " );\n    }\n";
 
             String copymethobody = "";
             String fullctrbody = "";
@@ -436,17 +429,16 @@ public class Axis2ADBStubWrapperMaker
                 String simplename = simpleField.getName();
                 String capitalized = Character.toUpperCase(simplename.charAt(0)) + simplename.substring(1);
                 paramlist += simpleField.getActualType() + " _" + simplename;
-                if (iterator.hasNext())
-                    paramlist += ", ";
+                if (iterator.hasNext()) paramlist += ", ";
 
                 tostringstr += "\"" + simplename + " = \" + " + simpleField.getSafeName();
-                if (iterator.hasNext())
-                    tostringstr += " + \", \" + ";
+                if (iterator.hasNext()) tostringstr += " + \", \" + ";
 
                 fullctrbody += "        this." + simpleField.getSafeName() + " = _" + simplename + ";\n";
                 if (simpleField.isContainer)
                 {
-                    copymethobody += "        if (raw.get" + capitalized + "() != null" + (simpleField.isESPStringArray() ? " && raw.get" + capitalized + "().getItem() != null" : "") + ")\n        {\n";
+                    copymethobody += "        if (raw.get" + capitalized + "() != null"
+                            + (simpleField.isESPStringArray() ? " && raw.get" + capitalized + "().getItem() != null" : "") + ")\n        {\n";
                     copymethobody += "            this." + simpleField.getSafeName() + " = new Array" + simpleField.getActualType() + "();\n";
 
                     if (simpleField.isESPStringArray())
@@ -454,8 +446,7 @@ public class Axis2ADBStubWrapperMaker
                     else
                         copymethobody += "            for ( int i = 0; i < raw.get" + capitalized + "().length; i++)\n";
                     copymethobody += "            {\n                this." + simpleField.getSafeName() + ".add(new " + simpleField.getBaseType();
-                    if (simpleField.isWrapped())
-                        copymethobody += "Wrapper";
+                    if (simpleField.isWrapped()) copymethobody += "Wrapper";
 
                     if (simpleField.isESPStringArray())
                         copymethobody += "(raw.get" + capitalized + "().getItem()[i]));\n            }\n        }";  //converted espstringarray to list<String>
@@ -465,7 +456,9 @@ public class Axis2ADBStubWrapperMaker
                     rawmethobody += "        if (this." + simpleField.getSafeName() + "!= null)\n        {\n";
                     if (simpleField.isWrapped())
                     {
-                        rawmethobody += "            " + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[] arr = new " + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName() + ".size()];\n";
+                        rawmethobody += "            " + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[] arr = new "
+                                + baseclass.getPackage().getName() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName()
+                                + ".size()];\n";
                     }
                     else if (simpleField.isESPStringArray())
                     {
@@ -473,7 +466,9 @@ public class Axis2ADBStubWrapperMaker
                     }
                     else
                     {
-                        rawmethobody += "            " + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[] arr = new " + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName() + ".size()];\n";
+                        rawmethobody += "            " + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[] arr = new "
+                                + simpleField.getPackagename() + "." + simpleField.getBaseType() + "[this." + simpleField.getSafeName()
+                                + ".size()];\n";
                     }
 
                     rawmethobody += "            for ( int i = 0; i < this." + simpleField.getSafeName() + ".size(); i++)\n";
@@ -483,13 +478,16 @@ public class Axis2ADBStubWrapperMaker
                     if (simpleField.isESPStringArray())
                         rawmethobody += "            {\n                arr.addItem(this." + simpleField.getSafeName() + ".get(i));\n            }";
                     else
-                        rawmethobody += "            {\n                arr[i] = this." + simpleField.getSafeName() + ".get(i) " + (simpleField.isWrapped() ? ".getRaw()" : "") + ";\n            }";
+                        rawmethobody += "            {\n                arr[i] = this." + simpleField.getSafeName() + ".get(i) "
+                                + (simpleField.isWrapped() ? ".getRaw()" : "") + ";\n            }";
                     rawmethobody += "\n            raw.set" + capitalized + "(arr);\n        }\n";
                 }
                 else if (simpleField.isWrapped)
                 {
-                    copymethobody += "        if (raw.get" + capitalized + "() != null)\n            this." + simpleField.getSafeName() + " = new " + simpleField.getActualType() + "( raw.get" + capitalized + "());\n";
-                    rawmethobody += "        if (" + simpleField.getSafeName() + " != null)\n            raw.set" + capitalized + "( " + simpleField.getSafeName() + ".getRaw());\n";
+                    copymethobody += "        if (raw.get" + capitalized + "() != null)\n            this." + simpleField.getSafeName() + " = new "
+                            + simpleField.getActualType() + "( raw.get" + capitalized + "());\n";
+                    rawmethobody += "        if (" + simpleField.getSafeName() + " != null)\n            raw.set" + capitalized + "( "
+                            + simpleField.getSafeName() + ".getRaw());\n";
                 }
                 else
                 {
@@ -498,10 +496,8 @@ public class Axis2ADBStubWrapperMaker
                     Method[] methods = baseclass.getMethods();
                     for (Method method : methods)
                     {
-                        if (method.getName().equals("get" + capitalized))
-                            foundget = true;
-                        if (method.getName().equals("set" + capitalized))
-                            foundset = true;
+                        if (method.getName().equals("get" + capitalized)) foundget = true;
+                        if (method.getName().equals("set" + capitalized)) foundset = true;
                     }
                     if (foundget)
                         copymethobody += "        this." + simpleField.getSafeName() + " = raw.get" + capitalized + "();\n";
@@ -511,7 +507,8 @@ public class Axis2ADBStubWrapperMaker
                     if (foundset)
                         rawmethobody += "        raw.set" + capitalized + "( " + simpleField.getSafeName() + ");\n";
                     else
-                        rawmethobody += "//Warning raw class doe not provide expected method: set" + capitalized + "(" + simpleField.getName() + ");\n";
+                        rawmethobody += "//Warning raw class doe not provide expected method: set" + capitalized + "(" + simpleField.getName()
+                                + ");\n";
                 }
             }
 
@@ -527,7 +524,7 @@ public class Axis2ADBStubWrapperMaker
         Constructor<?>[] constructors2 = baseclass.getConstructors();
         for (Constructor<?> constructor : constructors2)
         {
-            if (constructor.getParameterCount()==0)
+            if (constructor.getParameterCount() == 0)
             {
                 empyconstructorfound = true;
                 break;
@@ -559,16 +556,13 @@ public class Axis2ADBStubWrapperMaker
     public void processField(Field field)
     {
         String fieldname = field.getName();
-        if (!java.lang.reflect.Modifier.isStatic(field.getModifiers()) &&
-            !java.lang.reflect.Modifier.isAbstract(field.getModifiers()) &&
-            !java.lang.reflect.Modifier.isFinal(field.getModifiers()) &&
-            !fieldname.equals("MY_QNAME") &&
-            !fieldname.equalsIgnoreCase("serialVersionUID"))
+        if (!java.lang.reflect.Modifier.isStatic(field.getModifiers()) && !java.lang.reflect.Modifier.isAbstract(field.getModifiers())
+                && !java.lang.reflect.Modifier.isFinal(field.getModifiers()) && !fieldname.equals("MY_QNAME")
+                && !fieldname.equalsIgnoreCase("serialVersionUID"))
         {
             if (fieldname.startsWith("local"))
             {
-                if (fieldname.endsWith("Tracker"))
-                    return; // ignore local<fieldname>Tracker created by Axis2 ADB
+                if (fieldname.endsWith("Tracker")) return; // ignore local<fieldname>Tracker created by Axis2 ADB
                 fieldname = fieldname.substring(5); //Axis2 ADB prefixes fields w/ "local"
                 fieldname = Character.toLowerCase(fieldname.charAt(0)) + fieldname.substring(1);
             }
@@ -616,8 +610,10 @@ public class Axis2ADBStubWrapperMaker
                 String simplename = simpleField.getName();
                 String capitalized = Character.toUpperCase(simplename.charAt(0)) + simplename.substring(1);
 
-                settergetter +=  "\n    public void set" + capitalized + "( " + simpleField.getActualType() + " _" + simplename + " )\n    {\n        this." + simpleField.getSafeName() + " = _" + simplename + ";\n    }";
-                settergetter += "\n    public " + simpleField.getActualType() + " get" + capitalized + "( )\n    {\n        return this." + simpleField.getSafeName() + ";\n    }";
+                settergetter += "\n    public void set" + capitalized + "( " + simpleField.getActualType() + " _" + simplename
+                        + " )\n    {\n        this." + simpleField.getSafeName() + " = _" + simplename + ";\n    }";
+                settergetter += "\n    public " + simpleField.getActualType() + " get" + capitalized + "( )\n    {\n        return this."
+                        + simpleField.getSafeName() + ";\n    }";
             }
         }
         return settergetter;
@@ -644,8 +640,7 @@ public class Axis2ADBStubWrapperMaker
                 }
                 else if (!fieldpackagename.startsWith("java.lang"))
                 {
-                    if (!imports.contains(fieldpackagename + "." + type.getSimpleName()))
-                        imports.add(fieldpackagename + "." + type.getSimpleName());
+                    if (!imports.contains(fieldpackagename + "." + type.getSimpleName())) imports.add(fieldpackagename + "." + type.getSimpleName());
                 }
             }
         }
@@ -655,17 +650,14 @@ public class Axis2ADBStubWrapperMaker
         if (isarr || type.getSimpleName().equals("EspStringArray"))
         {
             sfield.setContainer(true);
-            if (!imports.contains("java.util.List"))
-                imports.add("java.util.List");
-            if (!imports.contains("java.util.ArrayList"))
-                imports.add("java.util.ArrayList");
+            if (!imports.contains("java.util.List")) imports.add("java.util.List");
+            if (!imports.contains("java.util.ArrayList")) imports.add("java.util.ArrayList");
 
             if (type.getSimpleName().equals("EspStringArray"))
             {
                 typeDeclaration(String.class, sfield);
 
-                if (!imports.contains(fieldpackagename + "." + type.getSimpleName()))
-                    imports.add(fieldpackagename + "." + type.getSimpleName());
+                if (!imports.contains(fieldpackagename + "." + type.getSimpleName())) imports.add(fieldpackagename + "." + type.getSimpleName());
             }
             else
                 typeDeclaration(type.getComponentType(), sfield);
@@ -697,7 +689,7 @@ public class Axis2ADBStubWrapperMaker
                         if (!entry.isDirectory() && entry.getName().endsWith(".class"))
                         {
                             String className = entry.getName().replace('/', '.');
-                            className = className.substring(0,className.length()-6);
+                            className = className.substring(0, className.length() - 6);
 
                             int maxClassLength = className.length();
                             if (maxClassLength > packageName.length())
@@ -705,9 +697,9 @@ public class Axis2ADBStubWrapperMaker
                                 maxClassLength = packageName.length();
                             }
 
-                            if (className.substring(0,maxClassLength).equals(packageName))
+                            if (className.substring(0, maxClassLength).equals(packageName))
                             {
-                                if (className.substring(className.lastIndexOf('.')+1).equalsIgnoreCase(targetClassName))
+                                if (className.substring(className.lastIndexOf('.') + 1).equalsIgnoreCase(targetClassName))
                                     return Class.forName(className);
                             }
                         }
@@ -744,12 +736,12 @@ public class Axis2ADBStubWrapperMaker
                         if (name.endsWith(".class"))
                         {
                             name = name.substring(0, name.length() - 6);
-                            if (name.equalsIgnoreCase(targetClassName))
-                                return Class.forName(packageName + "." + name);
+                            if (name.equalsIgnoreCase(targetClassName)) return Class.forName(packageName + "." + name);
                         }
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex)
+                {}
             }
         }
 
@@ -778,7 +770,7 @@ public class Axis2ADBStubWrapperMaker
                         if (!entry.isDirectory() && entry.getName().endsWith(".class"))
                         {
                             String className = entry.getName().replace('/', '.');
-                            className = className.substring(0,className.length()-6);
+                            className = className.substring(0, className.length() - 6);
 
                             int maxClassLength = className.length();
                             if (maxClassLength > packageName.length())
@@ -786,7 +778,7 @@ public class Axis2ADBStubWrapperMaker
                                 maxClassLength = packageName.length();
                             }
 
-                            if (className.substring(0,maxClassLength).equals(packageName))
+                            if (className.substring(0, maxClassLength).equals(packageName))
                             {
                                 classes.add(Class.forName(className));
                             }
@@ -828,7 +820,8 @@ public class Axis2ADBStubWrapperMaker
                         }
                     }
                 }
-                catch (Exception ex) { }
+                catch (Exception ex)
+                {}
             }
         }
 
@@ -856,19 +849,14 @@ public class Axis2ADBStubWrapperMaker
     private static void printUsage()
     {
 
-        String usage = "Generates wrapper classes based off Axis2 ADB generated stub\n"
-                     + "\n"
-                     + "Usage: WrapperMaker parameterstargetpackage=<packageName> outputdir=<outputdirname> outputpackage=<outputpackagename> servicename=<nameofservicestub>\n"
-                     + "\n"
-                     + "\nParameters:"
-                     + "\ntargetpackage   - The Axis2 ADB stub package to wrap"
-                     + "\nservicename     - The name of the WebService associated with the Axis Stub package"
-                     + "\noutputdir       - The directory on which the wrapped classes will be written"
-                     + "\noutputpackage   - The base package name on which the wrapped classes exist - it is postfixed with the service name"
-                     + "\n"
-                     + "\nExample: WrapperMaker parameterstargetpackage=org.hpccsystems.ws.client.gen.axis2.wsfileio.latest \\"
-                     + "\n                      outputdir=C:\\project\\src\\main\\java outputpackage=org.hpccsystems.ws.client.wrappers servicename=<nameofservicestub>";
-
+        String usage = "Generates wrapper classes based off Axis2 ADB generated stub\n" + "\n"
+                + "Usage: WrapperMaker parameterstargetpackage=<packageName> outputdir=<outputdirname> outputpackage=<outputpackagename> servicename=<nameofservicestub>\n"
+                + "\n" + "\nParameters:" + "\ntargetpackage   - The Axis2 ADB stub package to wrap"
+                + "\nservicename     - The name of the WebService associated with the Axis Stub package"
+                + "\noutputdir       - The directory on which the wrapped classes will be written"
+                + "\noutputpackage   - The base package name on which the wrapped classes exist - it is postfixed with the service name" + "\n"
+                + "\nExample: WrapperMaker parameterstargetpackage=org.hpccsystems.ws.client.gen.axis2.wsfileio.latest \\"
+                + "\n                      outputdir=C:\\project\\src\\main\\java outputpackage=org.hpccsystems.ws.client.wrappers servicename=<nameofservicestub>";
 
         System.out.println(usage);
         System.exit(0);
@@ -878,7 +866,7 @@ public class Axis2ADBStubWrapperMaker
     {
         Properties argsprops = new Properties();
 
-        for (String arg: args)
+        for (String arg : args)
         {
             String[] split = arg.split("=");
             if (split.length == 2)
@@ -936,7 +924,8 @@ public class Axis2ADBStubWrapperMaker
             printUsage();
         }
 
-        System.out.println("WraperMaker v" + Axis2ADBStubWrapperMaker.version + ": wrapping '" + targetWsServiceName +"' from generated Stub package '" + generatedPackageToWrap + "'");
+        System.out.println("WraperMaker v" + Axis2ADBStubWrapperMaker.version + ": wrapping '" + targetWsServiceName
+                + "' from generated Stub package '" + generatedPackageToWrap + "'");
 
         Class<?> targetStubClass = getClassFromPackage(generatedPackageToWrap, targetWsServiceName + "Stub");
         if (targetStubClass == null)
@@ -949,28 +938,32 @@ public class Axis2ADBStubWrapperMaker
         Object wsStub = targetStubClass.newInstance();
         if (wsStub == null)
         {
-            System.out.println("Alert! Could not determine service version due to error while instantiating '" + generatedPackageToWrap + "." + targetWsServiceName + "Stub'");
+            System.out.println("Alert! Could not determine service version due to error while instantiating '" + generatedPackageToWrap + "."
+                    + targetWsServiceName + "Stub'");
             return;
         }
 
-        ServiceClient servClient = (ServiceClient)targetStubClass.getMethod("_getServiceClient").invoke(wsStub);
+        ServiceClient servClient = (ServiceClient) targetStubClass.getMethod("_getServiceClient").invoke(wsStub);
         if (servClient == null)
         {
-            System.out.println("Alert! Could not determine service version due to error invoking '" + generatedPackageToWrap + "." + targetWsServiceName + "Stub._getServiceClient()'");
+            System.out.println("Alert! Could not determine service version due to error invoking '" + generatedPackageToWrap + "."
+                    + targetWsServiceName + "Stub._getServiceClient()'");
             return;
         }
 
         Options options = servClient.getOptions();
         if (options == null)
         {
-            System.out.println("Alert! Could not determine service version due to error fetching '" + targetWsServiceName + "Stub._getServiceClient().options()'");
+            System.out.println("Alert! Could not determine service version due to error fetching '" + targetWsServiceName
+                    + "Stub._getServiceClient().options()'");
             return;
         }
 
         serviceVer = Utils.parseVersionFromWSDLURL(options.getTo().getAddress());
         System.out.println("Found service version: " + serviceVer);
 
-        Axis2ADBStubWrapperMaker wrapperMaker = new Axis2ADBStubWrapperMaker(outputdir, generatedPackageToWrap, targetPackage, targetWsServiceName, serviceVer);
+        Axis2ADBStubWrapperMaker wrapperMaker = new Axis2ADBStubWrapperMaker(outputdir, generatedPackageToWrap, targetPackage, targetWsServiceName,
+                serviceVer);
 
         List<Class<?>> classesInPackage = getClassesInPackage(generatedPackageToWrap);
 
@@ -1013,11 +1006,11 @@ public class Axis2ADBStubWrapperMaker
             wrapperMaker.outputPackageGenerationReport(wrappedClasses);
 
             System.out.println("Finsished wrapping stub classes from package: " + generatedPackageToWrap + "!\n");
-            System.out.println("Confirm contents of: " + outputdir  + File.separator + targetPackage);
+            System.out.println("Confirm contents of: " + outputdir + File.separator + targetPackage);
         }
         else
         {
             System.out.println("Could not find any classes in package: " + generatedPackageToWrap + "\n");
         }
     }
-} 
+}

@@ -17,7 +17,8 @@ public class Sftp
 {
     private static final Logger log = LogManager.getLogger(Sftp.class);
 
-    static public void lzPut(String localFileName, String hostname, String landingZonePath, String targetFileName, String machineLoginUsername, String password, boolean isLZLinux, Properties connconfig) throws Exception
+    static public void lzPut(String localFileName, String hostname, String landingZonePath, String targetFileName, String machineLoginUsername,
+            String password, boolean isLZLinux, Properties connconfig) throws Exception
     {
         char lzSep;
         if (isLZLinux)
@@ -25,25 +26,18 @@ public class Sftp
         else
             lzSep = Utils.WIN_SEP;
 
-        if (hostname == null || hostname.length() == 0)
-            throw new Exception("Target HPCC landingzone hostname is required");
-        if (landingZonePath == null || landingZonePath.length()==0)
-            throw new Exception("Target HPCC landing zone path is required");
-        if (localFileName == null || localFileName.length()==0)
-            throw new Exception ("Fully qualified local file path is required");
+        if (hostname == null || hostname.length() == 0) throw new Exception("Target HPCC landingzone hostname is required");
+        if (landingZonePath == null || landingZonePath.length() == 0) throw new Exception("Target HPCC landing zone path is required");
+        if (localFileName == null || localFileName.length() == 0) throw new Exception("Fully qualified local file path is required");
 
         File fileToUpload = new File(localFileName);
-        if (!fileToUpload.isFile())
-            throw new Exception ("Target file name does not appear to be a file: " + localFileName);
+        if (!fileToUpload.isFile()) throw new Exception("Target file name does not appear to be a file: " + localFileName);
 
-        if (targetFileName == null || targetFileName.length()==0)
-            targetFileName = fileToUpload.getName();
+        if (targetFileName == null || targetFileName.length() == 0) targetFileName = fileToUpload.getName();
 
-        if (connconfig == null)
-            connconfig = new java.util.Properties();
+        if (connconfig == null) connconfig = new java.util.Properties();
 
-        if (!connconfig.containsKey("StrictHostKeyChecking"))
-            connconfig.put("StrictHostKeyChecking", "no");
+        if (!connconfig.containsKey("StrictHostKeyChecking")) connconfig.put("StrictHostKeyChecking", "no");
 
         Session session = null;
         Channel channel = null;
@@ -62,7 +56,7 @@ public class Sftp
             Vector<ChannelSftp.LsEntry> files;
             try
             {
-                files = (Vector<ChannelSftp.LsEntry>)sftp.ls(landingZonePath);
+                files = (Vector<ChannelSftp.LsEntry>) sftp.ls(landingZonePath);
                 if (files == null || files.size() == 0)
                     throw new Exception("Could not excute LS command on target landingzone path: " + landingZonePath);
                 else
@@ -75,25 +69,25 @@ public class Sftp
 
             try
             {
-                log.debug("Attempting to sftp " + localFileName + " to " + hostname + ":" + landingZonePath + lzSep +  targetFileName);
-                sftp.put(new FileInputStream(fileToUpload), landingZonePath + lzSep + targetFileName );
-                log.debug("Finished Attempt to sftp " + localFileName + " to " + hostname + ":" + landingZonePath + lzSep +  targetFileName + " please verify");
+                log.debug("Attempting to sftp " + localFileName + " to " + hostname + ":" + landingZonePath + lzSep + targetFileName);
+                sftp.put(new FileInputStream(fileToUpload), landingZonePath + lzSep + targetFileName);
+                log.debug("Finished Attempt to sftp " + localFileName + " to " + hostname + ":" + landingZonePath + lzSep + targetFileName
+                        + " please verify");
             }
             catch (Exception e)
             {
-                throw new Exception ("Could not sftp " + localFileName + " to " + hostname + ":" + landingZonePath + lzSep +  targetFileName + "\n" + e.getLocalizedMessage());
+                throw new Exception("Could not sftp " + localFileName + " to " + hostname + ":" + landingZonePath + lzSep + targetFileName + "\n"
+                        + e.getLocalizedMessage());
             }
         }
         catch (Exception e)
         {
-            throw new Exception ("Unexpected problem while attempting to perform LandingZone file transfer\n" + e.getLocalizedMessage());
+            throw new Exception("Unexpected problem while attempting to perform LandingZone file transfer\n" + e.getLocalizedMessage());
         }
         finally
         {
-            if (channel != null)
-                channel.disconnect();
-            if (session != null)
-                session.disconnect();
+            if (channel != null) channel.disconnect();
+            if (session != null) session.disconnect();
         }
     }
 }

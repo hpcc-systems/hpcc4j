@@ -12,25 +12,25 @@ import org.w3c.dom.NodeList;
 public class XRefDirectoryWrapper
 {
     private final static String DIRECTORY_TAG = "Directory";
-    private final static String NUM_TAG = "Num";
-    private final static String NAME_TAG = "Name";
-    private final static String NEG_SKEW_TAG = "NegativeSkew";
-    private final static String MAX_SIZE_TAG = "MaxSize";
-    private final static String MAX_IP_TAG = "MaxIP";
-    private final static String MIN_SIZE_TAG = "MinSize";
-    private final static String SIZE_TAG = "Size";
-    private final static String POS_SKEW_TAG = "PositiveSkew";
-    private final static String MIN_IP_TAG = "MinIP";
+    private final static String NUM_TAG       = "Num";
+    private final static String NAME_TAG      = "Name";
+    private final static String NEG_SKEW_TAG  = "NegativeSkew";
+    private final static String MAX_SIZE_TAG  = "MaxSize";
+    private final static String MAX_IP_TAG    = "MaxIP";
+    private final static String MIN_SIZE_TAG  = "MinSize";
+    private final static String SIZE_TAG      = "Size";
+    private final static String POS_SKEW_TAG  = "PositiveSkew";
+    private final static String MIN_IP_TAG    = "MinIP";
 
-    private int num = -1;
-    private String name = null;
-    private String negativeskew = null;
-    private long maxsize = -1;
-    private String maxip = null;
-    private long minsize = -1;
-    private long size = -1;
-    private String positiveskew = null;
-    private String minip = null;
+    private int                 num           = -1;
+    private String              name          = null;
+    private String              negativeskew  = null;
+    private long                maxsize       = -1;
+    private String              maxip         = null;
+    private long                minsize       = -1;
+    private long                size          = -1;
+    private String              positiveskew  = null;
+    private String              minip         = null;
 
     public XRefDirectoryWrapper(String wsdfuxrefresp)
     {
@@ -110,6 +110,7 @@ public class XRefDirectoryWrapper
             }
         }
     }
+
     public int getNum()
     {
         return num;
@@ -203,6 +204,7 @@ public class XRefDirectoryWrapper
     @Override
     public String toString()
     {
-        return "Num: " + num + " Name: " + name + " NegativeSkew: " + " MaxSize: " + maxsize + " MaxIP: " + maxip + " MinSize: " + minsize + " Size: " + size + " PositiveSkew: " + positiveskew + " MinIP: " + minip;
+        return "Num: " + num + " Name: " + name + " NegativeSkew: " + " MaxSize: " + maxsize + " MaxIP: " + maxip + " MinSize: " + minsize + " Size: "
+                + size + " PositiveSkew: " + positiveskew + " MinIP: " + minip;
     }
 }

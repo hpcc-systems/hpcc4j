@@ -39,8 +39,7 @@ public class RecordDefinitionTests
     public void testJsonRecordParsing() throws Exception
     {
         String[] recordDefStrs = new String[] { TestFieldDefinitions.getComplexRecordDefinitionJson(),
-                                                 TestFieldDefinitions.getAllTypesIndexRecordDefinitionJson(),
-                                                 TestFieldDefinitions.getBlobIndexDefinitionJson() };
+                TestFieldDefinitions.getAllTypesIndexRecordDefinitionJson(), TestFieldDefinitions.getBlobIndexDefinitionJson() };
         for (String recordDefStr : recordDefStrs)
         {
             try

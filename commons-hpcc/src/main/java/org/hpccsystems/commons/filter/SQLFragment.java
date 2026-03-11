@@ -160,6 +160,7 @@ public class SQLFragment
             setValue(Utils.handleQuotedIdentifier(fragsplit[1]));
         }
     }
+
     /**
      * Parses the expression fragment.
      *

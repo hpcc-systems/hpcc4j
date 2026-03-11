@@ -8,21 +8,21 @@ import org.w3c.dom.NodeList;
 
 public class XRefFileWrapper
 {
-    private final static String PARTS_FOUND_TAG = "Partsfound";
-    private final static String PART_MASK_TAG = "Partmask";
-    private final static String SIZE_TAG = "Size";
-    private final static String MODIFIED_TAG = "Modified";
-    private final static String NUM_PARTS_TAG = "Numparts";
-    private final static String PART_TAG = "Part";
+    private final static String       PARTS_FOUND_TAG = "Partsfound";
+    private final static String       PART_MASK_TAG   = "Partmask";
+    private final static String       SIZE_TAG        = "Size";
+    private final static String       MODIFIED_TAG    = "Modified";
+    private final static String       NUM_PARTS_TAG   = "Numparts";
+    private final static String       PART_TAG        = "Part";
 
-    private int partsfound = -1;
-    private String partmask = null;
-    private long size = -1;
-    private String modified = null;
-    private int numparts = -1;
-    private List<XRefFilePartWrapper> parts = new ArrayList<XRefFilePartWrapper>();
+    private int                       partsfound      = -1;
+    private String                    partmask        = null;
+    private long                      size            = -1;
+    private String                    modified        = null;
+    private int                       numparts        = -1;
+    private List<XRefFilePartWrapper> parts           = new ArrayList<XRefFilePartWrapper>();
 
-    public XRefFileWrapper (Node xreffilenode)
+    public XRefFileWrapper(Node xreffilenode)
     {
         populatefile(xreffilenode);
     }
@@ -127,7 +127,8 @@ public class XRefFileWrapper
     @Override
     public String toString()
     {
-        String out = "XRefFile:\n\tPartsfound: " + partsfound + "\n\tPartmask: " + partmask + "\n\tSize: " + size + "\n\tModified: " + modified + "\n\tNumparts: " + numparts;
+        String out = "XRefFile:\n\tPartsfound: " + partsfound + "\n\tPartmask: " + partmask + "\n\tSize: " + size + "\n\tModified: " + modified
+                + "\n\tNumparts: " + numparts;
         out += "\n\tParts: [";
 
         for (XRefFilePartWrapper xRefFilePartWrapper : parts)

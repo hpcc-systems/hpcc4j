@@ -20,31 +20,8 @@ package org.hpccsystems.commons.ecl;
  */
 public enum HpccSrcType
 {
-    SINGLE_BYTE_CHAR (
-            "Single Byte Charset", false
-    ), QSTRING (
-            "QString", false
-    ), UTF8 (
-            "Unicode UTF8", false
-    ), UTF16BE (
-            "Unicode UTF16 big endian", true
-    ), UTF16LE (
-            "Unicode UTF16 little endian", true
-    ), BIG_ENDIAN (
-            "big endian", false
-    ), LITTLE_ENDIAN (
-            "little endian", false
-    ), BINARY_CODED_DECIMAL (
-            "Binary coded decimal", false
-    ), KEYED_INTEGER (
-            "Non-payload integer field within a key", false
-    ), SWAPPED_INTEGER (
-            "Byte swapped integer, used within keys", false
-    ), BIAS_SWAPPED_INTEGER (
-            "Byte swapped integer, deprecated", false
-    ), UNKNOWN (
-            "Unkown", false
-    );
+    SINGLE_BYTE_CHAR ("Single Byte Charset", false), QSTRING ("QString", false), UTF8 ("Unicode UTF8", false), UTF16BE ("Unicode UTF16 big endian", true), UTF16LE ("Unicode UTF16 little endian", true), BIG_ENDIAN ("big endian", false), LITTLE_ENDIAN ("little endian", false), BINARY_CODED_DECIMAL ("Binary coded decimal", false), KEYED_INTEGER ("Non-payload integer field within a key", false), SWAPPED_INTEGER ("Byte swapped integer, used within keys", false), BIAS_SWAPPED_INTEGER ("Byte swapped integer, deprecated", false), UNKNOWN ("Unkown", false);
+
     //
     private String  description;
     private boolean utf16;

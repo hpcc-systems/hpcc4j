@@ -22,7 +22,7 @@ import io.opentelemetry.context.Context;
 public class Utils
 {
     private static OpenTelemetry globalOpenTelemetry = null;
-    private static Tracer dfsClientTracer = null;
+    private static Tracer        dfsClientTracer     = null;
 
     public static OpenTelemetry getOpenTelemetry()
     {
@@ -54,16 +54,12 @@ public class Utils
         Span span = null;
         if (parentSpan == null)
         {
-            span = Utils.getTelemetryTracer().spanBuilder(name)
-                                    .setSpanKind(SpanKind.CLIENT)
-                                    .startSpan();
+            span = Utils.getTelemetryTracer().spanBuilder(name).setSpanKind(SpanKind.CLIENT).startSpan();
         }
         else
         {
-            span = Utils.getTelemetryTracer().spanBuilder(name)
-                                    .setParent(Context.current().with(parentSpan))
-                                    .setSpanKind(SpanKind.CLIENT)
-                                    .startSpan();
+            span = Utils.getTelemetryTracer().spanBuilder(name).setParent(Context.current().with(parentSpan)).setSpanKind(SpanKind.CLIENT)
+                    .startSpan();
         }
 
         span.makeCurrent();

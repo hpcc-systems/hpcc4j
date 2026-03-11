@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 /**
  * Helper class that sums together metrics with the same name.
  */
@@ -41,11 +42,11 @@ public class MetricSumTransformer implements IMetricSetTransformer
                 return m1.getName().compareTo(m2.getName());
             }
         };
-        Collections.sort(metrics,compare);
+        Collections.sort(metrics, compare);
 
         // Combine metrics with the same name
         ArrayList<IMetric> summedMetrics = new ArrayList<IMetric>();
-        
+
         SimpleMetric workingMetric = new SimpleMetric(metrics.get(0));
         summedMetrics.add(workingMetric);
         for (int i = 1; i < metrics.size(); i++)

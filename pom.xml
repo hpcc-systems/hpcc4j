@@ -48,6 +48,7 @@
     <maven.install.version>2.5.2</maven.install.version>
     <maven.jar.version>3.0.2</maven.jar.version>
     <maven.surefire.version>2.22.1</maven.surefire.version>
+    <formatter.maven.plugin.version>2.16.0</formatter.maven.plugin.version>
     <antlr.version>4.10.1</antlr.version>
     <javax.mail.version>1.4</javax.mail.version>
     <jsch.version>0.1.54</jsch.version>
@@ -295,6 +296,37 @@
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
           <version>${maven.release.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>net.revelc.code.formatter</groupId>
+          <artifactId>formatter-maven-plugin</artifactId>
+          <version>${formatter.maven.plugin.version}</version>
+          <configuration>
+            <configFile>${maven.multiModuleProjectDirectory}/eclipse/HPCC-JAVA-Formatter.xml</configFile>
+            <encoding>UTF-8</encoding>
+            <lineEnding>LF</lineEnding>
+            <directories>
+              <directory>${project.basedir}/src/main/java</directory>
+              <directory>${project.basedir}/src/test/java</directory>
+            </directories>
+            <excludes>
+              <!-- Exclude generated code -->
+              <exclude>**/gen/**</exclude>
+              <exclude>**/ws/client/gen/**</exclude>
+              <exclude>**/wrappers/gen/**</exclude>
+              <exclude>**/antlr/**/*.java</exclude>
+              <exclude>**/extended/**/*.java</exclude>
+            </excludes>
+          </configuration>
+          <executions>
+            <execution>
+              <id>format-check</id>
+              <goals>
+                <goal>format</goal>
+              </goals>
+              <phase>validate</phase>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>

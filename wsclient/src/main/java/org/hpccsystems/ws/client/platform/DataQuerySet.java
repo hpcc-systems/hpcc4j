@@ -134,8 +134,7 @@ public class DataQuerySet extends DataSingleton
         DataQuerySet that = (DataQuerySet) aThat;
 
         // now a proper field-by-field evaluation can be made
-        return EqualsUtil.areEqual(platform, that.platform)
-                && EqualsUtil.areEqual(info.getQuerySetName(), that.info.getQuerySetName());
+        return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(info.getQuerySetName(), that.info.getQuerySetName());
     }
 
     /* (non-Javadoc)

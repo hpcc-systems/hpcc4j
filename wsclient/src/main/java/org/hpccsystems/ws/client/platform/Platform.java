@@ -54,9 +54,9 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 public class Platform extends DataSingleton
 {
-    public static final String API_ID = "org.hpccsystems.ws.client"; //$NON-NLS-1$
+    public static final String            API_ID = "org.hpccsystems.ws.client"; //$NON-NLS-1$
 
-    public static DataSingletonCollection All = new DataSingletonCollection();
+    public static DataSingletonCollection All    = new DataSingletonCollection();
 
     /**
      * Gets the.
@@ -68,8 +68,7 @@ public class Platform extends DataSingleton
     @WithSpan
     public static Platform get(Connection conn)
     {
-        if (conn == null)
-            return null;
+        if (conn == null) return null;
 
         return (Platform) All.get(new Platform(conn));
     }
@@ -129,7 +128,7 @@ public class Platform extends DataSingleton
         }
         catch (Exception e)
         {
-           return null;
+            return null;
         }
 
         return (Platform) All.get(new Platform(conn));
@@ -187,24 +186,23 @@ public class Platform extends DataSingleton
         UNKNOWN, TESTING, FALSE, TRUE
     }
 
-    protected HPCCWsClient                  platformHPCCClient = null;
-    protected HPCCWsClientPool              hpccClientPool = null;
-    private SERVER_EXISTS                   serverExists = SERVER_EXISTS.UNKNOWN;
-    protected boolean                       isDisabled;
-    public boolean                          isTempDisabled;
-    private String                          build = "";//$NON-NLS-1$
-    private Version                         version;
+    protected HPCCWsClient                platformHPCCClient = null;
+    protected HPCCWsClientPool            hpccClientPool     = null;
+    private SERVER_EXISTS                 serverExists       = SERVER_EXISTS.UNKNOWN;
+    protected boolean                     isDisabled;
+    public boolean                        isTempDisabled;
+    private String                        build              = "";//$NON-NLS-1$
+    private Version                       version;
 
-    private Collection<Cluster>             clusters;
-    private Collection<DropZone>            dropZones;
-    protected Collection<Workunit>          workunits;
-    private Collection<FileSprayWorkunit>   fileSprayWorkunits;
-    private Collection<DataQuerySet>        dataQuerySets;
-    private Collection<LogicalFile>         logicalFiles;
-    private Boolean                         isContainerized;
+    private Collection<Cluster>           clusters;
+    private Collection<DropZone>          dropZones;
+    protected Collection<Workunit>        workunits;
+    private Collection<FileSprayWorkunit> fileSprayWorkunits;
+    private Collection<DataQuerySet>      dataQuerySets;
+    private Collection<LogicalFile>       logicalFiles;
+    private Boolean                       isContainerized;
 
-    static int                              LATENCY_TEST = 0;
-
+    static int                            LATENCY_TEST       = 0;
 
     /**
      * Instantiates a new platform.
@@ -515,10 +513,11 @@ public class Platform extends DataSingleton
             {
                 org.hpccsystems.ws.client.HPCCWsWorkUnitsClient wsWorkUnitsClient = platformHPCCClient.getWsWorkunitsClient();
 
-                List<ApplicationValueWrapper> appVals=new ArrayList<ApplicationValueWrapper>();
-                appVals.add(new ApplicationValueWrapper(API_ID,"path",filePath));
+                List<ApplicationValueWrapper> appVals = new ArrayList<ApplicationValueWrapper>();
+                appVals.add(new ApplicationValueWrapper(API_ID, "path", filePath));
 
-                WorkunitWrapper response = wsWorkUnitsClient.createWUFromECL(hackUnicodeInXMLForAxisOneAndESP(archiveOrEcl), inlineResultLimit, appVals, jobname, compileOnly);
+                WorkunitWrapper response = wsWorkUnitsClient.createWUFromECL(hackUnicodeInXMLForAxisOneAndESP(archiveOrEcl), inlineResultLimit,
+                        appVals, jobname, compileOnly);
 
                 //response now has cluster set, no need to set it here
 
@@ -659,7 +658,8 @@ public class Platform extends DataSingleton
      *            the app data
      * @return the workunits
      */
-    public Collection<Workunit> getWorkunits(boolean userOnly, String cluster, String startDate, String endDate, String jobname, String appKey, String appData)
+    public Collection<Workunit> getWorkunits(boolean userOnly, String cluster, String startDate, String endDate, String jobname, String appKey,
+            String appData)
     {
         if (isEnabled())
         {
@@ -667,18 +667,17 @@ public class Platform extends DataSingleton
             try
             {
                 org.hpccsystems.ws.client.HPCCWsWorkUnitsClient wsWorkUnitsClient = platformHPCCClient.getWsWorkunitsClient();
-                WUQueryWrapper info = new WUQueryWrapper().setJobname(jobname).setCluster(cluster)
-                        .setStartDate(Utils.UTCStringToDate(startDate)).setEndDate(Utils.UTCStringToDate(endDate))
-                        .setPageSize(Long.valueOf(100)).setOwner(userOnly ? getUser() : null);
+                WUQueryWrapper info = new WUQueryWrapper().setJobname(jobname).setCluster(cluster).setStartDate(Utils.UTCStringToDate(startDate))
+                        .setEndDate(Utils.UTCStringToDate(endDate)).setPageSize(Long.valueOf(100)).setOwner(userOnly ? getUser() : null);
                 info.getApplicationValues().add(new ApplicationValueWrapper("org.hpccsystems.ws.client", appKey, appData));
 
                 List<WorkunitWrapper> response = wsWorkUnitsClient.workUnitUQuery(info);
                 updateWorkunits(response);
             }
-//            catch (ArrayOfEspException e)
-//            {
-//                e.printStackTrace();
-//            }
+            //            catch (ArrayOfEspException e)
+            //            {
+            //                e.printStackTrace();
+            //            }
             catch (RemoteException e)
             {
                 confirmDisable();
@@ -743,10 +742,10 @@ public class Platform extends DataSingleton
 
                 updateWorkunits(response);
             }
-//            catch (ArrayOfEspException e)
-//            {
-//                e.printStackTrace();
-//            }
+            //            catch (ArrayOfEspException e)
+            //            {
+            //                e.printStackTrace();
+            //            }
             catch (RemoteException e)
             {
                 confirmDisable(); //rodrigo: we might need to confirmdisable on all exceptions, or tighten up the exception handling
@@ -858,8 +857,7 @@ public class Platform extends DataSingleton
                 if (response != null)
                 {
                     ArrayOfDFUWorkunitWrapper results = response.getResults();
-                    if (results.getDFUWorkunit() != null)
-                        updateFileSprayWorkunits(results.getDFUWorkunit());
+                    if (results.getDFUWorkunit() != null) updateFileSprayWorkunits(results.getDFUWorkunit());
                 }
             }
             catch (RemoteException e)
@@ -943,14 +941,14 @@ public class Platform extends DataSingleton
             try
             {
                 HPCCWsWorkUnitsClient wsWorkunitsClient = platformHPCCClient.getWsWorkunitsClient();
-                QuerySet [] queryset = wsWorkunitsClient.getQuerySets();
+                QuerySet[] queryset = wsWorkunitsClient.getQuerySets();
 
                 updateDataQuerySets(queryset);
             }
-//            catch (ArrayOfEspException e)
-//            {
-//                e.printStackTrace();
-//            }
+            //            catch (ArrayOfEspException e)
+            //            {
+            //                e.printStackTrace();
+            //            }
             catch (RemoteException e)
             {
                 confirmDisable();//rodrigo: we might need to confirmdisable for exception, or tighten up exceptions thrown
@@ -1218,8 +1216,7 @@ public class Platform extends DataSingleton
                 hpccclient = hpccClientPool.checkOut();
                 HPCCWsTopologyClient topclient = hpccclient.getWsTopologyClient();
                 TpServicesWrapper services = topclient.getServices();
-                if (services != null)
-                    updateServices(services);
+                if (services != null) updateServices(services);
             }
             catch (Exception e)
             {
@@ -1230,7 +1227,7 @@ public class Platform extends DataSingleton
             {
                 hpccClientPool.checkIn(hpccclient);
             }
-         // TODO notifyObservers(monitor.calcChanges(clusters));
+            // TODO notifyObservers(monitor.calcChanges(clusters));
         }
         return dropZones.toArray(new DropZone[0]);
     }
@@ -1365,63 +1362,63 @@ public class Platform extends DataSingleton
         }
     }
 
-//    /**
-//     * @return HPCCWsWorkUnitsClient  - not thread safe - Use checkOutWsClient(), then getWsWorkunitsClient() for multi-thread use
-//     * @throws Exception
-//     */
-//    public HPCCWsWorkUnitsClient getWsWorkunitsClient() throws Exception
-//    {
-//        latencyTest();
-//        return platformHPCCClient.getWsWorkunitsClient();
-//    }
-//
-//    /**
-//     * @return HPCCWsDFUClient - not thread safe - Use checkOutWsClient(), then getWsDFUClient() for multi-thread use
-//     * @throws Exception
-//     */
-//    public HPCCWsDFUClient getWsDfuClient() throws Exception
-//    {
-//        latencyTest();
-//        return platformHPCCClient.getWsDFUClient();
-//    }
-//
-//    /**
-//     * @return HPCCFileSprayClient - not thread safe - Use checkOutWsClient(), then getFileSprayClient() for multi-thread use
-//     * @throws Exception
-//     */
-//    public HPCCFileSprayClient getFileSprayClient() throws Exception
-//    {
-//        latencyTest();
-//        return platformHPCCClient.getFileSprayClient();
-//    }
-//
-//    /**
-//     * @return HPCCWsTopologyClient - not thread safe - Use checkOutWsClient(), then getWsTopologyClient() for multi-thread use
-//     * @throws Exception
-//     */
-//    public HPCCWsTopologyClient getWsTopologyClient() throws Exception
-//    {
-//        latencyTest();
-//        return platformHPCCClient.getWsTopologyClient();
-//    }
-//
-//    /**
-//     * @return HPCCWsSMCClient - not thread safe - Use checkOutWsClient(), then getWsSMCClient() for multi-thread use
-//     * @throws Exception
-//     */
-//    public HPCCWsSMCClient getWsSMCClient() throws Exception
-//    {
-//        latencyTest();
-//        return platformHPCCClient.getWsSMCClient();
-//    }
+    //    /**
+    //     * @return HPCCWsWorkUnitsClient  - not thread safe - Use checkOutWsClient(), then getWsWorkunitsClient() for multi-thread use
+    //     * @throws Exception
+    //     */
+    //    public HPCCWsWorkUnitsClient getWsWorkunitsClient() throws Exception
+    //    {
+    //        latencyTest();
+    //        return platformHPCCClient.getWsWorkunitsClient();
+    //    }
+    //
+    //    /**
+    //     * @return HPCCWsDFUClient - not thread safe - Use checkOutWsClient(), then getWsDFUClient() for multi-thread use
+    //     * @throws Exception
+    //     */
+    //    public HPCCWsDFUClient getWsDfuClient() throws Exception
+    //    {
+    //        latencyTest();
+    //        return platformHPCCClient.getWsDFUClient();
+    //    }
+    //
+    //    /**
+    //     * @return HPCCFileSprayClient - not thread safe - Use checkOutWsClient(), then getFileSprayClient() for multi-thread use
+    //     * @throws Exception
+    //     */
+    //    public HPCCFileSprayClient getFileSprayClient() throws Exception
+    //    {
+    //        latencyTest();
+    //        return platformHPCCClient.getFileSprayClient();
+    //    }
+    //
+    //    /**
+    //     * @return HPCCWsTopologyClient - not thread safe - Use checkOutWsClient(), then getWsTopologyClient() for multi-thread use
+    //     * @throws Exception
+    //     */
+    //    public HPCCWsTopologyClient getWsTopologyClient() throws Exception
+    //    {
+    //        latencyTest();
+    //        return platformHPCCClient.getWsTopologyClient();
+    //    }
+    //
+    //    /**
+    //     * @return HPCCWsSMCClient - not thread safe - Use checkOutWsClient(), then getWsSMCClient() for multi-thread use
+    //     * @throws Exception
+    //     */
+    //    public HPCCWsSMCClient getWsSMCClient() throws Exception
+    //    {
+    //        latencyTest();
+    //        return platformHPCCClient.getWsSMCClient();
+    //    }
 
     /**
- * Gets the ws client.
- *
- * @return HPCCWsClient instance - not thread safe - Use checkoutWsClient for multi-thread use
- * @throws Exception
- *             the exception
- */
+    * Gets the ws client.
+    *
+    * @return HPCCWsClient instance - not thread safe - Use checkoutWsClient for multi-thread use
+    * @throws Exception
+    *             the exception
+    */
     public HPCCWsClient getWsClient() throws Exception
     {
         latencyTest();

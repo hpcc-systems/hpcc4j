@@ -21,6 +21,7 @@ import java.util.Hashtable;
 
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCopy;
 import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePart;
+
 /*
 enum FilePartKind
 {
@@ -35,7 +36,7 @@ public class DFUFilePartWrapper
 {
     private Integer              partIndex;
     private DFUFileCopyWrapper[] wrappedDFUFileCopies;
-    private boolean				 topLevelKey = false;
+    private boolean              topLevelKey = false;
 
     /**
      * Is this part a Top level key
@@ -44,8 +45,8 @@ public class DFUFilePartWrapper
      */
     public boolean isTopLevelKey()
     {
-		return topLevelKey;
-	}
+        return topLevelKey;
+    }
 
     /**
      * Instantiates a new DFU file part wrapper.

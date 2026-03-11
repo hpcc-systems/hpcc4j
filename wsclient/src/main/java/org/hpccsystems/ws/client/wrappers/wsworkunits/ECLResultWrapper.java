@@ -5,20 +5,22 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLResult;
 @Deprecated
 public class ECLResultWrapper
 {
-    private String filename;
+    private String  filename;
     private Boolean isSupplied;
-    private String link;
-    private String name;
+    private String  link;
+    private String  name;
     private Integer sequence;
     private Boolean showFileContent;
-    private Long total;
-    private String value;
-    private String xmlSchema;
+    private Long    total;
+    private String  value;
+    private String  xmlSchema;
 
     /**
      * Instantiates a new ECL result wrapper.
      */
-    public ECLResultWrapper() { }
+    public ECLResultWrapper()
+    {
+    }
 
     /**
      * Instantiates a new ECL result wrapper.
@@ -28,15 +30,15 @@ public class ECLResultWrapper
      */
     public ECLResultWrapper(ECLResult raw)
     {
-        filename=raw.getFileName();
-        isSupplied=raw.getIsSupplied();
-        link=raw.getLink();
-        name=raw.getName();
-        sequence=raw.getSequence();
-        showFileContent=raw.getShowFileContent();
-        total=raw.getTotal();
-        value=raw.getValue();
-        xmlSchema=raw.getXmlSchema();
+        filename = raw.getFileName();
+        isSupplied = raw.getIsSupplied();
+        link = raw.getLink();
+        name = raw.getName();
+        sequence = raw.getSequence();
+        showFileContent = raw.getShowFileContent();
+        total = raw.getTotal();
+        value = raw.getValue();
+        xmlSchema = raw.getXmlSchema();
     }
 
     /**
@@ -47,15 +49,15 @@ public class ECLResultWrapper
      */
     public ECLResultWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLResult raw)
     {
-        filename=raw.getFileName();
-        isSupplied=raw.getIsSupplied();
-        link=raw.getLink();
-        name=raw.getName();
-        sequence=raw.getSequence();
-        showFileContent=raw.getShowFileContent();
-        total=raw.getTotal();
-        value=raw.getValue();
-        xmlSchema=raw.getXmlSchema();
+        filename = raw.getFileName();
+        isSupplied = raw.getIsSupplied();
+        link = raw.getLink();
+        name = raw.getName();
+        sequence = raw.getSequence();
+        showFileContent = raw.getShowFileContent();
+        total = raw.getTotal();
+        value = raw.getValue();
+        xmlSchema = raw.getXmlSchema();
     }
 
     /**
@@ -66,15 +68,15 @@ public class ECLResultWrapper
      */
     public ECLResultWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLResult raw)
     {
-        filename=raw.getFileName();
-        isSupplied=raw.getIsSupplied();
-        link=raw.getLink();
-        name=raw.getName();
-        sequence=raw.getSequence();
-        showFileContent=raw.getShowFileContent();
-        total=raw.getTotal();
-        value=raw.getValue();
-        xmlSchema=raw.getXmlSchema();
+        filename = raw.getFileName();
+        isSupplied = raw.getIsSupplied();
+        link = raw.getLink();
+        name = raw.getName();
+        sequence = raw.getSequence();
+        showFileContent = raw.getShowFileContent();
+        total = raw.getTotal();
+        value = raw.getValue();
+        xmlSchema = raw.getXmlSchema();
     }
 
     /**
@@ -85,15 +87,15 @@ public class ECLResultWrapper
      */
     public ECLResultWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLResult raw)
     {
-        filename=raw.getFileName();
-        isSupplied=raw.getIsSupplied();
-        link=raw.getLink();
-        name=raw.getName();
-        sequence=raw.getSequence();
-        showFileContent=raw.getShowFileContent();
-        total=raw.getTotal();
-        value=raw.getValue();
-        xmlSchema=raw.getXmlSchema();
+        filename = raw.getFileName();
+        isSupplied = raw.getIsSupplied();
+        link = raw.getLink();
+        name = raw.getName();
+        sequence = raw.getSequence();
+        showFileContent = raw.getShowFileContent();
+        total = raw.getTotal();
+        value = raw.getValue();
+        xmlSchema = raw.getXmlSchema();
     }
 
     /**
@@ -104,15 +106,15 @@ public class ECLResultWrapper
      */
     public ECLResultWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLResult raw)
     {
-        filename=raw.getFileName();
-        isSupplied=raw.getIsSupplied();
-        link=raw.getLink();
-        name=raw.getName();
-        sequence=raw.getSequence();
-        showFileContent=raw.getShowFileContent();
-        total=raw.getTotal();
-        value=raw.getValue();
-        xmlSchema=raw.getXmlSchema();
+        filename = raw.getFileName();
+        isSupplied = raw.getIsSupplied();
+        link = raw.getLink();
+        name = raw.getName();
+        sequence = raw.getSequence();
+        showFileContent = raw.getShowFileContent();
+        total = raw.getTotal();
+        value = raw.getValue();
+        xmlSchema = raw.getXmlSchema();
     }
 
     /**
@@ -122,8 +124,7 @@ public class ECLResultWrapper
      */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLResult getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLResult raw =
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLResult();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLResult raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLResult();
 
         raw.setFileName(this.getFilename());
         raw.setIsSupplied(this.getIsSupplied());
@@ -342,8 +343,7 @@ public class ECLResultWrapper
     @Override
     public String toString()
     {
-        return "ECLResultWrapper [ name=" + name + ", sequence=" + sequence + ", value=" + value +
-                ", showFileContent=" + showFileContent + ", total=" + total
-                + " xmlSchema=" + xmlSchema + "]";
+        return "ECLResultWrapper [ name=" + name + ", sequence=" + sequence + ", value=" + value + ", showFileContent=" + showFileContent + ", total="
+                + total + " xmlSchema=" + xmlSchema + "]";
     }
 }

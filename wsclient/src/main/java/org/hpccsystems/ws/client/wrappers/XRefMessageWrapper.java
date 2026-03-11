@@ -8,11 +8,11 @@ public class XRefMessageWrapper
     private final static String TEXT_TAG = "text";
     private final static String FILE_TAG = "file";
 
-    protected String text = null;
-    protected String file = null;
-    protected String type = null;
+    protected String            text     = null;
+    protected String            file     = null;
+    protected String            type     = null;
 
-    public XRefMessageWrapper (Node xrefnode)
+    public XRefMessageWrapper(Node xrefnode)
     {
         populatemessage(xrefnode);
     }
@@ -47,7 +47,7 @@ public class XRefMessageWrapper
         return type;
     }
 
-    private void populatemessage (Node currentNode)
+    private void populatemessage(Node currentNode)
     {
         if (currentNode != null)
         {

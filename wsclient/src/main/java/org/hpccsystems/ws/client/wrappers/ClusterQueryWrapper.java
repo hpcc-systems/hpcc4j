@@ -12,7 +12,9 @@ public class ClusterQueryWrapper
     /**
      * Instantiates a new cluster query wrapper.
      */
-    public ClusterQueryWrapper() {}
+    public ClusterQueryWrapper()
+    {
+    }
 
     /**
      * Instantiates a new cluster query wrapper.

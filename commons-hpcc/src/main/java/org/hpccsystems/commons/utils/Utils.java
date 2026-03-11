@@ -198,16 +198,13 @@ public class Utils
      */
     public static boolean doesNotRequireQuotes(Object obj)
     {
-        if (obj == null)
-            return false;
-        if (obj instanceof Number)
-            return true;
+        if (obj == null) return false;
+        if (obj instanceof Number) return true;
         if (obj instanceof String)
         {
-            if(QUOTEDSQLSTRPATTERN.matcher((String)obj).matches())
-                return true; //Already quoted
+            if (QUOTEDSQLSTRPATTERN.matcher((String) obj).matches()) return true; //Already quoted
 
-            return isNumeric((String)obj);
+            return isNumeric((String) obj);
         }
 
         return false;
@@ -224,8 +221,7 @@ public class Utils
      */
     public static boolean isInParenthesis(String parenstring)
     {
-        if (parenstring == null)
-            return false;
+        if (parenstring == null) return false;
 
         Matcher matcher = PARENSTRPATTERN.matcher(parenstring);
 
@@ -234,8 +230,7 @@ public class Utils
 
     public static boolean isCommaList(String commastring)
     {
-        if (commastring == null)
-            return false;
+        if (commastring == null) return false;
 
         String[] list = commastring.split("\\s*,\\s*");
 
@@ -361,9 +356,9 @@ public class Utils
             return result.toString();
     }
 
-    private final static Pattern QUOTEDFULLFIELDPATTERN = Pattern.compile("\\s*(\"|\')(.*?){1}(\\.)(.*?){1}(\"|\')\\s*", Pattern.DOTALL);
+    private final static Pattern QUOTEDFULLFIELDPATTERN      = Pattern.compile("\\s*(\"|\')(.*?){1}(\\.)(.*?){1}(\"|\')\\s*", Pattern.DOTALL);
 
-    private final static Pattern QUOTEDSTRPATTERN       = Pattern.compile("\\s*(\"|\')(.*?)(\"|\')\\s*", Pattern.DOTALL);
+    private final static Pattern QUOTEDSTRPATTERN            = Pattern.compile("\\s*(\"|\')(.*?)(\"|\')\\s*", Pattern.DOTALL);
 
     private final static Pattern QUOTEDSQLQUALIFIEDIDPATTERN = Pattern.compile("\\s*(\")(.*?){1}(\\.)(.*?){1}(\")\\s*", Pattern.DOTALL);
     private final static Pattern QUOTEDSQLIDPATTERN          = Pattern.compile("\\s*(\")(.*?)(\")\\s*", Pattern.DOTALL);
@@ -378,8 +373,7 @@ public class Utils
      */
     public static String handleQuotedString(String quotedString)
     {
-        if (quotedString == null)
-            return "";
+        if (quotedString == null) return "";
 
         Matcher matcher = QUOTEDSTRPATTERN.matcher(quotedString);
 
@@ -391,8 +385,7 @@ public class Utils
 
     public static String handleQuotedIdentifier(String quotedString)
     {
-        if (quotedString == null)
-            return "";
+        if (quotedString == null) return "";
 
         Matcher matcher = QUOTEDSQLIDPATTERN.matcher(quotedString);
 
@@ -443,8 +436,7 @@ public class Utils
      */
     public static String replaceSQLwithECLEscapeChar(String quotedString) throws Exception
     {
-        if (quotedString == null)
-            return "";
+        if (quotedString == null) return "";
 
         String eclescaped = "\\\\'";
         String replaced = '\'' + handleQuotedString(quotedString).replaceAll("\'\'", eclescaped) + '\'';
@@ -454,62 +446,17 @@ public class Utils
 
     public enum EclTypes
     {
-        ECLTypeboolean (0),
-        ECLTypeint (1),
-        ECLTypereal (2),
-        ECLTypedecimal (3),
-        ECLTypestring (4),
-        ECLTypeunused1 (5),
-        ECLTypedate (6),
-        ECLTypeunused2 (7),
-        ECLTypeunused3 (8),
-        ECLTypebitfield (9),
-        ECLTypeunused4 (10),
-        ECLTypechar (11),
-        ECLTypeenumerated (12),
-        ECLTyperecord (13),
-        ECLTypevarstring (14),
-        ECLTypeblob (15),
-        ECLTypedata (16),
-        ECLTypepointer (17),
-        ECLTypeclass (18),
-        ECLTypearray (19),
-        ECLTypetable (20),
-        ECLTypeset (21),
-        ECLTyperow (22),
-        ECLTypegroupedtable (23),
-        ECLTypevoid (24),
-        ECLTypealien (25),
-        ECLTypeswapint (26),
-        ECLTypepackedint (28),
-        ECLTypeunused5 (29),
-        ECLTypeqstring (30),
-        ECLTypeunicode (31),
-        ECLTypeany (32),
-        ECLTypevarunicode (33),
-        ECLTypepattern (34),
-        ECLTyperule (35),
-        ECLTypetoken (36),
-        ECLTypefeature (37),
-        ECLTypeevent (38),
-        ECLTypenull (39),
-        ECLTypescope (40),
-        ECLTypeutf8 (41),
-        ECLTypetransform (42),
-        ECLTypeifblock (43), // not a real type -but used for the rtlfield serialization
-        ECLTypefunction (44),
-        ECLTypesortlist (45),
-        ECLTypemodifier (0xff),  // used by getKind()
+        ECLTypeboolean (0), ECLTypeint (1), ECLTypereal (2), ECLTypedecimal (3), ECLTypestring (4), ECLTypeunused1 (5), ECLTypedate (6), ECLTypeunused2 (7), ECLTypeunused3 (8), ECLTypebitfield (9), ECLTypeunused4 (10), ECLTypechar (11), ECLTypeenumerated (12), ECLTyperecord (13), ECLTypevarstring (14), ECLTypeblob (15), ECLTypedata (16), ECLTypepointer (17), ECLTypeclass (18), ECLTypearray (19), ECLTypetable (20), ECLTypeset (21), ECLTyperow (22), ECLTypegroupedtable (23), ECLTypevoid (24), ECLTypealien (25), ECLTypeswapint (26), ECLTypepackedint (28), ECLTypeunused5 (29), ECLTypeqstring (30), ECLTypeunicode (31), ECLTypeany (32), ECLTypevarunicode (33), ECLTypepattern (34), ECLTyperule (35), ECLTypetoken (36), ECLTypefeature (37), ECLTypeevent (38), ECLTypenull (39), ECLTypescope (40), ECLTypeutf8 (41), ECLTypetransform (42), ECLTypeifblock (43), // not a real type -but used for the rtlfield serialization
+        ECLTypefunction (44), ECLTypesortlist (45), ECLTypemodifier (0xff),  // used by getKind()
         ECLTypeunsigned (0x100), // combined with some of the above, when
-                                 // returning summary type information. Not
-                                 // returned by getTypeCode()
+        // returning summary type information. Not
+        // returned by getTypeCode()
         ECLTypeebcdic (0x200),  // combined with some of the above, when returning
-                                // summary type information. Not returned by
-                                // getTypeCode()
+        // summary type information. Not returned by
+        // getTypeCode()
         // Some pseudo types - never actually created
         ECLTypestringorunicode (0xfc), // any string/unicode variant
-        ECLTypenumeric (0xfd),
-        ECLTypescalar (0xfe);
+        ECLTypenumeric (0xfd), ECLTypescalar (0xfe);
 
         /**
          * Instantiates a new ecl types.

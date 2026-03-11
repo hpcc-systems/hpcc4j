@@ -44,64 +44,55 @@ import static org.junit.Assume.assumeFalse;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSFileIOClientTest extends BaseRemoteTest
 {
-    private final static HPCCWsFileIOClient client = wsclient.getWsFileIOClient();
-    private static boolean isContainerized = false;
-    private final static String testfilename = System.getProperty("lztestfile", "myfilename.txt");
-    private final static String targetLZ = System.getProperty("lzname", "mydropzone"); //targetLZ accepted the address "localhost" once upon a time.
-    private final static String targetLZPath = System.getProperty("lzpath", "/var/lib/HPCCSystems/mydropzone");
-    private final static String targetLZAddress = System.getProperty("lzaddress", ".");
+    private final static HPCCWsFileIOClient client          = wsclient.getWsFileIOClient();
+    private static boolean                  isContainerized = false;
+    private final static String             testfilename    = System.getProperty("lztestfile", "myfilename.txt");
+    private final static String             targetLZ        = System.getProperty("lzname", "mydropzone"); //targetLZ accepted the address "localhost" once upon a time.
+    private final static String             targetLZPath    = System.getProperty("lzpath", "/var/lib/HPCCSystems/mydropzone");
+    private final static String             targetLZAddress = System.getProperty("lzaddress", ".");
 
     static
     {
         try
         {
-            if (client.isTargetHPCCContainerized())
-                isContainerized = true;
+            if (client.isTargetHPCCContainerized()) isContainerized = true;
         }
         catch (Exception e)
         {
             System.out.println("Could not determine if target service is containerized, default: 'false'");
         }
 
-        if (System.getProperty("lztestfile") == null)
-            System.out.println("lztestfile not provided - defaulting to myfilename.txt");
+        if (System.getProperty("lztestfile") == null) System.out.println("lztestfile not provided - defaulting to myfilename.txt");
 
-        if (System.getProperty("lzname") == null)
-            System.out.println("lzname not provided - defaulting to localhost");
+        if (System.getProperty("lzname") == null) System.out.println("lzname not provided - defaulting to localhost");
 
-        if (System.getProperty("lzpath") == null)
-            System.out.println("lzpath not provided - defaulting to /var/lib/HPCCSystems/mydropzone");
+        if (System.getProperty("lzpath") == null) System.out.println("lzpath not provided - defaulting to /var/lib/HPCCSystems/mydropzone");
 
-        if (System.getProperty("lzaddress") == null)
-            System.out.println("lzaddress not provided - defaulting to '.'");
+        if (System.getProperty("lzaddress") == null) System.out.println("lzaddress not provided - defaulting to '.'");
     }
 
     @Test
     @WithSpan
     public void copyFile() throws Exception
     {
-        String lzfile=System.currentTimeMillis() + "_csvtest.csv";
-        String hpccfilename="temp::" + lzfile;
+        String lzfile = System.currentTimeMillis() + "_csvtest.csv";
+        String hpccfilename = "temp::" + lzfile;
         client.createHPCCFile(lzfile, targetLZ, true, isContainerized ? null : targetLZAddress);
         byte[] data = "Product,SKU,Color\r\nBike,1234,Blue\r\nCar,2345,Red\r\n".getBytes();
         client.writeHPCCFileData(data, lzfile, targetLZ, true, 0, 20, isContainerized ? null : targetLZAddress);
         try
         {
             System.out.println("Starting file spray.");
-            ProgressResponseWrapper dfuspray = wsclient.getFileSprayClient().sprayVariable(
-                    new DelimitedDataOptions(),
-                    wsclient.getFileSprayClient().fetchLocalDropZones().get(0),
-                    lzfile,"~" + hpccfilename,"",thorClusterFileGroup,true,
-                    HPCCFileSprayClient.SprayVariableFormat.DFUff_csv,
-                    null, null, null, null, null, null, null);
-            if (dfuspray.getExceptions() != null
-                && dfuspray.getExceptions().getException() != null
-                && dfuspray.getExceptions().getException().size()>0)
+            ProgressResponseWrapper dfuspray = wsclient.getFileSprayClient().sprayVariable(new DelimitedDataOptions(),
+                    wsclient.getFileSprayClient().fetchLocalDropZones().get(0), lzfile, "~" + hpccfilename, "", thorClusterFileGroup, true,
+                    HPCCFileSprayClient.SprayVariableFormat.DFUff_csv, null, null, null, null, null, null, null);
+            if (dfuspray.getExceptions() != null && dfuspray.getExceptions().getException() != null
+                    && dfuspray.getExceptions().getException().size() > 0)
             {
                 fail(dfuspray.getExceptions().getException().get(0).getMessage());
             }
 
-            List<String> whiteListedStates = Arrays.asList( "queued", "started", "unknown", "finished", "monitoring");
+            List<String> whiteListedStates = Arrays.asList("queued", "started", "unknown", "finished", "monitoring");
             int waitCount = 0;
             int MAX_WAIT_COUNT = 60;
 
@@ -121,17 +112,18 @@ public class WSFileIOClientTest extends BaseRemoteTest
                     System.out.println("File spray percent complete: " + dfuProgress.getPercentDone() + "% Sleeping for 1sec to wait for spray.");
                     waitCount++;
                 }
-            } while (waitCount < 60 && dfuProgress.getPercentDone() < 100);
+            }
+            while (waitCount < 60 && dfuProgress.getPercentDone() < 100);
 
             assumeTrue("File spray did not complete within: " + MAX_WAIT_COUNT + "s. Failing test.", waitCount < MAX_WAIT_COUNT);
 
             System.out.println("Test file successfully sprayed to " + "~" + hpccfilename + ", attempting copy to " + hpccfilename + "_2");
-            wsclient.getFileSprayClient().copyFile(hpccfilename,hpccfilename + "_2",true);
+            wsclient.getFileSprayClient().copyFile(hpccfilename, hpccfilename + "_2", true);
             Thread.sleep(1000);
-            DFUInfoWrapper copiedContent=wsclient.getWsDFUClient().getFileInfo(hpccfilename + "_2", thorClusterFileGroup);
-            if (copiedContent ==null || copiedContent.getExceptions() != null)
+            DFUInfoWrapper copiedContent = wsclient.getWsDFUClient().getFileInfo(hpccfilename + "_2", thorClusterFileGroup);
+            if (copiedContent == null || copiedContent.getExceptions() != null)
             {
-                if (copiedContent != null )
+                if (copiedContent != null)
                 {
                     System.out.println(copiedContent.getExceptions().getMessage());
                 }
@@ -148,7 +140,7 @@ public class WSFileIOClientTest extends BaseRemoteTest
         {
             try
             {
-                Set<String> fnames=new HashSet<String>();
+                Set<String> fnames = new HashSet<String>();
                 fnames.add(hpccfilename);
                 fnames.add(hpccfilename + "_2");
                 wsclient.getWsDFUClient().deleteFiles(fnames, thorClusterFileGroup);
@@ -166,13 +158,14 @@ public class WSFileIOClientTest extends BaseRemoteTest
     {
         if (isContainerized)
         {
-            System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
+            System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString + "'");
             System.out.println("Target HPCC is containerized, not providing targetLZAddress");
             Assert.assertTrue(client.createHPCCFile(testfilename, targetLZ, true, null));
         }
         else
         {
-            System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' targetLZaddress: '" + targetLZAddress + "' on HPCC: '" + super.connString +"'");
+            System.out.println("Creating file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' targetLZaddress: '" + targetLZAddress
+                    + "' on HPCC: '" + super.connString + "'");
             System.out.println("Target HPCC is NOT containerized, providing targetLZAddress");
             Assert.assertTrue(client.createHPCCFile(testfilename, targetLZ, true, targetLZAddress));
         }
@@ -182,7 +175,7 @@ public class WSFileIOClientTest extends BaseRemoteTest
     @WithSpan
     public void BwriteHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
-        System.out.println("Writing data to file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
+        System.out.println("Writing data to file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString + "'");
         byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();
         if (isContainerized)
         {
@@ -198,16 +191,16 @@ public class WSFileIOClientTest extends BaseRemoteTest
     @WithSpan
     public void CreadHPCCFile() throws Exception, ArrayOfEspExceptionWrapper
     {
-        System.out.println("reading data from file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString +"'");
+        System.out.println("reading data from file: '" + testfilename + "' on LandingZone: '" + targetLZ + "' on HPCC: '" + super.connString + "'");
         byte[] data = "HELLO MY DARLING, HELLO MY DEAR!1234567890ABCDEFGHIJKLMNOPQRSTUVXYZ".getBytes();
         String response = null;
         if (isContainerized)
         {
-             response = client.readFileData(targetLZ, testfilename, data.length, 0, null);
+            response = client.readFileData(targetLZ, testfilename, data.length, 0, null);
         }
         else
         {
-             response = client.readFileData(targetLZ, testfilename, data.length, 0, targetLZAddress);
+            response = client.readFileData(targetLZ, testfilename, data.length, 0, targetLZAddress);
         }
         Assert.assertNotNull(response);
         Assert.assertArrayEquals(data, response.getBytes());

@@ -4,9 +4,9 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 public class WUInfoDetailsRequestWrapper
 {
 
-    private String wuid;
+    private String  wuid;
     private Boolean truncateEclTo64K;
-    private String type;
+    private String  type;
     private Boolean includeExceptions;
     private Boolean includeGraphs;
     private Boolean includeSourceFiles;
@@ -24,7 +24,7 @@ public class WUInfoDetailsRequestWrapper
     private Boolean includeAllowedClusters;
     private Boolean includeTotalClusterTime;
     private Boolean suppressResultSchemas;
-    private String thorSlaveIP;
+    private String  thorSlaveIP;
 
     /**
      * Gets the wuid.

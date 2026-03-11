@@ -17,7 +17,9 @@ public class ECLHelpFileWrapper
     /**
      * Instantiates a new ECL help file wrapper.
      */
-    public ECLHelpFileWrapper() {}
+    public ECLHelpFileWrapper()
+    {
+    }
 
     /**
      * Instantiates a new ECL help file wrapper.
@@ -49,18 +51,18 @@ public class ECLHelpFileWrapper
      */
     public ECLHelpFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLHelpFile raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
-        this.description=raw.getDescription();
-        this.IPAddress=raw.getIPAddress();
-        this.fileSize=raw.getFileSize();
-        this.maxActivityId=raw.getMaxActivityId().longValue();
-        this.minActivityId=raw.getMinActivityId().longValue();
-        this.name=raw.getName();
-        this.PID=raw.getPID().longValue();
-        this.type=raw.getType();
+        this.description = raw.getDescription();
+        this.IPAddress = raw.getIPAddress();
+        this.fileSize = raw.getFileSize();
+        this.maxActivityId = raw.getMaxActivityId().longValue();
+        this.minActivityId = raw.getMinActivityId().longValue();
+        this.name = raw.getName();
+        this.PID = raw.getPID().longValue();
+        this.type = raw.getType();
     }
 
     /**

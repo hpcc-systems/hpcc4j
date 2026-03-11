@@ -63,20 +63,17 @@ public class AvroSchemaTranslator
 
                 if (elementDef[0].getFieldType() == FieldType.RECORD)
                 {
-                    ret = new FieldDef(fieldName, FieldType.DATASET, "DATASET", 0, false, false, 
-                                        HpccSrcType.LITTLE_ENDIAN, elementDef);
+                    ret = new FieldDef(fieldName, FieldType.DATASET, "DATASET", 0, false, false, HpccSrcType.LITTLE_ENDIAN, elementDef);
                 }
                 else
                 {
-                    ret = new FieldDef(fieldName, FieldType.SET, "SET", 0, false, false, 
-                                        HpccSrcType.LITTLE_ENDIAN, elementDef);
+                    ret = new FieldDef(fieldName, FieldType.SET, "SET", 0, false, false, HpccSrcType.LITTLE_ENDIAN, elementDef);
                 }
                 break;
             }
             case BOOLEAN:
             {
-                ret = new FieldDef(fieldName, FieldType.BOOLEAN, "BOOL", 1, true, false,
-                                    HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                ret = new FieldDef(fieldName, FieldType.BOOLEAN, "BOOL", 1, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
                 break;
             }
             case BYTES:
@@ -90,21 +87,19 @@ public class AvroSchemaTranslator
                     throw new Exception("Invalid field type. Non-fixed length decimal values are currently unsupported.");
                 }
 
-                ret = new FieldDef(fieldName, FieldType.BINARY, "BINARY", 0, false, false, 
-                                    HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                ret = new FieldDef(fieldName, FieldType.BINARY, "BINARY", 0, false, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
                 break;
             }
             case DOUBLE:
             {
-                ret = new FieldDef(fieldName, FieldType.REAL, "REAL8", 8, true, false, 
-                                    HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                ret = new FieldDef(fieldName, FieldType.REAL, "REAL8", 8, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
                 break;
             }
             case ENUM:
             {
                 // Enum treat as int
                 List<String> enumSymbols = schema.getEnumSymbols();
-                
+
                 // On the HPCC side we could unsigned, but sticking to signed here make things easier on us
                 int bytesNeeded = 1;
                 if (enumSymbols.size() >= Byte.MAX_VALUE)
@@ -117,8 +112,8 @@ public class AvroSchemaTranslator
                     }
                 }
 
-                ret = new FieldDef(fieldName, FieldType.INTEGER, "INTEGER" + bytesNeeded, bytesNeeded, true, false, 
-                                    HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                ret = new FieldDef(fieldName, FieldType.INTEGER, "INTEGER" + bytesNeeded, bytesNeeded, true, false, HpccSrcType.LITTLE_ENDIAN,
+                        new FieldDef[0]);
                 break;
             }
             case FIXED:
@@ -129,57 +124,49 @@ public class AvroSchemaTranslator
                     // BigInt -> Decimal conversion *= 10^-Scale
                     LogicalTypes.Decimal decimalInfo = (LogicalTypes.Decimal) schema.getLogicalType();
 
-                    ret = new FieldDef(fieldName, FieldType.DECIMAL, "DECIMAL", 1, true, false, 
-                                    HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                    ret = new FieldDef(fieldName, FieldType.DECIMAL, "DECIMAL", 1, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
                     ret.setPrecision(decimalInfo.getPrecision());
                     ret.setScale(decimalInfo.getScale());
                 }
                 else if (schema.getLogicalType().getName().equals("duration"))
                 {
                     // Duration (3 ints: months, days, millis) move to INTEGER8 of millis
-                    ret = new FieldDef(fieldName, FieldType.INTEGER, "INTEGER8", 8, true, true, 
-                                        HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                    ret = new FieldDef(fieldName, FieldType.INTEGER, "INTEGER8", 8, true, true, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
                 }
                 else
                 {
-                    ret = new FieldDef(fieldName, FieldType.BINARY, "BINARY", schema.getFixedSize(), true, false, 
-                                        HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                    ret = new FieldDef(fieldName, FieldType.BINARY, "BINARY", schema.getFixedSize(), true, false, HpccSrcType.LITTLE_ENDIAN,
+                            new FieldDef[0]);
                 }
 
                 break;
             }
             case FLOAT:
             {
-                ret = new FieldDef(fieldName, FieldType.REAL, "REAL4", 4, true, false, 
-                                    HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                ret = new FieldDef(fieldName, FieldType.REAL, "REAL4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
                 break;
             }
             case INT:
             {
-                ret = new FieldDef(fieldName, FieldType.INTEGER, "INTEGER4", 4, true, false, 
-                                    HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                ret = new FieldDef(fieldName, FieldType.INTEGER, "INTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
                 break;
             }
             case LONG:
             {
-                ret = new FieldDef(fieldName, FieldType.INTEGER, "INTEGER8", 8, true, false, 
-                                    HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                ret = new FieldDef(fieldName, FieldType.INTEGER, "INTEGER8", 8, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
                 break;
             }
             case MAP:
             {
                 // Map<String,?> Represent as a set of key value records, this will allow DICTIONARY to be used
                 FieldDef[] childFields = new FieldDef[2];
-                childFields[0] = new FieldDef("key", FieldType.STRING, "UTF8", 0, false, false, 
-                                    HpccSrcType.UTF8, new FieldDef[0]);
-                childFields[1] = toHPCC(schema.getValueType(),"value");
+                childFields[0] = new FieldDef("key", FieldType.STRING, "UTF8", 0, false, false, HpccSrcType.UTF8, new FieldDef[0]);
+                childFields[1] = toHPCC(schema.getValueType(), "value");
 
                 FieldDef[] elementDef = new FieldDef[1];
-                elementDef[0] = new FieldDef("KeyValueRecord", FieldType.RECORD, "RECORD", 0, false, false,
-                                   HpccSrcType.LITTLE_ENDIAN, childFields);
+                elementDef[0] = new FieldDef("KeyValueRecord", FieldType.RECORD, "RECORD", 0, false, false, HpccSrcType.LITTLE_ENDIAN, childFields);
 
-                ret = new FieldDef(fieldName, FieldType.DATASET, "DATASET", 0, false, false, 
-                                    HpccSrcType.LITTLE_ENDIAN, elementDef);
+                ret = new FieldDef(fieldName, FieldType.DATASET, "DATASET", 0, false, false, HpccSrcType.LITTLE_ENDIAN, elementDef);
                 break;
             }
             case NULL:
@@ -188,8 +175,7 @@ public class AvroSchemaTranslator
                 // However, having a standard field type of Null isn't prohibited. 
                 // Treat these as a bool value if encountered
 
-                ret = new FieldDef(fieldName, FieldType.BOOLEAN, "BOOL", 1, true, false,
-                                    HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                ret = new FieldDef(fieldName, FieldType.BOOLEAN, "BOOL", 1, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
                 break;
             }
             case RECORD:
@@ -221,25 +207,23 @@ public class AvroSchemaTranslator
                 for (int i = 0; i < fields.size(); i++)
                 {
                     Schema.Field field = fields.get(i);
-                    childFields[i] = toHPCC(field.schema(),field.name());
+                    childFields[i] = toHPCC(field.schema(), field.name());
                 }
 
                 // Create nullable fields
                 for (int i = 0; i < numNullBitFields; i++)
                 {
-                    childFields[fields.size() + i] = new FieldDef("nullBitField"+i, FieldType.INTEGER, "INTEGER8", 8, true, false, 
-                                                                    HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
+                    childFields[fields.size() + i] = new FieldDef("nullBitField" + i, FieldType.INTEGER, "INTEGER8", 8, true, false,
+                            HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]);
                 }
 
-                ret = new FieldDef(fieldName, FieldType.RECORD, "RECORD", 0, false, false,
-                                   HpccSrcType.LITTLE_ENDIAN, childFields);
+                ret = new FieldDef(fieldName, FieldType.RECORD, "RECORD", 0, false, false, HpccSrcType.LITTLE_ENDIAN, childFields);
 
                 break;
             }
             case STRING:
             {
-                ret = new FieldDef(fieldName, FieldType.STRING, "UTF8", 0, false, false, 
-                                    HpccSrcType.UTF8, new FieldDef[0]);
+                ret = new FieldDef(fieldName, FieldType.STRING, "UTF8", 0, false, false, HpccSrcType.UTF8, new FieldDef[0]);
                 break;
             }
             case UNION:
@@ -262,7 +246,7 @@ public class AvroSchemaTranslator
                         types.add(type);
                     }
                 }
-                
+
                 boolean isSimpleNullable = (types.size() == 1 && isNullable);
                 if (isSimpleNullable)
                 {
@@ -271,20 +255,20 @@ public class AvroSchemaTranslator
                 }
                 else
                 {
-                    ArrayList<Schema.Field> childFields = new ArrayList<Schema.Field>(); 
+                    ArrayList<Schema.Field> childFields = new ArrayList<Schema.Field>();
                     for (int i = 0; i < types.size(); i++)
                     {
                         Schema childSchema = types.get(i);
-                        childFields.add(new Schema.Field(childSchema.getName() + "Type", childSchema, "", (Object)null));
+                        childFields.add(new Schema.Field(childSchema.getName() + "Type", childSchema, "", (Object) null));
                     }
 
                     // Add a union type field
-                    childFields.add(new Schema.Field("unionType", Schema.create(Schema.Type.INT), "", (Object)null));
+                    childFields.add(new Schema.Field("unionType", Schema.create(Schema.Type.INT), "", (Object) null));
 
                     boolean isError = false;
-                    ret = toHPCC(Schema.createRecord(fieldName+"Rec", "", "", isError),fieldName);
+                    ret = toHPCC(Schema.createRecord(fieldName + "Rec", "", "", isError), fieldName);
                 }
-                
+
                 break;
             }
         };
@@ -294,7 +278,7 @@ public class AvroSchemaTranslator
 
     public static Schema toAvro(FieldDef fd) throws Exception
     {
-        switch (fd.getFieldType()) 
+        switch (fd.getFieldType())
         {
             case VAR_STRING:
             case STRING:
@@ -330,24 +314,24 @@ public class AvroSchemaTranslator
                 Schema childSchema = toAvro(fd.getDef(0));
                 return Schema.createArray(childSchema);
             case RECORD:
+            {
+                ArrayList<Schema.Field> fields = new ArrayList<Schema.Field>();
+                for (int i = 0; i < fd.getNumDefs(); i++)
                 {
-                    ArrayList<Schema.Field> fields = new ArrayList<Schema.Field>();
-                    for (int i = 0; i < fd.getNumDefs(); i++) 
-                    {
-                        FieldDef childField = fd.getDef(i);
-                        fields.add(new Schema.Field(childField.getFieldName(), toAvro(childField), null, null));
-                    }
-
-                    Boolean isError = false;
-                    Schema recSchema = Schema.createRecord(fd.getFieldName(),"","",isError,fields);
-                    if (isError)
-                    {
-                        throw new Exception("AvroSchemaTranslator: Error translation record def.");
-                    }
-                    
-                    recSchema.addAlias(fd.getFieldName());
-                    return recSchema;
+                    FieldDef childField = fd.getDef(i);
+                    fields.add(new Schema.Field(childField.getFieldName(), toAvro(childField), null, null));
                 }
+
+                Boolean isError = false;
+                Schema recSchema = Schema.createRecord(fd.getFieldName(), "", "", isError, fields);
+                if (isError)
+                {
+                    throw new Exception("AvroSchemaTranslator: Error translation record def.");
+                }
+
+                recSchema.addAlias(fd.getFieldName());
+                return recSchema;
+            }
             case UNKNOWN:
             default:
                 throw new Exception("AvroSchemaTranslator: Unknown field type");

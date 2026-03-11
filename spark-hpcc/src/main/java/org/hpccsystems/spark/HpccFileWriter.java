@@ -72,8 +72,8 @@ public class HpccFileWriter implements Serializable
     private transient HPCCWsDFUClient dfuClient             = null;
     private transient Connection      connectionInfo        = null;
 
-    private String                    parentTraceID               = "";
-    private String                    parentSpanID                = "";
+    private String                    parentTraceID         = "";
+    private String                    parentSpanID          = "";
 
     private static void registerPicklingFunctions()
     {
@@ -394,7 +394,8 @@ public class HpccFileWriter implements Serializable
         DFUCreateFileWrapper createResult = null;
         try
         {
-            createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, DefaultExpiryTimeSecs, isCompressed, DFUFileTypeWrapper.Flat, "");
+            createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, DefaultExpiryTimeSecs, isCompressed, DFUFileTypeWrapper.Flat,
+                    "");
         }
         catch (Exception e)
         {
@@ -438,7 +439,8 @@ public class HpccFileWriter implements Serializable
         {
             HpccFileWriter.registerPicklingFunctions();
             DataPartition thisPart = hpccPartitions[partitionIndex];
-            Span filePartWriteSpan = Utils.createChildSpan(parentTraceID, parentSpanID, "HpccFileWriter/WritePart_" + fileName + "_" + partitionIndex);
+            Span filePartWriteSpan = Utils.createChildSpan(parentTraceID, parentSpanID,
+                    "HpccFileWriter/WritePart_" + fileName + "_" + partitionIndex);
             filePartWriteSpan.setStatus(StatusCode.OK);
 
             HPCCRemoteFileWriter.FileWriteContext writeContext = new HPCCRemoteFileWriter.FileWriteContext();

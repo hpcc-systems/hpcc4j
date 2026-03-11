@@ -26,24 +26,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-
 public class ConnectionTester
 {
     private static void usage()
     {
         System.out.println("ConnectionTester -configFile <fully qualified config file>   DEFAULT:./config.json");
 
-
         System.out.println("\nconfigFile syntax:\n");
-        System.out.println("{\r\n"
-                + "  \"eclWatchHostName\": \"<host name of target eclwatch>\",\r\n"
+        System.out.println("{\r\n" + "  \"eclWatchHostName\": \"<host name of target eclwatch>\",\r\n"
                 + "  \"eclWatchPort\": \"<port number of target eclwatch typically 18010 for https, 8010 otherwise>\",\r\n"
-                + "  \"eclWatchProtocol\": \"<https|http>\",\r\n"
-                + "  \"eclWatchUser\": \"<Target eclwatch user>\",\r\n"
-                + "  \"eclWatchPass\": \"<Target eclwatch pass>\",\r\n"
-                + "  \"connIntervalSecs\": <Frequency of EclWatch connection attempt>,\r\n"
-                + "  \"verbose\" : <true|false Output debug logs>\r\n"
-                + "}");
+                + "  \"eclWatchProtocol\": \"<https|http>\",\r\n" + "  \"eclWatchUser\": \"<Target eclwatch user>\",\r\n"
+                + "  \"eclWatchPass\": \"<Target eclwatch pass>\",\r\n" + "  \"connIntervalSecs\": <Frequency of EclWatch connection attempt>,\r\n"
+                + "  \"verbose\" : <true|false Output debug logs>\r\n" + "}");
 
         System.exit(-1);
     }
@@ -54,10 +48,10 @@ public class ConnectionTester
         if (args.length == 2)
         {
             if ("-configFile".equals(args[0]))
-                    configFilePath = args[1];
+                configFilePath = args[1];
             else
             {
-                System.out.println("Unknown argument detected: '" + args [0] + "'");
+                System.out.println("Unknown argument detected: '" + args[0] + "'");
                 usage();
             }
         }
@@ -66,7 +60,7 @@ public class ConnectionTester
             if ("-configFile".equals(args[0]))
                 System.out.println("-configFile argument detected, but actual config file path not provided!");
             else
-                System.out.println("Unknown argument detected: '" + args [0] + "'");
+                System.out.println("Unknown argument detected: '" + args[0] + "'");
         }
         else if (args.length == 0)
         {
@@ -120,8 +114,7 @@ public class ConnectionTester
             else
                 intervalSecs = configJSON.getInt("connIntervalSecs");
 
-            if (configJSON.has("verbose"))
-                verbose = configJSON.getBoolean("verbose");
+            if (configJSON.has("verbose")) verbose = configJSON.getBoolean("verbose");
         }
         catch (IOException e1)
         {
@@ -132,7 +125,7 @@ public class ConnectionTester
 
         System.out.println("Starting scheduled task. Press Ctrl+C to stop.");
         System.out.println("Connecting to HPCC Platform: '" + protocol + "://" + hpccHostName + ":" + port + "'");
-        System.out.println("With credentials: user: '" + user + "' pass: '<" + ( !pass.isEmpty() ? "not " : "") + "empty>'");
+        System.out.println("With credentials: user: '" + user + "' pass: '<" + (!pass.isEmpty() ? "not " : "") + "empty>'");
 
         if (verbose)
         {
@@ -151,28 +144,28 @@ public class ConnectionTester
                     if (wsclient != null)
                     {
 
-                        if (verbose)
-                            System.out.println( "[" + java.time.LocalTime.now() + "] Contacting ECLWatch...");
+                        if (verbose) System.out.println("[" + java.time.LocalTime.now() + "] Contacting ECLWatch...");
 
                         HPCCWsSMCClient wssmc = platform.getWsClient().getWsSMCClient();
 
                         Version targetVersion = new Version(wssmc.getHPCCBuild());
-                        System.out.println( "[" + java.time.LocalTime.now() + "] Successfully connected and extracted HPCC build version: '" + targetVersion.toString() + "'");
+                        System.out.println("[" + java.time.LocalTime.now() + "] Successfully connected and extracted HPCC build version: '"
+                                + targetVersion.toString() + "'");
                     }
                     else
                     {
-                        System.out.println( "[" + java.time.LocalTime.now() + "] Could not instantiate wsclient!");
+                        System.out.println("[" + java.time.LocalTime.now() + "] Could not instantiate wsclient!");
                     }
                 }
                 catch (Exception e)
                 {
-                    System.out.println( "[" + java.time.LocalTime.now() + "] Encountered Connection issue: " + e.getLocalizedMessage());
+                    System.out.println("[" + java.time.LocalTime.now() + "] Encountered Connection issue: " + e.getLocalizedMessage());
                 }
-                Thread.sleep(intervalSecs*1000);
+                Thread.sleep(intervalSecs * 1000);
             }
             catch (InterruptedException e)
             {
-                System.err.println( "[" + java.time.LocalTime.now() + "] Process interrupted. Exiting...");
+                System.err.println("[" + java.time.LocalTime.now() + "] Process interrupted. Exiting...");
                 break;
             }
         }

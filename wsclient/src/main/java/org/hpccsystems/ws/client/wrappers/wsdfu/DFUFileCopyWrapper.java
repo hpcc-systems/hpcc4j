@@ -23,8 +23,8 @@ public class DFUFileCopyWrapper
 {
     private Integer copyIndex;
     private Integer locationIndex;
-    private String path;
-    private String resolvedHost;
+    private String  path;
+    private String  resolvedHost;
 
     /**
      * Instantiates a new DFU file copy wrapper.

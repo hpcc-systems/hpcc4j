@@ -5,19 +5,19 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkflow;
 @Deprecated
 public class ECLWorkflowWrapper
 {
-    private String WFID;
-    private String eventName;
-    private String eventText;
+    private String  WFID;
+    private String  eventName;
+    private String  eventText;
     private Integer count;
     private Integer countRemaining;
 
     /**
      * Instantiates a new ECL workflow wrapper.
      */
-    public ECLWorkflowWrapper() {
+    public ECLWorkflowWrapper()
+    {
 
     }
-
 
     /**
      * Instantiates a new ECL workflow wrapper.
@@ -27,7 +27,7 @@ public class ECLWorkflowWrapper
      */
     public ECLWorkflowWrapper(ECLWorkflow raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -47,7 +47,7 @@ public class ECLWorkflowWrapper
      */
     public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLWorkflow raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -67,7 +67,7 @@ public class ECLWorkflowWrapper
      */
     public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLWorkflow raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -87,7 +87,7 @@ public class ECLWorkflowWrapper
      */
     public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLWorkflow raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -107,7 +107,7 @@ public class ECLWorkflowWrapper
      */
     public ECLWorkflowWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLWorkflow raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -118,7 +118,6 @@ public class ECLWorkflowWrapper
         this.setEventText(raw.getEventText());
         this.setWFID(raw.getWFID());
     }
-
 
     /**
      * Gets the raw.
@@ -137,8 +136,7 @@ public class ECLWorkflowWrapper
      */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkflow getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkflow raw =
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkflow();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkflow raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWorkflow();
 
         raw.setCount(this.getCount());
         raw.setCountRemaining(this.getCountRemaining());
@@ -252,14 +250,15 @@ public class ECLWorkflowWrapper
     {
         this.countRemaining = countRemaining;
     }
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString()
     {
-        return "ECLWorkflowWrapper [WFID=" + WFID + ", eventName=" + eventName + ", eventText=" + eventText + ", count="
-                + count + ", countRemaining=" + countRemaining + "]";
+        return "ECLWorkflowWrapper [WFID=" + WFID + ", eventName=" + eventName + ", eventText=" + eventText + ", count=" + count + ", countRemaining="
+                + countRemaining + "]";
     }
 
 }

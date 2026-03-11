@@ -5,7 +5,7 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLTimingData;
 @Deprecated
 public class ECLTimingDataWrapper
 {
-    private String name;
+    private String  name;
     private Integer graphNum;
     private Integer subGraphNum;
     private Integer GID;
@@ -15,7 +15,9 @@ public class ECLTimingDataWrapper
     /**
      * Instantiates a new ECL timing data wrapper.
      */
-    public ECLTimingDataWrapper() {}
+    public ECLTimingDataWrapper()
+    {
+    }
 
     /**
      * Instantiates a new ECL timing data wrapper.
@@ -25,7 +27,7 @@ public class ECLTimingDataWrapper
      */
     public ECLTimingDataWrapper(ECLTimingData raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -46,7 +48,7 @@ public class ECLTimingDataWrapper
      */
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLTimingData raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -67,7 +69,7 @@ public class ECLTimingDataWrapper
      */
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLTimingData raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -88,7 +90,7 @@ public class ECLTimingDataWrapper
      */
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLTimingData raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -109,7 +111,7 @@ public class ECLTimingDataWrapper
      */
     public ECLTimingDataWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLTimingData raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -139,8 +141,7 @@ public class ECLTimingDataWrapper
      */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLTimingData getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLTimingData raw = 
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLTimingData();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLTimingData raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLTimingData();
 
         raw.setGID(this.getGID());
         raw.setGraphNum(this.getGraphNum());
@@ -160,7 +161,7 @@ public class ECLTimingDataWrapper
     {
         return name;
     }
-    
+
     /**
      * Sets the name.
      *
@@ -171,7 +172,7 @@ public class ECLTimingDataWrapper
     {
         this.name = name;
     }
-    
+
     /**
      * Gets the graph num.
      *
@@ -181,7 +182,7 @@ public class ECLTimingDataWrapper
     {
         return graphNum;
     }
-    
+
     /**
      * Sets the graph num.
      *
@@ -192,7 +193,7 @@ public class ECLTimingDataWrapper
     {
         this.graphNum = graphNum;
     }
-    
+
     /**
      * Gets the sub graph num.
      *
@@ -202,7 +203,7 @@ public class ECLTimingDataWrapper
     {
         return subGraphNum;
     }
-    
+
     /**
      * Sets the sub graph num.
      *
@@ -213,7 +214,7 @@ public class ECLTimingDataWrapper
     {
         this.subGraphNum = subGraphNum;
     }
-    
+
     /**
      * Gets the gid.
      *
@@ -223,7 +224,7 @@ public class ECLTimingDataWrapper
     {
         return GID;
     }
-    
+
     /**
      * Sets the gid.
      *
@@ -234,7 +235,7 @@ public class ECLTimingDataWrapper
     {
         GID = gID;
     }
-    
+
     /**
      * Gets the min.
      *
@@ -244,7 +245,7 @@ public class ECLTimingDataWrapper
     {
         return min;
     }
-    
+
     /**
      * Sets the min.
      *
@@ -255,7 +256,7 @@ public class ECLTimingDataWrapper
     {
         this.min = min;
     }
-    
+
     /**
      * Gets the ms.
      *
@@ -265,7 +266,7 @@ public class ECLTimingDataWrapper
     {
         return MS;
     }
-    
+
     /**
      * Sets the ms.
      *
@@ -276,14 +277,15 @@ public class ECLTimingDataWrapper
     {
         MS = mS;
     }
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString()
     {
-        return "ECLTimingDataWrapper [name=" + name + ", graphNum=" + graphNum + ", subGraphNum=" + subGraphNum
-                + ", GID=" + GID + ", min=" + min + ", MS=" + MS + "]";
+        return "ECLTimingDataWrapper [name=" + name + ", graphNum=" + graphNum + ", subGraphNum=" + subGraphNum + ", GID=" + GID + ", min=" + min
+                + ", MS=" + MS + "]";
     }
 
 }

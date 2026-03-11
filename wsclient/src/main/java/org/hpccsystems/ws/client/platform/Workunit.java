@@ -57,7 +57,7 @@ public class Workunit extends DataSingleton
 
     private Platform                platform;
 
-    private WorkunitWrapper            info;
+    private WorkunitWrapper         info;
     private Collection<String>      resultViews;
     private Collection<Result>      results;
     private Collection<Graph>       graphs;
@@ -226,20 +226,20 @@ public class Workunit extends DataSingleton
 
     static
     {
-            WuStateNameMap.put("COMPILED", WUState.COMPILED);
-            WuStateNameMap.put("RUNNING", WUState.RUNNING);
-            WuStateNameMap.put("COMPLETED", WUState.COMPLETED);
-            WuStateNameMap.put("FAILED", WUState.FAILED);
-            WuStateNameMap.put("ARCHIVED", WUState.ARCHIVED);
-            WuStateNameMap.put("ABORTING", WUState.ABORTING);
-            WuStateNameMap.put("ABORTED", WUState.ABORTED);
-            WuStateNameMap.put("BLOCKED", WUState.BLOCKED);
-            WuStateNameMap.put("SUBMITTED", WUState.SUBMITTED);
-            WuStateNameMap.put("SCHEDULED", WUState.SCHEDULED);
-            WuStateNameMap.put("COMPILING", WUState.COMPILING);
-            WuStateNameMap.put("WAIT", WUState.WAIT);
-            WuStateNameMap.put("RUNNING", WUState.RUNNING);
-            WuStateNameMap.put("PAUSED", WUState.PAUSED);
+        WuStateNameMap.put("COMPILED", WUState.COMPILED);
+        WuStateNameMap.put("RUNNING", WUState.RUNNING);
+        WuStateNameMap.put("COMPLETED", WUState.COMPLETED);
+        WuStateNameMap.put("FAILED", WUState.FAILED);
+        WuStateNameMap.put("ARCHIVED", WUState.ARCHIVED);
+        WuStateNameMap.put("ABORTING", WUState.ABORTING);
+        WuStateNameMap.put("ABORTED", WUState.ABORTED);
+        WuStateNameMap.put("BLOCKED", WUState.BLOCKED);
+        WuStateNameMap.put("SUBMITTED", WUState.SUBMITTED);
+        WuStateNameMap.put("SCHEDULED", WUState.SCHEDULED);
+        WuStateNameMap.put("COMPILING", WUState.COMPILING);
+        WuStateNameMap.put("WAIT", WUState.WAIT);
+        WuStateNameMap.put("RUNNING", WUState.RUNNING);
+        WuStateNameMap.put("PAUSED", WUState.PAUSED);
     }
 
     /**
@@ -252,7 +252,7 @@ public class Workunit extends DataSingleton
     public static WUState translateWUState(String state)
     {
         if (WuStateNameMap.containsKey((state.toUpperCase())))
-                return WuStateNameMap.get(state.toUpperCase());
+            return WuStateNameMap.get(state.toUpperCase());
         else
             return WUState.UNKNOWN;
     }
@@ -644,7 +644,8 @@ public class Workunit extends DataSingleton
         try
         {
             HPCCWsWorkUnitsClient wsWorkunitsClient = platform.getWsClient().getWsWorkunitsClient();
-            List<WorkunitWrapper> response = wsWorkunitsClient.workUnitUQuery(new WUQueryWrapper().setWuid(info.getWuid()).setPageSize(Long.valueOf(1)));
+            List<WorkunitWrapper> response = wsWorkunitsClient
+                    .workUnitUQuery(new WUQueryWrapper().setWuid(info.getWuid()).setPageSize(Long.valueOf(1)));
             if (response.size() == 1)
             {
                 update(response.get(0).getEclWorkunit());
@@ -654,7 +655,6 @@ public class Workunit extends DataSingleton
         {
             e1.printStackTrace();
         }
-
 
         if (previousState != getStateID())
         {
@@ -710,7 +710,7 @@ public class Workunit extends DataSingleton
                         resultViews = Arrays.asList(wi.getResultViews());
                     }
                 }
-            } 
+            }
             catch (Exception ex)
             {
                 //getWUInfo throws the arrayofespexceptions wrapped in an exception;
@@ -721,16 +721,16 @@ public class Workunit extends DataSingleton
                     Throwable cause = ex.getCause();
                     System.out.println(cause.getLocalizedMessage());
                     // Call succeeded, but no response...
-                   // for (EspException e : ((ArrayOfEspException)ex.getCause()).getException())
+                    // for (EspException e : ((ArrayOfEspException)ex.getCause()).getException())
                     {
                         //if (e.getCode().equals("20082") || e.getCode().equals("20080"))
                         //{ //  No longer exists... //$NON-NLS-1$ //$NON-NLS-2$
                         //    info.setStateID(999);
-                            setChanged();
-                            notifyObservers(Notification.WORKUNIT);
+                        setChanged();
+                        notifyObservers(Notification.WORKUNIT);
                         //    break;
                         //}
-                    }       
+                    }
                 }
             }
         }
@@ -817,8 +817,7 @@ public class Workunit extends DataSingleton
     synchronized boolean updateState(ECLWorkunit wu)
     {
         boolean retVal = false;
-        if (wu != null && info.getWuid().equals(wu.getWuid())
-                && EqualsUtil.hasChanged(info.getStateID(), wu.getStateID()))
+        if (wu != null && info.getWuid().equals(wu.getWuid()) && EqualsUtil.hasChanged(info.getStateID(), wu.getStateID()))
         {
             info.setStateID(wu.getStateID());
             info.setStateEx(wu.getStateEx());
@@ -1040,7 +1039,7 @@ public class Workunit extends DataSingleton
 
         return false;
     }
-    
+
     /* (non-Javadoc)
      * @see org.hpccsystems.ws.client.utils.DataSingleton#equals(java.lang.Object)
      */

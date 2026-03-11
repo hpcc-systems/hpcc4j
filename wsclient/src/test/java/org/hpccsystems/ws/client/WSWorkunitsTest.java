@@ -45,11 +45,11 @@ public class WSWorkunitsTest extends BaseRemoteTest
 {
 
     private static HPCCWsWorkUnitsClient client;
-    private static String  testwuid = System.getProperty("targetwuid");
+    private static String                testwuid         = System.getProperty("targetwuid");
     //workunit with "unknown" state
-    private static String  testunknownwuid = System.getProperty("unknownwuid");
+    private static String                testunknownwuid  = System.getProperty("unknownwuid");
     //archived workunit
-    private static String  testarchivedwuid = System.getProperty("archivedwuid");
+    private static String                testarchivedwuid = System.getProperty("archivedwuid");
 
     @BeforeClass
     public static void setup() throws Exception
@@ -76,7 +76,8 @@ public class WSWorkunitsTest extends BaseRemoteTest
     @WithSpan
     public void testSharedWsWUgets() throws InterruptedException
     {
-        Callable<String> callableTask = () -> {
+        Callable<String> callableTask = () ->
+        {
             HPCCWsWorkUnitsClient wswu = wsclient.getWsWorkunitsClient();
             return wswu.getInitError();
         };
@@ -98,7 +99,7 @@ public class WSWorkunitsTest extends BaseRemoteTest
         }
         catch (Exception e)
         {
-           Assert.fail(e.toString());
+            Assert.fail(e.toString());
         }
     }
 
@@ -174,16 +175,16 @@ public class WSWorkunitsTest extends BaseRemoteTest
 
             System.out.println("wuid: " + wuInfo.getWuid());
             assertNotNull(wuInfo);
-            assertEquals(testwuid,wuInfo.getWuid());
+            assertEquals(testwuid, wuInfo.getWuid());
 
-            WUInfoRequestWrapper request=new WUInfoRequestWrapper();
+            WUInfoRequestWrapper request = new WUInfoRequestWrapper();
             request.setWuid(testwuid);
             request.setIncludeHelpers(true);
             request.setAttemptUnarchive(true);
-            wuInfo=client.getWUInfo(request);
+            wuInfo = client.getWUInfo(request);
             assertNotNull(wuInfo);
-            assertEquals(testwuid,wuInfo.getWuid());
-            assertTrue(wuInfo.getHelpers().size()>0);
+            assertEquals(testwuid, wuInfo.getWuid());
+            assertTrue(wuInfo.getHelpers().size() > 0);
         }
         catch (AxisFault e)
         {
@@ -207,15 +208,16 @@ public class WSWorkunitsTest extends BaseRemoteTest
         assumeNotNull(testunknownwuid);
         assumeFalse("Cannot test WsWorkunits.getWUInfoTest without target WUID - provide 'unknownwuid' System property!", testunknownwuid.isEmpty());
 
-        try {
-            WUInfoRequestWrapper request=new WUInfoRequestWrapper();
+        try
+        {
+            WUInfoRequestWrapper request = new WUInfoRequestWrapper();
             request.setWuid(testunknownwuid);
             request.setIncludeHelpers(true);
             request.setAttemptUnarchive(true);
             WorkunitWrapper wuInfo = client.getWUInfo(request);
             assertNotNull(wuInfo);
-            assertEquals(testunknownwuid,wuInfo.getWuid());
-            assertTrue(wuInfo.getHelpers().size()==0);
+            assertEquals(testunknownwuid, wuInfo.getWuid());
+            assertTrue(wuInfo.getHelpers().size() == 0);
         }
         catch (AxisFault e)
         {
@@ -237,18 +239,19 @@ public class WSWorkunitsTest extends BaseRemoteTest
     public void StageB_getWUInfoArchivedTest() throws Exception
     {
         assumeNotNull(testarchivedwuid);
-        assumeFalse("Cannot test WsWorkunits.getWUInfoTest without target WUID - provide 'archivedwuid' System property!", testarchivedwuid.isEmpty());
+        assumeFalse("Cannot test WsWorkunits.getWUInfoTest without target WUID - provide 'archivedwuid' System property!",
+                testarchivedwuid.isEmpty());
 
         try
         {
-            WUInfoRequestWrapper request=new WUInfoRequestWrapper();
+            WUInfoRequestWrapper request = new WUInfoRequestWrapper();
             request.setWuid(testarchivedwuid);
             request.setIncludeHelpers(true);
             request.setAttemptUnarchive(true);
-            WorkunitWrapper wuInfo=client.getWUInfo(request);
+            WorkunitWrapper wuInfo = client.getWUInfo(request);
             assertNotNull(wuInfo);
-            assertEquals(testarchivedwuid,wuInfo.getWuid());
-            assertTrue(wuInfo.getHelpers().size()>0);
+            assertEquals(testarchivedwuid, wuInfo.getWuid());
+            assertTrue(wuInfo.getHelpers().size() > 0);
         }
         catch (AxisFault e)
         {

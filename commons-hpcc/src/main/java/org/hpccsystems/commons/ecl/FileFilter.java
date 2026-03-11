@@ -332,8 +332,7 @@ public class FileFilter implements Serializable
      */
     private void ConvertToHPCCFileFilter(String sqlfilterstr) throws Exception
     {
-        if (sqlfilterstr == null || sqlfilterstr.isEmpty())
-            throw new Exception("Cannot convert empty SQL Filter");
+        if (sqlfilterstr == null || sqlfilterstr.isEmpty()) throw new Exception("Cannot convert empty SQL Filter");
 
         try
         {
@@ -456,12 +455,12 @@ public class FileFilter implements Serializable
             else if (op.getValue().equals(SQLOperator.in))
             {
                 String list = sqlfilter.getPostfixValue().replaceAll("^\\[|\\]$", ""); // List string representation is encapsulated in square
-                                                                                       // brackets
+                                                                                      // brackets
                 hpccfilter = new FileFilter(new FieldFilter(sqlfilter.getPrefixValue(), FieldFilterRange.makeIn(list.split("\\s*,\\s*"), false))); // each
-                                                                                                                                                   // entry
-                                                                                                                                                   // is
-                                                                                                                                                   // comma+space
-                                                                                                                                                   // delimited
+                                                                                                                                                  // entry
+                                                                                                                                                  // is
+                                                                                                                                                  // comma+space
+                                                                                                                                                  // delimited
             }
             else if (op.getValue().equals(SQLOperator.isNotNull))
             {

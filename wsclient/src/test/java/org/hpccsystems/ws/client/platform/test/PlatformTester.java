@@ -54,52 +54,48 @@ public class PlatformTester
             else
                 System.out.println(filename + " exists! Will NOT overwrite!");
         }
-        catch ( IOException e )
+        catch (IOException e)
         {
             System.out.println("Could not create and populate file (" + filename + ")!");
             System.out.println(e.getLocalizedMessage());
         }
         finally
         {
-          if ( output != null )
-          {
-            try
+            if (output != null)
             {
-                output.close();
+                try
+                {
+                    output.close();
+                }
+                catch (IOException e)
+                {
+                    System.out.println("Could not close newly created file (" + filename + ")!");
+                    System.out.println(e.getLocalizedMessage());
+                }
             }
-            catch (IOException e)
-            {
-                System.out.println("Could not close newly created file (" + filename + ")!");
-                System.out.println(e.getLocalizedMessage());
-            }
-          }
         }
     }
 
     private static void usage()
     {
-        System.out.println("Options: \n"
-                + "-server=<HPCCServerAddress>          DEFAULT:localhost\n"
-                + "-port=<ECLWatchPort                  DEFAULT:8010\n"
-                + "-protocol=<ECLWatchAddressProtocol>  DEFAULT:http\n"
-                + "-user=<ECLWatch User>                DEFAULT:\n"
-                + "-pass=<ECLWatch Pass>                DEFAULT:\n"
-                + "-machineuser=<machine's username>    DEFAULT:\n"
-                + "-machinepass=<machine's password>    DEFAULT:\n"
-                + "-wssqlport=<WsSQLPort>               DEFAULT:8510\n");
+        System.out.println(
+                "Options: \n" + "-server=<HPCCServerAddress>          DEFAULT:localhost\n" + "-port=<ECLWatchPort                  DEFAULT:8010\n"
+                        + "-protocol=<ECLWatchAddressProtocol>  DEFAULT:http\n" + "-user=<ECLWatch User>                DEFAULT:\n"
+                        + "-pass=<ECLWatch Pass>                DEFAULT:\n" + "-machineuser=<machine's username>    DEFAULT:\n"
+                        + "-machinepass=<machine's password>    DEFAULT:\n" + "-wssqlport=<WsSQLPort>               DEFAULT:8510\n");
 
         System.exit(-1);
     }
 
-    static private final String PARAMPREFIX          = "-(?i)";
-    static public final String  SERVERPATTERN    = PARAMPREFIX + "server";
-    static public final String  PORTPATTERN    = PARAMPREFIX + "port";
+    static private final String PARAMPREFIX        = "-(?i)";
+    static public final String  SERVERPATTERN      = PARAMPREFIX + "server";
+    static public final String  PORTPATTERN        = PARAMPREFIX + "port";
     static public final String  PROTOCOLPATTERN    = PARAMPREFIX + "protocol";
-    static public final String  USERPATTERN    = PARAMPREFIX + "user";
-    static public final String  PASSPATTERN    = PARAMPREFIX + "pass";
-    static public final String  MACHINEUSERPATTERN    = PARAMPREFIX + "machineuser";
-    static public final String  MACHINEPASSPATTERN    = PARAMPREFIX + "machinepass";
-    static public final String  WSSQLPORTPATTERN    = PARAMPREFIX + "wssqlport";
+    static public final String  USERPATTERN        = PARAMPREFIX + "user";
+    static public final String  PASSPATTERN        = PARAMPREFIX + "pass";
+    static public final String  MACHINEUSERPATTERN = PARAMPREFIX + "machineuser";
+    static public final String  MACHINEPASSPATTERN = PARAMPREFIX + "machinepass";
+    static public final String  WSSQLPORTPATTERN   = PARAMPREFIX + "wssqlport";
 
     public static void main(String[] args)
     {
@@ -185,15 +181,16 @@ public class PlatformTester
             if (Boolean.getBoolean("otel.java.global-autoconfigure.enabled"))
             {
                 System.out.println("OpenTelemetry autoconfiguration enabled with following values.");
-                System.out.println("If any of these options are not provided, they will defalt to values which could require additional CLASSPATH dependancies.");
+                System.out.println(
+                        "If any of these options are not provided, they will defalt to values which could require additional CLASSPATH dependancies.");
                 System.out.println("If missing dependancies arise, test will halt!");
-                System.out.println("    otel.traces.exporter sys property: "+System.getProperty("otel.traces.exporter"));
+                System.out.println("    otel.traces.exporter sys property: " + System.getProperty("otel.traces.exporter"));
                 System.out.println("    OTEL_TRACES_EXPORTER Env var: " + System.getenv("OTEL_TRACES_EXPORTER"));
                 System.out.println("    OTEL_TRACES_SAMPLER Env var: " + System.getenv("OTEL_TRACES_SAMPLER"));
-                System.out.println("    otel.traces.sampler sys property: "+System.getProperty("otel.traces.sampler"));
-                System.out.println("    otel.logs.exporter: "+ System.getProperty("otel.logs.exporter"));
+                System.out.println("    otel.traces.sampler sys property: " + System.getProperty("otel.traces.sampler"));
+                System.out.println("    otel.logs.exporter: " + System.getProperty("otel.logs.exporter"));
                 System.out.println("    OTEL_LOGS_EXPORTER Env var: " + System.getenv("OTEL_LOGS_EXPORTER"));
-                System.out.println("    otel.metrics.exporter: "+ System.getProperty("otel.metrics.exporter"));
+                System.out.println("    otel.metrics.exporter: " + System.getProperty("otel.metrics.exporter"));
                 System.out.println("    OTEL_METRICS_EXPORTER Env var: " + System.getenv("OTEL_METRICS_EXPORTER"));
 
                 if (!Utils.isOtelJavaagentUsed())
@@ -202,8 +199,7 @@ public class PlatformTester
                 }
             }
 
-            if (globalOTel == null)
-                globalOTel = GlobalOpenTelemetry.get();
+            if (globalOTel == null) globalOTel = GlobalOpenTelemetry.get();
 
             Span rootSpan = globalOTel.getTracer("PlatformTester").spanBuilder("PlatformTest").startSpan();
             try (Scope scope = rootSpan.makeCurrent())
@@ -244,12 +240,12 @@ public class PlatformTester
                 platform.checkInHPCCWsClient(client4);
 
                 org.hpccsystems.ws.client.platform.DropZone[] dropzones = platform.getDropZones();
-                for(int i = 0; i < dropzones.length; i++)
+                for (int i = 0; i < dropzones.length; i++)
                 {
                     System.out.println("Dropzone Name: " + dropzones[i].getName());
                     System.out.println("Dropzone Directory: " + dropzones[i].getDirectory());
                     System.out.println("Dropzone Machines: ");
-                    PhysicalMachine [] dzmachines = dropzones[i].getMachines();
+                    PhysicalMachine[] dzmachines = dropzones[i].getMachines();
                     for (PhysicalMachine physicalmachine : dzmachines)
                     {
                         System.out.println("\tName: " + physicalmachine.getName());
@@ -263,7 +259,8 @@ public class PlatformTester
                         for (PhysicalFile physicalFile : physicalFiles)
                         {
                             String name = physicalFile.getName() + (physicalFile.getIsDir() ? (!isWin ? "/" : "\\") : "");
-                            System.out.format( "\t\t%-30s %15s %15s\n", name, physicalFile.getIsDir() ? "" : physicalFile.getFilesize() , physicalFile.getModifiedtime());
+                            System.out.format("\t\t%-30s %15s %15s\n", name, physicalFile.getIsDir() ? "" : physicalFile.getFilesize(),
+                                    physicalFile.getModifiedtime());
                         }
                     }
                 }
@@ -273,9 +270,9 @@ public class PlatformTester
                 if (dzLocal != null && dzLocal.size() > 0)
                 {
                     System.out.println("fetchLocalDropZones test ...");
-                    for(int i = 0; i < dzLocal.size(); i++)
+                    for (int i = 0; i < dzLocal.size(); i++)
                     {
-                        DropZoneWrapper thisDZ =  dzLocal.get(i);
+                        DropZoneWrapper thisDZ = dzLocal.get(i);
                         boolean islinux = thisDZ.getLinux().equals("false") ? false : true;
 
                         System.out.println("DropZone[" + i + "]");
@@ -287,12 +284,13 @@ public class PlatformTester
 
                         List<PhysicalFileStructWrapper> pfs = fsc.listFiles(dzLocal.get(i).getNetAddress(), dzLocal.get(i).getPath(), null);
                         System.out.println("\tFile Listing:");
-                        if (pfs != null && pfs.size()> 0)
+                        if (pfs != null && pfs.size() > 0)
                         {
-                            for(int fileindex = 0; fileindex < pfs.size(); fileindex++)
+                            for (int fileindex = 0; fileindex < pfs.size(); fileindex++)
                             {
                                 String name = pfs.get(fileindex).getName() + (pfs.get(fileindex).getIsDir() ? (islinux ? "/" : "\\") : "");
-                                System.out.format( "\t\t%-30s %15s %15s\n", name, pfs.get(fileindex).getIsDir() ? "" : pfs.get(fileindex).getFilesize() , pfs.get(fileindex).getModifiedtime());
+                                System.out.format("\t\t%-30s %15s %15s\n", name,
+                                        pfs.get(fileindex).getIsDir() ? "" : pfs.get(fileindex).getFilesize(), pfs.get(fileindex).getModifiedtime());
                             }
                         }
                     }
@@ -318,10 +316,12 @@ public class PlatformTester
                         System.out.println("\tFile Listing:");
                         if (pfs != null && pfs.size() > 0)
                         {
-                            for (int fileindex = 0; fileindex < pfs.size(); fileindex++) {
+                            for (int fileindex = 0; fileindex < pfs.size(); fileindex++)
+                            {
                                 PhysicalFileStructWrapper thisfile = pfs.get(fileindex);
                                 String name = thisfile.getName() + (thisfile.getIsDir() ? (islinux ? "/" : "\\") : "");
-                                System.out.format("\t\t%-30s %15s %15s\n", name, thisfile.getIsDir() ? "" : thisfile.getFilesize(), thisfile.getModifiedtime());
+                                System.out.format("\t\t%-30s %15s %15s\n", name, thisfile.getIsDir() ? "" : thisfile.getFilesize(),
+                                        thisfile.getModifiedtime());
                             }
                         }
                     }
@@ -334,8 +334,7 @@ public class PlatformTester
                 String fileName = null;
                 for (int i = 0; pfs != null && i < pfs.size(); i++)
                 {
-                    if (pfs.get(i).getIsDir() == false
-                    && pfs.get(i).getFilesize() < 4 * 1024 * 1024)  // Only download small files for the test
+                    if (pfs.get(i).getIsDir() == false && pfs.get(i).getFilesize() < 4 * 1024 * 1024)  // Only download small files for the test
                     {
                         fileName = pfs.get(i).getName();
                         break;
@@ -350,7 +349,7 @@ public class PlatformTester
 
                     File tmpFile = new File(outputFile);
 
-                    long bytesTransferred = fsc.downloadFile(tmpFile,dzByAddress.get(0),fileName);
+                    long bytesTransferred = fsc.downloadFile(tmpFile, dzByAddress.get(0), fileName);
                     if (bytesTransferred <= 0)
                     {
                         System.out.println("Download failed.");
@@ -366,10 +365,10 @@ public class PlatformTester
                 }
 
                 String tmpPeopleFile = System.getProperty("java.io.tmpdir") + File.separator + "people";
-                writeFile( tmpPeopleFile, Persons.data, false);
+                writeFile(tmpPeopleFile, Persons.data, false);
 
                 String tmpAccountFile = System.getProperty("java.io.tmpdir") + File.separator + "account";
-                writeFile( tmpAccountFile, Accounts.data, false);
+                writeFile(tmpAccountFile, Accounts.data, false);
 
                 int pport = HPCCWsAttributesClient.getServiceWSDLPort();
                 HPCCWsClient connector = platform.checkOutHPCCWsClient();
@@ -384,7 +383,8 @@ public class PlatformTester
                 if (v.getMajor() == 7 && v.getMinor() == 0)
                 {
                     System.out.println("Attempting file access on HPCC 7.0.x cluster...");
-                    DFUFileAccessInfoWrapper a = wsDFUClient.getFileAccess(SecAccessType.Read, "benchmark::integer::2mb", "thor_160", 120, "random", true, true, true);
+                    DFUFileAccessInfoWrapper a = wsDFUClient.getFileAccess(SecAccessType.Read, "benchmark::integer::2mb", "thor_160", 120, "random",
+                            true, true, true);
                 }
                 else if (v.getMajor() == 7 && v.getMinor() > 0)
                 {
@@ -402,7 +402,8 @@ public class PlatformTester
 
                 for (DFUDataColumnWrapper wrapper : newgetFileDataColumns)
                 {
-                    System.out.println("Col name: " + wrapper.getColumnLabel() + " ecl: " + wrapper.getColumnEclType() + " col type " + wrapper.getColumnType());
+                    System.out.println(
+                            "Col name: " + wrapper.getColumnLabel() + " ecl: " + wrapper.getColumnEclType() + " col type " + wrapper.getColumnType());
                 }
 
                 try
@@ -410,11 +411,13 @@ public class PlatformTester
                     //WSSQL Test
                     HPCCWsSQLClient wsSQLClient = platform.getWsClient().getWsSQLClient(wssqlport);
                     String s = "CREATE TABLE newtablename (FirstName VARCHAR(15), LastName VARCHAR(25), MiddleName VARCHAR(15) ,StreetAddress VARCHAR(42), city VARCHAR(20), state VARCHAR(2), zip VARCHAR(5)) LOAD DATA INFILE 'people-small' CONNECTION '10.0.2.15' DIRECTORY '/var/lib/HPCCSystems/mydropzone' INTO TABLE newtablename";
-                    ExecuteSQLResponseWrapper executeSQLFullResponse = wsSQLClient.executeSQLFullResponse(s, "thor", "thor", Integer.valueOf(0), Integer.valueOf(0),Integer.valueOf(0), false, false, "me", Integer.valueOf(-1));
+                    ExecuteSQLResponseWrapper executeSQLFullResponse = wsSQLClient.executeSQLFullResponse(s, "thor", "thor", Integer.valueOf(0),
+                            Integer.valueOf(0), Integer.valueOf(0), false, false, "me", Integer.valueOf(-1));
                     System.out.println(executeSQLFullResponse.getResult());
 
                     s = "SELECT * from newtablename  where state = 'FL' limit 10;";
-                    executeSQLFullResponse = wsSQLClient.executeSQLFullResponse(s, "thor", "thor", Integer.valueOf(0), Integer.valueOf(0),Integer.valueOf(0), false, false, "me", Integer.valueOf(-1));
+                    executeSQLFullResponse = wsSQLClient.executeSQLFullResponse(s, "thor", "thor", Integer.valueOf(0), Integer.valueOf(0),
+                            Integer.valueOf(0), false, false, "me", Integer.valueOf(-1));
                     System.out.println(executeSQLFullResponse.getResult());
                 }
                 catch (java.net.ConnectException e)
@@ -438,11 +441,11 @@ public class PlatformTester
         }
         catch (Exception e)
         {
-            System.out.println( e.getLocalizedMessage());
+            System.out.println(e.getLocalizedMessage());
         }
         finally
         {
-            System.out.println("\n****WsClient HPCC platform tester has finished****\n" );
+            System.out.println("\n****WsClient HPCC platform tester has finished****\n");
         }
     }
 

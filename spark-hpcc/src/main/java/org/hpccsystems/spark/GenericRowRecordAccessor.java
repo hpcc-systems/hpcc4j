@@ -33,8 +33,8 @@ import org.apache.spark.sql.types.*;
  */
 public class GenericRowRecordAccessor implements IRecordAccessor
 {
-    private GenericRowWithSchema row                  = null;
-    private FieldDef             fieldDef             = null;
+    private GenericRowWithSchema       row                  = null;
+    private FieldDef                   fieldDef             = null;
     private GenericRowRecordAccessor[] childRecordAccessors = null;
 
     public GenericRowRecordAccessor(StructType schema) throws IllegalArgumentException
@@ -43,7 +43,7 @@ public class GenericRowRecordAccessor implements IRecordAccessor
         {
             this.fieldDef = SparkSchemaTranslator.toHPCCRecordDef(schema);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -104,7 +104,7 @@ public class GenericRowRecordAccessor implements IRecordAccessor
             }
             else if (val instanceof scala.collection.Seq)
             {
-                return scala.collection.JavaConversions.seqAsJavaList((scala.collection.Seq<Object>)val);
+                return scala.collection.JavaConversions.seqAsJavaList((scala.collection.Seq<Object>) val);
             }
 
             return new ArrayList<Object>();

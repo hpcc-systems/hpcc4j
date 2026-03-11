@@ -21,9 +21,9 @@ package org.hpccsystems.commons.benchmarking;
  */
 public class SimpleMetric implements IMetric
 {
-    private double value = 0;
-    private String name = "";
-    private Units units = null;
+    private double value       = 0;
+    private String name        = "";
+    private Units  units       = null;
     private String description = null;
 
     public SimpleMetric(double value, String name)
@@ -31,14 +31,14 @@ public class SimpleMetric implements IMetric
         this.value = value;
         this.name = name;
     }
-    
+
     public SimpleMetric(double value, String name, Units units)
     {
         this.value = value;
         this.name = name;
         this.units = units;
     }
-    
+
     public SimpleMetric(double value, String name, Units units, String desc)
     {
         this.value = value;

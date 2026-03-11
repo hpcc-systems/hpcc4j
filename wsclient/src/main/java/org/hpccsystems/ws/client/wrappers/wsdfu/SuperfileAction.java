@@ -7,6 +7,5 @@ package org.hpccsystems.ws.client.wrappers.wsdfu;
 
 public enum SuperfileAction
 {
-    add,
-    remove
+    add, remove
 }

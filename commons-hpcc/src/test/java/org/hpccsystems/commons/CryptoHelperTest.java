@@ -47,13 +47,13 @@ public class CryptoHelperTest
         final String cipherAlgo = "AES";
 
         SecretKeySpec secretKeySpec = CryptoHelper.createSecretKey(mysecretkeycontent, digestAlgo, secretKeyAlgo); //Caller can create their own secret key spec
-        Assert.assertNotNull("Could not create custom secretKeySpec '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", secretKeySpec);
+        Assert.assertNotNull("Could not create custom secretKeySpec '" + digestAlgo + "' '" + secretKeyAlgo + "'!", secretKeySpec);
 
         Cipher someencryptcipher = null;
         try
         {
             someencryptcipher = CryptoHelper.createCipher(secretKeySpec, cipherAlgo, true);
-            Assert.assertNotNull("Could not create custom encrypt cipher '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", someencryptcipher);
+            Assert.assertNotNull("Could not create custom encrypt cipher '" + digestAlgo + "' '" + secretKeyAlgo + "'!", someencryptcipher);
         }
         catch (Exception e)
         {
@@ -66,7 +66,7 @@ public class CryptoHelperTest
         try
         {
             somedecryptcipher = CryptoHelper.createCipher(secretKeySpec, cipherAlgo, false);
-            Assert.assertNotNull("Could not create custom encrypt cipher '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", somedecryptcipher);
+            Assert.assertNotNull("Could not create custom encrypt cipher '" + digestAlgo + "' '" + secretKeyAlgo + "'!", somedecryptcipher);
         }
         catch (Exception e)
         {
@@ -149,7 +149,6 @@ public class CryptoHelperTest
         final String digestInput = "12323423*&^";
         String secret = "ForMyEyesOnLY!";
 
-
         byte[] array = new byte[12];
         new Random().nextBytes(array);
         String generatedString = new String(array, Charset.forName("UTF-8"));
@@ -171,7 +170,7 @@ public class CryptoHelperTest
         }
         String encryptedString = CryptoHelper.encrypt(secret, encryptCipher);
 
-        Cipher decryptCipher=null;
+        Cipher decryptCipher = null;
         try
         {
             decryptCipher = CryptoHelper.createCipher(sha512aesSecretKey, "AES", false);
@@ -182,7 +181,7 @@ public class CryptoHelperTest
             e.printStackTrace();
             Assert.fail("Could not create AES sha-512 decrypt cipher");
         }
-        String decryptedString = CryptoHelper.decrypt(encryptedString, decryptCipher) ;
+        String decryptedString = CryptoHelper.decrypt(encryptedString, decryptCipher);
 
         /*Create default cipher*/
         try
@@ -208,7 +207,7 @@ public class CryptoHelperTest
             Assert.fail("Could not create default decrypt cipher");
         }
 
-        String decryptedDefaultCipherString = CryptoHelper.decrypt(encryptedDefaultCipherString, decryptCipher) ;
+        String decryptedDefaultCipherString = CryptoHelper.decrypt(encryptedDefaultCipherString, decryptCipher);
 
         System.out.println("Original string: " + secret);
         Assert.assertNotNull(encryptedString);

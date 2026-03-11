@@ -6,7 +6,7 @@ import org.hpccsystems.ws.client.platform.QuerySetFilterType;
 @Deprecated
 public class QuerySetFilterTypeWrapper
 {
-    
+
     /**
      * From string.
      *
@@ -44,7 +44,7 @@ public class QuerySetFilterTypeWrapper
                 return null;
         }
     }
-    
+
     /**
      * Gets the filter type.
      *
@@ -54,8 +54,7 @@ public class QuerySetFilterTypeWrapper
      */
     public static WUQuerySetFilterType getFilterType(String filtertype)
     {
-        if (filtertype == null || filtertype.isEmpty())
-            return null;
+        if (filtertype == null || filtertype.isEmpty()) return null;
 
         if (filtertype.equalsIgnoreCase("all"))
             return WUQuerySetFilterType.All;

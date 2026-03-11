@@ -46,10 +46,10 @@ public class LogicalFile extends DataSingleton
         return logicalFile;
     }
 
-    private Platform           platform;
-    private DFULogicalFile     dfulogicalfile;
-    private DFUFileDetailWrapper      dfufiledetail;
-    private ECLSourceFile      eclsourcefile;
+    private Platform             platform;
+    private DFULogicalFile       dfulogicalfile;
+    private DFUFileDetailWrapper dfufiledetail;
+    private ECLSourceFile        eclsourcefile;
 
     public enum Notification
     {

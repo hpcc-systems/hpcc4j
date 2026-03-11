@@ -27,23 +27,23 @@ import org.hpccsystems.dfs.client.IRecordAccessor;
 
 public class AvroGenericRecordAccessor implements IRecordAccessor
 {
-    static private final long serialVersionUID = 1L;
+    static private final long   serialVersionUID         = 1L;
 
-    private static final Logger log = LogManager.getLogger(AvroGenericRecordAccessor.class);
+    private static final Logger log                      = LogManager.getLogger(AvroGenericRecordAccessor.class);
 
-    private Schema avroSchema = null;
-    private GenericRecord avroRecord = null;
+    private Schema              avroSchema               = null;
+    private GenericRecord       avroRecord               = null;
 
-    private FieldDef translatedRecordDef = null;
-    private HPCCRecordAccessor translatedRecordAccessor = null;
-    private HPCCRecord translatedRecord = null;
+    private FieldDef            translatedRecordDef      = null;
+    private HPCCRecordAccessor  translatedRecordAccessor = null;
+    private HPCCRecord          translatedRecord         = null;
 
     public AvroGenericRecordAccessor(Schema recordSchema) throws Exception
     {
         this.avroSchema = recordSchema;
         this.translatedRecordDef = AvroSchemaTranslator.toHPCC(recordSchema, recordSchema.getName());
     }
-    
+
     /**
      * Sets the record.
      *

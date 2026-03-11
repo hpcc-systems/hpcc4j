@@ -26,40 +26,39 @@ import org.hpccsystems.commons.errors.UnparsableContentException;
 
 public class RecordDefinitionTranslator
 {
-    private static final String FIELDS_KEY            = "fields";
-    private static final String FIELD_TYPE_KEY        = "fieldType";
-    private static final String LENGTH_KEY            = "length";
-    private static final String NAME_KEY              = "name";
-    private static final String TYPE_KEY              = "type";
-    private static final String CHILD_KEY             = "child";
-    private static final String XPATH_KEY             = "xpath";
-    private static final String FLAGS_KEY             = "flags";
+    private static final String FIELDS_KEY                = "fields";
+    private static final String FIELD_TYPE_KEY            = "fieldType";
+    private static final String LENGTH_KEY                = "length";
+    private static final String NAME_KEY                  = "name";
+    private static final String TYPE_KEY                  = "type";
+    private static final String CHILD_KEY                 = "child";
+    private static final String XPATH_KEY                 = "xpath";
+    private static final String FLAGS_KEY                 = "flags";
 
-    private static final String ESP_TYPE_NAME_PREFIX = "ty";
+    private static final String ESP_TYPE_NAME_PREFIX      = "ty";
 
-    private static final int    BLOB_LENGTH           = 8;
-    private static final int    FLAG_UNSIGNED         = 256;
-    private static final int    FLAG_UNKNOWN_SIZE     = 1024;
-    private static final int    TYPE_ID_MASK          = 0xff;       // 0x7fff & ~FLAG_UNKNOWN_SIZE & ~FLAG_UNSIGNED;
-    final private static int    type_boolean          = 0;
-    final private static int    type_int              = 1;
-    final private static int    type_real             = 2;
-    final private static int    type_decimal          = 3;
-    final private static int    type_string           = 4;
-    final private static int    type_biasedswapint    = 8;          // Convert to integer
-    final private static int    type_keyedint         = 10;         // Convert to integer
-    final private static int    type_record           = 13;
-    final private static int    type_varstring        = 14;
-    final private static int    type_blob             = 15;
-    final private static int    type_data             = 16;
-    final private static int    type_table            = 20;
-    final private static int    type_set              = 21;
-    final private static int    type_swapint          = 26;         // Convert to integer
-    final private static int    type_filepos          = 29;
-    final private static int    type_unicode          = 31;
-    final private static int    type_varunicode       = 33;
-    final private static int    type_utf8             = 41;
-
+    private static final int    BLOB_LENGTH               = 8;
+    private static final int    FLAG_UNSIGNED             = 256;
+    private static final int    FLAG_UNKNOWN_SIZE         = 1024;
+    private static final int    TYPE_ID_MASK              = 0xff;       // 0x7fff & ~FLAG_UNKNOWN_SIZE & ~FLAG_UNSIGNED;
+    final private static int    type_boolean              = 0;
+    final private static int    type_int                  = 1;
+    final private static int    type_real                 = 2;
+    final private static int    type_decimal              = 3;
+    final private static int    type_string               = 4;
+    final private static int    type_biasedswapint        = 8;          // Convert to integer
+    final private static int    type_keyedint             = 10;         // Convert to integer
+    final private static int    type_record               = 13;
+    final private static int    type_varstring            = 14;
+    final private static int    type_blob                 = 15;
+    final private static int    type_data                 = 16;
+    final private static int    type_table                = 20;
+    final private static int    type_set                  = 21;
+    final private static int    type_swapint              = 26;         // Convert to integer
+    final private static int    type_filepos              = 29;
+    final private static int    type_unicode              = 31;
+    final private static int    type_varunicode           = 33;
+    final private static int    type_utf8                 = 41;
 
     // FNoInitializer,                 // 0 means no initialiser - not a special virtual initialiser
     // FVirtualFilePosition,
@@ -71,13 +70,13 @@ public class RecordDefinitionTranslator
     final private static int    FVirtualLocalFilePosition = 2;
 
     // These types need to be revised
-    final private static int    type_char             = 11;         // Convert to string
-    final private static int    type_qstring          = 30;         // Convert to string
+    final private static int    type_char                 = 11;         // Convert to string
+    final private static int    type_qstring              = 30;         // Convert to string
 
-    final private static char   XPATH_DELIMITER       = 0x0001;
+    final private static char   XPATH_DELIMITER           = 0x0001;
 
     // Additional retained flags
-    final private static int    FLAG_IS_PAYLOAD_FIELD = 0x00010000;
+    final private static int    FLAG_IS_PAYLOAD_FIELD     = 0x00010000;
 
     /**
      * Gets the field type.
@@ -1028,8 +1027,8 @@ public class RecordDefinitionTranslator
             }
             default:
             {
-                FieldDef fd = new FieldDef("", fieldType, fieldType.description(), length,
-                        isFixedLength(typeID), isUnsigned(typeID), getSourceType(typeID), new FieldDef[0]);
+                FieldDef fd = new FieldDef("", fieldType, fieldType.description(), length, isFixedLength(typeID), isUnsigned(typeID),
+                        getSourceType(typeID), new FieldDef[0]);
                 return fd;
             }
         }

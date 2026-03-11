@@ -35,16 +35,15 @@ import org.w3c.dom.NodeList;
 
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 
-
 public class WsDFUClientTest extends BaseRemoteTest
 {
-    private final static HPCCWsDFUClient wsdfuclient = wsclient.getWsDFUClient();
-    public final static String defaultNewSuperFileName = "newSuperFile";
+    private final static HPCCWsDFUClient wsdfuclient             = wsclient.getWsDFUClient();
+    public final static String           defaultNewSuperFileName = "newSuperFile";
 
-    private final static String logicalfilename = System.getProperty("logicalfilename", DEFAULTHPCCFILENAME);
+    private final static String          logicalfilename         = System.getProperty("logicalfilename", DEFAULTHPCCFILENAME);
 
-    private final static String testfilename = System.getProperty("newSuperFileName", defaultNewSuperFileName);
-    private final static  String testsubfilename = System.getProperty("existingSubFileName");
+    private final static String          testfilename            = System.getProperty("newSuperFileName", defaultNewSuperFileName);
+    private final static String          testsubfilename         = System.getProperty("existingSubFileName");
 
     @Before
     public void delayhack()
@@ -53,7 +52,8 @@ public class WsDFUClientTest extends BaseRemoteTest
         {
             Thread.sleep(5000);
         }
-        catch (InterruptedException e) {}
+        catch (InterruptedException e)
+        {}
     }
 
     @Test
@@ -81,10 +81,10 @@ public class WsDFUClientTest extends BaseRemoteTest
         Assert.assertNotNull(filetype2);
         Assert.assertTrue(filetype.equals(filetype2));
 
-        filetype2 = (DFUFileTypeWrapper)DFUFileTypeWrapper.fromString("Flat");
+        filetype2 = (DFUFileTypeWrapper) DFUFileTypeWrapper.fromString("Flat");
         Assert.assertTrue(filetype.equals(filetype2));
 
-        filetype2 = (DFUFileTypeWrapper)DFUFileTypeWrapper.fromString("Xml");
+        filetype2 = (DFUFileTypeWrapper) DFUFileTypeWrapper.fromString("Xml");
         Assert.assertFalse(filetype.equals(filetype2));
 
         filetype = DFUFileTypeWrapper.fromString("Xml");
@@ -95,18 +95,19 @@ public class WsDFUClientTest extends BaseRemoteTest
             filetype = DFUFileTypeWrapper.fromString("XmL");  //XmL not recognized, must be "Xml"
 
         }
-        catch (IllegalArgumentException e) {}
+        catch (IllegalArgumentException e)
+        {}
 
         filetype = DFUFileTypeWrapper.fromString("Csv");
         Assert.assertFalse(filetype.equals(filetype2));
 
-        filetype2 = (DFUFileTypeWrapper)DFUFileTypeWrapper.fromString("Csv");
+        filetype2 = (DFUFileTypeWrapper) DFUFileTypeWrapper.fromString("Csv");
         Assert.assertTrue(filetype.equals(filetype2));
 
-        filetype = (DFUFileTypeWrapper)DFUFileTypeWrapper.fromString("Index");
+        filetype = (DFUFileTypeWrapper) DFUFileTypeWrapper.fromString("Index");
         Assert.assertFalse(filetype.equals(filetype2));
 
-        filetype2 = (DFUFileTypeWrapper)DFUFileTypeWrapper.fromString("Index");
+        filetype2 = (DFUFileTypeWrapper) DFUFileTypeWrapper.fromString("Index");
         Assert.assertTrue(filetype.equals(filetype2));
     }
 
@@ -149,8 +150,7 @@ public class WsDFUClientTest extends BaseRemoteTest
                     {
                         if (directory.isEmpty() || directory.equals("."))
                         {
-                            if (!file.getIsSuperfile())
-                                randomfilename = file;
+                            if (!file.getIsSuperfile()) randomfilename = file;
                         }
                         System.out.println("/" + file.getFileName());
                     }
@@ -164,7 +164,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            Assert.fail( e.toString());
+            Assert.fail(e.toString());
         }
         catch (Exception e)
         {
@@ -186,10 +186,9 @@ public class WsDFUClientTest extends BaseRemoteTest
                 }
                 else
                 {
-                    if(!file.getIsSuperfile())
+                    if (!file.getIsSuperfile())
                     {
-                        if (randomfilename == null)
-                            randomfilename = file;
+                        if (randomfilename == null) randomfilename = file;
                         return;
                     }
                 }
@@ -203,7 +202,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            Assert.fail( e.toString());
+            Assert.fail(e.toString());
         }
         catch (Exception e)
         {
@@ -235,13 +234,13 @@ public class WsDFUClientTest extends BaseRemoteTest
 
             Assert.assertNotNull(randomfilename);
 
-            NodeList content = wsdfuclient.getFileData(randomfilename.getFileName(), (long)0, 100, randomfilename.getNodeGroup());
+            NodeList content = wsdfuclient.getFileData(randomfilename.getFileName(), (long) 0, 100, randomfilename.getNodeGroup());
 
             Assert.assertNotNull(content);
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            Assert.fail( e.toString());
+            Assert.fail(e.toString());
         }
         catch (Exception e)
         {
@@ -260,11 +259,11 @@ public class WsDFUClientTest extends BaseRemoteTest
             Assert.assertNotNull(randomfilename);
 
             DFUInfoWrapper file = wsdfuclient.getFileInfo(randomfilename.getFileName(), randomfilename.getNodeGroup());
-            Assert.assertNotNull("GetfilerInfo("+randomfilename.getFileName()+") resulted in null DFUInfoWrapper response", file);
+            Assert.assertNotNull("GetfilerInfo(" + randomfilename.getFileName() + ") resulted in null DFUInfoWrapper response", file);
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            Assert.fail( e.toString());
+            Assert.fail(e.toString());
         }
         catch (Exception e)
         {
@@ -288,7 +287,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            Assert.fail( e.toString());
+            Assert.fail(e.toString());
         }
         catch (Exception e)
         {
@@ -300,15 +299,15 @@ public class WsDFUClientTest extends BaseRemoteTest
     @Test
     public void testDeleteFileWithAttedScope()
     {
-       /* ESP is currently treating mysc@pe::file as scope="" filename=mysc cluster=pe::file
+        /* ESP is currently treating mysc@pe::file as scope="" filename=mysc cluster=pe::file
         * https://track.hpccsystems.com/browse/HPCC-23227
         * try
         {
             Set<String> files = new HashSet<>();
             files.add("s@mesc@pe::somefile");
-
+        
             Assert.assertNotNull(files);
-
+        
             List<DFUResultWrapper> deleteFiles = wsdfuclient.deleteFiles(files, "anothercluster");
             Assert.assertNotNull(deleteFiles);
             Assert.assertTrue(!deleteFiles.isEmpty());
@@ -374,29 +373,29 @@ public class WsDFUClientTest extends BaseRemoteTest
     @Ignore("Once I know what cluster this will run on during CI testing I'll update my params and activate the test")
     public void searchFileTest() throws Exception
     {
-        String searchStr="hipie::keys::*";
+        String searchStr = "hipie::keys::*";
 
         DFUQueryRequestWrapper request = new DFUQueryRequestWrapper();
         request.setFileType(DFUQueryFileType.DFUQFT_SUPER_FILES_ONLY.getText());
-        List<DFULogicalFileWrapper> matches=wsdfuclient.searchFiles(request);
-        assertEquals(100,matches.size());
+        List<DFULogicalFileWrapper> matches = wsdfuclient.searchFiles(request);
+        assertEquals(100, matches.size());
         request.setLogicalName(searchStr);
-        matches=wsdfuclient.searchFiles(request);
-        assertEquals(100,matches.size());
+        matches = wsdfuclient.searchFiles(request);
+        assertEquals(100, matches.size());
 
         assertNotNull(thorClusterFileGroup);
-        List<DFULogicalFileWrapper> results=wsdfuclient.searchFiles(searchStr, thorClusterFileGroup);
-        assertEquals(100,results.size());
-        String fname=results.get(0).getFileName();
-        results=wsdfuclient.searchFiles(searchStr, thorClusterFileGroup,2,null);
-        assertEquals(2,results.size());
-        assertEquals(fname,results.get(0).getFileName());
-        results=wsdfuclient.searchFiles(searchStr, thorClusterFileGroup,null,2);
-        assertEquals(100,results.size());
-        String fname2=results.get(0).getFileName();
+        List<DFULogicalFileWrapper> results = wsdfuclient.searchFiles(searchStr, thorClusterFileGroup);
+        assertEquals(100, results.size());
+        String fname = results.get(0).getFileName();
+        results = wsdfuclient.searchFiles(searchStr, thorClusterFileGroup, 2, null);
+        assertEquals(2, results.size());
+        assertEquals(fname, results.get(0).getFileName());
+        results = wsdfuclient.searchFiles(searchStr, thorClusterFileGroup, null, 2);
+        assertEquals(100, results.size());
+        String fname2 = results.get(0).getFileName();
         assertFalse(fname.equals(fname2));
-        results=wsdfuclient.searchFiles(searchStr, thorClusterFileGroup,2,2);
-        assertEquals(2,results.size());
+        results = wsdfuclient.searchFiles(searchStr, thorClusterFileGroup, 2, 2);
+        assertEquals(2, results.size());
         assertEquals(fname2, results.get(0).getFileName());
 
     }
@@ -417,16 +416,18 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            wsdfuclient.createSuperfile("hpcc4j::tests::junit::mysuperfile", new String [] {""});
+            wsdfuclient.createSuperfile("hpcc4j::tests::junit::mysuperfile", new String[] { "" });
         }
         catch (Exception e)
         {
             String localizedMessage = e.getLocalizedMessage();
             if (localizedMessage.contains(" already exists"))
             {
-                System.out.print("createSuperFileTest() could not run validate because target superfile already exists: hpcc4j::tests::junit::mysuperfile");
+                System.out.print(
+                        "createSuperFileTest() could not run validate because target superfile already exists: hpcc4j::tests::junit::mysuperfile");
             }
-            else throw e;
+            else
+                throw e;
         }
     }
 
@@ -444,7 +445,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         req.setSuperfile(testfilename);
         List<String> _names = new ArrayList<String>();
         _names.add(testsubfilename);
-        req.setNames(_names );
+        req.setNames(_names);
 
         AddtoSuperfileResponseWrapper resp = wsdfuclient.addToSuperFile(req);
         Assert.assertNotNull(resp);
@@ -458,20 +459,22 @@ public class WsDFUClientTest extends BaseRemoteTest
         String superFileName = testfilename + "_" + UUID.randomUUID().toString();
         try
         {
-            wsdfuclient.createSuperfile(superFileName, new String [] {""});
+            wsdfuclient.createSuperfile(superFileName, new String[] { "" });
         }
         catch (Exception e)
         {
             String localizedMessage = e.getLocalizedMessage();
             if (localizedMessage.contains(" already exists"))
             {
-                System.out.print("createNewSuperFileNoSubfilesTest() could not run validate because target superfile already exists: '" +  superFileName + "'");
+                System.out.print(
+                        "createNewSuperFileNoSubfilesTest() could not run validate because target superfile already exists: '" + superFileName + "'");
             }
-            else throw e;
+            else
+                throw e;
         }
     }
 
-    @Test (expected = ArrayOfEspExceptionWrapper.class)
+    @Test(expected = ArrayOfEspExceptionWrapper.class)
     public void addToNonExistingSuperFileWrapperTest() throws Exception
     {
         assumeNotNull(testfilename);
@@ -484,7 +487,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         req.setSuperfile(superFileName);
         List<String> _names = new ArrayList<String>();
         _names.add(testsubfilename);
-        req.setNames(_names );
+        req.setNames(_names);
 
         try
         {
@@ -504,7 +507,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         }
     }
 
-    @Test (expected = ArrayOfEspExceptionWrapper.class)
+    @Test(expected = ArrayOfEspExceptionWrapper.class)
     public void createNewSuperFileInvalidSubfileTest() throws Exception
     {
         assumeNotNull(testfilename);
@@ -512,7 +515,7 @@ public class WsDFUClientTest extends BaseRemoteTest
 
         try
         {
-            wsdfuclient.createSuperfile(superFileName, new String [] {"BOGUSFILENAME"});
+            wsdfuclient.createSuperfile(superFileName, new String[] { "BOGUSFILENAME" });
         }
         catch (Exception e)
         {
@@ -545,21 +548,17 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::integer::20KB", 
-                null,
-                false
-            );
-            
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::integer::20KB", null, false);
+
             assertNotNull("Column list should not be null", columns);
             assertEquals("Should have 2 columns", 2, columns.size());
-            
+
             // Validate first column (key)
             DFUDataColumnWrapper col1 = columns.get(0);
             assertNotNull("Column label should not be null", col1.getColumnLabel());
             assertEquals("First column should be 'key'", "key", col1.getColumnLabel());
             assertTrue("Column type should contain 'Integer'", col1.getColumnType().contains("Integer"));
-            
+
             // Validate second column (fill)
             DFUDataColumnWrapper col2 = columns.get(1);
             assertNotNull("Column label should not be null", col2.getColumnLabel());
@@ -578,18 +577,14 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::integer::20KB", 
-                thorclustername,
-                false
-            );
-            
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::integer::20KB", thorclustername, false);
+
             assertNotNull("Column list should not be null", columns);
             assertEquals("Should have 2 columns", 2, columns.size());
-            
+
             DFUDataColumnWrapper col1 = columns.get(0);
             assertEquals("First column should be 'key'", "key", col1.getColumnLabel());
-            
+
             DFUDataColumnWrapper col2 = columns.get(1);
             assertEquals("Second column should be 'fill'", "fill", col2.getColumnLabel());
         }
@@ -608,19 +603,15 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::all_types::200KB", 
-                thorclustername,
-                false
-            );
-            
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::all_types::200KB", thorclustername, false);
+
             assertNotNull("Column list should not be null", columns);
             assertEquals("Should have 21 columns", 21, columns.size());
-            
+
             // Verify some expected column names
             boolean foundChildDataset = false;
             boolean foundInt1Set = false;
-            
+
             for (DFUDataColumnWrapper col : columns)
             {
                 if ("childDataset".equals(col.getColumnLabel()))
@@ -634,7 +625,7 @@ public class WsDFUClientTest extends BaseRemoteTest
                     foundInt1Set = true;
                 }
             }
-            
+
             assertTrue("Should find childDataset column", foundChildDataset);
             assertTrue("Should find int1Set column", foundInt1Set);
         }
@@ -652,15 +643,11 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::string::100MB", 
-                thorclustername,
-                false
-            );
-            
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::string::100MB", thorclustername, false);
+
             assertNotNull("Column list should not be null", columns);
             assertEquals("Should have 2 columns", 2, columns.size());
-            
+
             DFUDataColumnWrapper col1 = columns.get(0);
             assertEquals("First column should be 'key'", "key", col1.getColumnLabel());
             assertTrue("Column type should be String", col1.getColumnType().contains("String"));
@@ -669,7 +656,7 @@ public class WsDFUClientTest extends BaseRemoteTest
                 assertTrue("ColumnEclType should contain 'string'", col1.getColumnEclType().toLowerCase().contains("string"));
             }
             assertTrue("Column size should be positive", col1.getColumnSize() > 0);
-            
+
             DFUDataColumnWrapper col2 = columns.get(1);
             assertEquals("Second column should be 'fill'", "fill", col2.getColumnLabel());
             assertTrue("Column type should be String", col2.getColumnType().contains("String"));
@@ -688,12 +675,8 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::all_types::superfile", 
-                thorclustername,
-                false
-            );
-            
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::all_types::superfile", thorclustername, false);
+
             assertNotNull("Column list should not be null", columns);
             assertEquals("Should have 21 columns (from first subfile)", 21, columns.size());
         }
@@ -710,14 +693,10 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::all_types::200KB", 
-                thorclustername,
-                false
-            );
-            
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::all_types::200KB", thorclustername, false);
+
             assertNotNull("Column list should not be null", columns);
-            
+
             // Find the childDataset column
             DFUDataColumnWrapper childDatasetCol = null;
             for (DFUDataColumnWrapper col : columns)
@@ -728,12 +707,12 @@ public class WsDFUClientTest extends BaseRemoteTest
                     break;
                 }
             }
-            
+
             assertNotNull("Should find childDataset column", childDatasetCol);
             assertNotNull("childDataset should have child columns", childDatasetCol.getChildColumns());
             assertFalse("childDataset should have non-empty child columns", childDatasetCol.getChildColumns().isEmpty());
             assertEquals("childDataset should have 3 child columns", 3, childDatasetCol.getChildColumns().size());
-            
+
             // Verify child column names
             List<String> childNames = new ArrayList<String>();
             for (DFUDataColumnWrapper child : childDatasetCol.getChildColumns())
@@ -758,12 +737,8 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::integer::20KB", 
-                null,
-                false
-            );
-            
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::integer::20KB", null, false);
+
             assertNotNull("Column list should not be null", columns);
             assertEquals("Should have 2 columns", 2, columns.size());
         }
@@ -779,12 +754,8 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "benchmark::integer::20KB", 
-                null,
-                false
-            );
-            
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("benchmark::integer::20KB", null, false);
+
             assertNotNull("Column list should not be null", columns);
             assertEquals("Should have 2 columns", 2, columns.size());
         }
@@ -801,15 +772,11 @@ public class WsDFUClientTest extends BaseRemoteTest
         try
         {
             long startTime = System.currentTimeMillis();
-            
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::string::100MB", 
-                thorclustername,
-                false
-            );
-            
+
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::string::100MB", thorclustername, false);
+
             long elapsedTime = System.currentTimeMillis() - startTime;
-            
+
             assertNotNull("Column list should not be null", columns);
             assertEquals("Should have 2 columns", 2, columns.size());
             assertTrue("Response should be fast (< 10 seconds)", elapsedTime < 10000);
@@ -828,12 +795,8 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::integer::20KB", 
-                null,
-                false
-            );
-            
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::integer::20KB", null, false);
+
             assertNotNull("Column list should not be null", columns);
             assertEquals("Should have 2 columns", 2, columns.size());
         }
@@ -849,12 +812,8 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::integer::20KB", 
-                "",
-                false
-            );
-            
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::integer::20KB", "", false);
+
             assertNotNull("Column list should not be null", columns);
             assertEquals("Should have 2 columns", 2, columns.size());
         }
@@ -872,12 +831,8 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "benchmark::integer::20KB", 
-                null,
-                false
-            );
-            
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("benchmark::integer::20KB", null, false);
+
             assertNotNull("Column list should not be null", columns);
             assertEquals("Should have 2 columns", 2, columns.size());
         }
@@ -946,21 +901,15 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~nonexistent::file::that::does::not::exist", 
-                null
-            );
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~nonexistent::file::that::does::not::exist", null);
             Assert.fail("Should have thrown ArrayOfEspExceptionWrapper for non-existent file");
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
             // Expected exception
             String errorMsg = e.toString().toLowerCase();
-            assertTrue("Error message should indicate file not found", 
-                       errorMsg.contains("not found") || 
-                       errorMsg.contains("does not exist") ||
-                       errorMsg.contains("cannot find") ||
-                       errorMsg.contains("could not resolve"));
+            assertTrue("Error message should indicate file not found", errorMsg.contains("not found") || errorMsg.contains("does not exist")
+                    || errorMsg.contains("cannot find") || errorMsg.contains("could not resolve"));
         }
         catch (Exception e)
         {
@@ -975,10 +924,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::integer::20KB", 
-                "nonexistent_cluster_name_xyz"
-            );
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::integer::20KB", "nonexistent_cluster_name_xyz");
             // May succeed with empty list or throw exception
             // Either is acceptable based on server implementation
         }
@@ -995,10 +941,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         try
         {
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::<invalid>file", 
-                null
-            );
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::<invalid>file", null);
             // Should fail gracefully
             Assert.fail("Should throw exception for invalid characters in filename");
         }
@@ -1016,10 +959,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         try
         {
             // Test logical name with @cluster notation conflicting with cluster parameter
-            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns(
-                "~benchmark::integer::20KB@" + thorclustername, 
-                roxieclustername
-            );
+            List<DFUDataColumnWrapper> columns = wsdfuclient.getFileDataColumns("~benchmark::integer::20KB@" + thorclustername, roxieclustername);
             // Behavior should be consistent - may use embedded cluster or parameter
             // No server crash expected
             assertNotNull("Should handle conflicting cluster notation gracefully", columns);
@@ -1044,7 +984,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // CFT-001: Retrieve all files with no filters or pagination
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles(null, null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertNotNull("DFULogicalFiles array should not be null", files);
         assertTrue("Should return at least 5 files (test datasets)", files.size() >= 5);
@@ -1061,7 +1001,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         // But testGetLogicalFilesExactFilenameWithoutTilde passes, so tilde may change search behavior
         // Needs investigation of HPCC tilde semantics in getLogicalFiles
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("~benchmark::integer::20kb", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return exactly 1 file", 1, files.size());
         assertEquals("File name should match", "benchmark::integer::20kb", files.get(0).getName());
@@ -1075,7 +1015,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // CFT-003: Retrieve files matching exact filename without leading tilde
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::integer::20kb", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return exactly 1 file", 1, files.size());
         assertEquals("File name should match", "benchmark::integer::20kb", files.get(0).getName());
@@ -1087,13 +1027,12 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // CFT-004: Retrieve files matching wildcard pattern with asterisk
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::integer::*", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertTrue("Should return at least 2 files", files.size() >= 2);
         for (DFULogicalFileWrapper file : files)
         {
-            assertTrue("All files should match pattern benchmark::integer::*", 
-                      file.getName().startsWith("benchmark::integer::"));
+            assertTrue("All files should match pattern benchmark::integer::*", file.getName().startsWith("benchmark::integer::"));
         }
     }
 
@@ -1103,13 +1042,12 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // CFT-005: Retrieve files matching scope-level wildcard
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertTrue("Should return at least 5 files", files.size() >= 5);
         for (DFULogicalFileWrapper file : files)
         {
-            assertTrue("All files should start with benchmark::", 
-                      file.getName().startsWith("benchmark::"));
+            assertTrue("All files should start with benchmark::", file.getName().startsWith("benchmark::"));
         }
     }
 
@@ -1119,18 +1057,17 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // CFT-006: Retrieve files matching wildcard at file level
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::all_types::*", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return 2 files", 2, files.size());
-        
+
         Set<String> expectedFiles = new HashSet<>();
         expectedFiles.add("benchmark::all_types::200kb");
         expectedFiles.add("benchmark::all_types::superfile");
-        
+
         for (DFULogicalFileWrapper file : files)
         {
-            assertTrue("File should be one of the expected files", 
-                      expectedFiles.contains(file.getName()));
+            assertTrue("File should be one of the expected files", expectedFiles.contains(file.getName()));
         }
     }
 
@@ -1140,7 +1077,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // CFT-007: Retrieve first page of results with pageSize=2
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 2);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return exactly 2 files", 2, files.size());
     }
@@ -1154,21 +1091,20 @@ public class WsDFUClientTest extends BaseRemoteTest
         // SERVER ISSUE: Pagination returns duplicate files between pages - pageStartFrom parameter not working
         List<DFULogicalFileWrapper> firstPage = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 2);
         List<DFULogicalFileWrapper> secondPage = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 2, 2);
-        
+
         assertNotNull("First page should not be null", firstPage);
         assertNotNull("Second page should not be null", secondPage);
-        
+
         // Verify files are different between pages
         Set<String> firstPageNames = new HashSet<>();
         for (DFULogicalFileWrapper file : firstPage)
         {
             firstPageNames.add(file.getName());
         }
-        
+
         for (DFULogicalFileWrapper file : secondPage)
         {
-            assertFalse("Files in second page should be different from first page", 
-                       firstPageNames.contains(file.getName()));
+            assertFalse("Files in second page should be different from first page", firstPageNames.contains(file.getName()));
         }
     }
 
@@ -1182,23 +1118,22 @@ public class WsDFUClientTest extends BaseRemoteTest
         Set<String> allFiles = new HashSet<>();
         int pageSize = 2;
         int pageStart = 0;
-        
+
         // Collect files from first 3 pages
         for (int i = 0; i < 3; i++)
         {
             List<DFULogicalFileWrapper> page = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, pageStart, pageSize);
-            assertNotNull("Page " + (i+1) + " should not be null", page);
-            
+            assertNotNull("Page " + (i + 1) + " should not be null", page);
+
             for (DFULogicalFileWrapper file : page)
             {
-                assertFalse("File " + file.getName() + " should not appear in multiple pages", 
-                           allFiles.contains(file.getName()));
+                assertFalse("File " + file.getName() + " should not appear in multiple pages", allFiles.contains(file.getName()));
                 allFiles.add(file.getName());
             }
-            
+
             pageStart += pageSize;
         }
-        
+
         assertTrue("Should have collected files across pages", allFiles.size() > 0);
     }
 
@@ -1208,7 +1143,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // CFT-010: Retrieve first N=3 files using firstN parameter
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, 3, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return exactly 3 files", 3, files.size());
     }
@@ -1219,10 +1154,10 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // CFT-011: Retrieve regular file and verify metadata
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::integer::20kb", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return 1 file", 1, files.size());
-        
+
         DFULogicalFileWrapper file = files.get(0);
         assertFalse("IsSuperfile should be false", file.getIsSuperfile());
         assertNotNull("Owner should be populated", file.getOwner());
@@ -1237,10 +1172,10 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // CFT-012: Retrieve superfile and verify superfile flag
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::all_types::superfile", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return 1 file", 1, files.size());
-        
+
         DFULogicalFileWrapper file = files.get(0);
         assertTrue("IsSuperfile should be true", file.getIsSuperfile());
         assertEquals("File name should match", "benchmark::all_types::superfile", file.getName());
@@ -1252,7 +1187,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // CFT-013: Retrieve index file and verify it appears in listing
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::integer::20kb::key", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return 1 file", 1, files.size());
         assertEquals("File name should match", "benchmark::integer::20kb::key", files.get(0).getName());
@@ -1267,7 +1202,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-001: Test pageSize = 0 (should default to 100)
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 0);
-        
+
         assertNotNull("Response should not be null", files);
         assertFalse("Files should be returned", files.isEmpty());
     }
@@ -1278,7 +1213,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-002: Test negative pageSize (should default to 100)
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, -10);
-        
+
         assertNotNull("Response should not be null", files);
         assertNotNull("Files should be returned", files);
     }
@@ -1289,7 +1224,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-003: Test pageSize = 1 (minimum valid page size)
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 1);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return exactly 1 file per page", 1, files.size());
     }
@@ -1300,7 +1235,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-004: Test very large pageSize (e.g., 10000)
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 10000);
-        
+
         assertNotNull("Response should not be null", files);
         assertTrue("Should return all matching files", files.size() >= 5);
     }
@@ -1311,7 +1246,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-005: Test pageStartFrom beyond available files
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::integer::20kb", null, -1, 1000, 10);
-        
+
         assertNotNull("Response should not be null", files);
         assertTrue("Should return empty results", files == null || files.isEmpty());
     }
@@ -1324,7 +1259,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         // ECT-006: Test firstN = 0 (should return no files)
         // SERVER ISSUE: Server ignores firstN=0 and returns files anyway
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, 0, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return 0 files", 0, files.size());
     }
@@ -1335,7 +1270,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-007: Test firstN = 1 (minimum valid firstN)
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, 1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return exactly 1 file", 1, files.size());
     }
@@ -1346,7 +1281,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-008: Test firstN = -1 (no limit)
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::*", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertTrue("Should return files according to pageSize", files.size() > 0);
     }
@@ -1357,7 +1292,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-009: Test with null filename (should return all files)
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles(null, null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertTrue("Should return some files", files.size() > 0);
     }
@@ -1368,7 +1303,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-010: Test with empty string filename
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertTrue("Should return some files", files.size() > 0);
     }
@@ -1380,7 +1315,7 @@ public class WsDFUClientTest extends BaseRemoteTest
         // ECT-011: Test deprecated cluster parameter (should be ignored)
         List<DFULogicalFileWrapper> withCluster = wsdfuclient.getLogicalFiles("benchmark::integer::20kb", "thor", -1, 0, 100);
         List<DFULogicalFileWrapper> withoutCluster = wsdfuclient.getLogicalFiles("benchmark::integer::20kb", null, -1, 0, 100);
-        
+
         assertNotNull("Response with cluster should not be null", withCluster);
         assertNotNull("Response without cluster should not be null", withoutCluster);
         assertEquals("Should return 1 file regardless of cluster param", 1, withCluster.size());
@@ -1393,7 +1328,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-012: Test filename with special characters in scope (underscores)
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::all_types::*", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return 2 files", 2, files.size());
         for (DFULogicalFileWrapper file : files)
@@ -1408,7 +1343,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-013: Test filename with double colons in pattern
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("benchmark::all_types::200kb", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertEquals("Should return 1 file", 1, files.size());
         assertEquals("Name should match exactly", "benchmark::all_types::200kb", files.get(0).getName());
@@ -1420,7 +1355,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-014: Test case sensitivity of filename pattern
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("BENCHMARK::INTEGER::20kb", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         // Result depends on file system case sensitivity - just verify no exception
     }
@@ -1431,7 +1366,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // ECT-015: Test with very broad wildcard that matches many files
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("*", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertTrue("Should return files", files.size() > 0);
     }
@@ -1462,7 +1397,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // EHT-002: Test with filename containing only wildcard (valid)
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("*", null, 100, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertTrue("Should return files", files.size() > 0);
     }
@@ -1473,7 +1408,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // EHT-003: Test with filename that doesn't exist
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("nonexistent::file::name", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertTrue("Should return empty results", files.isEmpty());
     }
@@ -1484,7 +1419,7 @@ public class WsDFUClientTest extends BaseRemoteTest
     {
         // EHT-004: Test with wildcard pattern that matches no files
         List<DFULogicalFileWrapper> files = wsdfuclient.getLogicalFiles("bogus::scope::*", null, -1, 0, 100);
-        
+
         assertNotNull("Response should not be null", files);
         assertTrue("Should return empty results", files.isEmpty());
     }

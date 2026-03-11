@@ -215,8 +215,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
             }
         }
 
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
+        if (!initErrMessage.isEmpty()) log.error(initErrMessage);
     }
 
     /**
@@ -258,7 +257,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public String[] listNamespaces(@SpanAttribute String storename,@SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    public String[] listNamespaces(@SpanAttribute String storename, @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         String namespaces[] = null;
         ListNamespacesRequest request = new ListNamespacesRequest();
@@ -303,7 +302,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public String[] listNSKeys(@SpanAttribute String storename, @SpanAttribute String namespace,@SpanAttribute  boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    public String[] listNSKeys(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute boolean global)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         String keyset[] = null;
         ListKeysRequest request = new ListKeysRequest();
@@ -351,7 +351,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public String fetchValue(@SpanAttribute String storename,@SpanAttribute String namespace,@SpanAttribute String key,@SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    public String fetchValue(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute String key,
+            @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         String value = null;
 
@@ -403,8 +404,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public String fetchValueEncrypted(@SpanAttribute String storename,@SpanAttribute String namespace,@SpanAttribute String key, boolean global, Cipher cipher)
-            throws Exception, ArrayOfEspExceptionWrapper
+    public String fetchValueEncrypted(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute String key, boolean global,
+            Cipher cipher) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (cipher == null) throw new IllegalArgumentException("Cipher cannot be null");
 
@@ -465,7 +466,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public Properties fetchKeyMetaData(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute String key, @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    public Properties fetchKeyMetaData(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute String key,
+            @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         Properties props = new Properties();
 
@@ -519,7 +521,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public Properties fetchAllNSKeys(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    public Properties fetchAllNSKeys(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute boolean global)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         if (stub == null) throw new Exception("WS Client Stub not available");
 
@@ -533,8 +536,7 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
         try
         {
             FetchAllResponse response = ((WsstoreStub) stub).fetchAll(request);
-            if (response.getExceptions() != null)
-                handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()),
+            if (response.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()),
                     "Could not fetch all namespaces keys for store: " + storename + " namespace: '" + namespace + "'");
 
             Pairs_type0 pairs = response.getPairs();
@@ -579,7 +581,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public boolean setValue(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute String key, String value, @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    public boolean setValue(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute String key, String value,
+            @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         SetRequest request = new SetRequest();
         request.setStoreName(storename);
@@ -685,7 +688,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public boolean deleteValue(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute String key, @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
+    public boolean deleteValue(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute String key,
+            @SpanAttribute boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         DeleteRequest request = new DeleteRequest();
         request.setStoreName(storename);
@@ -731,7 +735,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public boolean deleteNamespace(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute boolean global, @SpanAttribute String targetuser) throws Exception, ArrayOfEspExceptionWrapper
+    public boolean deleteNamespace(@SpanAttribute String storename, @SpanAttribute String namespace, @SpanAttribute boolean global,
+            @SpanAttribute String targetuser) throws Exception, ArrayOfEspExceptionWrapper
     {
         DeleteNamespaceRequest request = new DeleteNamespaceRequest();
         request.setStoreName(storename);
@@ -776,7 +781,8 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public boolean createStore(@SpanAttribute String storename, @SpanAttribute String description, @SpanAttribute String type) throws Exception, ArrayOfEspExceptionWrapper
+    public boolean createStore(@SpanAttribute String storename, @SpanAttribute String description, @SpanAttribute String type)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         CreateStoreRequest request = new CreateStoreRequest();
         request.setName(storename);
@@ -834,16 +840,14 @@ public class HPCCWsStoreClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public StoreInfoWrapper[] listStores(@SpanAttribute String nameFilter, @SpanAttribute String typeFilter, @SpanAttribute String ownerFilter) throws Exception, ArrayOfEspExceptionWrapper
+    public StoreInfoWrapper[] listStores(@SpanAttribute String nameFilter, @SpanAttribute String typeFilter, @SpanAttribute String ownerFilter)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         StoreInfoWrapper[] stores = new StoreInfoWrapper[0];
         ListStoresRequest request = new ListStoresRequest();
-        if (nameFilter != null && !nameFilter.isEmpty())
-            request.setNameFilter(nameFilter);
-        if (typeFilter != null && !typeFilter.isEmpty())
-            request.setTypeFilter(typeFilter);
-        if (ownerFilter != null && !ownerFilter.isEmpty())
-            request.setOwnerFilter(ownerFilter);
+        if (nameFilter != null && !nameFilter.isEmpty()) request.setNameFilter(nameFilter);
+        if (typeFilter != null && !typeFilter.isEmpty()) request.setTypeFilter(typeFilter);
+        if (ownerFilter != null && !ownerFilter.isEmpty()) request.setOwnerFilter(ownerFilter);
 
         try
         {

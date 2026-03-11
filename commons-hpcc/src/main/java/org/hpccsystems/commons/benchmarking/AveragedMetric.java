@@ -31,21 +31,17 @@ public class AveragedMetric implements IMetric
     // First 20 Thompson Tau values. Used to determine if a datapoint is an outlier
     // Each datapoint corresponds to a threshold based on the number of samples.
     // This table contains only the first 20 values so can only be used for up to 20 samples.
-    private static final double[] THOMPSON_TAU_TABLE20 = {
-        0,      0,      1.1511, 1.4250, 1.5712,
-        1.6563, 1.7110, 1.7491, 1.7770, 1.7984,
-        1.8153, 1.8290, 1.8403, 1.8498, 1.8579,
-        1.8649, 1.8710, 1.8764, 1.8811, 1.8853
-    };
+    private static final double[] THOMPSON_TAU_TABLE20         = { 0, 0, 1.1511, 1.4250, 1.5712, 1.6563, 1.7110, 1.7491, 1.7770, 1.7984, 1.8153,
+            1.8290, 1.8403, 1.8498, 1.8579, 1.8649, 1.8710, 1.8764, 1.8811, 1.8853 };
 
-    private static final int MAX_DATA_POINTS = 20;
-    private static final int MIN_DATA_POINTS_FOR_OUTLIERS = 3;
+    private static final int      MAX_DATA_POINTS              = 20;
+    private static final int      MIN_DATA_POINTS_FOR_OUTLIERS = 3;
 
-    private ArrayList<Double> dataPoints = new ArrayList<Double>();
+    private ArrayList<Double>     dataPoints                   = new ArrayList<Double>();
 
-    private String name = "";
-    private Units units = null;
-    private String description = null;
+    private String                name                         = "";
+    private Units                 units                        = null;
+    private String                description                  = null;
 
     public AveragedMetric(String name)
     {
@@ -64,7 +60,7 @@ public class AveragedMetric implements IMetric
         this.units = units;
         this.description = desc;
     }
-    
+
     public AveragedMetric(IMetric metric)
     {
         this.name = metric.getName();
@@ -122,7 +118,7 @@ public class AveragedMetric implements IMetric
             stdDeviation = (double) Math.sqrt(stdDeviation);
 
             // Check if it can be discarded
-            double tauDeviation = THOMPSON_TAU_TABLE20[dataPoints.size()-1] * stdDeviation;
+            double tauDeviation = THOMPSON_TAU_TABLE20[dataPoints.size() - 1] * stdDeviation;
             if (largestAbsDeviation >= tauDeviation)
             {
                 hasOutliers = true;
@@ -134,7 +130,8 @@ public class AveragedMetric implements IMetric
             }
 
             // If we discarded an outlier repeat above steps
-        } while (hasOutliers && dataPoints.size() > 2);
+        }
+        while (hasOutliers && dataPoints.size() > 2);
     }
 
     public double getMin()
@@ -214,52 +211,52 @@ public class AveragedMetric implements IMetric
         // Min
         JSONObject obj = new JSONObject();
         obj.put("name", name + ".min");
-        
+
         if (units != null)
         {
-            obj.put("units",units);
-        }
-        
-        if (description != null)
-        {
-            obj.put("description",description);
+            obj.put("units", units);
         }
 
-        obj.put("value",getMin());
+        if (description != null)
+        {
+            obj.put("description", description);
+        }
+
+        obj.put("value", getMin());
         metricArray.put(obj);
 
         // Max
         obj = new JSONObject();
         obj.put("name", name + ".max");
-        
+
         if (units != null)
         {
-            obj.put("units",units);
-        }
-        
-        if (description != null)
-        {
-            obj.put("description",description);
+            obj.put("units", units);
         }
 
-        obj.put("value",getMax());
+        if (description != null)
+        {
+            obj.put("description", description);
+        }
+
+        obj.put("value", getMax());
         metricArray.put(obj);
 
         // Avg
         obj = new JSONObject();
         obj.put("name", name + ".avg");
-        
+
         if (units != null)
         {
-            obj.put("units",units);
+            obj.put("units", units);
         }
 
         if (description != null)
         {
-            obj.put("description",description);
+            obj.put("description", description);
         }
 
-        obj.put("value",getAvg());
+        obj.put("value", getAvg());
         metricArray.put(obj);
 
         // Std deviation
@@ -268,15 +265,15 @@ public class AveragedMetric implements IMetric
 
         if (units != null)
         {
-            obj.put("units",units);
+            obj.put("units", units);
         }
 
         if (description != null)
         {
-            obj.put("description",description);
+            obj.put("description", description);
         }
 
-        obj.put("value",getStdDev());
+        obj.put("value", getStdDev());
         metricArray.put(obj);
     }
 

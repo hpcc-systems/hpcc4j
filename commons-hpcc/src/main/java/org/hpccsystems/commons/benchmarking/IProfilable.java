@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Represents a profilable class, that can provide metrics to find performance bottlenecks and or health metrics.
  */
-public interface IProfilable 
+public interface IProfilable
 {
     List<IMetric> getMetrics();
 };

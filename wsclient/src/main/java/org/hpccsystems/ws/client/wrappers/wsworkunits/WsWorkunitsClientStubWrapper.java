@@ -73,7 +73,6 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
         }
     }
 
-
     /**
      * Use version 1 58.
      *
@@ -103,6 +102,7 @@ public class WsWorkunitsClientStubWrapper implements IWsWorkunitsClientStubWrapp
     {
         return platformVersion.getMajor() == 6 && platformVersion.getMinor() >= 4;
     }
+
     /**
      * Use latest version.
      *

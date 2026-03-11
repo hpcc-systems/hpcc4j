@@ -13,11 +13,11 @@ import org.w3c.dom.NodeList;
 
 public class ArrayOfXRefDirectoryWrapper
 {
-    private List<XRefDirectoryWrapper> directories = null;
-    private String cluster = null;
+    private List<XRefDirectoryWrapper> directories   = null;
+    private String                     cluster       = null;
 
-    private final static String CLUSTER_TAG = "Cluster";
-    private final static String DIRECTORY_TAG = "Directory";
+    private final static String        CLUSTER_TAG   = "Cluster";
+    private final static String        DIRECTORY_TAG = "Directory";
 
     public ArrayOfXRefDirectoryWrapper(String wsdfuxrefresponse)
     {
@@ -66,7 +66,7 @@ public class ArrayOfXRefDirectoryWrapper
     @Override
     public String toString()
     {
-        String out = "Cluster: "+ cluster + "\nDirectories:\n";
+        String out = "Cluster: " + cluster + "\nDirectories:\n";
         for (XRefDirectoryWrapper xRefDirectoryWrapper : directories)
         {
             out += "\t" + xRefDirectoryWrapper.toString() + "\n";

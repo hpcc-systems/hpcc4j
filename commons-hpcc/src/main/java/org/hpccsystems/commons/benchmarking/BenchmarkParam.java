@@ -23,10 +23,10 @@ import org.json.JSONObject;
  */
 public class BenchmarkParam
 {
-    public String name = "";
-    public String value = "";
+    public String name        = "";
+    public String value       = "";
     public String description = null;
-    public String units = null;
+    public String units       = null;
 
     public BenchmarkParam(String name, String value)
     {
@@ -37,17 +37,17 @@ public class BenchmarkParam
     public JSONObject toJson()
     {
         JSONObject param = new JSONObject();
-        param.put("name",name);
-        param.put("value",value);
+        param.put("name", name);
+        param.put("value", value);
 
         if (units != null)
         {
-            param.put("unit",units);
+            param.put("unit", units);
         }
 
         if (description != null)
         {
-            param.put("description",description);
+            param.put("description", description);
         }
 
         return param;

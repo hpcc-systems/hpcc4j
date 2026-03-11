@@ -57,47 +57,46 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 {
     private static class ReadRequestEvent
     {
-        public long requestTime = 0;
+        public long requestTime      = 0;
         public long requestStreamPos = 0;
-        public long responseTime = 0;
-        public int bytesRead = 0;
-        public int requestSize = 0;
+        public long responseTime     = 0;
+        public int  bytesRead        = 0;
+        public int  requestSize      = 0;
     };
 
     private static class RowServiceResponse
     {
-        int len = 0;
-        int errorCode = 0;
-        int handle = -1;
+        int    len          = 0;
+        int    errorCode    = 0;
+        int    handle       = -1;
         String errorMessage = null;
     }
 
     public static class RestartInformation
     {
-        public long streamPos = 0;
-        public byte[] tokenBin = null;
+        public long   streamPos = 0;
+        public byte[] tokenBin  = null;
     }
 
     public static class StreamContext
     {
-        public FieldDef recordDefinition = null;
+        public FieldDef recordDefinition          = null;
         public FieldDef projectedRecordDefinition = null;
-        public double recordSamplingRate = RowServiceInputStream.MIN_RECORD_SAMPLING_RATE;
-        public long recordSamplingSeed = RowServiceInputStream.USE_RANDOM_SEED;
-        public int recordReadLimit = -1;
-        public int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
-        public int initialReadSizeKB = DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
-        public boolean createPrefetchThread = true;
-        public boolean isFetching = false;
-        public int connectTimeoutMS = DEFAULT_CONNECT_TIMEOUT_MILIS;
-        public int socketOpTimeoutMS = DEFAULT_SOCKET_OP_TIMEOUT_MS;
-        public int readBufferSizeKB = DEFAULT_READ_BUFFER_SIZE_KB;
-        public Span fileReadSpan = null;
+        public double   recordSamplingRate        = RowServiceInputStream.MIN_RECORD_SAMPLING_RATE;
+        public long     recordSamplingSeed        = RowServiceInputStream.USE_RANDOM_SEED;
+        public int      recordReadLimit           = -1;
+        public int      maxReadSizeKB             = DEFAULT_MAX_READ_SIZE_KB;
+        public int      initialReadSizeKB         = DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
+        public boolean  createPrefetchThread      = true;
+        public boolean  isFetching                = false;
+        public int      connectTimeoutMS          = DEFAULT_CONNECT_TIMEOUT_MILIS;
+        public int      socketOpTimeoutMS         = DEFAULT_SOCKET_OP_TIMEOUT_MS;
+        public int      readBufferSizeKB          = DEFAULT_READ_BUFFER_SIZE_KB;
+        public Span     fileReadSpan              = null;
     };
 
-    private static StreamContext constructStreamContext(FieldDef rd, FieldDef pRd, int connectTimeout, int limit,
-                                                        boolean createPrefetchThread, int maxReadSizeInKB,
-                                                        boolean isFetching, int socketOpTimeoutMS, Span rdSpan)
+    private static StreamContext constructStreamContext(FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread,
+            int maxReadSizeInKB, boolean isFetching, int socketOpTimeoutMS, Span rdSpan)
     {
         StreamContext ctx = new StreamContext();
         ctx.recordDefinition = rd;
@@ -112,129 +111,129 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         return ctx;
     }
 
-    public static final int          DEFAULT_READ_REQUEST_SPAN_BATCH_SIZE = 25;
-    public static final int          DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
-    public static final int          DEFAULT_SOCKET_OP_TIMEOUT_MS  = 15000; // 15 second timeout on read / write operations
+    public static final int          DEFAULT_READ_REQUEST_SPAN_BATCH_SIZE       = 25;
+    public static final int          DEFAULT_CONNECT_TIMEOUT_MILIS              = 5000; // 5 second connection timeout
+    public static final int          DEFAULT_SOCKET_OP_TIMEOUT_MS               = 15000; // 15 second timeout on read / write operations
     public static final int          DEFAULT_MAX_CONCURRENT_CONNECTION_STARTUPS = 100;
 
     // Note: The platform may respond with more data than this if records are larger than this limit.
-    public static final int          DEFAULT_MAX_READ_SIZE_KB = 4096;
-    public static final int          DEFAULT_INITIAL_REQUEST_READ_SIZE_KB = 256;
-    public static final int          DEFAULT_READ_BUFFER_SIZE_KB = 4096;
+    public static final int          DEFAULT_MAX_READ_SIZE_KB                   = 4096;
+    public static final int          DEFAULT_INITIAL_REQUEST_READ_SIZE_KB       = 256;
+    public static final int          DEFAULT_READ_BUFFER_SIZE_KB                = 4096;
 
-    public static final double       MIN_RECORD_SAMPLING_RATE = 1e-12;
-    public static final double       MAX_RECORD_SAMPLING_RATE = 1.0;
-    public static final long         USE_RANDOM_SEED = -1;
+    public static final double       MIN_RECORD_SAMPLING_RATE                   = 1e-12;
+    public static final double       MAX_RECORD_SAMPLING_RATE                   = 1.0;
+    public static final long         USE_RANDOM_SEED                            = -1;
 
-    private static final int         SHORT_SLEEP_MS           = 1;
-    private static final int         LONG_WAIT_THRESHOLD_US   = 100;
-    private static final int         MAX_HOT_LOOP_NS          = 10000;
+    private static final int         SHORT_SLEEP_MS                             = 1;
+    private static final int         LONG_WAIT_THRESHOLD_US                     = 100;
+    private static final int         MAX_HOT_LOOP_NS                            = 10000;
 
     // The number of fetch requests to keep in history, used for resuming reads
-    private static final int         FETCH_HISTORY_SIZE       = 10;
+    private static final int         FETCH_HISTORY_SIZE                         = 10;
 
     // This is used to prevent the prefetch thread from hot looping when
     // the network connection is slow. The read on the socket will block until
     // at least 512 bytes are available
-    private static final int         MIN_SOCKET_READ_SIZE     = 512;
+    private static final int         MIN_SOCKET_READ_SIZE                       = 512;
 
-    public static final String BYTES_READ_METRIC = "bytesRead";
-    public static final String FIRST_BYTE_TIME_METRIC = "prefetchFirstByteTime";
-    public static final String WAIT_TIME_METRIC = "parseWaitTime";
-    public static final String MUTEX_WAIT_TIME_METRIC = "mutexWaitTime";
-    public static final String SLEEP_TIME_METRIC = "prefetchSleepTime";
+    public static final String       BYTES_READ_METRIC                          = "bytesRead";
+    public static final String       FIRST_BYTE_TIME_METRIC                     = "prefetchFirstByteTime";
+    public static final String       WAIT_TIME_METRIC                           = "parseWaitTime";
+    public static final String       MUTEX_WAIT_TIME_METRIC                     = "mutexWaitTime";
+    public static final String       SLEEP_TIME_METRIC                          = "prefetchSleepTime";
 
-    public static final String FETCH_START_TIME_METRIC = "fetchRequestStartTime";
-    public static final String FETCH_TIME_METRIC = "fetchRequestReadTime";
-    public static final String FETCH_FINISH_TIME_METRIC = "fetchRequestFinishTime";
-    public static final String CLOSE_TIME_METRIC = "connectionCloseTime";
+    public static final String       FETCH_START_TIME_METRIC                    = "fetchRequestStartTime";
+    public static final String       FETCH_TIME_METRIC                          = "fetchRequestReadTime";
+    public static final String       FETCH_FINISH_TIME_METRIC                   = "fetchRequestFinishTime";
+    public static final String       CLOSE_TIME_METRIC                          = "connectionCloseTime";
 
-    public static final String LONG_WAITS_METRIC = "numLongWaits";
-    public static final String FETCHES_METRIC = "numFetches";
-    public static final String PARTIAL_BLOCK_READS_METRIC = "numPartialBlockReads";
-    public static final String BLOCK_READS_METRIC = "numBlockReads";
+    public static final String       LONG_WAITS_METRIC                          = "numLongWaits";
+    public static final String       FETCHES_METRIC                             = "numFetches";
+    public static final String       PARTIAL_BLOCK_READS_METRIC                 = "numPartialBlockReads";
+    public static final String       BLOCK_READS_METRIC                         = "numBlockReads";
 
-    private static AtomicInteger     connectionStartupCount = new AtomicInteger(0);
-    private static int maxConcurrentStartups = DEFAULT_MAX_CONCURRENT_CONNECTION_STARTUPS;
+    private static AtomicInteger     connectionStartupCount                     = new AtomicInteger(0);
+    private static int               maxConcurrentStartups                      = DEFAULT_MAX_CONCURRENT_CONNECTION_STARTUPS;
 
-    private AtomicBoolean            active = new AtomicBoolean(false);
-    private AtomicBoolean            closed = new AtomicBoolean(false);
-    private boolean                  isFirstReadRequest = false;
-    private boolean                  simulateFail = false;
-    private boolean                  forceTokenUse = false;
-    private boolean                  inFetchingMode = false;
-    private boolean                  useOldProtocol = true;
+    private AtomicBoolean            active                                     = new AtomicBoolean(false);
+    private AtomicBoolean            closed                                     = new AtomicBoolean(false);
+    private boolean                  isFirstReadRequest                         = false;
+    private boolean                  simulateFail                               = false;
+    private boolean                  forceTokenUse                              = false;
+    private boolean                  inFetchingMode                             = false;
+    private boolean                  useOldProtocol                             = true;
     private byte[]                   tokenBin;
     private int                      handle;
     private DataPartition            dataPart;
-    private FieldDef                 recordDefinition              = null;
-    private String                   jsonRecordDefinition          = null;
-    private FieldDef                 projectedRecordDefinition     = null;
-    private String                   projectedJsonRecordDefinition = null;
-    private java.io.DataInputStream  dis = null;
-    private java.io.DataOutputStream dos = null;
-    private String                   rowServiceVersion = "";
+    private FieldDef                 recordDefinition                           = null;
+    private String                   jsonRecordDefinition                       = null;
+    private FieldDef                 projectedRecordDefinition                  = null;
+    private String                   projectedJsonRecordDefinition              = null;
+    private java.io.DataInputStream  dis                                        = null;
+    private java.io.DataOutputStream dos                                        = null;
+    private String                   rowServiceVersion                          = "";
 
-    private Span                     fileReadSpan = null;
+    private Span                     fileReadSpan                               = null;
 
-    private Span                     readRequestSpan = null;
-    private int                      readRequestCount = 0;
-    private int                      readRequestStart = 0;
-    private int                      readRequestBatchSize = DEFAULT_READ_REQUEST_SPAN_BATCH_SIZE;
+    private Span                     readRequestSpan                            = null;
+    private int                      readRequestCount                           = 0;
+    private int                      readRequestStart                           = 0;
+    private int                      readRequestBatchSize                       = DEFAULT_READ_REQUEST_SPAN_BATCH_SIZE;
 
-    private List<ReadRequestEvent>   readRequestEvents = new ArrayList<ReadRequestEvent>();
-    private ReadRequestEvent         currentReadRequestEvent = null;
+    private List<ReadRequestEvent>   readRequestEvents                          = new ArrayList<ReadRequestEvent>();
+    private ReadRequestEvent         currentReadRequestEvent                    = null;
 
-    private int                      filePartCopyIndexPointer = 0;  //pointer into the prioritizedCopyIndexes struct
-    private List<Integer>            prioritizedCopyIndexes = new ArrayList<Integer>();
+    private int                      filePartCopyIndexPointer                   = 0;  //pointer into the prioritizedCopyIndexes struct
+    private List<Integer>            prioritizedCopyIndexes                     = new ArrayList<Integer>();
 
-    private Thread                   prefetchThread = null;
-    private HpccFileException        prefetchException = null;
+    private Thread                   prefetchThread                             = null;
+    private HpccFileException        prefetchException                          = null;
 
-    private CircularByteBuffer       readBuffer = null;
+    private CircularByteBuffer       readBuffer                                 = null;
 
-    private int                      recordLimit = -1;
+    private int                      recordLimit                                = -1;
 
-    private int                      totalDataInCurrentRequest = 0;
-    private int                      remainingDataInCurrentRequest = 0;
-    private long                     streamPos = 0;
-    private long                     streamMarkPos = 0;
+    private int                      totalDataInCurrentRequest                  = 0;
+    private int                      remainingDataInCurrentRequest              = 0;
+    private long                     streamPos                                  = 0;
+    private long                     streamMarkPos                              = 0;
 
-    private boolean                  shouldSampleRecords = false;
-    private double                   recordSamplingRate = MAX_RECORD_SAMPLING_RATE; // Default to no sampling
-    private long                     recordSamplingSeed = USE_RANDOM_SEED;
+    private boolean                  shouldSampleRecords                        = false;
+    private double                   recordSamplingRate                         = MAX_RECORD_SAMPLING_RATE; // Default to no sampling
+    private long                     recordSamplingSeed                         = USE_RANDOM_SEED;
 
     // Used for restarts
-    private long                     streamPosOfFetchStart = 0;
-    private List<Long>               streamPosOfFetches = new ArrayList<Long>();
-    private List<byte[]>             tokenBinOfFetches = new ArrayList<byte[]>();
+    private long                     streamPosOfFetchStart                      = 0;
+    private List<Long>               streamPosOfFetches                         = new ArrayList<Long>();
+    private List<byte[]>             tokenBinOfFetches                          = new ArrayList<byte[]>();
 
     // Used for fetch requests
-    private List<Long>               fetchRequestOffsets = new ArrayList<Long>();
+    private List<Long>               fetchRequestOffsets                        = new ArrayList<Long>();
 
-    private long                     firstByteTimeNS = -1;
-    private long                     mutexWaitTimeNS = 0;
-    private long                     waitTimeNS = 0;
-    private long                     sleepTimeNS = 0;
-    private int                      readRequestDelayMS = 0;
-    private long                     fetchStartTimeNS = 0;
-    private long                     fetchTimeNS = 0;
-    private long                     fetchFinishTimeNS = 0;
-    private long                     closeTimeNS = 0;
-    private int                      numLongWaits = 0;
-    private int                      numFetches = 0;
-    private long                     numPartialBlockReads = 0;
-    private long                     numBlockReads = 0;
+    private long                     firstByteTimeNS                            = -1;
+    private long                     mutexWaitTimeNS                            = 0;
+    private long                     waitTimeNS                                 = 0;
+    private long                     sleepTimeNS                                = 0;
+    private int                      readRequestDelayMS                         = 0;
+    private long                     fetchStartTimeNS                           = 0;
+    private long                     fetchTimeNS                                = 0;
+    private long                     fetchFinishTimeNS                          = 0;
+    private long                     closeTimeNS                                = 0;
+    private int                      numLongWaits                               = 0;
+    private int                      numFetches                                 = 0;
+    private long                     numPartialBlockReads                       = 0;
+    private long                     numBlockReads                              = 0;
 
     private Socket                   sock;
-    private int                      connectTimeout = DEFAULT_CONNECT_TIMEOUT_MILIS;
-    private int                      socketOpTimeoutMs = DEFAULT_SOCKET_OP_TIMEOUT_MS;
+    private int                      connectTimeout                             = DEFAULT_CONNECT_TIMEOUT_MILIS;
+    private int                      socketOpTimeoutMs                          = DEFAULT_SOCKET_OP_TIMEOUT_MS;
 
-    private static final Charset     HPCCCharSet                   = Charset.forName("ISO-8859-1");
-    private static final Logger      log                           = LogManager.getLogger(RowServiceInputStream.class);
+    private static final Charset     HPCCCharSet                                = Charset.forName("ISO-8859-1");
+    private static final Logger      log                                        = LogManager.getLogger(RowServiceInputStream.class);
 
-    private int maxReadSizeKB = DEFAULT_MAX_READ_SIZE_KB;
-    private int initialReadSizeKB = DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
+    private int                      maxReadSizeKB                              = DEFAULT_MAX_READ_SIZE_KB;
+    private int                      initialReadSizeKB                          = DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
 
     /**
      * Instantiates a new row service input stream.
@@ -313,7 +312,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      * @throws Exception
      *            general exception
      */
-    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB) throws Exception
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread,
+            int maxReadSizeInKB) throws Exception
     {
         this(dp, rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, null, false);
     }
@@ -340,7 +340,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      * @throws Exception
      *            general exception
      */
-    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restart) throws Exception
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread,
+            int maxReadSizeInKB, RestartInformation restart) throws Exception
     {
         this(dp, rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, restart, false);
     }
@@ -369,7 +370,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      * @throws Exception
      *            general exception
      */
-    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB, RestartInformation restartInfo, boolean isFetching) throws Exception
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread,
+            int maxReadSizeInKB, RestartInformation restartInfo, boolean isFetching) throws Exception
     {
         this(dp, rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, restartInfo, isFetching, DEFAULT_SOCKET_OP_TIMEOUT_MS, null);
     }
@@ -400,8 +402,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      * @throws Exception
      *            general exception
      */
-    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB,
-                                RestartInformation restartInfo, boolean isFetching, int socketOpTimeoutMS) throws Exception
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread,
+            int maxReadSizeInKB, RestartInformation restartInfo, boolean isFetching, int socketOpTimeoutMS) throws Exception
     {
         this(dp, rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, restartInfo, isFetching, socketOpTimeoutMS, null);
     }
@@ -434,11 +436,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
      * @throws Exception
      *            general exception
      */
-    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread, int maxReadSizeInKB,
-                                RestartInformation restartInfo, boolean isFetching, int socketOpTimeoutMS, Span rdSpan) throws Exception
+    public RowServiceInputStream(DataPartition dp, FieldDef rd, FieldDef pRd, int connectTimeout, int limit, boolean createPrefetchThread,
+            int maxReadSizeInKB, RestartInformation restartInfo, boolean isFetching, int socketOpTimeoutMS, Span rdSpan) throws Exception
     {
-        this(constructStreamContext(rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB,
-                                    isFetching, socketOpTimeoutMS, rdSpan), dp, restartInfo);
+        this(constructStreamContext(rd, pRd, connectTimeout, limit, createPrefetchThread, maxReadSizeInKB, isFetching, socketOpTimeoutMS, rdSpan), dp,
+                restartInfo);
     }
 
     /**
@@ -533,7 +535,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             this.streamPos = restartInfo.streamPos;
             this.streamPosOfFetchStart = this.streamPos;
         }
-        String prefix = "RowServiceInputStream constructor, file "  + dataPart.getFileName() +  " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream constructor, file " + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP()
+                + ":";
 
         if (inFetchingMode == false)
         {
@@ -544,10 +547,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             // Starting a fetch for the first record so that the connection is warm started
             // Starting the fetch on another thread to allow for records larger than the buffer size
             AtomicBoolean blockingRequestFinished = new AtomicBoolean(false);
-            Thread tempFetchThread = new Thread(() -> {
+            Thread tempFetchThread = new Thread(() ->
+            {
                 try
                 {
-                    Long[] emptyOffsets = {0L};
+                    Long[] emptyOffsets = { 0L };
                     startBlockingFetchRequest(Arrays.asList(emptyOffsets));
                 }
                 catch (Exception e)
@@ -574,7 +578,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                         {
                             Thread.sleep(SHORT_SLEEP_MS);
                         }
-                        catch(InterruptedException e) {/*We don't care about waking early*/}
+                        catch (InterruptedException e)
+                        {/*We don't care about waking early*/}
                     }
                 }
                 catch (IOException e)
@@ -597,9 +602,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         if (context.createPrefetchThread)
         {
             RowServiceInputStream rowInputStream = this;
-            Runnable prefetchTask = new Runnable()
-            {
+            Runnable prefetchTask = new Runnable() {
                 RowServiceInputStream inputStream = rowInputStream;
+
                 public void run()
                 {
                     while (inputStream.isClosed() == false)
@@ -621,7 +626,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                                 Thread.sleep(SHORT_SLEEP_MS);
                             }
                         }
-                        catch(InterruptedException e) {/*We don't care about waking early*/}
+                        catch (InterruptedException e)
+                        {/*We don't care about waking early*/}
                     }
                 }
             };
@@ -643,7 +649,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         synchronized (streamPosOfFetches)
         {
             // Note if we don't find a valid start point we will restart from the beginning of the file
-            for (int i = streamPosOfFetches.size()-1; i >= 0; i--)
+            for (int i = streamPosOfFetches.size() - 1; i >= 0; i--)
             {
                 Long fetchStreamPos = streamPosOfFetches.get(i);
                 if (fetchStreamPos <= streamPos)
@@ -669,8 +675,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         }
         else if (fileReadSpan != null)
         {
-            Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
-                                                    ExceptionAttributes.EXCEPTION_MESSAGE, e.getMessage());
+            Attributes attributes = Attributes.of(AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
+                    ExceptionAttributes.EXCEPTION_MESSAGE, e.getMessage());
             fileReadSpan.recordException(e, attributes);
         }
     }
@@ -887,8 +893,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             Exception wrappedException = new Exception("Error: attempted to start a fetch request for an input stream in sequential read mode.");
             if (fileReadSpan != null)
             {
-                Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
-                                                        ExceptionAttributes.EXCEPTION_MESSAGE, wrappedException.getMessage());
+                Attributes attributes = Attributes.of(AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
+                        ExceptionAttributes.EXCEPTION_MESSAGE, wrappedException.getMessage());
                 fileReadSpan.recordException(wrappedException, attributes);
             }
             throw wrappedException;
@@ -971,8 +977,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             boolean shouldStartNewSpan = readRequestSpan == null;
             if (shouldStartNewSpan)
             {
-                readRequestSpan = Utils.createChildSpan(fileReadSpan, "ReadRequest[" + readRequestCount
-                                    + "," + (readRequestCount + readRequestBatchSize) + "]");
+                readRequestSpan = Utils.createChildSpan(fileReadSpan,
+                        "ReadRequest[" + readRequestCount + "," + (readRequestCount + readRequestBatchSize) + "]");
                 readRequestSpan.setAttribute("server.index", getFilePartCopy());
                 readRequestSpan.setStatus(StatusCode.OK);
                 readRequestStart = readRequestCount;
@@ -982,7 +988,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             currentReadRequestEvent = new ReadRequestEvent();
             currentReadRequestEvent.requestTime = System.currentTimeMillis();
             currentReadRequestEvent.requestStreamPos = streamPos;
-            currentReadRequestEvent.requestSize = maxReadSizeKB*1000;
+            currentReadRequestEvent.requestSize = maxReadSizeKB * 1000;
         }
     }
 
@@ -1010,10 +1016,10 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
                 for (ReadRequestEvent event : readRequestEvents)
                 {
-                    requestTimes.add( (new Timestamp(event.requestTime)).toString() );
-                    responseTimes.add( (new Timestamp(event.responseTime)).toString() );
-                    requestSizes.add((long)event.requestSize);
-                    bytesRead.add((long)event.bytesRead);
+                    requestTimes.add((new Timestamp(event.requestTime)).toString());
+                    responseTimes.add((new Timestamp(event.responseTime)).toString());
+                    requestSizes.add((long) event.requestSize);
+                    bytesRead.add((long) event.bytesRead);
                     requestStreamPos.add(event.requestStreamPos);
                 }
                 readRequestEvents.clear();
@@ -1023,14 +1029,13 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 readRequestSpan.setAttribute(AttributeKey.longArrayKey("requestSizes"), requestSizes);
                 readRequestSpan.setAttribute(AttributeKey.longArrayKey("bytesRead"), bytesRead);
                 readRequestSpan.setAttribute(AttributeKey.longArrayKey("requestStreamPos"), requestStreamPos);
-                readRequestSpan.updateName( "ReadRequest[" + readRequestStart + "," + readRequestCount + "]");
+                readRequestSpan.updateName("ReadRequest[" + readRequestStart + "," + readRequestCount + "]");
 
                 readRequestSpan.end();
                 readRequestSpan = null;
             }
         }
     }
-
 
     // Run from prefetch thread only
     private int startFetch()
@@ -1039,7 +1044,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         {
             return -1;
         }
-        String prefix = "RowServiceInputStream.startFetch(), file "   + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream.startFetch(), file " + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP()
+                + ":";
 
         //------------------------------------------------------------------------------
         // If we haven't made the connection active, activate it now and send the
@@ -1066,7 +1072,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 {
                     close();
                 }
-                catch(Exception ie){}
+                catch (Exception ie)
+                {}
                 return -1;
             }
         }
@@ -1092,7 +1099,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                     {
                         close();
                     }
-                    catch(Exception ie){}
+                    catch (Exception ie)
+                    {}
                 }
             }
         }
@@ -1116,7 +1124,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 {
                     close();
                 }
-                catch(Exception ie){}
+                catch (Exception ie)
+                {}
                 return -1;
             }
 
@@ -1177,7 +1186,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 {
                     close();
                 }
-                catch(Exception e){}
+                catch (Exception e)
+                {}
                 return -1;
             }
             else
@@ -1185,7 +1195,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 inTokenRetry = false;
             }
         }
-        while(inTokenRetry);
+        while (inTokenRetry);
 
         //------------------------------------------------------------------------------
         // Read / return the length of the record data in this request
@@ -1213,7 +1223,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 close();
             }
-            catch(Exception ie){}
+            catch (Exception ie)
+            {}
         }
 
         return dataLen;
@@ -1221,7 +1232,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private void readDataInFetch()
     {
-        String prefix = "RowServiceInputStream.readDataInFetch(), file "   + dataPart.getFileName() + "part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream.readDataInFetch(), file " + dataPart.getFileName() + "part " + dataPart.getThisPart() + " on IP "
+                + getIP() + ":";
         if (this.closed.get())
         {
             return;
@@ -1237,11 +1249,12 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 bytesToRead = this.dis.available();
                 if (bytesToRead < 0)
                 {
-                    IOException wrappedException = new IOException(prefix + "Encountered unexpected end of stream mid fetch, this.dis.available() returned " + bytesToRead + " bytes.");
+                    IOException wrappedException = new IOException(
+                            prefix + "Encountered unexpected end of stream mid fetch, this.dis.available() returned " + bytesToRead + " bytes.");
                     if (fileReadSpan != null)
                     {
-                        Attributes attributes = Attributes.of(  AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
-                                                                ExceptionAttributes.EXCEPTION_MESSAGE, wrappedException.getMessage());
+                        Attributes attributes = Attributes.of(AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()),
+                                ExceptionAttributes.EXCEPTION_MESSAGE, wrappedException.getMessage());
                         fileReadSpan.recordException(wrappedException, attributes);
                     }
                     throw wrappedException;
@@ -1257,7 +1270,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
                 // Limit bytes to read based on remaining data in request and buffer capacity
                 synchronized (readBuffer)
-                {   
+                {
                     int writeOffset = readBuffer.getWriteOffset();
                     bytesToRead = Math.min(readBuffer.getContiguousFreeSpace(), Math.min(bytesToRead, remainingDataInCurrentRequest));
 
@@ -1272,7 +1285,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 {
                     close();
                 }
-                catch(Exception ie){}
+                catch (Exception ie)
+                {}
             }
 
             remainingDataInCurrentRequest -= bytesToRead;
@@ -1293,7 +1307,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private void finishFetch()
     {
-        String prefix = "RowServiceInputStream.finishFetch(), file "   + dataPart.getFileName() + "part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream.finishFetch(), file " + dataPart.getFileName() + "part " + dataPart.getThisPart() + " on IP " + getIP()
+                + ":";
         if (this.closed.get())
         {
             return;
@@ -1305,7 +1320,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
         try
         {
-            if (dis==null) {
+            if (dis == null)
+            {
                 return;
             }
             int tokenLen = dis.readInt();
@@ -1319,7 +1335,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 this.tokenBin = new byte[tokenLen];
             }
-            dis.readFully(this.tokenBin,0,tokenLen);
+            dis.readFully(this.tokenBin, 0, tokenLen);
 
             this.streamPosOfFetchStart += totalDataInCurrentRequest;
             synchronized (streamPosOfFetches)
@@ -1341,7 +1357,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 close();
             }
-            catch(Exception ie){}
+            catch (Exception ie)
+            {}
         }
 
         finishReadRequestSpan();
@@ -1390,7 +1407,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 {
                     close();
                 }
-                catch(Exception ie){}
+                catch (Exception ie)
+                {}
             }
         }
     }
@@ -1499,10 +1517,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 throw new IOException("Prefetch thread exited early exception:" + prefetchException.getMessage(), this.prefetchException);
             }
-            
+
             if (availBytes == 0)
             {
-                String prefix = "RowServiceInputStream.available(), file "   + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+                String prefix = "RowServiceInputStream.available(), file " + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP "
+                        + getIP() + ":";
 
                 IOException wrappedException = new IOException(prefix + "End of input stream, streamPos: " + streamPos);
                 throw wrappedException;
@@ -1538,7 +1557,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 {
                     this.prefetchThread.join();
                 }
-                catch(Exception e){}
+                catch (Exception e)
+                {}
             }
 
             finishReadRequestSpan();
@@ -1594,7 +1614,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         if (this.prefetchException != null)
         {
-            throw new IOException(this.prefetchException.getMessage(),this.prefetchException);
+            throw new IOException(this.prefetchException.getMessage(), this.prefetchException);
         }
 
         // We are waiting on a single byte so hot loop
@@ -1620,7 +1640,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                             Thread.sleep(SHORT_SLEEP_MS);
                         }
                     }
-                    catch(InterruptedException e) {/*We don't care about waking early*/}
+                    catch (InterruptedException e)
+                    {/*We don't care about waking early*/}
                 }
             }
 
@@ -1685,7 +1706,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         if (this.prefetchException != null)
         {
-            throw new IOException(this.prefetchException.getMessage(),prefetchException);
+            throw new IOException(this.prefetchException.getMessage(), prefetchException);
         }
 
         int available = 0;
@@ -1725,7 +1746,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         if (this.prefetchException != null)
         {
-            throw new IOException(this.prefetchException.getMessage(),prefetchException);
+            throw new IOException(this.prefetchException.getMessage(), prefetchException);
         }
 
         this.streamPos = this.streamMarkPos;
@@ -1745,7 +1766,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         if (this.prefetchException != null)
         {
-            throw new IOException(this.prefetchException.getMessage(),prefetchException);
+            throw new IOException(this.prefetchException.getMessage(), prefetchException);
         }
 
         // Have to read the data if we need to skip
@@ -1780,19 +1801,19 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     public List<IMetric> getMetrics()
     {
         ArrayList<IMetric> metrics = new ArrayList<IMetric>();
-        metrics.add(new SimpleMetric((double) this.streamPos,BYTES_READ_METRIC,new Units(Units.Type.BYTES)));
-        metrics.add(new SimpleMetric((double) this.firstByteTimeNS,FIRST_BYTE_TIME_METRIC,new Units(Units.Type.SECONDS,Units.Scale.NANO)));
-        metrics.add(new SimpleMetric((double) this.waitTimeNS,WAIT_TIME_METRIC,new Units(Units.Type.SECONDS,Units.Scale.NANO)));
-        metrics.add(new SimpleMetric((double) this.sleepTimeNS,SLEEP_TIME_METRIC,new Units(Units.Type.SECONDS,Units.Scale.NANO)));
-        metrics.add(new SimpleMetric((double) this.fetchStartTimeNS,FETCH_START_TIME_METRIC,new Units(Units.Type.SECONDS,Units.Scale.NANO)));
-        metrics.add(new SimpleMetric((double) this.fetchTimeNS,FETCH_TIME_METRIC,new Units(Units.Type.SECONDS,Units.Scale.NANO)));
-        metrics.add(new SimpleMetric((double) this.fetchFinishTimeNS,FETCH_FINISH_TIME_METRIC,new Units(Units.Type.SECONDS,Units.Scale.NANO)));
-        metrics.add(new SimpleMetric((double) this.closeTimeNS,CLOSE_TIME_METRIC,new Units(Units.Type.SECONDS,Units.Scale.NANO)));
-        metrics.add(new SimpleMetric((double) this.mutexWaitTimeNS,MUTEX_WAIT_TIME_METRIC,new Units(Units.Type.SECONDS,Units.Scale.NANO)));
-        metrics.add(new SimpleMetric((double) this.numLongWaits,LONG_WAITS_METRIC,new Units(Units.Type.COUNT)));
-        metrics.add(new SimpleMetric((double) this.numFetches,FETCHES_METRIC,new Units(Units.Type.COUNT)));
-        metrics.add(new SimpleMetric((double) this.numPartialBlockReads,PARTIAL_BLOCK_READS_METRIC,new Units(Units.Type.COUNT)));
-        metrics.add(new SimpleMetric((double) this.numBlockReads,BLOCK_READS_METRIC,new Units(Units.Type.COUNT)));
+        metrics.add(new SimpleMetric((double) this.streamPos, BYTES_READ_METRIC, new Units(Units.Type.BYTES)));
+        metrics.add(new SimpleMetric((double) this.firstByteTimeNS, FIRST_BYTE_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+        metrics.add(new SimpleMetric((double) this.waitTimeNS, WAIT_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+        metrics.add(new SimpleMetric((double) this.sleepTimeNS, SLEEP_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+        metrics.add(new SimpleMetric((double) this.fetchStartTimeNS, FETCH_START_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+        metrics.add(new SimpleMetric((double) this.fetchTimeNS, FETCH_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+        metrics.add(new SimpleMetric((double) this.fetchFinishTimeNS, FETCH_FINISH_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+        metrics.add(new SimpleMetric((double) this.closeTimeNS, CLOSE_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+        metrics.add(new SimpleMetric((double) this.mutexWaitTimeNS, MUTEX_WAIT_TIME_METRIC, new Units(Units.Type.SECONDS, Units.Scale.NANO)));
+        metrics.add(new SimpleMetric((double) this.numLongWaits, LONG_WAITS_METRIC, new Units(Units.Type.COUNT)));
+        metrics.add(new SimpleMetric((double) this.numFetches, FETCHES_METRIC, new Units(Units.Type.COUNT)));
+        metrics.add(new SimpleMetric((double) this.numPartialBlockReads, PARTIAL_BLOCK_READS_METRIC, new Units(Units.Type.COUNT)));
+        metrics.add(new SimpleMetric((double) this.numBlockReads, BLOCK_READS_METRIC, new Units(Units.Type.COUNT)));
 
         return metrics;
     }
@@ -1801,7 +1822,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         // Limit the number of concurrent connection startups
         int currentCount = connectionStartupCount.get();
-        int newCount = currentCount+1;
+        int newCount = currentCount + 1;
         isFirstReadRequest = true;
         while (newCount > maxConcurrentStartups || !connectionStartupCount.compareAndSet(currentCount, newCount))
         {
@@ -1809,15 +1830,17 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             {
                 Thread.sleep(1);
             }
-            catch (InterruptedException e) {} // We don't care about waking early
+            catch (InterruptedException e)
+            {} // We don't care about waking early
 
             currentCount = connectionStartupCount.get();
-            newCount = currentCount+1;
+            newCount = currentCount + 1;
         }
 
         this.active.set(false);
         this.handle = 0;
-        String prefix = "RowServiceInputStream.makeActive, file "  + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream.makeActive, file " + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP()
+                + ":";
 
         Span connectSpan = null;
         if (fileReadSpan != null)
@@ -1833,8 +1856,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             needsRetry = false;
             try
             {
-                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '"
-                        + (getFilePartCopy() + 1) + "' on IP: '" + getIP() + "'" + " for Path: '" + getCopyPath() + "'");
+                log.debug("Attempting to connect to file part : '" + dataPart.getThisPart() + "' Copy: '" + (getFilePartCopy() + 1) + "' on IP: '"
+                        + getIP() + "'" + " for Path: '" + getCopyPath() + "'");
                 try
                 {
                     if (getUseSSL())
@@ -1873,7 +1896,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (java.net.UnknownHostException e)
                 {
-                    HpccFileException wrappedException = new HpccFileException(prefix +  "Bad file part IP address or host name: " + e.getMessage(),e);
+                    HpccFileException wrappedException = new HpccFileException(prefix + "Bad file part IP address or host name: " + e.getMessage(),
+                            e);
 
                     if (connectSpan != null)
                     {
@@ -1886,7 +1910,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (java.io.IOException e)
                 {
-                    HpccFileException wrappedException = new HpccFileException(prefix + " error making part active:" + e.getMessage(),e);
+                    HpccFileException wrappedException = new HpccFileException(prefix + " error making part active:" + e.getMessage(), e);
 
                     if (connectSpan != null)
                     {
@@ -1927,12 +1951,11 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 // Check protocol version
                 //------------------------------------------------------------------------------
 
-
                 Span versionSpan = null;
                 if (fileReadSpan != null)
                 {
                     versionSpan = Utils.createChildSpan(fileReadSpan, "VersionRequest");
-                    versionSpan.setAttribute( AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()) );
+                    versionSpan.setAttribute(AttributeKey.longKey("server.index"), Long.valueOf(getFilePartCopy()));
                     versionSpan.setStatus(StatusCode.OK);
                 }
 
@@ -1947,7 +1970,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (IOException e)
                 {
-                    HpccFileException wrappedException = new HpccFileException(prefix+ " Failed on initial remote read transfer: " + e.getMessage(),e);
+                    HpccFileException wrappedException = new HpccFileException(prefix + " Failed on initial remote read transfer: " + e.getMessage(),
+                            e);
                     if (versionSpan != null)
                     {
                         versionSpan.setStatus(StatusCode.ERROR);
@@ -1974,7 +1998,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                     }
                     catch (IOException e)
                     {
-                        HpccFileException wrappedException = new HpccFileException(prefix + "Error while attempting to read version response:" + e.getMessage(), e);
+                        HpccFileException wrappedException = new HpccFileException(
+                                prefix + "Error while attempting to read version response:" + e.getMessage(), e);
                         if (versionSpan != null)
                         {
                             versionSpan.setStatus(StatusCode.ERROR);
@@ -2019,7 +2044,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                 }
                 catch (IOException e)
                 {
-                    HpccFileException wrappedException = new HpccFileException(prefix + " Failed on initial remote read read trans:" + e.getMessage(), e);
+                    HpccFileException wrappedException = new HpccFileException(prefix + " Failed on initial remote read read trans:" + e.getMessage(),
+                            e);
 
                     if (readRequestSpan != null)
                     {
@@ -2040,7 +2066,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
             }
             catch (Exception e)
             {
-                log.error(prefix + ": Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (getFilePartCopy() + 1) + "' on IP: '" + getIP() + ":" + e.getMessage(),e);
+                log.error(prefix + ": Could not reach file part: '" + dataPart.getThisPart() + "' copy: '" + (getFilePartCopy() + 1) + "' on IP: '"
+                        + getIP() + ":" + e.getMessage(), e);
 
                 needsRetry = true;
                 if (!setNextFilePartCopy())
@@ -2052,7 +2079,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                     throw new HpccFileException(prefix + " Unsuccessfuly attempted to connect to all file part copies", e);
                 }
             }
-        } while (needsRetry);
+        }
+        while (needsRetry);
     }
 
     /* Notes on protocol:
@@ -2335,7 +2363,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     {
         String traceContextHeader = org.hpccsystems.ws.client.utils.Utils.getTraceParentHeader(versionSpan);
         final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
-        final String versionMsg = RFCCodes.RFCStreamReadCmd + "{ \"command\" : \"version\", \"handle\": \"-1\", " + trace + " \"format\": \"binary\" }";
+        final String versionMsg = RFCCodes.RFCStreamReadCmd + "{ \"command\" : \"version\", \"handle\": \"-1\", " + trace
+                + " \"format\": \"binary\" }";
         return versionMsg;
     }
 
@@ -2497,7 +2526,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
 
     private void sendCloseFileRequest() throws IOException
     {
-        String prefix = "RowServiceInputStream.sendCloseFileRequest(), file  "  + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ":";
+        String prefix = "RowServiceInputStream.sendCloseFileRequest(), file  " + dataPart.getFileName() + " part " + dataPart.getThisPart()
+                + " on IP " + getIP() + ":";
 
         if (useOldProtocol)
         {
@@ -2518,7 +2548,7 @@ public class RowServiceInputStream extends InputStream implements IProfilable
         try
         {
             this.dos.writeInt(jsonRequestLen + 4 + 1);
-            this.dos.write((int)RFCCodes.RFCStreamGeneral);
+            this.dos.write((int) RFCCodes.RFCStreamGeneral);
             this.dos.writeInt(jsonRequestLen);
             this.dos.write(closeFileRequest.getBytes(HPCCCharSet));
             this.dos.flush();
@@ -2553,7 +2583,8 @@ public class RowServiceInputStream extends InputStream implements IProfilable
     private RowServiceResponse readResponse() throws HpccFileException
     {
         RowServiceResponse response = new RowServiceResponse();
-        String prefix="RowServiceInputStream.readResponse(): , file "  + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP " + getIP() + ": ";
+        String prefix = "RowServiceInputStream.readResponse(): , file " + dataPart.getFileName() + " part " + dataPart.getThisPart() + " on IP "
+                + getIP() + ": ";
         try
         {
             response.len = dis.readInt();
@@ -2596,7 +2627,9 @@ public class RowServiceInputStream extends InputStream implements IProfilable
                         sb.append("\nInvalid file access expiry reported - change File Access Expiry (HPCCFile) and retry");
                         break;
                     case RFCCodes.DAFSERR_cmdstream_authexpired:
-                        sb.append("\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile) to something greater than " + this.socketOpTimeoutMs);
+                        sb.append(
+                                "\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile) to something greater than "
+                                        + this.socketOpTimeoutMs);
                         break;
                     default:
                         break;

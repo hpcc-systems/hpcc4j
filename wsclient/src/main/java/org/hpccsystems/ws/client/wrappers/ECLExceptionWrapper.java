@@ -18,7 +18,6 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLException;
  * limitations under the License.
  *******************************************************************************/
 
-
 public class ECLExceptionWrapper extends BaseExceptionWrapper
 {
     protected String severity;

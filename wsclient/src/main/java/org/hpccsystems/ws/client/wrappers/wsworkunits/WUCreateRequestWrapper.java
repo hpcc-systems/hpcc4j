@@ -22,7 +22,7 @@ public class WUCreateRequestWrapper
     {
         return new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreate();
     }
-    
+
     /**
      * Gets the raw version 1 69.
      *

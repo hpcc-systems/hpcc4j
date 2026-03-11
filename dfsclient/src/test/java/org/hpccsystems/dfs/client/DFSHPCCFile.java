@@ -16,26 +16,28 @@ import org.junit.Test;
 
 public class DFSHPCCFile extends BaseRemoteTest
 {
-    private static HPCCFile mockHPCCFile = null;
+    private static HPCCFile     mockHPCCFile          = null;
 
-    private static final String mockValidFileName = "some::file::name";
-    private static final String mockValidURL = "http://someesp:8010/somepath";
-    private static final String mockProjectList = "uint8,r8,varStr,";
-    private static final String mockFilter = "uint8 > 2";
-    private static final String mockIP = "10.1.1.1";
-    private static Connection mockConnectionObj = null;
-    private static String mockTargetFileCluster = thorClusterFileGroup;
-    private static RemapInfo mockRemapInfo = new RemapInfo(100, mockIP);
-    private static final int mockFilePartsMax = 2;
+    private static final String mockValidFileName     = "some::file::name";
+    private static final String mockValidURL          = "http://someesp:8010/somepath";
+    private static final String mockProjectList       = "uint8,r8,varStr,";
+    private static final String mockFilter            = "uint8 > 2";
+    private static final String mockIP                = "10.1.1.1";
+    private static Connection   mockConnectionObj     = null;
+    private static String       mockTargetFileCluster = thorClusterFileGroup;
+    private static RemapInfo    mockRemapInfo         = new RemapInfo(100, mockIP);
+    private static final int    mockFilePartsMax      = 2;
 
     @Before
     public void setup() throws HpccFileException
     {
-        mockHPCCFile = new HPCCFile(DEFAULTHPCCFILENAME, connection, mockProjectList, mockFilter, mockRemapInfo, mockFilePartsMax, mockTargetFileCluster);
+        mockHPCCFile = new HPCCFile(DEFAULTHPCCFILENAME, connection, mockProjectList, mockFilter, mockRemapInfo, mockFilePartsMax,
+                mockTargetFileCluster);
     }
 
     @AfterClass
-    public static void tearDownAfterClass() throws Exception {
+    public static void tearDownAfterClass() throws Exception
+    {
     }
 
     @Test
@@ -63,7 +65,8 @@ public class DFSHPCCFile extends BaseRemoteTest
     @Test
     public final void testHPCCFileStringConnectionStringStringRemapInfoIntString() throws HpccFileException
     {
-        HPCCFile testfile = new HPCCFile(mockValidFileName, mockConnectionObj, mockProjectList, mockFilter, mockRemapInfo, 400, mockTargetFileCluster);
+        HPCCFile testfile = new HPCCFile(mockValidFileName, mockConnectionObj, mockProjectList, mockFilter, mockRemapInfo, 400,
+                mockTargetFileCluster);
         Assert.assertNotNull(testfile);
     }
 
@@ -118,7 +121,7 @@ public class DFSHPCCFile extends BaseRemoteTest
     {
         mockHPCCFile.getRecordDefinition(); //force filepart creation
 
-        RemapInfo newremapInfo = new RemapInfo(100, "1"+mockIP);
+        RemapInfo newremapInfo = new RemapInfo(100, "1" + mockIP);
         mockHPCCFile.setClusterRemapInfo(newremapInfo);
         DataPartition[] fileParts = mockHPCCFile.getFileParts();
         Assert.assertNotNull(fileParts);
@@ -126,7 +129,7 @@ public class DFSHPCCFile extends BaseRemoteTest
         String[] copyLocations = fileParts[0].getCopyLocations();
         Assert.assertNotNull(copyLocations);
         Assert.assertTrue(copyLocations.length > 0);
-        Assert.assertEquals("1"+mockIP, copyLocations[0]);
+        Assert.assertEquals("1" + mockIP, copyLocations[0]);
     }
 
     @Test
@@ -135,7 +138,7 @@ public class DFSHPCCFile extends BaseRemoteTest
         mockHPCCFile.setFilter(mockFilter);
         FileFilter firstfilter = mockHPCCFile.getFilter();
         Assert.assertNotNull(firstfilter);
-        mockHPCCFile.setFilter(mockFilter+" OR uint8 > 2");
+        mockHPCCFile.setFilter(mockFilter + " OR uint8 > 2");
         FileFilter secondfilter = mockHPCCFile.getFilter();
         Assert.assertNotNull(secondfilter);
         Assert.assertFalse(firstfilter.toString().equals(secondfilter.toString()));
@@ -211,7 +214,7 @@ public class DFSHPCCFile extends BaseRemoteTest
     }
 
     @Test
-    public final void testProjectedRecordDefCloning() throws Exception 
+    public final void testProjectedRecordDefCloning() throws Exception
     {
         FieldDef recordDef = mockHPCCFile.getRecordDefinition();
 
@@ -226,7 +229,7 @@ public class DFSHPCCFile extends BaseRemoteTest
         FieldDef projectedRecordDefinition = mockHPCCFile.getProjectedRecordDefinition();
 
         // Ensure the projected record definition is a clone and not modifying the original record definition
-        assert(fieldDefinitionsAreSeparate(recordDef, projectedRecordDefinition));
+        assert (fieldDefinitionsAreSeparate(recordDef, projectedRecordDefinition));
     }
 
     @Test

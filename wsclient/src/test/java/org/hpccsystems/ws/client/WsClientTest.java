@@ -75,11 +75,9 @@ public class WsClientTest extends BaseRemoteTest
             for (int i = 0; i < availableClusterGroups.length; i++)
             {
                 System.out.println(availableClusterGroups[i]);
-                if (availableClusterGroups[i].equalsIgnoreCase(roxieClusterGroup))
-                    found = true;
+                if (availableClusterGroups[i].equalsIgnoreCase(roxieClusterGroup)) found = true;
             }
-            if (!found)
-                Assert.fail("Did not find roxie cluster named: '" + roxieClusterGroup +"'");
+            if (!found) Assert.fail("Did not find roxie cluster named: '" + roxieClusterGroup + "'");
         }
         catch (Exception e)
         {
@@ -102,11 +100,9 @@ public class WsClientTest extends BaseRemoteTest
             for (int i = 0; i < availableClusterGroups.length; i++)
             {
                 System.out.println(availableClusterGroups[i]);
-                if (availableClusterGroups[i].equalsIgnoreCase(thorClusterFileGroup))
-                    found = true;
+                if (availableClusterGroups[i].equalsIgnoreCase(thorClusterFileGroup)) found = true;
             }
-            if (!found)
-                Assert.fail("Did not find thor cluster named: '" + thorClusterFileGroup +"'");
+            if (!found) Assert.fail("Did not find thor cluster named: '" + thorClusterFileGroup + "'");
         }
         catch (Exception e)
         {
@@ -122,8 +118,7 @@ public class WsClientTest extends BaseRemoteTest
         {
             System.out.println("Pinging server via wsclient");
             boolean pinged = wsclient.pingServer();
-            if (!pinged)
-                Assert.fail("Could not ping server via wsclient");
+            if (!pinged) Assert.fail("Could not ping server via wsclient");
         }
         catch (Exception e)
         {

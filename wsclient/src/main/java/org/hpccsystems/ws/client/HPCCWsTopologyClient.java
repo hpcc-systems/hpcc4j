@@ -234,31 +234,27 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
             }
         }
 
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
+        if (!initErrMessage.isEmpty()) log.error(initErrMessage);
     }
 
     static public enum TopologyGroupQueryKind
     {
-        PLANE,
-        HTHOR,
-        THOR,
-        ROXIE;
+        PLANE, HTHOR, THOR, ROXIE;
 
         public String getText() throws Exception
         {
             switch (this)
             {
-            case PLANE:
-                return "Plane";
-            case HTHOR:
-                return "hthor";
-            case THOR:
-                return "Thor";
-            case ROXIE:
-                return "Roxie";
-            default:
-                throw new Exception("Unknown TopologyGroupQueryKind");
+                case PLANE:
+                    return "Plane";
+                case HTHOR:
+                    return "hthor";
+                case THOR:
+                    return "Thor";
+                case ROXIE:
+                    return "Roxie";
+                default:
+                    throw new Exception("Unknown TopologyGroupQueryKind");
             }
         }
     }
@@ -306,8 +302,8 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
     {
         if (kind == null || kind.isEmpty())
         {
-            if (!isTargetHPCCContainerized())
-                throw new HpccContainerizedUnsupportedException("getTopologyGroups(kind): 'kind' must be provided when targeting non-containerized HPCC");
+            if (!isTargetHPCCContainerized()) throw new HpccContainerizedUnsupportedException(
+                    "getTopologyGroups(kind): 'kind' must be provided when targeting non-containerized HPCC");
         }
 
         verifyStub(); // Throws exception if stub failed
@@ -327,8 +323,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
             throw new Exception("HPCCWsTopologyClient.getTopologyGroups(kind) encountered RemoteException for topology kind " + kind, e);
         }
 
-        if (response == null)
-            throw new Exception("HPCCWsTopologyClient.getTopologyGroups(kind) encountered null response.");
+        if (response == null) throw new Exception("HPCCWsTopologyClient.getTopologyGroups(kind) encountered null response.");
 
         if (response.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(response.getExceptions()), "Could Not fetch Topology Groups.");
@@ -337,8 +332,7 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
         if (arrayOfTpGroup != null)
         {
             ArrayOfTpGroupWrapper arrayOfGroupWrapper = new ArrayOfTpGroupWrapper(arrayOfTpGroup);
-            if (arrayOfGroupWrapper != null)
-                return arrayOfGroupWrapper.getTpGroup();
+            if (arrayOfGroupWrapper != null) return arrayOfGroupWrapper.getTpGroup();
         }
 
         return null;
@@ -360,8 +354,8 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
     {
         boolean success = false;
 
-        if (isTargetHPCCContainerized())
-            throw new HpccContainerizedUnsupportedException("printValidTargetClusters: WsTopology.TpTargetClusterQuery not supported in CONTAINERIZED mode");
+        if (isTargetHPCCContainerized()) throw new HpccContainerizedUnsupportedException(
+                "printValidTargetClusters: WsTopology.TpTargetClusterQuery not supported in CONTAINERIZED mode");
 
         verifyStub(); // Throws exception if stub failed
 
@@ -459,8 +453,8 @@ public class HPCCWsTopologyClient extends BaseHPCCWsClient
     @WithSpan
     public String[] getValidTargetGroupNames() throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (isTargetHPCCContainerized())
-            throw new HpccContainerizedUnsupportedException("getValidTargetGroupNames: WsTopology.TpTargetClusterQuery not supported in CONTAINERIZED mode");
+        if (isTargetHPCCContainerized()) throw new HpccContainerizedUnsupportedException(
+                "getValidTargetGroupNames: WsTopology.TpTargetClusterQuery not supported in CONTAINERIZED mode");
 
         String[] tpTargetClusterNames = null;
 

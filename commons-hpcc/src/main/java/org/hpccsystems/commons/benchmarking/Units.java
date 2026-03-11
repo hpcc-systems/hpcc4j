@@ -25,39 +25,34 @@ public class Units
 {
     public enum Type
     {
-        SECONDS("s"),
-        BYTES("B"),
-        COUNT(""),
-        PERCENTAGE("%");
+        SECONDS ("s"), BYTES ("B"), COUNT (""), PERCENTAGE ("%");
 
         public String typePostfix;
+
         private Type(String postFix)
         {
             typePostfix = postFix;
         }
     };
+
     public Type type;
 
     public enum Scale
     {
-        NANO("n",-9),
-        MICRO("u",-6),
-        MILLI("m",-3),
-        UNIT("",0),
-        KILO("K",3),
-        MEGA("M",6),
-        GIGA("G",9);
-        
+        NANO ("n", -9), MICRO ("u", -6), MILLI ("m", -3), UNIT ("", 0), KILO ("K", 3), MEGA ("M", 6), GIGA ("G", 9);
+
         public String scalePrefix;
-        public int scalePower = 0;
+        public int    scalePower = 0;
+
         private Scale(String prefix, int scalePower)
         {
             this.scalePrefix = prefix;
             this.scalePower = scalePower;
         }
     };
+
     public Scale scale;
-    
+
     public Units(Type type)
     {
         this.type = type;
@@ -75,9 +70,8 @@ public class Units
         return scale.scalePrefix + type.typePostfix;
     }
 
-
     public static double calculateScaleConversion(Units.Scale from, Units.Scale to)
     {
-        return Math.pow(10.0,(double)(from.scalePower-to.scalePower));
+        return Math.pow(10.0, (double) (from.scalePower - to.scalePower));
     }
 };

@@ -54,14 +54,13 @@ public class HpccRelationIntegrationTest extends BaseIntegrationTest
         SQLContext sqlcontext = new SQLContext(spark);
 
         // Create the schema
-        StructType schema = DataTypes.createStructType(new StructField[] {
-            DataTypes.createStructField("key", DataTypes.LongType, false),
-            DataTypes.createStructField("value", DataTypes.LongType, false)
-        });
+        StructType schema = DataTypes.createStructType(new StructField[] { DataTypes.createStructField("key", DataTypes.LongType, false),
+                DataTypes.createStructField("value", DataTypes.LongType, false) });
 
         // Write dataset to HPCC
         List<Row> rows = new ArrayList<Row>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++)
+        {
             Object[] fields = new Object[2];
             fields[0] = Long.valueOf(i);
             fields[1] = Long.valueOf(i);
@@ -71,14 +70,8 @@ public class HpccRelationIntegrationTest extends BaseIntegrationTest
         Dataset<Row> writtenDataSet = spark.createDataFrame(rows, schema);
 
         String testDataset = "spark::test::integer_kv";
-        writtenDataSet.write()
-                    .format("hpcc")
-                    .mode("overwrite")
-                    .option("cluster", getThorCluster())
-                    .option("host", getHPCCClusterURL())
-                    .option("username", getHPCCClusterUser())
-                    .option("password", getHPCCClusterPass())
-                    .save(testDataset);
+        writtenDataSet.write().format("hpcc").mode("overwrite").option("cluster", getThorCluster()).option("host", getHPCCClusterURL())
+                .option("username", getHPCCClusterUser()).option("password", getHPCCClusterPass()).save(testDataset);
 
         TreeMap<String, String> paramTreeMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         paramTreeMap.put("host", getHPCCClusterURL());
@@ -90,14 +83,10 @@ public class HpccRelationIntegrationTest extends BaseIntegrationTest
         HpccOptions hpccopts = new HpccOptions(paramTreeMap);
         HpccRelation hpccRelation = new HpccRelation(sqlcontext, hpccopts);
 
-        Filter[] supportedSparkFilters = {
-            new Or(new LessThan("key", 12), new GreaterThan("key", 8)),
-            new In("key", new Object [] { 1, 2, 3, 4, 5}),
-            new EqualTo("key", 5),
-            new Not(new LessThan("key", 3)),
-        };
+        Filter[] supportedSparkFilters = { new Or(new LessThan("key", 12), new GreaterThan("key", 8)), new In("key", new Object[] { 1, 2, 3, 4, 5 }),
+                new EqualTo("key", 5), new Not(new LessThan("key", 3)), };
 
-        RDD<Row> rdd = hpccRelation.buildScan(new String[]{"key"}, supportedSparkFilters);
+        RDD<Row> rdd = hpccRelation.buildScan(new String[] { "key" }, supportedSparkFilters);
         Assert.assertTrue("Unexpected filter result count", rdd.count() == 1);
     }
 
@@ -160,20 +149,13 @@ public class HpccRelationIntegrationTest extends BaseIntegrationTest
     {
         HpccRelation hpccRelation = new HpccRelation(null, null);
 
-        Filter[] supportedSparkFilters = {
-            new StringStartsWith("fixstr8", "Rod"),
-            new Or(new LessThan("int8", 12), new GreaterThan("int8", 8)),
-            new In("int8", new Object [] { "str", "values", "etc"}),
-            new In("int8", new Object [] { 1, 2, 3, 4, 5.6}),
-            new LessThan("fixstr8", "XYZ"),
-            new Not(new EqualTo("fixstr8", "true")),
-            new EqualTo("int8", 5),
-            new Not(new LessThan("int8", 3))
-        };
+        Filter[] supportedSparkFilters = { new StringStartsWith("fixstr8", "Rod"), new Or(new LessThan("int8", 12), new GreaterThan("int8", 8)),
+                new In("int8", new Object[] { "str", "values", "etc" }), new In("int8", new Object[] { 1, 2, 3, 4, 5.6 }),
+                new LessThan("fixstr8", "XYZ"), new Not(new EqualTo("fixstr8", "true")), new EqualTo("int8", 5), new Not(new LessThan("int8", 3)) };
 
-        Filter [] unhandledsparkfilters = hpccRelation.unhandledFilters(supportedSparkFilters);
+        Filter[] unhandledsparkfilters = hpccRelation.unhandledFilters(supportedSparkFilters);
 
-        Assert.assertTrue("Unexpected unhandled filters detected" , unhandledsparkfilters.length == 0);
+        Assert.assertTrue("Unexpected unhandled filters detected", unhandledsparkfilters.length == 0);
     }
 
     @Test
@@ -181,18 +163,13 @@ public class HpccRelationIntegrationTest extends BaseIntegrationTest
     {
         HpccRelation hpccRelation = new HpccRelation(null, null);
 
-        Filter[] unsupportedSparkFilters = {
-            new IsNull("something"),
-            new Or(new LessThan("int8", 12), new GreaterThan("int4", 8)),
-            new Not(new Or(new LessThan("int8", 12), new GreaterThan("int8", 8))),
-            new Not(new In("int8", new Object [] { 1, 2, 3, 4, 5.6})),
-            new StringContains("somestring", "some"),
-            new StringEndsWith("somestring", "ing")
-        };
+        Filter[] unsupportedSparkFilters = { new IsNull("something"), new Or(new LessThan("int8", 12), new GreaterThan("int4", 8)),
+                new Not(new Or(new LessThan("int8", 12), new GreaterThan("int8", 8))), new Not(new In("int8", new Object[] { 1, 2, 3, 4, 5.6 })),
+                new StringContains("somestring", "some"), new StringEndsWith("somestring", "ing") };
 
         Filter[] unhandledsparkfilters = hpccRelation.unhandledFilters(unsupportedSparkFilters);
 
-        Assert.assertTrue("Unexpected unhandled filters detected" , unhandledsparkfilters.length == unsupportedSparkFilters.length);
+        Assert.assertTrue("Unexpected unhandled filters detected", unhandledsparkfilters.length == unsupportedSparkFilters.length);
     }
 
     @Test
@@ -203,50 +180,23 @@ public class HpccRelationIntegrationTest extends BaseIntegrationTest
 
         // Create a simple record definition with two integer fields
         org.hpccsystems.commons.ecl.FieldDef[] fields = new org.hpccsystems.commons.ecl.FieldDef[2];
-        fields[0] = new org.hpccsystems.commons.ecl.FieldDef(
-            "key",
-            org.hpccsystems.commons.ecl.FieldType.INTEGER,
-            "integer8",
-            8,
-            true,
-            false,
-            org.hpccsystems.commons.ecl.HpccSrcType.LITTLE_ENDIAN,
-            null
-        );
-        fields[1] = new org.hpccsystems.commons.ecl.FieldDef(
-            "value",
-            org.hpccsystems.commons.ecl.FieldType.INTEGER,
-            "integer8",
-            8,
-            true,
-            false,
-            org.hpccsystems.commons.ecl.HpccSrcType.LITTLE_ENDIAN,
-            null
-        );
-        org.hpccsystems.commons.ecl.FieldDef recordDef = new org.hpccsystems.commons.ecl.FieldDef(
-            "",
-            org.hpccsystems.commons.ecl.FieldType.RECORD,
-            "",
-            0,
-            false,
-            false,
-            org.hpccsystems.commons.ecl.HpccSrcType.UNKNOWN,
-            fields
-        );
+        fields[0] = new org.hpccsystems.commons.ecl.FieldDef("key", org.hpccsystems.commons.ecl.FieldType.INTEGER, "integer8", 8, true, false,
+                org.hpccsystems.commons.ecl.HpccSrcType.LITTLE_ENDIAN, null);
+        fields[1] = new org.hpccsystems.commons.ecl.FieldDef("value", org.hpccsystems.commons.ecl.FieldType.INTEGER, "integer8", 8, true, false,
+                org.hpccsystems.commons.ecl.HpccSrcType.LITTLE_ENDIAN, null);
+        org.hpccsystems.commons.ecl.FieldDef recordDef = new org.hpccsystems.commons.ecl.FieldDef("", org.hpccsystems.commons.ecl.FieldType.RECORD,
+                "", 0, false, false, org.hpccsystems.commons.ecl.HpccSrcType.UNKNOWN, fields);
 
         // Create an invalid DataPartition that will cause an error during reading
         // Using invalid IP addresses and paths to simulate connection/read failure
         String[] copyLocations = new String[] { "0.0.0.0" };
         String[] copyPaths = new String[] { "/invalid/path/nonexistent.file" };
         org.hpccsystems.dfs.client.DataPartition[] dataParts = new org.hpccsystems.dfs.client.DataPartition[1];
-        dataParts[0] = new org.hpccsystems.dfs.client.DataPartition(
-            copyLocations,
-            copyPaths,
-            1,  // partNum
-            1,  // numParts
-            7100,  // rowServicePort
-            false,  // shouldUseSSL
-            ""  // fileAccessBlob
+        dataParts[0] = new org.hpccsystems.dfs.client.DataPartition(copyLocations, copyPaths, 1,  // partNum
+                1,  // numParts
+                7100,  // rowServicePort
+                false,  // shouldUseSSL
+                ""  // fileAccessBlob
         );
 
         // Create HpccRDD with invalid data partitions

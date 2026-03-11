@@ -49,7 +49,7 @@ public class HPCCRecord
     {
         return this.rootFieldDef;
     }
-    
+
     /**
      * Gets the field defintion.
      *
@@ -150,7 +150,7 @@ public class HPCCRecord
             {
                 ret += ", ";
             }
-            
+
             if (fields[i] instanceof byte[])
             {
                 byte[] data = (byte[]) fields[i];

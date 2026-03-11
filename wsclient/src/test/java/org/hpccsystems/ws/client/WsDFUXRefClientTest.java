@@ -19,16 +19,15 @@ import org.junit.runners.MethodSorters;
 public class WsDFUXRefClientTest extends BaseRemoteTest
 {
     private final static HPCCWsDFUXRefClient wsdfuxrefclient = wsclient.getWsDFUXRefClient();
-    private final static String processCluster = System.getProperty("processcluster", "mythor");
-    private static boolean isValidVersion = true;
-    private ArrayOfXRefNodeWrapper xrefnodes = null;
+    private final static String              processCluster  = System.getProperty("processcluster", "mythor");
+    private static boolean                   isValidVersion  = true;
+    private ArrayOfXRefNodeWrapper           xrefnodes       = null;
 
     static
     {
         isValidVersion = wsdfuxrefclient != null && wsdfuxrefclient.isRuntimeVersionSupported();
 
-        if (System.getProperty("processcluster") == null)
-            System.out.println("processcluster system property not provided defaulting to 'mythor' ");
+        if (System.getProperty("processcluster") == null) System.out.println("processcluster system property not provided defaulting to 'mythor' ");
     }
 
     @Before
@@ -126,6 +125,7 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
             }
         }
     }
+
     @Test
     public void testDFUPing()
     {
@@ -289,36 +289,36 @@ public class WsDFUXRefClientTest extends BaseRemoteTest
         }
     }
 
-// Server side doesn't behave as other methods - not including in our tests
-//  https://track.hpccsystems.com/browse/HPCC-25622
-//    @Test
-//    public void testUnusedFiles()
-//    {
-//        System.out.println("Testing XREFUNUSEDFILES...");
-//        Assume.assumeNotNull("Aborting testUnusedFiles", roxieClusterGroup);
-//        Assume.assumeFalse("Aborting testUnusedFiles", roxieClusterGroup.isEmpty());
-//
-//        try
-//        {
-//            DFUXRefUnusedFilesResponseWrapper resp = wsdfuxrefclient.unusedFiles(roxieClusterGroup, null, null); //only works on Roxy clusters?
-//            Assert.assertNotNull(resp);
-//            System.out.println("Unused Files (" + resp.getUnusedFileCount() + "):");
-//            if (resp.getExceptions() != null && resp.getExceptions().getException().size() > 0)
-//                System.out.println("Exceptions encountered: " + resp.getExceptions().getException().toString());
-//            UnusedFiles_type0Wrapper files = resp.getUnusedFiles();
-//            Assert.assertNotNull(files);
-//            List<String> filenames = files.getFile();
-//            for (String filename : filenames)
-//            {
-//                System.out.println(filename);
-//            }
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-//            Assert.fail();
-//        }
-//    }
+    // Server side doesn't behave as other methods - not including in our tests
+    //  https://track.hpccsystems.com/browse/HPCC-25622
+    //    @Test
+    //    public void testUnusedFiles()
+    //    {
+    //        System.out.println("Testing XREFUNUSEDFILES...");
+    //        Assume.assumeNotNull("Aborting testUnusedFiles", roxieClusterGroup);
+    //        Assume.assumeFalse("Aborting testUnusedFiles", roxieClusterGroup.isEmpty());
+    //
+    //        try
+    //        {
+    //            DFUXRefUnusedFilesResponseWrapper resp = wsdfuxrefclient.unusedFiles(roxieClusterGroup, null, null); //only works on Roxy clusters?
+    //            Assert.assertNotNull(resp);
+    //            System.out.println("Unused Files (" + resp.getUnusedFileCount() + "):");
+    //            if (resp.getExceptions() != null && resp.getExceptions().getException().size() > 0)
+    //                System.out.println("Exceptions encountered: " + resp.getExceptions().getException().toString());
+    //            UnusedFiles_type0Wrapper files = resp.getUnusedFiles();
+    //            Assert.assertNotNull(files);
+    //            List<String> filenames = files.getFile();
+    //            for (String filename : filenames)
+    //            {
+    //                System.out.println(filename);
+    //            }
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            e.printStackTrace();
+    //            Assert.fail();
+    //        }
+    //    }
 
     @Test
     public void Z9_testXRefBuildCancel() throws Exception

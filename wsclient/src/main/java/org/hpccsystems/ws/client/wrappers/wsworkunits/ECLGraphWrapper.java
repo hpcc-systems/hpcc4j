@@ -3,20 +3,22 @@ package org.hpccsystems.ws.client.wrappers.wsworkunits;
 @Deprecated
 public class ECLGraphWrapper
 {
-    private String name;
-    private String label;
-    private String type;
+    private String  name;
+    private String  label;
+    private String  type;
     private Boolean running;
     private Boolean complete;
     private Boolean failed;
-    private Long runningId;
-    private String whenStarted;
-    private String whenFinished;
+    private Long    runningId;
+    private String  whenStarted;
+    private String  whenFinished;
 
     /**
      * Instantiates a new ECL graph wrapper.
      */
-    public ECLGraphWrapper() {}
+    public ECLGraphWrapper()
+    {
+    }
 
     /**
      * Instantiates a new ECL graph wrapper.
@@ -26,7 +28,7 @@ public class ECLGraphWrapper
      */
     public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -49,7 +51,7 @@ public class ECLGraphWrapper
      */
     public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLGraph raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -73,7 +75,7 @@ public class ECLGraphWrapper
      */
     public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLGraph raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -97,7 +99,7 @@ public class ECLGraphWrapper
      */
     public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLGraph raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -121,7 +123,7 @@ public class ECLGraphWrapper
      */
     public ECLGraphWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLGraph raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -154,8 +156,7 @@ public class ECLGraphWrapper
      */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph result =
-                        new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph result = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLGraph();
 
         result.setComplete(this.getComplete());
         result.setFailed(this.getFailed());
@@ -364,8 +365,7 @@ public class ECLGraphWrapper
     @Override
     public String toString()
     {
-        return "ECLGraphWrapper [name=" + name + ", label=" + label + ", type=" + type + ", running=" + running
-                + ", complete=" + complete + ", failed=" + failed + ", runningId=" + runningId + ", whenStarted="
-                + whenStarted + ", whenFinished=" + whenFinished + "]";
+        return "ECLGraphWrapper [name=" + name + ", label=" + label + ", type=" + type + ", running=" + running + ", complete=" + complete
+                + ", failed=" + failed + ", runningId=" + runningId + ", whenStarted=" + whenStarted + ", whenFinished=" + whenFinished + "]";
     }
 }

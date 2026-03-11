@@ -43,11 +43,12 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 public class HPCCWsSMCClient extends BaseHPCCWsClient
 {
     /** Constant <code>WSSMCURI="/WsSMC"</code> */
-    public static final String WSSMCURI           = "/WsSMC";
-    private static int         DEFAULTSERVICEPORT = -1;
-    private static String      WSDLURL            = null;
+    public static final String  WSSMCURI                     = "/WsSMC";
+    private static int          DEFAULTSERVICEPORT           = -1;
+    private static String       WSDLURL                      = null;
 
     private static final String CONTAINERIZED_BUILD_INFO_TAG = "CONTAINERIZED";
+
     /**
      * Load WSDLURL.
      */
@@ -200,8 +201,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
             }
         }
 
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
+        if (!initErrMessage.isEmpty()) log.error(initErrMessage);
     }
 
     /**
@@ -248,51 +248,51 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
         return build;
     }
 
-   /**
+    /**
     * Is target ECLWATCH running in container mode.
     *
     * @return true, if successful
     * @throws java.lang.Exception
     *             the exception
     */
-   @WithSpan
-   public boolean isContainerized() throws Exception
-   {
-       verifyStub();
+    @WithSpan
+    public boolean isContainerized() throws Exception
+    {
+        verifyStub();
 
-       GetBuildInfoResponse resp = null;
+        GetBuildInfoResponse resp = null;
 
-       try
-       {
-           resp = ((WsSMCStub) stub).getBuildInfo(new GetBuildInfo());
-       }
-       catch (RemoteException e)
-       {
-           log.error("HPCCWsSMCClient.isContainerized encountered RemoteException.\n" + e.getLocalizedMessage());
-       }
+        try
+        {
+            resp = ((WsSMCStub) stub).getBuildInfo(new GetBuildInfo());
+        }
+        catch (RemoteException e)
+        {
+            log.error("HPCCWsSMCClient.isContainerized encountered RemoteException.\n" + e.getLocalizedMessage());
+        }
 
-       if (resp != null)
-       {
-           if (resp.getExceptions() != null)
-               handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not query container mode info");
-       }
+        if (resp != null)
+        {
+            if (resp.getExceptions() != null)
+                handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not query container mode info");
+        }
 
-       if (resp == null)
-           throw new Exception("HPCCWsSMCClient.isContainerized received invalid response - cannot determine if HPCC is running in container mode");
+        if (resp == null)
+            throw new Exception("HPCCWsSMCClient.isContainerized received invalid response - cannot determine if HPCC is running in container mode");
 
-       ArrayOfNamedValue buildinfo = resp.getBuildInfo();
-       if ( buildinfo != null)
-       {
-           NamedValue[] buildinfoarray = buildinfo.getNamedValue();
-           for (int i = 0; i < buildinfoarray.length; i++)
-           {
-               if (buildinfoarray[i].getName().equalsIgnoreCase(CONTAINERIZED_BUILD_INFO_TAG))
-                   return buildinfoarray[i].getValue().equalsIgnoreCase("ON");
-           }
-       }
+        ArrayOfNamedValue buildinfo = resp.getBuildInfo();
+        if (buildinfo != null)
+        {
+            NamedValue[] buildinfoarray = buildinfo.getNamedValue();
+            for (int i = 0; i < buildinfoarray.length; i++)
+            {
+                if (buildinfoarray[i].getName().equalsIgnoreCase(CONTAINERIZED_BUILD_INFO_TAG))
+                    return buildinfoarray[i].getValue().equalsIgnoreCase("ON");
+            }
+        }
 
-       return false;
-   }
+        return false;
+    }
 
     /**
      * GetBuildInfo.
@@ -320,8 +320,7 @@ public class HPCCWsSMCClient extends BaseHPCCWsClient
 
         if (resp != null)
         {
-            if (resp.getExceptions() != null)
-                handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not query buidinfo");
+            if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could not query buidinfo");
         }
 
         return new GetBuildInfoResponseWrapper(resp);

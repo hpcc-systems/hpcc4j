@@ -143,8 +143,7 @@ public class Connection
                 String credstring = new String(decoder.decode(encodedCreds));
                 String[] creds = credstring.split(":");
 
-                if (creds.length != 2)
-                    throw new Exception("Invalid credentials: Should be base64-encoded <username>:<password>");
+                if (creds.length != 2) throw new Exception("Invalid credentials: Should be base64-encoded <username>:<password>");
 
                 this.userName = creds[0];
                 this.password = creds[1];
@@ -219,7 +218,8 @@ public class Connection
     private StringBuffer        uriAndParams;
 
     // Note: this pattern is very basic and is only meant to extract hostnames from URLs
-    public final static Pattern URL_HOSTNAME_PATTERN = Pattern.compile("((https?|ftp|file):\\/\\/)?(?<hostname>([\\da-z\\.\\-_]+)(\\.[a-z\\.]{2,6})?)(:\\d{2,6})?.*");
+    public final static Pattern URL_HOSTNAME_PATTERN          = Pattern
+            .compile("((https?|ftp|file):\\/\\/)?(?<hostname>([\\da-z\\.\\-_]+)(\\.[a-z\\.]{2,6})?)(:\\d{2,6})?.*");
 
     /** Constant <code>CONNECT_TIMEOUT_PARAM="connecttimeoutmillis"</code> */
     final static public String  CONNECT_TIMEOUT_PARAM         = "connecttimeoutmillis";
@@ -246,7 +246,6 @@ public class Connection
     protected int               socketTimeoutMilli            = DEFAULT_SO_TIMEOUT_MILLI;
 
     private boolean             preemptiveHTTPAuthenticate    = true;
-
 
     /**
      * Sets option to pre-emptively process HTTP authentication
@@ -316,7 +315,8 @@ public class Connection
                 String hostName = matcher.group("hostname");
                 if (hostName.contains("_"))
                 {
-                    throw new MalformedURLException("Invalid URL: Hostname contains invalid underscores: '" + connectionstring + "': " + e.getMessage());
+                    throw new MalformedURLException(
+                            "Invalid URL: Hostname contains invalid underscores: '" + connectionstring + "': " + e.getMessage());
                 }
             }
             else
@@ -1060,10 +1060,9 @@ public class Connection
     @WithSpan
     public String sendHTTPRequest(@SpanAttribute String uri, @SpanAttribute String method) throws Exception
     {
-        if (method == null || method.isEmpty())
-            throw new Exception ("Must provide valid HTTP method");
+        if (method == null || method.isEmpty()) throw new Exception("Must provide valid HTTP method");
 
-        URL url = new URL (getBaseUrl() + (uri != null && uri.startsWith("/") ? "" : "/") + uri);
+        URL url = new URL(getBaseUrl() + (uri != null && uri.startsWith("/") ? "" : "/") + uri);
 
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection(); //throws IOException
 
@@ -1073,17 +1072,14 @@ public class Connection
         if (hasCredentials())
         {
             httpURLConnection.setRequestProperty("Authorization", getBasicAuthString());
-            if (isTraced)
-                Span.current().setAttribute("hasCredentials", true);
+            if (isTraced) Span.current().setAttribute("hasCredentials", true);
         }
         else
         {
-            if (isTraced)
-                Span.current().setAttribute("hasCredentials", false);
+            if (isTraced) Span.current().setAttribute("hasCredentials", false);
         }
 
-        if (isTraced)
-             httpURLConnection.setRequestProperty("traceparent", Utils.getCurrentSpanTraceParentHeader());
+        if (isTraced) httpURLConnection.setRequestProperty("traceparent", Utils.getCurrentSpanTraceParentHeader());
 
         httpURLConnection.setRequestMethod(method); //throws ProtocolException
 
@@ -1108,7 +1104,7 @@ public class Connection
         }
         else
         {
-            throw new IOException("HTTP request failed! Code (" + responseCode + ") " + httpURLConnection.getResponseMessage() );
+            throw new IOException("HTTP request failed! Code (" + responseCode + ") " + httpURLConnection.getResponseMessage());
         }
     }
 }

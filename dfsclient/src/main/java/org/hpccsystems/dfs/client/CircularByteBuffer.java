@@ -18,14 +18,14 @@ public class CircularByteBuffer
     // Previous testing found that increasing read size beyond 16MB did not improve performance.
     // New implementation separates the two read size from the buffer size, but it wouldn't make
     // sense to go beyond 16MB for the buffer size
-    public static final int MAX_BUFFER_SIZE = 16 * 1024 * 1024;
+    public static final int MAX_BUFFER_SIZE      = 16 * 1024 * 1024;
 
-    private final byte[] buffer;
-    private int readPos = 0;
-    private int writePos = 0;
-    private int markPos = -1;
-    private int bytesReadAfterMark = 0;
-    private int currentNumberOfBytes = 0;
+    private final byte[]    buffer;
+    private int             readPos              = 0;
+    private int             writePos             = 0;
+    private int             markPos              = -1;
+    private int             bytesReadAfterMark   = 0;
+    private int             currentNumberOfBytes = 0;
 
     /**
      * Instantiates a new circular byte buffer.
@@ -191,7 +191,7 @@ public class CircularByteBuffer
         {
             bytesReadAfterMark++;
         }
-        
+
         if (++readPos >= buffer.length)
         {
             readPos = 0;

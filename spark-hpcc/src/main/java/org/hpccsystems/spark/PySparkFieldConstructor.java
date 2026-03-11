@@ -21,7 +21,9 @@ import net.razorvine.pickle.PickleException;
 public class PySparkFieldConstructor implements IObjectConstructor
 {
 
-    public PySparkFieldConstructor() {}
+    public PySparkFieldConstructor()
+    {
+    }
 
     @Override
     public Object construct(Object[] tupleFields) throws PickleException
@@ -34,6 +36,6 @@ public class PySparkFieldConstructor implements IObjectConstructor
 
         String name = (String) tupleFields[0];
         Object value = (Object) tupleFields[1];
-        return new PySparkField(name,value);
+        return new PySparkField(name, value);
     }
 }

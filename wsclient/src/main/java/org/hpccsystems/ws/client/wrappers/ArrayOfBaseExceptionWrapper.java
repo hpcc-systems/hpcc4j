@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 public class ArrayOfBaseExceptionWrapper extends Exception
 {
-    private static final long serialVersionUID = 1L;
-    protected String wsClientMessage;
-    protected String source;
-    protected List<BaseExceptionWrapper> exceptions = new ArrayList<BaseExceptionWrapper>();
+    private static final long            serialVersionUID = 1L;
+    protected String                     wsClientMessage;
+    protected String                     source;
+    protected List<BaseExceptionWrapper> exceptions       = new ArrayList<BaseExceptionWrapper>();
 
     /**
      * Gets the ws client message.
@@ -27,7 +27,7 @@ public class ArrayOfBaseExceptionWrapper extends Exception
      * @param _source
      *            the new source
      */
-    public void setSource( String _source )
+    public void setSource(String _source)
     {
         this.source = _source;
     }
@@ -37,7 +37,7 @@ public class ArrayOfBaseExceptionWrapper extends Exception
      *
      * @return the source
      */
-    public String getSource( )
+    public String getSource()
     {
         return this.source;
     }
@@ -72,7 +72,7 @@ public class ArrayOfBaseExceptionWrapper extends Exception
      * @param _exception
      *            the new exceptions
      */
-    public void setExceptions( List<BaseExceptionWrapper> _exception )
+    public void setExceptions(List<BaseExceptionWrapper> _exception)
     {
         this.exceptions = _exception;
     }
@@ -82,7 +82,7 @@ public class ArrayOfBaseExceptionWrapper extends Exception
      *
      * @return the exceptions
      */
-    public List<BaseExceptionWrapper> getExceptions( )
+    public List<BaseExceptionWrapper> getExceptions()
     {
         return this.exceptions;
     }

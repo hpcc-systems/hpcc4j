@@ -24,10 +24,10 @@ public class WUCreateAndUpdateWrapper
     private Integer                       action;
     private String                        description;
     private String                        descriptionOrig;
-    private boolean                       addDrilldownFields=false;
+    private boolean                       addDrilldownFields = false;
     private Integer                       resultLimit;
-    private boolean                       _protected=false;
-    private boolean                       protectedOrig=false;
+    private boolean                       _protected         = false;
+    private boolean                       protectedOrig      = false;
     private Integer                       priorityClass;
     private Integer                       priorityLevel;
     private String                        scope;
@@ -37,8 +37,8 @@ public class WUCreateAndUpdateWrapper
     private String                        xmlParams;
     private String                        thorSlaveIP;
     private String                        queryMainDefinition;
-    private List<ApplicationValueWrapper> applicationValues = new ArrayList<ApplicationValueWrapper>();
-    private List<DebugValueWrapper>       debugValues       = new ArrayList<DebugValueWrapper>();
+    private List<ApplicationValueWrapper> applicationValues  = new ArrayList<ApplicationValueWrapper>();
+    private List<DebugValueWrapper>       debugValues        = new ArrayList<DebugValueWrapper>();
 
     /**
      * Gets the wuid.
@@ -386,7 +386,7 @@ public class WUCreateAndUpdateWrapper
         result.setDescriptionOrig(descriptionOrig);
         result.setJobname(jobname);
         result.setJobnameOrig(jobnameOrig);
-        if (priorityClass != null) 
+        if (priorityClass != null)
         {
             result.setPriorityClass(priorityClass);
         }
@@ -414,7 +414,8 @@ public class WUCreateAndUpdateWrapper
 
         if (this.getApplicationValues().size() > 0)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue[] appvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue[this.getApplicationValues().size()];
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue[] appvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue[this
+                    .getApplicationValues().size()];
             for (int i = 0; i < this.getApplicationValues().size(); i++)
             {
                 org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue av = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ApplicationValue();
@@ -425,12 +426,13 @@ public class WUCreateAndUpdateWrapper
             }
             org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfApplicationValue applicationvalues = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfApplicationValue();
             applicationvalues.setApplicationValue(appvals);
-            result.setApplicationValues(applicationvalues );
+            result.setApplicationValues(applicationvalues);
         }
 
         if (this.getDebugValues().size() > 0)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.DebugValue[] debugvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.DebugValue[this.getDebugValues().size()];
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.DebugValue[] debugvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.DebugValue[this
+                    .getDebugValues().size()];
             for (int i = 0; i < this.getDebugValues().size(); i++)
             {
                 org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.DebugValue av = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.DebugValue();
@@ -440,7 +442,7 @@ public class WUCreateAndUpdateWrapper
             }
             org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfDebugValue debugvalsarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ArrayOfDebugValue();
             debugvalsarray.setDebugValue(debugvals);
-            result.setDebugValues(debugvalsarray );
+            result.setDebugValues(debugvalsarray);
         }
         return result;
     }
@@ -478,7 +480,8 @@ public class WUCreateAndUpdateWrapper
         result.setXmlParams(xmlParams);
         if (this.getApplicationValues().size() > 0)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue[] appvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue[this.getApplicationValues().size()];
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue[] appvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue[this
+                    .getApplicationValues().size()];
             for (int i = 0; i < this.getApplicationValues().size(); i++)
             {
                 org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue av = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ApplicationValue();
@@ -489,13 +492,14 @@ public class WUCreateAndUpdateWrapper
             }
             org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfApplicationValue appvalsarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ArrayOfApplicationValue();
             appvalsarray.setApplicationValue(appvals);
-                    
+
             result.setApplicationValues(appvalsarray);
         }
 
         if (this.getDebugValues().size() > 0)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.DebugValue[] debugvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.DebugValue[this.getDebugValues().size()];
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.DebugValue[] debugvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.DebugValue[this
+                    .getDebugValues().size()];
             for (int i = 0; i < this.getDebugValues().size(); i++)
             {
                 org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.DebugValue av = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.DebugValue();
@@ -528,11 +532,11 @@ public class WUCreateAndUpdateWrapper
         result.setDescriptionOrig(descriptionOrig);
         result.setJobname(jobname);
         result.setJobnameOrig(jobnameOrig);
-        if (priorityClass != null) 
+        if (priorityClass != null)
         {
             result.setPriorityClass(priorityClass);
         }
-        if (priorityLevel != null) 
+        if (priorityLevel != null)
         {
             result.setPriorityLevel(priorityLevel);
         }
@@ -546,7 +550,7 @@ public class WUCreateAndUpdateWrapper
         {
             result.setState(state);
         }
-        if (stateOrig != null) 
+        if (stateOrig != null)
         {
             result.setStateOrig(stateOrig);
         }
@@ -556,7 +560,8 @@ public class WUCreateAndUpdateWrapper
 
         if (this.getApplicationValues().size() > 0)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue[] appvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue[this.getApplicationValues().size()];
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue[] appvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue[this
+                    .getApplicationValues().size()];
             for (int i = 0; i < this.getApplicationValues().size(); i++)
             {
                 org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue av = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ApplicationValue();
@@ -567,12 +572,13 @@ public class WUCreateAndUpdateWrapper
             }
             org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfApplicationValue appvalsarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfApplicationValue();
             appvalsarray.setApplicationValue(appvals);
-            result.setApplicationValues(appvalsarray );
+            result.setApplicationValues(appvalsarray);
         }
 
         if (this.getDebugValues().size() > 0)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.DebugValue[] debugvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.DebugValue[this.getDebugValues().size()];
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.DebugValue[] debugvals = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.DebugValue[this
+                    .getDebugValues().size()];
             for (int i = 0; i < this.getDebugValues().size(); i++)
             {
                 org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.DebugValue av = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.DebugValue();
@@ -582,7 +588,7 @@ public class WUCreateAndUpdateWrapper
             }
             org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfDebugValue debugvalsarray = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ArrayOfDebugValue();
             debugvalsarray.setDebugValue(debugvals);
-            result.setDebugValues(debugvalsarray );
+            result.setDebugValues(debugvalsarray);
         }
         return result;
     }

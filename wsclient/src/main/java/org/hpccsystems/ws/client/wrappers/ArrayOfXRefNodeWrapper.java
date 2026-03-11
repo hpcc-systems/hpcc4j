@@ -13,12 +13,12 @@ import org.w3c.dom.NodeList;
 
 public class ArrayOfXRefNodeWrapper
 {
-    private final static String NODES_TAG = "XRefNodes";
-    private final static String NODE_TAG = "XRefNode";
+    private final static String     NODES_TAG = "XRefNodes";
+    private final static String     NODE_TAG  = "XRefNode";
 
-    protected List<XRefNodeWrapper> nodes = null;
+    protected List<XRefNodeWrapper> nodes     = null;
 
-    public ArrayOfXRefNodeWrapper (String response)
+    public ArrayOfXRefNodeWrapper(String response)
     {
         nodes = new ArrayList<XRefNodeWrapper>();
 
@@ -38,8 +38,7 @@ public class ArrayOfXRefNodeWrapper
                     for (int index = 0; index < xrefnodelist.getLength(); index++)
                     {
                         Node currentNode = xrefnodelist.item(index);
-                        if (currentNode.getNodeName().equals(NODE_TAG))
-                            nodes.add(new XRefNodeWrapper(currentNode));
+                        if (currentNode.getNodeName().equals(NODE_TAG)) nodes.add(new XRefNodeWrapper(currentNode));
                     }
                 }
             }

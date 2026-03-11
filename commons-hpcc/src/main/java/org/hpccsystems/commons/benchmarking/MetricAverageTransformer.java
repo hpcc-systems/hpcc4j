@@ -42,7 +42,7 @@ public class MetricAverageTransformer implements IMetricSetTransformer
                 return m1.getName().compareTo(m2.getName());
             }
         };
-        Collections.sort(metrics,compare);
+        Collections.sort(metrics, compare);
 
         // Combine metrics with the same name
         ArrayList<IMetric> aggedMetrics = new ArrayList<IMetric>();

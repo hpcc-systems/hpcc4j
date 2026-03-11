@@ -44,7 +44,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
     private List<NamedValueWrapper>       namedValues         = null;
     private String                        originalEclWatchUrl = null;
     private List<ApplicationValueWrapper> applicationValues   = new ArrayList<ApplicationValueWrapper>();
-    private List<ECLResultWrapper>         eclResults          = new ArrayList<ECLResultWrapper>();
+    private List<ECLResultWrapper>        eclResults          = new ArrayList<ECLResultWrapper>();
     private Integer                       accessFlag;
     private Integer                       action;
     private String                        actionEx;
@@ -63,7 +63,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
     private String                        description;
     private Integer                       errorCount;
     private Integer                       eventSchedule;
-    private ArrayOfECLExceptionWrapper    exceptions = null;
+    private ArrayOfECLExceptionWrapper    exceptions          = null;
     private Integer                       graphCount;
     private List<ECLGraphWrapper>         graphs              = new ArrayList<ECLGraphWrapper>();
     private String                        graphsDesc;
@@ -100,7 +100,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
     private List<ECLTimingDataWrapper>    timingData          = new ArrayList<ECLTimingDataWrapper>();
     private String                        totalClusterTime;
     private Integer                       variableCount;
-    private List<ECLResultWrapper>         variables;
+    private List<ECLResultWrapper>        variables;
     private boolean                       thorLCR;
     private List<ThorLogInfoWrapper>      thorLogList         = new ArrayList<ThorLogInfoWrapper>();
     private String                        variablesDesc;
@@ -192,33 +192,27 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         this.setActionEx(base.getActionEx());
         this.setActive(base.getActive());
         this.setAlertCount(base.getAlertCount());
-        if (base.getAllowedClusters() != null)
-            this.setAllowedClusters(base.getAllowedClusters().getAllowedCluster());
+        if (base.getAllowedClusters() != null) this.setAllowedClusters(base.getAllowedClusters().getAllowedCluster());
         this.setApplicationValueCount(base.getApplicationValueCount());
-        if (base.getApplicationValues() != null)
-            this.setApplicationValues(base.getApplicationValues().getApplicationValue());
+        if (base.getApplicationValues() != null) this.setApplicationValues(base.getApplicationValues().getApplicationValue());
         this.setApplicationValuesDesc(base.getApplicationValuesDesc());
         this.setArchived(base.getArchived());
         this.setCluster(base.getCluster());
         this.setClusterFlag(base.getClusterFlag());
         this.setDateTimeScheduled(base.getDateTimeScheduled());
         this.setDebugValueCount(base.getDebugValueCount());
-        if (base.getDebugValues() != null)
-            this.setDebugValues(base.getDebugValues().getDebugValue());
+        if (base.getDebugValues() != null) this.setDebugValues(base.getDebugValues().getDebugValue());
         this.setDebugValuesDesc(base.getDebugValuesDesc());
         this.setDescription(base.getDescription());
         this.setErrorCount(base.getErrorCount());
         this.setEventSchedule(base.getEventSchedule());
-        if (base.getExceptions() != null)
-            this.setExceptions(base.getExceptions().getECLException());
+        if (base.getExceptions() != null) this.setExceptions(base.getExceptions().getECLException());
         this.setGraphCount(base.getGraphCount());
         this.setGraphsDesc(base.getGraphsDesc());
-        if (base.getGraphs() != null)
-            this.setGraphs(base.getGraphs().getECLGraph());
+        if (base.getGraphs() != null) this.setGraphs(base.getGraphs().getECLGraph());
         this.setHasArchiveQuery(base.getHasArchiveQuery());
         this.setHasDebugValue(base.getHasDebugValue());
-        if (base.getHelpers() != null)
-            this.setHelpers(base.getHelpers().getECLHelpFile());
+        if (base.getHelpers() != null) this.setHelpers(base.getHelpers().getECLHelpFile());
         this.setHelpersDesc(base.getHelpersDesc());
         this.setInfoCount(base.getInfoCount());
         this.setIsPausing(base.getIsPausing());
@@ -230,8 +224,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         this.setQuery(base.getQuery());
         this.setQueue(base.getQueue());
         this.setResourceURLCount(base.getResourceURLCount());
-        if (base.getResourceURLs() != null)
-            this.setResourceURLs(base.getResourceURLs().getURL());
+        if (base.getResourceURLs() != null) this.setResourceURLs(base.getResourceURLs().getURL());
         this.setResultCount(base.getResultCount());
         this.setResultLimit(base.getResultLimit());
         setResults(base.getResults());
@@ -240,27 +233,23 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         this.setScope(base.getScope());
         this.setSnapshot(base.getSnapshot());
         this.setSourceFileCount(base.getSourceFileCount());
-        if (base.getSourceFiles() != null)
-            this.setSourceFiles(base.getSourceFiles().getECLSourceFile());
+        if (base.getSourceFiles() != null) this.setSourceFiles(base.getSourceFiles().getECLSourceFile());
         this.setSourceFilesDesc(base.getSourceFilesDesc());
         this.setState(base.getState());
         this.setStateEx(base.getStateEx());
         this.setStateID(base.getStateID());
         this.setTimerCount(base.getTimerCount());
         this.setTimersDesc(base.getTimersDesc());
-        if (base.getTimingData() != null)
-            this.setTimingData(base.getTimingData().getECLTimingData());
+        if (base.getTimingData() != null) this.setTimingData(base.getTimingData().getECLTimingData());
         this.setTotalClusterTime(base.getTotalClusterTime());
         this.setVariableCount(base.getVariableCount());
         setVariables(base.getVariables());
         this.setThorLCR(base.getThorLCR());
-        if (base.getThorLogList() != null)
-            this.setThorLogList(base.getThorLogList().getThorLogInfo());
+        if (base.getThorLogList() != null) this.setThorLogList(base.getThorLogList().getThorLogInfo());
         this.setVariablesDesc(base.getVariablesDesc());
         this.setWarningCount(base.getWarningCount());
         this.setWorkflowCount(base.getWorkflowCount());
-        if (base.getWorkflows() != null)
-            this.setWorkflows(base.getWorkflows().getECLWorkflow());
+        if (base.getWorkflows() != null) this.setWorkflows(base.getWorkflows().getECLWorkflow());
         this.setWorkflowsDesc(base.getWorkflowsDesc());
         this.setWuid(base.getWuid());
         this.setXmlParams(base.getXmlParams());
@@ -483,7 +472,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
             this.debugValues.add(new DebugValueWrapper(debugValueArray[i]));
         }
         return this;
-        
+
     }
 
     /**
@@ -1472,8 +1461,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
      */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfECLException getRawExceptions()
     {
-        if (exceptions == null)
-            return null;
+        if (exceptions == null) return null;
 
         return exceptions.getRaw();
     }
@@ -2220,7 +2208,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         exceptions = eclExceptions;
         return this;
     }
-    
+
     /**
      * Sets the exceptions.
      *
@@ -3691,7 +3679,7 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
         if (this.getExceptions() != null && this.getExceptions().getECLException() != null)
         {
             ArrayOfECLException arrayofeclexceptions = new ArrayOfECLException();
-            
+
             List<ECLExceptionWrapper> eclException = getExceptions().getECLException();
             for (ECLExceptionWrapper eclExceptionWrapper : eclException)
             {

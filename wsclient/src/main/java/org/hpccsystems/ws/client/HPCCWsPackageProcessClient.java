@@ -39,6 +39,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wspackageprocess.PackageListMapDat
 
 import io.opentelemetry.instrumentation.annotations.SpanAttribute;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
+
 /**
  * Use as soap client for HPCC wsPackageProcess web service.
  * This includes creating a new file, and appending data to a file in the given SHPCC System.
@@ -199,11 +200,10 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
             if (!e.getLocalizedMessage().isEmpty())
             {
                 initErrMessage += e.getLocalizedMessage();
-           }
+            }
         }
 
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
+        if (!initErrMessage.isEmpty()) log.error(initErrMessage);
     }
 
     /**
@@ -262,9 +262,11 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse} object.
      */
-    public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, String daliip, Boolean overwrite) throws Exception
+    public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, String daliip, Boolean overwrite)
+            throws Exception
     {
-        return addPackage(packageMapID, packageMapContent, targetCluster, null, null, null, daliip, null, overwrite, null, null, null, null, null, null);
+        return addPackage(packageMapID, packageMapContent, targetCluster, null, null, null, daliip, null, overwrite, null, null, null, null, null,
+                null);
     }
 
     /**
@@ -279,9 +281,11 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @param active a {@link java.lang.Boolean} object.
      * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse} object.
      */
-    public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, String daliip, Boolean overwrite, Boolean active) throws Exception
+    public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, String daliip, Boolean overwrite,
+            Boolean active) throws Exception
     {
-        return addPackage(packageMapID, packageMapContent, targetCluster, active, null, null, daliip, null, overwrite, null, null, null, null, null, null);
+        return addPackage(packageMapID, packageMapContent, targetCluster, active, null, null, daliip, null, overwrite, null, null, null, null, null,
+                null);
     }
 
     /**
@@ -305,33 +309,23 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @throws Exception a {@link java.lang.Exception} object.
      * @return a {@link org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPackageResponse} object.
      */
-    public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, Boolean active, Boolean allowforeignfiles, Boolean appendcluster,
-                                         String daliip, Boolean globalscope, Boolean overwrite, Boolean preloadallpackages, String process, Boolean replacepackagemap, String sourceprocess,
-                                         Boolean updateclonefrom, Boolean updatesuperfiles) throws Exception
+    public AddPackageResponse addPackage(String packageMapID, String packageMapContent, String targetCluster, Boolean active,
+            Boolean allowforeignfiles, Boolean appendcluster, String daliip, Boolean globalscope, Boolean overwrite, Boolean preloadallpackages,
+            String process, Boolean replacepackagemap, String sourceprocess, Boolean updateclonefrom, Boolean updatesuperfiles) throws Exception
     {
         verifyStub(); // Throws exception if stub failed
 
         AddPackageRequest req = new AddPackageRequest();
-        if (packageMapID != null)
-            req.setPackageMap(packageMapID);
-        if (packageMapContent != null)
-            req.setInfo(packageMapContent);
-        if (targetCluster != null)
-            req.setTarget(targetCluster);
-        if (active != null)
-            req.setActivate(active.booleanValue());
-        if (allowforeignfiles != null)
-            req.setAllowForeignFiles(allowforeignfiles.booleanValue());
-        if (appendcluster != null)
-            req.setAppendCluster(appendcluster.booleanValue());
-        if (daliip != null)
-            req.setDaliIp(daliip);
-        if (globalscope != null)
-            req.setGlobalScope(globalscope.booleanValue());
-        if (overwrite != null)
-            req.setOverWrite(overwrite.booleanValue());
-        if (preloadallpackages != null)
-            req.setPreloadAllPackages(preloadallpackages.booleanValue());
+        if (packageMapID != null) req.setPackageMap(packageMapID);
+        if (packageMapContent != null) req.setInfo(packageMapContent);
+        if (targetCluster != null) req.setTarget(targetCluster);
+        if (active != null) req.setActivate(active.booleanValue());
+        if (allowforeignfiles != null) req.setAllowForeignFiles(allowforeignfiles.booleanValue());
+        if (appendcluster != null) req.setAppendCluster(appendcluster.booleanValue());
+        if (daliip != null) req.setDaliIp(daliip);
+        if (globalscope != null) req.setGlobalScope(globalscope.booleanValue());
+        if (overwrite != null) req.setOverWrite(overwrite.booleanValue());
+        if (preloadallpackages != null) req.setPreloadAllPackages(preloadallpackages.booleanValue());
 
         AddPackageResponse resp = null;
 
@@ -348,8 +342,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform addPackage");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not addPackage");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not addPackage");
 
         return resp;
     }
@@ -401,8 +394,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
             handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform addPackage");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not addPackage");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not addPackage");
 
         return resp;
     }
@@ -450,14 +442,10 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
         DeletePackageRequest req = new DeletePackageRequest();
 
-        if (packageMapID != null)
-            req.setPackageMap(packageMapID);
-        if (targetcluster != null)
-            req.setTarget(targetcluster);
-        if (process != null)
-            req.setProcess(process);
-        if (globalscope != null)
-            req.setGlobalScope(globalscope.booleanValue());
+        if (packageMapID != null) req.setPackageMap(packageMapID);
+        if (targetcluster != null) req.setTarget(targetcluster);
+        if (process != null) req.setProcess(process);
+        if (globalscope != null) req.setGlobalScope(globalscope.booleanValue());
 
         DeletePackageResponse resp = null;
 
@@ -471,11 +459,10 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform deletePackage(" + req.getPackageMap() +")");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform deletePackage(" + req.getPackageMap() + ")");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not deletePackage");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not deletePackage");
 
         return resp;
     }
@@ -512,11 +499,10 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         }
         catch (EspSoapFault e)
         {
-            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform deletePackage(" + req.getPackageMap() +")");
+            handleEspSoapFaults(new EspSoapFaultWrapper(e), "Could Not perform deletePackage(" + req.getPackageMap() + ")");
         }
 
-        if (resp.getExceptions() != null)
-            handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not deletePackage");
+        if (resp.getExceptions() != null) handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not deletePackage");
 
         return resp;
     }
@@ -579,8 +565,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public BasePackageStatusWrapper activatePackage(@SpanAttribute boolean globalScope, @SpanAttribute String packageMapName, @SpanAttribute String process, @SpanAttribute String target)
-            throws Exception, ArrayOfEspExceptionWrapper
+    public BasePackageStatusWrapper activatePackage(@SpanAttribute boolean globalScope, @SpanAttribute String packageMapName,
+            @SpanAttribute String process, @SpanAttribute String target) throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to activate package: " + packageMapName);
 
@@ -611,8 +597,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
         if (resp.getExceptions() != null)
             handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not perform activatePackage");
 
-        if (resp.getStatus() != null)
-            return new BasePackageStatusWrapper(resp.getStatus());
+        if (resp.getStatus() != null) return new BasePackageStatusWrapper(resp.getStatus());
 
         return null;
     }
@@ -631,7 +616,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public BasePackageStatusWrapper getPackage(@SpanAttribute String process, @SpanAttribute String target) throws Exception, ArrayOfEspExceptionWrapper
+    public BasePackageStatusWrapper getPackage(@SpanAttribute String process, @SpanAttribute String target)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to fetch package process: " + process + " target: " + target);
 
@@ -661,8 +647,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
 
         log.debug("Get Package info: " + resp.getInfo());
 
-        if (resp.getStatus() != null)
-            return new BasePackageStatusWrapper(resp.getStatus());
+        if (resp.getStatus() != null) return new BasePackageStatusWrapper(resp.getStatus());
 
         return null;
     }
@@ -683,8 +668,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      *             - Caller should handle exception in case of errors
      */
     @WithSpan
-    public BasePackageStatusWrapper removePartFromPackageMap(@SpanAttribute final boolean globalScope, final String partName, final String target, final String packageMap)
-            throws Exception
+    public BasePackageStatusWrapper removePartFromPackageMap(@SpanAttribute final boolean globalScope, final String partName, final String target,
+            final String packageMap) throws Exception
     {
         log.debug("Attempting to remove package part.");
 
@@ -716,8 +701,7 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
             handleEspExceptions(new ArrayOfEspExceptionWrapper(resp.getExceptions()), "Could Not Remove package part");
         }
 
-        if (resp.getStatus() != null)
-            return new BasePackageStatusWrapper(resp.getStatus());
+        if (resp.getStatus() != null) return new BasePackageStatusWrapper(resp.getStatus());
 
         return null;
     }
@@ -740,7 +724,8 @@ public class HPCCWsPackageProcessClient extends BaseHPCCWsClient
      * @throws ArrayOfEspExceptionWrapper a {@link org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper} object.
      *             the array of esp exception wrapper
      */
-    public List<PackageListMapDataWrapper> listPackages(String process, String target, String processFilter) throws Exception, ArrayOfEspExceptionWrapper
+    public List<PackageListMapDataWrapper> listPackages(String process, String target, String processFilter)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         log.debug("Attempting to list packages");
 

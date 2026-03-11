@@ -9,17 +9,19 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLSourceFile;
 @Deprecated
 public class ECLSourceFileWrapper
 {
-    private String fileCluster;
-    private String name;
-    private Boolean isSuperFile;
-    private Integer subs;
-    private Integer count;
+    private String                     fileCluster;
+    private String                     name;
+    private Boolean                    isSuperFile;
+    private Integer                    subs;
+    private Integer                    count;
     private List<ECLSourceFileWrapper> eclSourceFiles = new ArrayList<ECLSourceFileWrapper>();
 
     /**
      * Instantiates a new ECL source file wrapper.
      */
-    public ECLSourceFileWrapper() {}
+    public ECLSourceFileWrapper()
+    {
+    }
 
     /**
      * Instantiates a new ECL source file wrapper.
@@ -29,7 +31,8 @@ public class ECLSourceFileWrapper
      */
     public ECLSourceFileWrapper(ECLSourceFile raw)
     {
-        if (raw==null) {
+        if (raw == null)
+        {
             return;
         }
         this.setCount(raw.getCount());
@@ -47,7 +50,7 @@ public class ECLSourceFileWrapper
      */
     public ECLSourceFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLSourceFile raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -67,7 +70,7 @@ public class ECLSourceFileWrapper
      */
     public ECLSourceFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLSourceFile raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -87,7 +90,7 @@ public class ECLSourceFileWrapper
      */
     public ECLSourceFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLSourceFile raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -107,7 +110,7 @@ public class ECLSourceFileWrapper
      */
     public ECLSourceFileWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLSourceFile raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -154,15 +157,14 @@ public class ECLSourceFileWrapper
      */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLSourceFile getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLSourceFile raw =
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLSourceFile();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLSourceFile raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLSourceFile();
 
         raw.setCount(this.getCount());
-        if (this.getECLSourceFiles().size()>0)
+        if (this.getECLSourceFiles().size() > 0)
         {
 
             ArrayOfECLSourceFile arrayofeclsourcfiles = new ArrayOfECLSourceFile();
-            for (int i=0; i < this.getECLSourceFiles().size();i++)
+            for (int i = 0; i < this.getECLSourceFiles().size(); i++)
             {
                 arrayofeclsourcfiles.addECLSourceFile(this.getECLSourceFiles().get(i).getRaw());
             }
@@ -379,8 +381,8 @@ public class ECLSourceFileWrapper
     @Override
     public String toString()
     {
-        return "ECLSourceFileWrapper [fileCluster=" + fileCluster + ", name=" + name + ", isSuperFile=" + isSuperFile
-                + ", subs=" + subs + ", count=" + count + ", eclSourceFiles=" + eclSourceFiles + "]";
+        return "ECLSourceFileWrapper [fileCluster=" + fileCluster + ", name=" + name + ", isSuperFile=" + isSuperFile + ", subs=" + subs + ", count="
+                + count + ", eclSourceFiles=" + eclSourceFiles + "]";
     }
 
 }

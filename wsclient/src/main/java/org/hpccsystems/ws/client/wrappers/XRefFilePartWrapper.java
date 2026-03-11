@@ -6,10 +6,10 @@ import org.w3c.dom.NodeList;
 public class XRefFilePartWrapper
 {
     private final static String NODE_TAG = "Node";
-    private final static String NUM_TAG = "Num";
+    private final static String NUM_TAG  = "Num";
 
-    private int num;
-    private String node;
+    private int                 num;
+    private String              node;
 
     public XRefFilePartWrapper(Node wsdfuxrefresp)
     {

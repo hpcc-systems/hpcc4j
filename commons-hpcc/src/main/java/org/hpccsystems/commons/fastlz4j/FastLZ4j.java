@@ -29,18 +29,18 @@ package org.hpccsystems.commons.fastlz4j;
 public class FastLZ4j
 {
 
-    static final int MAX_COPY = 32;
-    static final int MAX_LEN = 264;
-    static final int MAX_L1_DISTANCE = 8192;
-    static final int MAX_L2_DISTANCE = 8191;
-    static final int MAX_FARDISTANCE = 65535 + MAX_L2_DISTANCE - 1;
+    static final int  MAX_COPY        = 32;
+    static final int  MAX_LEN         = 264;
+    static final int  MAX_L1_DISTANCE = 8192;
+    static final int  MAX_L2_DISTANCE = 8191;
+    static final int  MAX_FARDISTANCE = 65535 + MAX_L2_DISTANCE - 1;
 
-    static final int HASH_LOG = 14;
-    static final int HASH_SIZE = (1 << HASH_LOG);
-    static final long HASH_MASK = HASH_SIZE -1;
+    static final int  HASH_LOG        = 14;
+    static final int  HASH_SIZE       = (1 << HASH_LOG);
+    static final long HASH_MASK       = HASH_SIZE - 1;
 
     static long flz_readu32(byte[] buffer, int index)
-    { 
+    {
         boolean little_endian = true;
         int len = 4;
         long v = 0;
@@ -56,7 +56,7 @@ public class FastLZ4j
     {
         final int start = p;
 
-        if (flz_readu32(pBuffer,p) == flz_readu32(qBuffer,q))
+        if (flz_readu32(pBuffer, p) == flz_readu32(qBuffer, q))
         {
             p += 4;
             q += 4;
@@ -64,7 +64,7 @@ public class FastLZ4j
 
         while (q < r)
         {
-            if(pBuffer[p] != qBuffer[q])
+            if (pBuffer[p] != qBuffer[q])
             {
                 p++;
                 q++;
@@ -95,7 +95,7 @@ public class FastLZ4j
     {
         while (runs >= MAX_COPY)
         {
-            destBuffer[dest] = (byte) MAX_COPY -1;
+            destBuffer[dest] = (byte) MAX_COPY - 1;
             dest++;
 
             flz_copy(destBuffer, dest, srcBuffer, src, MAX_COPY);
@@ -106,7 +106,7 @@ public class FastLZ4j
 
         if (runs > 0)
         {
-            destBuffer[dest] = (byte) (runs-1);
+            destBuffer[dest] = (byte) (runs - 1);
             dest++;
 
             flz_copy(destBuffer, dest, srcBuffer, src, runs);
@@ -119,7 +119,7 @@ public class FastLZ4j
     {
         while (runs >= MAX_COPY)
         {
-            destBuffer[dest] = (byte) (MAX_COPY -1);
+            destBuffer[dest] = (byte) (MAX_COPY - 1);
             dest++;
             flz_copy(destBuffer, dest, srcBuffer, src, MAX_COPY);
             src += MAX_COPY;
@@ -129,7 +129,7 @@ public class FastLZ4j
 
         if (runs > 0)
         {
-            destBuffer[dest] = (byte) (runs -1);
+            destBuffer[dest] = (byte) (runs - 1);
             dest++;
             flz_copy(destBuffer, dest, srcBuffer, src, runs);
             dest += runs;
@@ -150,7 +150,7 @@ public class FastLZ4j
 
                 opBuffer[outputPos] = (byte) (MAX_LEN - 2 - 7 - 2);
                 outputPos++;
-                
+
                 opBuffer[outputPos] = (byte) (distance & 255);
                 outputPos++;
 
@@ -162,7 +162,7 @@ public class FastLZ4j
         {
             opBuffer[outputPos] = (byte) ((len << 5) + (distance >> 8));
             outputPos++;
-            
+
             opBuffer[outputPos] = (byte) (distance & 255);
             outputPos++;
         }
@@ -189,7 +189,7 @@ public class FastLZ4j
             {
                 opBuffer[outputPos] = (byte) ((len << 5) + (distance >> 8));
                 outputPos++;
-                
+
                 opBuffer[outputPos] = (byte) (distance & 255);
                 outputPos++;
             }
@@ -219,10 +219,10 @@ public class FastLZ4j
 
                 opBuffer[outputPos] = (byte) ((len << 5) + 31);
                 outputPos++;
-                
+
                 opBuffer[outputPos] = (byte) 255;
                 outputPos++;
-                
+
                 opBuffer[outputPos] = (byte) (distance >> 8);
                 outputPos++;
 
@@ -240,13 +240,13 @@ public class FastLZ4j
                     opBuffer[outputPos] = (byte) 255;
                     outputPos++;
                 }
-                
+
                 opBuffer[outputPos] = (byte) len;
                 outputPos++;
-                
+
                 opBuffer[outputPos] = (byte) 255;
                 outputPos++;
-                
+
                 opBuffer[outputPos] = (byte) (distance >> 8);
                 outputPos++;
 
@@ -257,7 +257,7 @@ public class FastLZ4j
         return outputPos;
     }
 
-    static int fastlz1_compress(byte[] input, byte[] output) 
+    static int fastlz1_compress(byte[] input, byte[] output)
     {
         int inputPos = 0;
         int inputPosStart = inputPos;
@@ -294,16 +294,15 @@ public class FastLZ4j
                 ref = (int) (inputPosStart + htab[(int) hash]);
                 htab[(int) hash] = inputPos - inputPosStart;
                 distance = inputPos - ref;
-                cmp = distance < (long) MAX_L1_DISTANCE ? (flz_readu32(input,ref) & 0xffffffL) : 0x1000000L;
+                cmp = distance < (long) MAX_L1_DISTANCE ? (flz_readu32(input, ref) & 0xffffffL) : 0x1000000L;
 
-                if (inputPos >= inputPosLimit)
-                    break;
+                if (inputPos >= inputPosLimit) break;
 
                 ++inputPos;
-            } while (seq != cmp);
+            }
+            while (seq != cmp);
 
-            if (inputPos >= inputPosLimit)
-                break;
+            if (inputPos >= inputPosLimit) break;
 
             --inputPos;
 
@@ -336,7 +335,7 @@ public class FastLZ4j
     static int fastlz1_decompress(byte[] inputBuffer, int compressedLen, byte[] outputBuffer)
     {
         int inputPos = 0;
-        int inputPosBound = compressedLen -2;
+        int inputPosBound = compressedLen - 2;
 
         int outputPos = 0;
         int ctrlCode = inputBuffer[inputPos] & 31;
@@ -344,7 +343,7 @@ public class FastLZ4j
 
         while (true)
         {
-            if (ctrlCode >= 32) 
+            if (ctrlCode >= 32)
             {
                 int len = (ctrlCode >> 5) - 1;
                 int ofs = (ctrlCode & 31) << 8;
@@ -352,7 +351,7 @@ public class FastLZ4j
                 int ref = outputPos - ofs - 1;
                 if (len == 7 - 1)
                 {
-                    if (!(inputPos <= inputPosBound ))
+                    if (!(inputPos <= inputPosBound))
                     {
                         return 0;
                     }
@@ -412,7 +411,7 @@ public class FastLZ4j
     static int fastlz2_compress(byte[] input, byte[] output)
     {
         int inputPos = 0;
-        int outputPos = 0; 
+        int outputPos = 0;
 
         int inputPosBound = inputPos + input.length - 4;
         int inputPosLimit = inputPos + input.length - 12 - 1;
@@ -445,22 +444,21 @@ public class FastLZ4j
                 ref = (int) htab[(int) hash];
                 htab[(int) hash] = inputPos;
                 distance = inputPos - ref;
-                cmp = (distance < MAX_FARDISTANCE) ? flz_readu32(input,ref) & 0xffffffL : 0x1000000L;
+                cmp = (distance < MAX_FARDISTANCE) ? flz_readu32(input, ref) & 0xffffffL : 0x1000000L;
 
-                if (inputPos >= inputPosLimit)
-                    break;
+                if (inputPos >= inputPosLimit) break;
                 ++inputPos;
-            } while (seq != cmp);
+            }
+            while (seq != cmp);
 
-            if (inputPos >= inputPosLimit)
-                break;
+            if (inputPos >= inputPosLimit) break;
 
             --inputPos;
 
             // far, needs at least 5-byte match
             if (distance >= MAX_L2_DISTANCE)
             {
-                if (input[ref+3] != input[inputPos+3] || input[ref+4] != input[inputPos+4])
+                if (input[ref + 3] != input[inputPos + 3] || input[ref + 4] != input[inputPos + 4])
                 {
                     ++inputPos;
                     continue;
@@ -477,7 +475,7 @@ public class FastLZ4j
 
             // update the hash at match boundary
             inputPos += len;
-            seq = flz_readu32(input,inputPos);
+            seq = flz_readu32(input, inputPos);
             hash = flz_hash(seq & 0xffffffL);
             htab[(int) hash] = inputPos++;
             seq >>= 8;
@@ -500,7 +498,7 @@ public class FastLZ4j
     static int fastlz2_decompress(byte[] inputBuffer, int compressedLen, byte[] outputBuffer)
     {
         int inputPos = 0;
-        int inputPosBound = compressedLen -2;
+        int inputPosBound = compressedLen - 2;
 
         int outputPos = 0;
         int ctrlCode = inputBuffer[inputPos] & 31;
@@ -519,7 +517,7 @@ public class FastLZ4j
                 {
                     do
                     {
-                        if (!(inputPos <= inputPosBound ))
+                        if (!(inputPos <= inputPosBound))
                         {
                             return 0;
                         }
@@ -528,7 +526,8 @@ public class FastLZ4j
                         inputPos++;
 
                         len += code;
-                    } while (code == 255);
+                    }
+                    while (code == 255);
                 }
                 code = (inputBuffer[inputPos] & 0xFF);
                 inputPos++;
@@ -541,7 +540,7 @@ public class FastLZ4j
                 {
                     if (ofs == (31 << 8))
                     {
-                        if (!(inputPos < inputPosBound ))
+                        if (!(inputPos < inputPosBound))
                         {
                             return 0;
                         }
@@ -587,8 +586,7 @@ public class FastLZ4j
                 outputPos += ctrlCode;
             }
 
-            if (inputPos >= inputBuffer.length)
-                break;
+            if (inputPos >= inputBuffer.length) break;
 
             ctrlCode = inputBuffer[inputPos] & 0xFF;
             inputPos++;
@@ -599,12 +597,12 @@ public class FastLZ4j
 
     public static class DecompressionState
     {
-        private int inputPos = -1;
-        private int outputPos = -1;
-        private int ctrlCode = -1;
-        private int compressionLevel = -1;
+        private int inputPos                 = -1;
+        private int outputPos                = -1;
+        private int ctrlCode                 = -1;
+        private int compressionLevel         = -1;
 
-        private int totalCompressedLen = -1;
+        private int totalCompressedLen       = -1;
         private int expectedDecompressionLen = -1;
 
         DecompressionState(int totalCompressedLen, int expectedDecompressionLen) throws Exception
@@ -614,9 +612,8 @@ public class FastLZ4j
 
             if (this.totalCompressedLen <= 0 && this.expectedDecompressionLen <= 0)
             {
-                throw new Exception("Either totalCompressedLen " + totalCompressedLen 
-                                  + " or expectedDecompressionLen " + expectedDecompressionLen
-                                  + " must be greater than 0 for successful decompression.");
+                throw new Exception("Either totalCompressedLen " + totalCompressedLen + " or expectedDecompressionLen " + expectedDecompressionLen
+                        + " must be greater than 0 for successful decompression.");
             }
         }
 
@@ -684,7 +681,8 @@ public class FastLZ4j
                         inputPos++;
 
                         len += code;
-                    } while (code == 255);
+                    }
+                    while (code == 255);
                 }
 
                 code = (inputBuffer[inputPos] & 0xFF);
@@ -738,9 +736,7 @@ public class FastLZ4j
             state.ctrlCode = ctrlCode;
 
             // We have finished decompressing
-            if (state.inputPos >= state.totalCompressedLen
-            || state.outputPos >= state.expectedDecompressionLen)
-                break;
+            if (state.inputPos >= state.totalCompressedLen || state.outputPos >= state.expectedDecompressionLen) break;
 
             state.ctrlCode = inputBuffer[state.inputPos] & 0xFF;
             state.inputPos++;
@@ -779,8 +775,7 @@ public class FastLZ4j
 
     public static boolean decompress_streaming(DecompressionState state, byte[] input, int inputAvailableLength, byte[] output) throws Exception
     {
-        if (input.length < 1)
-            return false;
+        if (input.length < 1) return false;
 
         // magic identifier for compression level
         if (state.compressionLevel < 0)
@@ -793,8 +788,7 @@ public class FastLZ4j
         {
             if (state.totalCompressedLen > 0)
             {
-                if (inputAvailableLength < state.totalCompressedLen)
-                    return false;
+                if (inputAvailableLength < state.totalCompressedLen) return false;
 
                 state.outputPos = fastlz1_decompress(input, inputAvailableLength, output);
                 state.inputPos = state.totalCompressedLen;

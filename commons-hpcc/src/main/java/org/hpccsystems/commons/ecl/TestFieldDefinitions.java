@@ -19,7 +19,7 @@ import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 
 public class TestFieldDefinitions
 {
-    private static final String complexRecordDefinitionStr = "{\r\n \"ty1\": {\r\n  \"fieldType\": 1065,\r\n  \"length\": 4294967281\r\n },\r\n \"ty2\": "
+    private static final String complexRecordDefinitionStr       = "{\r\n \"ty1\": {\r\n  \"fieldType\": 1065,\r\n  \"length\": 4294967281\r\n },\r\n \"ty2\": "
             + "{\r\n  \"fieldType\": 1054,\r\n  \"length\": 4294967281\r\n },\r\n \"ty3\": {\r\n  \"fieldType\": 33,\r\n "
             + "\"length\": 10\r\n },\r\n \"ty4\": {\r\n  \"fieldType\": 0,\r\n  \"length\": 1\r\n },\r\n \"ty5\": {\r\n  "
             + "\"fieldType\": 1,\r\n  \"length\": 3\r\n },\r\n \"ty6\": {\r\n  \"fieldType\": 1,\r\n  \"length\": 8\r\n },"
@@ -64,21 +64,15 @@ public class TestFieldDefinitions
             + "   \"name\": \"isactive\",\r\n   \"type\": \"ty15\",\r\n   \"flags\": 65536\r\n  },\r\n  {\r\n   \"name\": \"__internal_fpos__\",\r\n \"type\": \"ty16\",\r\n"
             + "   \"flags\": 65821\r\n  }\r\n ]\r\n}";
 
-    private static final String blobIndexDefinitionStr = "{\n \"ty6\": {  \"vinit\": 2, \"length\": 8, \"fieldType\": 285 },\n"
-            + "  \"ty5\": { \"length\": 8, \"fieldType\": 15, \"child\": \"ty4\" },\n"
-            + "  \"length\": 36,\n"
-            + "  \"ty2\": { \"length\": 0, \"fieldType\": 1028 },\n"
-            + "  \"fields\": [\n"
+    private static final String blobIndexDefinitionStr           = "{\n \"ty6\": {  \"vinit\": 2, \"length\": 8, \"fieldType\": 285 },\n"
+            + "  \"ty5\": { \"length\": 8, \"fieldType\": 15, \"child\": \"ty4\" },\n" + "  \"length\": 36,\n"
+            + "  \"ty2\": { \"length\": 0, \"fieldType\": 1028 },\n" + "  \"fields\": [\n"
             + "    { \"name\": \"str12\", \"flags\": 4, \"type\": \"ty1\" },\n"
             + "    { \"name\": \"content_string\", \"flags\": 65551, \"type\": \"ty3\" },\n"
             + "    { \"name\": \"content_data\", \"flags\": 65551, \"type\": \"ty5\" },\n"
-            + "    { \"name\": \"__internal_fpos__\", \"flags\": 65821, \"type\": \"ty6\" }\n"
-            + "  ],\n"
-            + "  \"ty1\": { \"length\": 12, \"fieldType\": 4 },\n"
-            + "  \"fieldType\": 13,\n"
-            + "  \"ty4\": { \"length\": 0, \"fieldType\": 1040 },\n"
-            + "  \"ty3\": { \"length\": 8, \"fieldType\": 15, \"child\": \"ty2\" }\n"
-            + "}\n";
+            + "    { \"name\": \"__internal_fpos__\", \"flags\": 65821, \"type\": \"ty6\" }\n" + "  ],\n"
+            + "  \"ty1\": { \"length\": 12, \"fieldType\": 4 },\n" + "  \"fieldType\": 13,\n" + "  \"ty4\": { \"length\": 0, \"fieldType\": 1040 },\n"
+            + "  \"ty3\": { \"length\": 8, \"fieldType\": 15, \"child\": \"ty2\" }\n" + "}\n";
 
     /**
      * Gets the complex record definition json.

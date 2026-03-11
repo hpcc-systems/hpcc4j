@@ -12,7 +12,9 @@ public class DebugValueWrapper
     /**
      * Instantiates a new debug value wrapper.
      */
-    public DebugValueWrapper() {}
+    public DebugValueWrapper()
+    {
+    }
 
     /**
      * Instantiates a new debug value wrapper.
@@ -48,8 +50,8 @@ public class DebugValueWrapper
      */
     public DebugValueWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.DebugValue raw)
     {
-        name=raw.getName();
-        value=raw.getValue();
+        name = raw.getName();
+        value = raw.getValue();
     }
 
     /**

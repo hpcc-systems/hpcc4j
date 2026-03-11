@@ -55,22 +55,22 @@ import net.razorvine.pickle.Unpickler;
  */
 public class HpccRDD extends RDD<Row> implements Serializable
 {
-    private static final long          serialVersionUID = 1L;
-    private static final Logger        log              = LogManager.getLogger(HpccRDD.class);
-    private static final ClassTag<Row> CT_RECORD        = ClassTag$.MODULE$.apply(Row.class);
+    private static final long          serialVersionUID           = 1L;
+    private static final Logger        log                        = LogManager.getLogger(HpccRDD.class);
+    private static final ClassTag<Row> CT_RECORD                  = ClassTag$.MODULE$.apply(Row.class);
 
     public static int                  DEFAULT_CONNECTION_TIMEOUT = 120;
 
-    private String                     parentTraceID = "";
-    private String                     parentSpanID = "";
+    private String                     parentTraceID              = "";
+    private String                     parentSpanID               = "";
 
     private InternalPartition[]        parts;
-    private FieldDef                   originalRecordDef = null;
-    private FieldDef                   projectedRecordDef = null;
-    private int                        connectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
-    private int                        recordLimit = -1;
-    private double                     recordSamplingRate = HpccFile.MAX_RECORD_SAMPLING_RATE;
-    private long                       recordSamplingSeed = HpccFile.USE_RANDOM_SEED;
+    private FieldDef                   originalRecordDef          = null;
+    private FieldDef                   projectedRecordDef         = null;
+    private int                        connectionTimeout          = DEFAULT_CONNECTION_TIMEOUT;
+    private int                        recordLimit                = -1;
+    private double                     recordSamplingRate         = HpccFile.MAX_RECORD_SAMPLING_RATE;
+    private long                       recordSamplingSeed         = HpccFile.USE_RANDOM_SEED;
 
     private static void registerPicklingFunctions()
     {
@@ -81,7 +81,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
 
     private class InternalPartition implements Partition
     {
-        private static final long serialVersionUID = 2L;
+        private static final long serialVersionUID    = 2L;
 
         public DataPartition      partition;
         public int                sparkPartitionIndex = 0;
@@ -104,7 +104,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
     */
     public HpccRDD(SparkContext sc, DataPartition[] dataParts, FieldDef originalRD)
     {
-        this(sc,dataParts,originalRD,originalRD);
+        this(sc, dataParts, originalRD, originalRD);
     }
 
     /**
@@ -115,7 +115,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
     */
     public HpccRDD(SparkContext sc, DataPartition[] dataParts, FieldDef originalRD, FieldDef projectedRD)
     {
-        this(sc,dataParts,originalRD,projectedRD,DEFAULT_CONNECTION_TIMEOUT,-1);
+        this(sc, dataParts, originalRD, projectedRD, DEFAULT_CONNECTION_TIMEOUT, -1);
     }
 
     /**
@@ -130,7 +130,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
     {
         this(sc, dataParts, originalRD, projectedRD, connectTimeout, limit, 1.0);
     }
-    
+
     /**
      * @param sc spark context
      * @param dataParts data parts
@@ -140,7 +140,8 @@ public class HpccRDD extends RDD<Row> implements Serializable
      * @param limit file limit
      * @param recSamplingRate record sampling rate
     */
-    public HpccRDD(SparkContext sc, DataPartition[] dataParts, FieldDef originalRD, FieldDef projectedRD, int connectTimeout, int limit, double recSamplingRate)
+    public HpccRDD(SparkContext sc, DataPartition[] dataParts, FieldDef originalRD, FieldDef projectedRD, int connectTimeout, int limit,
+            double recSamplingRate)
     {
         this(sc, dataParts, originalRD, projectedRD, connectTimeout, limit, recSamplingRate, HpccFile.USE_RANDOM_SEED);
     }
@@ -155,7 +156,8 @@ public class HpccRDD extends RDD<Row> implements Serializable
      * @param recSamplingRate record sampling rate
      * @param recSamplingSeed record sampling seed
     */
-    public HpccRDD(SparkContext sc, DataPartition[] dataParts, FieldDef originalRD, FieldDef projectedRD, int connectTimeout, int limit, double recSamplingRate, long recSamplingSeed)
+    public HpccRDD(SparkContext sc, DataPartition[] dataParts, FieldDef originalRD, FieldDef projectedRD, int connectTimeout, int limit,
+            double recSamplingRate, long recSamplingSeed)
     {
         super(sc, new ArrayBuffer<Dependency<?>>(), CT_RECORD);
         this.parts = new InternalPartition[dataParts.length];
@@ -235,7 +237,8 @@ public class HpccRDD extends RDD<Row> implements Serializable
 
             // Create string timestamp in time format for logging
             String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-            log.info("Starting file part read: " + this_part.partition.getThisPart() + " from: " + this_part.partition.getCopyLocations()[0] + " timestamp: " + timeStamp);
+            log.info("Starting file part read: " + this_part.partition.getThisPart() + " from: " + this_part.partition.getCopyLocations()[0]
+                    + " timestamp: " + timeStamp);
 
             HpccRemoteFileReader.FileReadContext context = new HpccRemoteFileReader.FileReadContext();
             context.originalRD = originalRD;
@@ -244,7 +247,8 @@ public class HpccRDD extends RDD<Row> implements Serializable
             context.parentSpan = sparkPartReadSpan;
             context.recordSamplingRate = recordSamplingRate;
             context.recordSamplingSeed = recordSamplingSeed;
-            final HpccRemoteFileReader<Row> fileReader = new HpccRemoteFileReader<Row>(context, this_part.partition, new GenericRowRecordBuilder(projectedRD));
+            final HpccRemoteFileReader<Row> fileReader = new HpccRemoteFileReader<Row>(context, this_part.partition,
+                    new GenericRowRecordBuilder(projectedRD));
 
             // This will be called for both failure & success
             ctx.addTaskCompletionListener(taskContext ->
@@ -255,7 +259,7 @@ public class HpccRDD extends RDD<Row> implements Serializable
                     {
                         fileReader.close();
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         log.error("Error while attempting to close file reader: " + e.getMessage());
                         sparkPartReadSpan.recordException(e);
@@ -266,15 +270,17 @@ public class HpccRDD extends RDD<Row> implements Serializable
                 {
                     sparkPartReadSpan.setStatus(StatusCode.ERROR);
                 }
-            
+
                 String endTimeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-                log.info("Finished file part read: " + this_part.partition.getThisPart() + " from: " + this_part.partition.getCopyLocations()[0] + " timestamp: " + endTimeStamp);
+                log.info("Finished file part read: " + this_part.partition.getThisPart() + " from: " + this_part.partition.getCopyLocations()[0]
+                        + " timestamp: " + endTimeStamp);
 
                 sparkPartReadSpan.end();
             });
 
             // This will be called before the above completion listener
-            ctx.addTaskFailureListener((TaskContext taskContext, Throwable error) -> {
+            ctx.addTaskFailureListener((TaskContext taskContext, Throwable error) ->
+            {
                 sparkPartReadSpan.recordException(error);
                 sparkPartReadSpan.setStatus(StatusCode.ERROR);
             });

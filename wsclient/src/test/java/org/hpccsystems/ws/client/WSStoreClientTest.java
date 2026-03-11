@@ -57,22 +57,22 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 public class WSStoreClientTest extends BaseRemoteTest
 {
     private static HPCCWsStoreClient client;
-    public final static String defaultStoreName = "WsClientTestStore";
-    public final static String defaultNS = "Junittests";
+    public final static String       defaultStoreName        = "WsClientTestStore";
+    public final static String       defaultNS               = "Junittests";
 
-    public final static String defaultEncodedUserName = "Juni@tUser";
-    private final static String encodedUserName = System.getProperty("encodedUserName", defaultEncodedUserName);
+    public final static String       defaultEncodedUserName  = "Juni@tUser";
+    private final static String      encodedUserName         = System.getProperty("encodedUserName", defaultEncodedUserName);
 
-    public final static String defaultEncodedStoreName = "WsCli@ntT_estStore";
-    public final static String defaultEncodedNS = "Junit_t@ests";
-    private static Connection encodedUserConn = null;
+    public final static String       defaultEncodedStoreName = "WsCli@ntT_estStore";
+    public final static String       defaultEncodedNS        = "Junit_t@ests";
+    private static Connection        encodedUserConn         = null;
     private static HPCCWsStoreClient encodedUserClient;
 
-    private final static String storename = System.getProperty("storename", defaultStoreName);
-    private final static String namespace = System.getProperty("storenamespace", defaultNS);
-    private static Boolean targetHPCCAuthenticates = null;
+    private final static String      storename               = System.getProperty("storename", defaultStoreName);
+    private final static String      namespace               = System.getProperty("storenamespace", defaultNS);
+    private static Boolean           targetHPCCAuthenticates = null;
 
-    private static final String invalidIP = "203.0.113.0"; // TEST-NET-3 non-routable IP address for documentation and testing purposes
+    private static final String      invalidIP               = "203.0.113.0"; // TEST-NET-3 non-routable IP address for documentation and testing purposes
 
     static
     {
@@ -81,11 +81,9 @@ public class WSStoreClientTest extends BaseRemoteTest
         else
             System.out.println("'encodedUserName' set to: '" + encodedUserName + "'");
 
-        if (System.getProperty("storename") == null)
-            System.out.println("'storename' not provided, defaulting to: '" + defaultStoreName + "'");
+        if (System.getProperty("storename") == null) System.out.println("'storename' not provided, defaulting to: '" + defaultStoreName + "'");
 
-        if (System.getProperty("storenamespace") == null)
-            System.out.println("'storenamespace' not provided, defaulting to: '" + defaultNS + "'");
+        if (System.getProperty("storenamespace") == null) System.out.println("'storenamespace' not provided, defaulting to: '" + defaultNS + "'");
 
         client = HPCCWsStoreClient.get(connection);
         Assert.assertNotNull(client);
@@ -113,11 +111,9 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             encodedUserConn.setCredentials(encodedUserName, hpccPass);
 
-            if (connTO != null)
-                encodedUserConn.setConnectTimeoutMilli(connTO);
+            if (connTO != null) encodedUserConn.setConnectTimeoutMilli(connTO);
 
-            if (sockTO != null)
-                encodedUserConn.setSocketTimeoutMilli(Integer.valueOf(sockTO));
+            if (sockTO != null) encodedUserConn.setSocketTimeoutMilli(Integer.valueOf(sockTO));
 
             encodedUserClient = HPCCWsStoreClient.get(encodedUserConn);
         }
@@ -133,10 +129,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         tabstr += "Created By: " + props.getProperty("@createUser") + " on: " + props.getProperty("@createTime");
 
-        if (props.containsKey("@editTime"))
-            tabstr += " Edited On: " + props.getProperty("@editTime");
-        if (props.containsKey("@editBy"))
-            tabstr += " Edited By: " + props.getProperty("@editBy");
+        if (props.containsKey("@editTime")) tabstr += " Edited On: " + props.getProperty("@editTime");
+        if (props.containsKey("@editBy")) tabstr += " Edited By: " + props.getProperty("@editBy");
 
         System.out.println(tabstr);
     }
@@ -154,7 +148,8 @@ public class WSStoreClientTest extends BaseRemoteTest
     }
 
     @WithSpan
-    public String fetchvalueEncrypted(String storename, String namespace, String key, boolean global, String secretKey) throws Exception, ArrayOfEspExceptionWrapper
+    public String fetchvalueEncrypted(String storename, String namespace, String key, boolean global, String secretKey)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         return client.fetchValueEncrypted(storename, namespace, key, global, secretKey);
     }
@@ -163,7 +158,7 @@ public class WSStoreClientTest extends BaseRemoteTest
     public void listNamespaceKeys(String store, String namespace, boolean global) throws Exception, ArrayOfEspExceptionWrapper
     {
         System.out.println("Listing Namespace Keys for default." + namespace + "...");
-        String [] keys = client.listNSKeys(store, namespace, global);
+        String[] keys = client.listNSKeys(store, namespace, global);
         for (String key : keys)
         {
             String value = fetchvalue(store, namespace, key, global);
@@ -226,11 +221,11 @@ public class WSStoreClientTest extends BaseRemoteTest
     @Test
     public void getWithTimeoutTest() throws Exception
     {
-        final String testHost    = invalidIP;
-        final String testPort    = "8010";
-        final String testUser    = "testUser";
-        final String testPass    = "testPass";
-        final int    testTimeout = 5000;
+        final String testHost = invalidIP;
+        final String testPort = "8010";
+        final String testUser = "testUser";
+        final String testPass = "testPass";
+        final int testTimeout = 5000;
 
         HPCCWsStoreClient timeoutClient = HPCCWsStoreClient.get("http", testHost, testPort, testUser, testPass, testTimeout);
         Assert.assertNotNull("get() with timeout should return a non-null client", timeoutClient);
@@ -267,14 +262,19 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("Listing all default namespaces...");
-            String [] nss = client.listNamespaces(storename, true);
+            String[] nss = client.listNamespaces(storename, true);
             Assert.assertNotNull(nss);
 
             for (String ns : nss)
             {
                 System.out.println("Namespace (global): " + ns);
                 listNamespaceKeys(storename, ns, true);
-                try { client.fetchAllNSKeys(storename, ns, true); } catch (ArrayOfEspExceptionWrapper ignored) {}
+                try
+                {
+                    client.fetchAllNSKeys(storename, ns, true);
+                }
+                catch (ArrayOfEspExceptionWrapper ignored)
+                {}
             }
 
             if (targetHPCCAuthenticates)
@@ -288,7 +288,12 @@ public class WSStoreClientTest extends BaseRemoteTest
                         {
                             System.out.println("Namespace (user): " + ns);
                             listNamespaceKeys(storename, ns, false);
-                            try { client.fetchAllNSKeys(storename, ns, false); } catch (ArrayOfEspExceptionWrapper ignored) {}
+                            try
+                            {
+                                client.fetchAllNSKeys(storename, ns, false);
+                            }
+                            catch (ArrayOfEspExceptionWrapper ignored)
+                            {}
                         }
                     }
                 }
@@ -380,12 +385,14 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             Assert.assertNotNull(aesEncryptCipher);
 
-            System.out.println("Setting (encrypted based on provided cipher) " + storename + "." + namespace + "." + "global.encrypted.test=\"mysensitivedata\"...");
+            System.out.println("Setting (encrypted based on provided cipher) " + storename + "." + namespace + "."
+                    + "global.encrypted.test=\"mysensitivedata\"...");
             Assert.assertTrue(client.setValueEncrypted(storename, namespace, "global.encrypted.test", "mysensitivedata", true, aesEncryptCipher));
 
             String encryptedvalue = client.fetchValue(storename, namespace, "global.encrypted.test", true);
             Assert.assertNotNull(encryptedvalue);
-            System.out.println("Fetching (encrypted based on provided cipher) " + storename + "." + namespace + "." + "global.encrypted.test=\"" + encryptedvalue + "\"");
+            System.out.println("Fetching (encrypted based on provided cipher) " + storename + "." + namespace + "." + "global.encrypted.test=\""
+                    + encryptedvalue + "\"");
 
             String decryptedvalue = CryptoHelper.decrypt(encryptedvalue, aesDecryptCipher);
             Assert.assertNotNull(decryptedvalue);
@@ -397,16 +404,22 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             Assert.assertTrue("Decrypted locally not equal decrypted by wsstore client", decryptedvalue.equals(decryptedvalue2));
 
-            System.out.println("Setting (encrypted based on private key) " + storename + "." + namespace + "." + "global.encrypted.secretkey.test=\"privateinfo\"...");
-            Assert.assertTrue(client.setValueEncrypted(storename, namespace, "global.encrypted.secretkey.test", "privateinfo", true, mysecretkeycontent));
+            System.out.println("Setting (encrypted based on private key) " + storename + "." + namespace + "."
+                    + "global.encrypted.secretkey.test=\"privateinfo\"...");
+            Assert.assertTrue(
+                    client.setValueEncrypted(storename, namespace, "global.encrypted.secretkey.test", "privateinfo", true, mysecretkeycontent));
 
             if (targetHPCCAuthenticates) //if hpcc does not authenticate, cannot store user specific data
             {
-                System.out.println("Setting (encrypted based on provided cipher) " + storename + "." + namespace + "." + "WsClient.user.encrypted.test=\"moresensitivedata\"...");
-                Assert.assertTrue(client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.test", "moresensitivedata", false, aesEncryptCipher));
+                System.out.println("Setting (encrypted based on provided cipher) " + storename + "." + namespace + "."
+                        + "WsClient.user.encrypted.test=\"moresensitivedata\"...");
+                Assert.assertTrue(
+                        client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.test", "moresensitivedata", false, aesEncryptCipher));
 
-                System.out.println("Setting (encrypted based on private key) " + storename + "." + namespace + "." + "WsClient.user.encrypted.secretkey.test=\"moreprivateinfo\"...");
-                Assert.assertTrue(client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.secretkey.test", "moreprivateinfo", false, mysecretkeycontent));
+                System.out.println("Setting (encrypted based on private key) " + storename + "." + namespace + "."
+                        + "WsClient.user.encrypted.secretkey.test=\"moreprivateinfo\"...");
+                Assert.assertTrue(client.setValueEncrypted(storename, namespace, "WsClient.user.encrypted.secretkey.test", "moreprivateinfo", false,
+                        mysecretkeycontent));
             }
             else
             {
@@ -428,13 +441,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         new Random().nextBytes(array);
         String mysecretkeycontent = new String(array, Charset.forName("UTF-8"));
 
-
         final String secretKeyAlgo = "AES";
         final DigestAlgorithmType digestAlgo = DigestAlgorithmType.SHA1;
         final String cipherAlgo = "AES";
 
         SecretKeySpec secretKeySpec = CryptoHelper.createSecretKey(mysecretkeycontent, digestAlgo, secretKeyAlgo); //Caller can create their own secret key spec
-        Assert.assertNotNull("Could not create custom secretKeySpec '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", secretKeySpec);
+        Assert.assertNotNull("Could not create custom secretKeySpec '" + digestAlgo + "' '" + secretKeyAlgo + "'!", secretKeySpec);
 
         Cipher someencryptcipher = null;
         try
@@ -445,7 +457,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             Assert.fail("Could create encrypt cipher: " + e.getLocalizedMessage());
         }
-        Assert.assertNotNull("Could not create custom encrypt cipher '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", someencryptcipher);
+        Assert.assertNotNull("Could not create custom encrypt cipher '" + digestAlgo + "' '" + secretKeyAlgo + "'!", someencryptcipher);
 
         Cipher somedecryptcipher = null;
         try
@@ -456,12 +468,14 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             Assert.fail("Could create decrypt cipher: " + e.getLocalizedMessage());
         }
-        Assert.assertNotNull("Could not create custom encrypt cipher '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", somedecryptcipher);
+        Assert.assertNotNull("Could not create custom encrypt cipher '" + digestAlgo + "' '" + secretKeyAlgo + "'!", somedecryptcipher);
 
-        System.out.println("Setting (encrypted based on provided custom '"+ digestAlgo +"' '" + secretKeyAlgo + "' cipher) " + storename + "." + namespace + "." + "global.encrypted.custom.test=\"myhiddensecret\"...");
+        System.out.println("Setting (encrypted based on provided custom '" + digestAlgo + "' '" + secretKeyAlgo + "' cipher) " + storename + "."
+                + namespace + "." + "global.encrypted.custom.test=\"myhiddensecret\"...");
         try
         {
-            Assert.assertTrue(client.setValueEncrypted(storename, namespace, "global.encrypted.custom.test", "myhiddensecret", true, someencryptcipher));
+            Assert.assertTrue(
+                    client.setValueEncrypted(storename, namespace, "global.encrypted.custom.test", "myhiddensecret", true, someencryptcipher));
         }
         catch (Exception e)
         {
@@ -479,7 +493,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         Assert.assertNotNull("failed to fetch valid encrypted value", encryptedvalue);
 
-        System.out.println("Fetching (encrypted based on provided custom '"+ digestAlgo +"' '" + secretKeyAlgo + "' cipher) " + storename + "." + namespace + "." + "global.encrypted.custom.test=\"" + encryptedvalue + "\"");
+        System.out.println("Fetching (encrypted based on provided custom '" + digestAlgo + "' '" + secretKeyAlgo + "' cipher) " + storename + "."
+                + namespace + "." + "global.encrypted.custom.test=\"" + encryptedvalue + "\"");
         String decryptedvalue = null;
         try
         {
@@ -529,8 +544,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             System.out.println("Creating Store: '" + storename + "' ...");
             boolean success = client.createStore(storename, "Store strictly for WsClient tests", "TEST");
-            if (!success)
-                System.out.println("No exceptions, but failure reported. Does this store already exist? Store: '" + storename + "'");
+            if (!success) System.out.println("No exceptions, but failure reported. Does this store already exist? Store: '" + storename + "'");
         }
         catch (Exception e)
         {
@@ -582,7 +596,8 @@ public class WSStoreClientTest extends BaseRemoteTest
             System.out.println("Deleting ns: '" + defaultEncodedNS + "' ...");
             boolean deleted = encodedUserClient.deleteNamespace(defaultEncodedStoreName, defaultEncodedNS, true, "");
             if (!deleted)
-                System.out.println("zz91deleteEncodedNSTest: deleteNamespace returned false — namespace may not exist or server DALI encoding issue with '@' in name");
+                System.out.println(
+                        "zz91deleteEncodedNSTest: deleteNamespace returned false — namespace may not exist or server DALI encoding issue with '@' in name");
             else
                 System.out.println("zz91deleteEncodedNSTest: namespace deleted successfully");
         }
@@ -658,7 +673,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         catch (ArrayOfEspExceptionWrapper e)
         {
             // Server DALI encoding issue with '@' in namespace name — known server-side behavior
-            System.out.println("b4fetchEncodedNSKeysAttributesTest: ArrayOfEspExceptionWrapper (server encoding issue with '@' in name): " + e.getMessage());
+            System.out.println(
+                    "b4fetchEncodedNSKeysAttributesTest: ArrayOfEspExceptionWrapper (server encoding issue with '@' in name): " + e.getMessage());
         }
         catch (Exception e)
         {
@@ -712,13 +728,15 @@ public class WSStoreClientTest extends BaseRemoteTest
             Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "global.test", "success", true));
 
             Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "files.rowperpage.default", "50", true));
-            Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "ecl.playground.sample.default", "Java Simple", true));
+            Assert.assertTrue(
+                    encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "ecl.playground.sample.default", "Java Simple", true));
 
             if (targetHPCCAuthenticates)
             {
                 System.out.println("Setting " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.user.test=\"success\"...");
                 Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "user.test", "success", false));
-                Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "dp-thor_160-jim::tutorialperson-wuid", "W20190710-114239", false));
+                Assert.assertTrue(encodedUserClient.setValue(defaultEncodedStoreName, defaultEncodedNS, "dp-thor_160-jim::tutorialperson-wuid",
+                        "W20190710-114239", false));
             }
             else
             {
@@ -748,34 +766,44 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             Assert.assertNotNull(aesEncryptCipher);
 
-            System.out.println("Setting (encrypted based on provided cipher) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "global.encrypted.test=\"mysensitivedata\"...");
-            Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.test", "mysensitivedata", true, aesEncryptCipher));
+            System.out.println("Setting (encrypted based on provided cipher) " + defaultEncodedStoreName + "." + defaultEncodedNS + "."
+                    + "global.encrypted.test=\"mysensitivedata\"...");
+            Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.test", "mysensitivedata", true,
+                    aesEncryptCipher));
 
             String encryptedvalue = client.fetchValue(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.test", true);
             Assert.assertNotNull(encryptedvalue);
-            System.out.println("Fetching (encrypted based on provided cipher) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "global.encrypted.test=\"" + encryptedvalue + "\"");
+            System.out.println("Fetching (encrypted based on provided cipher) " + defaultEncodedStoreName + "." + defaultEncodedNS + "."
+                    + "global.encrypted.test=\"" + encryptedvalue + "\"");
 
             String decryptedvalue = CryptoHelper.decrypt(encryptedvalue, aesDecryptCipher);
             Assert.assertNotNull(decryptedvalue);
 
             System.out.println("Decrypted localy: global.encrypted.test=\"" + decryptedvalue + "\"");
 
-            String decryptedvalue2 = client.fetchValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.test", true, aesDecryptCipher);
+            String decryptedvalue2 = client.fetchValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.test", true,
+                    aesDecryptCipher);
             Assert.assertNotNull(decryptedvalue2);
 
             Assert.assertTrue("Decrypted locally not equal decrypted by wsstore client", decryptedvalue.equals(decryptedvalue2));
 
-            System.out.println("Setting (encrypted based on private key) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "global.encrypted.secretkey.test=\"privateinfo\"...");
-            Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.secretkey.test", "privateinfo", true, mysecretkeycontent));
+            System.out.println("Setting (encrypted based on private key) " + defaultEncodedStoreName + "." + defaultEncodedNS + "."
+                    + "global.encrypted.secretkey.test=\"privateinfo\"...");
+            Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.secretkey.test", "privateinfo",
+                    true, mysecretkeycontent));
 
             if (targetHPCCAuthenticates) //if hpcc does not authenticate, cannot store user specific data
             {
 
-                System.out.println("Setting (encrypted based on provided cipher) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.user.encrypted.test=\"moresensitivedata\"...");
-                Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "WsClient.user.encrypted.test", "moresensitivedata", false, aesEncryptCipher));
+                System.out.println("Setting (encrypted based on provided cipher) " + defaultEncodedStoreName + "." + defaultEncodedNS + "."
+                        + "WsClient.user.encrypted.test=\"moresensitivedata\"...");
+                Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "WsClient.user.encrypted.test",
+                        "moresensitivedata", false, aesEncryptCipher));
 
-                System.out.println("Setting (encrypted based on private key) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "WsClient.user.encrypted.secretkey.test=\"moreprivateinfo\"...");
-                Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "WsClient.user.encrypted.secretkey.test", "moreprivateinfo", false, mysecretkeycontent));
+                System.out.println("Setting (encrypted based on private key) " + defaultEncodedStoreName + "." + defaultEncodedNS + "."
+                        + "WsClient.user.encrypted.secretkey.test=\"moreprivateinfo\"...");
+                Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "WsClient.user.encrypted.secretkey.test",
+                        "moreprivateinfo", false, mysecretkeycontent));
             }
             else
             {
@@ -785,7 +813,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         catch (ArrayOfEspExceptionWrapper e)
         {
             // Server DALI encoding issue with '@' in store/namespace name — known server-side behavior
-            System.out.println("b4setEncryptedTest: ArrayOfEspExceptionWrapper (server encoding issue with '@' in encoded store name): " + e.getMessage());
+            System.out.println(
+                    "b4setEncryptedTest: ArrayOfEspExceptionWrapper (server encoding issue with '@' in encoded store name): " + e.getMessage());
         }
         catch (Exception e)
         {
@@ -803,13 +832,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         new Random().nextBytes(array);
         String mysecretkeycontent = new String(array, Charset.forName("UTF-8"));
 
-
         final String secretKeyAlgo = "AES";
         final DigestAlgorithmType digestAlgo = DigestAlgorithmType.SHA1;
         final String cipherAlgo = "AES";
 
         SecretKeySpec secretKeySpec = CryptoHelper.createSecretKey(mysecretkeycontent, digestAlgo, secretKeyAlgo); //Caller can create their own secret key spec
-        Assert.assertNotNull("Could not create custom secretKeySpec '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", secretKeySpec);
+        Assert.assertNotNull("Could not create custom secretKeySpec '" + digestAlgo + "' '" + secretKeyAlgo + "'!", secretKeySpec);
 
         Cipher someencryptcipher = null;
         try
@@ -820,7 +848,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             Assert.fail("Could create encrypt cipher: " + e.getLocalizedMessage());
         }
-        Assert.assertNotNull("Could not create custom encrypt cipher '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", someencryptcipher);
+        Assert.assertNotNull("Could not create custom encrypt cipher '" + digestAlgo + "' '" + secretKeyAlgo + "'!", someencryptcipher);
 
         Cipher somedecryptcipher = null;
         try
@@ -831,12 +859,14 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             Assert.fail("Could create decrypt cipher: " + e.getLocalizedMessage());
         }
-        Assert.assertNotNull("Could not create custom encrypt cipher '"+ digestAlgo +"' '" + secretKeyAlgo + "'!", somedecryptcipher);
+        Assert.assertNotNull("Could not create custom encrypt cipher '" + digestAlgo + "' '" + secretKeyAlgo + "'!", somedecryptcipher);
 
-        System.out.println("Setting (encrypted based on provided custom '"+ digestAlgo +"' '" + secretKeyAlgo + "' cipher) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "global.encrypted.custom.test=\"myhiddensecret\"...");
+        System.out.println("Setting (encrypted based on provided custom '" + digestAlgo + "' '" + secretKeyAlgo + "' cipher) "
+                + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "global.encrypted.custom.test=\"myhiddensecret\"...");
         try
         {
-            Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.custom.test", "myhiddensecret", true, someencryptcipher));
+            Assert.assertTrue(client.setValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.custom.test", "myhiddensecret",
+                    true, someencryptcipher));
         }
         catch (Exception e)
         {
@@ -851,7 +881,9 @@ public class WSStoreClientTest extends BaseRemoteTest
         catch (ArrayOfEspExceptionWrapper e)
         {
             // Server DALI encoding issue with '@' in store/namespace name — known server-side behavior
-            System.out.println("b4setEncryptedCustomTest: ArrayOfEspExceptionWrapper fetching encrypted value (server encoding issue with '@' in encoded store name): " + e.getMessage());
+            System.out.println(
+                    "b4setEncryptedCustomTest: ArrayOfEspExceptionWrapper fetching encrypted value (server encoding issue with '@' in encoded store name): "
+                            + e.getMessage());
             return;
         }
         catch (Exception e)
@@ -860,16 +892,20 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         Assert.assertNotNull("failed to fetch valid encrypted value", encryptedvalue);
 
-        System.out.println("Fetching (encrypted based on provided custom '"+ digestAlgo +"' '" + secretKeyAlgo + "' cipher) " + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "global.encrypted.custom.test=\"" + encryptedvalue + "\"");
+        System.out.println("Fetching (encrypted based on provided custom '" + digestAlgo + "' '" + secretKeyAlgo + "' cipher) "
+                + defaultEncodedStoreName + "." + defaultEncodedNS + "." + "global.encrypted.custom.test=\"" + encryptedvalue + "\"");
         String decryptedvalue = null;
         try
         {
-            decryptedvalue = client.fetchValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.custom.test", true, somedecryptcipher);
+            decryptedvalue = client.fetchValueEncrypted(defaultEncodedStoreName, defaultEncodedNS, "global.encrypted.custom.test", true,
+                    somedecryptcipher);
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
             // Server DALI encoding issue with '@' in store/namespace name — known server-side behavior
-            System.out.println("b4setEncryptedCustomTest: ArrayOfEspExceptionWrapper fetching decrypted value (server encoding issue with '@' in encoded store name): " + e.getMessage());
+            System.out.println(
+                    "b4setEncryptedCustomTest: ArrayOfEspExceptionWrapper fetching decrypted value (server encoding issue with '@' in encoded store name): "
+                            + e.getMessage());
             return;
         }
         catch (Exception e)
@@ -992,15 +1028,15 @@ public class WSStoreClientTest extends BaseRemoteTest
             System.out.println("Testing deleteValue on " + storename + "." + namespace + ".testkey...");
             // First set a value
             Assert.assertTrue(client.setValue(storename, namespace, "testkey", "testvalue", true));
-            
+
             // Verify it exists
             String value = client.fetchValue(storename, namespace, "testkey", true);
             Assert.assertNotNull(value);
             Assert.assertEquals("testvalue", value);
-            
+
             // Now delete it
             Assert.assertTrue(client.deleteValue(storename, namespace, "testkey", true));
-            
+
             // Verify it's deleted
             String deletedValue = client.fetchValue(storename, namespace, "testkey", true);
             Assert.assertNull("Value should be null after deletion", deletedValue);
@@ -1013,7 +1049,7 @@ public class WSStoreClientTest extends BaseRemoteTest
                 String userValue = client.fetchValue(storename, namespace, "user.testkey", false);
                 Assert.assertNotNull(userValue);
                 Assert.assertEquals("user.testvalue", userValue);
-                
+
                 Assert.assertTrue(client.deleteValue(storename, namespace, "user.testkey", false));
                 String deletedUserValue = client.fetchValue(storename, namespace, "user.testkey", false);
                 Assert.assertNull("User value should be null after deletion", deletedUserValue);
@@ -1039,13 +1075,12 @@ public class WSStoreClientTest extends BaseRemoteTest
             StoreInfoWrapper[] stores = client.listStores();
             Assert.assertNotNull("listStores should not return null", stores);
             System.out.println("Found " + stores.length + " stores");
-            
+
             boolean foundTestStore = false;
             for (StoreInfoWrapper store : stores)
             {
-                System.out.println("  Store: " + store.getName() + 
-                                   " (Type: " + (store.getType() != null ? store.getType() : "N/A") + 
-                                   ", Owner: " + (store.getOwner() != null ? store.getOwner() : "N/A") + ")");
+                System.out.println("  Store: " + store.getName() + " (Type: " + (store.getType() != null ? store.getType() : "N/A") + ", Owner: "
+                        + (store.getOwner() != null ? store.getOwner() : "N/A") + ")");
                 if (storename.equals(store.getName()))
                 {
                     foundTestStore = true;
@@ -1068,14 +1103,13 @@ public class WSStoreClientTest extends BaseRemoteTest
             System.out.println("Listing stores with name filter...");
             StoreInfoWrapper[] stores = client.listStores(storename, null, null);
             Assert.assertNotNull("listStores with filter should not return null", stores);
-            
+
             // All returned stores should match our filter
             for (StoreInfoWrapper store : stores)
             {
-                Assert.assertTrue("Store name should match filter", 
-                                  store.getName().contains(storename) || storename.contains(store.getName()));
+                Assert.assertTrue("Store name should match filter", store.getName().contains(storename) || storename.contains(store.getName()));
             }
-            
+
             System.out.println("Testing listStores with type filter...");
             StoreInfoWrapper[] testStores = client.listStores(null, "TEST", null);
             if (testStores != null && testStores.length > 0)
@@ -1099,17 +1133,17 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("Testing listNSKeys on " + storename + "." + namespace + "...");
-            
+
             // Set some test keys first
             Assert.assertTrue(client.setValue(storename, namespace, "key1", "value1", true));
             Assert.assertTrue(client.setValue(storename, namespace, "key2", "value2", true));
             Assert.assertTrue(client.setValue(storename, namespace, "key3", "value3", true));
-            
+
             // List the keys
             String[] keys = client.listNSKeys(storename, namespace, true);
             Assert.assertNotNull("listNSKeys should not return null", keys);
             Assert.assertTrue("Should have at least 3 keys", keys.length >= 3);
-            
+
             System.out.println("Found " + keys.length + " keys in namespace");
             boolean foundKey1 = false, foundKey2 = false, foundKey3 = false;
             for (String key : keys)
@@ -1119,7 +1153,7 @@ public class WSStoreClientTest extends BaseRemoteTest
                 if ("key2".equals(key)) foundKey2 = true;
                 if ("key3".equals(key)) foundKey3 = true;
             }
-            
+
             Assert.assertTrue("Should find key1", foundKey1);
             Assert.assertTrue("Should find key2", foundKey2);
             Assert.assertTrue("Should find key3", foundKey3);
@@ -1143,8 +1177,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             System.out.println("CFT-001: Creating store '" + testStoreName + "' and verifying response fields...");
             boolean result = client.createStore(testStoreName, "CFT-001 response field verification store", "CFT001TYPE");
-            if (!result)
-                System.out.println("CFT-001: createStore returned false (store may already exist): " + testStoreName);
+            if (!result) System.out.println("CFT-001: createStore returned false (store may already exist): " + testStoreName);
 
             StoreInfoWrapper[] stores = client.listStores();
             Assert.assertNotNull("CFT-001: listStores should not return null", stores);
@@ -1598,7 +1631,8 @@ public class WSStoreClientTest extends BaseRemoteTest
     @WithSpan
     public void listStoresOwnerFilterTest() throws Exception, ArrayOfEspExceptionWrapper
     {
-        Assume.assumeTrue("CFT-001 listStores ownerFilter: Skipping — target HPCC does not authenticate (owner field not populated)", targetHPCCAuthenticates);
+        Assume.assumeTrue("CFT-001 listStores ownerFilter: Skipping — target HPCC does not authenticate (owner field not populated)",
+                targetHPCCAuthenticates);
         try
         {
             System.out.println("CFT-001: Testing listStores with ownerFilter='" + hpccUser + "'...");
@@ -1607,8 +1641,7 @@ public class WSStoreClientTest extends BaseRemoteTest
             System.out.println("CFT-001: Found " + stores.length + " stores owned by '" + hpccUser + "'");
             for (StoreInfoWrapper store : stores)
             {
-                Assert.assertEquals("CFT-001: Store owner should match ownerFilter",
-                                    hpccUser, store.getOwner());
+                Assert.assertEquals("CFT-001: Store owner should match ownerFilter", hpccUser, store.getOwner());
             }
         }
         catch (Exception e)
@@ -1624,10 +1657,12 @@ public class WSStoreClientTest extends BaseRemoteTest
     @WithSpan
     public void listStoresAllFiltersTest() throws Exception, ArrayOfEspExceptionWrapper
     {
-        Assume.assumeTrue("CFT-002 listStores allFilters: Skipping — target HPCC does not authenticate (owner filter requires authenticated users)", targetHPCCAuthenticates);
+        Assume.assumeTrue("CFT-002 listStores allFilters: Skipping — target HPCC does not authenticate (owner filter requires authenticated users)",
+                targetHPCCAuthenticates);
         try
         {
-            System.out.println("CFT-002: Testing listStores with nameFilter='" + storename + "', typeFilter='TEST', ownerFilter='" + hpccUser + "'...");
+            System.out
+                    .println("CFT-002: Testing listStores with nameFilter='" + storename + "', typeFilter='TEST', ownerFilter='" + hpccUser + "'...");
             StoreInfoWrapper[] stores = client.listStores(storename, "TEST", hpccUser);
             Assert.assertNotNull("CFT-002: listStores with all filters should not return null", stores);
 
@@ -1637,8 +1672,7 @@ public class WSStoreClientTest extends BaseRemoteTest
                 Assert.assertEquals("CFT-002: Store name should match nameFilter", storename, store.getName());
                 Assert.assertEquals("CFT-002: Store type should match typeFilter", "TEST", store.getType());
                 Assert.assertEquals("CFT-002: Store owner should match ownerFilter", hpccUser, store.getOwner());
-                if (storename.equals(store.getName()))
-                    foundTestStore = true;
+                if (storename.equals(store.getName())) foundTestStore = true;
             }
             Assert.assertTrue("CFT-002: Test store '" + storename + "' should be in filtered results", foundTestStore);
         }
@@ -1655,7 +1689,9 @@ public class WSStoreClientTest extends BaseRemoteTest
     @WithSpan
     public void listStoresFieldCompletenessTest() throws Exception, ArrayOfEspExceptionWrapper
     {
-        Assume.assumeTrue("CFT-003 listStores fieldCompleteness: Skipping — target HPCC does not authenticate (owner field not populated without auth)", targetHPCCAuthenticates);
+        Assume.assumeTrue(
+                "CFT-003 listStores fieldCompleteness: Skipping — target HPCC does not authenticate (owner field not populated without auth)",
+                targetHPCCAuthenticates);
         try
         {
             System.out.println("CFT-003: Verifying StoreInfoWrapper field completeness...");
@@ -1712,11 +1748,9 @@ public class WSStoreClientTest extends BaseRemoteTest
             int defaultCount = 0;
             for (StoreInfoWrapper store : stores)
             {
-                if (store.getIsDefault())
-                    defaultCount++;
+                if (store.getIsDefault()) defaultCount++;
             }
-            Assert.assertTrue("CFT-004: At most one store should have isDefault=true, found: " + defaultCount,
-                               defaultCount <= 1);
+            Assert.assertTrue("CFT-004: At most one store should have isDefault=true, found: " + defaultCount, defaultCount <= 1);
             System.out.println("CFT-004: Found " + defaultCount + " default store(s) — constraint satisfied");
         }
         catch (Exception e)
@@ -1741,7 +1775,7 @@ public class WSStoreClientTest extends BaseRemoteTest
             StoreInfoWrapper[] storesNullArgs = client.listStores(null, null, null);
             Assert.assertNotNull("CFT-005: listStores(null,null,null) should not return null", storesNullArgs);
             Assert.assertTrue("CFT-005: listStores(null,null,null) should return >= results of listStores()",
-                               storesNullArgs.length >= storesNoArg.length);
+                    storesNullArgs.length >= storesNoArg.length);
 
             boolean foundTestStore = false;
             for (StoreInfoWrapper store : storesNullArgs)
@@ -1776,8 +1810,7 @@ public class WSStoreClientTest extends BaseRemoteTest
             System.out.println("CFT-006: Found " + stores.length + " store(s) with type 'TEST'");
             for (StoreInfoWrapper store : stores)
             {
-                Assert.assertEquals("CFT-006: Every returned store must have type='TEST'",
-                                    "TEST", store.getType());
+                Assert.assertEquals("CFT-006: Every returned store must have type='TEST'", "TEST", store.getType());
             }
         }
         catch (Exception e)
@@ -1798,8 +1831,7 @@ public class WSStoreClientTest extends BaseRemoteTest
             System.out.println("ECT-001: Testing listStores with a non-matching nameFilter...");
             StoreInfoWrapper[] stores = client.listStores("NONEXISTENT_STORE_XYZZY_12345", null, null);
             Assert.assertNotNull("ECT-001: listStores should return empty array, not null", stores);
-            Assert.assertEquals("ECT-001: listStores should return empty array for non-matching filter",
-                                 0, stores.length);
+            Assert.assertEquals("ECT-001: listStores should return empty array for non-matching filter", 0, stores.length);
         }
         catch (Exception e)
         {
@@ -1823,10 +1855,8 @@ public class WSStoreClientTest extends BaseRemoteTest
             boolean foundTestStore = false;
             for (StoreInfoWrapper store : stores)
             {
-                Assert.assertTrue("ECT-002: All returned store names must start with 'WsClient'",
-                                   store.getName().startsWith("WsClient"));
-                if (storename.equals(store.getName()))
-                    foundTestStore = true;
+                Assert.assertTrue("ECT-002: All returned store names must start with 'WsClient'", store.getName().startsWith("WsClient"));
+                if (storename.equals(store.getName())) foundTestStore = true;
             }
             Assert.assertTrue("ECT-002: Test store '" + storename + "' should be found via wildcard 'WsClient*'", foundTestStore);
         }
@@ -1852,7 +1882,7 @@ public class WSStoreClientTest extends BaseRemoteTest
             StoreInfoWrapper[] storesEmptyArgs = client.listStores("", "", "");
             Assert.assertNotNull("ECT-003: listStores(\"\",\"\",\"\") should not return null", storesEmptyArgs);
             Assert.assertTrue("ECT-003: listStores(\"\",\"\",\"\") result count should be >= listStores() result count",
-                               storesEmptyArgs.length >= storesNoArg.length);
+                    storesEmptyArgs.length >= storesNoArg.length);
 
             boolean foundTestStore = false;
             for (StoreInfoWrapper store : storesEmptyArgs)
@@ -1878,7 +1908,8 @@ public class WSStoreClientTest extends BaseRemoteTest
     @WithSpan
     public void listStoresOwnerWildcardFilterTest() throws Exception, ArrayOfEspExceptionWrapper
     {
-        Assume.assumeTrue("ECT-004 listStores ownerWildcard: Skipping — target HPCC does not authenticate (owner field not populated)", targetHPCCAuthenticates);
+        Assume.assumeTrue("ECT-004 listStores ownerWildcard: Skipping — target HPCC does not authenticate (owner field not populated)",
+                targetHPCCAuthenticates);
         try
         {
             String ownerPrefix = hpccUser.length() >= 3 ? hpccUser.substring(0, 3) : hpccUser;
@@ -1890,8 +1921,7 @@ public class WSStoreClientTest extends BaseRemoteTest
             for (StoreInfoWrapper store : stores)
             {
                 Assert.assertNotNull("ECT-004: store.getOwner() must not be null", store.getOwner());
-                Assert.assertTrue("ECT-004: store owner must start with prefix '" + ownerPrefix + "'",
-                                   store.getOwner().startsWith(ownerPrefix));
+                Assert.assertTrue("ECT-004: store owner must start with prefix '" + ownerPrefix + "'", store.getOwner().startsWith(ownerPrefix));
             }
         }
         catch (Exception e)
@@ -1907,14 +1937,15 @@ public class WSStoreClientTest extends BaseRemoteTest
     @WithSpan
     public void listStoresConflictingFiltersEmptyResultTest() throws Exception, ArrayOfEspExceptionWrapper
     {
-        Assume.assumeTrue("ECT-005 listStores conflictingFilters: Skipping — target HPCC does not authenticate (owner filter AND-semantics require authenticated users)", targetHPCCAuthenticates);
+        Assume.assumeTrue(
+                "ECT-005 listStores conflictingFilters: Skipping — target HPCC does not authenticate (owner filter AND-semantics require authenticated users)",
+                targetHPCCAuthenticates);
         try
         {
             System.out.println("ECT-005: Testing listStores with valid typeFilter but non-matching ownerFilter...");
             StoreInfoWrapper[] stores = client.listStores(null, "TEST", "NONEXISTENT_USER_ZZZZ");
             Assert.assertNotNull("ECT-005: listStores should return empty array, not null", stores);
-            Assert.assertEquals("ECT-005: AND-semantics: non-matching ownerFilter should yield empty result",
-                                 0, stores.length);
+            Assert.assertEquals("ECT-005: AND-semantics: non-matching ownerFilter should yield empty result", 0, stores.length);
         }
         catch (Exception e)
         {
@@ -2028,8 +2059,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("CFT-001 setValue: Overwriting key and verifying updated value is retrieved...");
-            Assert.assertTrue("First setValue should return true",
-                    client.setValue(storename, namespace, "overwrite.test", "originalValue", true));
+            Assert.assertTrue("First setValue should return true", client.setValue(storename, namespace, "overwrite.test", "originalValue", true));
             Assert.assertTrue("Second setValue (overwrite) should return true",
                     client.setValue(storename, namespace, "overwrite.test", "updatedValue", true));
             String fetched = client.fetchValue(storename, namespace, "overwrite.test", true);
@@ -2062,8 +2092,7 @@ public class WSStoreClientTest extends BaseRemoteTest
             Assert.assertTrue("setValue with empty string value should return true", result);
             // Server uses [nil_remove] on Value; fetch may return null or empty string — both are acceptable
             String fetched = client.fetchValue(storename, namespace, "empty.value.test", true);
-            Assert.assertTrue("Fetched value for empty-string key should be null or empty",
-                    fetched == null || fetched.isEmpty());
+            Assert.assertTrue("Fetched value for empty-string key should be null or empty", fetched == null || fetched.isEmpty());
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
@@ -2216,7 +2245,8 @@ public class WSStoreClientTest extends BaseRemoteTest
             {
                 client.deleteNamespace(storename, specialNS, true, "");
             }
-            catch (Exception ignored) {}
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -2415,8 +2445,7 @@ public class WSStoreClientTest extends BaseRemoteTest
                 // Server accepted the empty key; verify fetch round-trip
                 String fetched = client.fetchValue(storename, namespace, "", true);
                 System.out.println("EHT-007 setValue: fetchValue with empty key returned: " + fetched);
-                Assert.assertEquals("EHT-007 setValue: If server accepted empty key, fetch should return stored value",
-                        "testvalue", fetched);
+                Assert.assertEquals("EHT-007 setValue: If server accepted empty key, fetch should return stored value", "testvalue", fetched);
             }
             // false is also acceptable; server may reject an empty key
         }
@@ -2475,9 +2504,24 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { client.deleteNamespace(testStoreName, ns1, true, ""); } catch (Exception ignored) {}
-            try { client.deleteNamespace(testStoreName, ns2, true, ""); } catch (Exception ignored) {}
-            try { client.deleteNamespace(testStoreName, ns3, true, ""); } catch (Exception ignored) {}
+            try
+            {
+                client.deleteNamespace(testStoreName, ns1, true, "");
+            }
+            catch (Exception ignored)
+            {}
+            try
+            {
+                client.deleteNamespace(testStoreName, ns2, true, "");
+            }
+            catch (Exception ignored)
+            {}
+            try
+            {
+                client.deleteNamespace(testStoreName, ns3, true, "");
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -2493,8 +2537,8 @@ public class WSStoreClientTest extends BaseRemoteTest
             System.out.println("CFT-002 listNamespaces: Calling listNamespaces with empty store name...");
             String[] nss = client.listNamespaces("", true);
             // Server falls back to default store; result may be null or valid array — just no exception
-            System.out.println("CFT-002 listNamespaces: PASS — returned without exception; result: "
-                    + (nss == null ? "null" : "array[" + nss.length + "]"));
+            System.out.println(
+                    "CFT-002 listNamespaces: PASS — returned without exception; result: " + (nss == null ? "null" : "array[" + nss.length + "]"));
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
@@ -2555,8 +2599,7 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             String[] nss = client.listNamespaces(emptyStoreName, true);
             // Expect null or empty array — no exception
-            Assert.assertTrue("ECT-001 listNamespaces: result should be null or empty array",
-                    nss == null || nss.length == 0);
+            Assert.assertTrue("ECT-001 listNamespaces: result should be null or empty array", nss == null || nss.length == 0);
 
             System.out.println("ECT-001 listNamespaces: PASS — empty store returned null/empty without exception");
         }
@@ -2581,13 +2624,13 @@ public class WSStoreClientTest extends BaseRemoteTest
 
         String testStoreName = "WsClientTestStore_listNS_ECT002";
         String globalNS = "listNS_ECT002_globalNS";
-        String userNS   = "listNS_ECT002_userNS";
+        String userNS = "listNS_ECT002_userNS";
         try
         {
             System.out.println("ECT-002 listNamespaces: Setting up global and user-specific namespaces...");
             client.createStore(testStoreName, "ECT-002 listNamespaces isolation test store", "TEST");
             client.setValue(testStoreName, globalNS, "gkey", "gval", true);
-            client.setValue(testStoreName, userNS,   "ukey", "uval", false);
+            client.setValue(testStoreName, userNS, "ukey", "uval", false);
 
             String[] globalNss = client.listNamespaces(testStoreName, true);
             Assert.assertNotNull("ECT-002 listNamespaces: global listing should not be null", globalNss);
@@ -2612,8 +2655,18 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { client.deleteNamespace(testStoreName, globalNS, true, ""); }  catch (Exception ignored) {}
-            try { client.deleteNamespace(testStoreName, userNS,   false, ""); } catch (Exception ignored) {}
+            try
+            {
+                client.deleteNamespace(testStoreName, globalNS, true, "");
+            }
+            catch (Exception ignored)
+            {}
+            try
+            {
+                client.deleteNamespace(testStoreName, userNS, false, "");
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -2643,14 +2696,12 @@ public class WSStoreClientTest extends BaseRemoteTest
             java.util.List<String> nsList = Arrays.asList(nss);
             for (int i = 1; i <= count; i++)
             {
-                Assert.assertTrue("ECT-003 listNamespaces: " + nsPrefix + i + " should be present",
-                        nsList.contains(nsPrefix + i));
+                Assert.assertTrue("ECT-003 listNamespaces: " + nsPrefix + i + " should be present", nsList.contains(nsPrefix + i));
             }
 
             // Verify no duplicates
             Set<String> nsSet = new HashSet<>(nsList);
-            Assert.assertEquals("ECT-003 listNamespaces: no duplicate namespace names expected",
-                    nss.length, nsSet.size());
+            Assert.assertEquals("ECT-003 listNamespaces: no duplicate namespace names expected", nss.length, nsSet.size());
 
             System.out.println("ECT-003 listNamespaces: PASS — all " + count + " namespaces found with no duplicates");
         }
@@ -2667,7 +2718,12 @@ public class WSStoreClientTest extends BaseRemoteTest
             for (int i = 1; i <= count; i++)
             {
                 final String ns = nsPrefix + i;
-                try { client.deleteNamespace(testStoreName, ns, true, ""); } catch (Exception ignored) {}
+                try
+                {
+                    client.deleteNamespace(testStoreName, ns, true, "");
+                }
+                catch (Exception ignored)
+                {}
             }
         }
     }
@@ -2684,8 +2740,7 @@ public class WSStoreClientTest extends BaseRemoteTest
             System.out.println("EHT-001 listNamespaces: Calling listNamespaces with non-existent store name...");
             String[] nss = client.listNamespaces("ThisStoreDefinitelyDoesNotExist_XYZ_12345", true);
             // Expect null or empty array — no exception
-            Assert.assertTrue("EHT-001 listNamespaces: result should be null or empty array for non-existent store",
-                    nss == null || nss.length == 0);
+            Assert.assertTrue("EHT-001 listNamespaces: result should be null or empty array for non-existent store", nss == null || nss.length == 0);
 
             System.out.println("EHT-001 listNamespaces: PASS — non-existent store returned null/empty without exception");
         }
@@ -2751,7 +2806,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             // On unauthenticated clusters, DALI still rejects user-specific namespace
             // listing when no requester name is available — this is expected server behaviour
-            System.out.println("EHT-003 listNamespaces: PASS — server correctly rejected user-specific listing without requester name: " + e.getMessage());
+            System.out.println(
+                    "EHT-003 listNamespaces: PASS — server correctly rejected user-specific listing without requester name: " + e.getMessage());
         }
         catch (Exception e)
         {
@@ -2769,8 +2825,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("EHT-004 listNamespaces: Creating client with invalid host...");
-            HPCCWsStoreClient invalidClient = HPCCWsStoreClient.get("http", "invalid.host.that.does.not.exist",
-                    "8010", "user", "pass", 3000);
+            HPCCWsStoreClient invalidClient = HPCCWsStoreClient.get("http", "invalid.host.that.does.not.exist", "8010", "user", "pass", 3000);
             Assert.assertNotNull("EHT-004 listNamespaces: client creation should not return null", invalidClient);
 
             String[] nss = invalidClient.listNamespaces("WsClientTestStore", true);
@@ -2918,7 +2973,8 @@ public class WSStoreClientTest extends BaseRemoteTest
             Assert.assertNotNull("CFT-004 listNSKeys: result should not be null", keys);
 
             Set<String> keySet = new HashSet<>(Arrays.asList(keys));
-            Assert.assertTrue("CFT-004 listNSKeys: 'encod@ble' should be present (round-tripped through encode/decode)", keySet.contains("encod@ble"));
+            Assert.assertTrue("CFT-004 listNSKeys: 'encod@ble' should be present (round-tripped through encode/decode)",
+                    keySet.contains("encod@ble"));
             System.out.println("CFT-004 listNSKeys: PASS");
         }
         catch (Exception e)
@@ -2943,13 +2999,13 @@ public class WSStoreClientTest extends BaseRemoteTest
             Assert.assertTrue(client.setValue(storename, testNS, "scope.user", "uv", false));
 
             String[] globalKeys = client.listNSKeys(storename, testNS, true);
-            String[] userKeys   = client.listNSKeys(storename, testNS, false);
+            String[] userKeys = client.listNSKeys(storename, testNS, false);
 
             Assert.assertNotNull("CFT-005 listNSKeys: global result should not be null", globalKeys);
             Assert.assertNotNull("CFT-005 listNSKeys: user-specific result should not be null", userKeys);
 
             Set<String> globalSet = new HashSet<>(Arrays.asList(globalKeys));
-            Set<String> userSet   = new HashSet<>(Arrays.asList(userKeys));
+            Set<String> userSet = new HashSet<>(Arrays.asList(userKeys));
 
             Assert.assertTrue("CFT-005 listNSKeys: global listing should contain 'scope.global'", globalSet.contains("scope.global"));
             Assert.assertFalse("CFT-005 listNSKeys: global listing should NOT contain 'scope.user'", globalSet.contains("scope.user"));
@@ -3095,7 +3151,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         catch (ArrayOfEspExceptionWrapper e)
         {
             String msg = e.toString().toLowerCase();
-            Assert.assertTrue("EHT-001 listNSKeys: exception message should reference namespace", msg.contains("namespace") || msg.contains("store") || msg.contains("dali"));
+            Assert.assertTrue("EHT-001 listNSKeys: exception message should reference namespace",
+                    msg.contains("namespace") || msg.contains("store") || msg.contains("dali"));
             System.out.println("EHT-001 listNSKeys: ArrayOfEspExceptionWrapper thrown as expected — PASS");
         }
         catch (Exception e)
@@ -3192,8 +3249,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         System.out.println("EHT-005 listNSKeys: Testing invalid connection / uninitialized stub...");
         try
         {
-            HPCCWsStoreClient invalidClient = HPCCWsStoreClient.get("http", "invalid.host.that.does.not.exist",
-                    "9999", "user", "pass", 3000);
+            HPCCWsStoreClient invalidClient = HPCCWsStoreClient.get("http", "invalid.host.that.does.not.exist", "9999", "user", "pass", 3000);
             Assert.assertNotNull("EHT-005 listNSKeys: client creation should not return null", invalidClient);
 
             String[] keys = invalidClient.listNSKeys(storename, namespace, true);
@@ -3219,7 +3275,8 @@ public class WSStoreClientTest extends BaseRemoteTest
     @WithSpan
     public void listNSKeys_EHT006_userSpecificOnUnauthenticatedConnectionTest() throws Exception, ArrayOfEspExceptionWrapper
     {
-        Assume.assumeFalse("EHT-006 listNSKeys: Skipping — target HPCC authenticates (test only applies to unauthenticated clusters)", targetHPCCAuthenticates);
+        Assume.assumeFalse("EHT-006 listNSKeys: Skipping — target HPCC authenticates (test only applies to unauthenticated clusters)",
+                targetHPCCAuthenticates);
         System.out.println("EHT-006 listNSKeys: Testing user-specific listing on unauthenticated connection...");
         try
         {
@@ -3249,8 +3306,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("CFT-001 fetchValue: Setting up key '" + key + "' then fetching it...");
-            Assert.assertTrue("CFT-001 fetchValue: setValue should succeed",
-                    client.setValue(storename, namespace, key, value, true));
+            Assert.assertTrue("CFT-001 fetchValue: setValue should succeed", client.setValue(storename, namespace, key, value, true));
             String result = client.fetchValue(storename, namespace, key, true);
             Assert.assertNotNull("CFT-001 fetchValue: result should not be null for an existing key", result);
             Assert.assertEquals("CFT-001 fetchValue: result should equal stored value", value, result);
@@ -3266,7 +3322,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { client.deleteValue(storename, namespace, key, true); } catch (Exception ignored) {}
+            try
+            {
+                client.deleteValue(storename, namespace, key, true);
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -3281,8 +3342,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("CFT-002 fetchValue: Setting original value, then overwriting and verifying...");
-            Assert.assertTrue("CFT-002 fetchValue: First setValue should succeed",
-                    client.setValue(storename, namespace, key, "original", true));
+            Assert.assertTrue("CFT-002 fetchValue: First setValue should succeed", client.setValue(storename, namespace, key, "original", true));
             String firstResult = client.fetchValue(storename, namespace, key, true);
             Assert.assertEquals("CFT-002 fetchValue: First fetch should return 'original'", "original", firstResult);
 
@@ -3302,7 +3362,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { client.deleteValue(storename, namespace, key, true); } catch (Exception ignored) {}
+            try
+            {
+                client.deleteValue(storename, namespace, key, true);
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -3325,7 +3390,8 @@ public class WSStoreClientTest extends BaseRemoteTest
             String result = client.fetchValue("", namespace, key, true);
             // Result may be the value (if default store == storename) or null (if default store differs)
             // Either is acceptable; what matters is no exception is thrown
-            System.out.println("ECT-001 fetchValue: result with empty storename = " + result + " (null is acceptable if default store is not '" + storename + "')");
+            System.out.println("ECT-001 fetchValue: result with empty storename = " + result + " (null is acceptable if default store is not '"
+                    + storename + "')");
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
@@ -3339,7 +3405,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { client.deleteValue(storename, namespace, key, true); } catch (Exception ignored) {}
+            try
+            {
+                client.deleteValue(storename, namespace, key, true);
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -3372,7 +3443,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { client.deleteValue(storename, namespace, key, true); } catch (Exception ignored) {}
+            try
+            {
+                client.deleteValue(storename, namespace, key, true);
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -3386,7 +3462,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         final String key = "fetchValueTest.maxsize.ect003";
         final int maxSize = 1024;
         final StringBuilder sb = new StringBuilder(maxSize);
-        for (int i = 0; i < maxSize; i++) sb.append('A');
+        for (int i = 0; i < maxSize; i++)
+            sb.append('A');
         final String value = sb.toString();
         try
         {
@@ -3409,7 +3486,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { client.deleteValue(storename, namespace, key, true); } catch (Exception ignored) {}
+            try
+            {
+                client.deleteValue(storename, namespace, key, true);
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -3520,7 +3602,8 @@ public class WSStoreClientTest extends BaseRemoteTest
     @WithSpan
     public void fetchValue_EHT005_userSpecificOnUnauthenticatedClusterTest()
     {
-        Assume.assumeFalse("EHT-005 fetchValue: Skipping — target HPCC authenticates (test only applies to unauthenticated clusters)", targetHPCCAuthenticates);
+        Assume.assumeFalse("EHT-005 fetchValue: Skipping — target HPCC authenticates (test only applies to unauthenticated clusters)",
+                targetHPCCAuthenticates);
         System.out.println("EHT-005 fetchValue: Fetching user-specific (global=false) on unauthenticated cluster — expecting null...");
         try
         {
@@ -3570,7 +3653,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         catch (Exception e)
         {
             // An exception from verifyStub() or connection failure is acceptable
-            System.out.println("EHT-006 fetchValue: Exception thrown as expected (verifyStub or connection failure) — PASS: " + e.getLocalizedMessage());
+            System.out.println(
+                    "EHT-006 fetchValue: Exception thrown as expected (verifyStub or connection failure) — PASS: " + e.getLocalizedMessage());
         }
     }
 
@@ -3748,8 +3832,7 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             for (int i = 0; i < keyCount; i++)
             {
-                Assert.assertEquals("ECT-003: Value mismatch for key " + i,
-                        "ect003.val" + i, props.getProperty("ect003.key" + i));
+                Assert.assertEquals("ECT-003: Value mismatch for key " + i, "ect003.val" + i, props.getProperty("ect003.key" + i));
             }
 
             Assert.assertTrue("ECT-003: fetchAllNSKeys took too long (" + elapsed + "ms > 10000ms)", elapsed <= 10000);
@@ -3855,7 +3938,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         final String nonExistentNS = "NonExistentNS_fetchAllNSKeys_" + System.currentTimeMillis();
         try
         {
-            System.out.println("fetchAllNSKeys EHT-002: Fetching from non-existent namespace '" + nonExistentNS + "' in store '" + storename + "'...");
+            System.out
+                    .println("fetchAllNSKeys EHT-002: Fetching from non-existent namespace '" + nonExistentNS + "' in store '" + storename + "'...");
             Properties props = client.fetchAllNSKeys(storename, nonExistentNS, true);
             // Java client swallows the server's "invalid namespace detected!" exception
             Assert.assertNotNull("EHT-002: fetchAllNSKeys must not return null", props);
@@ -4025,7 +4109,9 @@ public class WSStoreClientTest extends BaseRemoteTest
     @WithSpan
     public void fetchKeyMetaDataCFT001BasicMetadataTest()
     {
-        Assume.assumeTrue("fetchKeyMetaData CFT-001: Skipping — target HPCC does not authenticate (@createUser field is only populated with authentication)", targetHPCCAuthenticates);
+        Assume.assumeTrue(
+                "fetchKeyMetaData CFT-001: Skipping — target HPCC does not authenticate (@createUser field is only populated with authentication)",
+                targetHPCCAuthenticates);
         String ns = "fetchKeyMetaData_CFT001";
         String key = "meta.test.key.cft001";
         try
@@ -4351,7 +4437,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         {
             // On unauthenticated clusters, DALI still rejects user-specific operations
             // when no owner/requester name is provided — this is expected server behaviour
-            System.out.println("fetchKeyMetaData EHT-002: PASS — server correctly rejected user-specific fetch without requester name: " + e.getMessage());
+            System.out.println(
+                    "fetchKeyMetaData EHT-002: PASS — server correctly rejected user-specific fetch without requester name: " + e.getMessage());
         }
         catch (Exception e)
         {
@@ -4425,8 +4512,7 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             String rawCiphertext = client.fetchValue(storename, ns, testKey, true);
             String incorrectDecrypt = CryptoHelper.decrypt(rawCiphertext, decryptCipher1);
-            Assert.assertFalse("CFT-001: Decryption with old key1 should not produce 'secondvalue'",
-                    "secondvalue".equals(incorrectDecrypt));
+            Assert.assertFalse("CFT-001: Decryption with old key1 should not produce 'secondvalue'", "secondvalue".equals(incorrectDecrypt));
 
             System.out.println("setValueEncrypted CFT-001: PASS");
         }
@@ -4695,7 +4781,8 @@ public class WSStoreClientTest extends BaseRemoteTest
             String secretKey = new String(keyBytes, Charset.forName("UTF-8"));
 
             StringBuilder sb = new StringBuilder(700);
-            for (int i = 0; i < 700; i++) sb.append('A');
+            for (int i = 0; i < 700; i++)
+                sb.append('A');
             String largePlaintext = sb.toString();
 
             Cipher encryptCipher = CryptoHelper.createDefaultCipher(secretKey, true);
@@ -4740,7 +4827,8 @@ public class WSStoreClientTest extends BaseRemoteTest
             String secretKey = new String(keyBytes, Charset.forName("UTF-8"));
 
             StringBuilder sb = new StringBuilder(1000);
-            for (int i = 0; i < 1000; i++) sb.append('B');
+            for (int i = 0; i < 1000; i++)
+                sb.append('B');
             String oversizePlaintext = sb.toString();
 
             Cipher encryptCipher = CryptoHelper.createDefaultCipher(secretKey, true);
@@ -4915,7 +5003,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         catch (Exception e)
         {
             // Expected: NullPointerException from value.getBytes("UTF-8") in CryptoHelper.encrypt
-            System.out.println("setValueEncrypted EHT-004: PASS — exception thrown for null value (Cipher overload): " + e.getClass().getSimpleName());
+            System.out
+                    .println("setValueEncrypted EHT-004: PASS — exception thrown for null value (Cipher overload): " + e.getClass().getSimpleName());
         }
     }
 
@@ -4939,7 +5028,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         catch (Exception e)
         {
             // Expected: NullPointerException from CryptoHelper.encryptSHA512AES
-            System.out.println("setValueEncrypted EHT-005: PASS — exception thrown for null value (secretKey overload): " + e.getClass().getSimpleName());
+            System.out.println(
+                    "setValueEncrypted EHT-005: PASS — exception thrown for null value (secretKey overload): " + e.getClass().getSimpleName());
         }
     }
 
@@ -4979,7 +5069,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         catch (Exception e)
         {
             // Also acceptable: key derivation may fail for empty key
-            System.out.println("setValueEncrypted EHT-006: PASS — exception thrown for empty secretKey: " + e.getClass().getSimpleName() + ": " + e.getLocalizedMessage());
+            System.out.println("setValueEncrypted EHT-006: PASS — exception thrown for empty secretKey: " + e.getClass().getSimpleName() + ": "
+                    + e.getLocalizedMessage());
         }
         finally
         {
@@ -5051,7 +5142,8 @@ public class WSStoreClientTest extends BaseRemoteTest
 
             Cipher encryptCipher = CryptoHelper.createDefaultCipher(secretKey, true);
 
-            boolean result = client.setValueEncrypted("NonExistentStore_XYZ_12345", ns, "badstore.encrypted.eht008.test", "shouldfail", true, encryptCipher);
+            boolean result = client.setValueEncrypted("NonExistentStore_XYZ_12345", ns, "badstore.encrypted.eht008.test", "shouldfail", true,
+                    encryptCipher);
             Assert.assertFalse("EHT-008: setValueEncrypted to non-existent store should not return true", result);
 
             System.out.println("setValueEncrypted EHT-008: PASS — returned false for non-existent store");
@@ -5137,7 +5229,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         catch (Exception e)
         {
-            Assert.fail("CFT-001: fetchValueEncrypted secretKey overload failed (known bug may be present — secretKey passed as key arg): " + e.getLocalizedMessage());
+            Assert.fail("CFT-001: fetchValueEncrypted secretKey overload failed (known bug may be present — secretKey passed as key arg): "
+                    + e.getLocalizedMessage());
         }
         finally
         {
@@ -5201,11 +5294,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("fetchValueEncrypted CFT-003: Verify decrypted content matches plaintext across value variations...");
-            String[] plaintexts = {
-                "simple",
-                "s3cr3t!@#$%^&*()",
-                "a very long sensitive value that has more than 64 characters of content inside it"
-            };
+            String[] plaintexts = { "simple", "s3cr3t!@#$%^&*()",
+                    "a very long sensitive value that has more than 64 characters of content inside it" };
 
             for (int i = 0; i < plaintexts.length; i++)
             {
@@ -5346,21 +5436,21 @@ public class WSStoreClientTest extends BaseRemoteTest
             String secretKey = new String(keyBytes, Charset.forName("UTF-8"));
             Cipher decryptCipher = CryptoHelper.createDefaultCipher(secretKey, false);
 
-            Assert.assertTrue("ECT-003: setValue (plain) should succeed",
-                    client.setValue(storename, ns, testKey, "notencrypted", true));
+            Assert.assertTrue("ECT-003: setValue (plain) should succeed", client.setValue(storename, ns, testKey, "notencrypted", true));
 
             try
             {
                 String result = client.fetchValueEncrypted(storename, ns, testKey, true, decryptCipher);
                 // AES/ECB may not always throw on malformed input — verify it does not silently return the original plaintext
-                Assert.assertNotEquals("ECT-003: fetchValueEncrypted on plain text must not silently return the original plaintext",
-                        "notencrypted", result);
+                Assert.assertNotEquals("ECT-003: fetchValueEncrypted on plain text must not silently return the original plaintext", "notencrypted",
+                        result);
                 System.out.println("fetchValueEncrypted ECT-003: NOTE — no exception thrown; garbled result returned (AES/ECB padding tolerance)");
             }
             catch (Exception e)
             {
                 // Expected: decryption of non-encrypted data throws
-                System.out.println("fetchValueEncrypted ECT-003: PASS — Exception thrown as expected when decrypting plain value: " + e.getClass().getSimpleName());
+                System.out.println("fetchValueEncrypted ECT-003: PASS — Exception thrown as expected when decrypting plain value: "
+                        + e.getClass().getSimpleName());
             }
         }
         catch (ArrayOfEspExceptionWrapper e)
@@ -5530,7 +5620,8 @@ public class WSStoreClientTest extends BaseRemoteTest
             }
             catch (Exception e)
             {
-                System.out.println("fetchValueEncrypted EHT-004: PASS (null key) — Exception: " + e.getClass().getSimpleName() + ": " + e.getMessage());
+                System.out
+                        .println("fetchValueEncrypted EHT-004: PASS (null key) — Exception: " + e.getClass().getSimpleName() + ": " + e.getMessage());
             }
 
             try
@@ -5540,7 +5631,8 @@ public class WSStoreClientTest extends BaseRemoteTest
             }
             catch (Exception e)
             {
-                System.out.println("fetchValueEncrypted EHT-004: PASS (empty key) — Exception: " + e.getClass().getSimpleName() + ": " + e.getMessage());
+                System.out.println(
+                        "fetchValueEncrypted EHT-004: PASS (empty key) — Exception: " + e.getClass().getSimpleName() + ": " + e.getMessage());
             }
 
             System.out.println("fetchValueEncrypted EHT-004: PASS");
@@ -5570,11 +5662,13 @@ public class WSStoreClientTest extends BaseRemoteTest
             try
             {
                 client.fetchValueEncrypted(null, ns, "fve.eht005.nullstore.test", true, decryptCipher);
-                System.out.println("fetchValueEncrypted EHT-005: NOTE — null storename did not throw; server used default store (key not found, or value returned)");
+                System.out.println(
+                        "fetchValueEncrypted EHT-005: NOTE — null storename did not throw; server used default store (key not found, or value returned)");
             }
             catch (Exception e)
             {
-                System.out.println("fetchValueEncrypted EHT-005: PASS — Exception for null storename: " + e.getClass().getSimpleName() + ": " + e.getMessage());
+                System.out.println(
+                        "fetchValueEncrypted EHT-005: PASS — Exception for null storename: " + e.getClass().getSimpleName() + ": " + e.getMessage());
             }
         }
         catch (ArrayOfEspExceptionWrapper e)
@@ -5605,7 +5699,8 @@ public class WSStoreClientTest extends BaseRemoteTest
             }
             catch (Exception e)
             {
-                System.out.println("fetchValueEncrypted EHT-006: PASS — Exception for null namespace: " + e.getClass().getSimpleName() + ": " + e.getMessage());
+                System.out.println(
+                        "fetchValueEncrypted EHT-006: PASS — Exception for null namespace: " + e.getClass().getSimpleName() + ": " + e.getMessage());
             }
         }
         catch (ArrayOfEspExceptionWrapper e)
@@ -5671,8 +5766,7 @@ public class WSStoreClientTest extends BaseRemoteTest
             boolean setResult = client.setValue("", ns, key, "testvalue", true);
             Assume.assumeTrue("CFT-001: setValue with empty storename must succeed (requires default store configured)", setResult);
 
-            Assert.assertTrue("CFT-001: deleteValue with empty storename should return true",
-                    client.deleteValue("", ns, key, true));
+            Assert.assertTrue("CFT-001: deleteValue with empty storename should return true", client.deleteValue("", ns, key, true));
 
             String afterDelete = client.fetchValue("", ns, key, true);
             Assert.assertNull("CFT-001: Key should be null after deletion", afterDelete);
@@ -5689,7 +5783,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { client.deleteNamespace("", ns, true, ""); } catch (Exception ignored) {}
+            try
+            {
+                client.deleteNamespace("", ns, true, "");
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -5707,8 +5806,7 @@ public class WSStoreClientTest extends BaseRemoteTest
             Assert.assertTrue("CFT-002: setValue on encoded store should succeed",
                     client.setValue(defaultEncodedStoreName, ns, key, "testvalue", true));
 
-            Assert.assertTrue("CFT-002: deleteValue on encoded store should return true",
-                    client.deleteValue(defaultEncodedStoreName, ns, key, true));
+            Assert.assertTrue("CFT-002: deleteValue on encoded store should return true", client.deleteValue(defaultEncodedStoreName, ns, key, true));
 
             String afterDelete = client.fetchValue(defaultEncodedStoreName, ns, key, true);
             Assert.assertNull("CFT-002: Key should be null after deletion", afterDelete);
@@ -5725,7 +5823,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { client.deleteNamespace(defaultEncodedStoreName, ns, true, ""); } catch (Exception ignored) {}
+            try
+            {
+                client.deleteNamespace(defaultEncodedStoreName, ns, true, "");
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -5739,11 +5842,9 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("deleteValue ECT-001: Key with special characters...");
-            Assert.assertTrue("ECT-001: setValue with special-char key should succeed",
-                    client.setValue(storename, ns, key, "testvalue", true));
+            Assert.assertTrue("ECT-001: setValue with special-char key should succeed", client.setValue(storename, ns, key, "testvalue", true));
 
-            Assert.assertTrue("ECT-001: deleteValue with special-char key should return true",
-                    client.deleteValue(storename, ns, key, true));
+            Assert.assertTrue("ECT-001: deleteValue with special-char key should return true", client.deleteValue(storename, ns, key, true));
 
             String afterDelete = client.fetchValue(storename, ns, key, true);
             Assert.assertNull("ECT-001: Key should be null after deletion", afterDelete);
@@ -5774,11 +5875,9 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("deleteValue ECT-002: Long key name (255 chars)...");
-            Assert.assertTrue("ECT-002: setValue with 255-char key should succeed",
-                    client.setValue(storename, ns, key, "testvalue", true));
+            Assert.assertTrue("ECT-002: setValue with 255-char key should succeed", client.setValue(storename, ns, key, "testvalue", true));
 
-            Assert.assertTrue("ECT-002: deleteValue with 255-char key should return true",
-                    client.deleteValue(storename, ns, key, true));
+            Assert.assertTrue("ECT-002: deleteValue with 255-char key should return true", client.deleteValue(storename, ns, key, true));
 
             String afterDelete = client.fetchValue(storename, ns, key, true);
             Assert.assertNull("ECT-002: Key should be null after deletion", afterDelete);
@@ -5809,11 +5908,9 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("deleteValue ECT-003: Double deletion test...");
-            Assert.assertTrue("ECT-003: setValue should succeed",
-                    client.setValue(storename, ns, key, "testvalue", true));
+            Assert.assertTrue("ECT-003: setValue should succeed", client.setValue(storename, ns, key, "testvalue", true));
 
-            Assert.assertTrue("ECT-003: First deleteValue should return true",
-                    client.deleteValue(storename, ns, key, true));
+            Assert.assertTrue("ECT-003: First deleteValue should return true", client.deleteValue(storename, ns, key, true));
 
             // Second delete should throw (key no longer exists)
             try
@@ -5881,7 +5978,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { encodedUserClient.deleteNamespace(defaultEncodedStoreName, ns, false, ""); } catch (Exception ignored) {}
+            try
+            {
+                encodedUserClient.deleteNamespace(defaultEncodedStoreName, ns, false, "");
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -6167,7 +6269,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { encodedUserClient.deleteNamespace(defaultEncodedStoreName, ns, false, ""); } catch (Exception ignored) {}
+            try
+            {
+                encodedUserClient.deleteNamespace(defaultEncodedStoreName, ns, false, "");
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -6180,10 +6287,8 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("deleteNamespace CFT-003: Verify all keys removed after namespace deletion...");
-            Assert.assertTrue("CFT-003: setValue key1 must succeed",
-                    client.setValue(storename, ns, "key1", "val1", true));
-            Assert.assertTrue("CFT-003: setValue key2 must succeed",
-                    client.setValue(storename, ns, "key2", "val2", true));
+            Assert.assertTrue("CFT-003: setValue key1 must succeed", client.setValue(storename, ns, "key1", "val1", true));
+            Assert.assertTrue("CFT-003: setValue key2 must succeed", client.setValue(storename, ns, "key2", "val2", true));
 
             boolean result = client.deleteNamespace(storename, ns, true, "");
             Assert.assertTrue("CFT-003: deleteNamespace should return true", result);
@@ -6192,8 +6297,18 @@ public class WSStoreClientTest extends BaseRemoteTest
             // both indicate the key is no longer accessible
             String val1 = null;
             String val2 = null;
-            try { val1 = client.fetchValue(storename, ns, "key1", true); } catch (ArrayOfEspExceptionWrapper ignored) {}
-            try { val2 = client.fetchValue(storename, ns, "key2", true); } catch (ArrayOfEspExceptionWrapper ignored) {}
+            try
+            {
+                val1 = client.fetchValue(storename, ns, "key1", true);
+            }
+            catch (ArrayOfEspExceptionWrapper ignored)
+            {}
+            try
+            {
+                val2 = client.fetchValue(storename, ns, "key2", true);
+            }
+            catch (ArrayOfEspExceptionWrapper ignored)
+            {}
             Assert.assertNull("CFT-003: key1 should not be accessible after namespace deletion", val1);
             Assert.assertNull("CFT-003: key2 should not be accessible after namespace deletion", val2);
 
@@ -6248,7 +6363,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { client.deleteNamespace("", ns, true, ""); } catch (Exception ignored) {}
+            try
+            {
+                client.deleteNamespace("", ns, true, "");
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 
@@ -6285,8 +6405,7 @@ public class WSStoreClientTest extends BaseRemoteTest
         try
         {
             System.out.println("deleteNamespace ECT-003: Double-delete namespace...");
-            Assert.assertTrue("ECT-003: setValue must succeed to create namespace",
-                    client.setValue(storename, ns, key, "val", true));
+            Assert.assertTrue("ECT-003: setValue must succeed to create namespace", client.setValue(storename, ns, key, "val", true));
 
             boolean firstResult = client.deleteNamespace(storename, ns, true, "");
             Assert.assertTrue("ECT-003: First deleteNamespace call should return true", firstResult);
@@ -6341,7 +6460,12 @@ public class WSStoreClientTest extends BaseRemoteTest
         }
         finally
         {
-            try { encodedUserClient.deleteNamespace(defaultEncodedStoreName, ns, true, ""); } catch (Exception ignored) {}
+            try
+            {
+                encodedUserClient.deleteNamespace(defaultEncodedStoreName, ns, true, "");
+            }
+            catch (Exception ignored)
+            {}
         }
     }
 

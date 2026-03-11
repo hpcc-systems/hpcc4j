@@ -69,6 +69,7 @@ public class HPCCFile implements Serializable
     private FileFilter           filter;
     private ColumnPruner         columnPruner;
     private DFUFileDetailWrapper originalFileMetadata          = null;
+
     /**
      * Constructor for the HpccFile. Captures HPCC logical file information from the DALI Server for the clusters behind
      * the ESP named by the Connection.
@@ -173,8 +174,7 @@ public class HPCCFile implements Serializable
 
         try
         {
-            if (filter != null && !filter.isEmpty())
-                this.filter = new FileFilter(filter);
+            if (filter != null && !filter.isEmpty()) this.filter = new FileFilter(filter);
         }
         catch (Exception e)
         {
@@ -510,17 +510,17 @@ public class HPCCFile implements Serializable
             {
                 ClusterRemapper clusterremapper = ClusterRemapper.makeMapper(clusterRemapInfo, fileinfoforread);
                 this.dataParts = DataPartition.createPartitions(fileinfoforread.getFileParts(), clusterremapper,
-                        /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob(), fileType,this.getFileName());
+                        /* maxParts currently ignored anyway */0, filter, fileinfoforread.getFileAccessInfoBlob(), fileType, this.getFileName());
 
                 // Check to see if this file has a TLK. The TLK will always be the last partition.
                 // If we do have a TLK remove it from the standard list of data partitions.
                 if (this.isIndex())
                 {
-                    DataPartition lastPart = this.dataParts[this.dataParts.length-1];
+                    DataPartition lastPart = this.dataParts[this.dataParts.length - 1];
                     if (lastPart.isTLK())
                     {
                         this.tlkPartition = lastPart;
-                        this.dataParts = Arrays.copyOfRange(this.dataParts,0,this.dataParts.length-1);
+                        this.dataParts = Arrays.copyOfRange(this.dataParts, 0, this.dataParts.length - 1);
                     }
                 }
 
@@ -534,7 +534,8 @@ public class HPCCFile implements Serializable
                     }
                     catch (Exception e)
                     {
-                        log.error("Error while constructing partition processor, reading will continue without partition filtering: " + e.getMessage());
+                        log.error(
+                                "Error while constructing partition processor, reading will continue without partition filtering: " + e.getMessage());
                         this.partitionProcessor = new PartitionProcessor(this.recordDefinition, this.dataParts, null);
                     }
                 }
@@ -615,6 +616,7 @@ public class HPCCFile implements Serializable
         createDataParts();
         return this.tlkPartition != null;
     }
+
     /**
      * The record definition for a file on an HPCC cluster.
      *
@@ -737,7 +739,7 @@ public class HPCCFile implements Serializable
      */
     public DFUFileDetailWrapper getOriginalFileMetadata()
     {
-        if (originalFileMetadata==null)
+        if (originalFileMetadata == null)
         {
             HPCCWsDFUClient dfuClient = HPCCWsDFUClient.get(espConnInfo);
             if (dfuClient.hasInitError())
@@ -747,11 +749,11 @@ public class HPCCFile implements Serializable
             }
             try
             {
-                originalFileMetadata=dfuClient.getFileDetails(fileName,targetfilecluster);
+                originalFileMetadata = dfuClient.getFileDetails(fileName, targetfilecluster);
             }
             catch (Exception e)
             {
-                log.error("Unable to retrieve file or record information: " + e.getMessage(),e);
+                log.error("Unable to retrieve file or record information: " + e.getMessage(), e);
             }
         }
         return originalFileMetadata;

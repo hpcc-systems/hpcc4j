@@ -69,7 +69,7 @@ public class PhysicalFile extends DataSingleton
         return physicalFile;
     }
 
-    private Platform           platform;
+    private Platform                  platform;
     private PhysicalFileStructWrapper physicalfilestruct;
 
     public enum Notification
@@ -111,7 +111,7 @@ public class PhysicalFile extends DataSingleton
     {
         return physicalfilestruct.getFilesize();
     }
-    
+
     /**
      * Gets the modifiedtime.
      *

@@ -36,7 +36,7 @@ import org.hpccsystems.ws.client.wrappers.gen.wstopology.TpMachineWrapper;
 
 public class PhysicalMachine extends DataSingleton
 {
-    private static final Logger       log          = LogManager.getLogger(PhysicalMachine.class);
+    private static final Logger                  log              = LogManager.getLogger(PhysicalMachine.class);
     private static Map<Integer, PhysicalMachine> physicalMachines = new HashMap<Integer, PhysicalMachine>();
 
     /**
@@ -62,8 +62,8 @@ public class PhysicalMachine extends DataSingleton
         return physicalMachine;
     }
 
-    private Platform           platform;
-    private TpMachine physicalmachinestruct;
+    private Platform                 platform;
+    private TpMachine                physicalmachinestruct;
     private Collection<PhysicalFile> files;
 
     public enum Notification
@@ -207,7 +207,7 @@ public class PhysicalMachine extends DataSingleton
      *
      * @return the files
      */
-    public PhysicalFile [] getFiles()
+    public PhysicalFile[] getFiles()
     {
         fullRefresh();
         return files.toArray(new PhysicalFile[0]);
@@ -240,7 +240,8 @@ public class PhysicalMachine extends DataSingleton
         try
         {
             HPCCFileSprayClient wsfsclient = platform.getWsClient().getFileSprayClient();
-            List<PhysicalFileStructWrapper> dzfiles = wsfsclient.listFiles(physicalmachinestruct.getNetaddress(), physicalmachinestruct.getDirectory(), null);
+            List<PhysicalFileStructWrapper> dzfiles = wsfsclient.listFiles(physicalmachinestruct.getNetaddress(),
+                    physicalmachinestruct.getDirectory(), null);
             update(dzfiles);
         }
         catch (Exception e)
@@ -260,16 +261,16 @@ public class PhysicalMachine extends DataSingleton
     // Updates ---
     private void update(List<PhysicalFileStructWrapper> dzfiles)
     {
-         if (dzfiles != null)
-         {
-             files.clear();
-             for (PhysicalFileStructWrapper file : dzfiles)
-             {
-                 PhysicalFile physicalFile = getFile(file.getName());
-                 physicalFile.update(file);
-                 files.add(physicalFile);
-             }
-         }
+        if (dzfiles != null)
+        {
+            files.clear();
+            for (PhysicalFileStructWrapper file : dzfiles)
+            {
+                PhysicalFile physicalFile = getFile(file.getName());
+                physicalFile.update(file);
+                files.add(physicalFile);
+            }
+        }
     }
 
     /**
@@ -315,7 +316,8 @@ public class PhysicalMachine extends DataSingleton
         PhysicalMachine that = (PhysicalMachine) aThat;
 
         // now a proper field-by-field evaluation can be made
-        return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(physicalmachinestruct.getName(), that.physicalmachinestruct.getName());
+        return EqualsUtil.areEqual(platform, that.platform)
+                && EqualsUtil.areEqual(physicalmachinestruct.getName(), that.physicalmachinestruct.getName());
     }
 
     /* (non-Javadoc)

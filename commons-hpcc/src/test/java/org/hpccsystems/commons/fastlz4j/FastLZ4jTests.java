@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(org.hpccsystems.commons.annotations.BaseTests.class)
-public class FastLZ4jTests 
+public class FastLZ4jTests
 {
     @Test
     public void testShortCompressionDecompression() throws Exception
@@ -53,7 +53,7 @@ public class FastLZ4jTests
         byte[] longInput = new byte[numShortLens * shortInput.length];
         for (int i = 0; i < numShortLens; i++)
         {
-            System.arraycopy(shortInput, 0, longInput, i*shortInput.length, shortInput.length);
+            System.arraycopy(shortInput, 0, longInput, i * shortInput.length, shortInput.length);
         }
 
         byte[] compressed = new byte[longInput.length];
@@ -76,7 +76,7 @@ public class FastLZ4jTests
         byte[] longInput = new byte[numShortLens * shortInput.length];
         for (int i = 0; i < numShortLens; i++)
         {
-            System.arraycopy(shortInput, 0, longInput, i*shortInput.length, shortInput.length);
+            System.arraycopy(shortInput, 0, longInput, i * shortInput.length, shortInput.length);
         }
 
         byte[] compressed = new byte[longInput.length];
@@ -84,7 +84,7 @@ public class FastLZ4jTests
 
         byte[] decompressed = new byte[longInput.length];
 
-        FastLZ4j.DecompressionState state = new FastLZ4j.DecompressionState(compressedLen,longInput.length);
+        FastLZ4j.DecompressionState state = new FastLZ4j.DecompressionState(compressedLen, longInput.length);
 
         boolean finished = false;
         int availLen = 100;
@@ -110,7 +110,7 @@ public class FastLZ4jTests
     static byte[] shortInput = null;
     static
     {
-        Path testFilePath = Paths.get("src","test","resources","LoremIpsum.txt");
+        Path testFilePath = Paths.get("src", "test", "resources", "LoremIpsum.txt");
         File testFile = testFilePath.toFile();
 
         FileInputStream stream = null;
@@ -135,4 +135,3 @@ public class FastLZ4jTests
         }
     }
 }
-

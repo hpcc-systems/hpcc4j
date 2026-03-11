@@ -35,7 +35,7 @@ public class ESPExceptionsTest
             espexception.setCode(code);
             espexception.setMessage(mess);
             espexception.setSource(source);
-            
+
             arrayOfEspException.addException(espexception);
             throw new ArrayOfEspExceptionWrapper(arrayOfEspException).setWsClientMessage(wsclientmessage);
         }
@@ -90,7 +90,7 @@ public class ESPExceptionsTest
             eclexception.setSeverity(severity);
             eclexception.setScope(scope);
             eclexception.setCode(code);
-            
+
             arrayOfEclException.addECLException(eclexception);
 
             throw new ArrayOfECLExceptionWrapper(arrayOfEclException).setWsClientMessage(wsclientmessage);

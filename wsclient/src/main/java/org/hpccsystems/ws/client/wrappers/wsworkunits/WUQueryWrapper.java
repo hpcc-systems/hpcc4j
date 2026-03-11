@@ -20,7 +20,7 @@ import org.hpccsystems.ws.client.wrappers.WUState;
 public class WUQueryWrapper
 {
     private String                        cluster;
-    private boolean                       descending=false;
+    private boolean                       descending            = false;
     private Boolean                       archived;
     private String                        ECL;
     private Date                          endDate;
@@ -531,7 +531,8 @@ public class WUQueryWrapper
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuery raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuery();
         if (applicationValues.size() > 0)
         {
-            org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ApplicationValue[] appvalues = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ApplicationValue[applicationValues.size()];
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ApplicationValue[] appvalues = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ApplicationValue[applicationValues
+                    .size()];
             org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfApplicationValue arrayofappvalues = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfApplicationValue();
             for (int i = 0; i < applicationValues.size(); i++)
             {
@@ -543,7 +544,7 @@ public class WUQueryWrapper
                 appvalues[i] = item;
             }
             arrayofappvalues.setApplicationValue(appvalues);
-            
+
             raw.setApplicationValues(arrayofappvalues);
         }
 
@@ -556,14 +557,11 @@ public class WUQueryWrapper
 
         if (logicalFile != null && logicalFileSearchType != null)
         {
-            if (LogicalFileSearchType.Output.equals(logicalFileSearchType))
-                raw.setLogicalFileSearchType(CREATED_LF_STR);
+            if (LogicalFileSearchType.Output.equals(logicalFileSearchType)) raw.setLogicalFileSearchType(CREATED_LF_STR);
         }
         raw.setOwner(owner);
-        if (pageSize != null)
-            raw.setPageSize(pageSize);
-        if (pageStartFrom != null)
-            raw.setPageStartFrom(pageStartFrom);
+        if (pageSize != null) raw.setPageSize(pageSize);
+        if (pageStartFrom != null) raw.setPageStartFrom(pageStartFrom);
 
         if (sortby != null)
         {
@@ -626,16 +624,15 @@ public class WUQueryWrapper
     {
         org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUQuery raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.WUQuery();
 
-        if (cluster != null)
-            raw.setCluster(cluster);
+        if (cluster != null) raw.setCluster(cluster);
 
         if (archived != null)
         {
-            if (archived==false)
+            if (archived == false)
             {
                 raw.setType(NONARCHIVED_STR);
             }
-            else if (archived==true)
+            else if (archived == true)
             {
                 raw.setType(ARCHIVED_STR);
             }
@@ -652,8 +649,8 @@ public class WUQueryWrapper
         raw.setWuid(wuid);
         raw.setJobname(jobname);
         raw.setOwner(owner);
-        raw.setPageSize(pageSize); 
-        
+        raw.setPageSize(pageSize);
+
         if (sortby != null)
         {
             raw.setSortby(sortby.toString());
@@ -661,11 +658,12 @@ public class WUQueryWrapper
 
         raw.setDescending(descending);
 
-        if (applicationValues.size()>0)
+        if (applicationValues.size() > 0)
         {
             if (appvalue >= applicationValues.size())
             {
-                throw new Exception("Can't use application value at 0-based index " + appvalue + ", there are only " + applicationValues.size() + " values");
+                throw new Exception(
+                        "Can't use application value at 0-based index " + appvalue + ", there are only " + applicationValues.size() + " values");
             }
 
             ArrayOfApplicationValue applications = new ArrayOfApplicationValue();

@@ -64,8 +64,8 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 public class WsResourcesClientTest extends BaseRemoteTest
 {
     private static HPCCWsResourcesClient client;
-    private static boolean isContainerizedTarget = false;
-    private static String invalidIP = "203.0.113.0";
+    private static boolean               isContainerizedTarget = false;
+    private static String                invalidIP             = "203.0.113.0";
 
     static
     {
@@ -101,8 +101,7 @@ public class WsResourcesClientTest extends BaseRemoteTest
     @Test
     public void getServiceURITest()
     {
-        Assert.assertEquals("getServiceURI() should return WSRESOURCESURI",
-                HPCCWsResourcesClient.WSRESOURCESURI, client.getServiceURI());
+        Assert.assertEquals("getServiceURI() should return WSRESOURCESURI", HPCCWsResourcesClient.WSRESOURCESURI, client.getServiceURI());
     }
 
     // =========================================================================
@@ -154,7 +153,7 @@ public class WsResourcesClientTest extends BaseRemoteTest
 
         HPCCWsResourcesClient credClient = HPCCWsResourcesClient.get("http", invalidIP, testPort, testUser, testPass);
         Assert.assertNotNull("get() with credentials should return a non-null client", credClient);
-        
+
         URL connectionURL = credClient.getConnectionURL();
         Assert.assertNotNull("getConnectionURL() should return a non-null URL", connectionURL);
         Assert.assertEquals("Host should match the value passed to get()", invalidIP, connectionURL.getHost());
@@ -169,10 +168,10 @@ public class WsResourcesClientTest extends BaseRemoteTest
     @Test
     public void getWithTimeoutTest() throws Exception
     {
-        final String testPort    = "8010";
-        final String testUser    = "testUser";
-        final String testPass    = "testPass";
-        final int    testTimeout = 5000;
+        final String testPort = "8010";
+        final String testUser = "testUser";
+        final String testPass = "testPass";
+        final int testTimeout = 5000;
 
         HPCCWsResourcesClient timeoutClient = HPCCWsResourcesClient.get("http", invalidIP, testPort, testUser, testPass, testTimeout);
         Assert.assertNotNull("get() with timeout should return a non-null client", timeoutClient);
@@ -212,8 +211,7 @@ public class WsResourcesClientTest extends BaseRemoteTest
         }
         catch (ArrayOfEspExceptionWrapper e)
         {
-            Assert.assertTrue("Expected 'HPCCQueueType not defined.' in error",
-                    e.toString().contains("HPCCQueueType not defined."));
+            Assert.assertTrue("Expected 'HPCCQueueType not defined.' in error", e.toString().contains("HPCCQueueType not defined."));
         }
         catch (Exception e)
         {
@@ -449,9 +447,11 @@ public class WsResourcesClientTest extends BaseRemoteTest
         assertNotNull("Response with empty-string type should not be null", emptyTypeResp);
 
         int unfilteredCount = (unfilteredResp.getServices() != null && unfilteredResp.getServices().getService() != null)
-                ? unfilteredResp.getServices().getService().size() : 0;
+                ? unfilteredResp.getServices().getService().size()
+                : 0;
         int emptyTypeCount = (emptyTypeResp.getServices() != null && emptyTypeResp.getServices().getService() != null)
-                ? emptyTypeResp.getServices().getService().size() : 0;
+                ? emptyTypeResp.getServices().getService().size()
+                : 0;
         assertEquals("Empty-string type should return same count as unfiltered", unfilteredCount, emptyTypeCount);
     }
 
@@ -468,9 +468,11 @@ public class WsResourcesClientTest extends BaseRemoteTest
         assertNotNull("Response with empty-string name should not be null", emptyNameResp);
 
         int unfilteredCount = (unfilteredResp.getServices() != null && unfilteredResp.getServices().getService() != null)
-                ? unfilteredResp.getServices().getService().size() : 0;
+                ? unfilteredResp.getServices().getService().size()
+                : 0;
         int emptyNameCount = (emptyNameResp.getServices() != null && emptyNameResp.getServices().getService() != null)
-                ? emptyNameResp.getServices().getService().size() : 0;
+                ? emptyNameResp.getServices().getService().size()
+                : 0;
         assertEquals("Empty-string name should return same count as unfiltered", unfilteredCount, emptyNameCount);
     }
 
@@ -490,9 +492,11 @@ public class WsResourcesClientTest extends BaseRemoteTest
         assertNotNull(lowerResp);
 
         int upperCount = (upperResp.getServices() != null && upperResp.getServices().getService() != null)
-                ? upperResp.getServices().getService().size() : 0;
+                ? upperResp.getServices().getService().size()
+                : 0;
         int lowerCount = (lowerResp.getServices() != null && lowerResp.getServices().getService() != null)
-                ? lowerResp.getServices().getService().size() : 0;
+                ? lowerResp.getServices().getService().size()
+                : 0;
         assertEquals("Type filter should be case-insensitive: ROXIE and roxie should return same count", upperCount, lowerCount);
     }
 
@@ -504,8 +508,7 @@ public class WsResourcesClientTest extends BaseRemoteTest
         req.setType("nonexistent_type_xyz_12345");
         ServiceQueryResponseWrapper resp = client.serviceQuery(req);
         assertNotNull("Response should not be null for non-existent type", resp);
-        boolean isEmpty = resp.getServices() == null || resp.getServices().getService() == null
-                || resp.getServices().getService().isEmpty();
+        boolean isEmpty = resp.getServices() == null || resp.getServices().getService() == null || resp.getServices().getService().isEmpty();
         assertTrue("Non-existent type should return empty result set", isEmpty);
     }
 
@@ -519,8 +522,7 @@ public class WsResourcesClientTest extends BaseRemoteTest
         {
             ServiceQueryResponseWrapper resp = client.serviceQuery(req);
             assertNotNull("Response should not be null for non-existent name", resp);
-            boolean isEmpty = resp.getServices() == null || resp.getServices().getService() == null
-                    || resp.getServices().getService().isEmpty();
+            boolean isEmpty = resp.getServices() == null || resp.getServices().getService() == null || resp.getServices().getService().isEmpty();
             assertTrue("Non-existent name should return empty result or raise exception", isEmpty);
         }
         catch (Exception e)
@@ -534,7 +536,8 @@ public class WsResourcesClientTest extends BaseRemoteTest
     {
         assumeTrue("Skipping for non-containerized cluster", isContainerizedTarget);
         StringBuilder sb = new StringBuilder(1024);
-        for (int i = 0; i < 1024; i++) sb.append('a');
+        for (int i = 0; i < 1024; i++)
+            sb.append('a');
         ServiceQueryRequestWrapper req = new ServiceQueryRequestWrapper();
         req.setType(sb.toString());
         try
@@ -555,15 +558,15 @@ public class WsResourcesClientTest extends BaseRemoteTest
         ServiceQueryResponseWrapper unfilteredResp = client.serviceQuery(new ServiceQueryRequestWrapper());
         assertNotNull(unfilteredResp);
         Services_type0Wrapper services = unfilteredResp.getServices();
-        assumeTrue("Fewer than 2 services returned", services != null && services.getService() != null
-                && services.getService().size() >= 2);
+        assumeTrue("Fewer than 2 services returned", services != null && services.getService() != null && services.getService().size() >= 2);
 
         String type1 = null;
         String name2 = null;
         for (int i = 0; i < services.getService().size(); i++)
         {
             HPCCServiceWrapper svc = services.getService().get(i);
-            if (type1 == null) type1 = svc.getType();
+            if (type1 == null)
+                type1 = svc.getType();
             else if (!svc.getType().equalsIgnoreCase(type1))
             {
                 name2 = svc.getName();
@@ -577,8 +580,7 @@ public class WsResourcesClientTest extends BaseRemoteTest
         req.setName(name2);
         ServiceQueryResponseWrapper resp = client.serviceQuery(req);
         assertNotNull("Response should not be null", resp);
-        boolean isEmpty = resp.getServices() == null || resp.getServices().getService() == null
-                || resp.getServices().getService().isEmpty();
+        boolean isEmpty = resp.getServices() == null || resp.getServices().getService() == null || resp.getServices().getService().isEmpty();
         assertTrue("Mismatched type+name filter should return empty result (AND logic)", isEmpty);
     }
 
@@ -931,8 +933,7 @@ public class WsResourcesClientTest extends BaseRemoteTest
         WebLinksQueryResponseWrapper resp = client.webLinks(req);
         assertNotNull("webLinks response should not be null", resp);
         ArrayOfDiscoveredWebLinkWrapper discovered = resp.getDiscoveredWebLinks();
-        boolean isEmptyOrNull = discovered == null || discovered.getDiscoveredWebLink() == null
-                || discovered.getDiscoveredWebLink().isEmpty();
+        boolean isEmptyOrNull = discovered == null || discovered.getDiscoveredWebLink() == null || discovered.getDiscoveredWebLink().isEmpty();
         assertTrue("discoveredWebLinks should be null or empty on a bare-metal cluster", isEmptyOrNull);
     }
 
@@ -962,8 +963,8 @@ public class WsResourcesClientTest extends BaseRemoteTest
         WebLinksQueryResponseWrapper resp = client.webLinks(req);
         assertNotNull(resp);
         ArrayOfConfiguredWebLinkWrapper configured = resp.getConfiguredWebLinks();
-        assumeTrue("No configured web links exist on this cluster", configured != null
-                && configured.getConfiguredWebLink() != null && !configured.getConfiguredWebLink().isEmpty());
+        assumeTrue("No configured web links exist on this cluster",
+                configured != null && configured.getConfiguredWebLink() != null && !configured.getConfiguredWebLink().isEmpty());
         for (ConfiguredWebLinkWrapper link : configured.getConfiguredWebLink())
         {
             assertNotNull("ConfiguredWebLink name should not be null", link.getName());
@@ -981,8 +982,8 @@ public class WsResourcesClientTest extends BaseRemoteTest
         WebLinksQueryResponseWrapper resp = client.webLinks(req);
         assertNotNull(resp);
         ArrayOfDiscoveredWebLinkWrapper discovered = resp.getDiscoveredWebLinks();
-        assumeTrue("No discovered web links exist on this cluster", discovered != null
-                && discovered.getDiscoveredWebLink() != null && !discovered.getDiscoveredWebLink().isEmpty());
+        assumeTrue("No discovered web links exist on this cluster",
+                discovered != null && discovered.getDiscoveredWebLink() != null && !discovered.getDiscoveredWebLink().isEmpty());
         for (DiscoveredWebLinkWrapper link : discovered.getDiscoveredWebLink())
         {
             assertNotNull("DiscoveredWebLink serviceName should not be null", link.getServiceName());
@@ -998,8 +999,8 @@ public class WsResourcesClientTest extends BaseRemoteTest
         WebLinksQueryResponseWrapper resp = client.webLinks(req);
         assertNotNull(resp);
         ArrayOfConfiguredWebLinkWrapper configured = resp.getConfiguredWebLinks();
-        assumeTrue("No configured web links exist on this cluster", configured != null
-                && configured.getConfiguredWebLink() != null && !configured.getConfiguredWebLink().isEmpty());
+        assumeTrue("No configured web links exist on this cluster",
+                configured != null && configured.getConfiguredWebLink() != null && !configured.getConfiguredWebLink().isEmpty());
         for (ConfiguredWebLinkWrapper link : configured.getConfiguredWebLink())
         {
             Object rawLink = link.getRaw();
@@ -1011,8 +1012,7 @@ public class WsResourcesClientTest extends BaseRemoteTest
                 {
                     String typeStr = resourceType.toString();
                     assertTrue("ResourceType should be one of UNKNOWN/TRACES/LOGS/METRICS",
-                            typeStr.equals("UNKNOWN") || typeStr.equals("TRACES")
-                            || typeStr.equals("LOGS") || typeStr.equals("METRICS"));
+                            typeStr.equals("UNKNOWN") || typeStr.equals("TRACES") || typeStr.equals("LOGS") || typeStr.equals("METRICS"));
                 }
             }
             catch (NoSuchMethodException e)
@@ -1031,8 +1031,8 @@ public class WsResourcesClientTest extends BaseRemoteTest
         WebLinksQueryResponseWrapper resp = client.webLinks(req);
         assertNotNull(resp);
         ArrayOfDiscoveredWebLinkWrapper discovered = resp.getDiscoveredWebLinks();
-        assumeTrue("No discovered web links exist on this cluster", discovered != null
-                && discovered.getDiscoveredWebLink() != null && !discovered.getDiscoveredWebLink().isEmpty());
+        assumeTrue("No discovered web links exist on this cluster",
+                discovered != null && discovered.getDiscoveredWebLink() != null && !discovered.getDiscoveredWebLink().isEmpty());
         for (DiscoveredWebLinkWrapper link : discovered.getDiscoveredWebLink())
         {
             ServiceConnectionWrapper conn = link.getConnection();
@@ -1051,8 +1051,8 @@ public class WsResourcesClientTest extends BaseRemoteTest
         WebLinksQueryResponseWrapper resp = client.webLinks(req);
         assertNotNull(resp);
         ArrayOfDiscoveredWebLinkWrapper discovered = resp.getDiscoveredWebLinks();
-        assumeTrue("No discovered web links exist on this cluster", discovered != null
-                && discovered.getDiscoveredWebLink() != null && !discovered.getDiscoveredWebLink().isEmpty());
+        assumeTrue("No discovered web links exist on this cluster",
+                discovered != null && discovered.getDiscoveredWebLink() != null && !discovered.getDiscoveredWebLink().isEmpty());
         boolean checkedAtLeastOne = false;
         for (DiscoveredWebLinkWrapper link : discovered.getDiscoveredWebLink())
         {

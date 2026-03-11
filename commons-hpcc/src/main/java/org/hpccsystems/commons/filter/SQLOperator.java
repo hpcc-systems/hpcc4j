@@ -173,8 +173,7 @@ public class SQLOperator
                 value = null;
         }
 
-        if (value != null)
-            type = validOps.get(value);
+        if (value != null) type = validOps.get(value);
     }
 
     /**

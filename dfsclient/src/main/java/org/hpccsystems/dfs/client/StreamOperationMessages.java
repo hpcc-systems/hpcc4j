@@ -28,9 +28,8 @@ import java.util.Set;
  */
 public class StreamOperationMessages
 {
-    private HashMap<String, MessageCounter> map = new HashMap<>();
-    private int totalMessageCount = 0;
-
+    private HashMap<String, MessageCounter> map               = new HashMap<>();
+    private int                             totalMessageCount = 0;
 
     /**
      * Simple integer wrapper class
@@ -40,12 +39,13 @@ public class StreamOperationMessages
     class MessageCounter
     {
         private int m_count = 1;
+
         public void increment()
         {
             m_count++;
         }
 
-        public int  getCount ()
+        public int getCount()
         {
             return m_count;
         }
@@ -93,8 +93,7 @@ public class StreamOperationMessages
     public void addMessage(String message, String fieldName)
     {
         totalMessageCount++;
-        if (fieldName != null && !fieldName.isEmpty())
-            message += " Field: " + fieldName;
+        if (fieldName != null && !fieldName.isEmpty()) message += " Field: " + fieldName;
 
         MessageCounter count = map.get(message);
         if (count == null)

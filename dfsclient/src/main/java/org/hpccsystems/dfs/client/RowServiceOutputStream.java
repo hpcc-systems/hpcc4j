@@ -70,14 +70,14 @@ public class RowServiceOutputStream extends OutputStream
     private long                 handle                        = -1;
     private ByteBuffer           scratchBuffer                 = ByteBuffer.allocate(SCRATCH_BUFFER_LEN);
 
-    private Span                 fileWriteSpan                     = null;
+    private Span                 fileWriteSpan                 = null;
     private String               traceContextHeader            = null;
 
     private static class RowServiceResponse
     {
-        int len = 0;
-        int errorCode = 0;
-        int handle = -1;
+        int    len          = 0;
+        int    errorCode    = 0;
+        int    handle       = -1;
         String errorMessage = null;
     }
 
@@ -135,7 +135,7 @@ public class RowServiceOutputStream extends OutputStream
     RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
             CompressionAlgorithm fileCompression) throws Exception
     {
-        this(ip,port,useSSL,accessToken,recordDef,filePartIndex,filePartPath,fileCompression, DEFAULT_CONNECT_TIMEOUT_MILIS);
+        this(ip, port, useSSL, accessToken, recordDef, filePartIndex, filePartPath, fileCompression, DEFAULT_CONNECT_TIMEOUT_MILIS);
     }
 
     /**
@@ -165,7 +165,8 @@ public class RowServiceOutputStream extends OutputStream
     RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
             CompressionAlgorithm fileCompression, int connectTimeoutMs) throws Exception
     {
-        this(ip,port,useSSL,accessToken,recordDef,filePartIndex,filePartPath,fileCompression, connectTimeoutMs, DEFAULT_SOCKET_OP_TIMEOUT_MS, null);
+        this(ip, port, useSSL, accessToken, recordDef, filePartIndex, filePartPath, fileCompression, connectTimeoutMs, DEFAULT_SOCKET_OP_TIMEOUT_MS,
+                null);
     }
 
     /**
@@ -197,7 +198,7 @@ public class RowServiceOutputStream extends OutputStream
     RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
             CompressionAlgorithm fileCompression, int connectTimeoutMs, int sockOpTimeoutMS) throws Exception
     {
-        this(ip,port,useSSL,accessToken,recordDef,filePartIndex,filePartPath,fileCompression, connectTimeoutMs, sockOpTimeoutMS, null);
+        this(ip, port, useSSL, accessToken, recordDef, filePartIndex, filePartPath, fileCompression, connectTimeoutMs, sockOpTimeoutMS, null);
     }
 
     /**
@@ -303,7 +304,8 @@ public class RowServiceOutputStream extends OutputStream
         }
         catch (Exception e)
         {
-            String errorMessage = "Exception occured while attempting to connect to row service (" + rowServiceIP + ":" + rowServicePort + "): " + e.getMessage();
+            String errorMessage = "Exception occured while attempting to connect to row service (" + rowServiceIP + ":" + rowServicePort + "): "
+                    + e.getMessage();
             log.error(errorMessage);
 
             Exception wrappedException = new Exception(errorMessage, e);
@@ -400,15 +402,15 @@ public class RowServiceOutputStream extends OutputStream
 
     private Attributes getServerAttributes()
     {
-        return Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
-                             ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
+        return Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP, ServerAttributes.SERVER_PORT, Long.valueOf(this.rowServicePort));
     }
 
     private String makeGetVersionRequest()
     {
         final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
 
-        final String versionMsg = RFCCodes.RFCStreamReadCmd + "{ \"command\" : \"version\", \"handle\": \"-1\", " + trace + " \"format\": \"binary\" }";
+        final String versionMsg = RFCCodes.RFCStreamReadCmd + "{ \"command\" : \"version\", \"handle\": \"-1\", " + trace
+                + " \"format\": \"binary\" }";
         return versionMsg;
     }
 
@@ -417,20 +419,11 @@ public class RowServiceOutputStream extends OutputStream
         String jsonRecordDef = RecordDefinitionTranslator.toJsonRecord(this.recordDef).toString();
 
         final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
-        String initialRequest = "\n{\n"
-                + "    \"format\" : \"binary\",\n"
-                + trace
-                + "    \"replyLimit\" : " + SCRATCH_BUFFER_LEN + ",\n"
-                + (useOldProtocol ? "" : "\"command\" : \"newstream\",\n")
-                + "    \"node\" : {\n"
-                + "        \"kind\" : \"diskwrite\",\n"
-                + "        \"metaInfo\" : \"" + this.accessToken + "\",\n"
-                + "        \"fileName\" : \"" + this.filePath + "\",\n"
-                + "        \"filePart\" : \"" + this.filePartIndex + "\",\n"
-                + "        \"compressed\" : \"" + this.compressionAlgo + "\",\n"
-                + "        \"input\" : " + jsonRecordDef + "\n"
-                + "    }\n"
-                + "}\n";
+        String initialRequest = "\n{\n" + "    \"format\" : \"binary\",\n" + trace + "    \"replyLimit\" : " + SCRATCH_BUFFER_LEN + ",\n"
+                + (useOldProtocol ? "" : "\"command\" : \"newstream\",\n") + "    \"node\" : {\n" + "        \"kind\" : \"diskwrite\",\n"
+                + "        \"metaInfo\" : \"" + this.accessToken + "\",\n" + "        \"fileName\" : \"" + this.filePath + "\",\n"
+                + "        \"filePart\" : \"" + this.filePartIndex + "\",\n" + "        \"compressed\" : \"" + this.compressionAlgo + "\",\n"
+                + "        \"input\" : " + jsonRecordDef + "\n" + "    }\n" + "}\n";
 
         // Resize scratch buffer if necessary
         byte[] jsonRequestData = initialRequest.getBytes("ISO-8859-1");
@@ -498,7 +491,7 @@ public class RowServiceOutputStream extends OutputStream
         try
         {
             this.dos.writeInt(jsonRequestLen + 4 + 1);
-            this.dos.write((int)RFCCodes.RFCStreamGeneral);
+            this.dos.write((int) RFCCodes.RFCStreamGeneral);
             this.dos.writeInt(jsonRequestLen);
             this.dos.write(closeFileRequest.getBytes(StandardCharsets.ISO_8859_1));
             this.dos.flush();
@@ -588,7 +581,9 @@ public class RowServiceOutputStream extends OutputStream
                         sb.append("\nInvalid file access expiry reported - change File Access Expiry (HPCCFile) and retry");
                         break;
                     case RFCCodes.DAFSERR_cmdstream_authexpired:
-                        sb.append("\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile) to something greater than " + this.sockOpTimeoutMs);
+                        sb.append(
+                                "\nFile access expired before initial request - Retry and consider increasing File Access Expiry (HPCCFile) to something greater than "
+                                        + this.sockOpTimeoutMs);
                         break;
                     default:
                         break;
@@ -642,7 +637,8 @@ public class RowServiceOutputStream extends OutputStream
         }
         else if (bytesWritten == 0 && compressionAlgo != CompressionAlgorithm.NONE)
         {
-            IOException wrappedException = new IOException("Fatal error while closing file. Writing compressed files with 0 length is not supported with the remote HPCC cluster.");
+            IOException wrappedException = new IOException(
+                    "Fatal error while closing file. Writing compressed files with 0 length is not supported with the remote HPCC cluster.");
             if (fileWriteSpan != null)
             {
                 fileWriteSpan.recordException(wrappedException, getServerAttributes());
@@ -683,9 +679,8 @@ public class RowServiceOutputStream extends OutputStream
     {
         final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
 
-        String request = "{ \"format\" : \"binary\", \"handle\" : \"" + this.handle + "\","
-                       + trace
-                       + (useOldProtocol ? "" : "\"command\" : \"continue\"") + " }";
+        String request = "{ \"format\" : \"binary\", \"handle\" : \"" + this.handle + "\"," + trace
+                + (useOldProtocol ? "" : "\"command\" : \"continue\"") + " }";
         byte[] jsonRequestData = request.getBytes("ISO-8859-1");
 
         this.scratchBuffer.clear();

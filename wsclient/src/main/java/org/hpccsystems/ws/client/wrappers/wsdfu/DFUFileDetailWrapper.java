@@ -27,11 +27,11 @@ import org.hpccsystems.ws.client.wrappers.EclRecordWrapper;
 // classes.
 public class DFUFileDetailWrapper extends DFUFileDetail
 {
-    private static final long            serialVersionUID = 155L;
+    private static final long               serialVersionUID = 155L;
 
     private ArrayList<DFUDataColumnWrapper> columns;
-    private String                       firstline        = null;
-    private boolean                      hasheader        = false;
+    private String                          firstline        = null;
+    private boolean                         hasheader        = false;
 
     /**
      * Checks for header.
@@ -53,7 +53,6 @@ public class DFUFileDetailWrapper extends DFUFileDetail
     {
         this.hasheader = hasheader;
     }
-
 
     /**
      * Create a Data Column Info object from a axis-generated soap class DFUDataColumn.
@@ -110,75 +109,45 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         //if (this.getCluster() != null)
         //    sb.append("Cluster:").append(this.getCluster()).append("\n");
         sb.append("CompressedFileSize:").append(this.getCompressedFileSize()).append("\n");
-        if (this.getContentType() != null)
-            sb.append("ContentType:").append(this.getContentType()).append("\n");
-        if (this.getCsvEscape() != null)
-            sb.append("CsvEscape:").append(this.getCsvEscape()).append("\n");
-        if (this.getCsvQuote() != null)
-            sb.append("CsvQuote:").append(this.getCsvQuote()).append("\n");
-        if (this.getCsvSeparate() != null)
-            sb.append("CsvSeparate:").append(this.getCsvSeparate()).append("\n");
-        if (this.getCsvTerminate() != null)
-            sb.append("CsvTerminate:").append(this.getCsvTerminate()).append("\n");
-        if (this.getDescription() != null)
-            sb.append("Description:").append(this.getDescription()).append("\n");
+        if (this.getContentType() != null) sb.append("ContentType:").append(this.getContentType()).append("\n");
+        if (this.getCsvEscape() != null) sb.append("CsvEscape:").append(this.getCsvEscape()).append("\n");
+        if (this.getCsvQuote() != null) sb.append("CsvQuote:").append(this.getCsvQuote()).append("\n");
+        if (this.getCsvSeparate() != null) sb.append("CsvSeparate:").append(this.getCsvSeparate()).append("\n");
+        if (this.getCsvTerminate() != null) sb.append("CsvTerminate:").append(this.getCsvTerminate()).append("\n");
+        if (this.getDescription() != null) sb.append("Description:").append(this.getDescription()).append("\n");
         //removed in HPCC 5.0.0 ref DFUFilePartsOnCluster
         //if (this.getDFUFileParts() != null)
         //    sb.append("DFUFileParts:").append(this.getDFUFileParts()).append("\n");
         sb.append("DFUFilePartsOnClusters:").append(this.getDFUFilePartsOnClusters()).append("\n");
-        if (this.getDir() != null)
-            sb.append("Dir:").append(this.getDir()).append("\n");
-        if (this.getEcl() != null)
-            sb.append("Ecl:").append(this.getEcl()).append("\n");
-        if (this.getFilename() != null)
-            sb.append("Filename:").append(this.getFilename()).append("\n");
-        if (this.getFilesize() != null)
-            sb.append("Filesize:").append(this.getFilesize()).append("\n");
-        if (this.getFirstline() != null)
-            sb.append("FirstLine:").append(this.getFirstline()).append("\n");
-        if (this.getFormat() != null)
-            sb.append("Format:").append(this.getFormat()).append("\n");
-            sb.append("FromRoxieCluster:").append(this.getFromRoxieCluster()).append("\n");
-        if (this.getGraphs() != null)
-            sb.append("Graphs:").append(this.getGraphs()).append("\n");
-        if (String.valueOf(this.hasHeader()) != null)
-            sb.append("hasHeader:").append(String.valueOf(this.hasHeader())).append("\n");
-        if (String.valueOf(this.getIsCompressed()) != null)
-            sb.append("IsCompressed:").append(String.valueOf(this.getIsCompressed())).append("\n");
-        if (String.valueOf(this.getIsSuperfile()) != null)
-            sb.append("IsSuperfile:").append(String.valueOf(this.getIsSuperfile())).append("\n");
-        if (this.getJobName() != null)
-            sb.append("JobName:").append(this.getJobName()).append("\n");
-        if (this.getMaxRecordSize() != null)
-            sb.append("MaxRecordSize:").append(this.getMaxRecordSize()).append("\n");
-        if (this.getModified() != null)
-            sb.append("Modified:").append(this.getModified()).append("\n");
-        if (this.getName() != null)
-            sb.append("Name:").append(this.getName()).append("\n");
-        if (this.getNodeGroup() != null)
-            sb.append("NodeGroup:").append(this.getNodeGroup()).append("\n");
+        if (this.getDir() != null) sb.append("Dir:").append(this.getDir()).append("\n");
+        if (this.getEcl() != null) sb.append("Ecl:").append(this.getEcl()).append("\n");
+        if (this.getFilename() != null) sb.append("Filename:").append(this.getFilename()).append("\n");
+        if (this.getFilesize() != null) sb.append("Filesize:").append(this.getFilesize()).append("\n");
+        if (this.getFirstline() != null) sb.append("FirstLine:").append(this.getFirstline()).append("\n");
+        if (this.getFormat() != null) sb.append("Format:").append(this.getFormat()).append("\n");
+        sb.append("FromRoxieCluster:").append(this.getFromRoxieCluster()).append("\n");
+        if (this.getGraphs() != null) sb.append("Graphs:").append(this.getGraphs()).append("\n");
+        if (String.valueOf(this.hasHeader()) != null) sb.append("hasHeader:").append(String.valueOf(this.hasHeader())).append("\n");
+        if (String.valueOf(this.getIsCompressed()) != null) sb.append("IsCompressed:").append(String.valueOf(this.getIsCompressed())).append("\n");
+        if (String.valueOf(this.getIsSuperfile()) != null) sb.append("IsSuperfile:").append(String.valueOf(this.getIsSuperfile())).append("\n");
+        if (this.getJobName() != null) sb.append("JobName:").append(this.getJobName()).append("\n");
+        if (this.getMaxRecordSize() != null) sb.append("MaxRecordSize:").append(this.getMaxRecordSize()).append("\n");
+        if (this.getModified() != null) sb.append("Modified:").append(this.getModified()).append("\n");
+        if (this.getName() != null) sb.append("Name:").append(this.getName()).append("\n");
+        if (this.getNodeGroup() != null) sb.append("NodeGroup:").append(this.getNodeGroup()).append("\n");
         sb.append("NumParts:").append(this.getNumParts()).append("\n");
-        if (this.getOwner() != null)
-            sb.append("Owner:").append(this.getOwner()).append("\n");
-        if (this.getPathMask() != null)
-            sb.append("PathMask:").append(this.getPathMask()).append("\n");
-        if (this.getPersistent() != null)
-            sb.append("Persistent:").append(this.getPersistent()).append("\n");
-        if (this.getPrefix() != null)
-            sb.append("Prefix:").append(this.getPrefix()).append("\n");
-        if (this.getRecordCount() != null)
-            sb.append("RecordCount:").append(this.getRecordCount()).append("\n");
-        if (this.getRecordSize() != null)
-            sb.append("RecordSize:").append(this.getRecordSize()).append("\n");
+        if (this.getOwner() != null) sb.append("Owner:").append(this.getOwner()).append("\n");
+        if (this.getPathMask() != null) sb.append("PathMask:").append(this.getPathMask()).append("\n");
+        if (this.getPersistent() != null) sb.append("Persistent:").append(this.getPersistent()).append("\n");
+        if (this.getPrefix() != null) sb.append("Prefix:").append(this.getPrefix()).append("\n");
+        if (this.getRecordCount() != null) sb.append("RecordCount:").append(this.getRecordCount()).append("\n");
+        if (this.getRecordSize() != null) sb.append("RecordSize:").append(this.getRecordSize()).append("\n");
         sb.append("ShowFileContent:").append(this.getShowFileContent()).append("\n");
         sb.append("Stat:").append(this.getStat()).append("\n");
-        if (this.getSubfiles() != null)
-            sb.append("Subfiles:").append(this.getSubfiles()).append("\n");
+        if (this.getSubfiles() != null) sb.append("Subfiles:").append(this.getSubfiles()).append("\n");
         sb.append("Superfiles:").append(this.getSuperfiles()).append("\n");
-        if (this.getUserPermission() != null)
-            sb.append("UserPermission:").append(this.getUserPermission()).append("\n");
-        if (this.getWuid() != null)
-            sb.append("Wuid:").append(this.getWuid()).append("\n");
+        if (this.getUserPermission() != null) sb.append("UserPermission:").append(this.getUserPermission()).append("\n");
+        if (this.getWuid() != null) sb.append("Wuid:").append(this.getWuid()).append("\n");
         //removed in HPCC 4.2.2 ref  IsCompressed, CompressedFileSize;
         //if (this.getZipFile() != null)
         //    sb.append("ZipFile:").append(this.getZipFile()).append("\n");
@@ -353,8 +322,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
         {
             return FileFormat.KEYED;
         }
-        else if (fileFormatFromContent == FileFormat.UNKNOWN
-                && (getContentType() == null || getContentType().equals("")))
+        else if (fileFormatFromContent == FileFormat.UNKNOWN && (getContentType() == null || getContentType().equals("")))
         {
             FileFormat fileFormat = FileFormat.getFileFormat(getFormat());
 
@@ -497,8 +465,8 @@ public class DFUFileDetailWrapper extends DFUFileDetail
                     if (hasHeader() && isFirstRowValidFieldNames())
                     {
                         String fldval = flds[i].trim();
-                        if (this.getCsvQuote() != null && !this.getCsvQuote().isEmpty()
-                                && fldval.startsWith(this.getCsvQuote()) && fldval.endsWith(this.getCsvQuote()))
+                        if (this.getCsvQuote() != null && !this.getCsvQuote().isEmpty() && fldval.startsWith(this.getCsvQuote())
+                                && fldval.endsWith(this.getCsvQuote()))
                         {
                             fldval = fldval.substring(1, fldval.length() - 1);
                         }
@@ -563,8 +531,7 @@ public class DFUFileDetailWrapper extends DFUFileDetail
                 }
             }
         }
-        else if (this.getColumns() != null && this.getColumns().size() <= 2
-                && this.getColumns().get(0).getColumnLabel().equals("line"))
+        else if (this.getColumns() != null && this.getColumns().size() <= 2 && this.getColumns().get(0).getColumnLabel().equals("line"))
         {
             return true;
         }

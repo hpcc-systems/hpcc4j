@@ -28,13 +28,13 @@ import org.json.JSONArray;
  */
 public class BenchmarkResult
 {
-    private String testGroup = "";
-    private String testName = "";
+    private String testGroup       = "";
+    private String testName        = "";
     private String testDescription = "";
 
     private class MetricInfo
     {
-        public IMetric metric = null;
+        public IMetric     metric       = null;
         public Units.Scale desiredScale = null;
 
         public MetricInfo(IMetric metric)
@@ -43,8 +43,8 @@ public class BenchmarkResult
         }
     }
 
-    private ArrayList<BenchmarkParam> parameters = new ArrayList<BenchmarkParam>();
-    private HashMap<String,MetricInfo> metrics = new HashMap<String,MetricInfo>();
+    private ArrayList<BenchmarkParam>   parameters = new ArrayList<BenchmarkParam>();
+    private HashMap<String, MetricInfo> metrics    = new HashMap<String, MetricInfo>();
 
     public BenchmarkResult(String group, String name)
     {
@@ -126,17 +126,17 @@ public class BenchmarkResult
         {
             desiredScale = info.desiredScale;
         }
-        else if(metric.getUnits() != null)
+        else if (metric.getUnits() != null)
         {
             desiredScale = metric.getUnits().scale;
         }
 
-        float value = (float) (metric.getValue() * Units.calculateScaleConversion(metric.getUnits().scale,desiredScale));
+        float value = (float) (metric.getValue() * Units.calculateScaleConversion(metric.getUnits().scale, desiredScale));
 
         if (flat)
         {
             JSONObject obj = new JSONObject();
-            obj.put("group",testGroup);
+            obj.put("group", testGroup);
             obj.put("test", testName);
             obj.put("result", metric.getName());
             obj.put("value", value);
@@ -144,16 +144,16 @@ public class BenchmarkResult
             for (int i = 0; i < parameters.size(); i++)
             {
                 BenchmarkParam param = parameters.get(i);
-                obj.put(param.name,param.value);
+                obj.put(param.name, param.value);
             }
-            
+
             Units units = metric.getUnits();
             if (units != null)
             {
-                Units scaledUnits = new Units(units.type,desiredScale);
+                Units scaledUnits = new Units(units.type, desiredScale);
                 obj.put("units", scaledUnits.toString());
             }
-            
+
             String desc = metric.getDescription();
             if (desc != null)
             {
@@ -165,20 +165,20 @@ public class BenchmarkResult
         {
             JSONObject obj = new JSONObject();
             obj.put("name", metric.getName());
-            
+
             Units units = metric.getUnits();
             if (units != null)
             {
-                Units scaledUnits = new Units(units.type,desiredScale);
+                Units scaledUnits = new Units(units.type, desiredScale);
                 obj.put("units", scaledUnits.toString());
             }
-            
+
             String desc = metric.getDescription();
             if (desc != null)
             {
                 obj.put("description", desc);
             }
-            obj.put("value",value);
+            obj.put("value", value);
             return obj;
         }
     }
@@ -186,8 +186,8 @@ public class BenchmarkResult
     public JSONObject toJson(String[] selectedResults)
     {
         JSONObject test = new JSONObject();
-        test.put("name",this.testName);
-        test.put("description",this.testDescription);
+        test.put("name", this.testName);
+        test.put("description", this.testDescription);
 
         // Write test params
         JSONArray jsonParams = new JSONArray();
@@ -198,7 +198,7 @@ public class BenchmarkResult
             jsonParams.put(param);
         }
 
-        test.put("parameters",parameters);
+        test.put("parameters", parameters);
 
         // Write test results
         JSONArray jsonMetrics = new JSONArray();
@@ -213,7 +213,7 @@ public class BenchmarkResult
                     continue;
                 }
 
-                JSONObject obj = serializeMetric(metricInfo,false);
+                JSONObject obj = serializeMetric(metricInfo, false);
                 jsonMetrics.put(obj);
             }
         }
@@ -226,13 +226,13 @@ public class BenchmarkResult
                 {
                     continue;
                 }
-                
-                JSONObject obj = serializeMetric(metricInfo,false);
-                jsonMetrics.put(obj);  
+
+                JSONObject obj = serializeMetric(metricInfo, false);
+                jsonMetrics.put(obj);
             }
         }
 
-        test.put("results",jsonMetrics);
+        test.put("results", jsonMetrics);
 
         return test;
     }
@@ -270,8 +270,8 @@ public class BenchmarkResult
                     continue;
                 }
 
-                JSONObject obj = serializeMetric(metricInfo,true);
-                results.put(obj);  
+                JSONObject obj = serializeMetric(metricInfo, true);
+                results.put(obj);
             }
         }
 

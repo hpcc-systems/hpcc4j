@@ -29,8 +29,8 @@ import org.hpccsystems.ws.client.platform.Version;
 public class WsDFUClientStubWrapper
 {
     private org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuStub stubLatest = null;
-    private org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub stub1_39    = null;
-    private String baseURL;
+    private org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub  stub1_39   = null;
+    private String                                                     baseURL;
 
     /**
      * Gets the latest stub.
@@ -46,8 +46,7 @@ public class WsDFUClientStubWrapper
         if (stubLatest == null)
         {
             stubLatest = new org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuStub(baseURL);
-            if (opts != null)
-                stubLatest._getServiceClient().setOptions(opts);
+            if (opts != null) stubLatest._getServiceClient().setOptions(opts);
         }
         return stubLatest;
     }
@@ -66,8 +65,7 @@ public class WsDFUClientStubWrapper
         if (stub1_39 == null)
         {
             stub1_39 = new org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.WsDfuStub(baseURL);
-            if (opts != null)
-                stub1_39._getServiceClient().setOptions(opts);
+            if (opts != null) stub1_39._getServiceClient().setOptions(opts);
         }
         return stub1_39;
     }
@@ -80,8 +78,8 @@ public class WsDFUClientStubWrapper
      * @param platformVersion
      *            the version of the cluster - not in use
      */
-     public WsDFUClientStubWrapper(String baseURL, Version platformVersion)
+    public WsDFUClientStubWrapper(String baseURL, Version platformVersion)
     {
-        this.baseURL=baseURL;
+        this.baseURL = baseURL;
     }
 }

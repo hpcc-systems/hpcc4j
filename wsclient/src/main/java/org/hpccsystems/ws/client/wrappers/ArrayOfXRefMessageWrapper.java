@@ -12,19 +12,19 @@ import org.w3c.dom.NodeList;
 
 public class ArrayOfXRefMessageWrapper
 {
-    protected List<XRefMessageWrapper> messages = null;
-    protected String cluster = null;
+    protected List<XRefMessageWrapper> messages    = null;
+    protected String                   cluster     = null;
 
-    private final static String WARNING_TAG = "Warning";
-    private final static String ERROR_TAG = "Error";
-    private final static String CLUSTER_TAG = "Cluster";
+    private final static String        WARNING_TAG = "Warning";
+    private final static String        ERROR_TAG   = "Error";
+    private final static String        CLUSTER_TAG = "Cluster";
 
     public String getCluster()
     {
         return cluster;
     }
 
-    public ArrayOfXRefMessageWrapper (String response)
+    public ArrayOfXRefMessageWrapper(String response)
     {
         messages = new ArrayList<XRefMessageWrapper>();
 
@@ -53,8 +53,7 @@ public class ArrayOfXRefMessageWrapper
 
                 xrefnodelist = doc.getElementsByTagName(CLUSTER_TAG);
 
-                if(xrefnodelist.getLength() > 0)
-                    cluster = xrefnodelist.item(0).getTextContent();
+                if (xrefnodelist.getLength() > 0) cluster = xrefnodelist.item(0).getTextContent();
 
             }
             catch (Exception e)

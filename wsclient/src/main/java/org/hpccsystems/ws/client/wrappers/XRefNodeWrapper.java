@@ -5,22 +5,22 @@ import org.w3c.dom.NodeList;
 
 public class XRefNodeWrapper
 {
-    private final static String NAME_TAG = "name";
-    private final static String STATUS_TAG = "status";
+    private final static String NAME_TAG     = "name";
+    private final static String STATUS_TAG   = "status";
     private final static String MODIFIED_TAG = "modified";
 
-    protected String name = null;
-    protected String modified = null;
-    protected String status = null;
+    protected String            name         = null;
+    protected String            modified     = null;
+    protected String            status       = null;
 
-    public XRefNodeWrapper (String name, String modified, String status)
+    public XRefNodeWrapper(String name, String modified, String status)
     {
         this.name = name;
         this.modified = modified;
         this.status = status;
     }
 
-    public XRefNodeWrapper (Node xrefnode)
+    public XRefNodeWrapper(Node xrefnode)
     {
         populatenode(xrefnode);
     }
@@ -55,7 +55,7 @@ public class XRefNodeWrapper
         return status;
     }
 
-    private void populatenode (Node currentNode)
+    private void populatenode(Node currentNode)
     {
         if (currentNode != null)
         {

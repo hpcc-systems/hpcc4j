@@ -47,22 +47,8 @@ public class DataPartition implements Serializable
 
     public static enum FileType
     {
-        FLAT (
-                "disk", true
-        ), // disk is the prefix used in dafilesrv for flat files
-        INDEX (
-                "index", true
-        ), INDEX_LOCAL (
-                "indexlocal", true
-        ), INDEX_PARTITIONED (
-                "indexpartitioned", true
-        ), JSON (
-                "json", true
-        ), CSV (
-                "csv", false
-        ), XML (
-                "xml", false
-        );
+        FLAT ("disk", true), // disk is the prefix used in dafilesrv for flat files
+        INDEX ("index", true), INDEX_LOCAL ("indexlocal", true), INDEX_PARTITIONED ("indexpartitioned", true), JSON ("json", true), CSV ("csv", false), XML ("xml", false);
 
         private String  name             = null;
         private boolean typeCanBeDeduced = false;
@@ -198,9 +184,11 @@ public class DataPartition implements Serializable
      *            the file type
      */
     private DataPartition(String[] copylocations, String[] copyPaths, int this_part, int num_parts, int clearport, boolean sslport, FileFilter filter,
-            String fileAccessBlob, FileType fileType) {
-        this(copylocations,copyPaths,this_part,num_parts,clearport,sslport,filter,fileAccessBlob,fileType,null);
+            String fileAccessBlob, FileType fileType)
+    {
+        this(copylocations, copyPaths, this_part, num_parts, clearport, sslport, filter, fileAccessBlob, fileType, null);
     }
+
     /**
      * Construct the data part, used by makeParts.
      *
@@ -226,14 +214,14 @@ public class DataPartition implements Serializable
      *            the file name
      */
     private DataPartition(String[] copylocations, String[] copyPaths, int this_part, int num_parts, int clearport, boolean sslport, FileFilter filter,
-                          String fileAccessBlob, FileType fileType, String fileName)
+            String fileAccessBlob, FileType fileType, String fileName)
     {
         this.this_part = this_part;
         this.num_parts = num_parts;
         this.rowservicePort = clearport;
         this.useSSL = sslport;
         this.fileFilter = filter;
-        this.fileName=fileName;
+        this.fileName = fileName;
         if (this.fileFilter == null)
         {
             this.fileFilter = new FileFilter();
@@ -332,8 +320,8 @@ public class DataPartition implements Serializable
     {
         if (index < 0 || index > copyLocations.length)
         {
-            throw new InvalidParameterException("Insertion index: " + index + " is invalid."
-                        + "Expected index in range of: [0," + copyLocations.length + "]");
+            throw new InvalidParameterException(
+                    "Insertion index: " + index + " is invalid." + "Expected index in range of: [0," + copyLocations.length + "]");
         }
 
         if (copyIP == null || copyPath == null)
@@ -510,7 +498,6 @@ public class DataPartition implements Serializable
         return createPartitions(dfuparts, clusterremapper, max_parts, FileFilter.nullFilter(), fileAccessBlob, FileType.FLAT);
     }
 
-
     /**
      * Creates the partitions.
      *
@@ -531,8 +518,9 @@ public class DataPartition implements Serializable
      *             the hpcc file exception
      */
     public static DataPartition[] createPartitions(DFUFilePartWrapper[] dfuparts, ClusterRemapper clusterremapper, int max_parts, FileFilter filter,
-                                                   String fileAccessBlob, FileType fileType) throws HpccFileException {
-    return createPartitions(dfuparts,clusterremapper,max_parts,filter,fileAccessBlob,fileType,null);
+            String fileAccessBlob, FileType fileType) throws HpccFileException
+    {
+        return createPartitions(dfuparts, clusterremapper, max_parts, filter, fileAccessBlob, fileType, null);
     }
 
     /**
@@ -574,7 +562,7 @@ public class DataPartition implements Serializable
 
                 DataPartition new_dp = new DataPartition(clusterremapper.reviseIPs(dfuparts[i].getCopies()), copyPaths, dfuparts[i].getPartIndex(),
                         dfuparts.length, clusterremapper.revisePort(null), clusterremapper.getUsesSSLConnection(null), filter, fileAccessBlob,
-                        fileType,fileName);
+                        fileType, fileName);
                 new_dp.isTLK = dfuparts[i].isTopLevelKey();
 
                 rslt[i] = new_dp;

@@ -58,8 +58,7 @@ public class ExceptionsWrapper
      */
     private void copy(ExceptionsWrapper raw)
     {
-        if (raw != null && raw.getExceptions() != null)
-            this.local_exceptions = new ArrayOfEspExceptionWrapper(raw.getExceptions());
+        if (raw != null && raw.getExceptions() != null) this.local_exceptions = new ArrayOfEspExceptionWrapper(raw.getExceptions());
     }
 
     /*

@@ -20,7 +20,7 @@ import org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper;
 
 public class DFUInfoWrapper
 {
-    private DFUFileDetailWrapper     detailInfo;
+    private DFUFileDetailWrapper       detailInfo;
     private ArrayOfEspExceptionWrapper exceptions = null;
 
     /**

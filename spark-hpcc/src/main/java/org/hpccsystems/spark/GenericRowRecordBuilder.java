@@ -31,9 +31,9 @@ import org.apache.spark.sql.types.*;
  */
 public class GenericRowRecordBuilder implements IRecordBuilder
 {
-    private Object[]            fields              = null;
-    private FieldDef            fieldDef            = null;
-    private StructType          schema              = null;
+    private Object[]                  fields              = null;
+    private FieldDef                  fieldDef            = null;
+    private StructType                schema              = null;
 
     private GenericRowRecordBuilder[] childRecordBuilders = null;
 
@@ -45,9 +45,12 @@ public class GenericRowRecordBuilder implements IRecordBuilder
     public void setRecordDefinition(FieldDef fieldDef) throws IllegalArgumentException
     {
         this.fieldDef = fieldDef;
-        try {
+        try
+        {
             this.schema = SparkSchemaTranslator.toSparkSchema(fieldDef);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             throw new IllegalArgumentException(e.getMessage());
         }
 

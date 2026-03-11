@@ -16,10 +16,9 @@ import org.xml.sax.SAXException;
 public class XMLParsing
 {
     final static String externalEntityFile = "src/test/resources/security/externalentity.xml";
-    final static String xxeFile = "src/test/resources/security/xxe.xml";
-    final static String localfilexxe = "src/test/resources/security/localfilexxe.xml";
-    final static String millionLaughsFile = "src/test/resources/security/millionlaughs.xml";
-
+    final static String xxeFile            = "src/test/resources/security/xxe.xml";
+    final static String localfilexxe       = "src/test/resources/security/localfilexxe.xml";
+    final static String millionLaughsFile  = "src/test/resources/security/millionlaughs.xml";
 
     /*
      * Illustrates security vulnerable XML parsing:
@@ -34,11 +33,11 @@ public class XMLParsing
         DocumentBuilder db = dbFactory.newDocumentBuilder();
         db.parse(uploadFile);
         }
-catch (SAXException e)
+    catch (SAXException e)
         {
             Assert.assertTrue("Unexpected SAXEception message detected, ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true ", e.getMessage().equals("DOCTYPE is disallowed when the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true."));
         }
-
+    
         Assert.fail("Unsafe XML entity expansion detected - should explicitely avoid use Utils.newSafeXMLDocBuilder!");
     }*/
 
@@ -50,14 +49,17 @@ catch (SAXException e)
             File uploadFile = new File(xxeFile);
             Utils.newSafeXMLDocBuilder().parse(uploadFile);
 
-            Assert.fail("SAXEception expected! Ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true");
+            Assert.fail(
+                    "SAXEception expected! Ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true");
         }
         catch (SAXException e)
         {
-            Assert.assertTrue("Unexpected SAXEception message detected, ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true ", e.getMessage().equals("DOCTYPE is disallowed when the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true."));
+            Assert.assertTrue(
+                    "Unexpected SAXEception message detected, ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true ",
+                    e.getMessage()
+                            .equals("DOCTYPE is disallowed when the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true."));
         }
     }
-
 
     /*
      * Illustrates security vulnerable XML parsing:
@@ -86,11 +88,15 @@ catch (SAXException e)
             File uploadFile = new File(externalEntityFile);
             Utils.newSafeXMLDocBuilder().parse(uploadFile);
 
-            Assert.fail("SAXEception expected! Ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true");
+            Assert.fail(
+                    "SAXEception expected! Ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true");
         }
         catch (SAXException e)
         {
-            Assert.assertTrue("Unexpected SAXEception message detected, ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true ", e.getMessage().equals("DOCTYPE is disallowed when the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true."));
+            Assert.assertTrue(
+                    "Unexpected SAXEception message detected, ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true ",
+                    e.getMessage()
+                            .equals("DOCTYPE is disallowed when the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true."));
         }
     }
 
@@ -115,14 +121,17 @@ catch (SAXException e)
             File uploadFile = new File(millionLaughsFile);
             Utils.newSafeXMLDocBuilder().parse(uploadFile);
 
-            Assert.fail("SAXEception expected! Ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true");
+            Assert.fail(
+                    "SAXEception expected! Ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true");
         }
         catch (SAXException e)
         {
-            Assert.assertTrue("Unexpected SAXEception message detected, ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true ", e.getMessage().equals("DOCTYPE is disallowed when the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true."));
+            Assert.assertTrue(
+                    "Unexpected SAXEception message detected, ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true ",
+                    e.getMessage()
+                            .equals("DOCTYPE is disallowed when the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true."));
         }
     }
-
 
     /*
      * Illustrates security vulnerable XML parsing:
@@ -152,11 +161,15 @@ catch (SAXException e)
             File uploadFile = new File(localfilexxe);
             Utils.newSafeXMLDocBuilder().parse(uploadFile);
 
-            Assert.fail("SAXEception expected! Ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true");
+            Assert.fail(
+                    "SAXEception expected! Ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true");
         }
         catch (SAXException e)
         {
-            Assert.assertTrue("Unexpected SAXEception message detected, ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true ", e.getMessage().equals("DOCTYPE is disallowed when the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true."));
+            Assert.assertTrue(
+                    "Unexpected SAXEception message detected, ensure DOCTYPE is disallowed and the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true ",
+                    e.getMessage()
+                            .equals("DOCTYPE is disallowed when the feature \"http://apache.org/xml/features/disallow-doctype-decl\" set to true."));
         }
     }
 }

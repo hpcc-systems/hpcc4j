@@ -102,9 +102,9 @@ public class Cluster extends DataSingleton
     {
         try
         {
-                HPCCWsTopologyClient wsTopologyClient = platform.getWsClient().getWsTopologyClient();
-                TpClusterInfoResponseWrapper respsone = wsTopologyClient.getClusterInfo(info.getName());
-                Update(respsone);
+            HPCCWsTopologyClient wsTopologyClient = platform.getWsClient().getWsTopologyClient();
+            TpClusterInfoResponseWrapper respsone = wsTopologyClient.getClusterInfo(info.getName());
+            Update(respsone);
         }
         catch (Exception e)
         {

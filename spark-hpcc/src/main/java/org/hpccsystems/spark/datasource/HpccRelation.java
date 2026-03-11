@@ -76,8 +76,8 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
             }
             catch (IllegalArgumentException e)
             {
-                String error = "Invalid record sampling rate: " + options.recordSamplingRate + " or seed: " 
-                            + options.recordSamplingSeed + " with error: " + e.getMessage();
+                String error = "Invalid record sampling rate: " + options.recordSamplingRate + " or seed: " + options.recordSamplingSeed
+                        + " with error: " + e.getMessage();
                 log.error(error);
                 throw new RuntimeException(error);
             }
@@ -160,8 +160,7 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
             try
             {
                 FileFilter filefilter = FileFilterConverter.ConvertToHPCCFileFilterString(filter); //somewhat expensive action
-                if (filefilter != null && !filefilter.isEmpty())
-                    continue;
+                if (filefilter != null && !filefilter.isEmpty()) continue;
             }
             catch (Exception e)
             {
@@ -188,12 +187,11 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
                 try
                 {
                     FileFilter filefilter = FileFilterConverter.CovertToHPCCFileFilter(filters);
-                    if (filefilter != null && !filefilter.isEmpty())
-                        file.setFilter(filefilter);
+                    if (filefilter != null && !filefilter.isEmpty()) file.setFilter(filefilter);
                 }
                 catch (Exception e)
                 {
-                    log.error("Could not apply filter(s) to File '" + file.getFileName() + "': " + e.getLocalizedMessage() );
+                    log.error("Could not apply filter(s) to File '" + file.getFileName() + "': " + e.getLocalizedMessage());
                     throw new RuntimeException("Could not apply filter(s) to File '" + file.getFileName() + "': " + e.getLocalizedMessage());
                 }
             }
@@ -268,8 +266,8 @@ public class HpccRelation extends BaseRelation implements PrunedFilteredScan
 
             boolean recordSamplingSeedMatches = otherOptions.recordSamplingSeed == options.recordSamplingSeed;
 
-            return hostMatches && nameMatches && projectListMatches
-                    && filterStringMatches && filePartLimitMatches && recordSamplingRateMatches && recordSamplingSeedMatches;
+            return hostMatches && nameMatches && projectListMatches && filterStringMatches && filePartLimitMatches && recordSamplingRateMatches
+                    && recordSamplingSeedMatches;
         }
 
         return false;

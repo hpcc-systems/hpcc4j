@@ -37,28 +37,28 @@ import org.hpccsystems.commons.ecl.FieldFilterRange;
  */
 public class CompiledFieldFilter
 {
-    private static final Logger log = LogManager.getLogger(CompiledFieldFilter.class);
-    
-    private static final int USE_DEFAULT_MAX_STRING = -1;
+    private static final Logger log                    = LogManager.getLogger(CompiledFieldFilter.class);
 
-    private static final String minStringValue = "";
+    private static final int    USE_DEFAULT_MAX_STRING = -1;
+
+    private static final String minStringValue         = "";
 
     // 32 chars of the max extended ascii char.
-    private static final String maxStringValue = "ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ";
+    private static final String maxStringValue         = "ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ";
 
-    private int fieldIndex = -1;
-    private FieldType fieldType = FieldType.UNKNOWN;
+    private int                 fieldIndex             = -1;
+    private FieldType           fieldType              = FieldType.UNKNOWN;
 
     // 0 and 1 for closed and open lower bound
-    private int lowerComparisonType = 0;
-    private Object lowerValue = null;
+    private int                 lowerComparisonType    = 0;
+    private Object              lowerValue             = null;
 
     // 0 and 1 for closed and open upper bound
-    private int upperComparisonType = 0;
-    private Object upperValue = null;
+    private int                 upperComparisonType    = 0;
+    private Object              upperValue             = null;
 
     // -1 will compare the entire length
-    private int comparisonLength = -1;
+    private int                 comparisonLength       = -1;
 
     CompiledFieldFilter(int fdIndex, FieldType fdType, FieldFilterRange filter) throws Exception
     {
@@ -84,10 +84,10 @@ public class CompiledFieldFilter
                 convertedValues[i] = convertValue(filterValues[i], fdType);
             }
 
-            Arrays.sort(convertedValues, (a, b) -> this.compareValues(a,b));
+            Arrays.sort(convertedValues, (a, b) -> this.compareValues(a, b));
 
             lowerValue = convertedValues[0];
-            upperValue = convertedValues[convertedValues.length-1];
+            upperValue = convertedValues[convertedValues.length - 1];
         }
 
         if (filter.getBound() == FieldFilterRange.Bound.UPPER || filter.getBound() == FieldFilterRange.Bound.NONE)
@@ -116,48 +116,48 @@ public class CompiledFieldFilter
         return fieldIndex;
     }
 
-    private int compareValues(Object a, Object b) 
+    private int compareValues(Object a, Object b)
     {
         switch (fieldType)
         {
             case INTEGER:
-                {
-                    Long la = (Long) a;
-                    Long lb = (Long) b;
-                    return la.compareTo(lb);
-                }
+            {
+                Long la = (Long) a;
+                Long lb = (Long) b;
+                return la.compareTo(lb);
+            }
             case BOOLEAN:
-                {
-                    Boolean ba = (Boolean) a;
-                    Boolean bb = (Boolean) b;
-                    return ba.compareTo(bb);
-                }
+            {
+                Boolean ba = (Boolean) a;
+                Boolean bb = (Boolean) b;
+                return ba.compareTo(bb);
+            }
             case REAL:
-                {
-                    Double da = (Double) a;
-                    Double db = (Double) b;
-                    return da.compareTo(db);
-                }
+            {
+                Double da = (Double) a;
+                Double db = (Double) b;
+                return da.compareTo(db);
+            }
             case DECIMAL:
-                {
-                    BigDecimal da = (BigDecimal) a;
-                    BigDecimal db = (BigDecimal) b;
-                    return da.compareTo(db);
-                }
+            {
+                BigDecimal da = (BigDecimal) a;
+                BigDecimal db = (BigDecimal) b;
+                return da.compareTo(db);
+            }
             case STRING:
-                {
-                    String sa = (String) a;
-                    String sb = (String) b;
+            {
+                String sa = (String) a;
+                String sb = (String) b;
 
-                    if (comparisonLength < 0)
-                    {
-                        return sa.compareTo(sb);
-                    }
-                    else
-                    {
-                        return sa.substring(0,comparisonLength).compareTo(sb.substring(0,comparisonLength));
-                    }
+                if (comparisonLength < 0)
+                {
+                    return sa.compareTo(sb);
                 }
+                else
+                {
+                    return sa.substring(0, comparisonLength).compareTo(sb.substring(0, comparisonLength));
+                }
+            }
             default:
                 // We should never get to this point as an exception will be thrown before this point 
                 // for unsupported types. Creating a default with return to keep the compiler happy.
@@ -171,25 +171,25 @@ public class CompiledFieldFilter
         switch (type)
         {
             case INTEGER:
-                {
-                    return Long.MIN_VALUE;
-                }
+            {
+                return Long.MIN_VALUE;
+            }
             case BOOLEAN:
-                {
-                    return false;
-                }
+            {
+                return false;
+            }
             case REAL:
-                {
-                    return Double.MIN_VALUE;
-                }
+            {
+                return Double.MIN_VALUE;
+            }
             case DECIMAL:
-                {
-                    return BigDecimal.valueOf(Double.MIN_VALUE);
-                }
+            {
+                return BigDecimal.valueOf(Double.MIN_VALUE);
+            }
             case STRING:
-                {
-                    return minStringValue;
-                }
+            {
+                return minStringValue;
+            }
             default:
                 throw new Exception("Invalid field type for index field.");
         }
@@ -222,41 +222,41 @@ public class CompiledFieldFilter
         {
             case FILEPOS:
             case INTEGER:
-                {
-                    return Long.MAX_VALUE;
-                }
+            {
+                return Long.MAX_VALUE;
+            }
             case BOOLEAN:
-                {
-                    return true;
-                }
+            {
+                return true;
+            }
             case REAL:
-                {
-                    return Double.MAX_VALUE;
-                }
+            {
+                return Double.MAX_VALUE;
+            }
             case DECIMAL:
-                {
-                    return BigDecimal.valueOf(Double.MAX_VALUE);
-                }
+            {
+                return BigDecimal.valueOf(Double.MAX_VALUE);
+            }
             case CHAR:
             case STRING:
             case VAR_STRING:
+            {
+                if (numStringCodePoints > maxStringValue.length())
                 {
-                    if (numStringCodePoints > maxStringValue.length())
+                    // Create a string that is at least numCodePoints long
+                    String maxVal = new String(maxStringValue);
+                    for (int i = numStringCodePoints; i > 0;)
                     {
-                        // Create a string that is at least numCodePoints long
-                        String maxVal = new String(maxStringValue);
-                        for (int i = numStringCodePoints; i > 0;)
-                        {
-                            maxVal.concat(maxStringValue);
-                            i -= maxStringValue.length();
-                        }
-                        return maxVal;
+                        maxVal.concat(maxStringValue);
+                        i -= maxStringValue.length();
                     }
-                    else
-                    {
-                        return maxStringValue;
-                    }
+                    return maxVal;
                 }
+                else
+                {
+                    return maxStringValue;
+                }
+            }
             default:
                 throw new Exception("Invalid field type for index field.");
         }
@@ -267,45 +267,45 @@ public class CompiledFieldFilter
         switch (type)
         {
             case INTEGER:
-                {
-                    return Long.valueOf(value);
-                }
+            {
+                return Long.valueOf(value);
+            }
             case BOOLEAN:
-                {
-                    return Boolean.valueOf(value);
-                }
+            {
+                return Boolean.valueOf(value);
+            }
             case REAL:
-                {
-                    return Double.valueOf(value);
-                }
+            {
+                return Double.valueOf(value);
+            }
             case DECIMAL:
-                {
-                    return BigDecimal.valueOf(Double.valueOf(value));
-                }
+            {
+                return BigDecimal.valueOf(Double.valueOf(value));
+            }
             case STRING:
+            {
+                String unquotedStr = (String) value;
+                if (unquotedStr.length() >= 2)
                 {
-                    String unquotedStr = (String) value;
-                    if (unquotedStr.length() >= 2)
+                    int startIndex = 0;
+                    int endIndex = unquotedStr.length();
+
+                    if (unquotedStr.charAt(0) == '\'')
                     {
-                        int startIndex = 0;
-                        int endIndex = unquotedStr.length();
-
-                        if (unquotedStr.charAt(0) == '\'')
-                        {
-                            startIndex = 1;
-                        }
-
-                        if (unquotedStr.charAt(unquotedStr.length()-1) == '\'')
-                        {
-                            endIndex = unquotedStr.length()-1;
-                        }
-
-                        unquotedStr = unquotedStr.substring(startIndex,endIndex);
+                        startIndex = 1;
                     }
 
-                    // rtrim and return
-                    return unquotedStr.replaceAll("\\s+$", "");
+                    if (unquotedStr.charAt(unquotedStr.length() - 1) == '\'')
+                    {
+                        endIndex = unquotedStr.length() - 1;
+                    }
+
+                    unquotedStr = unquotedStr.substring(startIndex, endIndex);
                 }
+
+                // rtrim and return
+                return unquotedStr.replaceAll("\\s+$", "");
+            }
             default:
                 throw new Exception("Invalid field type for index field.");
         }
@@ -321,7 +321,7 @@ public class CompiledFieldFilter
     {
         // 1 if inclusive begin is less than lowerValue, 0 if equal
         int beginCompare = compareValues(lowerValue, inclusiveBegin);
-        
+
         // 1 if exclusive end is greater than lowerValue, 0 if equal
         int endCompare = compareValues(inclusiveEnd, lowerValue);
 
@@ -329,10 +329,10 @@ public class CompiledFieldFilter
         {
             return true;
         }
-        
+
         // 1 if inclusive begin is less than upperValue, 0 if equal
         beginCompare = compareValues(upperValue, inclusiveBegin);
-        
+
         // 1 if exclusive end is greater than upperValue, 0 if equal
         endCompare = compareValues(inclusiveEnd, upperValue);
 
@@ -346,9 +346,7 @@ public class CompiledFieldFilter
 
     public String toString()
     {
-        return "'" + fieldIndex + "': <> " 
-            + (lowerComparisonType == 0 ? "[" : "(") 
-            + lowerValue + ", " + upperValue
-            + (upperComparisonType == 0 ? "]" : ")");
+        return "'" + fieldIndex + "': <> " + (lowerComparisonType == 0 ? "[" : "(") + lowerValue + ", " + upperValue
+                + (upperComparisonType == 0 ? "]" : ")");
     }
 };

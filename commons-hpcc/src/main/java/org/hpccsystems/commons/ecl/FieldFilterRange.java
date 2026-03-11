@@ -60,8 +60,7 @@ public class FieldFilterRange implements Serializable
      * @param prefixMatchLength
      *            the prefix match length
      */
-    public FieldFilterRange(String v, Bound rangeBound, boolean leftRangeOpen, boolean rightRangeOpen, boolean donotquote,
-            short prefixMatchLength)
+    public FieldFilterRange(String v, Bound rangeBound, boolean leftRangeOpen, boolean rightRangeOpen, boolean donotquote, short prefixMatchLength)
     {
         this.values = new String[1];
         this.values[0] = v;
@@ -142,7 +141,7 @@ public class FieldFilterRange implements Serializable
 
         prefix = (short) 0;
     }
-    
+
     public String[] getValues()
     {
         return this.values;

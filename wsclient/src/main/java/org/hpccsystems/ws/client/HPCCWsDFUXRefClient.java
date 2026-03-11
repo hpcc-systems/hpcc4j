@@ -81,15 +81,15 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
  *  DFUXRefCleanDirectories: remove empty directories in ** an XRefNode
  *  DFUXRefUnusedFiles: list unused files in a roxie XRefNode.
  */
- public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
+public class HPCCWsDFUXRefClient extends BaseHPCCWsClient
 {
-    private static final Logger    log                = LogManager.getLogger(HPCCWsDFUXRefClient.class);
+    private static final Logger log                = LogManager.getLogger(HPCCWsDFUXRefClient.class);
 
     /** Constant <code>WSDFUXREFURI="/WsDFUXRef"</code> */
-    public static final String     WSDFUXREFURI           = "/WsDFUXRef";
-    private static int             DEFAULTSERVICEPORT = -1;
-    private static String          WSDLURL            = null;
-    private static final double    MIN_VER_SUPPORTED  = 1.02;
+    public static final String  WSDFUXREFURI       = "/WsDFUXRef";
+    private static int          DEFAULTSERVICEPORT = -1;
+    private static String       WSDLURL            = null;
+    private static final double MIN_VER_SUPPORTED  = 1.02;
 
     /**
      * <p>getMinVerSupported.</p>
@@ -279,11 +279,11 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
         if (stub != null && !isRuntimeVersionSupported())
         {
             stub = null;
-            initErrMessage += "Attempting to connect to unsupported WsDFUXRef version: '" + getTargetESPInterfaceVersion() + "'; minimun supported: " + MIN_VER_SUPPORTED;
+            initErrMessage += "Attempting to connect to unsupported WsDFUXRef version: '" + getTargetESPInterfaceVersion() + "'; minimun supported: "
+                    + MIN_VER_SUPPORTED;
         }
 
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
+        if (!initErrMessage.isEmpty()) log.error(initErrMessage);
 
     }
 
@@ -305,10 +305,8 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 
         DFUXRefUnusedFilesRequest request = new DFUXRefUnusedFilesRequest();
         request.setProcessCluster(processCluster);
-        if (checkPackageMaps != null)
-            request.setCheckPackageMaps(checkPackageMaps);
-        if (getFileDetails != null)
-            request.setGetFileDetails(getFileDetails);
+        if (checkPackageMaps != null) request.setCheckPackageMaps(checkPackageMaps);
+        if (getFileDetails != null) request.setGetFileDetails(getFileDetails);
 
         DFUXRefUnusedFilesResponse resp = null;
 
@@ -329,6 +327,7 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 
         return new DFUXRefUnusedFilesResponseWrapper(resp);
     }
+
     /**
      * <p>orphanedFiles.</p>
      *
@@ -418,8 +417,7 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
             throw new Exception("HPCCWsDFUXRefClient.directories(" + cluster + ") encountered RemoteException.", e);
         }
 
-
-        return  new ArrayOfXRefDirectoryWrapper(resp.getDFUXRefDirectoriesQueryResult());
+        return new ArrayOfXRefDirectoryWrapper(resp.getDFUXRefDirectoriesQueryResult());
     }
 
     /**
@@ -433,7 +431,8 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
      * @return a {@link java.lang.String} object.
      */
     @WithSpan
-    public String action(@SpanAttribute String cluster,@SpanAttribute  String action,@SpanAttribute  String type, EspStringArray xrefFilesArray) throws Exception
+    public String action(@SpanAttribute String cluster, @SpanAttribute String action, @SpanAttribute String type, EspStringArray xrefFilesArray)
+            throws Exception
     {
         if (isTargetHPCCContainerized())
             throw new HpccContainerizedUnsupportedException("HPCCWsDFUXRefClient.action not supported in CONTAINERIZED mode");
@@ -551,11 +550,12 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
         }
         catch (RemoteException e)
         {
-            throw new Exception("HPCCWsDFUXRefClient.build(" + cluster +")encountered RemoteException.", e);
+            throw new Exception("HPCCWsDFUXRefClient.build(" + cluster + ")encountered RemoteException.", e);
         }
 
         return resp.getDFUXRefActionResult();
     }
+
     /**
      * <p>foundFiles.</p>
      *
@@ -582,7 +582,7 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
         }
         catch (RemoteException e)
         {
-            throw new Exception("HPCCWsDFUXRefClient.foundFiles(" + cluster +")encountered RemoteException.", e);
+            throw new Exception("HPCCWsDFUXRefClient.foundFiles(" + cluster + ")encountered RemoteException.", e);
         }
 
         return new ArrayOfXRefFileWrapper(resp.getDFUXRefFoundFilesQueryResult());
@@ -614,7 +614,7 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
         }
         catch (RemoteException e)
         {
-            throw new Exception("HPCCWsDFUXRefClient.messages(" + cluster +") encountered RemoteException.", e);
+            throw new Exception("HPCCWsDFUXRefClient.messages(" + cluster + ") encountered RemoteException.", e);
         }
 
         return new ArrayOfXRefMessageWrapper(resp.getDFUXRefMessagesQueryResult());

@@ -29,16 +29,16 @@ import java.util.ArrayList;
  */
 public class HpccRandomAccessFileReader<T> implements Iterator<T>
 {
-    private static final Logger   log               = LogManager.getLogger(HpccRandomAccessFileReader.class);
+    private static final Logger   log                    = LogManager.getLogger(HpccRandomAccessFileReader.class);
 
-    private FieldDef              originalRecordDef = null;
-    private DataPartition         dataPartition     = null;
-    private RowServiceInputStream inputStream       = null;
+    private FieldDef              originalRecordDef      = null;
+    private DataPartition         dataPartition          = null;
+    private RowServiceInputStream inputStream            = null;
     private BinaryRecordReader    binaryRecordReader;
-    private IRecordBuilder        recordBuilder     = null;
+    private IRecordBuilder        recordBuilder          = null;
     private ArrayList<Long>       requestedRecordOffsets = new ArrayList<Long>();
-    private ArrayList<Long>       queuedRecordOffsets = new ArrayList<Long>();
-    private Thread                fetchRequestThread = null;
+    private ArrayList<Long>       queuedRecordOffsets    = new ArrayList<Long>();
+    private Thread                fetchRequestThread     = null;
 
     /**
      * A random access file reader that reads the part identified by the HpccPart object using the record definition provided.
@@ -75,11 +75,11 @@ public class HpccRandomAccessFileReader<T> implements Iterator<T>
         {
             throw new Exception("IRecordBuilder does not have a valid record definition.");
         }
-        
+
         boolean isFetching = true;
         boolean createPrefetchThread = false;
-        this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, 
-                                                    -1, createPrefetchThread, -1, null, isFetching);
+        this.inputStream = new RowServiceInputStream(this.dataPartition, this.originalRecordDef, projectedRecordDefinition, connectTimeout, -1,
+                createPrefetchThread, -1, null, isFetching);
         this.binaryRecordReader = new BinaryRecordReader(this.inputStream);
         this.binaryRecordReader.initialize(this.recordBuilder);
 
@@ -102,8 +102,7 @@ public class HpccRandomAccessFileReader<T> implements Iterator<T>
     public int getRemoteReadMessageCount()
     {
         int count = 0;
-        if (binaryRecordReader != null)
-            count = binaryRecordReader.getStreamMessageCount();
+        if (binaryRecordReader != null) count = binaryRecordReader.getStreamMessageCount();
 
         return count;
     }
@@ -111,8 +110,7 @@ public class HpccRandomAccessFileReader<T> implements Iterator<T>
     public String getRemoteReadMessages()
     {
         String report = "";
-        if (binaryRecordReader != null)
-            report = binaryRecordReader.getStreamMessages();
+        if (binaryRecordReader != null) report = binaryRecordReader.getStreamMessages();
 
         return report;
     }
@@ -155,16 +153,16 @@ public class HpccRandomAccessFileReader<T> implements Iterator<T>
             requestedRecordOffsets.addAll(queuedRecordOffsets);
             queuedRecordOffsets.clear();
 
-            Runnable fetchRequestTask = new Runnable()
-            {
+            Runnable fetchRequestTask = new Runnable() {
                 RowServiceInputStream inputStream = HpccRandomAccessFileReader.this.inputStream;
+
                 public void run()
                 {
                     try
                     {
                         inputStream.startBlockingFetchRequest(requestedRecordOffsets);
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         String errorMessage = "Error while performing block fetch request: " + e.getMessage();
                         log.error(errorMessage);

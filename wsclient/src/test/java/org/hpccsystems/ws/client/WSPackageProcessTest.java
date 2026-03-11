@@ -42,12 +42,12 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WSPackageProcessTest extends BaseRemoteTest
 {
-    HPCCWsPackageProcessClient client = wsclient.getWsPackageProcessClient();
-    private static String targetRoxieName = System.getProperty("roxiename");
-    private static String validPackageID = null;
+    HPCCWsPackageProcessClient client            = wsclient.getWsPackageProcessClient();
+    private static String      targetRoxieName   = System.getProperty("roxiename");
+    private static String      validPackageID    = null;
 
     public static final String PackageMapContent = "<SuperFile id=\"~mypackagemap::supertest\"><SubFile value=\"~mypackagemap::subtest\"/></SuperFile>";
-    public static final String StaticPMName = "hpcc4jPMtest";
+    public static final String StaticPMName      = "hpcc4jPMtest";
 
     @BeforeClass
     static public void setup() throws Exception
@@ -90,21 +90,20 @@ public class WSPackageProcessTest extends BaseRemoteTest
     public void BBB1_listPackageTest() throws Exception
     {
         List<PackageListMapDataWrapper> packages = client.listPackages("*", targetRoxieName, null);
-        if(packages!=null)
+        if (packages != null)
         {
-            for(PackageListMapDataWrapper pkg : packages)
+            for (PackageListMapDataWrapper pkg : packages)
             {
                 assertTrue(pkg.getId() != null && !pkg.getId().isEmpty());
 
                 String pkgByID = client.getPackageMapById(pkg.getId());
                 assertTrue(pkgByID != null && !pkgByID.isEmpty());
 
-                if (validPackageID == null)
-                    validPackageID = pkg.getId();
+                if (validPackageID == null) validPackageID = pkg.getId();
 
-                System.out.println ("Found package: " + pkg.getId());
+                System.out.println("Found package: " + pkg.getId());
 
-                if(!pkgByID.contains("<PackageMaps id=\""+pkg.getId()+"\""))
+                if (!pkgByID.contains("<PackageMaps id=\"" + pkg.getId() + "\""))
                 {
                     fail("Failed to retrieve package map by id : " + pkg.getId());
                 }
@@ -137,7 +136,7 @@ public class WSPackageProcessTest extends BaseRemoteTest
         System.out.println("Status message: " + addpackageresp.getStatus().getDescription());
         Assert.assertEquals(0, addpackageresp.getStatus().getCode());
 
-        String [] missingfiles = addpackageresp.getFilesNotFound().getFile();
+        String[] missingfiles = addpackageresp.getFilesNotFound().getFile();
 
         if (missingfiles != null && missingfiles.length != 0)
         {
@@ -158,7 +157,7 @@ public class WSPackageProcessTest extends BaseRemoteTest
         System.out.println("WsPackageProcess junittest: addPackageTestWrapper(" + StaticPMName + ") ...");
         AddPackageRequestWrapper myaddpackagereq = new AddPackageRequestWrapper();
 
-        myaddpackagereq.setPackageMap(StaticPMName+"Wrapper");
+        myaddpackagereq.setPackageMap(StaticPMName + "Wrapper");
         myaddpackagereq.setActivate(false);
         myaddpackagereq.setInfo(PackageMapContent);
         myaddpackagereq.setTarget("*");
@@ -178,7 +177,7 @@ public class WSPackageProcessTest extends BaseRemoteTest
         System.out.println("Status message: " + addpackageresp.getStatus().getDescription());
         Assert.assertEquals(0, addpackageresp.getStatus().getCode());
 
-        String [] missingfiles = addpackageresp.getFilesNotFound().getFile();
+        String[] missingfiles = addpackageresp.getFilesNotFound().getFile();
 
         if (missingfiles != null && missingfiles.length != 0)
         {
@@ -209,7 +208,7 @@ public class WSPackageProcessTest extends BaseRemoteTest
         System.out.println("WsPackageProcess junittest: deletePackageTestWrapper(" + StaticPMName + ")...");
         DeletePackageRequestWrapper mydelpackagereq = new DeletePackageRequestWrapper();
         //caller sets appropriate values
-        mydelpackagereq.setPackageMap(StaticPMName+"wrapper");
+        mydelpackagereq.setPackageMap(StaticPMName + "wrapper");
         mydelpackagereq.setTarget("*");
         mydelpackagereq.setProcess("*");
 

@@ -45,7 +45,7 @@ public class DFUFileAccessInfoWrapper
     private String[]             allFilePartCopyHosts;
     private DFUFileTypeWrapper   fileType           = null;                                                // from 1_51 on
 
-    private static final Logger log = LogManager.getLogger(DFUFileAccessInfoWrapper.class);
+    private static final Logger  log                = LogManager.getLogger(DFUFileAccessInfoWrapper.class);
 
     public DFUFileAccessInfoWrapper(DFUFileAccessInfo accessInfo, DFUFileType filetype) throws Exception
     {
@@ -77,8 +77,7 @@ public class DFUFileAccessInfoWrapper
                 for (int i = 0; i < dfufileLocations.length; i++)
                 {
                     String host = dfufileLocations[i].getHost();
-                    if (host.trim().isEmpty())
-                        throw new Exception("Error: DFUPartLocation contains empty 'host'");
+                    if (host.trim().isEmpty()) throw new Exception("Error: DFUPartLocation contains empty 'host'");
                     allFilePartCopyHosts[i] = host;
                 }
             }

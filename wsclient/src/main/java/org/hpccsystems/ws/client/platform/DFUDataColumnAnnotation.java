@@ -5,7 +5,7 @@ import java.util.List;
 
 public class DFUDataColumnAnnotation
 {
-    private final String name;
+    private final String       name;
     private final List<String> parameters;
 
     /**
@@ -47,9 +47,9 @@ public class DFUDataColumnAnnotation
      */
     public String toString()
     {
-    	StringBuffer sb=new StringBuffer();
-    	sb.append("name:").append(String.valueOf(name));
-    	sb.append(" parameters:").append(Arrays.toString(parameters.toArray()));
-    	return sb.toString();
+        StringBuffer sb = new StringBuffer();
+        sb.append("name:").append(String.valueOf(name));
+        sb.append(" parameters:").append(Arrays.toString(parameters.toArray()));
+        return sb.toString();
     }
 }

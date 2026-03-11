@@ -218,8 +218,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
             }
         }
 
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
+        if (!initErrMessage.isEmpty()) log.error(initErrMessage);
     }
 
     /**
@@ -474,8 +473,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
                 if (resp != null)
                 {
                     version = new Version(resp.getFullVersion());
-                    if (version != null && version.getMajor() != 0)
-                        success = true;
+                    if (version != null && version.getMajor() != 0) success = true;
                 }
             }
             catch (Exception e)
@@ -506,9 +504,9 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
     public String executeSQLWUIDResponse(String sqlText, String targetCluster, String targetQuerySet)
             throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
-        return executeSQLWUResponse(
-                sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, null /* resultWindowCount */, null /* resultWindowStart */,
-                true /* suppressResults */, true /* Boolean suppressXmlSchema */, null /* String userName */, null /* Integer wait */).getWuid();
+        return executeSQLWUResponse(sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, null /* resultWindowCount */,
+                null /* resultWindowStart */, true /* suppressResults */, true /* Boolean suppressXmlSchema */, null /* String userName */,
+                null /* Integer wait */).getWuid();
     }
 
     /**
@@ -543,9 +541,9 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      *             the array of ECL exception wrapper
      */
     @WithSpan
-    public ExecuteSQLResponseWrapper executeSQLFullResponse(String sqlText,@SpanAttribute String targetCluster,@SpanAttribute String targetQuerySet, Integer resultLimit,
-            Integer resultWindowCount, Integer resultWindowStart, Boolean suppressResults, Boolean suppressXmlSchema, String userName, Integer wait)
-            throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public ExecuteSQLResponseWrapper executeSQLFullResponse(String sqlText, @SpanAttribute String targetCluster, @SpanAttribute String targetQuerySet,
+            Integer resultLimit, Integer resultWindowCount, Integer resultWindowStart, Boolean suppressResults, Boolean suppressXmlSchema,
+            String userName, Integer wait) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         verifyStub();
 
@@ -631,9 +629,9 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
             Integer resultWindowCount, Integer resultWindowStart, Boolean suppressResults, Boolean suppressXmlSchema, String userName, Integer wait)
             throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
-        return executeSQLFullResponse(
-                sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, resultWindowCount /* resultWindowCount */, resultWindowStart /* resultWindowStart */,
-                suppressResults /* suppressResults */, suppressXmlSchema /* Boolean suppressXmlSchema */, userName /* String userName */, wait /* Integer wait */).getWorkunit();
+        return executeSQLFullResponse(sqlText, targetCluster, targetQuerySet, DEFAULT_RESULT_LIMIT, resultWindowCount /* resultWindowCount */,
+                resultWindowStart /* resultWindowStart */, suppressResults /* suppressResults */, suppressXmlSchema /* Boolean suppressXmlSchema */,
+                userName /* String userName */, wait /* Integer wait */).getWorkunit();
     }
 
     /**
@@ -679,8 +677,8 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      *             the array of ECL exception wrapper
      */
     @WithSpan
-    public GetResultsResponseWrapper getResultResponse(@SpanAttribute String wuid, Integer resultWindowStart, Integer resultWindowCount, Boolean suppressXmlSchema)
-            throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public GetResultsResponseWrapper getResultResponse(@SpanAttribute String wuid, Integer resultWindowStart, Integer resultWindowCount,
+            Boolean suppressXmlSchema) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         verifyStub();
 
@@ -845,7 +843,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
-    public ECLWorkunitWrapper executePreparedSQL(String wuid, String targetCluster, NamedValueWrapper [] variables, Integer wait, Integer resultLimit,
+    public ECLWorkunitWrapper executePreparedSQL(String wuid, String targetCluster, NamedValueWrapper[] variables, Integer wait, Integer resultLimit,
             String userName) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         return executePreparedSQL(wuid, targetCluster, variables, wait, resultLimit, null, null, userName, true, true).getWorkunit();
@@ -876,7 +874,7 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfECLExceptionWrapper
      *             the array of ECL exception wrapper
      */
-    public List<List<Object>> executePreparedSQL(String wuid, String targetCluster, NamedValueWrapper [] variables, Integer wait, Integer resultLimit,
+    public List<List<Object>> executePreparedSQL(String wuid, String targetCluster, NamedValueWrapper[] variables, Integer wait, Integer resultLimit,
             String userName, String somesing) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         ExecutePreparedSQLResponseWrapper executePreparedSQL = executePreparedSQL(wuid, targetCluster, variables, wait, resultLimit, null, null,
@@ -917,9 +915,9 @@ public class HPCCWsSQLClient extends BaseHPCCWsClient
      *             the array of ECL exception wrapper
      */
     @WithSpan
-    public ExecutePreparedSQLResponseWrapper executePreparedSQL(@SpanAttribute String wuid, @SpanAttribute String targetCluster, NamedValueWrapper [] variables, Integer wait,
-            Integer resultLimit, Integer resultWindowStart, Integer resultWindowCount, String userName, Boolean suppressXmlSchema,
-            Boolean suppressResults) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
+    public ExecutePreparedSQLResponseWrapper executePreparedSQL(@SpanAttribute String wuid, @SpanAttribute String targetCluster,
+            NamedValueWrapper[] variables, Integer wait, Integer resultLimit, Integer resultWindowStart, Integer resultWindowCount, String userName,
+            Boolean suppressXmlSchema, Boolean suppressResults) throws Exception, ArrayOfEspExceptionWrapper, ArrayOfECLExceptionWrapper
     {
         verifyStub();
 

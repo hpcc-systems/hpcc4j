@@ -129,67 +129,66 @@ class CountingInputStream extends InputStream
  */
 public class BinaryRecordReader implements IRecordReader
 {
-    protected IRecordBuilder     rootRecordBuilder;
-    private CountingInputStream  inputStream;
-    private FieldDef             rootRecordDefinition;
-    protected boolean            defaultLE;
-    private long                 streamPosAfterLastRecord = 0;
-    private boolean              isIndex = false;
-    private boolean              useDecimalForUnsigned8 = false;
+    protected IRecordBuilder        rootRecordBuilder;
+    private CountingInputStream     inputStream;
+    private FieldDef                rootRecordDefinition;
+    protected boolean               defaultLE;
+    private long                    streamPosAfterLastRecord      = 0;
+    private boolean                 isIndex                       = false;
+    private boolean                 useDecimalForUnsigned8        = false;
 
-    public static final int      NO_STRING_PROCESSING = 0;
-    public static final int      TRIM_STRINGS = 1;
-    public static final int      TRIM_FIXED_LEN_STRINGS = 2;
-    public static final int      CONVERT_EMPTY_STRINGS_TO_NULL = 4;
+    public static final int         NO_STRING_PROCESSING          = 0;
+    public static final int         TRIM_STRINGS                  = 1;
+    public static final int         TRIM_FIXED_LEN_STRINGS        = 2;
+    public static final int         CONVERT_EMPTY_STRINGS_TO_NULL = 4;
 
     // Defaulting to 100MB to match read stream span size of 100MB
-    public static final int      RECORD_BATCH_SIZE_IN_BYTES = 100 * 1000 * 1000;
+    public static final int         RECORD_BATCH_SIZE_IN_BYTES    = 100 * 1000 * 1000;
 
-    private boolean              shouldTrimFixedLenStrings = false;
-    private boolean              shouldTrimStrings = false;
-    private boolean              convertEmptyStringsToNull = false;
+    private boolean                 shouldTrimFixedLenStrings     = false;
+    private boolean                 shouldTrimStrings             = false;
+    private boolean                 convertEmptyStringsToNull     = false;
 
-    private Span                 recordBuilderSpan = null;
-    private Span                 recordBatchSpan = null;
+    private Span                    recordBuilderSpan             = null;
+    private Span                    recordBatchSpan               = null;
 
-    private long                 recordDeserialTimeNS = 0;
-    private long                 lastRecordTimeNS = 0;
-    private long                 externalProcessingTimeNS = 0;
-    private long                 recordBatchStart = 0;
-    private long                 recordBatchStreamPos = 0;
-    private long                 recordBatchSize = RECORD_BATCH_SIZE_IN_BYTES;
+    private long                    recordDeserialTimeNS          = 0;
+    private long                    lastRecordTimeNS              = 0;
+    private long                    externalProcessingTimeNS      = 0;
+    private long                    recordBatchStart              = 0;
+    private long                    recordBatchStreamPos          = 0;
+    private long                    recordBatchSize               = RECORD_BATCH_SIZE_IN_BYTES;
 
-    private int                  readStalls = 0;
-    private long                 recordCount = 0;
+    private int                     readStalls                    = 0;
+    private long                    recordCount                   = 0;
 
-    private byte[]               scratchBuffer = new byte[BUFFER_GROW_SIZE];
+    private byte[]                  scratchBuffer                 = new byte[BUFFER_GROW_SIZE];
 
-    private static final Charset sbcSet              = Charset.forName("ISO-8859-1");
-    private static final Charset utf8Set             = Charset.forName("UTF-8");
-    private static final Charset utf16beSet          = Charset.forName("UTF-16BE");
-    private static final Charset utf16leSet          = Charset.forName("UTF-16LE");
-    private static final Logger  log                 = LogManager.getLogger(BinaryRecordReader.class);
-
+    private static final Charset    sbcSet                        = Charset.forName("ISO-8859-1");
+    private static final Charset    utf8Set                       = Charset.forName("UTF-8");
+    private static final Charset    utf16beSet                    = Charset.forName("UTF-16BE");
+    private static final Charset    utf16leSet                    = Charset.forName("UTF-16LE");
+    private static final Logger     log                           = LogManager.getLogger(BinaryRecordReader.class);
 
     // Used when reading decimal values
-    private static final long[]  powTable            = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000L,
-                                                         100000000000L, 1000000000000L, 10000000000000L, 100000000000000L, 1000000000000000L };
-    private static final int[]   signMap             = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, +1, -1, +1, -1, +1, +1 };
+    private static final long[]     powTable                      = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000,
+            10000000000L, 100000000000L, 1000000000000L, 10000000000000L, 100000000000000L, 1000000000000000L };
+    private static final int[]      signMap                       = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, +1, -1, +1, -1, +1, +1 };
 
-    private static final int     SLEEP_TIME_WARN_MS  = 100;
-    private static final int     SHORT_SLEEP_MS      = 1;
-    private static final int     MASK_32_LOWER_HALF  = 0xffff;
-    private static final int     BUFFER_GROW_SIZE    = 8192;
-    private static final int     OPTIMIZED_STRING_READ_AHEAD = 32;
+    private static final int        SLEEP_TIME_WARN_MS            = 100;
+    private static final int        SHORT_SLEEP_MS                = 1;
+    private static final int        MASK_32_LOWER_HALF            = 0xffff;
+    private static final int        BUFFER_GROW_SIZE              = 8192;
+    private static final int        OPTIMIZED_STRING_READ_AHEAD   = 32;
 
     // Max java UTF16 string length
-    private static final int     MAX_STRING_LENGTH = 1073741823;
+    private static final int        MAX_STRING_LENGTH             = 1073741823;
 
     // DO NOT CHANGE THESE VALUES. HERE FOR CODE READABILITY ONLY
-    private static final int     QSTR_COMPRESSED_CHUNK_LEN = 3;
-    private static final int     QSTR_EXPANDED_CHUNK_LEN   = 4;
+    private static final int        QSTR_COMPRESSED_CHUNK_LEN     = 3;
+    private static final int        QSTR_EXPANDED_CHUNK_LEN       = 4;
 
-    private StreamOperationMessages  messages = new StreamOperationMessages();
+    private StreamOperationMessages messages                      = new StreamOperationMessages();
 
     public String getStreamMessages()
     {
@@ -208,7 +207,7 @@ public class BinaryRecordReader implements IRecordReader
 
     public BinaryRecordReader(InputStream is) throws Exception
     {
-        this(is,0);
+        this(is, 0);
     }
 
     /**
@@ -284,7 +283,7 @@ public class BinaryRecordReader implements IRecordReader
         this.recordBatchSpan.setAttribute("DeserializationTime", (this.recordDeserialTimeNS));
         this.recordBatchSpan.setAttribute("ExternalProcessingTime", (this.externalProcessingTimeNS));
         this.recordBatchSpan.setAttribute("NumReadStalls", this.readStalls);
-        this.recordBatchSpan.updateName( "RecordBatch[" + this.recordBatchStart + "," + this.recordCount + "]");
+        this.recordBatchSpan.updateName("RecordBatch[" + this.recordBatchStart + "," + this.recordCount + "]");
         this.recordBatchSpan.end();
     }
 
@@ -390,7 +389,8 @@ public class BinaryRecordReader implements IRecordReader
     {
         if (this.rootRecordBuilder == null)
         {
-            throw new HpccFileException("BinaryRecordReader.hasNext(): RecordReader must be initialized before being used. rootRecordBuilder is null, hasNext() failed.");
+            throw new HpccFileException(
+                    "BinaryRecordReader.hasNext(): RecordReader must be initialized before being used. rootRecordBuilder is null, hasNext() failed.");
         }
 
         int nextByte = -1;
@@ -419,7 +419,7 @@ public class BinaryRecordReader implements IRecordReader
         }
         catch (IOException e)
         {
-            throw new HpccFileException("BinaryRecordReader.hasNext(): failed to peek at the next byte in the input stream:" + e.getMessage(),e);
+            throw new HpccFileException("BinaryRecordReader.hasNext(): failed to peek at the next byte in the input stream:" + e.getMessage(), e);
         }
 
         boolean hasNextRecord = nextByte >= 0;
@@ -447,7 +447,8 @@ public class BinaryRecordReader implements IRecordReader
 
         if (this.rootRecordBuilder == null)
         {
-            throw new HpccFileException("BinaryRecordReader.getNext(): RecordReader must be initialized before being used, rootRecordBuilder is null.");
+            throw new HpccFileException(
+                    "BinaryRecordReader.getNext(): RecordReader must be initialized before being used, rootRecordBuilder is null.");
         }
 
         if (!this.hasNext()) throw new NoSuchElementException("No next record!");
@@ -459,7 +460,8 @@ public class BinaryRecordReader implements IRecordReader
 
             if (record == null)
             {
-                throw new HpccFileException("BinaryRecordReader.getNext(): RecordContent not found, or invalid record structure. Check logs for more information.");
+                throw new HpccFileException(
+                        "BinaryRecordReader.getNext(): RecordContent not found, or invalid record structure. Check logs for more information.");
             }
 
         }
@@ -467,7 +469,7 @@ public class BinaryRecordReader implements IRecordReader
         {
             throw new HpccFileException("BinaryRecordReader.getNext(): Failed to parse next record: " + e.getMessage(), e);
         }
-            
+
         this.streamPosAfterLastRecord = this.inputStream.getStreamPosition();
 
         if (this.recordBuilderSpan != null)
@@ -520,7 +522,8 @@ public class BinaryRecordReader implements IRecordReader
 
         if (fd.isFixed() && fd.getDataLen() > Integer.MAX_VALUE)
         {
-            throw new UnparsableContentException("BinaryRecordReader.parseFlatField(): Data length: " + fd.getDataLen() + " exceeds max supported length: " + Integer.MAX_VALUE);
+            throw new UnparsableContentException(
+                    "BinaryRecordReader.parseFlatField(): Data length: " + fd.getDataLen() + " exceeds max supported length: " + Integer.MAX_VALUE);
         }
 
         // Embedded field lengths are little endian
@@ -544,8 +547,8 @@ public class BinaryRecordReader implements IRecordReader
                         if (intValue < 0)
                         {
                             messages.addMessage("Warning: Possible unsigned overflow in column: '" + fd.getFieldName()
-                                            + "'. Convert values to BigInteger via org.hpccsystems.commons.utils.extractUnsigned8 if necessary, "
-                                            + " or call BinaryRecordReader.setUseDecimalForUnsigned8() before reading to convert unsigned8 values to BigDecimal values.");
+                                    + "'. Convert values to BigInteger via org.hpccsystems.commons.utils.extractUnsigned8 if necessary, "
+                                    + " or call BinaryRecordReader.setUseDecimalForUnsigned8() before reading to convert unsigned8 values to BigDecimal values.");
                         }
                     }
                 }
@@ -592,7 +595,7 @@ public class BinaryRecordReader implements IRecordReader
                 int bytesConsumed = 0;
                 while (bytesConsumed < dataLen)
                 {
-                    int bytesRead = this.inputStream.read(bytes,bytesConsumed,dataLen-bytesConsumed);
+                    int bytesRead = this.inputStream.read(bytes, bytesConsumed, dataLen - bytesConsumed);
                     if (bytesRead < 0)
                     {
                         IOException e = new IOException("Error, Unexpected EOS while constructing binary value.");
@@ -746,7 +749,8 @@ public class BinaryRecordReader implements IRecordReader
                 }
                 catch (IllegalAccessException e)
                 {
-                    throw new UnparsableContentException("Unable to set field value for field: " + fd.getFieldName() + " with error: " + e.getMessage());
+                    throw new UnparsableContentException(
+                            "Unable to set field value for field: " + fd.getFieldName() + " with error: " + e.getMessage());
                 }
             }
 
@@ -766,7 +770,7 @@ public class BinaryRecordReader implements IRecordReader
                     {
                         fieldValue = parseFlatField(fd, isLittleEndian);
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         throw new IOException("Error while parsing field: " + fd.getFieldName() + " of type: " + fd.getFieldType() + ": ", e);
                     }
@@ -820,9 +824,10 @@ public class BinaryRecordReader implements IRecordReader
                                 {
                                     ws.add(parseFlatField(childFd, isLittleEndian));
                                 }
-                                catch(Exception e)
+                                catch (Exception e)
                                 {
-                                    throw new IOException("Error while parsing field: " + fd.getFieldName() + " of type: " + fd.getFieldType() + ": ", e);
+                                    throw new IOException("Error while parsing field: " + fd.getFieldName() + " of type: " + fd.getFieldType() + ": ",
+                                            e);
                                 }
                             }
                             break;
@@ -893,10 +898,11 @@ public class BinaryRecordReader implements IRecordReader
         int bytesConsumed = 0;
         while (bytesConsumed < dataLen)
         {
-            int bytesRead = this.inputStream.read(this.scratchBuffer, position, dataLen-bytesConsumed);
+            int bytesRead = this.inputStream.read(this.scratchBuffer, position, dataLen - bytesConsumed);
             if (bytesRead < 0)
             {
-                IOException e = new IOException("Unexpected end of stream: dataLen: " + dataLen + " bytesConsumed: " + bytesConsumed + " streamPos: " + this.inputStream.streamPos);
+                IOException e = new IOException("Unexpected end of stream: dataLen: " + dataLen + " bytesConsumed: " + bytesConsumed + " streamPos: "
+                        + this.inputStream.streamPos);
                 e.printStackTrace();
                 throw e;
             }
@@ -908,7 +914,8 @@ public class BinaryRecordReader implements IRecordReader
                     Thread.sleep(SHORT_SLEEP_MS);
                     totalSleepTimeMS += SHORT_SLEEP_MS;
                 }
-                catch (InterruptedException e) {}
+                catch (InterruptedException e)
+                {}
             }
 
             position += bytesRead;
@@ -1165,7 +1172,7 @@ public class BinaryRecordReader implements IRecordReader
             {
                 // Need to create a 16bit codepoint from two signed bytes. Mask with 0xFF to get unsigned values,
                 // shift upper byte by 8 and OR with lower byte to get the expected 16bit codepoint
-                int codePoint = (this.scratchBuffer[range[0]] & 0xFF) | ((this.scratchBuffer[range[0]+1] & 0xFF) << 8);
+                int codePoint = (this.scratchBuffer[range[0]] & 0xFF) | ((this.scratchBuffer[range[0] + 1] & 0xFF) << 8);
                 if (!Character.isWhitespace(codePoint))
                 {
                     break;
@@ -1178,7 +1185,7 @@ public class BinaryRecordReader implements IRecordReader
             {
                 // Need to create a 16bit codepoint from two signed bytes. Mask with 0xFF to get unsigned values,
                 // shift upper byte by 8 and OR with lower byte to get the expected 16bit codepoint
-                int codePoint = (this.scratchBuffer[range[1]-2] & 0xFF) | ((this.scratchBuffer[range[1]-1] & 0xFF) << 8);
+                int codePoint = (this.scratchBuffer[range[1] - 2] & 0xFF) | ((this.scratchBuffer[range[1] - 1] & 0xFF) << 8);
 
                 // Need to check against EOS (0x0) in trim fixed len strings correctly
                 if (!Character.isWhitespace(codePoint) && codePoint != 0x0)
@@ -1205,7 +1212,7 @@ public class BinaryRecordReader implements IRecordReader
             while (range[1] > range[0])
             {
                 // Need to check against EOS (0x0) in trim fixed len strings correctly
-                int codePoint = (this.scratchBuffer[range[1]-1] & 0xFF);
+                int codePoint = (this.scratchBuffer[range[1] - 1] & 0xFF);
                 if (!Character.isWhitespace(codePoint) && codePoint != 0x0)
                 {
                     break;
@@ -1253,13 +1260,14 @@ public class BinaryRecordReader implements IRecordReader
             {
                 readSize = this.inputStream.available();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new IOException("Error, unexpected EOS while constructing UTF16 string.");
             }
 
             // Always read an even number of bytes for UTF16
-            if (stype.isUTF16()) {
+            if (stype.isUTF16())
+            {
                 readSize = ((readSize + 1) / 2) * 2;
             }
 
@@ -1280,7 +1288,7 @@ public class BinaryRecordReader implements IRecordReader
             // time makes null check easier. Do not have to check for alignment etc
             if (stype.isUTF16())
             {
-                for (int j = 0; j < readSize-1; j += 2)
+                for (int j = 0; j < readSize - 1; j += 2)
                 {
                     if (scratchBuffer[strByteLen + j] == '\0' && scratchBuffer[strByteLen + j + 1] == '\0')
                     {
@@ -1326,7 +1334,7 @@ public class BinaryRecordReader implements IRecordReader
             }
         }
 
-        int[] strRange = {0, strByteLen};
+        int[] strRange = { 0, strByteLen };
         if (shouldTrim)
         {
             boolean isUnicode = (stype == HpccSrcType.UTF16BE || stype == HpccSrcType.UTF16LE);
@@ -1339,7 +1347,7 @@ public class BinaryRecordReader implements IRecordReader
             return null;
         }
 
-        return new String(scratchBuffer,strRange[0],strByteLen,charset);
+        return new String(scratchBuffer, strRange[0], strByteLen, charset);
     }
 
     /**
@@ -1394,7 +1402,7 @@ public class BinaryRecordReader implements IRecordReader
                     // Remaining code points isn't equal to the number of bytes, but it is conservative
                     // so we won't go try and read past the end of the string
                     int bytesToRead = remainingCodePoints;
-                    readIntoScratchBuffer(strByteLen,bytesToRead);
+                    readIntoScratchBuffer(strByteLen, bytesToRead);
 
                     // loop over bytes read and count codepoints.
                     int bytesScanned = 0;
@@ -1443,7 +1451,7 @@ public class BinaryRecordReader implements IRecordReader
 
                 // We are multiplying expandedLen by the QSTR compression ratio. We are doing this in integers
                 // so we need to handle rounding up correctly by adding divisor-1 or (QSTR_EXPANDED_CHUNK_LEN-1) in this case
-                int compressedLen = expandedLen * QSTR_COMPRESSED_CHUNK_LEN + (QSTR_EXPANDED_CHUNK_LEN-1);
+                int compressedLen = expandedLen * QSTR_COMPRESSED_CHUNK_LEN + (QSTR_EXPANDED_CHUNK_LEN - 1);
                 compressedLen /= QSTR_EXPANDED_CHUNK_LEN;
 
                 ensureScratchBufferCapacity(expandedLen + compressedLen);
@@ -1493,20 +1501,20 @@ public class BinaryRecordReader implements IRecordReader
                     {
                         int b1 = this.scratchBuffer[readPos + 1] & 0xff;
                         int b2 = this.scratchBuffer[readPos + 2] & 0xff;
-                        scratchBuffer[strByteLen + writePos+2] = (byte) (' ' + ((b1 & 0xf) << 2 | (b2 >> 6)));
+                        scratchBuffer[strByteLen + writePos + 2] = (byte) (' ' + ((b1 & 0xf) << 2 | (b2 >> 6)));
                         // fallthrough
                     }
                     case 2:
                     {
                         int b0 = this.scratchBuffer[readPos] & 0xff;
                         int b1 = this.scratchBuffer[readPos + 1] & 0xff;
-                        scratchBuffer[strByteLen + writePos+1] = (byte) (' ' + ((b0 & 0x3) << 4 | (b1 >> 4)));
+                        scratchBuffer[strByteLen + writePos + 1] = (byte) (' ' + ((b0 & 0x3) << 4 | (b1 >> 4)));
                         // fallthrough
                     }
                     case 1:
                     {
                         int b0 = this.scratchBuffer[readPos] & 0xff;
-                        scratchBuffer[strByteLen + writePos+0] = (byte) (' ' + (b0 >> 2));
+                        scratchBuffer[strByteLen + writePos + 0] = (byte) (' ' + (b0 >> 2));
                         break;
                     }
                     case 0:
@@ -1521,7 +1529,7 @@ public class BinaryRecordReader implements IRecordReader
                 throw new IOException("Unknown source type");
         }
 
-        int[] strRange = {0, strByteLen};
+        int[] strRange = { 0, strByteLen };
         if (shouldTrim)
         {
             boolean isUnicode = (styp == HpccSrcType.UTF16BE || styp == HpccSrcType.UTF16LE);
@@ -1534,7 +1542,7 @@ public class BinaryRecordReader implements IRecordReader
             return null;
         }
 
-        return new String(scratchBuffer,strRange[0],strByteLen,charset);
+        return new String(scratchBuffer, strRange[0], strByteLen, charset);
     }
 
     /**

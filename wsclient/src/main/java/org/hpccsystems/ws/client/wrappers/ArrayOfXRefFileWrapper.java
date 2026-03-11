@@ -12,8 +12,8 @@ import org.w3c.dom.NodeList;
 
 public class ArrayOfXRefFileWrapper
 {
-    private final static String FILE_TAG = "File";
-    private List<XRefFileWrapper> files = null;
+    private final static String   FILE_TAG = "File";
+    private List<XRefFileWrapper> files    = null;
 
     public ArrayOfXRefFileWrapper(String wsdfuxrefresp)
     {

@@ -33,8 +33,7 @@ import org.apache.spark.sql.types.StructType;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class DataframeIntegrationTest extends BaseIntegrationTest
-{
+public class DataframeIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void integerKeyValueWriteReadTest()
@@ -43,13 +42,14 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
 
         // Create the schema
         StructType schema = DataTypes.createStructType(new StructField[] {
-            DataTypes.createStructField("key", DataTypes.LongType, false),
-            DataTypes.createStructField("value", DataTypes.LongType, false)
+                DataTypes.createStructField("key", DataTypes.LongType, false),
+                DataTypes.createStructField("value", DataTypes.LongType, false)
         });
 
         // Write dataset to HPCC
         List<Row> rows = new ArrayList<Row>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++)
+        {
             Object[] fields = new Object[2];
             fields[0] = Long.valueOf(i);
             fields[1] = Long.valueOf(i);
@@ -60,22 +60,22 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
 
         String datasetPath = "spark::test::integer_kv";
         writtenDataSet.write()
-                      .format("hpcc")
-                      .mode("overwrite")
-                      .option("cluster", getThorCluster())
-                      .option("host", getHPCCClusterURL())
-                      .option("username", getHPCCClusterUser())
-                      .option("password", getHPCCClusterPass())
-                      .save(datasetPath);
+                .format("hpcc")
+                .mode("overwrite")
+                .option("cluster", getThorCluster())
+                .option("host", getHPCCClusterURL())
+                .option("username", getHPCCClusterUser())
+                .option("password", getHPCCClusterPass())
+                .save(datasetPath);
 
         // Read dataset from HPCC
         Dataset<Row> readDataSet = spark.read()
-                                    .format("hpcc")
-                                    .option("cluster", getThorCluster())
-                                    .option("host", getHPCCClusterURL())
-                                    .option("username", getHPCCClusterUser())
-                                    .option("password", getHPCCClusterPass())
-                                    .load(datasetPath);
+                .format("hpcc")
+                .option("cluster", getThorCluster())
+                .option("host", getHPCCClusterURL())
+                .option("username", getHPCCClusterUser())
+                .option("password", getHPCCClusterPass())
+                .load(datasetPath);
 
         StructType readSchema = readDataSet.schema();
         System.out.println(readSchema);
@@ -90,29 +90,29 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
         SparkSession spark = getOrCreateSparkSession();
 
         StructType inlineSchema = DataTypes.createStructType(new StructField[] {
-            DataTypes.createStructField("key", DataTypes.IntegerType, false),
-            DataTypes.createStructField("val", DataTypes.IntegerType, false)
+                DataTypes.createStructField("key", DataTypes.IntegerType, false),
+                DataTypes.createStructField("val", DataTypes.IntegerType, false)
         });
 
         StructType childSchema = DataTypes.createStructType(new StructField[] {
-            DataTypes.createStructField("test", DataTypes.IntegerType, false),
-            DataTypes.createStructField("test2", DataTypes.IntegerType, false)
+                DataTypes.createStructField("test", DataTypes.IntegerType, false),
+                DataTypes.createStructField("test2", DataTypes.IntegerType, false)
         });
 
         // Create the schema
         StructType schema = DataTypes.createStructType(new StructField[] {
-            DataTypes.createStructField("byteVal", DataTypes.ByteType, false),
-            DataTypes.createStructField("shortVal", DataTypes.ShortType, false),
-            DataTypes.createStructField("intVal", DataTypes.IntegerType, false),
-            DataTypes.createStructField("longVal", DataTypes.LongType, false),
-            DataTypes.createStructField("floatVal", DataTypes.FloatType, false),
-            DataTypes.createStructField("doubleVal", DataTypes.DoubleType, false),
-            DataTypes.createStructField("decimalVal", DataTypes.createDecimalType(16, 8), false),
-            DataTypes.createStructField("stringVal", DataTypes.StringType, false),
-            DataTypes.createStructField("binaryVal", DataTypes.BinaryType, false),
-            DataTypes.createStructField("setVal", DataTypes.createArrayType(DataTypes.IntegerType), false),
-            DataTypes.createStructField("inlineRec", inlineSchema, false),
-            DataTypes.createStructField("childDataset", DataTypes.createArrayType(childSchema), false),
+                DataTypes.createStructField("byteVal", DataTypes.ByteType, false),
+                DataTypes.createStructField("shortVal", DataTypes.ShortType, false),
+                DataTypes.createStructField("intVal", DataTypes.IntegerType, false),
+                DataTypes.createStructField("longVal", DataTypes.LongType, false),
+                DataTypes.createStructField("floatVal", DataTypes.FloatType, false),
+                DataTypes.createStructField("doubleVal", DataTypes.DoubleType, false),
+                DataTypes.createStructField("decimalVal", DataTypes.createDecimalType(16, 8), false),
+                DataTypes.createStructField("stringVal", DataTypes.StringType, false),
+                DataTypes.createStructField("binaryVal", DataTypes.BinaryType, false),
+                DataTypes.createStructField("setVal", DataTypes.createArrayType(DataTypes.IntegerType), false),
+                DataTypes.createStructField("inlineRec", inlineSchema, false),
+                DataTypes.createStructField("childDataset", DataTypes.createArrayType(childSchema), false),
         });
 
         // Write dataset to HPCC
@@ -159,22 +159,22 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
 
         String datasetPath = "spark::test::all_types";
         writtenDataSet.write()
-                      .format("hpcc")
-                      .mode("overwrite")
-                      .option("cluster", getThorCluster())
-                      .option("host", getHPCCClusterURL())
-                      .option("username", getHPCCClusterUser())
-                      .option("password", getHPCCClusterPass())
-                      .save(datasetPath);
+                .format("hpcc")
+                .mode("overwrite")
+                .option("cluster", getThorCluster())
+                .option("host", getHPCCClusterURL())
+                .option("username", getHPCCClusterUser())
+                .option("password", getHPCCClusterPass())
+                .save(datasetPath);
 
         // Read dataset from HPCC
         Dataset<Row> readDataSet = spark.read()
-                                    .format("hpcc")
-                                    .option("cluster", getThorCluster())
-                                    .option("host", getHPCCClusterURL())
-                                    .option("username", getHPCCClusterUser())
-                                    .option("password", getHPCCClusterPass())
-                                    .load(datasetPath);
+                .format("hpcc")
+                .option("cluster", getThorCluster())
+                .option("host", getHPCCClusterURL())
+                .option("username", getHPCCClusterUser())
+                .option("password", getHPCCClusterPass())
+                .load(datasetPath);
 
         Dataset<Row> diff = writtenDataSet.exceptAll(readDataSet);
         Assert.assertTrue("Difference found between written and read datasets", diff.isEmpty());
@@ -187,13 +187,14 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
 
         // Create the schema
         StructType schema = DataTypes.createStructType(new StructField[] {
-            DataTypes.createStructField("key", DataTypes.LongType, false),
-            DataTypes.createStructField("value", DataTypes.LongType, false)
+                DataTypes.createStructField("key", DataTypes.LongType, false),
+                DataTypes.createStructField("value", DataTypes.LongType, false)
         });
 
         // Write dataset to HPCC
         List<Row> rows = new ArrayList<Row>();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 10000; i++)
+        {
             Object[] fields = new Object[2];
             fields[0] = Long.valueOf(i);
             fields[1] = Long.valueOf(i);
@@ -204,41 +205,41 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
 
         String datasetPath = "spark::test::integer_kv_sampling";
         writtenDataSet.write()
-                      .format("hpcc")
-                      .mode("overwrite")
-                      .option("cluster", getThorCluster())
-                      .option("host", getHPCCClusterURL())
-                      .option("username", getHPCCClusterUser())
-                      .option("password", getHPCCClusterPass())
-                      .save(datasetPath);
+                .format("hpcc")
+                .mode("overwrite")
+                .option("cluster", getThorCluster())
+                .option("host", getHPCCClusterURL())
+                .option("username", getHPCCClusterUser())
+                .option("password", getHPCCClusterPass())
+                .save(datasetPath);
 
         // Read dataset from HPCC with sampling
         Dataset<Row> readDataSet = spark.read()
-                                    .format("hpcc")
-                                    .option("cluster", getThorCluster())
-                                    .option("host", getHPCCClusterURL())
-                                    .option("username", getHPCCClusterUser())
-                                    .option("password", getHPCCClusterPass())
-                                    .option("recordSamplingRate", 0.1) // 10% sampling rate
-                                    .option("recordSamplingSeed", 42) // Fixed seed for reproducibility
-                                    .load(datasetPath);
-        long count = readDataSet.count();
-        long expectedCount = (long) (10000 * 0.1); // Expect around 1000 records
-        float percentageDiff = Math.abs((count - expectedCount) / (float) expectedCount) * 100;
-        assertTrue("Count should be within 10% of expected count, actual percentage difference: " + percentageDiff,
-                   percentageDiff < 10.0);
-
-        // Check recordSamplingRate upper bound 
-        try
-        {
-            Dataset<Row> invalidReadDataSet = spark.read()
                 .format("hpcc")
                 .option("cluster", getThorCluster())
                 .option("host", getHPCCClusterURL())
                 .option("username", getHPCCClusterUser())
                 .option("password", getHPCCClusterPass())
-                .option("recordSamplingRate", 1.5) // Invalid sampling rate
+                .option("recordSamplingRate", 0.1) // 10% sampling rate
+                .option("recordSamplingSeed", 42) // Fixed seed for reproducibility
                 .load(datasetPath);
+        long count = readDataSet.count();
+        long expectedCount = (long) (10000 * 0.1); // Expect around 1000 records
+        float percentageDiff = Math.abs((count - expectedCount) / (float) expectedCount) * 100;
+        assertTrue("Count should be within 10% of expected count, actual percentage difference: " + percentageDiff,
+                percentageDiff < 10.0);
+
+        // Check recordSamplingRate upper bound 
+        try
+        {
+            Dataset<Row> invalidReadDataSet = spark.read()
+                    .format("hpcc")
+                    .option("cluster", getThorCluster())
+                    .option("host", getHPCCClusterURL())
+                    .option("username", getHPCCClusterUser())
+                    .option("password", getHPCCClusterPass())
+                    .option("recordSamplingRate", 1.5) // Invalid sampling rate
+                    .load(datasetPath);
             invalidReadDataSet.count();
             Assert.fail("Expected an exception due to invalid recordSamplingRate");
         }
@@ -252,13 +253,13 @@ public class DataframeIntegrationTest extends BaseIntegrationTest
         try
         {
             Dataset<Row> invalidReadDataSet = spark.read()
-                .format("hpcc")
-                .option("cluster", getThorCluster())
-                .option("host", getHPCCClusterURL())
-                .option("username", getHPCCClusterUser())
-                .option("password", getHPCCClusterPass())
-                .option("recordSamplingRate", 0.0) // Invalid sampling rate
-                .load(datasetPath);
+                    .format("hpcc")
+                    .option("cluster", getThorCluster())
+                    .option("host", getHPCCClusterURL())
+                    .option("username", getHPCCClusterUser())
+                    .option("password", getHPCCClusterPass())
+                    .option("recordSamplingRate", 0.0) // Invalid sampling rate
+                    .load(datasetPath);
             invalidReadDataSet.count();
             Assert.fail("Expected an exception due to invalid recordSamplingRate");
         }

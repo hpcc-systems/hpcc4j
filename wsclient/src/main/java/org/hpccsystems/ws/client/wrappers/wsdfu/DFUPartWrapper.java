@@ -28,16 +28,18 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUPart;
 @Deprecated
 public class DFUPartWrapper
 {
-    protected int local_id;
-    protected int local_copy;
+    protected int    local_id;
+    protected int    local_copy;
     protected String local_ip;
     protected String local_partsize;
-    protected long local_partSizeInt64;
+    protected long   local_partSizeInt64;
 
     /**
      * Instantiates a new DFU part wrapper.
      */
-    public DFUPartWrapper() {}
+    public DFUPartWrapper()
+    {
+    }
 
     /**
      * Instantiates a new DFU part wrapper.
@@ -45,9 +47,9 @@ public class DFUPartWrapper
      * @param dfupart
      *            the dfupart
      */
-    public DFUPartWrapper( org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUPart dfupart)
+    public DFUPartWrapper(org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUPart dfupart)
     {
-        copy( dfupart );
+        copy(dfupart);
     }
 
     /**
@@ -64,7 +66,7 @@ public class DFUPartWrapper
      * @param _partSizeInt64
      *            the part size int 64
      */
-    public DFUPartWrapper( int _id, int _copy, String _ip, String _partsize, long _partSizeInt64 )
+    public DFUPartWrapper(int _id, int _copy, String _ip, String _partsize, long _partSizeInt64)
     {
         this.local_id = _id;
         this.local_copy = _copy;
@@ -79,10 +81,9 @@ public class DFUPartWrapper
      * @param raw
      *            the raw
      */
-    private void copy(DFUPart raw )
+    private void copy(DFUPart raw)
     {
-        if (raw == null)
-            return;
+        if (raw == null) return;
 
         this.local_id = raw.getId();
         this.local_copy = raw.getCopy();
@@ -97,7 +98,8 @@ public class DFUPartWrapper
     @Override
     public String toString()
     {
-        return "DFUPartWrapper [" + "id = " + local_id + ", " + "copy = " + local_copy + ", " + "ip = " + local_ip + ", " + "partsize = " + local_partsize + ", " + "partSizeInt64 = " + local_partSizeInt64 + "]";
+        return "DFUPartWrapper [" + "id = " + local_id + ", " + "copy = " + local_copy + ", " + "ip = " + local_ip + ", " + "partsize = "
+                + local_partsize + ", " + "partSizeInt64 = " + local_partSizeInt64 + "]";
     }
 
     /**
@@ -108,11 +110,11 @@ public class DFUPartWrapper
     public DFUPart getRaw()
     {
         DFUPart raw = new DFUPart();
-        raw.setId( local_id);
-        raw.setCopy( local_copy);
-        raw.setIp( local_ip);
-        raw.setPartsize( local_partsize);
-        raw.setPartSizeInt64( local_partSizeInt64);
+        raw.setId(local_id);
+        raw.setCopy(local_copy);
+        raw.setIp(local_ip);
+        raw.setPartsize(local_partsize);
+        raw.setPartSizeInt64(local_partSizeInt64);
         return raw;
     }
 
@@ -122,7 +124,7 @@ public class DFUPartWrapper
      * @param _id
      *            the new id
      */
-    public void setId( int _id )
+    public void setId(int _id)
     {
         this.local_id = _id;
     }
@@ -132,7 +134,7 @@ public class DFUPartWrapper
      *
      * @return the id
      */
-    public int getId( )
+    public int getId()
     {
         return this.local_id;
     }
@@ -143,7 +145,7 @@ public class DFUPartWrapper
      * @param _copy
      *            the new copy
      */
-    public void setCopy( int _copy )
+    public void setCopy(int _copy)
     {
         this.local_copy = _copy;
     }
@@ -153,7 +155,7 @@ public class DFUPartWrapper
      *
      * @return the copy
      */
-    public int getCopy( )
+    public int getCopy()
     {
         return this.local_copy;
     }
@@ -164,7 +166,7 @@ public class DFUPartWrapper
      * @param _ip
      *            the new ip
      */
-    public void setIp( String _ip )
+    public void setIp(String _ip)
     {
         this.local_ip = _ip;
     }
@@ -174,7 +176,7 @@ public class DFUPartWrapper
      *
      * @return the ip
      */
-    public String getIp( )
+    public String getIp()
     {
         return this.local_ip;
     }
@@ -185,7 +187,7 @@ public class DFUPartWrapper
      * @param _partsize
      *            the new partsize
      */
-    public void setPartsize( String _partsize )
+    public void setPartsize(String _partsize)
     {
         this.local_partsize = _partsize;
     }
@@ -195,7 +197,7 @@ public class DFUPartWrapper
      *
      * @return the partsize
      */
-    public String getPartsize( )
+    public String getPartsize()
     {
         return this.local_partsize;
     }
@@ -206,7 +208,7 @@ public class DFUPartWrapper
      * @param _partSizeInt64
      *            the new part size int 64
      */
-    public void setPartSizeInt64( long _partSizeInt64 )
+    public void setPartSizeInt64(long _partSizeInt64)
     {
         this.local_partSizeInt64 = _partSizeInt64;
     }
@@ -216,7 +218,7 @@ public class DFUPartWrapper
      *
      * @return the part size int 64
      */
-    public long getPartSizeInt64( )
+    public long getPartSizeInt64()
     {
         return this.local_partSizeInt64;
     }

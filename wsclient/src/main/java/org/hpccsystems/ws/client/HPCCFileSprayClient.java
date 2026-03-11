@@ -100,20 +100,20 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
  */
 public class HPCCFileSprayClient extends BaseHPCCWsClient
 {
-    private static final String               FILESPRAYWSDLURI       = "/FileSpray";
-    private static final String               UPLOADURI              = FILESPRAYWSDLURI + "/UploadFile?upload_";
-    private static final String               DOWNLOAD_URI           = FILESPRAYWSDLURI + "/DownloadFile?";
-    private static final long                 MAX_FILE_WSUPLOAD_SIZE = 2000000000;
-    private int                               BUFFER_LENGTH          = 1024;
+    private static final String               FILESPRAYWSDLURI         = "/FileSpray";
+    private static final String               UPLOADURI                = FILESPRAYWSDLURI + "/UploadFile?upload_";
+    private static final String               DOWNLOAD_URI             = FILESPRAYWSDLURI + "/DownloadFile?";
+    private static final long                 MAX_FILE_WSUPLOAD_SIZE   = 2000000000;
+    private int                               BUFFER_LENGTH            = 1024;
 
-    List<DropZoneWrapper>                     localDropZones         = null;
-    private static Logger                     log                    = LogManager.getLogger(HPCCFileSprayClient.class);
-    private static int                        DEFAULTSERVICEPORT     = -1;
-    private static String                     WSDLURL                = null;
+    List<DropZoneWrapper>                     localDropZones           = null;
+    private static Logger                     log                      = LogManager.getLogger(HPCCFileSprayClient.class);
+    private static int                        DEFAULTSERVICEPORT       = -1;
+    private static String                     WSDLURL                  = null;
 
-    private static final PhysicalFileStruct[] NO_FILES               = {};
+    private static final PhysicalFileStruct[] NO_FILES                 = {};
     public static final Version               TrailingSlashPathHPCCVer = new Version(7, 12, 98); //First known HPCC version in which DZ paths are
-                                                                                                 //expected to contain trailing slash
+                                                                                  //expected to contain trailing slash
 
     /**
      * Load WSDLURL.
@@ -191,21 +191,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      */
     public enum SprayVariableFormat
     {
-        DFUff_fixed (0),
-        DFUff_csv (1),
-        DFUff_ascii (1),
-        DFUff_utf8 (2),
-        DFUff_utf8n (3),
-        DFUff_utf16 (4),
-        DFUff_utf16le (5),
-        DFUff_utf16be (6),
-        DFUff_utf32 (7),
-        DFUff_utf32le (8),
-        DFUff_utf32be (9),
-        DFUff_variable (10),
-        DFUff_recfmvb (11),
-        DFUff_recfmv (12),
-        DFUff_variablebigendian (13);
+        DFUff_fixed (0), DFUff_csv (1), DFUff_ascii (1), DFUff_utf8 (2), DFUff_utf8n (3), DFUff_utf16 (4), DFUff_utf16le (5), DFUff_utf16be (6), DFUff_utf32 (7), DFUff_utf32le (8), DFUff_utf32be (9), DFUff_variable (10), DFUff_recfmvb (11), DFUff_recfmv (12), DFUff_variablebigendian (13);
 
         private final int id;
 
@@ -598,7 +584,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
             {
                 DropZoneWrapper currentDZ = new DropZoneWrapper(dropZone[i]);
 
-                if(compatibilityCheck(TrailingSlashPathHPCCVer))
+                if (compatibilityCheck(TrailingSlashPathHPCCVer))
                 {
                     currentDZ.setPath(Utils.ensureTrailingPathSlash(currentDZ.getPath(), currentDZ.getLinux()));
                 }
@@ -626,7 +612,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public String copyFile(@SpanAttribute String from, @SpanAttribute String to, @SpanAttribute boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
+    public String copyFile(@SpanAttribute String from, @SpanAttribute String to, @SpanAttribute boolean overwrite)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
         Copy cp = new Copy();
@@ -677,8 +664,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public DropZoneFilesResponseWrapper fetchDropZones(@SpanAttribute String dzname, @SpanAttribute String netaddress, @SpanAttribute String os, @SpanAttribute String path, String subfolder, boolean dironly,
-            boolean watchvisibleonely) throws Exception, ArrayOfEspExceptionWrapper
+    public DropZoneFilesResponseWrapper fetchDropZones(@SpanAttribute String dzname, @SpanAttribute String netaddress, @SpanAttribute String os,
+            @SpanAttribute String path, String subfolder, boolean dironly, boolean watchvisibleonely) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
         DropZoneFilesRequest request = new DropZoneFilesRequest();
@@ -748,7 +735,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public PhysicalFileStruct[] dzFileSearch(@SpanAttribute String dzname, @SpanAttribute String netaddr, @SpanAttribute String namefilter) throws Exception, ArrayOfEspExceptionWrapper
+    public PhysicalFileStruct[] dzFileSearch(@SpanAttribute String dzname, @SpanAttribute String netaddr, @SpanAttribute String namefilter)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -797,7 +785,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public List<PhysicalFileStructWrapper> listFiles(@SpanAttribute String netAddress, @SpanAttribute String path, @SpanAttribute String OS) throws Exception, ArrayOfEspExceptionWrapper
+    public List<PhysicalFileStructWrapper> listFiles(@SpanAttribute String netAddress, @SpanAttribute String path, @SpanAttribute String OS)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -865,7 +854,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     public ProgressResponseWrapper sprayVariable(String dropzoneNetAddress, String sourceFileName, String targetFileName, String prefix,
             String destGroup, boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
-        return sprayVariable(dropzoneNetAddress, DelimitedDataOptions.DefaultCSVDataOptions, sourceFileName, targetFileName, prefix, destGroup, overwrite);
+        return sprayVariable(dropzoneNetAddress, DelimitedDataOptions.DefaultCSVDataOptions, sourceFileName, targetFileName, prefix, destGroup,
+                overwrite);
     }
 
     /**
@@ -896,8 +886,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     {
         List<DropZoneWrapper> targetDropZones = fetchDropZones(dropzoneNetAddress);
 
-        if (targetDropZones == null)
-            throw new Exception("Could not fetch target Dropzone");
+        if (targetDropZones == null) throw new Exception("Could not fetch target Dropzone");
 
         return sprayVariable(options, targetDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, overwrite);
     }
@@ -928,10 +917,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
     public ProgressResponseWrapper sprayVariableLocalDropZone(DelimitedDataOptions options, String sourceFileName, String targetFileName,
             String prefix, String destGroup, boolean overwrite, SprayVariableFormat format) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (localDropZones == null)
-            localDropZones = fetchLocalDropZones();
+        if (localDropZones == null) localDropZones = fetchLocalDropZones();
 
-        return sprayVariable(options, localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, overwrite, format, null, null, null, null, null, null, null);
+        return sprayVariable(options, localDropZones.get(0), sourceFileName, targetFileName, prefix, destGroup, overwrite, format, null, null, null,
+                null, null, null, null);
     }
 
     /**
@@ -1004,10 +993,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public ProgressResponseWrapper sprayVariable(@SpanAttribute DelimitedDataOptions options, @SpanAttribute DropZoneWrapper targetDropZone, @SpanAttribute String sourceFileName,
-            @SpanAttribute String targetFileName, String prefix, String destGroup, boolean overwrite, SprayVariableFormat format, Integer sourceMaxRecordSize,
-            Integer maxConnections, Boolean compress, Boolean replicate, Boolean failIfNoSourceFile, Boolean recordStructurePresent,
-            Integer expireDays) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayVariable(@SpanAttribute DelimitedDataOptions options, @SpanAttribute DropZoneWrapper targetDropZone,
+            @SpanAttribute String sourceFileName, @SpanAttribute String targetFileName, String prefix, String destGroup, boolean overwrite,
+            SprayVariableFormat format, Integer sourceMaxRecordSize, Integer maxConnections, Boolean compress, Boolean replicate,
+            Boolean failIfNoSourceFile, Boolean recordStructurePresent, Integer expireDays) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -1160,9 +1149,10 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public ProgressResponseWrapper sprayXML(@SpanAttribute DropZoneWrapper targetDropZone,@SpanAttribute String sourceFileName,@SpanAttribute String targetFileName, String prefix,
-            @SpanAttribute String destGroup, String rowtag, boolean overwrite, SprayVariableFormat format, Integer maxrecsize, Integer maxConnections,
-            Boolean replicate, Boolean compress, Boolean failIfNoSourceFile, Integer expireDays) throws Exception, ArrayOfEspExceptionWrapper
+    public ProgressResponseWrapper sprayXML(@SpanAttribute DropZoneWrapper targetDropZone, @SpanAttribute String sourceFileName,
+            @SpanAttribute String targetFileName, String prefix, @SpanAttribute String destGroup, String rowtag, boolean overwrite,
+            SprayVariableFormat format, Integer maxrecsize, Integer maxConnections, Boolean replicate, Boolean compress, Boolean failIfNoSourceFile,
+            Integer expireDays) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub();
 
@@ -1315,8 +1305,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public ProgressResponseWrapper sprayFixed(@SpanAttribute DropZoneWrapper targetDropZone, @SpanAttribute String sourceFileName, int recordSize, String targetFileLabel,
-            String prefix, String destGroup, boolean overwrite, Integer maxConnections, Boolean compress, Boolean replicate,
+    public ProgressResponseWrapper sprayFixed(@SpanAttribute DropZoneWrapper targetDropZone, @SpanAttribute String sourceFileName, int recordSize,
+            String targetFileLabel, String prefix, String destGroup, boolean overwrite, Integer maxConnections, Boolean compress, Boolean replicate,
             Boolean failIfNoSourceFile, Integer expireDays, String decryptKey, String encryptKey, Boolean nosplit, Boolean recordStructurePresent,
             Integer transferBufferSize, Boolean wrap) throws Exception, ArrayOfEspExceptionWrapper
     {
@@ -1454,24 +1444,21 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         return uploadFile(file, fetchLocalDropZones.get(0));
     }
 
-    static DocumentBuilder m_safeXMLDocBuilder = null;
+    static DocumentBuilder m_safeXMLDocBuilder      = null;
     static XPathExpression m_uploadResultExpression = null;
 
     static protected void setupUploadResultParser() throws XPathExpressionException, ParserConfigurationException
     {
-        if(m_uploadResultExpression != null && m_safeXMLDocBuilder != null)
-            return;
+        if (m_uploadResultExpression != null && m_safeXMLDocBuilder != null) return;
 
         m_safeXMLDocBuilder = Utils.newSafeXMLDocBuilder();
 
-        if (m_safeXMLDocBuilder == null)
-            throw new XPathExpressionException ("Could not create new result XML parser");
+        if (m_safeXMLDocBuilder == null) throw new XPathExpressionException("Could not create new result XML parser");
 
         XPath xpath = XPathFactory.newInstance().newXPath();
-        m_uploadResultExpression= xpath.compile("string(/UploadFilesResponse/UploadFileResults/DFUActionResult/Result)");
+        m_uploadResultExpression = xpath.compile("string(/UploadFilesResponse/UploadFileResults/DFUActionResult/Result)");
 
-        if (m_uploadResultExpression == null)
-            throw new XPathExpressionException ("Could not Compile versionXpathExpression");
+        if (m_uploadResultExpression == null) throw new XPathExpressionException("Could not Compile versionXpathExpression");
     }
 
     /**
@@ -1504,8 +1491,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
 
         uploadurlbuilder += "&NetAddress=" + dropZone.getNetAddress() + "&Path=" + Utils.ensureTrailingPathSlash(dropZone.getPath());
 
-        if (!dropZone.getName().isEmpty())
-            uploadurlbuilder +=  "&DropZoneName=" + dropZone.getName();
+        if (!dropZone.getName().isEmpty()) uploadurlbuilder += "&DropZoneName=" + dropZone.getName();
 
         uploadurlbuilder += "&OS=" + (dropZone.getLinux().equalsIgnoreCase("true") ? "2" : "1");
         uploadurlbuilder += "&rawxml_=1";
@@ -1604,8 +1590,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
                 String result = m_uploadResultExpression.evaluate(document);
                 log.info("uploadLargeFile ( " + uploadFile + ") result: '" + result + "'");
 
-                if (result.isEmpty() || !result.equalsIgnoreCase("Success"))
-                    returnValue = false;
+                if (result.isEmpty() || !result.equalsIgnoreCase("Success")) returnValue = false;
             }
             catch (Exception e)
             {
@@ -1846,7 +1831,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         long bytesTransferred = -1;
         try
         {
-            URLConnection fileDownloadConnection =  Connection.createConnection(downloadURL);
+            URLConnection fileDownloadConnection = Connection.createConnection(downloadURL);
             fileDownloadConnection.setRequestProperty("Authorization", wsconn.getBasicAuthString());
 
             ReadableByteChannel sourceChannel = Channels.newChannel(fileDownloadConnection.getInputStream());
@@ -2041,7 +2026,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @return response from dfu workunit
      * @throws java.lang.Exception if any.
      */
-    public DFUWorkunitsActionResponseWrapper deleteDropZoneFiles(String dropzoneName, List<String> fileNames, String netAddress, String path, String os) throws Exception
+    public DFUWorkunitsActionResponseWrapper deleteDropZoneFiles(String dropzoneName, List<String> fileNames, String netAddress, String path,
+            String os) throws Exception
     {
         verifyStub();
 
@@ -2055,7 +2041,7 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         request.setPath(path);
         request.setOS(os);
 
-        DFUWorkunitsActionResponse response = ((FileSprayStub)stub).deleteDropZoneFiles(request);
+        DFUWorkunitsActionResponse response = ((FileSprayStub) stub).deleteDropZoneFiles(request);
 
         return new DFUWorkunitsActionResponseWrapper(response);
     }
@@ -2140,7 +2126,8 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      */
     public String despray(String sourcelogicalname, String destinationIP, String destinationPath) throws Exception
     {
-        return despray(null, null, destinationIP, destinationPath, null, null, null, null, null, null, null, sourcelogicalname, null, null, null, null).getWuid();
+        return despray(null, null, destinationIP, destinationPath, null, null, null, null, null, null, null, sourcelogicalname, null, null, null,
+                null).getWuid();
     }
 
     /**
@@ -2155,9 +2142,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws Exception a {@link java.lang.Exception} object
      * @return a {@link java.lang.String} object.
      */
-    public String despray(String sourcelogicalname, String destinationIP, String destinationPath, String splitprefix, boolean overwrite, boolean singleconnection) throws Exception
+    public String despray(String sourcelogicalname, String destinationIP, String destinationPath, String splitprefix, boolean overwrite,
+            boolean singleconnection) throws Exception
     {
-        return despray(null, null,destinationIP, destinationPath, null, null, null, null, null, overwrite, singleconnection, sourcelogicalname, splitprefix, null, null, null).getWuid();
+        return despray(null, null, destinationIP, destinationPath, null, null, null, null, null, overwrite, singleconnection, sourcelogicalname,
+                splitprefix, null, null, null).getWuid();
     }
 
     /**
@@ -2182,11 +2171,9 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      * @throws Exception a {@link java.lang.Exception} object
      * @return a {@link org.hpccsystems.ws.client.wrappers.gen.filespray.DesprayResponseWrapper} object.
      */
-    public DesprayResponseWrapper despray(Boolean compressed, String decrypt, String destip,
-            String destpath, String dfuserverqueue, String encrypt,
-            Integer maxconnections, Boolean multicopy, Boolean norecover, Boolean overwrite,
-            Boolean singleconnection, String sourcelogicalname, String splitprefix,
-            Integer throttle, Integer transferbuffersize, Boolean wrap) throws Exception
+    public DesprayResponseWrapper despray(Boolean compressed, String decrypt, String destip, String destpath, String dfuserverqueue, String encrypt,
+            Integer maxconnections, Boolean multicopy, Boolean norecover, Boolean overwrite, Boolean singleconnection, String sourcelogicalname,
+            String splitprefix, Integer throttle, Integer transferbuffersize, Boolean wrap) throws Exception
     {
         verifyStub();
 
@@ -2196,36 +2183,21 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         Despray despray = new Despray();
         despray.setSourceLogicalName(sourcelogicalname);
 
-        if (compressed != null)
-            despray.setCompress(compressed);
-        if (decrypt != null)
-            despray.setDecrypt(decrypt);
-        if (destip != null)
-            despray.setDestIP(destip);
-        if (destpath != null)
-            despray.setDestPath(destpath);
-        if (dfuserverqueue != null)
-            despray.setDFUServerQueue(dfuserverqueue);
-        if (encrypt != null)
-            despray.setEncrypt(encrypt);
-        if (maxconnections != null)
-            despray.setMaxConnections(maxconnections);
-        if (multicopy != null)
-            despray.setMultiCopy(multicopy);
-        if (norecover != null)
-            despray.setNorecover(norecover);
-        if (overwrite != null)
-            despray.setOverwrite(overwrite);
-        if (singleconnection != null)
-            despray.setSingleConnection(singleconnection);
-        if (splitprefix != null)
-            despray.setSplitprefix(splitprefix);
-        if (throttle != null)
-            despray.setThrottle(throttle);
-        if (transferbuffersize != null)
-            despray.setTransferBufferSize(transferbuffersize);
-        if (wrap != null)
-            despray.setWrap(wrap);
+        if (compressed != null) despray.setCompress(compressed);
+        if (decrypt != null) despray.setDecrypt(decrypt);
+        if (destip != null) despray.setDestIP(destip);
+        if (destpath != null) despray.setDestPath(destpath);
+        if (dfuserverqueue != null) despray.setDFUServerQueue(dfuserverqueue);
+        if (encrypt != null) despray.setEncrypt(encrypt);
+        if (maxconnections != null) despray.setMaxConnections(maxconnections);
+        if (multicopy != null) despray.setMultiCopy(multicopy);
+        if (norecover != null) despray.setNorecover(norecover);
+        if (overwrite != null) despray.setOverwrite(overwrite);
+        if (singleconnection != null) despray.setSingleConnection(singleconnection);
+        if (splitprefix != null) despray.setSplitprefix(splitprefix);
+        if (throttle != null) despray.setThrottle(throttle);
+        if (transferbuffersize != null) despray.setTransferBufferSize(transferbuffersize);
+        if (wrap != null) despray.setWrap(wrap);
 
         DesprayResponse resp = null;
 
@@ -2254,11 +2226,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
      */
     public DesprayResponseWrapper despray(DesprayWrapper desprayreq) throws Exception
     {
-        if (desprayreq == null)
-            throw new Exception("HPCCFileSpray.despray: desprayreq cannot be null");
+        if (desprayreq == null) throw new Exception("HPCCFileSpray.despray: desprayreq cannot be null");
 
-        return despray(desprayreq.getCompress(), desprayreq.getDecrypt(), desprayreq.getDestIP(), desprayreq.getDestPath(), desprayreq.getDFUServerQueue(), desprayreq.getEncrypt(),
-                desprayreq.getMaxConnections(), desprayreq.getMultiCopy(), desprayreq.getNorecover(), desprayreq.getOverwrite(), desprayreq.getSingleConnection(), desprayreq.getSourceLogicalName(),
+        return despray(desprayreq.getCompress(), desprayreq.getDecrypt(), desprayreq.getDestIP(), desprayreq.getDestPath(),
+                desprayreq.getDFUServerQueue(), desprayreq.getEncrypt(), desprayreq.getMaxConnections(), desprayreq.getMultiCopy(),
+                desprayreq.getNorecover(), desprayreq.getOverwrite(), desprayreq.getSingleConnection(), desprayreq.getSourceLogicalName(),
                 desprayreq.getSplitprefix(), desprayreq.getThrottle(), desprayreq.getTransferBufferSize(), desprayreq.getWrap());
     }
 

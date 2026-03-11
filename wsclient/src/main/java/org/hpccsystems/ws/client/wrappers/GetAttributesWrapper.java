@@ -100,7 +100,8 @@ public class GetAttributesWrapper
     @Override
     public String toString()
     {
-        return "GetAttributesWrapper [" + "moduleName = " + local_moduleName + ", " + "typeList = " + local_typeList + ", " + "label = " + local_label + "]";
+        return "GetAttributesWrapper [" + "moduleName = " + local_moduleName + ", " + "typeList = " + local_typeList + ", " + "label = " + local_label
+                + "]";
     }
 
     /**

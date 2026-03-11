@@ -53,24 +53,24 @@ import io.opentelemetry.semconv.ServerAttributes;
  */
 public abstract class BaseHPCCWsClient extends DataSingleton
 {
-    public static final String PROJECT_NAME = "WsClient";
-    private static OpenTelemetry globalOTel = null;
+    public static final String    PROJECT_NAME             = "WsClient";
+    private static OpenTelemetry  globalOTel               = null;
     /** Constant <code>log</code> */
-    protected static final Logger log                    = LogManager.getLogger(BaseHPCCWsClient.class);
+    protected static final Logger log                      = LogManager.getLogger(BaseHPCCWsClient.class);
     /** Constant <code>DEAFULTECLWATCHPORT="8010"</code> */
-    public static final String    DEAFULTECLWATCHPORT    = "8010";
+    public static final String    DEAFULTECLWATCHPORT      = "8010";
     /** Constant <code>DEFAULTECLWATCHTLSPORT="18010"</code> */
-    public static final String    DEFAULTECLWATCHTLSPORT = "18010";
+    public static final String    DEFAULTECLWATCHTLSPORT   = "18010";
     /** Constant <code>DEFAULTSERVICEPORT="DEAFULTECLWATCHPORT"</code> */
-    public static String          DEFAULTSERVICEPORT     = DEAFULTECLWATCHPORT;
+    public static String          DEFAULTSERVICEPORT       = DEAFULTECLWATCHPORT;
 
-    protected Connection          wsconn                 = null;
-    protected boolean             verbose                = false;
-    protected String              initErrMessage         = "";
-    protected Version             targetHPCCBuildVersion = null;
-    protected Double              targetESPInterfaceVer  = null;
+    protected Connection          wsconn                   = null;
+    protected boolean             verbose                  = false;
+    protected String              initErrMessage           = "";
+    protected Version             targetHPCCBuildVersion   = null;
+    protected Double              targetESPInterfaceVer    = null;
     protected Boolean             targetsContainerizedHPCC = null;
-    protected Boolean             targetHPCCAuthenticates = null;
+    protected Boolean             targetHPCCAuthenticates  = null;
 
     @WithSpan
     public boolean doesTargetHPCCAuthenticate() throws Exception
@@ -100,8 +100,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     @WithSpan
     private boolean getTargetHPCCAuthenticates(Connection conn) throws Exception
     {
-        if (wsconn == null)
-            throw new Exception("Cannot get target HPCC authentication mode, client connection has not been initialized.");
+        if (wsconn == null) throw new Exception("Cannot get target HPCC authentication mode, client connection has not been initialized.");
 
         String response = wsconn.sendGetRequest("esp/getauthtype");//throws
 
@@ -126,8 +125,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     @WithSpan
     private boolean getTargetHPCCIsContainerized(Connection conn) throws Exception
     {
-        if (wsconn == null)
-            throw new Exception("Cannot get target HPCC containerized mode, client connection has not been initialized.");
+        if (wsconn == null) throw new Exception("Cannot get target HPCC containerized mode, client connection has not been initialized.");
 
         String response = wsconn.sendGetRequest("wssmc/getbuildinfo");//throws
 
@@ -137,16 +135,15 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         setUpContainerizedParser();
 
         Document document = null;
-        synchronized(m_XMLParser)
+        synchronized (m_XMLParser)
         {
             document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
         }
 
-        if (document == null)
-            throw new Exception("Cannot parse HPCC isContainerizedMode response.");
+        if (document == null) throw new Exception("Cannot parse HPCC isContainerizedMode response.");
 
-        NodeList namedValuesList = (NodeList) m_containerizedXpathExpression.evaluate(document,XPathConstants.NODESET);
-        for(int i = 0; i < namedValuesList.getLength(); i++)
+        NodeList namedValuesList = (NodeList) m_containerizedXpathExpression.evaluate(document, XPathConstants.NODESET);
+        for (int i = 0; i < namedValuesList.getLength(); i++)
         {
             Node ithNamedValuePair = namedValuesList.item(i);
             NodeList nameAndValue = ithNamedValuePair.getChildNodes();
@@ -156,8 +153,8 @@ public abstract class BaseHPCCWsClient extends DataSingleton
                 String value = null;
                 if (nameAndValue.item(0).getNodeName().equalsIgnoreCase("Name"))
                 {
-                     name = nameAndValue.item(0).getFirstChild().getNodeValue();
-                     value = nameAndValue.item(1).getFirstChild().getNodeValue();
+                    name = nameAndValue.item(0).getFirstChild().getNodeValue();
+                    value = nameAndValue.item(1).getFirstChild().getNodeValue();
                 }
                 else
                 {
@@ -191,8 +188,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
     @WithSpan
     private String getTargetHPCCBuildVersionString() throws Exception
     {
-        if (wsconn == null)
-            throw new Exception("Cannot get target HPCC build version, client connection has not been initialized.");
+        if (wsconn == null) throw new Exception("Cannot get target HPCC build version, client connection has not been initialized.");
 
         String response = wsconn.sendGetRequest("WsSMC/Activity?rawxml_");//throws IOException if http != ok
 
@@ -200,8 +196,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             throw new Exception("Cannot get target HPCC build version, received empty " + wsconn.getBaseUrl() + " wssmc/activity response");
 
         String header = response.substring(0, 100).trim(); //crude, but can prevent wasteful overhead
-        if (header.startsWith("<html"))
-            throw new Exception("Received invalid HTML response, expected XML HPCC build version: \"" + header + "\"...");
+        if (header.startsWith("<html")) throw new Exception("Received invalid HTML response, expected XML HPCC build version: \"" + header + "\"...");
 
         setUpBuildVersionParser();
 
@@ -209,7 +204,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         Document document = null;
         try
         {
-            synchronized(m_XMLParser)
+            synchronized (m_XMLParser)
             {
                 document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
             }
@@ -219,12 +214,11 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             throw new Exception("Could not parse XML HPCC Version response: \"" + response.substring(0, 100) + "\"...", e);
         }
 
-        if (document == null)
-            throw new Exception("Could not parse XML HPCC Version response: \"" + response.substring(0, 100) + "\"...");
+        if (document == null) throw new Exception("Could not parse XML HPCC Version response: \"" + response.substring(0, 100) + "\"...");
 
         try
         {
-            versionString = (String) m_buildVersionXpathExpression.evaluate(document,XPathConstants.STRING);
+            versionString = (String) m_buildVersionXpathExpression.evaluate(document, XPathConstants.STRING);
         }
         catch (XPathExpressionException e)
         {
@@ -236,11 +230,9 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
     public SpanBuilder getWsClientSpanBuilder(String spanName)
     {
-        SpanBuilder spanBuilder = getWsClientTracer().spanBuilder(spanName)
-          .setAttribute(ServerAttributes.SERVER_ADDRESS, wsconn.getHost())
-          .setAttribute(ServerAttributes.SERVER_PORT, Long.getLong(wsconn.getPort()))
-          .setAttribute(HttpAttributes.HTTP_REQUEST_METHOD, HttpAttributes.HttpRequestMethodValues.GET)
-          .setSpanKind(SpanKind.CLIENT);
+        SpanBuilder spanBuilder = getWsClientTracer().spanBuilder(spanName).setAttribute(ServerAttributes.SERVER_ADDRESS, wsconn.getHost())
+                .setAttribute(ServerAttributes.SERVER_PORT, Long.getLong(wsconn.getPort()))
+                .setAttribute(HttpAttributes.HTTP_REQUEST_METHOD, HttpAttributes.HttpRequestMethodValues.GET).setSpanKind(SpanKind.CLIENT);
 
         return spanBuilder;
     }
@@ -276,11 +268,11 @@ public abstract class BaseHPCCWsClient extends DataSingleton
 
     public Tracer getWsClientTracer()
     {
-        if (globalOTel == null)
-            initOTel();
+        if (globalOTel == null) initOTel();
 
         return globalOTel.getTracer(PROJECT_NAME);
     }
+
     /**
      * All instances of HPCCWsXYZClient should utilize this init function
      * Attempts to establish the target HPCC build version and its container mode
@@ -307,9 +299,9 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             catch (Exception e)
             {
                 String connectionInfo = getConnectionInfo(connection);
-                initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values " + connectionInfo;
-                if (!e.getLocalizedMessage().isEmpty())
-                    initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
+                initErrMessage = "BaseHPCCWsClient: Could not stablish target HPCC bulid version, review all HPCC connection values "
+                        + connectionInfo;
+                if (!e.getLocalizedMessage().isEmpty()) initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
                 success = false;
             }
 
@@ -320,26 +312,26 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             catch (Exception e)
             {
                 String connectionInfo = getConnectionInfo(connection);
-                initErrMessage = initErrMessage + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values " + connectionInfo;
-                if (!e.getLocalizedMessage().isEmpty())
-                    initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
+                initErrMessage = initErrMessage
+                        + "\nBaseHPCCWsClient: Could not determine target HPCC Containerization mode, review all HPCC connection values "
+                        + connectionInfo;
+                if (!e.getLocalizedMessage().isEmpty()) initErrMessage = initErrMessage + "\n" + e.getLocalizedMessage();
 
                 success = false;
             }
         }
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
+        if (!initErrMessage.isEmpty()) log.error(initErrMessage);
 
         return success;
     }
 
-    protected Stub                stub;
+    protected Stub                 stub;
 
-    static private XPathExpression m_containerizedXpathExpression = null;
-    static private XPathExpression m_buildVersionXpathExpression = null;
+    static private XPathExpression m_containerizedXpathExpression           = null;
+    static private XPathExpression m_buildVersionXpathExpression            = null;
     static private XPathExpression m_serviceInterfaceVersionXpathExpression = null;
 
-    static private DocumentBuilder m_XMLParser = null;
+    static private DocumentBuilder m_XMLParser                              = null;
 
     /**
      * Gets the default stub.
@@ -572,8 +564,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
                 && EqualsUtil.areEqual(thisoptions.getProperty(HTTPConstants.SO_TIMEOUT), thatopt.getProperty(HTTPConstants.SO_TIMEOUT))
                 && EqualsUtil.areEqual(thisoptions.getProperty(HTTPConstants.CONNECTION_TIMEOUT),
                         thatopt.getProperty(HTTPConstants.CONNECTION_TIMEOUT))
-                && EqualsUtil.areEqual(thisoptions.getProperty(HTTPConstants.CHUNKED),
-                        thatopt.getProperty(HTTPConstants.CHUNKED))
+                && EqualsUtil.areEqual(thisoptions.getProperty(HTTPConstants.CHUNKED), thatopt.getProperty(HTTPConstants.CHUNKED))
                 && (thisauth != null
                         ? (EqualsUtil.areEqual(thisauth.getUsername(), thatauth.getUsername())
                                 && EqualsUtil.areEqual(thisauth.getPassword(), thatauth.getPassword()))
@@ -856,8 +847,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     public double getTargetESPInterfaceVersion()
     {
-        if (targetESPInterfaceVer == null)
-            loadESPRuntimeInterfaceVer();
+        if (targetESPInterfaceVer == null) loadESPRuntimeInterfaceVer();
 
         return targetESPInterfaceVer;
     }
@@ -884,29 +874,29 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         {
             return "(connection: null)";
         }
-        
+
         StringBuilder info = new StringBuilder("(");
-        
+
         // Add host
         String host = connection.getHost();
         info.append("host: ").append(host != null ? host : "unknown");
-        
+
         // Add port
         String port = connection.getPort();
         if (port != null && !port.isEmpty())
         {
             info.append(", port: ").append(port);
         }
-        
+
         // Add protocol
         String protocol = connection.getProtocol();
         if (protocol != null && !protocol.isEmpty())
         {
             info.append(", protocol: ").append(protocol);
         }
-        
+
         // Add base URL for full context
-        try 
+        try
         {
             String baseUrl = connection.getBaseUrl();
             if (baseUrl != null && !baseUrl.isEmpty())
@@ -918,7 +908,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         {
             // In case getBaseUrl() throws an exception, continue without it
         }
-        
+
         // Add authentication information
         if (connection.hasCredentials())
         {
@@ -927,7 +917,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
             {
                 info.append(", user: ").append(username);
             }
-            
+
             // Indicate if password is set without revealing it
             String password = connection.getPassword();
             if (password != null && !password.isEmpty())
@@ -943,24 +933,23 @@ public abstract class BaseHPCCWsClient extends DataSingleton
         {
             info.append(", auth: anonymous");
         }
-        
+
         // Add timeout information
         int connectTimeout = connection.getConnectTimeoutMilli();
         if (connectTimeout > 0)
         {
             info.append(", connectTimeout: ").append(connectTimeout).append("ms");
         }
-        
+
         int socketTimeout = connection.getSocketTimeoutMilli();
         if (socketTimeout > 0)
         {
             info.append(", socketTimeout: ").append(socketTimeout).append("ms");
         }
-        
+
         info.append(")");
         return info.toString();
     }
-
 
     /**
      * All implementations must provide the target web service URI
@@ -969,53 +958,44 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     public abstract String getServiceURI();
 
-
     protected void setUpBuildVersionParser() throws ParserConfigurationException, XPathExpressionException
     {
-        if(m_XMLParser != null && m_buildVersionXpathExpression != null)
-            return;
+        if (m_XMLParser != null && m_buildVersionXpathExpression != null) return;
 
         m_XMLParser = Utils.newSafeXMLDocBuilder();
-        if (m_XMLParser == null)
-            throw new XPathExpressionException ("Could not create new version parser");
+        if (m_XMLParser == null) throw new XPathExpressionException("Could not create new version parser");
 
         XPath versionXpath = XPathFactory.newInstance().newXPath();
         m_buildVersionXpathExpression = versionXpath.compile("/ActivityResponse/Build");
-        if (m_buildVersionXpathExpression == null)
-            throw new XPathExpressionException ("Could not Compile m_buildVersionXpathExpression");
+        if (m_buildVersionXpathExpression == null) throw new XPathExpressionException("Could not Compile m_buildVersionXpathExpression");
 
     }
 
     protected void setUpContainerizedParser() throws ParserConfigurationException, XPathExpressionException
     {
-        if(m_XMLParser != null && m_containerizedXpathExpression != null)
-            return;
+        if (m_XMLParser != null && m_containerizedXpathExpression != null) return;
 
         m_XMLParser = Utils.newSafeXMLDocBuilder();
-        if (m_XMLParser == null)
-            throw new XPathExpressionException ("Could not create new version parser");
+        if (m_XMLParser == null) throw new XPathExpressionException("Could not create new version parser");
 
         XPath versionXpath = XPathFactory.newInstance().newXPath();
         m_containerizedXpathExpression = versionXpath.compile("/GetBuildInfoResponse/BuildInfo/NamedValue");
-        if (m_containerizedXpathExpression == null)
-            throw new XPathExpressionException ("Could not Compile m_containerizedXpathExpression");
+        if (m_containerizedXpathExpression == null) throw new XPathExpressionException("Could not Compile m_containerizedXpathExpression");
     }
 
     protected void setUpversionParser() throws ParserConfigurationException, XPathExpressionException
     {
-        if(m_XMLParser != null && m_serviceInterfaceVersionXpathExpression != null)
-            return;
+        if (m_XMLParser != null && m_serviceInterfaceVersionXpathExpression != null) return;
 
         m_XMLParser = Utils.newSafeXMLDocBuilder();
-        if (m_XMLParser == null)
-            throw new XPathExpressionException ("Could not create new version parser");
+        if (m_XMLParser == null) throw new XPathExpressionException("Could not create new version parser");
 
         XPath versionXpath = XPathFactory.newInstance().newXPath();
         m_serviceInterfaceVersionXpathExpression = versionXpath.compile("string(/VersionInfo/Version)");
-        if (m_serviceInterfaceVersionXpathExpression == null)
-            throw new XPathExpressionException ("Could not Compile versionXpathExpression");
+        if (m_serviceInterfaceVersionXpathExpression == null) throw new XPathExpressionException("Could not Compile versionXpathExpression");
 
     }
+
     /**
      * Attempts to retrieve the default WSDL version of the target runtime ESP service
      * Appends the target ESP service path and the "version_" literal to the connection's base URL
@@ -1032,11 +1012,12 @@ public abstract class BaseHPCCWsClient extends DataSingleton
                 String response = null;
                 try
                 {
-                    response = wsconn.sendGetRequest(getServiceURI()+"/version_");
+                    response = wsconn.sendGetRequest(getServiceURI() + "/version_");
                 }
                 catch (Exception httpGetException)
                 {
-                    log.error("Encountered error fetching ESP interface version for " + wsconn.getBaseUrl() + getServiceURI() + "\n" + httpGetException.getLocalizedMessage());
+                    log.error("Encountered error fetching ESP interface version for " + wsconn.getBaseUrl() + getServiceURI() + "\n"
+                            + httpGetException.getLocalizedMessage());
                 }
 
                 if (response == null || response.isEmpty())
@@ -1049,20 +1030,20 @@ public abstract class BaseHPCCWsClient extends DataSingleton
                     {
                         setUpversionParser();
                         Document document = null;
-                        synchronized(m_XMLParser)
+                        synchronized (m_XMLParser)
                         {
                             document = m_XMLParser.parse(new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8)));
                         }
 
-                        if (document == null)
-                            throw new Exception("Cannot parse ESP Interface version response.");
+                        if (document == null) throw new Exception("Cannot parse ESP Interface version response.");
 
-                        targetESPInterfaceVer = (double)m_serviceInterfaceVersionXpathExpression.evaluate(document, XPathConstants.NUMBER);
+                        targetESPInterfaceVer = (double) m_serviceInterfaceVersionXpathExpression.evaluate(document, XPathConstants.NUMBER);
                         log.info(wsconn.getBaseUrl() + getServiceURI() + " version: " + targetESPInterfaceVer);
                     }
                     catch (Exception e)
                     {
-                        log.error("Encountered error parsing ESP interface version for " + wsconn.getBaseUrl() + getServiceURI() + "\n" + e.getLocalizedMessage());
+                        log.error("Encountered error parsing ESP interface version for " + wsconn.getBaseUrl() + getServiceURI() + "\n"
+                                + e.getLocalizedMessage());
                     }
                 }
             }
@@ -1083,8 +1064,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     protected boolean compatibilityCheck(int major, int minor, int point)
     {
-        if (targetHPCCBuildVersion == null)
-            return false;
+        if (targetHPCCBuildVersion == null) return false;
 
         return targetHPCCBuildVersion.isEqualOrNewerThan(major, minor, point);
     }
@@ -1098,8 +1078,7 @@ public abstract class BaseHPCCWsClient extends DataSingleton
      */
     protected boolean compatibilityCheck(Version input)
     {
-        if (targetHPCCBuildVersion == null || input == null)
-            return false;
+        if (targetHPCCBuildVersion == null || input == null) return false;
 
         return targetHPCCBuildVersion.isEqualOrNewerThan(input);
     }

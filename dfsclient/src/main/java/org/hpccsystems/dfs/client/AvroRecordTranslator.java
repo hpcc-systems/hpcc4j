@@ -61,25 +61,23 @@ import java.nio.ByteBuffer;
 /**
  * A helper class that translates a given Avro field or record type to the corresponding HPCC Systems type.
 */
-public class AvroRecordTranslator 
+public class AvroRecordTranslator
 {
     private final static ArrayList<Object> EMPTY_ARRAY_LIST = new ArrayList<Object>();
-    private final static byte[] EMPTY_BYTE_ARRAY = new byte[0];
-    private final static String EMPTY_STRING = "";
-    private final static Boolean DEFAULT_BOOLEAN = false;
-    private final static Integer DEFAULT_INTEGER = 0;
-    private final static Long DEFAULT_LONG = 0L;
-    private final static Double DEFAULT_DOUBLE = 0.0;
-    private final static Float DEFAULT_FLOAT = 0.0f;
+    private final static byte[]            EMPTY_BYTE_ARRAY = new byte[0];
+    private final static String            EMPTY_STRING     = "";
+    private final static Boolean           DEFAULT_BOOLEAN  = false;
+    private final static Integer           DEFAULT_INTEGER  = 0;
+    private final static Long              DEFAULT_LONG     = 0L;
+    private final static Double            DEFAULT_DOUBLE   = 0.0;
+    private final static Float             DEFAULT_FLOAT    = 0.0f;
 
     static int littleEndianFromByteArray(byte[] bytes, int offset)
     {
-        return ( (bytes[offset + 3] & 0xFF) << 24) |
-                ((bytes[offset + 2] & 0xFF) << 16) |
-                ((bytes[offset + 1] & 0xFF) << 8 ) |
-                ((bytes[offset + 0] & 0xFF) << 0 );
+        return ((bytes[offset + 3] & 0xFF) << 24) | ((bytes[offset + 2] & 0xFF) << 16) | ((bytes[offset + 1] & 0xFF) << 8)
+                | ((bytes[offset + 0] & 0xFF) << 0);
     }
-    
+
     static void littleEndianToByteArray(Integer val, byte[] bytes, int offset)
     {
         bytes[offset + 3] = (byte) ((val & 0xFF000000) >> 24);
@@ -96,15 +94,15 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.SET && fd.getFieldType() != FieldType.DATASET)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 List<Object> hpccArray = (List<Object>) field;
                 ArrayList<Object> ret = new ArrayList<Object>();
                 for (int i = 0; i < hpccArray.size(); i++)
                 {
-                    ret.add(toAvro(schema.getElementType(),fd.getDef(0),hpccArray.get(i)));
+                    ret.add(toAvro(schema.getElementType(), fd.getDef(0), hpccArray.get(i)));
                 }
                 return ret;
             }
@@ -112,8 +110,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.BOOLEAN)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 // No translation necessary
@@ -123,8 +121,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.BINARY)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 byte[] data = (byte[]) field;
@@ -136,8 +134,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.REAL)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 if (field instanceof Double)
@@ -158,8 +156,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.INTEGER)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 Integer enumVal = -1;
@@ -172,7 +170,7 @@ public class AvroRecordTranslator
                     throw new Exception("AvroFieldTranslator toAvro: Enum: Unexpected value type: " + field.getClass());
                 }
 
-                GenericData.EnumSymbol enumSymbol = new GenericData.EnumSymbol(schema,schema.getEnumSymbols().get(enumVal));
+                GenericData.EnumSymbol enumSymbol = new GenericData.EnumSymbol(schema, schema.getEnumSymbols().get(enumVal));
                 return enumSymbol;
             }
             case FIXED:
@@ -181,8 +179,8 @@ public class AvroRecordTranslator
                 {
                     if (fd.getFieldType() != FieldType.DECIMAL)
                     {
-                        throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                            + schema.getLogicalType() + "  to hpcc field type: " + fd.getFieldType());
+                        throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getLogicalType()
+                                + "  to hpcc field type: " + fd.getFieldType());
                     }
 
                     // Fixed binary represents a big-endian encoded integer.
@@ -206,25 +204,25 @@ public class AvroRecordTranslator
                 {
                     if (fd.getFieldType() != FieldType.RECORD)
                     {
-                        throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                            + schema.getLogicalType() + "  to hpcc field type: " + fd.getFieldType());
+                        throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getLogicalType()
+                                + "  to hpcc field type: " + fd.getFieldType());
                     }
 
                     // Duration (3 ints: months, days, millis) little-endian move to INTEGER4 of millis
                     if (field instanceof HPCCRecord)
                     {
                         HPCCRecord recValue = (HPCCRecord) field;
- 
+
                         Integer months = (Integer) recValue.getField(0);
                         Integer days = (Integer) recValue.getField(1);
                         Integer millis = (Integer) recValue.getField(2);
-                       
+
                         byte[] data = new byte[12];
-                        littleEndianToByteArray(months,data,0);
-                        littleEndianToByteArray(days,data,4);
-                        littleEndianToByteArray(millis,data,8);
-                        
-                        GenericData.Fixed fixedVal = new GenericData.Fixed(schema,data);
+                        littleEndianToByteArray(months, data, 0);
+                        littleEndianToByteArray(days, data, 4);
+                        littleEndianToByteArray(millis, data, 8);
+
+                        GenericData.Fixed fixedVal = new GenericData.Fixed(schema, data);
                         return fixedVal;
                     }
                     else
@@ -236,14 +234,14 @@ public class AvroRecordTranslator
                 {
                     if (fd.getFieldType() != FieldType.BINARY)
                     {
-                        throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                            + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                        throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType()
+                                + "  to hpcc field type: " + fd.getFieldType());
                     }
 
                     if (field instanceof byte[])
                     {
                         byte[] data = (byte[]) field;
-                        return new GenericData.Fixed(schema,data);
+                        return new GenericData.Fixed(schema, data);
                     }
                     else
                     {
@@ -255,8 +253,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.REAL)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 if (field instanceof Number)
@@ -273,8 +271,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.INTEGER)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 if (field instanceof Number)
@@ -291,8 +289,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.INTEGER)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 if (field instanceof Number)
@@ -309,13 +307,13 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.DATASET)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 if (field instanceof List)
                 {
-                    HashMap<String,Object> map = new HashMap<String,Object>();
+                    HashMap<String, Object> map = new HashMap<String, Object>();
                     List<HPCCRecord> recordList = (List<HPCCRecord>) field;
                     for (int i = 0; i < recordList.size(); i++)
                     {
@@ -326,8 +324,8 @@ public class AvroRecordTranslator
                         }
 
                         String key = (String) rec.getField(0);
-                        Object val = toAvro(schema.getValueType(), fd.getDef(0).getDef(1),rec.getField(1));
-                        map.put(key,val);
+                        Object val = toAvro(schema.getValueType(), fd.getDef(0).getDef(1), rec.getField(1));
+                        map.put(key, val);
                     }
 
                     return map;
@@ -341,8 +339,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.BOOLEAN)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 if (field instanceof Boolean)
@@ -358,8 +356,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.RECORD)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 if ((field instanceof HPCCRecord) == false)
@@ -372,7 +370,7 @@ public class AvroRecordTranslator
                 // Translate child fields
                 List<Schema.Field> schemaFields = schema.getFields();
                 ArrayList<Object> translatedFields = new ArrayList<Object>();
-                
+
                 int fieldIndex = 0;
                 for (Schema.Field schemaField : schemaFields)
                 {
@@ -410,7 +408,7 @@ public class AvroRecordTranslator
                     Long nullBitField = (Long) record.getField(i);
                     for (int j = 0; j < 64; j++)
                     {
-                        int hpccFieldIndex = i*64 + j;
+                        int hpccFieldIndex = i * 64 + j;
                         if (hpccFieldIndex >= fd.getNumDefs())
                         {
                             break;
@@ -418,16 +416,16 @@ public class AvroRecordTranslator
 
                         if ((nullBitField & (1 << j)) != 0)
                         {
-                            translatedFields.set(hpccFieldIndex,null);
+                            translatedFields.set(hpccFieldIndex, null);
                         }
                     }
                 }
-                
+
                 GenericRecordBuilder avroRecordBuilder = new GenericRecordBuilder(schema);
                 fieldIndex = 0;
                 for (Schema.Field schemaField : schemaFields)
                 {
-                    avroRecordBuilder.set(schemaField,translatedFields.get(fieldIndex));
+                    avroRecordBuilder.set(schemaField, translatedFields.get(fieldIndex));
                     fieldIndex++;
                 }
 
@@ -437,15 +435,15 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.STRING)
                 {
-                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toAvro: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 if (field instanceof String)
                 {
                     return field;
                 }
-                else 
+                else
                 {
                     throw new Exception("AvroFieldTranslator toAvro: String: Unexpected value type: " + field.getClass());
                 }
@@ -469,8 +467,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.SET && fd.getFieldType() != FieldType.DATASET)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 ArrayList<Object> ret = EMPTY_ARRAY_LIST;
@@ -492,8 +490,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.BOOLEAN)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 Boolean ret = DEFAULT_BOOLEAN;
@@ -512,8 +510,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.BINARY)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 byte[] ret = EMPTY_BYTE_ARRAY;
@@ -533,8 +531,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.REAL)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 Double ret = DEFAULT_DOUBLE;
@@ -553,8 +551,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.INTEGER)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 Integer ret = -1;
@@ -576,8 +574,8 @@ public class AvroRecordTranslator
                 {
                     if (fd.getFieldType() != FieldType.DECIMAL)
                     {
-                        throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                            + schema.getLogicalType() + "  to hpcc field type: " + fd.getFieldType());
+                        throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getLogicalType()
+                                + "  to hpcc field type: " + fd.getFieldType());
                     }
 
                     // Fixed binary represents a big-endian encoded integer.
@@ -590,7 +588,7 @@ public class AvroRecordTranslator
                         byte[] data = ((GenericFixed) field).bytes();
                         BigInteger intValue = new BigInteger(data);
 
-                        ret = new BigDecimal(intValue,decimalInfo.getScale());
+                        ret = new BigDecimal(intValue, decimalInfo.getScale());
                     }
 
                     return ret;
@@ -599,8 +597,8 @@ public class AvroRecordTranslator
                 {
                     if (fd.getFieldType() != FieldType.RECORD)
                     {
-                        throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                            + schema.getLogicalType() + "  to hpcc field type: " + fd.getFieldType());
+                        throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getLogicalType()
+                                + "  to hpcc field type: " + fd.getFieldType());
                     }
 
                     // Duration (3 ints: months, days, millis) little-endian move to INTEGER8 of millis
@@ -613,11 +611,11 @@ public class AvroRecordTranslator
                     {
                         byte[] data = ((GenericFixed) field).bytes();
 
-                        Integer months = littleEndianFromByteArray(data,0);
-                        Integer days = littleEndianFromByteArray(data,4);
-                        Integer millis = littleEndianFromByteArray(data,8);
+                        Integer months = littleEndianFromByteArray(data, 0);
+                        Integer days = littleEndianFromByteArray(data, 4);
+                        Integer millis = littleEndianFromByteArray(data, 8);
 
-                        fields[0] = months ;
+                        fields[0] = months;
                         fields[1] = days;
                         fields[2] = millis;
                     }
@@ -628,8 +626,8 @@ public class AvroRecordTranslator
                 {
                     if (fd.getFieldType() != FieldType.BINARY)
                     {
-                        throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                            + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                        throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType()
+                                + "  to hpcc field type: " + fd.getFieldType());
                     }
 
                     byte[] ret = EMPTY_BYTE_ARRAY;
@@ -649,8 +647,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.REAL)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 Float ret = DEFAULT_FLOAT;
@@ -669,8 +667,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.INTEGER)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 Integer ret = DEFAULT_INTEGER;
@@ -689,8 +687,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.INTEGER)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 Long ret = DEFAULT_LONG;
@@ -709,20 +707,20 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.DATASET)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 ArrayList<Object> ret = EMPTY_ARRAY_LIST;
                 if (field != null)
                 {
                     ret = new ArrayList<Object>();
-                    Map<String,Object> map = (Map<String,Object>) field;
+                    Map<String, Object> map = (Map<String, Object>) field;
                     FieldDef elementFieldDef = fd.getDef(0);
-                    for (Map.Entry<String,Object> entry : map.entrySet())
+                    for (Map.Entry<String, Object> entry : map.entrySet())
                     {
                         Object convertedFieldValue = toHPCC(schema.getValueType(), null, elementFieldDef.getDef(1), entry.getValue());
-                        HPCCRecord record = new HPCCRecord(new Object[] {entry.getKey(),convertedFieldValue}, elementFieldDef);
+                        HPCCRecord record = new HPCCRecord(new Object[] { entry.getKey(), convertedFieldValue }, elementFieldDef);
                         ret.add(record);
                     }
                 }
@@ -733,14 +731,14 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.BOOLEAN)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 // This seems to be primarily used in unions.
                 // However, having a standard field type of Null isn't prohibited. 
                 // Treat these as a bool value if encountered
-                if (field != null) 
+                if (field != null)
                 {
                     return (Boolean) field;
                 }
@@ -752,8 +750,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.RECORD)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 // Translate child fields
@@ -761,7 +759,7 @@ public class AvroRecordTranslator
                 boolean hasNullableFields = false;
 
                 ArrayList<Object> translatedFields = new ArrayList<Object>();
-                
+
                 IndexedRecord avroRecord = (IndexedRecord) field;
                 int fieldIndex = 0;
                 for (Schema.Field schemaField : schemaFields)
@@ -771,7 +769,7 @@ public class AvroRecordTranslator
                     {
                         Boolean isNullable = false;
                         Boolean isNull = false;
-                        
+
                         // Translate union with simple nullable types being inlined
                         Object outField = avroUnionToHpcc(schemaField.schema(), fd.getDef(fieldIndex), childField, isNullable, isNull, false);
                         translatedFields.add(outField);
@@ -809,7 +807,7 @@ public class AvroRecordTranslator
                     long nullBitField = 0;
                     for (int j = 0; j < 64; j++)
                     {
-                        int avroFieldIndex = i*64 + j;
+                        int avroFieldIndex = i * 64 + j;
                         if (avroFieldIndex >= schemaFields.size())
                         {
                             break;
@@ -830,8 +828,8 @@ public class AvroRecordTranslator
             {
                 if (fd.getFieldType() != FieldType.STRING)
                 {
-                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " 
-                                        + schema.getType() + "  to hpcc field type: " + fd.getFieldType());
+                    throw new Exception("AvroFieldTranslator toHPCC: incompatible avro schema type: " + schema.getType() + "  to hpcc field type: "
+                            + fd.getFieldType());
                 }
 
                 String ret = EMPTY_STRING;
@@ -874,11 +872,11 @@ public class AvroRecordTranslator
             }
             case BOOLEAN:
             {
-                return val instanceof Boolean; 
+                return val instanceof Boolean;
             }
             case BYTES:
             {
-                return val instanceof byte[]; 
+                return val instanceof byte[];
             }
             case DOUBLE:
             {
@@ -942,16 +940,17 @@ public class AvroRecordTranslator
     // Simple nullable unions are unions that are created to allow a field to be nullable; complex unions allow a field to have multiple possible types.
     // Complex unions are represented as a record with each possible type being a field, and a typeID field that determines the type of the value.
     // Complex unions may also be nullable, and may have an isNull field depending on the parent context.
-    static Object avroUnionToHpcc(Schema schema, FieldDef fd, Object unionVal, Boolean isNullable, Boolean isNull, boolean inlineNull) throws Exception
+    static Object avroUnionToHpcc(Schema schema, FieldDef fd, Object unionVal, Boolean isNullable, Boolean isNull, boolean inlineNull)
+            throws Exception
     {
         // Need to handle the simple union case of ["null", "string, etc"]
         // Complex unions IE ["string", "array", "record"] will be handled by creating a rec
         // with a unionType int
         List<Schema> unionTypes = schema.getTypes();
-        
+
         Integer actualTypeIndex = -1;
         int typeIndex = 0;
-        ArrayList<Object> childFields = new ArrayList<Object>(); 
+        ArrayList<Object> childFields = new ArrayList<Object>();
         for (Schema type : unionTypes)
         {
             if (type.getType() == Schema.Type.NULL)
@@ -1014,21 +1013,21 @@ public class AvroRecordTranslator
             int numExpectedFields = unionTypes.size() + 1;
             if (numExpectedFields != fd.getNumDefs())
             {
-                throw new Exception("AvroFieldTranslator toAvro: HPCC Union Record has unexpected number of fields: " 
-                                    + fd.getNumDefs() + " Expected: " + numExpectedFields);
+                throw new Exception("AvroFieldTranslator toAvro: HPCC Union Record has unexpected number of fields: " + fd.getNumDefs()
+                        + " Expected: " + numExpectedFields);
             }
-            
+
             // This is the index of the actual type of the union
             HPCCRecord record = (HPCCRecord) unionVal;
-            Integer typeIndex = (Integer) record.getField(numExpectedFields-1);
+            Integer typeIndex = (Integer) record.getField(numExpectedFields - 1);
             translatedVal = toAvro(unionTypes.get(typeIndex), fd.getDef(typeIndex), record.getField(typeIndex));
         }
         else
         {
             if (unionTypes.size() != 2)
             {
-                throw new Exception("AvroFieldTranslator toAvro: Avro Union schema has unexpected number of types: " 
-                                    + unionTypes.size() + " Expected: 2");
+                throw new Exception(
+                        "AvroFieldTranslator toAvro: Avro Union schema has unexpected number of types: " + unionTypes.size() + " Expected: 2");
             }
 
             int typeIndex = 0;

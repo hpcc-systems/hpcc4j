@@ -47,14 +47,15 @@ public class HPCCRemoteFileWriter<T>
 
     public static class FileWriteContext
     {
-        public FieldDef recordDef = null;
-        public CompressionAlgorithm fileCompression = CompressionAlgorithm.DEFAULT;
-        public int connectTimeoutMs = -1;
-        public int socketOpTimeoutMs = -1;
-        public Span parentSpan = null;
+        public FieldDef             recordDef         = null;
+        public CompressionAlgorithm fileCompression   = CompressionAlgorithm.DEFAULT;
+        public int                  connectTimeoutMs  = -1;
+        public int                  socketOpTimeoutMs = -1;
+        public Span                 parentSpan        = null;
     }
 
-    private static FileWriteContext constructReadContext(FieldDef recordDef, CompressionAlgorithm fileCompression, int connectTimeoutMs, int socketOpTimeoutMs)
+    private static FileWriteContext constructReadContext(FieldDef recordDef, CompressionAlgorithm fileCompression, int connectTimeoutMs,
+            int socketOpTimeoutMs)
     {
         FileWriteContext context = new FileWriteContext();
         context.recordDef = recordDef;
@@ -82,7 +83,7 @@ public class HPCCRemoteFileWriter<T>
     public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression)
             throws Exception
     {
-        this(dp,recordDef,recordAccessor,fileCompression,RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS);
+        this(dp, recordDef, recordAccessor, fileCompression, RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS);
     }
 
     /**
@@ -101,10 +102,11 @@ public class HPCCRemoteFileWriter<T>
      * @throws Exception
      *             the exception
      */
-    public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression, int connectTimeoutMs)
-            throws Exception
+    public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression,
+            int connectTimeoutMs) throws Exception
     {
-        this(dp,recordDef,recordAccessor,fileCompression,RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS, RowServiceOutputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS);
+        this(dp, recordDef, recordAccessor, fileCompression, RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS,
+                RowServiceOutputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS);
     }
 
     /**
@@ -125,14 +127,13 @@ public class HPCCRemoteFileWriter<T>
      * @throws Exception
      *             the exception
      */
-    public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression, int connectTimeoutMs, int socketOpTimeoutMs)
-            throws Exception
+    public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression,
+            int connectTimeoutMs, int socketOpTimeoutMs) throws Exception
     {
         this(constructReadContext(recordDef, fileCompression, connectTimeoutMs, socketOpTimeoutMs), dp, recordAccessor);
     }
 
-    public HPCCRemoteFileWriter(FileWriteContext ctx, DataPartition dp, IRecordAccessor recordAccessor)
-            throws Exception
+    public HPCCRemoteFileWriter(FileWriteContext ctx, DataPartition dp, IRecordAccessor recordAccessor) throws Exception
     {
         this.dataPartition = dp;
         this.context = ctx;
@@ -150,9 +151,8 @@ public class HPCCRemoteFileWriter<T>
             secondaryIP = dp.getCopyIP(1);
         }
 
-        Attributes attributes = Attributes.of(  AttributeKey.stringKey("server.0.address"), primaryIP,
-                                                AttributeKey.stringKey("server.1.address"), secondaryIP,
-                                                AttributeKey.stringKey("server.port"), Integer.toString(dp.getPort()));
+        Attributes attributes = Attributes.of(AttributeKey.stringKey("server.0.address"), primaryIP, AttributeKey.stringKey("server.1.address"),
+                secondaryIP, AttributeKey.stringKey("server.port"), Integer.toString(dp.getPort()));
         writeSpan.setAllAttributes(attributes);
 
         this.outputStream = new RowServiceOutputStream(dataPartition.getCopyIP(0), dataPartition.getPort(), dataPartition.getUseSsl(),
@@ -162,10 +162,8 @@ public class HPCCRemoteFileWriter<T>
         this.binaryRecordWriter = new BinaryRecordWriter(this.outputStream);
         this.binaryRecordWriter.initialize(this.recordAccessor);
 
-        log.info("HPCCRemoteFileWriter: Opening file part: " + dataPartition.getThisPart()
-                + " compression: " + context.fileCompression.name());
-        log.trace("Record definition:\n"
-                + RecordDefinitionTranslator.toJsonRecord(context.recordDef));
+        log.info("HPCCRemoteFileWriter: Opening file part: " + dataPartition.getThisPart() + " compression: " + context.fileCompression.name());
+        log.trace("Record definition:\n" + RecordDefinitionTranslator.toJsonRecord(context.recordDef));
         openTimeMs = System.currentTimeMillis();
     }
 
@@ -238,9 +236,8 @@ public class HPCCRemoteFileWriter<T>
         this.writeSpan.end();
 
         long closeTimeMs = System.currentTimeMillis();
-        double writeTimeS = (closeTimeMs -  openTimeMs) / 1000.0;
-        log.info("HPCCRemoteFileWriter: Closing file part: " + dataPartition.getThisPart()
-                + " write time: " + writeTimeS + "s "
+        double writeTimeS = (closeTimeMs - openTimeMs) / 1000.0;
+        log.info("HPCCRemoteFileWriter: Closing file part: " + dataPartition.getThisPart() + " write time: " + writeTimeS + "s "
                 + " records written: " + recordsWritten);
     }
 
@@ -301,8 +298,7 @@ public class HPCCRemoteFileWriter<T>
     public int getRemoteWriteMessageCount()
     {
         int count = 0;
-        if (this.binaryRecordWriter != null)
-            count = this.binaryRecordWriter.getStreamMessageCount();
+        if (this.binaryRecordWriter != null) count = this.binaryRecordWriter.getStreamMessageCount();
 
         return count;
     }
@@ -310,8 +306,7 @@ public class HPCCRemoteFileWriter<T>
     public String getRemoteWriteMessages()
     {
         String report = "";
-        if (this.binaryRecordWriter != null)
-            report = this.binaryRecordWriter.getStreamMessages();
+        if (this.binaryRecordWriter != null) report = this.binaryRecordWriter.getStreamMessages();
 
         return report;
     }

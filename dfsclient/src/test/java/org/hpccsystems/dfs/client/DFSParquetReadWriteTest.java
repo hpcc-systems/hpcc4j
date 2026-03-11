@@ -52,7 +52,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @Category(org.hpccsystems.commons.annotations.BaseTests.class)
-public class DFSParquetReadWriteTest 
+public class DFSParquetReadWriteTest
 {
     @Test
     public void parquetReadWriteTest() throws Exception
@@ -70,7 +70,7 @@ public class DFSParquetReadWriteTest
 
         fieldDefs[5] = new FieldDef("arrayVal", FieldType.SET, "SET OF INTEGER", 0, false, false, HpccSrcType.LITTLE_ENDIAN, childFieldDefs);
         FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, fieldDefs);
-        
+
         Object[] fields = new Object[6];
         fields[0] = "str";
         fields[1] = Integer.valueOf(42);
@@ -84,12 +84,12 @@ public class DFSParquetReadWriteTest
 
         Object[] childFields = new Object[1];
         childFields[0] = "childField";
-       
+
         HPCCRecord hpccRecord = new HPCCRecord(fields, recordDef);
 
         Schema recordSchema = AvroSchemaTranslator.toAvro(recordDef);
         System.out.println(recordSchema);
-        File tempFile = File.createTempFile("parquet_test",".parquet");
+        File tempFile = File.createTempFile("parquet_test", ".parquet");
         try
         {
             tempFile.deleteOnExit();
@@ -143,4 +143,3 @@ public class DFSParquetReadWriteTest
         }
     }
 }
-

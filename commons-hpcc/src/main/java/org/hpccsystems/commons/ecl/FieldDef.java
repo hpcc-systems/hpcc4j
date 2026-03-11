@@ -358,8 +358,7 @@ public class FieldDef implements Serializable
      */
     public boolean isNonStandardInt()
     {
-        return this.srcType == HpccSrcType.KEYED_INTEGER
-                || this.srcType == HpccSrcType.SWAPPED_INTEGER
+        return this.srcType == HpccSrcType.KEYED_INTEGER || this.srcType == HpccSrcType.SWAPPED_INTEGER
                 || this.srcType == HpccSrcType.BIAS_SWAPPED_INTEGER;
     }
 

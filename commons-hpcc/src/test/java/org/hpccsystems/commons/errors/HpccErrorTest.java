@@ -18,12 +18,10 @@ public class HpccErrorTest
     public void testHpccError() throws Exception
     {
         // create a standard error message
-        HpccError err = new HpccError(HpccErrorLevel.ERROR, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION,
-                "Error retrieving x");
+        HpccError err = new HpccError(HpccErrorLevel.ERROR, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION, "Error retrieving x");
 
         // create a standard warning message
-        err = new HpccError(HpccErrorLevel.WARNING, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION,
-                "warning retrieving x");
+        err = new HpccError(HpccErrorLevel.WARNING, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION, "warning retrieving x");
 
         // create a standard info message
         err = new HpccError(HpccErrorLevel.INFO, HpccErrorType.SYSTEM, HpccErrorCode.INFO, "info about retrieving x");
@@ -35,13 +33,11 @@ public class HpccErrorTest
         }
         catch (Exception e)
         {
-            err = new HpccError(HpccErrorLevel.FATAL, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION,
-                    e.getMessage(), e);
+            err = new HpccError(HpccErrorLevel.FATAL, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION, e.getMessage(), e);
         }
 
         // create an error for an ecl compile exception (with linenum/colnum, etc)
-        err = new HpccError(HpccErrorLevel.ERROR, HpccErrorType.UNKNOWN, HpccErrorCode.UNCAUGHT_EXCEPTION,
-                "error message", "additional info", 31, // line number
+        err = new HpccError(HpccErrorLevel.ERROR, HpccErrorType.UNKNOWN, HpccErrorCode.UNCAUGHT_EXCEPTION, "error message", "additional info", 31, // line number
                 342, // column number
                 "c:/test/compmod.ecl" // filename
         );
@@ -56,10 +52,8 @@ public class HpccErrorTest
     public void testHpccErrorBlock() throws Exception
     {
         HpccErrorBlock eb = new HpccErrorBlock();
-        eb.add(new HpccError(HpccErrorLevel.ERROR, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION,
-                "Error retrieving x"));
-        eb.add(new HpccError(HpccErrorLevel.WARNING, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION,
-                "warning retrieving x"));
+        eb.add(new HpccError(HpccErrorLevel.ERROR, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION, "Error retrieving x"));
+        eb.add(new HpccError(HpccErrorLevel.WARNING, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION, "warning retrieving x"));
         eb.add(new HpccError(HpccErrorLevel.INFO, HpccErrorType.SYSTEM, HpccErrorCode.INFO, "info about retrieving x"));
 
         try
@@ -68,12 +62,10 @@ public class HpccErrorTest
         }
         catch (Exception e)
         {
-            eb.add(new HpccError(HpccErrorLevel.FATAL, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION,
-                    e.getMessage(), e));
+            eb.add(new HpccError(HpccErrorLevel.FATAL, HpccErrorType.SYSTEM, HpccErrorCode.UNCAUGHT_EXCEPTION, e.getMessage(), e));
         }
 
-        eb.add(new HpccError(HpccErrorLevel.ERROR, HpccErrorType.UNKNOWN, HpccErrorCode.UNCAUGHT_EXCEPTION,
-                "error message", "additional info", 31, // line number
+        eb.add(new HpccError(HpccErrorLevel.ERROR, HpccErrorType.UNKNOWN, HpccErrorCode.UNCAUGHT_EXCEPTION, "error message", "additional info", 31, // line number
                 342, // column number
                 "c:/test/compmod.ecl" // filename
         ));

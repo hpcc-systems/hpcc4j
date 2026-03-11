@@ -164,7 +164,9 @@ public class CircularByteBufferTest extends BaseRemoteTest
     @Test
     public void wrappingReadTest()
     {
-        byte[] expectedData = (new String("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mauris nulla, semper a vehicula sed, pulvinar non purus quam.")).getBytes();
+        byte[] expectedData = (new String(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mauris nulla, semper a vehicula sed, pulvinar non purus quam."))
+                        .getBytes();
 
         CircularByteBuffer cbb = new CircularByteBuffer(64);
 
@@ -175,7 +177,7 @@ public class CircularByteBufferTest extends BaseRemoteTest
             int bytesToWrite = Math.min(cbb.getFreeSpace(), numBytesToWrite);
             cbb.add(expectedData, offset, bytesToWrite);
             numBytesToWrite -= bytesToWrite;
-        } 
+        }
         catch (Exception e)
         {
             e.printStackTrace();
@@ -208,7 +210,7 @@ public class CircularByteBufferTest extends BaseRemoteTest
             int bytesToWrite = Math.min(cbb.getFreeSpace(), numBytesToWrite);
             cbb.add(expectedData, offset, bytesToWrite);
             numBytesToWrite -= bytesToWrite;
-        } 
+        }
         catch (Exception e)
         {
             e.printStackTrace();
@@ -247,11 +249,12 @@ public class CircularByteBufferTest extends BaseRemoteTest
 
         // Lorem ipsum
         int numIterations = 1000;
-        byte[] expectedData = (new String("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mauris nulla, semper a vehicula sed, pulvinar non purus quam.")).getBytes();
-    
+        byte[] expectedData = (new String(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mauris nulla, semper a vehicula sed, pulvinar non purus quam."))
+                        .getBytes();
+
         Exception[] workerExceptions = new Exception[2];
-        Thread writer = new Thread(new Runnable()
-        {
+        Thread writer = new Thread(new Runnable() {
             @Override
             public void run()
             {
@@ -288,8 +291,7 @@ public class CircularByteBufferTest extends BaseRemoteTest
             }
         });
 
-        Thread reader = new Thread(new Runnable()
-        {
+        Thread reader = new Thread(new Runnable() {
             @Override
             public void run()
             {
@@ -367,4 +369,3 @@ public class CircularByteBufferTest extends BaseRemoteTest
         }
     }
 }
- 

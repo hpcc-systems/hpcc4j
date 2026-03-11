@@ -34,34 +34,29 @@ import org.junit.experimental.categories.Category;
 @Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class DFUFileDetailWrapperTest
 {
-    private static final String SETOF = "RECORD\n" +
-            "STRING1 test;\n" +
-            "SET OF UTF8 fieldAllset {DEFAULT (ALL)};\n" +
-            "SET OF UTF8 field2set {DEFAULT (['test1','test2'])};\n" +
-            "SET OF UTF8 field3set {DEFAULT ([''])};\n" +
-            "SET OF UTF8 field4set {DEFAULT (['test'])};\n" +
-            "STRING2 test;\n" +
-            "END;";
-    private final String WITH_ANNOTATION = "RECORD\nSTRING SSN; // @METATYPE(SSN)\nEND;";
-    private final String MAXLENGTH = "RECORD\nSTRING SSN;\nINTEGER8 maxlength;\nEND;";
-    private final String WITH_ANNOTATION_NO_PARAMS = "RECORD\nSTRING SSN; // @FEW\nEND;";
-    private final String WITH_ANNOTATION_AND_COMMENT = "RECORD\nSTRING SSN; // @FOO(BAR) foo equals kittens, bar equals cats\nEND;";
-    private final String WITH_ANNOTATION_MULTI_PARAMS = "RECORD\nSTRING SSN; // @FOO(BAR1, BAR2,BAR3)\nEND;";
-    private final String WITH_COMMENT = "RECORD\nSTRING SSN; // This is just a regular comment.\nEND;";
-    private final String WITH_ANNOTATION_LIKE_COMMENT = "RECORD\nSTRING SSN; // THIS(ISNT) an annotations.\nEND;";
-    private final String ML_WITH_ANNOTATION = "RECORD\nSTRING FOO; /* @FOO(BAR) */\nEND;";
-    private final String ML_WITH_ANNOTATION_AND_COMMENT = "RECORD\nSTRING SSN; /* @FOO(BAR) and kittens. */\nEND;";
-    private final String ML_WITH_ANNOTATION_MULTI_PARAMS = "RECORD\nSTRING SSN; /* @FOO(BAR1, BAR2,BAR3) */\nEND;";
-    private final String ML_WITH_COMMENT = "RECORD\nSTRING SSN; /* this is just a regular comment. */\nEND;";
-    private final String ML_WITH_ANNOTATION_LIKE_COMMENT = "RECORD\nSTRING SSN; /* THIS(ISNT) an annotation. */\nEND;";
-    private final String ML_INLINE = "RECORD\nSTRING SSN; /* @FOO(BAR) */\nEND;";
-    private final String FULL_RECORD = "child := RECORD\n\t\tSTRING name;\nEND;\nRECORD // @LARGE\nSTRING FNAME;\nSTRING LNAME;\nSTRING MNAME;\nSTRING DOB;\nSTRING SSN; // @METATYPE(SSN)\nSTRING ADDR1;\nSTRING ADDR2;\nSTRING CITY;\nSTRING STATE;\nSTRING ZIP; // @METATYPE(ZIP), @FEW, @MULTIPARAMS(PARAM1,PARAM2)\nSTRING DLNUMBER;\nDATASET(child) KIDS;\nEND;";
-    private final String INLINE_WITH_MAXLENGTH = "{ , MAXLENGTH(84) string4 sic4_code, string80 sic4_description };";
-    private final String PAYLOAD = "RECORD\nSTRING SSN\n=>\nUNSIGNED8 _FPOS_;\nEND;";
+    private static final String SETOF                           = "RECORD\n" + "STRING1 test;\n" + "SET OF UTF8 fieldAllset {DEFAULT (ALL)};\n"
+            + "SET OF UTF8 field2set {DEFAULT (['test1','test2'])};\n" + "SET OF UTF8 field3set {DEFAULT ([''])};\n"
+            + "SET OF UTF8 field4set {DEFAULT (['test'])};\n" + "STRING2 test;\n" + "END;";
+    private final String        WITH_ANNOTATION                 = "RECORD\nSTRING SSN; // @METATYPE(SSN)\nEND;";
+    private final String        MAXLENGTH                       = "RECORD\nSTRING SSN;\nINTEGER8 maxlength;\nEND;";
+    private final String        WITH_ANNOTATION_NO_PARAMS       = "RECORD\nSTRING SSN; // @FEW\nEND;";
+    private final String        WITH_ANNOTATION_AND_COMMENT     = "RECORD\nSTRING SSN; // @FOO(BAR) foo equals kittens, bar equals cats\nEND;";
+    private final String        WITH_ANNOTATION_MULTI_PARAMS    = "RECORD\nSTRING SSN; // @FOO(BAR1, BAR2,BAR3)\nEND;";
+    private final String        WITH_COMMENT                    = "RECORD\nSTRING SSN; // This is just a regular comment.\nEND;";
+    private final String        WITH_ANNOTATION_LIKE_COMMENT    = "RECORD\nSTRING SSN; // THIS(ISNT) an annotations.\nEND;";
+    private final String        ML_WITH_ANNOTATION              = "RECORD\nSTRING FOO; /* @FOO(BAR) */\nEND;";
+    private final String        ML_WITH_ANNOTATION_AND_COMMENT  = "RECORD\nSTRING SSN; /* @FOO(BAR) and kittens. */\nEND;";
+    private final String        ML_WITH_ANNOTATION_MULTI_PARAMS = "RECORD\nSTRING SSN; /* @FOO(BAR1, BAR2,BAR3) */\nEND;";
+    private final String        ML_WITH_COMMENT                 = "RECORD\nSTRING SSN; /* this is just a regular comment. */\nEND;";
+    private final String        ML_WITH_ANNOTATION_LIKE_COMMENT = "RECORD\nSTRING SSN; /* THIS(ISNT) an annotation. */\nEND;";
+    private final String        ML_INLINE                       = "RECORD\nSTRING SSN; /* @FOO(BAR) */\nEND;";
+    private final String        FULL_RECORD                     = "child := RECORD\n\t\tSTRING name;\nEND;\nRECORD // @LARGE\nSTRING FNAME;\nSTRING LNAME;\nSTRING MNAME;\nSTRING DOB;\nSTRING SSN; // @METATYPE(SSN)\nSTRING ADDR1;\nSTRING ADDR2;\nSTRING CITY;\nSTRING STATE;\nSTRING ZIP; // @METATYPE(ZIP), @FEW, @MULTIPARAMS(PARAM1,PARAM2)\nSTRING DLNUMBER;\nDATASET(child) KIDS;\nEND;";
+    private final String        INLINE_WITH_MAXLENGTH           = "{ , MAXLENGTH(84) string4 sic4_code, string80 sic4_description };";
+    private final String        PAYLOAD                         = "RECORD\nSTRING SSN\n=>\nUNSIGNED8 _FPOS_;\nEND;";
 
     public static DFUDataColumnWrapper getColumnByName(final DFUDataColumnWrapper parent, final String name)
     {
-        for (final DFUDataColumnWrapper child: parent.getChildColumns())
+        for (final DFUDataColumnWrapper child : parent.getChildColumns())
         {
             if (child.getColumnLabel().equals(name))
             {
@@ -76,9 +71,9 @@ public class DFUFileDetailWrapperTest
     public void testGetRecordEcl() throws Exception
     {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(WITH_ANNOTATION);
-        if (info.getParseErrors().size()!=0)
+        if (info.getParseErrors().size() != 0)
         {
-            fail("Failed:" + String.join("\n",info.getParseErrors()));
+            fail("Failed:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -93,17 +88,19 @@ public class DFUFileDetailWrapperTest
 
     // Single line style tests
     @Test
-    public void testFullRecordEcl() throws Exception {
+    public void testFullRecordEcl() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(FULL_RECORD);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
         assertEquals(1, recordDefInfo.getAnnotations().size());
         DFUDataColumnAnnotation annotation = recordDefInfo.getAnnotations().get(0);
         assertEquals("LARGE", annotation.getName());
-         DFUDataColumnWrapper column = getColumnByName(recordDefInfo, "SSN");
+        DFUDataColumnWrapper column = getColumnByName(recordDefInfo, "SSN");
         assertEquals(1, column.getAnnotations().size());
         annotation = column.getAnnotations().get(0);
         assertEquals("METATYPE", annotation.getName());
@@ -128,10 +125,12 @@ public class DFUFileDetailWrapperTest
 
     // Single line style tests
     @Test
-    public void testGetRecordEclNoParams() throws Exception {
+    public void testGetRecordEclNoParams() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(WITH_ANNOTATION_NO_PARAMS);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -144,27 +143,31 @@ public class DFUFileDetailWrapperTest
     }
 
     @Test
-    public void testGetRecordEclAnnotationAndComment() throws Exception {
+    public void testGetRecordEclAnnotationAndComment() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(WITH_ANNOTATION_AND_COMMENT);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
         assertEquals(0, recordDefInfo.getAnnotations().size());
         DFUDataColumnWrapper column = getColumnByName(recordDefInfo, "SSN");
-        assertEquals(1,column.getAnnotations().size());
+        assertEquals(1, column.getAnnotations().size());
         DFUDataColumnAnnotation annotation = column.getAnnotations().get(0);
         assertEquals("FOO", annotation.getName());
-        assertEquals(1,annotation.getParameters().size());
-        assertEquals("BAR",annotation.getParameters().get(0));
+        assertEquals(1, annotation.getParameters().size());
+        assertEquals("BAR", annotation.getParameters().get(0));
     }
 
     @Test
-    public void testGetRecordEclMultiParams() throws Exception {
+    public void testGetRecordEclMultiParams() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(WITH_ANNOTATION_MULTI_PARAMS);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -180,10 +183,12 @@ public class DFUFileDetailWrapperTest
     }
 
     @Test
-    public void testGetRecordEclWithComment() throws Exception {
+    public void testGetRecordEclWithComment() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(WITH_COMMENT);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -192,12 +197,13 @@ public class DFUFileDetailWrapperTest
         assertEquals(0, column.getAnnotations().size());
     }
 
-
     @Test
-    public void testInlineWithMaxlength() throws Exception {
+    public void testInlineWithMaxlength() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(INLINE_WITH_MAXLENGTH);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -207,22 +213,25 @@ public class DFUFileDetailWrapperTest
     }
 
     @Test
-    public void testPayload() throws Exception 
+    public void testPayload() throws Exception
     {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(PAYLOAD);
-        if (info.getParseErrors().size()!=0) 
+        if (info.getParseErrors().size() != 0)
         {
-            fail("Failed:" + String.join("\n",info.getParseErrors()));
+            fail("Failed:" + String.join("\n", info.getParseErrors()));
         }
-        assertEquals("SSN",info.getRecordsets().get("unnamed0").getChildColumns().get(0).getColumnLabel());
-        assertEquals("_FPOS_",info.getRecordsets().get("unnamed0").getChildColumns().get(1).getColumnLabel());
-        
+        assertEquals("SSN", info.getRecordsets().get("unnamed0").getChildColumns().get(0).getColumnLabel());
+        assertEquals("_FPOS_", info.getRecordsets().get("unnamed0").getChildColumns().get(1).getColumnLabel());
+
     }
+
     @Test
-    public void testGetRecordEclWithAnnotationLikeComment() throws Exception {
+    public void testGetRecordEclWithAnnotationLikeComment() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(WITH_ANNOTATION_LIKE_COMMENT);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -233,10 +242,12 @@ public class DFUFileDetailWrapperTest
 
     // ML tests
     @Test
-    public void testGetRecordMlEcl() throws Exception {
+    public void testGetRecordMlEcl() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ML_WITH_ANNOTATION);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -250,26 +261,30 @@ public class DFUFileDetailWrapperTest
     }
 
     @Test
-    public void testGetRecordMlEclAnnotationAndComment() throws Exception {
+    public void testGetRecordMlEclAnnotationAndComment() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ML_WITH_ANNOTATION_AND_COMMENT);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
-        assertEquals(0,recordDefInfo.getAnnotations().size());
+        assertEquals(0, recordDefInfo.getAnnotations().size());
         DFUDataColumnWrapper column = getColumnByName(recordDefInfo, "SSN");
         DFUDataColumnAnnotation annotation = column.getAnnotations().get(0);
         assertEquals("FOO", annotation.getName());
-        assertEquals(1,annotation.getParameters().size());
-        assertEquals("BAR",annotation.getParameters().get(0));
+        assertEquals(1, annotation.getParameters().size());
+        assertEquals("BAR", annotation.getParameters().get(0));
     }
 
     @Test
-    public void testGetRecordMlEclMultiParams() throws Exception {
+    public void testGetRecordMlEclMultiParams() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ML_WITH_ANNOTATION_MULTI_PARAMS);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed get multi-annotated recordset:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed get multi-annotated recordset:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -285,10 +300,12 @@ public class DFUFileDetailWrapperTest
     }
 
     @Test
-    public void testGetRecordMlEclWithComment() throws Exception {
+    public void testGetRecordMlEclWithComment() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ML_WITH_COMMENT);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed get ml with comment test:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed get ml with comment test:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -298,10 +315,12 @@ public class DFUFileDetailWrapperTest
     }
 
     @Test
-    public void testGetRecordMlEclWithAnnotationLikeComment() throws Exception {
+    public void testGetRecordMlEclWithAnnotationLikeComment() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ML_WITH_ANNOTATION_LIKE_COMMENT);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed get record with annotation comment:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed get record with annotation comment:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -311,10 +330,12 @@ public class DFUFileDetailWrapperTest
     }
 
     @Test
-    public void testGetRecordMlEclInlineComment() throws Exception {
+    public void testGetRecordMlEclInlineComment() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(ML_INLINE);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed get ml inline test:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed get ml inline test:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -322,16 +343,18 @@ public class DFUFileDetailWrapperTest
         DFUDataColumnWrapper column = getColumnByName(recordDefInfo, "SSN");
 
         DFUDataColumnAnnotation annotation = column.getAnnotations().get(0);
-        assertEquals("FOO",annotation.getName());
-        assertEquals(1,annotation.getParameters().size());
-        assertEquals("BAR",annotation.getParameters().get(0));
+        assertEquals("FOO", annotation.getName());
+        assertEquals(1, annotation.getParameters().size());
+        assertEquals("BAR", annotation.getParameters().get(0));
     }
 
     @Test
-    public void testGetRecordMaxlength() throws Exception {
+    public void testGetRecordMaxlength() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(MAXLENGTH);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed get maxlength test:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed get maxlength test:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -341,10 +364,12 @@ public class DFUFileDetailWrapperTest
     }
 
     @Test
-    public void testSetDefault() throws Exception {
+    public void testSetDefault() throws Exception
+    {
         EclRecordWrapper info = DFUFileDetailWrapper.getRecordEcl(SETOF);
-        if (info.getParseErrors().size()!=0) {
-            fail("Failed get set default test:" + String.join("\n",info.getParseErrors()));
+        if (info.getParseErrors().size() != 0)
+        {
+            fail("Failed get set default test:" + String.join("\n", info.getParseErrors()));
         }
         DFURecordDefWrapper recordDefInfo = info.getRecordsets().get("unnamed0");
         assertNotNull(recordDefInfo);
@@ -370,23 +395,31 @@ public class DFUFileDetailWrapperTest
     }
 
     @Test
-    public void testEclParsing() throws Exception {
-        Map<String,String> layouts=new LinkedHashMap<String,String>();
-        layouts.put("inline record with dataset child", "l_test:=RECORD\nSTRING1 test;\nEND;\n\nRECORD\nSTRING __field1;\n{DATASET(l_test) a} field2;\nEND;");
-        layouts.put("record layout def starting with __", "__errx__ := RECORD,maxlength(2097152)\n  integer8 transaction_time{xpath('_call_latency_ms')};\n END;\n\n{ string fname1, integer8 did, DATASET(__errx__) ds };");
-        layouts.put("record with {blob} in field definition","RECORD\nSTRING data_content{blob,MAXLENGTH(20000)}; \nEND;");
-        layouts.put("inline record def with maxlength","{,maxLength(84)\r\nstring4 sic4_code, string80 sic4_description };");
-        boolean passed=true;
-        for (Entry<String,String> item:layouts.entrySet()) {
-            EclRecordWrapper rec=DFUFileDetailWrapper.getRecordFromECL(item.getValue());
-            if (rec.getParseErrors().size()!=0) {
+    public void testEclParsing() throws Exception
+    {
+        Map<String, String> layouts = new LinkedHashMap<String, String>();
+        layouts.put("inline record with dataset child",
+                "l_test:=RECORD\nSTRING1 test;\nEND;\n\nRECORD\nSTRING __field1;\n{DATASET(l_test) a} field2;\nEND;");
+        layouts.put("record layout def starting with __",
+                "__errx__ := RECORD,maxlength(2097152)\n  integer8 transaction_time{xpath('_call_latency_ms')};\n END;\n\n{ string fname1, integer8 did, DATASET(__errx__) ds };");
+        layouts.put("record with {blob} in field definition", "RECORD\nSTRING data_content{blob,MAXLENGTH(20000)}; \nEND;");
+        layouts.put("inline record def with maxlength", "{,maxLength(84)\r\nstring4 sic4_code, string80 sic4_description };");
+        boolean passed = true;
+        for (Entry<String, String> item : layouts.entrySet())
+        {
+            EclRecordWrapper rec = DFUFileDetailWrapper.getRecordFromECL(item.getValue());
+            if (rec.getParseErrors().size() != 0)
+            {
                 System.out.println(item.getKey() + " FAILED:" + String.join("\n", rec.getParseErrors()));
-                passed=false;
-            } else {
+                passed = false;
+            }
+            else
+            {
                 System.out.println(item.getKey() + " parsed correctly");
             }
         }
-        if (!passed) {
+        if (!passed)
+        {
             fail("not all record structures passed");
         }
     }

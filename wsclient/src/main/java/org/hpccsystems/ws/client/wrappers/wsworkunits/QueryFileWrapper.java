@@ -6,8 +6,8 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.FileUsedByQuery;
 public class QueryFileWrapper
 {
     private String fileName;
-    private Long fileSize;
-    private long numberOfParts;
+    private Long   fileSize;
+    private long   numberOfParts;
 
     /**
      * Instantiates a new query file wrapper.
@@ -17,9 +17,9 @@ public class QueryFileWrapper
      */
     public QueryFileWrapper(FileUsedByQuery raw)
     {
-        fileName=raw.getFileName();
-        fileSize=raw.getFileSize();
-        numberOfParts=raw.getNumberOfParts().longValue();
+        fileName = raw.getFileName();
+        fileSize = raw.getFileSize();
+        numberOfParts = raw.getNumberOfParts().longValue();
     }
 
     /**

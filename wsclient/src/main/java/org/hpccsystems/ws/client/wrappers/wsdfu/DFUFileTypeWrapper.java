@@ -18,16 +18,10 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileType;
  */
 public enum DFUFileTypeWrapper
 {
-    Flat ("Flat"),
-    Index ("Index"),
-    Xml ("Xml"),
-    Csv ("Csv"),
-    Json ("Json"),
-	IndexLocal("IndexLocal"),
-    IndexPartitioned("IndexPartitioned");
+    Flat ("Flat"), Index ("Index"), Xml ("Xml"), Csv ("Csv"), Json ("Json"), IndexLocal ("IndexLocal"), IndexPartitioned ("IndexPartitioned");
 
-    protected String theDFUFileType;
-    private static final Map<String,DFUFileTypeWrapper> enumtable;
+    protected String                                     theDFUFileType;
+    private static final Map<String, DFUFileTypeWrapper> enumtable;
 
     /**
      * Instantiates a new DFU file type wrapper.
@@ -35,7 +29,7 @@ public enum DFUFileTypeWrapper
      * @param name
      *            the name
      */
-    DFUFileTypeWrapper (String name)
+    DFUFileTypeWrapper(String name)
     {
         theDFUFileType = name;
     }
@@ -50,10 +44,10 @@ public enum DFUFileTypeWrapper
 
     static
     {
-        Map<String,DFUFileTypeWrapper> map = new ConcurrentHashMap<String, DFUFileTypeWrapper>();
+        Map<String, DFUFileTypeWrapper> map = new ConcurrentHashMap<String, DFUFileTypeWrapper>();
         for (DFUFileTypeWrapper instance : DFUFileTypeWrapper.values())
         {
-            map.put(instance.toString(),instance);
+            map.put(instance.toString(), instance);
         }
         enumtable = Collections.unmodifiableMap(map);
     }
@@ -104,7 +98,7 @@ public enum DFUFileTypeWrapper
      */
     public boolean isIndex()
     {
-        switch(this)
+        switch (this)
         {
             case Index:
             case IndexLocal:

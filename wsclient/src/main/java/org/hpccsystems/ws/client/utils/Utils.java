@@ -56,9 +56,9 @@ public class Utils
 {
     private final static Logger log            = LogManager.getLogger(Utils.class);
 
-    public final static char           LINUX_SEP      = '/';
-    public final static char           WIN_SEP        = '\\';
-    public final static String         ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.sss'Z'";
+    public final static char    LINUX_SEP      = '/';
+    public final static char    WIN_SEP        = '\\';
+    public final static String  ISO8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.sss'Z'";
 
     public enum LogLevel
     {
@@ -825,15 +825,7 @@ public class Utils
      */
     public enum HPCCEnvOSCode
     {
-        MachineOsW2K (
-                0
-        ), MachineOsSolaris (
-                1
-        ), MachineOsLinux (
-                2
-        ), MachineOsUnknown (
-                3
-        );
+        MachineOsW2K (0), MachineOsSolaris (1), MachineOsLinux (2), MachineOsUnknown (3);
 
         private int    code;
         private String name;
@@ -1042,8 +1034,8 @@ public class Utils
 
     public static DocumentBuilderFactory newSafeXMLDocBuilderFactory() throws ParserConfigurationException
     {
-	    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-	    // Settings for secure XML parsing
+        DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+        // Settings for secure XML parsing
         docBuilderFactory.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, true);
         docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
         docBuilderFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
@@ -1064,8 +1056,7 @@ public class Utils
     {
         DocumentBuilderFactory docBuilderFactory = newSafeXMLDocBuilderFactory();
         DocumentBuilder safeXMLDocBuilder = docBuilderFactory.newDocumentBuilder();
-        if (safeXMLDocBuilder == null)
-            throw new XPathExpressionException ("Could not create new safe XML doc builder");
+        if (safeXMLDocBuilder == null) throw new XPathExpressionException("Could not create new safe XML doc builder");
 
         return safeXMLDocBuilder;
     }
@@ -1110,8 +1101,7 @@ public class Utils
     {
         path = trimTrailing(path);
 
-        if (path.length() == 0 || path.charAt(path.length()-1) != slash)
-            path = path + slash;
+        if (path.length() == 0 || path.charAt(path.length() - 1) != slash) path = path + slash;
 
         return path;
     }
@@ -1156,14 +1146,11 @@ public class Utils
      */
     public static String appendPathSections(String prefixPath, String postfixPath) throws Exception
     {
-        if (prefixPath == null)
-            prefixPath = "";
+        if (prefixPath == null) prefixPath = "";
 
-        if (postfixPath == null)
-            postfixPath = "";
+        if (postfixPath == null) postfixPath = "";
 
-        if (prefixPath.length() == 0 && postfixPath.length() == 0)
-            return "";
+        if (prefixPath.length() == 0 && postfixPath.length() == 0) return "";
 
         try
         {
@@ -1190,8 +1177,7 @@ public class Utils
     {
         prefixPath = trimTrailing(prefixPath);
 
-        if (prefixPath.length() == 0 || prefixPath.charAt(prefixPath.length()-1) != slash)
-            prefixPath = prefixPath + slash;
+        if (prefixPath.length() == 0 || prefixPath.charAt(prefixPath.length() - 1) != slash) prefixPath = prefixPath + slash;
 
         postfixPath = postfixPath.trim();
 
@@ -1211,8 +1197,7 @@ public class Utils
      */
     public static char inferPathSeperatorType(String path) throws Exception
     {
-        if (path.length() == 0)
-            throw new Exception("Zero len path detected!");
+        if (path.length() == 0) throw new Exception("Zero len path detected!");
 
         return path.contains(Character.toString(LINUX_SEP)) ? LINUX_SEP : WIN_SEP;
     }
@@ -1225,11 +1210,11 @@ public class Utils
      */
     public static String trimTrailing(String originalStr)
     {
-        int strIndex = originalStr.length()-1;
-        while(strIndex >= 0 && Character.isWhitespace(originalStr.charAt(strIndex)))
+        int strIndex = originalStr.length() - 1;
+        while (strIndex >= 0 && Character.isWhitespace(originalStr.charAt(strIndex)))
             strIndex--;
 
-        return originalStr.substring(0,strIndex+1);
+        return originalStr.substring(0, strIndex + 1);
     }
 
     /**
@@ -1288,7 +1273,7 @@ public class Utils
         List<String> argslist = ManagementFactory.getRuntimeMXBean().getInputArguments();
         for (String string : argslist)
         {
-            if(string.matches("(?i)(" + vmArgName + "):.*"))
+            if (string.matches("(?i)(" + vmArgName + "):.*"))
             {
                 return true;
             }
@@ -1311,9 +1296,9 @@ public class Utils
         List<String> argslist = ManagementFactory.getRuntimeMXBean().getInputArguments();
         for (String string : argslist)
         {
-            if(string.matches("(?i)(" + vmArgName + "):.*"))
+            if (string.matches("(?i)(" + vmArgName + "):.*"))
             {
-                String[] keyval = string.split(vmArgName+":");
+                String[] keyval = string.split(vmArgName + ":");
 
                 return keyval[1];
             }

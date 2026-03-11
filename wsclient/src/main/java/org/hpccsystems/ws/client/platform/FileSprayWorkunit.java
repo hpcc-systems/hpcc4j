@@ -41,7 +41,7 @@ public class FileSprayWorkunit extends DataSingleton
         return (FileSprayWorkunit) All.get(new FileSprayWorkunit(platform, wuid));
     }
 
-    private Platform    platform;
+    private Platform           platform;
     private DFUWorkunitWrapper info;
 
     public enum Notification
@@ -302,7 +302,8 @@ public class FileSprayWorkunit extends DataSingleton
      */
     synchronized boolean updateState(DFUWorkunitWrapper dfuWorkunitWrapper)
     {
-        if (dfuWorkunitWrapper != null && info.getID().equals(dfuWorkunitWrapper.getID()) && EqualsUtil.hasChanged(info.getState(), dfuWorkunitWrapper.getState()))
+        if (dfuWorkunitWrapper != null && info.getID().equals(dfuWorkunitWrapper.getID())
+                && EqualsUtil.hasChanged(info.getState(), dfuWorkunitWrapper.getState()))
         {
             info.setState(dfuWorkunitWrapper.getState());
             setChanged();
@@ -320,10 +321,9 @@ public class FileSprayWorkunit extends DataSingleton
      */
     synchronized boolean updateLogicalFiles(DFUWorkunitWrapper dfuWorkunitWrapper)
     {
-        if (dfuWorkunitWrapper != null
-                && info.getID().equals(dfuWorkunitWrapper.getID())
-                && (EqualsUtil.hasChanged(info.getSourceLogicalName(), dfuWorkunitWrapper.getSourceLogicalName()) || EqualsUtil
-                        .hasChanged(info.getDestLogicalName(), dfuWorkunitWrapper.getDestLogicalName())))
+        if (dfuWorkunitWrapper != null && info.getID().equals(dfuWorkunitWrapper.getID())
+                && (EqualsUtil.hasChanged(info.getSourceLogicalName(), dfuWorkunitWrapper.getSourceLogicalName())
+                        || EqualsUtil.hasChanged(info.getDestLogicalName(), dfuWorkunitWrapper.getDestLogicalName())))
         {
             info = dfuWorkunitWrapper;
             setChanged();

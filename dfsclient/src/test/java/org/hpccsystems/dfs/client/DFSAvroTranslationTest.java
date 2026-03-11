@@ -34,58 +34,59 @@ import java.util.Arrays;
 import java.nio.ByteBuffer;
 
 @Category(org.hpccsystems.commons.annotations.BaseTests.class)
-public class DFSAvroTranslationTest 
+public class DFSAvroTranslationTest
 {
     @Test
     public void avroBasicRecordTranslation() throws Exception
     {
         // Create schema
         ArrayList<Schema.Field> fields = new ArrayList<Schema.Field>();
-        fields.add(new Schema.Field("string",Schema.create(Schema.Type.STRING)));
-        fields.add(new Schema.Field("boolean",Schema.create(Schema.Type.BOOLEAN)));
-        fields.add(new Schema.Field("int",Schema.create(Schema.Type.INT)));
-        fields.add(new Schema.Field("long",Schema.create(Schema.Type.LONG)));
-        fields.add(new Schema.Field("double",Schema.create(Schema.Type.DOUBLE)));
-        fields.add(new Schema.Field("float",Schema.create(Schema.Type.FLOAT)));
-        fields.add(new Schema.Field("bytes",Schema.create(Schema.Type.BYTES)));
+        fields.add(new Schema.Field("string", Schema.create(Schema.Type.STRING)));
+        fields.add(new Schema.Field("boolean", Schema.create(Schema.Type.BOOLEAN)));
+        fields.add(new Schema.Field("int", Schema.create(Schema.Type.INT)));
+        fields.add(new Schema.Field("long", Schema.create(Schema.Type.LONG)));
+        fields.add(new Schema.Field("double", Schema.create(Schema.Type.DOUBLE)));
+        fields.add(new Schema.Field("float", Schema.create(Schema.Type.FLOAT)));
+        fields.add(new Schema.Field("bytes", Schema.create(Schema.Type.BYTES)));
 
         Schema arraySchema = Schema.createArray(Schema.create(Schema.Type.INT));
-        fields.add(new Schema.Field("array",arraySchema,null,(Object)null));
+        fields.add(new Schema.Field("array", arraySchema, null, (Object) null));
 
         Boolean isError = false;
         ArrayList<Schema.Field> childFields = new ArrayList<Schema.Field>();
-        childFields.add(new Schema.Field("int",Schema.create(Schema.Type.INT)));
+        childFields.add(new Schema.Field("int", Schema.create(Schema.Type.INT)));
         Schema childRecordSchema = Schema.createRecord("childRec", "", "", isError, childFields);
-        fields.add(new Schema.Field("record",childRecordSchema,null,(Object)null));
+        fields.add(new Schema.Field("record", childRecordSchema, null, (Object) null));
 
         // Set field values
         Schema recordSchema = Schema.createRecord("rec", "", "", isError, fields);
         GenericRecordBuilder avroRecordBuilder = new GenericRecordBuilder(recordSchema);
-        avroRecordBuilder.set(fields.get(0),"str");
-        avroRecordBuilder.set(fields.get(1),Boolean.valueOf(false));
-        avroRecordBuilder.set(fields.get(2),Integer.valueOf(42));
-        avroRecordBuilder.set(fields.get(3),Long.valueOf(42));
-        avroRecordBuilder.set(fields.get(4),Double.valueOf(42.42));
-        avroRecordBuilder.set(fields.get(5),Float.valueOf(42.42f));
+        avroRecordBuilder.set(fields.get(0), "str");
+        avroRecordBuilder.set(fields.get(1), Boolean.valueOf(false));
+        avroRecordBuilder.set(fields.get(2), Integer.valueOf(42));
+        avroRecordBuilder.set(fields.get(3), Long.valueOf(42));
+        avroRecordBuilder.set(fields.get(4), Double.valueOf(42.42));
+        avroRecordBuilder.set(fields.get(5), Float.valueOf(42.42f));
 
         // Create byte buffer
         ByteBuffer buf = ByteBuffer.allocate(16);
-        for (int i = 0; i < 8; i++) buf.putChar('a');
-        avroRecordBuilder.set(fields.get(6),buf);
+        for (int i = 0; i < 8; i++)
+            buf.putChar('a');
+        avroRecordBuilder.set(fields.get(6), buf);
 
         // Create an array
         ArrayList<Integer> intList = new ArrayList<Integer>();
         intList.add(42);
-        avroRecordBuilder.set(fields.get(7),intList);
+        avroRecordBuilder.set(fields.get(7), intList);
 
         // Create child record
         GenericRecordBuilder avroChildRecordBuilder = new GenericRecordBuilder(childRecordSchema);
-        avroChildRecordBuilder.set(childFields.get(0),42);
-        avroRecordBuilder.set(fields.get(8),avroChildRecordBuilder.build());
+        avroChildRecordBuilder.set(childFields.get(0), 42);
+        avroRecordBuilder.set(fields.get(8), avroChildRecordBuilder.build());
 
         GenericRecord avroRecord = avroRecordBuilder.build();
 
-        FieldDef recordDef = AvroSchemaTranslator.toHPCC(recordSchema,"rec");
+        FieldDef recordDef = AvroSchemaTranslator.toHPCC(recordSchema, "rec");
         HPCCRecord hpccRecord = (HPCCRecord) AvroRecordTranslator.toHPCC(recordSchema, null, recordDef, avroRecord);
         System.out.println("Hpcc Record: " + hpccRecord.toString());
 
@@ -97,7 +98,7 @@ public class DFSAvroTranslationTest
             if (avroField instanceof ByteBuffer)
             {
                 byte[] avroBytes = ((ByteBuffer) avroField).array();
-                if (Arrays.equals(avroBytes,(byte[])hpccField) == false)
+                if (Arrays.equals(avroBytes, (byte[]) hpccField) == false)
                 {
                     Assert.fail("Mismatch between fields: " + fields.get(i).name());
                 }

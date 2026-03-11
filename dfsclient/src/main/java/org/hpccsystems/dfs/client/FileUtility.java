@@ -70,43 +70,43 @@ public class FileUtility
     // This value represents the maximum number of splits that will be created during
     // the reading process to allow for redistribution of clusters of varying sizes
     // IE: A 4GB file part will be redistributable in approximately 32MB blocks.
-    private static final int DEFAULT_SPLIT_TABLE_SIZE = 128;
+    private static final int DEFAULT_SPLIT_TABLE_SIZE      = 128;
 
-    private static final int NUM_DEFAULT_THREADS = 4;
+    private static final int NUM_DEFAULT_THREADS           = 4;
     static private final int DEFAULT_ACCESS_EXPIRY_SECONDS = 120;
 
-    static private final int DEFAULT_READ_REQUEST_SIZE = 4096;
-    static private final int DEFAULT_READ_REQUEST_DELAY = 0;
+    static private final int DEFAULT_READ_REQUEST_SIZE     = 4096;
+    static private final int DEFAULT_READ_REQUEST_DELAY    = 0;
 
-    private static boolean otelNeedsInit = true;
+    private static boolean   otelNeedsInit                 = true;
 
     private static class TaskContext
     {
         private static class TaskOperation
         {
-            public String operationDesc = "";
-            public long operationStartNS = 0;
-            public long operationEndNS = 0;
+            public String               operationDesc    = "";
+            public long                 operationStartNS = 0;
+            public long                 operationEndNS   = 0;
 
-            public boolean isActive = true;
-            public boolean success = false;
+            public boolean              isActive         = true;
+            public boolean              success          = false;
 
-            private List<TaskOperation> childOperations = new ArrayList<TaskOperation>();
+            private List<TaskOperation> childOperations  = new ArrayList<TaskOperation>();
 
-            public List<String> errorMessages = new ArrayList<String>();
-            public List<String> warnMessages = new ArrayList<String>();
+            public List<String>         errorMessages    = new ArrayList<String>();
+            public List<String>         warnMessages     = new ArrayList<String>();
 
-            public AtomicLong recordsRead = new AtomicLong(0);
-            public AtomicLong recordsWritten = new AtomicLong(0);
+            public AtomicLong           recordsRead      = new AtomicLong(0);
+            public AtomicLong           recordsWritten   = new AtomicLong(0);
 
-            public AtomicLong bytesRead = new AtomicLong(0);
-            public AtomicLong bytesWritten = new AtomicLong(0);
+            public AtomicLong           bytesRead        = new AtomicLong(0);
+            public AtomicLong           bytesWritten     = new AtomicLong(0);
 
-            public Span operationSpan = null;
+            public Span                 operationSpan    = null;
 
             public void addChildOperation(TaskOperation op)
             {
-                synchronized(childOperations)
+                synchronized (childOperations)
                 {
                     childOperations.add(op);
                 }
@@ -145,7 +145,7 @@ public class FileUtility
                 results.put("successful", success);
 
                 JSONArray childResults = new JSONArray();
-                synchronized(childOperations)
+                synchronized (childOperations)
                 {
                     for (TaskOperation childOp : childOperations)
                     {
@@ -179,7 +179,7 @@ public class FileUtility
                 results.put("bytesRead", bytesRead.get());
                 results.put("recordsRead", recordsRead.get());
 
-                results.put("time", String.format("%.2f s",timeInSeconds));
+                results.put("time", String.format("%.2f s", timeInSeconds));
 
                 double readBandwidth = (double) bytesRead.get() / (1_000_000.0 * timeInSeconds);
                 results.put("Read Bandwidth", String.format("%.2f MB/s", readBandwidth));
@@ -191,12 +191,12 @@ public class FileUtility
             }
         }
 
-        private Stack<TaskOperation> operations = new Stack<TaskOperation>();
-        public List<JSONObject> operationResults = new ArrayList<JSONObject>();
+        private Stack<TaskOperation> operations        = new Stack<TaskOperation>();
+        public List<JSONObject>      operationResults  = new ArrayList<JSONObject>();
 
-        public int readRetries = HpccRemoteFileReader.DEFAULT_READ_RETRIES;
-        public int socketOpTimeoutMS = RowServiceInputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS;
-        public int initialReadSizeKB = RowServiceInputStream.DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
+        public int                   readRetries       = HpccRemoteFileReader.DEFAULT_READ_RETRIES;
+        public int                   socketOpTimeoutMS = RowServiceInputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS;
+        public int                   initialReadSizeKB = RowServiceInputStream.DEFAULT_INITIAL_REQUEST_READ_SIZE_KB;
 
         public void setCurrentOperationSpanAttributes(Attributes attributes)
         {
@@ -206,7 +206,7 @@ public class FileUtility
             }
             TaskOperation op = getCurrentOperation();
 
-            synchronized(op.operationSpan)
+            synchronized (op.operationSpan)
             {
                 op.operationSpan.setAllAttributes(attributes);
             }
@@ -220,7 +220,7 @@ public class FileUtility
             }
             TaskOperation op = getCurrentOperation();
 
-            synchronized(op.operationSpan)
+            synchronized (op.operationSpan)
             {
                 op.operationSpan.setAttribute(key, value);
             }
@@ -234,7 +234,7 @@ public class FileUtility
             }
             TaskOperation op = getCurrentOperation();
 
-            synchronized(op.operationSpan)
+            synchronized (op.operationSpan)
             {
                 op.operationSpan.makeCurrent();
             }
@@ -250,7 +250,7 @@ public class FileUtility
             TaskOperation op = getCurrentOperation();
 
             boolean err = false;
-            synchronized(op.errorMessages)
+            synchronized (op.errorMessages)
             {
                 err = op.errorMessages.size() > 0;
             }
@@ -267,12 +267,12 @@ public class FileUtility
 
             TaskOperation op = getCurrentOperation();
 
-            synchronized(op.errorMessages)
+            synchronized (op.errorMessages)
             {
                 op.errorMessages.add(error);
             }
 
-            synchronized(op.operationSpan)
+            synchronized (op.operationSpan)
             {
                 op.operationSpan.recordException(new Exception(error));
             }
@@ -287,12 +287,12 @@ public class FileUtility
 
             TaskOperation op = getCurrentOperation();
 
-            synchronized(op.warnMessages)
+            synchronized (op.warnMessages)
             {
                 op.warnMessages.add(warn);
             }
 
-            synchronized(op.operationSpan)
+            synchronized (op.operationSpan)
             {
                 op.operationSpan.addEvent(warn);
             }
@@ -406,7 +406,7 @@ public class FileUtility
             pass = new String(console.readPassword("Enter password for " + user + ": "));
         }
 
-        return new String[] {user, pass};
+        return new String[] { user, pass };
     }
 
     private static void applyGlobalConfig(CommandLine cmd)
@@ -417,10 +417,9 @@ public class FileUtility
         {
             concurrentStartups = Integer.parseInt(concurrentStartupsStr);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("Invalid option value for connection_startup_limit: "
-                              + concurrentStartupsStr + ", must be an integer.");
+            System.out.println("Invalid option value for connection_startup_limit: " + concurrentStartupsStr + ", must be an integer.");
         }
 
         if (concurrentStartups > 0)
@@ -431,15 +430,14 @@ public class FileUtility
 
     private static enum FileFormat
     {
-        THOR,
-        PARQUET
+        THOR, PARQUET
     };
 
     private static class SplitEntry
     {
         public long recordCount = 0;
-        public long splitStart = 0;
-        public long splitEnd = 0;
+        public long splitStart  = 0;
+        public long splitEnd    = 0;
 
         public JSONObject toJson()
         {
@@ -464,10 +462,10 @@ public class FileUtility
 
     private static class SplitTable
     {
-        public List<SplitEntry> splits = new ArrayList<SplitEntry>();
-        private long splitStride = 1;
-        private int maxSplitEntries = DEFAULT_SPLIT_TABLE_SIZE;
-        private SplitEntry currentSplit = new SplitEntry();
+        public List<SplitEntry> splits          = new ArrayList<SplitEntry>();
+        private long            splitStride     = 1;
+        private int             maxSplitEntries = DEFAULT_SPLIT_TABLE_SIZE;
+        private SplitEntry      currentSplit    = new SplitEntry();
 
         public SplitTable(int maxSplits)
         {
@@ -508,10 +506,10 @@ public class FileUtility
             splitStride *= 2;
 
             List<SplitEntry> newSplits = new ArrayList<SplitEntry>();
-            for (int i = 0; i < splits.size(); i+=2)
+            for (int i = 0; i < splits.size(); i += 2)
             {
                 SplitEntry first = splits.get(i);
-                SplitEntry second = splits.get(i+1);
+                SplitEntry second = splits.get(i + 1);
 
                 SplitEntry combined = new SplitEntry();
                 combined.splitStart = first.splitStart;
@@ -636,10 +634,10 @@ public class FileUtility
             {
                 readRetries = Integer.parseInt(retriesStr);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                System.out.println("Invalid option value for read_retries: "
-                                + retriesStr + ", must be an integer. Defaulting to: " + HpccRemoteFileReader.DEFAULT_READ_RETRIES + " retries.");
+                System.out.println("Invalid option value for read_retries: " + retriesStr + ", must be an integer. Defaulting to: "
+                        + HpccRemoteFileReader.DEFAULT_READ_RETRIES + " retries.");
             }
         }
 
@@ -656,10 +654,10 @@ public class FileUtility
             {
                 socketOpTimeoutS = Integer.parseInt(timeoutStr);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                System.out.println("Invalid option value for socket_timeout: "
-                                + timeoutStr + ", must be an integer. Defaulting to: " + socketOpTimeoutS + " seconds.");
+                System.out.println("Invalid option value for socket_timeout: " + timeoutStr + ", must be an integer. Defaulting to: "
+                        + socketOpTimeoutS + " seconds.");
             }
         }
 
@@ -674,10 +672,10 @@ public class FileUtility
         {
             initialReadSizeKB = Integer.parseInt(initialReadSizeStr);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("Invalid option value for initial_read_size: "
-                              + initialReadSizeStr + ", must be an integer. Defaulting to: " + RowServiceInputStream.DEFAULT_INITIAL_REQUEST_READ_SIZE_KB + "KB.");
+            System.out.println("Invalid option value for initial_read_size: " + initialReadSizeStr + ", must be an integer. Defaulting to: "
+                    + RowServiceInputStream.DEFAULT_INITIAL_REQUEST_READ_SIZE_KB + "KB.");
         }
 
         return initialReadSizeKB;
@@ -697,16 +695,11 @@ public class FileUtility
         options.addOption("read_retries", true, "Sets the maximum number of retries to attempt when reading a file.");
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
         options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
-                                    + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
+                + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
         options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
-        options.addOption(Option.builder("read")
-                                .argName("files")
-                                .hasArgs()
-                                .valueSeparator(',')
-                                .desc("Reads the specified file(s) and writes a copy of the files to the local directory")
-                                .required(true)
-                                .build());
+        options.addOption(Option.builder("read").argName("files").hasArgs().valueSeparator(',')
+                .desc("Reads the specified file(s) and writes a copy of the files to the local directory").required(true).build());
         return options;
     }
 
@@ -720,7 +713,7 @@ public class FileUtility
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
         options.addOption("access_expiry_seconds", true, "Access token expiration seconds.");
         options.addOption("initial_read_size", true, "The size of the initial read request in KB sent to the rowservice,"
-                                    + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
+                + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
         options.addOption("read_request_size", true, "The size of the read requests in KB sent to the rowservice.");
         options.addOption("read_request_delay", true, "The delay in MS between read requests sent to the rowservice.");
         options.addOption("filter", true, "Specifies a filter to apply to the files read from the cluster.");
@@ -728,15 +721,11 @@ public class FileUtility
         options.addOption("read_retries", true, "Sets the maximum number of retries to attempt when reading a file.");
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
         options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
-                                    + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
+                + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
         options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
-        options.addOption(Option.builder("file_parts")
-                                .argName("_file_parts")
-                                .hasArgs()
-                                .valueSeparator(',')
-                                .desc("Specifies the file parts that should be read. Defaults to all file parts.")
-                                .build());
+        options.addOption(Option.builder("file_parts").argName("_file_parts").hasArgs().valueSeparator(',')
+                .desc("Specifies the file parts that should be read. Defaults to all file parts.").build());
         return options;
     }
 
@@ -754,16 +743,11 @@ public class FileUtility
         options.addOption("read_retries", true, "Sets the maximum number of retries to attempt when reading a file.");
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
         options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
-                                    + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
+                + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
         options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
-        options.addOption(Option.builder("copy")
-                                .argName("files")
-                                .hasArgs()
-                                .valueSeparator(' ')
-                                .desc("Copies the specified remote source file to the specified remote destination cluster / file.")
-                                .required(true)
-                                .build());
+        options.addOption(Option.builder("copy").argName("files").hasArgs().valueSeparator(' ')
+                .desc("Copies the specified remote source file to the specified remote destination cluster / file.").required(true).build());
 
         return options;
     }
@@ -779,16 +763,11 @@ public class FileUtility
         options.addOption("num_threads", true, "Specifies the number of parallel to use to perform operations.");
         options.addOption("socket_timeout_seconds", true, "Sets the socket operation timeout in seconds.");
         options.addOption("connection_startup_limit", true, "Specifies the maximum number of connections to startup concurrently."
-                                    + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
+                + " useful in cases where starting up connections too quickly can overwhelm intermediate processes.");
         options.addOption("non_interactive", false, "Disables prompting for credentials if they are not provided.");
 
-        options.addOption(Option.builder("write")
-                                .argName("files")
-                                .hasArgs()
-                                .valueSeparator(' ')
-                                .desc("Write the specified local files to the specified remote destination cluster / file.")
-                                .required(true)
-                                .build());
+        options.addOption(Option.builder("write").argName("files").hasArgs().valueSeparator(' ')
+                .desc("Write the specified local files to the specified remote destination cluster / file.").required(true).build());
 
         return options;
     }
@@ -815,13 +794,13 @@ public class FileUtility
                 throw new Exception("File path is invalid: " + filePath);
             }
 
-            String[] res = {filePath};
+            String[] res = { filePath };
             return res;
         }
 
-        int indexOfSep = filePath.lastIndexOf(File.separator)+1;
-        String dirStr = filePath.substring(0,indexOfSep);
-        String filePattern = filePath.substring(indexOfSep,filePath.length()-1);
+        int indexOfSep = filePath.lastIndexOf(File.separator) + 1;
+        String dirStr = filePath.substring(0, indexOfSep);
+        String filePattern = filePath.substring(indexOfSep, filePath.length() - 1);
 
         File dir = new File(dirStr);
         if (!dir.isDirectory() || !dir.exists())
@@ -830,7 +809,7 @@ public class FileUtility
         }
 
         List<String> result = new ArrayList<String>();
-        for(File file : dir.listFiles())
+        for (File file : dir.listFiles())
         {
             String name = file.getName();
             boolean startsWithPattern = name.startsWith(filePattern);
@@ -935,7 +914,7 @@ public class FileUtility
         List<String> filteredFiles = new ArrayList<String>();
         for (int i = 0; i < srcFiles.length; i++)
         {
-            int indexOfSep = srcFiles[i].lastIndexOf(File.separator)+1;
+            int indexOfSep = srcFiles[i].lastIndexOf(File.separator) + 1;
             String fileName = srcFiles[i].substring(indexOfSep);
 
             if (pattern.matcher(fileName).matches())
@@ -965,11 +944,10 @@ public class FileUtility
             final int currentTaskStart = taskNum;
             final int currentNumTasks = numTasksPerThread + residualTasks;
 
-            taskThreads[threadNum] = new Thread(new Runnable()
-            {
-                Runnable[] subTasks = tasks;
-                int startingSubTask = currentTaskStart;
-                int numSubTasks = currentNumTasks;
+            taskThreads[threadNum] = new Thread(new Runnable() {
+                Runnable[] subTasks        = tasks;
+                int        startingSubTask = currentTaskStart;
+                int        numSubTasks     = currentNumTasks;
 
                 public void run()
                 {
@@ -994,7 +972,8 @@ public class FileUtility
         }
     }
 
-    private static Runnable[] createReadTestTasks(DataPartition[] fileParts, FieldDef recordDef, TaskContext context, int readRequestSize, int readRequestDelay) throws Exception
+    private static Runnable[] createReadTestTasks(DataPartition[] fileParts, FieldDef recordDef, TaskContext context, int readRequestSize,
+            int readRequestDelay) throws Exception
     {
         Runnable[] tasks = new Runnable[fileParts.length];
         for (int i = 0; i < tasks.length; i++)
@@ -1002,8 +981,7 @@ public class FileUtility
             final int taskIndex = i;
             final DataPartition filePart = fileParts[taskIndex];
 
-            tasks[taskIndex] = new Runnable()
-            {
+            tasks[taskIndex] = new Runnable() {
                 public void run()
                 {
                     try
@@ -1017,7 +995,8 @@ public class FileUtility
                         readContext.readSizeKB = readRequestSize;
                         readContext.socketOpTimeoutMS = context.socketOpTimeoutMS;
 
-                        HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, filePart, new HPCCRecordBuilder(recordDef));
+                        HpccRemoteFileReader<HPCCRecord> fileReader = new HpccRemoteFileReader<HPCCRecord>(readContext, filePart,
+                                new HPCCRecordBuilder(recordDef));
                         fileReader.getInputStream().setReadRequestDelay(readRequestDelay);
                         fileReader.setMaxReadRetries(context.readRetries);
 
@@ -1050,7 +1029,8 @@ public class FileUtility
         return tasks;
     }
 
-    private static Runnable[] createReadToThorTasks(DataPartition[] fileParts, SplitTable[] splitTables, String[] outFilePaths, FieldDef recordDef, TaskContext context) throws Exception
+    private static Runnable[] createReadToThorTasks(DataPartition[] fileParts, SplitTable[] splitTables, String[] outFilePaths, FieldDef recordDef,
+            TaskContext context) throws Exception
     {
         Runnable[] tasks = new Runnable[fileParts.length];
         for (int i = 0; i < tasks.length; i++)
@@ -1063,7 +1043,8 @@ public class FileUtility
             readContext.socketOpTimeoutMS = context.socketOpTimeoutMS;
             readContext.initialReadSizeKB = context.initialReadSizeKB;
 
-            final HpccRemoteFileReader<HPCCRecord> filePartReader = new HpccRemoteFileReader<HPCCRecord>(readContext, fileParts[taskIndex], new HPCCRecordBuilder(recordDef));
+            final HpccRemoteFileReader<HPCCRecord> filePartReader = new HpccRemoteFileReader<HPCCRecord>(readContext, fileParts[taskIndex],
+                    new HPCCRecordBuilder(recordDef));
             filePartReader.setMaxReadRetries(context.readRetries);
 
             final String filePath = outFilePaths[taskIndex];
@@ -1072,12 +1053,11 @@ public class FileUtility
             final BinaryRecordWriter filePartWriter = new BinaryRecordWriter(outStream);
             filePartWriter.initialize(new HPCCRecordAccessor(recordDef));
 
-            tasks[taskIndex] = new Runnable()
-            {
-                HpccRemoteFileReader<HPCCRecord> fileReader = filePartReader;
-                BinaryRecordWriter fileWriter = filePartWriter;
-                FileOutputStream outputStream = outStream;
-                SplitTable splitTable = splitTables[taskIndex];
+            tasks[taskIndex] = new Runnable() {
+                HpccRemoteFileReader<HPCCRecord> fileReader   = filePartReader;
+                BinaryRecordWriter               fileWriter   = filePartWriter;
+                FileOutputStream                 outputStream = outStream;
+                SplitTable                       splitTable   = splitTables[taskIndex];
 
                 public void run()
                 {
@@ -1113,7 +1093,8 @@ public class FileUtility
         return tasks;
     }
 
-    private static Runnable[] createThorSplitTableTasks(String[] thorFiles, SplitTable[] splitTables, FieldDef recordDef, TaskContext context) throws Exception
+    private static Runnable[] createThorSplitTableTasks(String[] thorFiles, SplitTable[] splitTables, FieldDef recordDef, TaskContext context)
+            throws Exception
     {
         Runnable[] tasks = new Runnable[thorFiles.length];
         for (int i = 0; i < tasks.length; i++)
@@ -1126,10 +1107,9 @@ public class FileUtility
             BinaryRecordReader filePartReader = new BinaryRecordReader(bufferedInputStream);
             filePartReader.initialize(new HPCCRecordBuilder(recordDef));
 
-            tasks[taskIndex] = new Runnable()
-            {
-                InputStream inputStream = bufferedInputStream;
-                BinaryRecordReader fileReader = filePartReader;
+            tasks[taskIndex] = new Runnable() {
+                InputStream        inputStream = bufferedInputStream;
+                BinaryRecordReader fileReader  = filePartReader;
 
                 public void run()
                 {
@@ -1159,7 +1139,7 @@ public class FileUtility
     private static Runnable[] createNonRedistributingCopyTasks(HPCCFile file, DFUCreateFileWrapper createResult, TaskContext context) throws Exception
     {
         FieldDef recordDef = null;
-        DataPartition[] inFileParts  = null;
+        DataPartition[] inFileParts = null;
         DataPartition[] outFileParts = null;
 
         inFileParts = file.getFileParts();
@@ -1191,7 +1171,8 @@ public class FileUtility
                 readContext.originalRD = recordDef;
                 readContext.socketOpTimeoutMS = context.socketOpTimeoutMS;
                 readContext.initialReadSizeKB = context.initialReadSizeKB;
-                filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(readContext, inFilePart, new HPCCRecordBuilder(file.getProjectedRecordDefinition()));
+                filePartReaders[j] = new HpccRemoteFileReader<HPCCRecord>(readContext, inFilePart,
+                        new HPCCRecordBuilder(file.getProjectedRecordDefinition()));
                 filePartReaders[j].setMaxReadRetries(context.readRetries);
             }
             incomingFilePartIndex += numIncomingParts;
@@ -1203,10 +1184,9 @@ public class FileUtility
             writeContext.fileCompression = CompressionAlgorithm.NONE;
             final HPCCRemoteFileWriter<HPCCRecord> partFileWriter = new HPCCRemoteFileWriter<HPCCRecord>(writeContext, outFilePart, recordAccessor);
 
-            tasks[taskIndex] = new Runnable()
-            {
+            tasks[taskIndex] = new Runnable() {
                 HpccRemoteFileReader<HPCCRecord>[] fileReaders = filePartReaders;
-                HPCCRemoteFileWriter<HPCCRecord> fileWriter = partFileWriter;
+                HPCCRemoteFileWriter<HPCCRecord>   fileWriter  = partFileWriter;
 
                 public void run()
                 {
@@ -1257,11 +1237,12 @@ public class FileUtility
         int startingSrcFile = 0;
         int splitEntryStart = 0;
 
-        int endingSrcFile = 0;
-        int splitEntryEnd = 0;
+        int endingSrcFile   = 0;
+        int splitEntryEnd   = 0;
     }
 
-    private static Runnable[] createWriteTasks(String[] srcFiles, SplitTable[] splitTables, FieldDef recordDef, FileFormat format, DFUCreateFileWrapper createResult, TaskContext context) throws Exception
+    private static Runnable[] createWriteTasks(String[] srcFiles, SplitTable[] splitTables, FieldDef recordDef, FileFormat format,
+            DFUCreateFileWrapper createResult, TaskContext context) throws Exception
     {
         DataPartition[] outFileParts = null;
 
@@ -1288,7 +1269,7 @@ public class FileUtility
             int splitStart = 0;
             for (int i = 0; i < srcFileToOutPartsMapping.length; i++)
             {
-                int numSplits = splitsPerOutFile + ((i < residualSplits ) ? 1 : 0);
+                int numSplits = splitsPerOutFile + ((i < residualSplits) ? 1 : 0);
 
                 SplitEntryMapping mapping = new SplitEntryMapping();
                 mapping.startingSrcFile = currentSrcFile;
@@ -1337,16 +1318,15 @@ public class FileUtility
             writeContext.socketOpTimeoutMs = context.socketOpTimeoutMS;
             HPCCRemoteFileWriter<HPCCRecord> filePartWriter = new HPCCRemoteFileWriter<HPCCRecord>(writeContext, outFilePart, recordAccessor);
 
-            tasks[taskIndex] = new Runnable()
-            {
-                SplitEntryMapping mapping = srcFileToOutPartsMapping[taskIndex];
+            tasks[taskIndex] = new Runnable() {
+                SplitEntryMapping                mapping    = srcFileToOutPartsMapping[taskIndex];
                 HPCCRemoteFileWriter<HPCCRecord> fileWriter = filePartWriter;
 
                 public void run()
                 {
                     try
                     {
-                        int numIncomingParts = (mapping.endingSrcFile+1) - mapping.startingSrcFile;
+                        int numIncomingParts = (mapping.endingSrcFile + 1) - mapping.startingSrcFile;
                         BinaryRecordReader[] fileReaders = new BinaryRecordReader[numIncomingParts];
                         BufferedInputStream[] inputStreams = new BufferedInputStream[numIncomingParts];
 
@@ -1372,9 +1352,9 @@ public class FileUtility
                         {
                             BinaryRecordReader fileReader = fileReaders[j];
                             long splitEnd = Long.MAX_VALUE;
-                            if (j == (fileReaders.length-1))
+                            if (j == (fileReaders.length - 1))
                             {
-                                SplitEntry endingSplit = splitTables[mapping.endingSrcFile].splits.get(mapping.splitEntryEnd-1);
+                                SplitEntry endingSplit = splitTables[mapping.endingSrcFile].splits.get(mapping.splitEntryEnd - 1);
                                 splitEnd = endingSplit.splitEnd;
                             }
 
@@ -1433,7 +1413,7 @@ public class FileUtility
 
         applyGlobalConfig(cmd);
 
-        String outputPath = cmd.getOptionValue("out",".");
+        String outputPath = cmd.getOptionValue("out", ".");
 
         int numThreads = NUM_DEFAULT_THREADS;
         String numThreadsStr = cmd.getOptionValue("num_threads", "" + numThreads);
@@ -1441,10 +1421,10 @@ public class FileUtility
         {
             numThreads = Integer.parseInt(numThreadsStr);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("Invalid option value for num_threads: "
-                              + numThreadsStr + ", must be an integer. Defaulting to: " + NUM_DEFAULT_THREADS + " threads.");
+            System.out.println("Invalid option value for num_threads: " + numThreadsStr + ", must be an integer. Defaulting to: "
+                    + NUM_DEFAULT_THREADS + " threads.");
         }
 
         String formatStr = cmd.getOptionValue("format");
@@ -1538,8 +1518,9 @@ public class FileUtility
             String[] outFilePaths = new String[fileParts.length];
             for (int j = 0; j < fileParts.length; j++)
             {
-                String fileName = file.getFileName().replace(":","_");
-                outFilePaths[j] = outputPath + File.separator + fileName + "._" + String.format(fileNumFormat, j+1) + "_of_" + fileParts.length + fileExt;
+                String fileName = file.getFileName().replace(":", "_");
+                outFilePaths[j] = outputPath + File.separator + fileName + "._" + String.format(fileNumFormat, j + 1) + "_of_" + fileParts.length
+                        + fileExt;
 
                 splitTables[j] = new SplitTable(DEFAULT_SPLIT_TABLE_SIZE);
             }
@@ -1580,7 +1561,7 @@ public class FileUtility
 
             try
             {
-                String fileName = file.getFileName().replace(":","_");
+                String fileName = file.getFileName().replace(":", "_");
                 String filePath = outputPath + File.separator + fileName + ".meta";
                 FileOutputStream metaFile = new FileOutputStream(filePath);
 
@@ -1596,7 +1577,7 @@ public class FileUtility
 
             try
             {
-                String fileName = file.getFileName().replace(":","_");
+                String fileName = file.getFileName().replace(":", "_");
                 String filePath = outputPath + File.separator + fileName + ".split";
                 FileOutputStream splitFileOut = new FileOutputStream(filePath);
 
@@ -1638,7 +1619,7 @@ public class FileUtility
 
         applyGlobalConfig(cmd);
 
-        String outputPath = cmd.getOptionValue("out",".");
+        String outputPath = cmd.getOptionValue("out", ".");
 
         int numThreads = NUM_DEFAULT_THREADS;
         String numThreadsStr = cmd.getOptionValue("num_threads", "" + numThreads);
@@ -1646,10 +1627,10 @@ public class FileUtility
         {
             numThreads = Integer.parseInt(numThreadsStr);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("Invalid option value for num_threads: "
-                              + numThreadsStr + ", must be an integer. Defaulting to: " + NUM_DEFAULT_THREADS + " threads.");
+            System.out.println("Invalid option value for num_threads: " + numThreadsStr + ", must be an integer. Defaulting to: "
+                    + NUM_DEFAULT_THREADS + " threads.");
         }
 
         int expirySeconds = DEFAULT_ACCESS_EXPIRY_SECONDS;
@@ -1658,10 +1639,10 @@ public class FileUtility
         {
             expirySeconds = Integer.parseInt(expirySecondsStr);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("Invalid option value for access_expiry_seconds: "
-                              + numThreadsStr + ", must be an integer. Defaulting to: " + DEFAULT_ACCESS_EXPIRY_SECONDS + "s.");
+            System.out.println("Invalid option value for access_expiry_seconds: " + numThreadsStr + ", must be an integer. Defaulting to: "
+                    + DEFAULT_ACCESS_EXPIRY_SECONDS + "s.");
         }
 
         int readRequestSize = DEFAULT_READ_REQUEST_SIZE;
@@ -1670,10 +1651,10 @@ public class FileUtility
         {
             readRequestSize = Integer.parseInt(readRequestSizeStr);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("Invalid option value for read_request_size: "
-                              + readRequestSizeStr + ", must be an integer. Defaulting to: " + DEFAULT_READ_REQUEST_SIZE + "KB.");
+            System.out.println("Invalid option value for read_request_size: " + readRequestSizeStr + ", must be an integer. Defaulting to: "
+                    + DEFAULT_READ_REQUEST_SIZE + "KB.");
         }
 
         int readRequestDelay = DEFAULT_READ_REQUEST_DELAY;
@@ -1682,10 +1663,10 @@ public class FileUtility
         {
             readRequestDelay = Integer.parseInt(readRequestDelayStr);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("Invalid option value for read_request_delay: "
-                              + readRequestDelayStr + ", must be an integer. Defaulting to: " + DEFAULT_READ_REQUEST_DELAY + "ms.");
+            System.out.println("Invalid option value for read_request_delay: " + readRequestDelayStr + ", must be an integer. Defaulting to: "
+                    + DEFAULT_READ_REQUEST_DELAY + "ms.");
         }
 
         context.readRetries = getReadRetries(cmd);
@@ -1772,8 +1753,8 @@ public class FileUtility
                     int filePartIndex = Integer.parseInt(filePartsStrs[i]) - 1;
                     if (filePartIndex < 0 || filePartIndex >= fileParts.length)
                     {
-                        context.addWarn("InvalidParams: Skipping invalid file part index: " + filePartsStrs[i]
-                                        + " outside of range: [0," + fileParts.length + "]");
+                        context.addWarn("InvalidParams: Skipping invalid file part index: " + filePartsStrs[i] + " outside of range: [0,"
+                                + fileParts.length + "]");
                     }
 
                     filePartList.add(fileParts[filePartIndex]);
@@ -1822,7 +1803,7 @@ public class FileUtility
 
         try
         {
-            String fileName = file.getFileName().replace(":","_");
+            String fileName = file.getFileName().replace(":", "_");
             String filePath = outputPath + File.separator + fileName + ".meta";
             FileOutputStream metaFile = new FileOutputStream(filePath);
 
@@ -1861,10 +1842,10 @@ public class FileUtility
         {
             numThreads = Integer.parseInt(numThreadsStr);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("Invalid option value for num_threads: "
-                              + numThreadsStr + ", must be an integer. Defaulting to: " + NUM_DEFAULT_THREADS + " threads.");
+            System.out.println("Invalid option value for num_threads: " + numThreadsStr + ", must be an integer. Defaulting to: "
+                    + NUM_DEFAULT_THREADS + " threads.");
         }
 
         String[] creds = getCredentials(cmd);
@@ -1923,14 +1904,14 @@ public class FileUtility
         context.socketOpTimeoutMS = getSocketOpTimeoutMS(cmd);
         context.initialReadSizeKB = getInitialReadSizeKB(cmd);
 
-        for (int i = 0; i < copyPairs.length; i+=2)
+        for (int i = 0; i < copyPairs.length; i += 2)
         {
             String srcFile = copyPairs[i];
-            String destFile = copyPairs[i+1];
+            String destFile = copyPairs[i + 1];
 
             context.startOperation("FileUtility.Copy_ " + srcFile + " -> " + destFile);
-            context.setCurrentOperationSpanAttributes(Attributes.of(AttributeKey.stringKey("server.src.url"), srcURL,
-                                                        AttributeKey.stringKey("server.dest.url"), destURL));
+            context.setCurrentOperationSpanAttributes(
+                    Attributes.of(AttributeKey.stringKey("server.src.url"), srcURL, AttributeKey.stringKey("server.dest.url"), destURL));
 
             HPCCFile file = null;
             try
@@ -1979,8 +1960,7 @@ public class FileUtility
                 try
                 {
                     eclRecordDefn = RecordDefinitionTranslator.toECLRecord(file.getRecordDefinition());
-                    createResult = dfuClient.createFile(destFile, destClusterName, eclRecordDefn,
-                                expirySecs, false, DFUFileTypeWrapper.Flat, "");
+                    createResult = dfuClient.createFile(destFile, destClusterName, eclRecordDefn, expirySecs, false, DFUFileTypeWrapper.Flat, "");
                 }
                 catch (Exception e)
                 {
@@ -2011,7 +1991,7 @@ public class FileUtility
 
                 if (context.hasError())
                 {
-                   return;
+                    return;
                 }
 
                 try
@@ -2028,16 +2008,13 @@ public class FileUtility
             }
             else
             {
-                String readArgs[] = {"-read", srcFile, "-url", srcURL,
-                                "-format", "thor", "-user", user, "-pass", pass,
-                                "-out", "tmp-read", "-non_interactive"};
+                String readArgs[] = { "-read", srcFile, "-url", srcURL, "-format", "thor", "-user", user, "-pass", pass, "-out", "tmp-read",
+                        "-non_interactive" };
 
                 performRead(readArgs, context);
 
-                String writeArgs[] = {"-write", "tmp-read" + File.separator +  srcFile.replace(':', '_') + "*" +  " " + destFile,
-                                "-url", srcURL, "-dest_url", destURL,
-                                "-dest_cluster", destClusterName,
-                                "-user", user, "-pass", pass, "-non_interactive"};
+                String writeArgs[] = { "-write", "tmp-read" + File.separator + srcFile.replace(':', '_') + "*" + " " + destFile, "-url", srcURL,
+                        "-dest_url", destURL, "-dest_cluster", destClusterName, "-user", user, "-pass", pass, "-non_interactive" };
 
                 performWrite(writeArgs, context);
             }
@@ -2068,10 +2045,10 @@ public class FileUtility
         {
             numThreads = Integer.parseInt(numThreadsStr);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("Invalid option value for num_threads: "
-                              + numThreadsStr + ", must be an integer. Defaulting to: " + NUM_DEFAULT_THREADS + " threads.");
+            System.out.println("Invalid option value for num_threads: " + numThreadsStr + ", must be an integer. Defaulting to: "
+                    + NUM_DEFAULT_THREADS + " threads.");
         }
 
         String[] creds = getCredentials(cmd);
@@ -2126,9 +2103,9 @@ public class FileUtility
         for (int pairIdx = 0; pairIdx < writePairs.length; pairIdx += 2)
         {
             String srcFile = writePairs[pairIdx];
-            String destFile = writePairs[pairIdx+1];
+            String destFile = writePairs[pairIdx + 1];
 
-            context.startOperation( "FileUtility.Write_" + srcFile + "_to_" + destFile);
+            context.startOperation("FileUtility.Write_" + srcFile + "_to_" + destFile);
 
             Attributes attributes = Attributes.of(AttributeKey.stringKey("server.url"), destURL);
             context.setCurrentOperationSpanAttributes(attributes);
@@ -2179,7 +2156,8 @@ public class FileUtility
                 }
                 catch (Exception e)
                 {
-                    context.addError("Error while attempting to execute create split table creation tasks for file: '" + srcFile + "': " + e.getMessage());
+                    context.addError(
+                            "Error while attempting to execute create split table creation tasks for file: '" + srcFile + "': " + e.getMessage());
                     return;
                 }
             }
@@ -2188,7 +2166,7 @@ public class FileUtility
             {
                 try
                 {
-                    String fileName = srcFiles[0].substring(0,srcFiles[0].lastIndexOf('.'));
+                    String fileName = srcFiles[0].substring(0, srcFiles[0].lastIndexOf('.'));
                     String filePath = fileName + ".split";
                     FileOutputStream splitFileOut = new FileOutputStream(filePath);
 
@@ -2209,8 +2187,7 @@ public class FileUtility
             try
             {
                 eclRecordDefn = RecordDefinitionTranslator.toECLRecord(recordDefinition);
-                createResult = dfuClient.createFile(destFile, destClusterName, eclRecordDefn,
-                            expirySecs, false, DFUFileTypeWrapper.Flat, "");
+                createResult = dfuClient.createFile(destFile, destClusterName, eclRecordDefn, expirySecs, false, DFUFileTypeWrapper.Flat, "");
             }
             catch (Exception e)
             {
@@ -2272,15 +2249,16 @@ public class FileUtility
             if (Boolean.getBoolean("otel.java.global-autoconfigure.enabled"))
             {
                 System.out.println("OpenTelemetry autoconfiguration enabled with following values.");
-                System.out.println("If any of these options are not provided, they will defalt to values which could require additional CLASSPATH dependancies.");
+                System.out.println(
+                        "If any of these options are not provided, they will defalt to values which could require additional CLASSPATH dependancies.");
                 System.out.println("If missing dependancies arise, utility will halt!");
                 System.out.println("    otel.traces.exporter sys property: " + System.getProperty("otel.traces.exporter"));
                 System.out.println("    OTEL_TRACES_EXPORTER Env var: " + System.getenv("OTEL_TRACES_EXPORTER"));
                 System.out.println("        OTEL_TRACES_SAMPLER Env var: " + System.getenv("OTEL_TRACES_SAMPLER"));
                 System.out.println("        otel.traces.sampler sys property: " + System.getProperty("otel.traces.sampler"));
-                System.out.println("    otel.logs.exporter: "+ System.getProperty("otel.logs.exporter"));
+                System.out.println("    otel.logs.exporter: " + System.getProperty("otel.logs.exporter"));
                 System.out.println("    OTEL_LOGS_EXPORTER Env var: " + System.getenv("OTEL_LOGS_EXPORTER"));
-                System.out.println("    otel.metrics.exporter: "+ System.getProperty("otel.metrics.exporter"));
+                System.out.println("    otel.metrics.exporter: " + System.getProperty("otel.metrics.exporter"));
                 System.out.println("    OTEL_METRICS_EXPORTER Env var: " + System.getenv("OTEL_METRICS_EXPORTER"));
 
                 if (!org.hpccsystems.ws.client.utils.Utils.isOtelJavaagentUsed())

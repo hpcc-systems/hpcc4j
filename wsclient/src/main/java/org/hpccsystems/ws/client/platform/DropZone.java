@@ -44,8 +44,8 @@ public class DropZone extends DataSingleton
         return (DropZone) All.get(new DropZone(platform, name));
     }
 
-    private Platform                platform;
-    private TpDropZone              dzInfo;
+    private Platform                    platform;
+    private TpDropZone                  dzInfo;
     private Collection<PhysicalMachine> machines;
 
     /**
@@ -89,7 +89,7 @@ public class DropZone extends DataSingleton
         {
             String[] cnaList = new String[dzInfo.getTpMachines().getTpMachine().length];
             TpMachine[] tpMachines = dzInfo.getTpMachines().getTpMachine();
-            for(int i = 0; i < tpMachines.length; i++)
+            for (int i = 0; i < tpMachines.length; i++)
             {
                 cnaList[i] = new String(tpMachines[i].getConfigNetaddress());
             }
@@ -114,7 +114,7 @@ public class DropZone extends DataSingleton
             if (tpMachines != null)
             {
                 String[] naList = new String[tpMachines.length];
-                for(int i = 0; i < tpMachines.length; i++)
+                for (int i = 0; i < tpMachines.length; i++)
                 {
                     naList[i] = new String(tpMachines[i].getNetaddress());
                 }
@@ -148,8 +148,7 @@ public class DropZone extends DataSingleton
 
             for (TpMachine dzmachine : dropzonemachines)
             {
-                if (dzmachine.getNetaddress().equals(serveraddress) || dzmachine.getConfigNetaddress().equals(serveraddress))
-                    return dzmachine;
+                if (dzmachine.getNetaddress().equals(serveraddress) || dzmachine.getConfigNetaddress().equals(serveraddress)) return dzmachine;
             }
         }
         else
@@ -228,7 +227,7 @@ public class DropZone extends DataSingleton
      *
      * @return the machines
      */
-    public PhysicalMachine [] getMachines()
+    public PhysicalMachine[] getMachines()
     {
         fullRefresh();
         return machines.toArray(new PhysicalMachine[0]);
@@ -276,19 +275,19 @@ public class DropZone extends DataSingleton
      */
     private void update(List<TpMachineWrapper> queryDropzoneMachines)
     {
-         if (queryDropzoneMachines != null)
-         {
-             machines.clear();
-             for (TpMachineWrapper machine : queryDropzoneMachines)
-             {
-                 PhysicalMachine physicalMachine = getMachine(machine.getName());
-                 if (physicalMachine != null)
-                 {
-                     physicalMachine.update(machine);
-                     machines.add(physicalMachine); // Will mark changed if needed ---
-                 }
-             }
-         }
+        if (queryDropzoneMachines != null)
+        {
+            machines.clear();
+            for (TpMachineWrapper machine : queryDropzoneMachines)
+            {
+                PhysicalMachine physicalMachine = getMachine(machine.getName());
+                if (physicalMachine != null)
+                {
+                    physicalMachine.update(machine);
+                    machines.add(physicalMachine); // Will mark changed if needed ---
+                }
+            }
+        }
     }
 
     /**
@@ -349,9 +348,8 @@ public class DropZone extends DataSingleton
         DropZone that = (DropZone) aThat;
 
         // now a proper field-by-field evaluation can be made
-        return EqualsUtil.areEqual(platform, that.platform)
-            && EqualsUtil.areEqual(dzInfo.getName(), that.dzInfo.getName())
-            && EqualsUtil.areEqual(dzInfo.getPath(), that.dzInfo.getPath());
+        return EqualsUtil.areEqual(platform, that.platform) && EqualsUtil.areEqual(dzInfo.getName(), that.dzInfo.getName())
+                && EqualsUtil.areEqual(dzInfo.getPath(), that.dzInfo.getPath());
     }
 
     /* (non-Javadoc)

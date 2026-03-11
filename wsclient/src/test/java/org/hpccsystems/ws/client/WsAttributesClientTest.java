@@ -30,15 +30,14 @@ import org.junit.Test;
 public class WsAttributesClientTest extends BaseRemoteTest
 {
 
-    private static HPCCWsAttributesClient client = null;
-    private final static String testwuid = System.getProperty("targetwuid");
-    private final static String port = System.getProperty("8145");
+    private static HPCCWsAttributesClient client   = null;
+    private final static String           testwuid = System.getProperty("targetwuid");
+    private final static String           port     = System.getProperty("8145");
 
     @BeforeClass
     public static void setup() throws Exception
     {
-        if (System.getProperty("targetwuid") == null)
-            System.out.println("No wsattributesport specified - defaulting to 8145");
+        if (System.getProperty("targetwuid") == null) System.out.println("No wsattributesport specified - defaulting to 8145");
 
         Connection conn = new Connection(connection.getProtocol(), connection.getHost(), port);
         Assert.assertNotNull(conn);
@@ -48,14 +47,12 @@ public class WsAttributesClientTest extends BaseRemoteTest
         Assert.assertNotNull(client);
     }
 
-
-    @Test (expected = Exception.class)
+    @Test(expected = Exception.class)
     public void getContainerizedModeTest() throws Exception
     {
         System.out.println("Fetching isTargetHPCCContainerized...");
         client.isTargetHPCCContainerized();
     }
-
 
     @Test
     public void serviceURLTest() throws Exception
@@ -65,10 +62,9 @@ public class WsAttributesClientTest extends BaseRemoteTest
 
         String wsAttributesClientVer = wsclient.getWsAttributesClientVer();
         Assert.assertNotNull(wsAttributesClientVer);
-        if (wsAttributesClientVer.isEmpty())
-            Assert.fail("Could not fetch service version");
+        if (wsAttributesClientVer.isEmpty()) Assert.fail("Could not fetch service version");
 
-        HPCCFileSprayClient fsclient = HPCCFileSprayClient.get("http","1.1.2.2","8010","myuser","mypass");
+        HPCCFileSprayClient fsclient = HPCCFileSprayClient.get("http", "1.1.2.2", "8010", "myuser", "mypass");
         Assert.assertNotNull(fsclient);
 
         Assert.assertNotNull(HPCCWsAttributesClient.getServiceWSDLPort());
@@ -78,7 +74,7 @@ public class WsAttributesClientTest extends BaseRemoteTest
         System.out.println("WsAttributes Actual Connection URL: " + client.getConnectionURL());
 
         System.out.println(HPCCWsAttributesClient.getServiceWSDLURL());
-        HPCCWsAttributesClient attsclient = HPCCWsAttributesClient.get("http","1.1.1.1","1234","myuser","mypass");
+        HPCCWsAttributesClient attsclient = HPCCWsAttributesClient.get("http", "1.1.1.1", "1234", "myuser", "mypass");
         Assert.assertNotNull(attsclient);
 
         URL connectionURL = attsclient.getConnectionURL();

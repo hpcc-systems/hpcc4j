@@ -47,12 +47,12 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
  */
 public class HPCCWsCodeSignClient extends BaseHPCCWsClient
 {
-    private static final Logger    log                = LogManager.getLogger(HPCCWsCodeSignClient.class);
+    private static final Logger log                = LogManager.getLogger(HPCCWsCodeSignClient.class);
 
     /** Constant <code>WSRESOURCESURI="/ws_codesign"</code> */
-    public static final String     WSRESOURCESURI     = "/ws_codesign";
-    private static int             DEFAULTSERVICEPORT = -1;
-    private static String          WSDLURL            = null;
+    public static final String  WSRESOURCESURI     = "/ws_codesign";
+    private static int          DEFAULTSERVICEPORT = -1;
+    private static String       WSDLURL            = null;
 
     /**
      * Load WSDLURL.
@@ -225,8 +225,7 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
     @WithSpan
     public ListUserIDsResponseWrapper listUserIDs(ListUserIDsRequestWrapper req) throws Exception
     {
-        if (req == null)
-            throw new Exception("HPCCWsCodeSignClient.listUserIDs: Must provide valid ListUserIDsRequestWrapper!");
+        if (req == null) throw new Exception("HPCCWsCodeSignClient.listUserIDs: Must provide valid ListUserIDsRequestWrapper!");
 
         verifyStub();
 
@@ -260,8 +259,7 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
     @WithSpan
     public SignResponseWrapper sign(SignRequestWrapper req) throws Exception
     {
-        if (req == null)
-            throw new Exception("HPCCWsCodeSignClient.sign: Must provide valid SignRequestWrapper!");
+        if (req == null) throw new Exception("HPCCWsCodeSignClient.sign: Must provide valid SignRequestWrapper!");
 
         verifyStub();
 
@@ -295,8 +293,7 @@ public class HPCCWsCodeSignClient extends BaseHPCCWsClient
     @WithSpan
     public VerifyResponseWrapper verify(VerifyRequestWrapper req) throws Exception
     {
-        if (req == null)
-            throw new Exception("HPCCWsCodeSignClient.verify: Must provide valid VerifyRequestWrapper!");
+        if (req == null) throw new Exception("HPCCWsCodeSignClient.verify: Must provide valid VerifyRequestWrapper!");
 
         verifyStub();
 

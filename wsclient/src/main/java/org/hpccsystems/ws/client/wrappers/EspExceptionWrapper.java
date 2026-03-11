@@ -252,10 +252,10 @@ public class EspExceptionWrapper extends BaseExceptionWrapper
 
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wscodesign.latest.EspException raw)
     {
-         this.code = raw.getCode();
-         this.audience = raw.getAudience();
-         this.source = raw.getSource();
-         this.message = raw.getMessage();
+        this.code = raw.getCode();
+        this.audience = raw.getAudience();
+        this.source = raw.getSource();
+        this.message = raw.getMessage();
     }
 
     public EspExceptionWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.EspException raw)

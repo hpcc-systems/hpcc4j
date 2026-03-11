@@ -23,7 +23,9 @@ import net.razorvine.pickle.PickleException;
 public class RowConstructor implements IObjectConstructor
 {
 
-    public RowConstructor() {}
+    public RowConstructor()
+    {
+    }
 
     @Override
     public Object construct(Object[] tupleFields) throws PickleException
@@ -35,6 +37,6 @@ public class RowConstructor implements IObjectConstructor
         }
 
         Object[] rowFields = (Object[]) tupleFields[1];
-        return new GenericRowWithSchema(rowFields,null);
+        return new GenericRowWithSchema(rowFields, null);
     }
 }

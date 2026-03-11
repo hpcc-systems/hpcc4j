@@ -12,7 +12,7 @@ import org.junit.experimental.categories.Category;
 @Category(org.hpccsystems.commons.annotations.BaseTests.class)
 public class LoggerManagerTest
 {
-	private static final Logger log  = LogManager.getLogger(LoggerManagerTest.class);
+    private static final Logger log = LogManager.getLogger(LoggerManagerTest.class);
 
     @Test
     public void loggerTest()

@@ -30,15 +30,14 @@ import java.time.format.DateTimeFormatter;
 
 public class TestResultNotifier extends RunListener
 {
-    PrintWriter failedTestsFile = null;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss")
-                                          .withZone(ZoneId.systemDefault());
+    PrintWriter               failedTestsFile = null;
+    private DateTimeFormatter formatter       = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss").withZone(ZoneId.systemDefault());
 
     public void testStarted(Description description) throws Exception
     {
         Instant instant = Instant.now();
         String formattedTime = formatter.format(instant);
-        System.out.println("\n" + formattedTime +  " Starting: " + description.getClassName() + "." + description.getMethodName());
+        System.out.println("\n" + formattedTime + " Starting: " + description.getClassName() + "." + description.getMethodName());
         System.out.println("---------------------------------------------------------");
     }
 
@@ -46,7 +45,7 @@ public class TestResultNotifier extends RunListener
     {
         Instant instant = Instant.now();
         String formattedTime = formatter.format(instant);
-        System.out.println("\n" + formattedTime +  " Finished: " + description.getClassName() + "." + description.getMethodName());
+        System.out.println("\n" + formattedTime + " Finished: " + description.getClassName() + "." + description.getMethodName());
         System.out.println("---------------------------------------------------------");
     }
 
@@ -58,7 +57,7 @@ public class TestResultNotifier extends RunListener
             {
                 try
                 {
-                    failedTestsFile = new PrintWriter( new FileWriter("./FailedTests.csv"));
+                    failedTestsFile = new PrintWriter(new FileWriter("./FailedTests.csv"));
                 }
                 catch (IOException e)
                 {
@@ -73,7 +72,7 @@ public class TestResultNotifier extends RunListener
             String methodName = description.getMethodName();
             String failureMsg = failure.getMessage();
 
-            failureMsg = failureMsg.replace("\n","\\n").replace("\"","\\\"");
+            failureMsg = failureMsg.replace("\n", "\\n").replace("\"", "\\\"");
 
             failedTestsFile.println("\"" + className + "\",\"" + methodName + "\",\"" + failureMsg + "\"");
             failedTestsFile.flush();

@@ -30,10 +30,10 @@ import org.apache.logging.log4j.LogManager;
 
 public class Utils
 {
-    private static Logger log = LogManager.getLogger(Utils.class);
+    private static Logger        log                 = LogManager.getLogger(Utils.class);
 
     private static OpenTelemetry globalOpenTelemetry = null;
-    private static Tracer dfsClientTracer = null;
+    private static Tracer        dfsClientTracer     = null;
 
     static
     {
@@ -77,16 +77,12 @@ public class Utils
         Span span = null;
         if (parentSpan == null)
         {
-            span = Utils.getTelemetryTracer().spanBuilder(name)
-                                    .setSpanKind(SpanKind.CLIENT)
-                                    .startSpan();
+            span = Utils.getTelemetryTracer().spanBuilder(name).setSpanKind(SpanKind.CLIENT).startSpan();
         }
         else
         {
-            span = Utils.getTelemetryTracer().spanBuilder(name)
-                                    .setParent(Context.current().with(parentSpan))
-                                    .setSpanKind(SpanKind.CLIENT)
-                                    .startSpan();
+            span = Utils.getTelemetryTracer().spanBuilder(name).setParent(Context.current().with(parentSpan)).setSpanKind(SpanKind.CLIENT)
+                    .startSpan();
         }
 
         span.makeCurrent();
@@ -115,18 +111,10 @@ public class Utils
             return createSpan(childName);
         }
 
-        SpanContext parentSpanContext = SpanContext.createFromRemoteParent(
-            traceID,
-            parentSpanID,
-            traceFlags,
-            TraceState.getDefault()
-        );
+        SpanContext parentSpanContext = SpanContext.createFromRemoteParent(traceID, parentSpanID, traceFlags, TraceState.getDefault());
         Context parentContext = Context.current().with(Span.wrap(parentSpanContext));
 
-        Span childSpan = getTelemetryTracer().spanBuilder(childName)
-                                    .setParent(parentContext)
-                                    .setSpanKind(SpanKind.CLIENT)
-                                    .startSpan();
+        Span childSpan = getTelemetryTracer().spanBuilder(childName).setParent(parentContext).setSpanKind(SpanKind.CLIENT).startSpan();
         childSpan.makeCurrent();
         return childSpan;
     }
@@ -148,7 +136,8 @@ public class Utils
         String[] parts = traceparent.split("-");
         if (parts.length != 4)
         {
-            log.error("Invalid traceparent format: " + traceparent + ". Expected version-trace_id-span_id-trace_flags. Creating a disconnected span.");
+            log.error(
+                    "Invalid traceparent format: " + traceparent + ". Expected version-trace_id-span_id-trace_flags. Creating a disconnected span.");
             return createSpan(childName);
         }
 
@@ -157,10 +146,10 @@ public class Utils
             String traceId = parts[1];
             String spanId = parts[2];
             String traceFlagsHex = parts[3];
-            
+
             // Parse trace flags from hex string
             TraceFlags traceFlags = TraceFlags.fromHex(traceFlagsHex, 0);
-            
+
             return createChildSpan(traceId, spanId, traceFlags, childName);
         }
         catch (Exception e)

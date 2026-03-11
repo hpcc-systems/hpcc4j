@@ -40,7 +40,6 @@ public abstract class DataSingleton extends Observable
             monitorThread = new Thread(new Runnable() {
                 private int timerTickCount = 0;
 
-     
                 public void run()
                 {
                     while (!isComplete())

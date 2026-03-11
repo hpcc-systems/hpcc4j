@@ -23,6 +23,6 @@ public interface IMetric
 {
     public double getValue();
     public String getName();
-    public Units  getUnits();
+    public Units getUnits();
     public String getDescription();
 };

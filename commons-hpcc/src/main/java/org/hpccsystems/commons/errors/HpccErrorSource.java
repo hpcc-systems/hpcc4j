@@ -3,9 +3,7 @@ package org.hpccsystems.commons.errors;
 public enum HpccErrorSource implements IErrorSource
 {
 
-    COMMONS (
-            100
-    );
+    COMMONS (100);
 
     private int numVal;
 

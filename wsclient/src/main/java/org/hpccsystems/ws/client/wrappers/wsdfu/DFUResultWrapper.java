@@ -4,10 +4,10 @@ import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUActionInfo;
 
 public class DFUResultWrapper
 {
-    private String actionResult;
+    private String  actionResult;
     private Boolean failed;
-    private String fileName;
-    private String nodeGroup;
+    private String  fileName;
+    private String  nodeGroup;
 
     /**
      * Instantiates a new DFU result wrapper.
@@ -17,10 +17,10 @@ public class DFUResultWrapper
      */
     public DFUResultWrapper(DFUActionInfo raw)
     {
-        actionResult=raw.getActionResult();
-        failed=raw.getFailed();
-        fileName=raw.getFileName();
-        nodeGroup=raw.getNodeGroup();
+        actionResult = raw.getActionResult();
+        failed = raw.getFailed();
+        fileName = raw.getFileName();
+        nodeGroup = raw.getNodeGroup();
     }
 
     /**

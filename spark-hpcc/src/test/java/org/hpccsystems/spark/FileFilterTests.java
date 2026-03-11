@@ -58,7 +58,8 @@ public class FileFilterTests
 
             Assert.assertEquals(hpccnotlessthan.toJson(), hpccgte.toJson());
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             // TODO: handle exception
         }
     }
@@ -69,7 +70,7 @@ public class FileFilterTests
 
         System.out.println("\n----------Spark to HPCC filter Tests----------");
 
-        org.apache.spark.sql.sources.Filter [] sparkfilters = new org.apache.spark.sql.sources.Filter[8];
+        org.apache.spark.sql.sources.Filter[] sparkfilters = new org.apache.spark.sql.sources.Filter[8];
         StringStartsWith ssw = new StringStartsWith("Fname", "Rod");
         LessThan lt = new LessThan("field1", 12);
         GreaterThan gt = new GreaterThan("field1", 8);
@@ -77,17 +78,17 @@ public class FileFilterTests
         sparkfilters[0] = ssw;
         sparkfilters[1] = or;
 
-        In in = new In("field1", new Object [] { "str", "values", "etc"});
+        In in = new In("field1", new Object[] { "str", "values", "etc" });
         sparkfilters[2] = in;
 
-        In innumber = new In("field1", new Object [] { 1, 2, 3, 4, 5.6});
+        In innumber = new In("field1", new Object[] { 1, 2, 3, 4, 5.6 });
         sparkfilters[3] = innumber;
 
         LessThan lta = new LessThan("alphafield", "XYZ");
         sparkfilters[4] = lta;
 
         Filter child = new EqualTo("field1", "true");
-        org.apache.spark.sql.sources.Not n = new org.apache.spark.sql.sources.Not(child );
+        org.apache.spark.sql.sources.Not n = new org.apache.spark.sql.sources.Not(child);
         sparkfilters[5] = n;
 
         Filter eq5 = new EqualTo("field1", 5);

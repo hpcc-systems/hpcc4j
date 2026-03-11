@@ -37,7 +37,7 @@ import org.hpccsystems.commons.ecl.FieldFilterRange;
 /**
  * Uses the Top Level Key partition, if present, to determine which file parts in an index match a given FileFilter.
  */
-public class PartitionProcessor 
+public class PartitionProcessor
 {
     // A set field filters that are all OR'd togther
     private class CompiledFieldFilterSet
@@ -100,7 +100,7 @@ public class PartitionProcessor
                     }
 
                     FieldType type = recordDef.getDef(fieldIndex).getFieldType();
-                    
+
                     List<FieldFilterRange> ranges = fieldFilter.getRanges();
                     for (FieldFilterRange range : ranges)
                     {
@@ -151,7 +151,7 @@ public class PartitionProcessor
             {
                 ret += "\t" + filterSet.toString() + "\n";
             }
-            
+
             ret += "]\n";
             return ret;
         }
@@ -160,17 +160,17 @@ public class PartitionProcessor
 
     private class DataPartitionRecordRange
     {
-        public HPCCRecord begin = null;
-        public HPCCRecord end = null;
+        public HPCCRecord    begin         = null;
+        public HPCCRecord    end           = null;
         public DataPartition dataPartition = null;
     };
 
-    private static final Logger log = LogManager.getLogger(PartitionProcessor.class);
-    private DataPartition[] dataPartitions = null;
+    private static final Logger                 log                 = LogManager.getLogger(PartitionProcessor.class);
+    private DataPartition[]                     dataPartitions      = null;
     private ArrayList<DataPartitionRecordRange> dataPartitionRanges = new ArrayList<DataPartitionRecordRange>();
-    private FieldDef recordDef = null;
+    private FieldDef                            recordDef           = null;
 
-    PartitionProcessor(FieldDef recDef, DataPartition[] partitions, DataPartition tlkPartition) throws Exception 
+    PartitionProcessor(FieldDef recDef, DataPartition[] partitions, DataPartition tlkPartition) throws Exception
     {
         this.dataPartitions = partitions;
         this.recordDef = recDef;
@@ -184,14 +184,14 @@ public class PartitionProcessor
         //------------------------------------------------------------------------------
         // Read the TLK file part
         //------------------------------------------------------------------------------
-        
+
         boolean success = false;
         int numRetries = 0;
         Exception readFailureException = null;
 
         HPCCRecordBuilder recordBuilder = new HPCCRecordBuilder(recDef);
         ArrayList<HPCCRecord> tlkRecords = new ArrayList<HPCCRecord>(partitions.length);
-        
+
         while (numRetries < 3 && success == false)
         {
             tlkRecords.clear();
@@ -222,7 +222,7 @@ public class PartitionProcessor
                                 }
                             }
 
-                            record.setField(i,longVal);
+                            record.setField(i, longVal);
                         }
                         else if (fd.getFieldType() == FieldType.STRING)
                         {
@@ -230,7 +230,7 @@ public class PartitionProcessor
 
                             // rtrim
                             strVal = strVal.replaceAll("\\s+$", "");
-                            record.setField(i,strVal);
+                            record.setField(i, strVal);
                         }
                     }
 
@@ -260,14 +260,13 @@ public class PartitionProcessor
         if (tlkRecords.size() != this.dataPartitions.length)
         {
             // This would represent some form of corruption or an issue during the read
-            throw new Exception("Mismatch between # of data partitions: " + dataPartitions.length
-                              + " and # of records in TLK: " + tlkRecords.size());
+            throw new Exception("Mismatch between # of data partitions: " + dataPartitions.length + " and # of records in TLK: " + tlkRecords.size());
         }
 
         // Create a max value cap record
         if (tlkRecords.size() > 0)
         {
-            HPCCRecord endRecord = tlkRecords.get(tlkRecords.size()-1);
+            HPCCRecord endRecord = tlkRecords.get(tlkRecords.size() - 1);
             Object[] capFields = new Object[endRecord.getNumFields()];
             for (int i = 0; i < endRecord.getNumFields(); i++)
             {
@@ -278,7 +277,7 @@ public class PartitionProcessor
                 // Otherwise it is part of the payload and its value doesn't matter so reuse the end record value
                 if (type.isScalar())
                 {
-                    capFields[i] = CompiledFieldFilter.getMaxValueForType(type,(int)fd.getDataLen());
+                    capFields[i] = CompiledFieldFilter.getMaxValueForType(type, (int) fd.getDataLen());
                 }
                 else
                 {
@@ -290,11 +289,11 @@ public class PartitionProcessor
         }
 
         // Construct ranges
-        for (int i = 0; i < tlkRecords.size()-1; i++)
+        for (int i = 0; i < tlkRecords.size() - 1; i++)
         {
             DataPartitionRecordRange range = new DataPartitionRecordRange();
             range.begin = tlkRecords.get(i);
-            range.end = tlkRecords.get(i+1);
+            range.end = tlkRecords.get(i + 1);
             range.dataPartition = this.dataPartitions[i];
             dataPartitionRanges.add(range);
         }
@@ -312,7 +311,7 @@ public class PartitionProcessor
         CompiledFileFilter compiledFileFilter = null;
         try
         {
-            compiledFileFilter = new CompiledFileFilter(this.recordDef,filter);
+            compiledFileFilter = new CompiledFileFilter(this.recordDef, filter);
         }
         catch (Exception e)
         {
@@ -341,8 +340,7 @@ public class PartitionProcessor
     public String getPartitionRangeAsString(int index)
     {
         DataPartitionRecordRange range = dataPartitionRanges.get(index);
-        String rangeStr = "[" + range.begin.toString() 
-                        + "," + range.end.toString() + "]\n";
+        String rangeStr = "[" + range.begin.toString() + "," + range.end.toString() + "]\n";
         return rangeStr;
     }
 
@@ -353,8 +351,7 @@ public class PartitionProcessor
         for (int i = 0; i < dataPartitionRanges.size(); i++)
         {
             DataPartitionRecordRange range = dataPartitionRanges.get(i);
-            out += i + "\t[" + range.begin.toString() 
-                + "," + range.end.toString() + "]\n";
+            out += i + "\t[" + range.begin.toString() + "," + range.end.toString() + "]\n";
         }
         out += "]\n";
         return out;

@@ -40,11 +40,11 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
  */
 public class HPCCWsCloudClient extends BaseHPCCWsClient
 {
-    private static final Logger    log                = LogManager.getLogger(HPCCWsCloudClient.class);
+    private static final Logger log                = LogManager.getLogger(HPCCWsCloudClient.class);
 
-    public static final String     WSCLOUDURI     = "/wscloud";
-    private static int             DEFAULTSERVICEPORT = -1;
-    private static String          WSDLURL            = null;
+    public static final String  WSCLOUDURI         = "/wscloud";
+    private static int          DEFAULTSERVICEPORT = -1;
+    private static String       WSDLURL            = null;
 
     /**
      * Load WSDLURL.
@@ -224,9 +224,9 @@ public class HPCCWsCloudClient extends BaseHPCCWsClient
     /*public String getPods() throws Exception
     {
         verifyStub();
-
+    
         GetPODsResponse resp = null;
-
+    
         try
         {
             resp = ((WsCloud) stub).getPODs(new GetPODsRequest());
@@ -235,10 +235,10 @@ public class HPCCWsCloudClient extends BaseHPCCWsClient
         {
             throw new Exception("HPCCWsCloud.getPods() encountered RemoteException.", e);
         }
-
+    
         if (resp == null)
             throw new Exception("HPCCWsCloud.getPods() received invalid respose.");
-
+    
         return resp.getResult();
     }*/
 
@@ -265,8 +265,7 @@ public class HPCCWsCloudClient extends BaseHPCCWsClient
             throw new Exception("HPCCWsCloud.getPods() encountered RemoteException.", e);
         }
 
-        if (resp == null)
-            throw new Exception("HPCCWsCloud.getPods() received invalid respose.");
+        if (resp == null) throw new Exception("HPCCWsCloud.getPods() received invalid respose.");
 
         /*Current version of this method does not return inline exceptions
          * if (resp.getExceptions() != null)
@@ -276,8 +275,7 @@ public class HPCCWsCloudClient extends BaseHPCCWsClient
         }
         */
 
-        if (resp != null)
-            wrappedResp = new GetPODsResponseWrapper(resp);
+        if (resp != null) wrappedResp = new GetPODsResponseWrapper(resp);
 
         return wrappedResp;
     }

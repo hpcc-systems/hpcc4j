@@ -44,10 +44,10 @@ import org.hpccsystems.commons.ecl.FileFilter;
  */
 public class FileFilterConverter
 {
-    private static final Logger  log                 = LogManager.getLogger(FileFilterConverter.class);
-    private static final long serialVersionUID = 1L;
+    private static final Logger log              = LogManager.getLogger(FileFilterConverter.class);
+    private static final long   serialVersionUID = 1L;
 
-    public static FileFilter CovertToHPCCFileFilter(Filter [] sparkfilters) throws Exception
+    public static FileFilter CovertToHPCCFileFilter(Filter[] sparkfilters) throws Exception
     {
         FileFilter hpccFilters = new FileFilter();
 
@@ -71,7 +71,7 @@ public class FileFilterConverter
             //A filter that evaluates to true iff the attribute evaluates to a value equal to value.
 
             final EqualTo eqtofilter = (EqualTo) sparkfilter;
-            hpccfilter = new FileFilter(new FieldFilter(eqtofilter.attribute(),FieldFilterRange.makeEq(eqtofilter.value())));
+            hpccfilter = new FileFilter(new FieldFilter(eqtofilter.attribute(), FieldFilterRange.makeEq(eqtofilter.value())));
         }
         else if (sparkfilter instanceof EqualNullSafe)
         {
@@ -82,7 +82,7 @@ public class FileFilterConverter
             //
             //No concept of NULL in HPCC/ECL
             final EqualNullSafe eqnullsafefilter = (EqualNullSafe) sparkfilter;
-            hpccfilter = new FileFilter(new FieldFilter(eqnullsafefilter.attribute(),FieldFilterRange.makeEq(eqnullsafefilter.value())));
+            hpccfilter = new FileFilter(new FieldFilter(eqnullsafefilter.attribute(), FieldFilterRange.makeEq(eqnullsafefilter.value())));
         }
         else if (sparkfilter instanceof And)
         {
@@ -99,14 +99,14 @@ public class FileFilterConverter
             //A filter that evaluates to true iff the attribute evaluates to a value greater than value.
 
             final GreaterThan gtfilter = (GreaterThan) sparkfilter;
-            hpccfilter = new FileFilter(new FieldFilter(gtfilter.attribute(),FieldFilterRange.makeGT(gtfilter.value())));
+            hpccfilter = new FileFilter(new FieldFilter(gtfilter.attribute(), FieldFilterRange.makeGT(gtfilter.value())));
         }
         else if (sparkfilter instanceof GreaterThanOrEqual)
         {
             //https://spark.apache.org/docs/2.3.0/api/java/org/apache/spark/sql/sources/GreaterThanOrEqual.html
             //A filter that evaluates to true iff the attribute evaluates to a value greater than or equal to value.
             final GreaterThanOrEqual gtefilter = (GreaterThanOrEqual) sparkfilter;
-            hpccfilter = new FileFilter(new FieldFilter(gtefilter.attribute(),FieldFilterRange.makeGE(gtefilter.value())));
+            hpccfilter = new FileFilter(new FieldFilter(gtefilter.attribute(), FieldFilterRange.makeGE(gtefilter.value())));
         }
         else if (sparkfilter instanceof In)
         {
@@ -141,14 +141,14 @@ public class FileFilterConverter
             //https://spark.apache.org/docs/2.3.0/api/java/org/apache/spark/sql/sources/LessThan.html
             //A filter that evaluates to true iff the attribute evaluates to a value less than value.
             final LessThan ltfilter = (LessThan) sparkfilter;
-            hpccfilter = new FileFilter(new FieldFilter(ltfilter.attribute(),FieldFilterRange.makeLT(ltfilter.value())));
+            hpccfilter = new FileFilter(new FieldFilter(ltfilter.attribute(), FieldFilterRange.makeLT(ltfilter.value())));
         }
         else if (sparkfilter instanceof LessThanOrEqual)
         {
             //https://spark.apache.org/docs/2.3.0/api/java/org/apache/spark/sql/sources/LessThanOrEqual.html
             //A filter that evaluates to true iff the attribute evaluates to a value less than or equal to value.
             final LessThan ltefilter = (LessThan) sparkfilter;
-            hpccfilter = new FileFilter(new FieldFilter(ltefilter.attribute(),FieldFilterRange.makeLE(ltefilter.value())));
+            hpccfilter = new FileFilter(new FieldFilter(ltefilter.attribute(), FieldFilterRange.makeLE(ltefilter.value())));
         }
         else if (sparkfilter instanceof Not)
         {
@@ -159,32 +159,32 @@ public class FileFilterConverter
             if (child instanceof EqualTo)
             {
                 final EqualTo eqfilter = (EqualTo) child;
-                hpccfilter = new FileFilter(new FieldFilter(eqfilter.attribute(),FieldFilterRange.makeNE(eqfilter.value())));
+                hpccfilter = new FileFilter(new FieldFilter(eqfilter.attribute(), FieldFilterRange.makeNE(eqfilter.value())));
             }
             else if (child instanceof EqualNullSafe)
             {
                 final EqualNullSafe filter = (EqualNullSafe) child;
-                hpccfilter = new FileFilter(new FieldFilter(filter.attribute(),FieldFilterRange.makeNE(filter.value())));
+                hpccfilter = new FileFilter(new FieldFilter(filter.attribute(), FieldFilterRange.makeNE(filter.value())));
             }
             else if (child instanceof GreaterThan)
             {
                 final GreaterThan filter = (GreaterThan) child;
-                hpccfilter = new FileFilter(new FieldFilter(filter.attribute(),FieldFilterRange.makeLE(filter.value())));
+                hpccfilter = new FileFilter(new FieldFilter(filter.attribute(), FieldFilterRange.makeLE(filter.value())));
             }
             else if (child instanceof GreaterThanOrEqual)
             {
                 final GreaterThanOrEqual filter = (GreaterThanOrEqual) child;
-                hpccfilter = new FileFilter(new FieldFilter(filter.attribute(),FieldFilterRange.makeLT(filter.value())));
+                hpccfilter = new FileFilter(new FieldFilter(filter.attribute(), FieldFilterRange.makeLT(filter.value())));
             }
             else if (child instanceof LessThan)
             {
                 final LessThan filter = (LessThan) child;
-                hpccfilter = new FileFilter(new FieldFilter(filter.attribute(),FieldFilterRange.makeGE(filter.value())));
+                hpccfilter = new FileFilter(new FieldFilter(filter.attribute(), FieldFilterRange.makeGE(filter.value())));
             }
             else if (child instanceof LessThanOrEqual)
             {
                 final LessThanOrEqual filter = (LessThanOrEqual) child;
-                hpccfilter = new FileFilter(new FieldFilter(filter.attribute(),FieldFilterRange.makeGT(filter.value())));
+                hpccfilter = new FileFilter(new FieldFilter(filter.attribute(), FieldFilterRange.makeGT(filter.value())));
             }
             else
                 throw new UnsupportedOperationException("Filter 'Not' not supported");
@@ -221,13 +221,12 @@ public class FileFilterConverter
             //The format of the set is an optional comma-separated sequence of ranges
             final StringStartsWith strstartswithfilter = (StringStartsWith) sparkfilter;
             final String value = strstartswithfilter.value();
-            final FieldFilterRange substring = FieldFilterRange.makeStartsWith(value, (short)value.length());
+            final FieldFilterRange substring = FieldFilterRange.makeStartsWith(value, (short) value.length());
 
-            hpccfilter = new FileFilter(new FieldFilter(strstartswithfilter.attribute(), new FieldFilterRange[] {substring}));
+            hpccfilter = new FileFilter(new FieldFilter(strstartswithfilter.attribute(), new FieldFilterRange[] { substring }));
         }
 
         log.debug("Converted SPARK filter: '" + sparkfilter.toString() + "' to HPCC filter: '" + hpccfilter);
         return hpccfilter;
     }
 }
-

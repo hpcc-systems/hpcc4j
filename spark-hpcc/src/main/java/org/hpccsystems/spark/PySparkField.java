@@ -15,10 +15,10 @@
  *******************************************************************************/
 package org.hpccsystems.spark;
 
-public class PySparkField 
+public class PySparkField
 {
-    private String name = null;
-    private Object value = null; 
+    private String name  = null;
+    private Object value = null;
 
     public PySparkField(String n, Object v)
     {

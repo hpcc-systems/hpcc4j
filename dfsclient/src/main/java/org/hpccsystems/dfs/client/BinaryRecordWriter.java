@@ -39,29 +39,29 @@ import java.util.Arrays;
  */
 public class BinaryRecordWriter implements IRecordWriter
 {
-    private static final Logger log                 = LogManager.getLogger(BinaryRecordWriter.class);
+    private static final Logger     log                       = LogManager.getLogger(BinaryRecordWriter.class);
 
-    private static final int    DataLenFieldSize    = 4;
-    private static final int    DefaultBufferSizeKB = 4096;
-    private static final byte   NegativeSignValue   = 0x0d;
-    private static final byte   PositiveSignValue   = 0x0f;
-    private static final int    MASK_32_LOWER_HALF  = 0xffff;
-    private static final int    SCRATCH_BUFFER_SIZE = 256;
+    private static final int        DataLenFieldSize          = 4;
+    private static final int        DefaultBufferSizeKB       = 4096;
+    private static final byte       NegativeSignValue         = 0x0d;
+    private static final byte       PositiveSignValue         = 0x0f;
+    private static final int        MASK_32_LOWER_HALF        = 0xffff;
+    private static final int        SCRATCH_BUFFER_SIZE       = 256;
 
     // DO NOT CHANGE THESE VALUES. HERE FOR CODE READABILITY ONLY
-    private static final int     QSTR_COMPRESSED_CHUNK_LEN = 3;
-    private static final int     QSTR_EXPANDED_CHUNK_LEN   = 4;
+    private static final int        QSTR_COMPRESSED_CHUNK_LEN = 3;
+    private static final int        QSTR_EXPANDED_CHUNK_LEN   = 4;
 
-    private static final byte    NULL_TERMINATOR = '\0';
+    private static final byte       NULL_TERMINATOR           = '\0';
 
-    private byte[]              scratchBuffer       = new byte[SCRATCH_BUFFER_SIZE];
+    private byte[]                  scratchBuffer             = new byte[SCRATCH_BUFFER_SIZE];
 
-    private OutputStream        outputStream        = null;
-    private ByteBuffer          buffer              = null;
-    private long                bytesWritten        = 0;
-    private IRecordAccessor     rootRecordAccessor  = null;
+    private OutputStream            outputStream              = null;
+    private ByteBuffer              buffer                    = null;
+    private long                    bytesWritten              = 0;
+    private IRecordAccessor         rootRecordAccessor        = null;
 
-    private StreamOperationMessages  messages = new StreamOperationMessages();
+    private StreamOperationMessages messages                  = new StreamOperationMessages();
 
     public String getStreamMessages()
     {
@@ -324,7 +324,7 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case BOOLEAN:
             {
-                Boolean value = fieldValue==null?Boolean.valueOf(false):(Boolean) fieldValue;
+                Boolean value = fieldValue == null ? Boolean.valueOf(false) : (Boolean) fieldValue;
                 byte byteValue = 0;
                 if (value)
                 {
@@ -337,9 +337,9 @@ public class BinaryRecordWriter implements IRecordWriter
             case FILEPOS:
             {
                 Long value = null;
-                if (fieldValue==null)
+                if (fieldValue == null)
                 {
-                    value=Long.valueOf(0);
+                    value = Long.valueOf(0);
                 }
                 else if (fieldValue instanceof Long)
                 {
@@ -388,14 +388,14 @@ public class BinaryRecordWriter implements IRecordWriter
                 }
                 else if (fd.getDataLen() < 8 && fd.getDataLen() > 0)
                 {
-                    long lastByteIdx = fd.getDataLen() -1;
+                    long lastByteIdx = fd.getDataLen() - 1;
                     for (int i = 0; i < lastByteIdx; i++)
                     {
-                        this.buffer.put((byte) ((value >> (i*8)) & 0xFF));
+                        this.buffer.put((byte) ((value >> (i * 8)) & 0xFF));
                     }
 
                     long signBit = value < 0 ? 0x80L : 0;
-                    this.buffer.put((byte) (((value >> (lastByteIdx*8)) & 0xFF) | signBit));
+                    this.buffer.put((byte) (((value >> (lastByteIdx * 8)) & 0xFF) | signBit));
                 }
                 else
                 {
@@ -406,7 +406,7 @@ public class BinaryRecordWriter implements IRecordWriter
             }
             case DECIMAL:
             {
-                BigDecimal value = fieldValue==null ? BigDecimal.valueOf(0) : (BigDecimal) fieldValue;
+                BigDecimal value = fieldValue == null ? BigDecimal.valueOf(0) : (BigDecimal) fieldValue;
                 writeDecimal(fd, value);
                 break;
             }
@@ -465,7 +465,7 @@ public class BinaryRecordWriter implements IRecordWriter
             case CHAR:
             {
                 byte c = NULL_TERMINATOR;
-                if (fieldValue!=null)
+                if (fieldValue != null)
                 {
                     String value = (String) fieldValue;
                     c = (byte) value.charAt(0);
@@ -482,7 +482,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     int eosIdx = value.indexOf(NULL_TERMINATOR);
                     if (eosIdx > -1)
                     {
-                        value = value.substring(0,eosIdx);
+                        value = value.substring(0, eosIdx);
                     }
                 }
 
@@ -509,7 +509,7 @@ public class BinaryRecordWriter implements IRecordWriter
 
                     // We are multiplying expandedLen by the QSTR compression ratio. We are doing this in integers
                     // so we need to handle rounding up correctly by adding divisor-1 or (QSTR_EXPANDED_CHUNK_LEN-1) in this case
-                    int compressedDataLen = tempData.length * QSTR_COMPRESSED_CHUNK_LEN + (QSTR_EXPANDED_CHUNK_LEN-1);
+                    int compressedDataLen = tempData.length * QSTR_COMPRESSED_CHUNK_LEN + (QSTR_EXPANDED_CHUNK_LEN - 1);
                     compressedDataLen /= QSTR_EXPANDED_CHUNK_LEN;
                     data = new byte[compressedDataLen];
 
@@ -530,14 +530,14 @@ public class BinaryRecordWriter implements IRecordWriter
                                 data[byteIdx] |= (byte) ((qstrByteValue & 0x3C) >> 2);
 
                                 // The bot 2 bits of Char 2 are in the top 2 bits of byte2
-                                data[byteIdx+1] = (byte) ((qstrByteValue & 0x3) << 6);
+                                data[byteIdx + 1] = (byte) ((qstrByteValue & 0x3) << 6);
                                 break;
                             case 1:
                                 // Top 2 bits of Char 1 are in the bot 2 bits of byte 0
                                 data[byteIdx] |= (byte) ((qstrByteValue & 0x30) >> 4);
 
                                 //The bot 4 bits of Char 1 are in the top 4 bits of byte 1
-                                data[byteIdx+1] = (byte) ((qstrByteValue & 0xF) << 4);
+                                data[byteIdx + 1] = (byte) ((qstrByteValue & 0xF) << 4);
                                 break;
                             case 0:
                                 // Char 0 is in the top 6 bits of byte 0
@@ -615,9 +615,8 @@ public class BinaryRecordWriter implements IRecordWriter
                         {
                             if (fd.getSourceType().isUTF16())
                             {
-                                boolean needsNullAdded = data.length < 2
-                                                   || data[data.length - 1] != NULL_TERMINATOR
-                                                   || data[data.length - 2] != NULL_TERMINATOR;
+                                boolean needsNullAdded = data.length < 2 || data[data.length - 1] != NULL_TERMINATOR
+                                        || data[data.length - 2] != NULL_TERMINATOR;
                                 if (needsNullAdded)
                                 {
                                     this.buffer.put(NULL_TERMINATOR);
@@ -626,8 +625,7 @@ public class BinaryRecordWriter implements IRecordWriter
                             }
                             else
                             {
-                                boolean needsNullAdded = data.length < 1
-                                                      || data[data.length - 1] != NULL_TERMINATOR;
+                                boolean needsNullAdded = data.length < 1 || data[data.length - 1] != NULL_TERMINATOR;
                                 if (needsNullAdded)
                                 {
                                     this.buffer.put(NULL_TERMINATOR);
@@ -637,7 +635,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     }
                     else
                     {
-                        writeUnsigned(value==null?0:value.length());
+                        writeUnsigned(value == null ? 0 : value.length());
                         writeByteArray(data);
                     }
                 }
@@ -814,7 +812,7 @@ public class BinaryRecordWriter implements IRecordWriter
                     data = value.getBytes("ISO-8859-1");
                     // We are multiplying expandedLen by the QSTR compression ratio. We are doing this in integers
                     // so we need to handle rounding up correctly by adding divisor-1 or (QSTR_EXPANDED_CHUNK_LEN-1) in this case
-                    int compressedDataLen = data.length * QSTR_COMPRESSED_CHUNK_LEN + (QSTR_EXPANDED_CHUNK_LEN-1);
+                    int compressedDataLen = data.length * QSTR_COMPRESSED_CHUNK_LEN + (QSTR_EXPANDED_CHUNK_LEN - 1);
                     compressedDataLen /= QSTR_EXPANDED_CHUNK_LEN;
                     data = new byte[compressedDataLen];
                 }

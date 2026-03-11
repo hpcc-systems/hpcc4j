@@ -42,7 +42,7 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 public class WSCodeSignClientTest extends BaseRemoteTest
 {
     private static HPCCWsCodeSignClient client;
-    private static String signed = null;
+    private static String               signed = null;
 
     static
     {
@@ -152,7 +152,7 @@ public class WSCodeSignClientTest extends BaseRemoteTest
             {
                 if (resp.getIsVerified())
                 {
-                    System.out.println("Verified (signed by " + resp.getSignedBy() +")");
+                    System.out.println("Verified (signed by " + resp.getSignedBy() + ")");
                 }
             }
         }
@@ -165,7 +165,6 @@ public class WSCodeSignClientTest extends BaseRemoteTest
             Assert.fail(e.getLocalizedMessage());
         }
     }
-
 
     @Test
     public void ping() throws Exception

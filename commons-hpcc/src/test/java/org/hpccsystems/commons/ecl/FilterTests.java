@@ -30,12 +30,12 @@ public class FilterTests
         String value = "4.5";
         FieldFilterRange fr = FieldFilterRange.makeEq(value);
         System.out.println("Testing Equality (String) FilterRange creation - " + fr.toString());
-        assertEquals("["+value+"]", fr.toString());
+        assertEquals("[" + value + "]", fr.toString());
 
         Double dvalue = 2.333;
         fr = FieldFilterRange.makeEq(dvalue);
         System.out.println("Testing Equality (Double) FilterRange creation - " + fr.toString());
-        assertEquals("["+dvalue+"]", fr.toString());
+        assertEquals("[" + dvalue + "]", fr.toString());
 
         fr = FieldFilterRange.makeLE(4.5);
         System.out.println("Testing Less than Equality (Double) FilterRange creation - " + fr.toString());
@@ -45,28 +45,28 @@ public class FilterTests
         System.out.println("Testing Greater than Equality (Double) FilterRange creation - " + fr.toString());
         assertEquals("[-982,)", fr.toString());
 
-        Object [] vals = new String[2];
+        Object[] vals = new String[2];
         vals[0] = "one";
         vals[1] = "two";
         fr = new FieldFilterRange(vals, false);
-                FieldFilterRange fr2 = FieldFilterRange.makeIn(vals);
+        FieldFilterRange fr2 = FieldFilterRange.makeIn(vals);
         System.out.println("Testing IN [Alpha] FilterRange creation - " + fr.toString());
         assertEquals(fr.toString(), fr2.toString());
 
-        String [] in = {"1.0", "1.1", "1.3", "2.3", "3.4"};
+        String[] in = { "1.0", "1.1", "1.3", "2.3", "3.4" };
         fr = FieldFilterRange.makeIn(in);
         System.out.println("Testing IN [Alpha] FilterRange creation 2- " + fr.toString());
 
-        Double [] ind = {1.0, 1.1, 1.3, 2.3, 3.4};
-        fr =FieldFilterRange.makeIn(ind);
+        Double[] ind = { 1.0, 1.1, 1.3, 2.3, 3.4 };
+        fr = FieldFilterRange.makeIn(ind);
         System.out.println("Testing IN [Numeric] FilterRange creation - " + fr.toString());
 
         try
         {
-            fr = FieldFilterRange.makeStartsWith("a", (short)1);
+            fr = FieldFilterRange.makeStartsWith("a", (short) 1);
             System.out.println("Testing starts with FilterRange creation - " + fr.toString());
 
-            fr = FieldFilterRange.makeStartsWith("xy", (short)2);
+            fr = FieldFilterRange.makeStartsWith("xy", (short) 2);
             System.out.println("Testing starts with FilterRange creation 2- " + fr.toString());
         }
         catch (Exception e)
@@ -84,7 +84,7 @@ public class FilterTests
         System.out.println("Testing Wildcard FieldFilter creation - " + ff.toString());
         assertEquals("field1*", ff.toString());
 
-        FieldFilterRange [] filterRanges = new FieldFilterRange[2];
+        FieldFilterRange[] filterRanges = new FieldFilterRange[2];
 
         FieldFilterRange fr = FieldFilterRange.makeEq(1.0);
         filterRanges[0] = fr;
@@ -100,17 +100,17 @@ public class FilterTests
         System.out.println("Testing multi clause FieldFilter creation - " + ff.toString());
         assertEquals("field2=[1.0],(,8.0]", ff.toString());
 
-        ff =  new FieldFilter("field3", FieldFilterRange.makeIn(new Object [] {1.2, 23.2, 0.999}));
+        ff = new FieldFilter("field3", FieldFilterRange.makeIn(new Object[] { 1.2, 23.2, 0.999 }));
         System.out.println("Testing Numeric IN FieldFilter creation - " + ff.toString());
         assertEquals("field3=[1.2],[23.2],[0.999]", ff.toString());
 
-        ff =  new FieldFilter("field4", FieldFilterRange.makeIn(new Object [] {"james", "john", "jake"}));
+        ff = new FieldFilter("field4", FieldFilterRange.makeIn(new Object[] { "james", "john", "jake" }));
         System.out.println("Testing Alph IN FieldFilter creation - " + ff.toString());
         assertEquals("field4=['james'],['john'],['jake']", ff.toString());
 
         try
         {
-            ff = new FieldFilter("myField", FieldFilterRange.makeStartsWith("a", (short)1));
+            ff = new FieldFilter("myField", FieldFilterRange.makeStartsWith("a", (short) 1));
             System.out.println("Testing StartsWith FieldFilter creation - " + ff.toString());
             assertEquals("myField=['a:1']", ff.toString());
         }
@@ -146,7 +146,7 @@ public class FilterTests
         }
         catch (Exception e1)
         {
-            Assert.assertEquals("Invalid filter operator detected: ' NOT IN ' In filter: 'Field1  NOT IN  [1234, 212,12]'",  e1.getLocalizedMessage());
+            Assert.assertEquals("Invalid filter operator detected: ' NOT IN ' In filter: 'Field1  NOT IN  [1234, 212,12]'", e1.getLocalizedMessage());
         }
 
         try
@@ -155,7 +155,7 @@ public class FilterTests
         }
         catch (Exception e)
         {
-            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 = OR'",  e.getLocalizedMessage());
+            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 = OR'", e.getLocalizedMessage());
         }
 
         try
@@ -164,7 +164,7 @@ public class FilterTests
         }
         catch (Exception e)
         {
-              Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 =  OR'",  e.getLocalizedMessage());
+            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 =  OR'", e.getLocalizedMessage());
         }
 
         try
@@ -173,7 +173,7 @@ public class FilterTests
         }
         catch (Exception e)
         {
-              Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 = OR '",  e.getLocalizedMessage());
+            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 = OR '", e.getLocalizedMessage());
         }
 
         try
@@ -182,7 +182,7 @@ public class FilterTests
         }
         catch (Exception e)
         {
-              Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 =  OR '",  e.getLocalizedMessage());
+            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 =  OR '", e.getLocalizedMessage());
         }
 
         try
@@ -191,7 +191,7 @@ public class FilterTests
         }
         catch (Exception e)
         {
-            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 = AND'",  e.getLocalizedMessage());
+            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 = AND'", e.getLocalizedMessage());
         }
 
         try
@@ -200,7 +200,7 @@ public class FilterTests
         }
         catch (Exception e)
         {
-            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 =  AND'",  e.getLocalizedMessage());
+            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 =  AND'", e.getLocalizedMessage());
         }
 
         try
@@ -209,7 +209,7 @@ public class FilterTests
         }
         catch (Exception e)
         {
-            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 = AND '",  e.getLocalizedMessage());
+            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 = AND '", e.getLocalizedMessage());
         }
 
         try
@@ -218,7 +218,7 @@ public class FilterTests
         }
         catch (Exception e)
         {
-            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 =  AND '",  e.getLocalizedMessage());
+            Assert.assertEquals("Cannot convert filter comparing 2 fields -- 'Field1 =  AND '", e.getLocalizedMessage());
         }
     }
 
@@ -239,7 +239,6 @@ public class FilterTests
             Assert.assertEquals("Field1=[' OR']", filter.getFieldFilter(0).toString());
             filter = new FileFilter(" Field1 = ' OR ' ");
             Assert.assertEquals("Field1=[' OR ']", filter.getFieldFilter(0).toString());
-
 
             Assert.assertEquals("Field1=[' OR ']", filter.getFieldFilter(0).toString());
 
@@ -278,7 +277,7 @@ public class FilterTests
 
             hpccfilter = new FileFilter();
 
-            FieldFilterRange [] filterRanges = new FieldFilterRange[2];
+            FieldFilterRange[] filterRanges = new FieldFilterRange[2];
             FieldFilterRange fr = FieldFilterRange.makeEq(1.0);
             filterRanges[0] = fr;
 
@@ -315,7 +314,7 @@ public class FilterTests
             }
             catch (Exception e1)
             {
-                Assert.assertEquals("Invalid logical operator found: Fild1 =< 1234",  e1.getLocalizedMessage());
+                Assert.assertEquals("Invalid logical operator found: Fild1 =< 1234", e1.getLocalizedMessage());
             }
 
             try
@@ -324,7 +323,7 @@ public class FilterTests
             }
             catch (Exception e1)
             {
-                Assert.assertEquals("Invalid logical operator found: Fild1 => 1234",  e1.getLocalizedMessage());
+                Assert.assertEquals("Invalid logical operator found: Fild1 => 1234", e1.getLocalizedMessage());
             }
 
             filter = new FileFilter(" Field1 IN 1234, 212,12 ");
@@ -345,7 +344,8 @@ public class FilterTests
             }
             catch (Exception e1)
             {
-                Assert.assertEquals("Invalid filter operator detected: ' NOT IN ' In filter: 'Field1  NOT IN  [1234, 212,12]'",  e1.getLocalizedMessage());
+                Assert.assertEquals("Invalid filter operator detected: ' NOT IN ' In filter: 'Field1  NOT IN  [1234, 212,12]'",
+                        e1.getLocalizedMessage());
             }
 
             filter = new FileFilter(" Field1 > 12 OR Field1 = 5 ");

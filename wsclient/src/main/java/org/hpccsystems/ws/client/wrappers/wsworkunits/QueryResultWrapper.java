@@ -11,23 +11,23 @@ import org.hpccsystems.ws.client.wrappers.ClusterQueryWrapper;
 @Deprecated
 public class QueryResultWrapper
 {
-    private Boolean   activated;
+    private Boolean           activated;
     List<ClusterQueryWrapper> clusters;
-    private String    comment;
-    private String    dll;
-    private String    id;
-    private Boolean   library;
-    private String    memoryLimit;
-    private String    name;
-    private String    priority;
-    private String    publishedBy;
-    private String    querySetId;
-    private String    snapshot;
-    private Boolean   suspended;
-    private String    wuid;
-    private Integer   code;
-    private String    message;
-    private Boolean   success;
+    private String            comment;
+    private String            dll;
+    private String            id;
+    private Boolean           library;
+    private String            memoryLimit;
+    private String            name;
+    private String            priority;
+    private String            publishedBy;
+    private String            querySetId;
+    private String            snapshot;
+    private Boolean           suspended;
+    private String            wuid;
+    private Integer           code;
+    private String            message;
+    private Boolean           success;
 
     /**
      * Instantiates a new query result wrapper.

@@ -3,11 +3,7 @@ package org.hpccsystems.commons.errors;
 public enum HpccErrorCode implements IErrorCode
 {
 
-    UNCAUGHT_EXCEPTION (
-            200
-    ), INFO (
-            300
-    );
+    UNCAUGHT_EXCEPTION (200), INFO (300);
 
     private int numVal;
 

@@ -95,25 +95,24 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      */
     public enum DFUQueryFileType
     {
-        DFUQFT_SUPER_FILES_ONLY,
-        DFUQFT_LOGICAL_FILES_ONLY,
-        DFUQFT_NOT_IN_SUPERFILES;
+        DFUQFT_SUPER_FILES_ONLY, DFUQFT_LOGICAL_FILES_ONLY, DFUQFT_NOT_IN_SUPERFILES;
 
         public String getText()
         {
             switch (this)
             {
-            case DFUQFT_SUPER_FILES_ONLY:
-                return "Superfiles Only";
-            case DFUQFT_LOGICAL_FILES_ONLY:
-                return "Logical Files Only";
-            case DFUQFT_NOT_IN_SUPERFILES:
-                return "Not in Superfiles";
-            default:
-                return "";
+                case DFUQFT_SUPER_FILES_ONLY:
+                    return "Superfiles Only";
+                case DFUQFT_LOGICAL_FILES_ONLY:
+                    return "Logical Files Only";
+                case DFUQFT_NOT_IN_SUPERFILES:
+                    return "Not in Superfiles";
+                default:
+                    return "";
             }
         }
     }
+
     private static final Logger    log                = LogManager.getLogger(HPCCWsDFUClient.class);
 
     /** Constant <code>WSDFUURI="/WsDFU/"</code> */
@@ -128,7 +127,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     private static int             DEFAULTSERVICEPORT = -1;
     private static String          WSDLURL            = null;
 
-    private static final Version HPCC700              = new Version("7.0.0");
+    private static final Version   HPCC700            = new Version("7.0.0");
 
     /**
      * Load WSDLURL.
@@ -563,16 +562,14 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         String comadelimitedsubfiles = "";
         for (int i = 0; i < subfiles.length; i++)
         {
-            if (i > 0)
-                comadelimitedsubfiles += ", ";
+            if (i > 0) comadelimitedsubfiles += ", ";
 
             comadelimitedsubfiles += subfiles[i];
         }
-        if (!comadelimitedsubfiles.isEmpty())
-            request.setSubfiles(comadelimitedsubfiles);
+        if (!comadelimitedsubfiles.isEmpty()) request.setSubfiles(comadelimitedsubfiles);
 
         //wsdfu pre 1.15
-        if ( subfiles != null && subfiles.length > 0)
+        if (subfiles != null && subfiles.length > 0)
         {
             request.setNames(Arrays.asList(subfiles));
         }
@@ -591,8 +588,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     @WithSpan
     public AddtoSuperfileResponseWrapper addToSuperFile(AddtoSuperfileRequestWrapper request) throws Exception, ArrayOfEspExceptionWrapper
     {
-        if (request == null)
-            throw new Exception("HPCCWsDFUClient.createSuperfile: request cannot be null");
+        if (request == null) throw new Exception("HPCCWsDFUClient.createSuperfile: request cannot be null");
 
         verifyStub(); // Throws exception if stub failed
 
@@ -835,15 +831,13 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
 
     private boolean isVirtual(DFUDataColumn col)
     {
-        if (col == null)
-            return false;
-        
+        if (col == null) return false;
+
         // Not populated by wsdfu service
         // return col.getIsNaturalColumn(); 
 
         String colname = col.getColumnLabel();
-        if (colname == null || colname.isEmpty())
-            return false;
+        if (colname == null || colname.isEmpty()) return false;
 
         // Virtual columns start with __ and end with __
         return colname.startsWith("__") && colname.endsWith("__");
@@ -865,7 +859,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public List<DFUDataColumnWrapper> getFileDataColumns(String logicalname, String clustername, boolean includeVirtualColumns) throws Exception, ArrayOfEspExceptionWrapper
+    public List<DFUDataColumnWrapper> getFileDataColumns(String logicalname, String clustername, boolean includeVirtualColumns)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); // Throws exception if stub failed
 
@@ -1081,7 +1076,6 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         return logicalfiles;
     }
 
-
     /**
      * Return wrapped response from WsDFU DFUSearchData method requests.
      *
@@ -1094,8 +1088,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
     {
         verifyStub(); // Throws exception if stub failed
 
-        if (req == null)
-            throw new Exception("DFUSearchDataRequesWrapper cannot be null!");
+        if (req == null) throw new Exception("DFUSearchDataRequesWrapper cannot be null!");
 
         DFUSearchDataResponse resp = null;
 
@@ -1315,7 +1308,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      */
     public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster) throws Exception, ArrayOfEspExceptionWrapper
     {
-       return searchFiles(logicalFilename,cluster,null,null);
+        return searchFiles(logicalFilename, cluster, null, null);
     }
 
     /**
@@ -1333,7 +1326,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @throws java.lang.Exception general exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper array of esp exception wrapper
      */
-    public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster, Integer pagesize, Integer pageStartFrom) throws Exception, ArrayOfEspExceptionWrapper
+    public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster, Integer pagesize, Integer pageStartFrom)
+            throws Exception, ArrayOfEspExceptionWrapper
     {
         return searchFiles(logicalFilename, cluster, pagesize, pageStartFrom, null);
     }
@@ -1355,21 +1349,19 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @throws java.lang.Exception general exception
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper array of esp exception wrapper
      */
-    public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster, Integer pagesize, Integer pageStartFrom, DFUQueryFileType queryfiletype) throws Exception, ArrayOfEspExceptionWrapper
+    public List<DFULogicalFileWrapper> searchFiles(String logicalFilename, String cluster, Integer pagesize, Integer pageStartFrom,
+            DFUQueryFileType queryfiletype) throws Exception, ArrayOfEspExceptionWrapper
     {
         DFUQueryRequestWrapper request = new DFUQueryRequestWrapper();
 
         request.setNodeGroup(cluster);
         request.setLogicalName(logicalFilename);
 
-        if (pagesize != null)
-            request.setPageSize(pagesize);
+        if (pagesize != null) request.setPageSize(pagesize);
 
-        if (pageStartFrom != null)
-            request.setPageStartFrom(pageStartFrom);
+        if (pageStartFrom != null) request.setPageStartFrom(pageStartFrom);
 
-        if (queryfiletype != null)
-            request.setFileType(queryfiletype.getText());
+        if (queryfiletype != null) request.setFileType(queryfiletype.getText());
 
         return searchFiles(request);
     }
@@ -1420,6 +1412,7 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         return result;
     }
+
     /**
      * getFileAccessBlob - HPCC 7.0.x version
      * The response is to be used in conjunction with DAFILESRV's rowservice distributed file read stream.
@@ -1462,7 +1455,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             return getFileAccessBlob(filename, clustername, expiryseconds, jobid);
         }
         else
-            throw new Exception("File access not supported in HPCC version: " + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor() + ".x");
+            throw new Exception("File access not supported in HPCC version: " + targetHPCCBuildVersion.getMajor() + "."
+                    + targetHPCCBuildVersion.getMinor() + ".x");
     }
 
     /**
@@ -1502,7 +1496,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             return getFileAccessBlob(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Full, filename, clustername, expiryseconds, jobid);
         }
         else
-            throw new Exception("File access blob not supported in HPCC version: " + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor() + ".x");
+            throw new Exception("File access blob not supported in HPCC version: " + targetHPCCBuildVersion.getMajor() + "."
+                    + targetHPCCBuildVersion.getMinor() + ".x");
     }
 
     /**
@@ -1587,7 +1582,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             return getFileAccess(filename, clustername, expiryseconds, jobid);
         }
         else
-            throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
+            throw new Exception(
+                    "WSDFU getFileAccess not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
     }
 
     /**
@@ -1655,10 +1651,12 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
         }
         else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
-            return getFileAccess(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Read, filename, clustername, expiryseconds, jobid, true, false, true);
+            return getFileAccess(org.hpccsystems.ws.client.gen.axis2.wsdfu.v1_39.SecAccessType.Read, filename, clustername, expiryseconds, jobid,
+                    true, false, true);
         }
         else
-            throw new Exception("WSDFU getFileAccess not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
+            throw new Exception(
+                    "WSDFU getFileAccess not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
     }
 
     /**
@@ -1744,10 +1742,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             requestbase.setCluster(cluster);
             requestbase.setExpirySeconds(expirySeconds);
             requestbase.setName(fileName);
-            if (returnBinTypeInfo != null)
-                requestbase.setReturnBinTypeInfo(returnBinTypeInfo);
-            if (returnJsonTypeInfo != null)
-                requestbase.setReturnJsonTypeInfo(returnJsonTypeInfo);
+            if (returnBinTypeInfo != null) requestbase.setReturnBinTypeInfo(returnBinTypeInfo);
+            if (returnJsonTypeInfo != null) requestbase.setReturnJsonTypeInfo(returnJsonTypeInfo);
             requestbase.setAccessRole(accessrole);
             requestbase.setAccessType(accesstype);
 
@@ -1779,7 +1775,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             return createFileAndAcquireAccess(fileName, cluster, eclRecordDefinition, expirySeconds, null, null, null);
         }
         else
-            throw new Exception("WSDFU File Create not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
+            throw new Exception(
+                    "WSDFU File Create not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
     }
 
     /**
@@ -1888,8 +1885,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public DFUCreateFileWrapper createFileAndAcquireAccess(@SpanAttribute String fileName, @SpanAttribute  String cluster, @SpanAttribute  String eclRecordDefinition, @SpanAttribute  int expirySeconds,
-            @SpanAttribute Boolean compressed, DFUFileTypeWrapper type, @SpanAttribute String requestId) throws Exception, ArrayOfEspExceptionWrapper
+    public DFUCreateFileWrapper createFileAndAcquireAccess(@SpanAttribute String fileName, @SpanAttribute String cluster,
+            @SpanAttribute String eclRecordDefinition, @SpanAttribute int expirySeconds, @SpanAttribute Boolean compressed, DFUFileTypeWrapper type,
+            @SpanAttribute String requestId) throws Exception, ArrayOfEspExceptionWrapper
     {
         if (targetHPCCBuildVersion == null || stub == null)
             throw new Exception("WSDFU client not available" + (hasInitError() ? " - " + initErrMessage : ""));
@@ -1942,15 +1940,17 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
             }
             catch (Exception e)
             {
-                throw new Exception("createFileAndAcquireAccess('" + fileName +"', '"+cluster+"'): Could not wrap response from server", e);
+                throw new Exception("createFileAndAcquireAccess('" + fileName + "', '" + cluster + "'): Could not wrap response from server", e);
             }
         }
         else if (targetHPCCBuildVersion.isEquivalentTo(HPCC700))
         {
-            throw new Exception("Must provide filepart mapping via createFileAndAcquireAccess() when targeting HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
+            throw new Exception("Must provide filepart mapping via createFileAndAcquireAccess() when targeting HPCC v"
+                    + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
         }
         else
-            throw new Exception("WSDFU File Create not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
+            throw new Exception(
+                    "WSDFU File Create not available on HPCC v" + targetHPCCBuildVersion.getMajor() + "." + targetHPCCBuildVersion.getMinor());
 
     }
 
@@ -1994,8 +1994,8 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public void publishFile(@SpanAttribute String fileId, @SpanAttribute  String eclRecordDefinition, @SpanAttribute long totalRecords,@SpanAttribute  long fileSize, @SpanAttribute  Boolean overwrite)
-            throws Exception, ArrayOfEspExceptionWrapper
+    public void publishFile(@SpanAttribute String fileId, @SpanAttribute String eclRecordDefinition, @SpanAttribute long totalRecords,
+            @SpanAttribute long fileSize, @SpanAttribute Boolean overwrite) throws Exception, ArrayOfEspExceptionWrapper
     {
         verifyStub(); // Throws exception if stub failed
 
@@ -2061,9 +2061,9 @@ public class HPCCWsDFUClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    @WithSpan 
-    public DFUFileDetailWrapper getFileDetails(@SpanAttribute String logicalname, @SpanAttribute  String clustername, @SpanAttribute boolean jsonTypeInfo, @SpanAttribute  boolean binTypeInfo)
-            throws Exception, ArrayOfEspExceptionWrapper
+    @WithSpan
+    public DFUFileDetailWrapper getFileDetails(@SpanAttribute String logicalname, @SpanAttribute String clustername,
+            @SpanAttribute boolean jsonTypeInfo, @SpanAttribute boolean binTypeInfo) throws Exception, ArrayOfEspExceptionWrapper
     {
         // try drea?
         // {

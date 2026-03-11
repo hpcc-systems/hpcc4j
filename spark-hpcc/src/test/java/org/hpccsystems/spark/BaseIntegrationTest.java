@@ -37,8 +37,7 @@ class BaseIntegrationTest extends BaseRemoteTest
             URL url = BaseIntegrationTest.class.getProtectionDomain().getCodeSource().getLocation();
             Path parentPath = Paths.get(url.toURI()).getParent();
 
-            FilenameFilter filter = new FilenameFilter()
-            {
+            FilenameFilter filter = new FilenameFilter() {
                 @Override
                 public boolean accept(File dir, String name)
                 {
@@ -66,7 +65,8 @@ class BaseIntegrationTest extends BaseRemoteTest
 
                 return mostRecentlyModifiedFile;
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println("Error finding spark jar file with exception: " + e.getMessage());
         }
@@ -87,19 +87,13 @@ class BaseIntegrationTest extends BaseRemoteTest
         else
         {
             System.out.println("Unable to find spark jar matching pattern: spark-hpcc.*-jar-with-dependencies.jar, "
-                              + "in directory [PROJECT_ROOT]/spark-hpcc/target/, check maven package / verify output for errors.");
+                    + "in directory [PROJECT_ROOT]/spark-hpcc/target/, check maven package / verify output for errors.");
         }
 
-        String[] jars = {
-            sparkJarPath
-        };
+        String[] jars = { sparkJarPath };
 
-        return new SparkConf()
-            .setMaster("local")
-            .setAppName("Spark-HPCC-Connector-Test")
-            .set("spark.driver.allowMultipleContexts", "false")
-            .set("spark.sql.allowMultipleContexts", "false")
-            .setJars(jars);
+        return new SparkConf().setMaster("local").setAppName("Spark-HPCC-Connector-Test").set("spark.driver.allowMultipleContexts", "false")
+                .set("spark.sql.allowMultipleContexts", "false").setJars(jars);
     }
 
     public SparkContext getOrCreateSparkContext()
@@ -128,21 +122,13 @@ class BaseIntegrationTest extends BaseRemoteTest
 
     public SparkSession getOrCreateSparkSession()
     {
-        SparkSession spark = SparkSession
-                            .builder()
-                            .appName("Spark-HPCC-Connector-Test")
-                            .config(getDefaultSparkConf())
-                            .getOrCreate();
+        SparkSession spark = SparkSession.builder().appName("Spark-HPCC-Connector-Test").config(getDefaultSparkConf()).getOrCreate();
         return spark;
     }
 
     public SparkSession getOrCreateSparkSession(SparkConf conf)
     {
-        SparkSession spark = SparkSession
-                            .builder()
-                            .appName("Spark-HPCC-Connector-Test")
-                            .config(conf)
-                            .getOrCreate();
+        SparkSession spark = SparkSession.builder().appName("Spark-HPCC-Connector-Test").config(conf).getOrCreate();
         return spark;
     }
 

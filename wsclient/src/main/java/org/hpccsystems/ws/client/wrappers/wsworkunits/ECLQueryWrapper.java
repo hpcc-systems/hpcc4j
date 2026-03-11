@@ -20,7 +20,9 @@ public class ECLQueryWrapper
     /**
      * Instantiates a new ECL query wrapper.
      */
-    public ECLQueryWrapper() {}
+    public ECLQueryWrapper()
+    {
+    }
 
     /**
      * Instantiates a new ECL query wrapper.
@@ -30,15 +32,14 @@ public class ECLQueryWrapper
      */
     public ECLQueryWrapper(ECLQuery raw)
     {
-        if (raw==null)
-            return;
+        if (raw == null) return;
 
-        this.text=raw.getText();
-        this.cpp=raw.getCpp();
-        this.dll=raw.getDll();
-        this.queryMainDefinition=raw.getQueryMainDefinition();
-        this.thorLog=raw.getThorLog();
-        this.resTxt=raw.getResTxt();
+        this.text = raw.getText();
+        this.cpp = raw.getCpp();
+        this.dll = raw.getDll();
+        this.queryMainDefinition = raw.getQueryMainDefinition();
+        this.thorLog = raw.getThorLog();
+        this.resTxt = raw.getResTxt();
     }
 
     /**
@@ -49,15 +50,14 @@ public class ECLQueryWrapper
      */
     public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ECLQuery raw)
     {
-        if (raw==null)
-            return;
+        if (raw == null) return;
 
-        this.text=raw.getText();
-        this.cpp=raw.getCpp();
-        this.dll=raw.getDll();
-        this.queryMainDefinition=raw.getQueryMainDefinition();
-        this.thorLog=raw.getThorLog();
-        this.resTxt=raw.getResTxt();
+        this.text = raw.getText();
+        this.cpp = raw.getCpp();
+        this.dll = raw.getDll();
+        this.queryMainDefinition = raw.getQueryMainDefinition();
+        this.thorLog = raw.getThorLog();
+        this.resTxt = raw.getResTxt();
     }
 
     /**
@@ -68,15 +68,14 @@ public class ECLQueryWrapper
      */
     public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ECLQuery raw)
     {
-        if (raw==null)
-            return;
+        if (raw == null) return;
 
-        this.text=raw.getText();
-        this.cpp=raw.getCpp();
-        this.dll=raw.getDll();
-        this.queryMainDefinition=raw.getQueryMainDefinition();
-        this.thorLog=raw.getThorLog();
-        this.resTxt=raw.getResTxt();
+        this.text = raw.getText();
+        this.cpp = raw.getCpp();
+        this.dll = raw.getDll();
+        this.queryMainDefinition = raw.getQueryMainDefinition();
+        this.thorLog = raw.getThorLog();
+        this.resTxt = raw.getResTxt();
     }
 
     /**
@@ -87,15 +86,14 @@ public class ECLQueryWrapper
      */
     public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ECLQuery raw)
     {
-        if (raw==null)
-            return;
+        if (raw == null) return;
 
-        this.text=raw.getText();
-        this.cpp=raw.getCpp();
-        this.dll=raw.getDll();
-        this.queryMainDefinition=raw.getQueryMainDefinition();
-        this.thorLog=raw.getThorLog();
-        this.resTxt=raw.getResTxt();
+        this.text = raw.getText();
+        this.cpp = raw.getCpp();
+        this.dll = raw.getDll();
+        this.queryMainDefinition = raw.getQueryMainDefinition();
+        this.thorLog = raw.getThorLog();
+        this.resTxt = raw.getResTxt();
     }
 
     /**
@@ -106,15 +104,14 @@ public class ECLQueryWrapper
      */
     public ECLQueryWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ECLQuery raw)
     {
-        if (raw==null)
-            return;
+        if (raw == null) return;
 
-        this.text=raw.getText();
-        this.cpp=raw.getCpp();
-        this.dll=raw.getDll();
-        this.queryMainDefinition=raw.getQueryMainDefinition();
-        this.thorLog=raw.getThorLog();
-        this.resTxt=raw.getResTxt();
+        this.text = raw.getText();
+        this.cpp = raw.getCpp();
+        this.dll = raw.getDll();
+        this.queryMainDefinition = raw.getQueryMainDefinition();
+        this.thorLog = raw.getThorLog();
+        this.resTxt = raw.getResTxt();
     }
 
     /**
@@ -134,8 +131,7 @@ public class ECLQueryWrapper
      */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLQuery getRawLatestVersion()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLQuery raw =
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLQuery();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLQuery raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLQuery();
 
         raw.setCpp(this.getCpp());
         raw.setDll(this.getDll());
@@ -278,8 +274,8 @@ public class ECLQueryWrapper
     @Override
     public String toString()
     {
-        return "ECLQueryWrapper [text=" + text + ", cpp=" + cpp + ", resTxt=" + resTxt + ", dll=" + dll + ", thorLog="
-                + thorLog + ", queryMainDefinition=" + queryMainDefinition + "]";
+        return "ECLQueryWrapper [text=" + text + ", cpp=" + cpp + ", resTxt=" + resTxt + ", dll=" + dll + ", thorLog=" + thorLog
+                + ", queryMainDefinition=" + queryMainDefinition + "]";
     }
 
 }

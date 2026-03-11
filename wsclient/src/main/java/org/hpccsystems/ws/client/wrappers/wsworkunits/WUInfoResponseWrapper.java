@@ -10,13 +10,13 @@ import org.hpccsystems.ws.client.wrappers.EspExceptionWrapper;
 @Deprecated
 public class WUInfoResponseWrapper
 {
-    private WorkunitWrapper             workunit;
+    private WorkunitWrapper            workunit;
     private ArrayOfEspExceptionWrapper exceptions = null;
-    private Integer                  autoRefresh;
-    private Boolean                  canCompile;
-    private String                   thorSlaveIP;
-    private String[]                 resultViews;
-    private String                   secMethod;
+    private Integer                    autoRefresh;
+    private Boolean                    canCompile;
+    private String                     thorSlaveIP;
+    private String[]                   resultViews;
+    private String                     secMethod;
 
     /**
      * Instantiates a new WU info response wrapper.
@@ -26,8 +26,7 @@ public class WUInfoResponseWrapper
      */
     public WUInfoResponseWrapper(WUInfoResponse resp)
     {
-        if (resp == null)
-            return;
+        if (resp == null) return;
 
         this.workunit = new WorkunitWrapper(resp.getWorkunit());
         this.autoRefresh = resp.getAutoRefresh();
@@ -50,8 +49,7 @@ public class WUInfoResponseWrapper
      */
     public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.WUInfoResponse resp)
     {
-        if (resp == null)
-            return;
+        if (resp == null) return;
 
         this.workunit = new WorkunitWrapper(resp.getWorkunit());
         this.autoRefresh = resp.getAutoRefresh();
@@ -74,8 +72,7 @@ public class WUInfoResponseWrapper
      */
     public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.WUInfoResponse resp)
     {
-        if (resp == null)
-            return;
+        if (resp == null) return;
 
         this.workunit = new WorkunitWrapper(resp.getWorkunit());
         this.autoRefresh = resp.getAutoRefresh();
@@ -98,8 +95,7 @@ public class WUInfoResponseWrapper
      */
     public WUInfoResponseWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.WUInfoResponse resp)
     {
-        if (resp == null)
-            return;
+        if (resp == null) return;
 
         this.workunit = new WorkunitWrapper(resp.getWorkunit());
         this.autoRefresh = resp.getAutoRefresh();
@@ -269,7 +265,7 @@ public class WUInfoResponseWrapper
     {
         this.secMethod = secMethod;
     }
-    
+
     /**
      * Gets the raw array of esp exceptions latest version.
      *
@@ -277,11 +273,9 @@ public class WUInfoResponseWrapper
      */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfEspException getRaw()
     {
-        if (this.exceptions == null || exceptions.getEspExceptions() == null || exceptions.getEspExceptions().size() == 0)
-            return null;
+        if (this.exceptions == null || exceptions.getEspExceptions() == null || exceptions.getEspExceptions().size() == 0) return null;
 
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfEspException result = 
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfEspException();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfEspException result = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfEspException();
 
         List<EspExceptionWrapper> espExceptions = exceptions.getEspExceptions();
         for (EspExceptionWrapper espExceptionWrapper : espExceptions)
@@ -292,7 +286,7 @@ public class WUInfoResponseWrapper
             espexception.setMessage(espExceptionWrapper.getMessage());
             espexception.setSource(espExceptionWrapper.getSource());
             espexception.setCode(espExceptionWrapper.getCode());
-            
+
             result.addException(espexception);
         }
         return result;

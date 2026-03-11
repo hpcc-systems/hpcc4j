@@ -5,15 +5,17 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ThorLogInfo;
 @Deprecated
 public class ThorLogInfoWrapper
 {
-    private String processName;
-    private String clusterGroup;
-    private String logDate;
+    private String  processName;
+    private String  clusterGroup;
+    private String  logDate;
     private Integer numberSlaves;
 
     /**
      * Instantiates a new thor log info wrapper.
      */
-    public ThorLogInfoWrapper() {}
+    public ThorLogInfoWrapper()
+    {
+    }
 
     /**
      * Instantiates a new thor log info wrapper.
@@ -23,7 +25,7 @@ public class ThorLogInfoWrapper
      */
     public ThorLogInfoWrapper(ThorLogInfo raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -42,7 +44,7 @@ public class ThorLogInfoWrapper
      */
     public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_58.ThorLogInfo raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -61,7 +63,7 @@ public class ThorLogInfoWrapper
      */
     public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_62.ThorLogInfo raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -80,7 +82,7 @@ public class ThorLogInfoWrapper
      */
     public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_69.ThorLogInfo raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -99,7 +101,7 @@ public class ThorLogInfoWrapper
      */
     public ThorLogInfoWrapper(org.hpccsystems.ws.client.gen.axis2.wsworkunits.v1_56.ThorLogInfo raw)
     {
-        if (raw==null)
+        if (raw == null)
         {
             return;
         }
@@ -127,8 +129,7 @@ public class ThorLogInfoWrapper
      */
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ThorLogInfo getRawLatest()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ThorLogInfo raw =
-                new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ThorLogInfo();
+        org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ThorLogInfo raw = new org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ThorLogInfo();
 
         raw.setClusterGroup(this.getClusterGroup());
         raw.setLogDate(this.getLogDate());
@@ -227,8 +228,8 @@ public class ThorLogInfoWrapper
     @Override
     public String toString()
     {
-        return "ThorLogInfoWrapper [processName=" + processName + ", clusterGroup=" + clusterGroup + ", logDate="
-                + logDate + ", numberSlaves=" + numberSlaves + "]";
+        return "ThorLogInfoWrapper [processName=" + processName + ", clusterGroup=" + clusterGroup + ", logDate=" + logDate + ", numberSlaves="
+                + numberSlaves + "]";
     }
 
 }

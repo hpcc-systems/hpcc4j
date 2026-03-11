@@ -14,21 +14,21 @@ import org.hpccsystems.spark.HpccFile;
  */
 public class HpccOptions
 {
-    public Connection           connectionInfo = null;
-    public String               clusterName    = null;
-    public String               fileName       = null;
-    public String               projectList    = null;
-    public CompressionAlgorithm compression    = CompressionAlgorithm.DEFAULT;
-    public String               filterString   = null;
-    public int                  expirySeconds  = 120;
-    public int                  filePartLimit  = -1;
-    public double               recordSamplingRate   = HpccFile.MAX_RECORD_SAMPLING_RATE;
-    public long                 recordSamplingSeed   = HpccFile.USE_RANDOM_SEED;
-    public boolean              useTLK         = false;
-    public List<Integer>        fileParts      = new ArrayList<Integer>();
+    public Connection           connectionInfo     = null;
+    public String               clusterName        = null;
+    public String               fileName           = null;
+    public String               projectList        = null;
+    public CompressionAlgorithm compression        = CompressionAlgorithm.DEFAULT;
+    public String               filterString       = null;
+    public int                  expirySeconds      = 120;
+    public int                  filePartLimit      = -1;
+    public double               recordSamplingRate = HpccFile.MAX_RECORD_SAMPLING_RATE;
+    public long                 recordSamplingSeed = HpccFile.USE_RANDOM_SEED;
+    public boolean              useTLK             = false;
+    public List<Integer>        fileParts          = new ArrayList<Integer>();
 
-    public String               traceID        = "";
-    public String               spanID         = "";
+    public String               traceID            = "";
+    public String               spanID             = "";
 
     public HpccOptions(TreeMap<String, String> parameters) throws Exception
     {
@@ -211,10 +211,10 @@ public class HpccOptions
                     {
                         fileParts.add(i);
                     }
-                } 
+                }
                 else
                 {
-                    try 
+                    try
                     {
                         fileParts.add(Integer.parseInt(filePartStr));
                     }
@@ -230,7 +230,7 @@ public class HpccOptions
     @Override
     public String toString()
     {
-        String tostring = "[Connection: '" +  connectionInfo + "', " + "clusterName: '" + clusterName;
+        String tostring = "[Connection: '" + connectionInfo + "', " + "clusterName: '" + clusterName;
         tostring += "', fileName: '" + fileName + "', projectList: '" + projectList + "', compression: '" + compression + "',";
         tostring += "filterString: '" + filterString + "', " + "expirySeconds: '" + expirySeconds + "', filePartLimit: '" + filePartLimit + "']";
 

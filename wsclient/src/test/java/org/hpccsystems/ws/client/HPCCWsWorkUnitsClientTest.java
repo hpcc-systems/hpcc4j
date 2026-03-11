@@ -41,7 +41,8 @@ public class HPCCWsWorkUnitsClientTest
     }
 
     @Test
-    public void isWorkunitComplete() throws Exception {
+    public void isWorkunitComplete() throws Exception
+    {
         // JAPI-83, if state ID isn't set, we should still be able to determine
         // isWorkunitComplete without throwing an NPE if we have a NAME.
         final WorkunitWrapper archived = new WorkunitWrapper();

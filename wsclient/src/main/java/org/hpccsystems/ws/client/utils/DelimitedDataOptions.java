@@ -9,16 +9,16 @@ package org.hpccsystems.ws.client.utils;
 public class DelimitedDataOptions implements java.io.Serializable
 {
 
-	private static final long serialVersionUID = -5945517448265644272L;
-	public final static String csvDefaultSeparate   = "\\,";
-    public final static String csvDefaultEscape     = "";
-    public final static String csvDefaultQuote      = "'";
-    public final static String csvDefaultTerminator = "\n";
+    private static final long                serialVersionUID      = -5945517448265644272L;
+    public final static String               csvDefaultSeparate    = "\\,";
+    public final static String               csvDefaultEscape      = "";
+    public final static String               csvDefaultQuote       = "'";
+    public final static String               csvDefaultTerminator  = "\n";
 
-    String recordTerminator;
-    String fieldDelimiter;
-    String escapeSequence;
-    String quote;
+    String                                   recordTerminator;
+    String                                   fieldDelimiter;
+    String                                   escapeSequence;
+    String                                   quote;
 
     public final static DelimitedDataOptions DefaultCSVDataOptions = new DelimitedDataOptions();
 

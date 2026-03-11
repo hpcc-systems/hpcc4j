@@ -51,29 +51,30 @@ import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public abstract class BaseRemoteTest
 {
-    public static Exception initializationException = null;
-    private final static String INSTRUMENTED_LIB_NAME = "WsClientJUnitSuite";
-    protected static Platform platform;
-    protected static HPCCWsClient wsclient;
+    public static Exception        initializationException  = null;
+    private final static String    INSTRUMENTED_LIB_NAME    = "WsClientJUnitSuite";
+    protected static Platform      platform;
+    protected static HPCCWsClient  wsclient;
 
-    protected final static String connString = System.getProperty("hpccconn", "http://localhost:8010");
-    protected static String thorClusterFileGroup = System.getProperty("thorgroupname");
-    protected final static String thorclustername = System.getProperty("thorclustername", "thor");
+    protected final static String  connString               = System.getProperty("hpccconn", "http://localhost:8010");
+    protected static String        thorClusterFileGroup     = System.getProperty("thorgroupname");
+    protected final static String  thorclustername          = System.getProperty("thorclustername", "thor");
 
-    protected static String roxieClusterGroup = System.getProperty("roxiegroupname");
-    protected final static String roxieclustername = System.getProperty("roxieclustername", "roxie");
+    protected static String        roxieClusterGroup        = System.getProperty("roxiegroupname");
+    protected final static String  roxieclustername         = System.getProperty("roxieclustername", "roxie");
 
-    protected final static String defaultUserName = "JunitUser";
-    protected static Connection connection = null;
+    protected final static String  defaultUserName          = "JunitUser";
+    protected static Connection    connection               = null;
 
-    protected final static String hpccUser = System.getProperty("hpccuser", defaultUserName);
-    protected final static String hpccPass = System.getProperty("hpccpass", "");
-    protected final static Integer connTO = System.getProperty("connecttimeoutmillis")==null?null:Integer.valueOf(System.getProperty("connecttimeoutmillis"));
-    protected final static String sockTO = System.getProperty("sockettimeoutmillis");
+    protected final static String  hpccUser                 = System.getProperty("hpccuser", defaultUserName);
+    protected final static String  hpccPass                 = System.getProperty("hpccpass", "");
+    protected final static Integer connTO                   = System.getProperty("connecttimeoutmillis") == null ? null
+            : Integer.valueOf(System.getProperty("connecttimeoutmillis"));
+    protected final static String  sockTO                   = System.getProperty("sockettimeoutmillis");
 
-    protected final static int  testThreadCount = Integer.parseInt(System.getProperty("testthreadcount", "10"));
-    public static final String DEFAULTHPCCFILENAME      = "benchmark::all_types::200kb";
-    protected static OpenTelemetry globalOTel = null;
+    protected final static int     testThreadCount          = Integer.parseInt(System.getProperty("testthreadcount", "10"));
+    public static final String     DEFAULTHPCCFILENAME      = "benchmark::all_types::200kb";
+    protected static OpenTelemetry globalOTel               = null;
 
     /*
      * Code to generate superfile with default file as subfile
@@ -84,7 +85,7 @@ public abstract class BaseRemoteTest
      * output(STD.file.SuperFileExists(sfname));
      * STD.file.AddSuperFile(sfname, subfilename);
      */
-    public static final String DEFAULTHPCCSUPERFILENAME = "benchmark::all_types::superfile";
+    public static final String     DEFAULTHPCCSUPERFILENAME = "benchmark::all_types::superfile";
 
     static
     {
@@ -126,15 +127,16 @@ public abstract class BaseRemoteTest
         if (Boolean.getBoolean("otel.java.global-autoconfigure.enabled"))
         {
             System.out.println("OpenTelemetry autoconfiguration enabled with following values.");
-            System.out.println("If any of these options are not provided, they will defalt to values which could require additional CLASSPATH dependancies.");
+            System.out.println(
+                    "If any of these options are not provided, they will defalt to values which could require additional CLASSPATH dependancies.");
             System.out.println("If missing dependancies arise, test will halt!");
-            System.out.println("    otel.traces.exporter sys property: "+System.getProperty("otel.traces.exporter"));
+            System.out.println("    otel.traces.exporter sys property: " + System.getProperty("otel.traces.exporter"));
             System.out.println("    OTEL_TRACES_EXPORTER Env var: " + System.getenv("OTEL_TRACES_EXPORTER"));
             System.out.println("        OTEL_TRACES_SAMPLER Env var: " + System.getenv("OTEL_TRACES_SAMPLER"));
-            System.out.println("        otel.traces.sampler sys property: "+System.getProperty("otel.traces.sampler"));
-            System.out.println("    otel.logs.exporter: "+ System.getProperty("otel.logs.exporter"));
+            System.out.println("        otel.traces.sampler sys property: " + System.getProperty("otel.traces.sampler"));
+            System.out.println("    otel.logs.exporter: " + System.getProperty("otel.logs.exporter"));
             System.out.println("    OTEL_LOGS_EXPORTER Env var: " + System.getenv("OTEL_LOGS_EXPORTER"));
-            System.out.println("    otel.metrics.exporter: "+ System.getProperty("otel.metrics.exporter"));
+            System.out.println("    otel.metrics.exporter: " + System.getProperty("otel.metrics.exporter"));
             System.out.println("    OTEL_METRICS_EXPORTER Env var: " + System.getenv("OTEL_METRICS_EXPORTER"));
 
             if (!Utils.isOtelJavaagentUsed())
@@ -150,10 +152,8 @@ public abstract class BaseRemoteTest
 
         // This allows testing against locally created self signed certs to work.
         // In production certs will need to be created valid hostnames
-        javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
-        new javax.net.ssl.HostnameVerifier()
-        {
-            public boolean verify(String hostname,javax.net.ssl.SSLSession sslSession)
+        javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
+            public boolean verify(String hostname, javax.net.ssl.SSLSession sslSession)
             {
                 if (hostname.equals("localhost"))
                 {
@@ -197,8 +197,7 @@ public abstract class BaseRemoteTest
         else
             System.out.println("RemoteTest: 'hpccuser' set to: '" + hpccUser + "'");
 
-        if (System.getProperty("hpccpass") == null)
-            System.out.println("RemoteTest: No 'hpccpass' provided.");
+        if (System.getProperty("hpccpass") == null) System.out.println("RemoteTest: No 'hpccpass' provided.");
 
         if (platform == null)
         {
@@ -218,11 +217,9 @@ public abstract class BaseRemoteTest
 
             connection.setCredentials(hpccUser, hpccPass);
 
-            if (connTO != null)
-                connection.setConnectTimeoutMilli(connTO);
+            if (connTO != null) connection.setConnectTimeoutMilli(connTO);
 
-            if (sockTO != null)
-                connection.setSocketTimeoutMilli(Integer.valueOf(sockTO));
+            if (sockTO != null) connection.setSocketTimeoutMilli(Integer.valueOf(sockTO));
 
             platform = Platform.get(connection);
             if (platform == null)
@@ -236,12 +233,12 @@ public abstract class BaseRemoteTest
             wsclient = platform.checkOutHPCCWsClient();
             if (thorClusterFileGroup == null || thorClusterFileGroup.isEmpty())
             {
-                List<TpGroupWrapper> grouplist = wsclient.getTopologyGroups(wsclient.isContainerized() ? TopologyGroupQueryKind.PLANE : TopologyGroupQueryKind.THOR);
+                List<TpGroupWrapper> grouplist = wsclient
+                        .getTopologyGroups(wsclient.isContainerized() ? TopologyGroupQueryKind.PLANE : TopologyGroupQueryKind.THOR);
                 for (TpGroupWrapper tpGroupWrapper : grouplist)
                 {
                     thorClusterFileGroup = tpGroupWrapper.getName();
-                    if (thorClusterFileGroup != null)
-                        break;
+                    if (thorClusterFileGroup != null) break;
                 }
                 System.out.println("RemoteTest: No 'thorClusterFileGroup' provided, using '" + thorClusterFileGroup + "'");
             }
@@ -252,12 +249,12 @@ public abstract class BaseRemoteTest
 
             if (roxieClusterGroup == null || roxieClusterGroup.isEmpty())
             {
-                List<TpGroupWrapper> grouplist =  wsclient.getTopologyGroups(wsclient.isContainerized() ? TopologyGroupQueryKind.PLANE : TopologyGroupQueryKind.ROXIE);
+                List<TpGroupWrapper> grouplist = wsclient
+                        .getTopologyGroups(wsclient.isContainerized() ? TopologyGroupQueryKind.PLANE : TopologyGroupQueryKind.ROXIE);
                 for (TpGroupWrapper tpGroupWrapper : grouplist)
                 {
                     roxieClusterGroup = tpGroupWrapper.getName();
-                    if (roxieClusterGroup != null)
-                        break;
+                    if (roxieClusterGroup != null) break;
                 }
                 System.out.println("RemoteTest: No 'roxiegroupname' provided, using '" + roxieClusterGroup + "'");
             }
@@ -268,11 +265,10 @@ public abstract class BaseRemoteTest
         }
         catch (Exception e)
         {
-            throw new Exception("Could not acquire wsclient object: " + e.getMessage() );
+            throw new Exception("Could not acquire wsclient object: " + e.getMessage());
         }
 
-        if (wsclient == null)
-            throw new Exception("Could not acquire wsclient object");
+        if (wsclient == null) throw new Exception("Could not acquire wsclient object");
 
         // Run the generate-datasets.ecl script if present in the project resources
         try
@@ -294,7 +290,8 @@ public abstract class BaseRemoteTest
 
         byte[] buffer = new byte[4096];
         int bytesRead = resourceStream.read(buffer);
-        while (bytesRead > -1) {
+        while (bytesRead > -1)
+        {
             byteArrayOutputStream.write(buffer, 0, bytesRead);
             bytesRead = resourceStream.read(buffer);
         }
@@ -314,7 +311,7 @@ public abstract class BaseRemoteTest
     static public void executeMultiThreadedTask(Callable<String> callableTask, int threadCount) throws InterruptedException
     {
         List<Callable<String>> callableTasks = new ArrayList<>();
-        for (int threadIndex=0; threadIndex<=threadCount; threadIndex++)
+        for (int threadIndex = 0; threadIndex <= threadCount; threadIndex++)
         {
             callableTasks.add(callableTask);
         }
@@ -322,7 +319,7 @@ public abstract class BaseRemoteTest
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
         List<Future<String>> futures = executor.invokeAll(callableTasks);
 
-        for (int threadIndex=0; threadIndex<=threadCount; threadIndex++)
+        for (int threadIndex = 0; threadIndex <= threadCount; threadIndex++)
         {
             try
             {
@@ -330,9 +327,8 @@ public abstract class BaseRemoteTest
             }
             catch (InterruptedException | ExecutionException e)
             {
-                System.out.println("Multithreaded task test failed! Thread index: '" + threadIndex +"'");
-                if (!e.getLocalizedMessage().isEmpty())
-                    System.out.println("\n\t" + e.getLocalizedMessage());
+                System.out.println("Multithreaded task test failed! Thread index: '" + threadIndex + "'");
+                if (!e.getLocalizedMessage().isEmpty()) System.out.println("\n\t" + e.getLocalizedMessage());
                 e.printStackTrace();
             }
         }

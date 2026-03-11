@@ -59,7 +59,7 @@ public class ParquetOutputFile implements OutputFile
 
     public PositionOutputStream createOrOverwrite(long blockSizeHint) throws IOException
     {
-        return new ParquetOutputFile.ParquetOutputStream(new FileOutputStream(file,false));
+        return new ParquetOutputFile.ParquetOutputStream(new FileOutputStream(file, false));
     }
 
     public boolean supportsBlockSize()

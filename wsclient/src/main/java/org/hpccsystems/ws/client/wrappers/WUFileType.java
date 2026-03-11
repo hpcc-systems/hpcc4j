@@ -6,14 +6,7 @@ package org.hpccsystems.ws.client.wrappers;
  * @author LeedDX
  *
  */
-public enum WUFileType {
-    CPP,
-    ThorLog,
-    ThorSlaveLog,
-    EclAgentLog,
-    XML,
-    RES,
-    DDL,
-    WUECL,
-    ArchiveQuery
+public enum WUFileType
+{
+    CPP, ThorLog, ThorSlaveLog, EclAgentLog, XML, RES, DDL, WUECL, ArchiveQuery
 }

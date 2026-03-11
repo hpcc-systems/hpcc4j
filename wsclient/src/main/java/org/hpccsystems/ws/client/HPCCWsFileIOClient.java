@@ -205,8 +205,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
             e.printStackTrace();
         }
 
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
+        if (!initErrMessage.isEmpty()) log.error(initErrMessage);
     }
 
     /**
@@ -274,7 +273,8 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public boolean createHPCCFile(@SpanAttribute String fileName, @SpanAttribute String targetLandingZone, boolean overwritefile,@SpanAttribute  String lzAddress) throws Exception, ArrayOfEspExceptionWrapper
+    public boolean createHPCCFile(@SpanAttribute String fileName, @SpanAttribute String targetLandingZone, boolean overwritefile,
+            @SpanAttribute String lzAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = false;
         log.debug("Attempting to create HPCC File: " + fileName);
@@ -282,8 +282,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         if (targetLandingZone == null || targetLandingZone.isEmpty())
             throw new Exception("HPCCWsFileIOClient::createHPCCFile: targetLandingZone required!");
 
-        if (fileName == null || fileName.isEmpty())
-            throw new Exception("HPCCWsFileIOClient::createHPCCFile: fileName required!");
+        if (fileName == null || fileName.isEmpty()) throw new Exception("HPCCWsFileIOClient::createHPCCFile: fileName required!");
 
         verifyStub(); // Throws exception if stub failed
 
@@ -292,8 +291,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         request.setDestDropZone(targetLandingZone);
         request.setDestRelativePath(fileName);
         request.setOverwrite(overwritefile);
-        if (lzAddress != null && !lzAddress.isEmpty())
-            request.setDestNetAddress(lzAddress);
+        if (lzAddress != null && !lzAddress.isEmpty()) request.setDestNetAddress(lzAddress);
 
         CreateFileResponse resp = null;
         try
@@ -318,7 +316,6 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
 
         return success;
     }
-
 
     /**
      * Write HPCC file data.
@@ -346,13 +343,12 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      * @throws org.hpccsystems.ws.client.wrappers.ArrayOfEspExceptionWrapper
      *             the array of esp exception wrapper
      */
-    public boolean writeHPCCFileData(byte[] data, @SpanAttribute String dataTypeDescriptor, @SpanAttribute String fileName, @SpanAttribute String targetLandingZone,
-            @SpanAttribute boolean append, @SpanAttribute long offset, @SpanAttribute int uploadchunksize, @SpanAttribute String lzAddress)
-    throws Exception, ArrayOfEspExceptionWrapper
+    public boolean writeHPCCFileData(byte[] data, @SpanAttribute String dataTypeDescriptor, @SpanAttribute String fileName,
+            @SpanAttribute String targetLandingZone, @SpanAttribute boolean append, @SpanAttribute long offset, @SpanAttribute int uploadchunksize,
+            @SpanAttribute String lzAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
         boolean success = true;
-        if (dataTypeDescriptor == null || dataTypeDescriptor.isEmpty())
-            dataTypeDescriptor = "application/octet-stream";
+        if (dataTypeDescriptor == null || dataTypeDescriptor.isEmpty()) dataTypeDescriptor = "application/octet-stream";
 
         log.debug("Attempting to write data to HPCC File: " + fileName + "Data type and encoding: " + dataTypeDescriptor);
 
@@ -364,8 +360,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
         request.setDestDropZone(targetLandingZone);
         request.setDestRelativePath(fileName);
         request.setOffset(offset);
-        if (lzAddress != null && !lzAddress.isEmpty())
-            request.setDestNetAddress(lzAddress);
+        if (lzAddress != null && !lzAddress.isEmpty()) request.setDestNetAddress(lzAddress);
 
         int dataindex = 0;
         int limit = uploadchunksize <= 0 ? defaultUploadChunkSize : uploadchunksize;
@@ -443,7 +438,7 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      */
     @WithSpan
     public boolean writeHPCCFileData(byte[] data, @SpanAttribute String fileName, @SpanAttribute String targetLandingZone,
-                                     @SpanAttribute boolean append, @SpanAttribute long offset, @SpanAttribute int uploadchunksize, @SpanAttribute String lzAddress)
+            @SpanAttribute boolean append, @SpanAttribute long offset, @SpanAttribute int uploadchunksize, @SpanAttribute String lzAddress)
             throws Exception, ArrayOfEspExceptionWrapper
     {
         return writeHPCCFileData(data, null, fileName, targetLandingZone, append, offset, uploadchunksize, lzAddress);
@@ -498,16 +493,15 @@ public class HPCCWsFileIOClient extends BaseHPCCWsClient
      *             the array of esp exception wrapper
      */
     @WithSpan
-    public String readFileData(@SpanAttribute String dropzone,@SpanAttribute  String fileName,@SpanAttribute long datasize,
-                               @SpanAttribute long offset, @SpanAttribute String dropzoneAddress) throws Exception, ArrayOfEspExceptionWrapper
+    public String readFileData(@SpanAttribute String dropzone, @SpanAttribute String fileName, @SpanAttribute long datasize,
+            @SpanAttribute long offset, @SpanAttribute String dropzoneAddress) throws Exception, ArrayOfEspExceptionWrapper
     {
         ReadFileDataRequest readFileDataRequest = new ReadFileDataRequest();
         readFileDataRequest.setDestDropZone(dropzone);
         readFileDataRequest.setDestRelativePath(fileName);
         readFileDataRequest.setDataSize(datasize);
         readFileDataRequest.setOffset(offset);
-        if (dropzoneAddress != null && !dropzoneAddress.isEmpty())
-            readFileDataRequest.setDestNetAddress(dropzoneAddress);
+        if (dropzoneAddress != null && !dropzoneAddress.isEmpty()) readFileDataRequest.setDestNetAddress(dropzoneAddress);
 
         ReadFileDataResponse resp = null;
         try

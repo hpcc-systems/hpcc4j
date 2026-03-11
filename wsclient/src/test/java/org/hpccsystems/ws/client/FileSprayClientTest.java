@@ -33,20 +33,20 @@ import io.opentelemetry.instrumentation.annotations.WithSpan;
 @Category(org.hpccsystems.commons.annotations.RemoteTests.class)
 public class FileSprayClientTest extends BaseRemoteTest
 {
-    private static HPCCFileSprayClient filesprayclient = wsclient.getFileSprayClient();
-    private String dropzoneName    = System.getProperty("dropzoneName", "mydropzone");
-    private static List<String> fileNames       = new ArrayList<>();
-    private final static String testFile1       = System.getProperty("dropzoneTestFile1", "HPCC4J274deleteDropzoneFileTest.csv");
-    private final static String path            = System.getProperty("dropzonePath", "/");
-    private final static String os              = System.getProperty("dropzoneOs", "");
-    private final static String renameSrcName   = System.getProperty("renameSource", "");
-    private final static String renameToName    = System.getProperty("renameTarget", "");
+    private static HPCCFileSprayClient filesprayclient            = wsclient.getFileSprayClient();
+    private String                     dropzoneName               = System.getProperty("dropzoneName", "mydropzone");
+    private static List<String>        fileNames                  = new ArrayList<>();
+    private final static String        testFile1                  = System.getProperty("dropzoneTestFile1", "HPCC4J274deleteDropzoneFileTest.csv");
+    private final static String        path                       = System.getProperty("dropzonePath", "/");
+    private final static String        os                         = System.getProperty("dropzoneOs", "");
+    private final static String        renameSrcName              = System.getProperty("renameSource", "");
+    private final static String        renameToName               = System.getProperty("renameTarget", "");
 
-    public static final String DELETE_ACTION              = "Delete";
-    public static final String SUCCESS_RESULT             = "Success";
-    public static final String FILE_DOES_NOT_EXIST_RESULT = "Warning: this file does not exist.";
-    private DropZoneWrapper foundLocalDZ = null;
-    private String sprayedFile = null;
+    public static final String         DELETE_ACTION              = "Delete";
+    public static final String         SUCCESS_RESULT             = "Success";
+    public static final String         FILE_DOES_NOT_EXIST_RESULT = "Warning: this file does not exist.";
+    private DropZoneWrapper            foundLocalDZ               = null;
+    private String                     sprayedFile                = null;
 
     static
     {
@@ -100,7 +100,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         HPCCFileSprayClient otherfsclient = filesprayclient;
         Assert.assertEquals(hashcode, otherfsclient.hashCode());
 
-        Assert.assertEquals(true,filesprayclient.equals(otherfsclient));
+        Assert.assertEquals(true, filesprayclient.equals(otherfsclient));
 
         Connection otherconnection = null;
         try
@@ -119,7 +119,7 @@ public class FileSprayClientTest extends BaseRemoteTest
 
         Assert.assertNotNull(otherconnection);
         otherfsclient = HPCCFileSprayClient.get(otherconnection);
-        Assert.assertEquals(false,filesprayclient.equals(otherfsclient));
+        Assert.assertEquals(false, filesprayclient.equals(otherfsclient));
     }
 
     @Test
@@ -142,8 +142,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         {
             List<DropZoneWrapper> dzs = filesprayclient.fetchDropZones("");
             Assert.assertNotNull(dzs);
-            if(dzs.size() == 0)
-                Assert.fail();
+            if (dzs.size() == 0) Assert.fail();
 
             List<DropZoneWrapper> localdzs = filesprayclient.fetchLocalDropZones();
             Assert.assertEquals(dzs.size(), localdzs.size());
@@ -182,8 +181,7 @@ public class FileSprayClientTest extends BaseRemoteTest
         File uploadFile = new File("src/test/resources/filespraytest/HPCC4J274deleteDropzoneFileTest.csv");
         try
         {
-            if (foundLocalDZ == null)
-                testfetchDropZones();
+            if (foundLocalDZ == null) testfetchDropZones();
 
             assumeNotNull(foundLocalDZ);
             if (!filesprayclient.uploadLargeFile(uploadFile, foundLocalDZ))
@@ -215,14 +213,14 @@ public class FileSprayClientTest extends BaseRemoteTest
 
         try
         {
-            if (foundLocalDZ == null)
-                testfetchDropZones();
+            if (foundLocalDZ == null) testfetchDropZones();
 
             assumeNotNull(foundLocalDZ);
 
             testUploadFile();
 
-            ProgressResponseWrapper prog = filesprayclient.sprayVariable(foundLocalDZ.getNetAddress(), "HPCC4J274deleteDropzoneFileTest.csv", "HPCC4JSprayFileTest.csv", null, thorClusterFileGroup, true);
+            ProgressResponseWrapper prog = filesprayclient.sprayVariable(foundLocalDZ.getNetAddress(), "HPCC4J274deleteDropzoneFileTest.csv",
+                    "HPCC4JSprayFileTest.csv", null, thorClusterFileGroup, true);
 
             Assert.assertNotNull(prog);
             Assert.assertTrue(filesprayclient.handleSprayResponse(prog, 1, 1));
@@ -244,7 +242,8 @@ public class FileSprayClientTest extends BaseRemoteTest
         {
             assumeNotNull(foundLocalDZ);
 
-            DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(foundLocalDZ.getName(), fileNames, foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
+            DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(foundLocalDZ.getName(), fileNames,
+                    foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
             Assert.assertNotNull(result);
 
             if (result.getExceptions() != null && !result.getExceptions().getException().isEmpty())
@@ -296,8 +295,9 @@ public class FileSprayClientTest extends BaseRemoteTest
         String wuid = "";
         try
         {
-            wuid =  filesprayclient.despray(sprayedFile, foundLocalDZ.getNetAddress(), foundLocalDZ.getPath()+"/"+sprayedFile);
-            System.out.println("testDespray wuid: " + wuid + " Target file: " + foundLocalDZ.getNetAddress() + "/" + foundLocalDZ.getPath()+"/"+sprayedFile);
+            wuid = filesprayclient.despray(sprayedFile, foundLocalDZ.getNetAddress(), foundLocalDZ.getPath() + "/" + sprayedFile);
+            System.out.println(
+                    "testDespray wuid: " + wuid + " Target file: " + foundLocalDZ.getNetAddress() + "/" + foundLocalDZ.getPath() + "/" + sprayedFile);
         }
         catch (Exception e)
         {
@@ -314,12 +314,12 @@ public class FileSprayClientTest extends BaseRemoteTest
         badFileName.add("SomeNoneExistantFile.txt");
         try
         {
-            if (foundLocalDZ == null)
-                testfetchDropZones();
+            if (foundLocalDZ == null) testfetchDropZones();
 
             assumeNotNull(foundLocalDZ);
 
-            DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(foundLocalDZ.getName(), badFileName, foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
+            DFUWorkunitsActionResponseWrapper result = filesprayclient.deleteDropZoneFiles(foundLocalDZ.getName(), badFileName,
+                    foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
             Assert.assertNotNull(result);
             if (result.getExceptions() != null && !result.getExceptions().getException().isEmpty())
             {
@@ -388,7 +388,8 @@ public class FileSprayClientTest extends BaseRemoteTest
                 DropZoneWrapper thisdz = localdzs.get(0);
                 try
                 {
-                    DropZoneFilesResponseWrapper fetchDropZones = filesprayclient.fetchDropZones(thisdz.getName(), thisdz.getNetAddress(), thisdz.getLinux(), thisdz.getPath(), "", false, false);
+                    DropZoneFilesResponseWrapper fetchDropZones = filesprayclient.fetchDropZones(thisdz.getName(), thisdz.getNetAddress(),
+                            thisdz.getLinux(), thisdz.getPath(), "", false, false);
                     Assert.assertNotNull(fetchDropZones);
                 }
                 catch (Exception e)
@@ -450,7 +451,8 @@ public class FileSprayClientTest extends BaseRemoteTest
             {
                 DropZoneWrapper thisdz = dzs.get(i);
                 String thisDZsPath = thisdz.getPath();
-                Assert.assertTrue(thisDZsPath.charAt(thisDZsPath.length()-1) == Utils.LINUX_SEP || thisDZsPath.charAt(thisDZsPath.length()-1) == Utils.WIN_SEP);
+                Assert.assertTrue(thisDZsPath.charAt(thisDZsPath.length() - 1) == Utils.LINUX_SEP
+                        || thisDZsPath.charAt(thisDZsPath.length() - 1) == Utils.WIN_SEP);
             }
         }
         catch (Exception e)
@@ -464,8 +466,7 @@ public class FileSprayClientTest extends BaseRemoteTest
     @WithSpan
     public void downLoadFileTest()
     {
-         if (foundLocalDZ == null)
-             testfetchDropZones();
+        if (foundLocalDZ == null) testfetchDropZones();
 
         assumeNotNull(foundLocalDZ);
 
@@ -474,18 +475,18 @@ public class FileSprayClientTest extends BaseRemoteTest
         {
             pfs = filesprayclient.listFiles(foundLocalDZ.getNetAddress(), foundLocalDZ.getPath(), null);
         }
-        catch (Exception e) {}
+        catch (Exception e)
+        {}
 
         assumeNotNull(pfs);
-        assumeTrue(pfs.size()>0);
+        assumeTrue(pfs.size() > 0);
 
         System.out.println("Download test ...");
         System.out.println("Searching small file in LocalDZ...");
         String fileName = null;
         for (int i = 0; pfs != null && i < pfs.size(); i++)
         {
-            if (pfs.get(i).getIsDir() == false
-            && pfs.get(i).getFilesize() < 4 * 1024 * 1024)  // Only download small files for the test
+            if (pfs.get(i).getIsDir() == false && pfs.get(i).getFilesize() < 4 * 1024 * 1024)  // Only download small files for the test
             {
                 fileName = pfs.get(i).getName();
                 break;
@@ -500,7 +501,7 @@ public class FileSprayClientTest extends BaseRemoteTest
 
         File tmpFile = new File(outputFile);
 
-        long bytesTransferred = filesprayclient.downloadFile(tmpFile,foundLocalDZ,fileName);
+        long bytesTransferred = filesprayclient.downloadFile(tmpFile, foundLocalDZ, fileName);
         if (bytesTransferred <= 0)
         {
             System.out.println("Download failed.");

@@ -53,7 +53,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
         client.getTopologyGroups();
     }
 
-    @Test (expected = HpccContainerizedUnsupportedException.class)
+    @Test(expected = HpccContainerizedUnsupportedException.class)
     public void getContainerizedDataStoragePlanesOnBareMetalTest() throws HpccContainerizedUnsupportedException, Exception
     {
         System.out.println("Fetching containerized data storage planes on baremetal...");
@@ -157,8 +157,7 @@ public class WSTopologyClientTest extends BaseRemoteTest
         TpDropZoneWrapper queryDropzone = client.queryDropzone("");
         Assert.assertNotNull(queryDropzone);
         String name = queryDropzone.getName();
-        if (name == null || name.isEmpty())
-            Assert.fail("Could not fetch default DZ name");
+        if (name == null || name.isEmpty()) Assert.fail("Could not fetch default DZ name");
         System.out.println(name);
         System.out.println(queryDropzone.getPath());
 
@@ -271,7 +270,8 @@ public class WSTopologyClientTest extends BaseRemoteTest
         Assert.assertNotNull(logicalClusters);
         for (TpLogicalClusterWrapper tpLogicalClusterWrapper : logicalClusters)
         {
-            System.out.println("name: " + tpLogicalClusterWrapper.getName() + " type: " + tpLogicalClusterWrapper.getType() + " queue: " + tpLogicalClusterWrapper.getQueue());
+            System.out.println("name: " + tpLogicalClusterWrapper.getName() + " type: " + tpLogicalClusterWrapper.getType() + " queue: "
+                    + tpLogicalClusterWrapper.getQueue());
         }
     }
 

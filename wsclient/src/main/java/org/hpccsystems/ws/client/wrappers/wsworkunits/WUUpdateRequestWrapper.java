@@ -236,7 +236,6 @@ public class WUUpdateRequestWrapper
         return raw;
     }
 
-
     /**
      * Gets the raw version 1 58.
      *

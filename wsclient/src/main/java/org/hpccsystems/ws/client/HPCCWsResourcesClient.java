@@ -42,18 +42,17 @@ import org.hpccsystems.ws.client.wrappers.gen.wsresources.WebLinksQueryResponseW
 
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 
-
 /**
  * Facilitates discovery of containerized HPCC Systems resources.
  */
 public class HPCCWsResourcesClient extends BaseHPCCWsClient
 {
-    private static final Logger    log                = LogManager.getLogger(HPCCWsResourcesClient.class);
+    private static final Logger log                = LogManager.getLogger(HPCCWsResourcesClient.class);
 
     /** Constant <code>WSRESOURCESURI="/WsResources"</code> */
-    public static final String     WSRESOURCESURI     = "/WsResources";
-    private static int             DEFAULTSERVICEPORT = -1;
-    private static String          WSDLURL            = null;
+    public static final String  WSRESOURCESURI     = "/WsResources";
+    private static int          DEFAULTSERVICEPORT = -1;
+    private static String       WSDLURL            = null;
 
     /**
      * Load WSDLURL.
@@ -222,8 +221,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
             }
         }
 
-        if (!initErrMessage.isEmpty())
-            log.error(initErrMessage);
+        if (!initErrMessage.isEmpty()) log.error(initErrMessage);
     }
 
     /**
@@ -240,8 +238,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
     @WithSpan
     public ServiceQueryResponseWrapper serviceQuery(ServiceQueryRequestWrapper req) throws Exception
     {
-        if (req == null)
-            throw new Exception("ServiceQueryRequestWrapper must be provided!");
+        if (req == null) throw new Exception("ServiceQueryRequestWrapper must be provided!");
 
         verifyStub();
 
@@ -279,8 +276,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
     @WithSpan
     public TargetQueryResponseWrapper targetQuery(TargetQueryRequestWrapper req) throws Exception
     {
-        if (req == null)
-            throw new Exception("TargetQueryRequestWrapper must be provided!");
+        if (req == null) throw new Exception("TargetQueryRequestWrapper must be provided!");
 
         verifyStub();
 
@@ -318,8 +314,7 @@ public class HPCCWsResourcesClient extends BaseHPCCWsClient
     @WithSpan
     public WebLinksQueryResponseWrapper webLinks(WebLinksQueryRequestWrapper req) throws Exception
     {
-        if (req == null)
-            throw new Exception("WebLinksQueryRequestWrapper must be provided!");
+        if (req == null) throw new Exception("WebLinksQueryRequestWrapper must be provided!");
 
         verifyStub();
 

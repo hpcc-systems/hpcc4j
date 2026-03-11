@@ -34,10 +34,9 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-
 public class EclParseRegressionTest extends BaseRemoteTest
 {
-    protected static String targetThorName = System.getProperty("thorname");
+    protected static String targetThorName  = System.getProperty("thorname");
     protected static String targetRoxieName = System.getProperty("roxiename");
     protected static String targetHthorName = System.getProperty("hthorname");
 
@@ -63,10 +62,10 @@ public class EclParseRegressionTest extends BaseRemoteTest
         }
     }
 
-    File failedlist=new File("failedrecs.txt");
-    File testlist=new File("alreadytested.txt");
-    List<String> alreadytested=new ArrayList<String>();
-    List<String> failedrecs=new ArrayList<String>();
+    File         failedlist    = new File("failedrecs.txt");
+    File         testlist      = new File("alreadytested.txt");
+    List<String> alreadytested = new ArrayList<String>();
+    List<String> failedrecs    = new ArrayList<String>();
 
     public HPCCWsDFUClient getDFUClient() throws Exception
     {
@@ -99,10 +98,10 @@ public class EclParseRegressionTest extends BaseRemoteTest
     @Test
     public void testSingle() throws Exception, ArrayOfEspExceptionWrapper
     {
-        String fname="anthem::enc_wpt_edw_provider_thor_superfile";
-        DFUFileDetailWrapper info=getDFUClient().getFileDetails(fname, null);
-        EclRecordWrapper rec=DFUFileDetailWrapper.getRecordFromECL(info.getEcl());
-        if (rec.getParseErrors().size()!=0)
+        String fname = "anthem::enc_wpt_edw_provider_thor_superfile";
+        DFUFileDetailWrapper info = getDFUClient().getFileDetails(fname, null);
+        EclRecordWrapper rec = DFUFileDetailWrapper.getRecordFromECL(info.getEcl());
+        if (rec.getParseErrors().size() != 0)
         {
             fail(rec.getParseErrors().toString());
         }
@@ -111,19 +110,19 @@ public class EclParseRegressionTest extends BaseRemoteTest
     @Test
     public void testFailedRecs() throws Exception, ArrayOfEspExceptionWrapper
     {
-        failedrecs=new ArrayList<String>();
+        failedrecs = new ArrayList<String>();
         if (failedlist.exists())
         {
-            failedrecs=Files.readAllLines(failedlist.toPath());
+            failedrecs = Files.readAllLines(failedlist.toPath());
         }
 
         for (String rec : failedrecs)
         {
-            String rececl="";
+            String rececl = "";
             try
             {
                 DFUFileDetailWrapper info = getDFUClient().getFileDetails(rec, null);
-                rececl=info.getEcl();
+                rececl = info.getEcl();
                 if (rececl == null || rececl.isEmpty())
                 {
                     throw new Exception("No record ecl for " + rec);
@@ -131,7 +130,7 @@ public class EclParseRegressionTest extends BaseRemoteTest
             }
             catch (Exception e)
             {
-                System.out.println( "Can't retrieve " + rec + ":" + e.getMessage());
+                System.out.println("Can't retrieve " + rec + ":" + e.getMessage());
                 continue;
             }
 
@@ -139,15 +138,15 @@ public class EclParseRegressionTest extends BaseRemoteTest
             {
                 EclRecordWrapper rece = DFUFileDetailWrapper.getRecordFromECL(rececl);
                 alreadytested.add(rec);
-                if (rece.getParseErrors().size()!=0)
+                if (rece.getParseErrors().size() != 0)
                 {
-                    throw new Exception("Failed to parse " + rec + ":" + String.join("\n",rece.getParseErrors()));
+                    throw new Exception("Failed to parse " + rec + ":" + String.join("\n", rece.getParseErrors()));
                 }
                 System.out.println(rec + " parsed fine");
             }
             catch (Exception e)
             {
-                System.out.println( e.getMessage());
+                System.out.println(e.getMessage());
             }
 
         }
@@ -162,8 +161,8 @@ public class EclParseRegressionTest extends BaseRemoteTest
         }
         if (testlist.exists() && !reset)
         {
-            alreadytested=Files.readAllLines(testlist.toPath());
-            failedrecs=Files.readAllLines(failedlist.toPath());
+            alreadytested = Files.readAllLines(testlist.toPath());
+            failedrecs = Files.readAllLines(failedlist.toPath());
         }
         try
         {
@@ -171,8 +170,8 @@ public class EclParseRegressionTest extends BaseRemoteTest
         }
         finally
         {
-            Files.write(testlist.toPath(), String.join("\r\n",alreadytested).getBytes());
-            Files.write(failedlist.toPath(), String.join("\r\n",failedrecs).getBytes());
+            Files.write(testlist.toPath(), String.join("\r\n", alreadytested).getBytes());
+            Files.write(failedlist.toPath(), String.join("\r\n", failedrecs).getBytes());
         }
     }
 
@@ -182,13 +181,14 @@ public class EclParseRegressionTest extends BaseRemoteTest
         int matches = 0;
         do
         {
-            index = str.indexOf(pattern,index);
+            index = str.indexOf(pattern, index);
             if (index >= 0)
             {
                 matches++;
                 index += pattern.length();
             }
-        } while(index >= 0);
+        }
+        while (index >= 0);
 
         return matches;
     }
@@ -196,12 +196,12 @@ public class EclParseRegressionTest extends BaseRemoteTest
     private void testScope(String scope) throws Exception, ArrayOfEspExceptionWrapper
     {
         List<DFULogicalFileWrapper> files = getDFUClient().getFiles(scope);
-        for (DFULogicalFileWrapper file:files)
+        for (DFULogicalFileWrapper file : files)
         {
-            String fullfilename= file.getIsDirectory()==true?file.getDirectory():file.getFileName();
+            String fullfilename = file.getIsDirectory() == true ? file.getDirectory() : file.getFileName();
             if (scope != null && !scope.isEmpty() && !fullfilename.startsWith(scope))
             {
-                fullfilename=scope + "::" + fullfilename;
+                fullfilename = scope + "::" + fullfilename;
             }
             if (alreadytested.contains(fullfilename))
             {
@@ -211,7 +211,8 @@ public class EclParseRegressionTest extends BaseRemoteTest
             {
                 alreadytested.add(fullfilename);
             }
-            if (file.getFileName().contains("::key::") || file.getFileName().contains("::keys::") || file.getFileName().startsWith("keys::") || file.getFileName().startsWith("key::"))
+            if (file.getFileName().contains("::key::") || file.getFileName().contains("::keys::") || file.getFileName().startsWith("keys::")
+                    || file.getFileName().startsWith("key::"))
             {
                 alreadytested.add(fullfilename);
                 continue;
@@ -224,14 +225,15 @@ public class EclParseRegressionTest extends BaseRemoteTest
                 continue;
             }
 
-            String rececl=null;
-            try {
-                DFUFileDetailWrapper info=getDFUClient().getFileDetails(fullfilename, null);
+            String rececl = null;
+            try
+            {
+                DFUFileDetailWrapper info = getDFUClient().getFileDetails(fullfilename, null);
                 if (info.getIsSuperfile())
                 {
                     System.out.print(fullfilename + " is superfile");
                 }
-                rececl=info.getEcl();
+                rececl = info.getEcl();
                 if (rececl != null || rececl.isEmpty())
                 {
                     throw new Exception("No record ecl for " + fullfilename);
@@ -239,30 +241,30 @@ public class EclParseRegressionTest extends BaseRemoteTest
             }
             catch (Exception e)
             {
-                System.out.println( "Can't retrieve " + file.getFileName() + ":" + e.getMessage());
+                System.out.println("Can't retrieve " + file.getFileName() + ":" + e.getMessage());
                 alreadytested.add(fullfilename);
                 continue;
             }
-            System.out.println("testing ecl layout for  " + fullfilename );
+            System.out.println("testing ecl layout for  " + fullfilename);
 
             try
             {
-                if (countMatches(rececl, "RECORD")>1 || countMatches(rececl,"{")>1)
+                if (countMatches(rececl, "RECORD") > 1 || countMatches(rececl, "{") > 1)
                 {
                     System.out.println(fullfilename + " has child datasets");
                 }
 
-                EclRecordWrapper rec=DFUFileDetailWrapper.getRecordFromECL(rececl);
+                EclRecordWrapper rec = DFUFileDetailWrapper.getRecordFromECL(rececl);
                 alreadytested.add(fullfilename);
-                if (rec.getParseErrors().size()!=0)
+                if (rec.getParseErrors().size() != 0)
                 {
-                    throw new Exception("Failed to parse " + fullfilename + ":" + String.join("\n",rec.getParseErrors()));
+                    throw new Exception("Failed to parse " + fullfilename + ":" + String.join("\n", rec.getParseErrors()));
                 }
             }
             catch (Exception e)
             {
-                    failedrecs.add(fullfilename);
-                    System.out.println(rececl + "\n" + e.getMessage());
+                failedrecs.add(fullfilename);
+                System.out.println(rececl + "\n" + e.getMessage());
             }
         }
     }

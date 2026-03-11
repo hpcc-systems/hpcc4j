@@ -5,14 +5,14 @@ import org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSubmit;
 @Deprecated
 public class WUSubmitWrapper
 {
-    private String wuid = null;
-    private String cluster = null;
-    private Integer maxruntime = null;
+    private String  wuid                 = null;
+    private String  cluster              = null;
+    private Integer maxruntime           = null;
     private Integer blocktillfinishtimer = null;
-    private Integer maxcost = null;
-    private Boolean notifycluster = null;
-    private String queue = null;
-    private Boolean syntaxcheck = null;
+    private Integer maxcost              = null;
+    private Boolean notifycluster        = null;
+    private String  queue                = null;
+    private Boolean syntaxcheck          = null;
 
     public String getWuid()
     {
@@ -160,8 +160,9 @@ public class WUSubmitWrapper
     @Override
     public String toString()
     {
-        return "WUSubmitWrapper [wuid=" + wuid + ", cluster=" + cluster + ", maxruntime=" + maxruntime + ", blocktillfinishtimer=" + blocktillfinishtimer + ", maxcost="
-                + maxcost + ", notifycluster=" + notifycluster + ", queue=" + queue + ", syntaxcheck=" + syntaxcheck + "]";
+        return "WUSubmitWrapper [wuid=" + wuid + ", cluster=" + cluster + ", maxruntime=" + maxruntime + ", blocktillfinishtimer="
+                + blocktillfinishtimer + ", maxcost=" + maxcost + ", notifycluster=" + notifycluster + ", queue=" + queue + ", syntaxcheck="
+                + syntaxcheck + "]";
     }
 
 }
