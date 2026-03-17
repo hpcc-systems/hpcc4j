@@ -1279,6 +1279,15 @@ public class WorkunitWrapper implements Comparable<org.hpccsystems.ws.client.wra
             this.setStateID(wu.getStateID());
             this.setStateEx(wu.getStateEx());
             this.setState(wu.getState());
+            // Update additional fields from ECLWorkunit response
+            if (wu.getOwner() != null && !wu.getOwner().isEmpty())
+            {
+                this.setOwner(wu.getOwner());
+            }
+            if (wu.getJobname() != null && !wu.getJobname().isEmpty())
+            {
+                this.setJobname(wu.getJobname());
+            }
             // setChanged();
             retVal = true;
         }
