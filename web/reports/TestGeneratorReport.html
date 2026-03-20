@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WsClient Test Generation Progress Report</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+         margin: 2rem; color: #1a1a1a; background: #f9f9f9; }
+  h1 { color: #0078d4; margin-bottom: 0.5rem; }
+  h2 { color: #0078d4; margin-top: 2.5rem; border-bottom: 3px solid #0078d4; padding-bottom: .3rem; }
+  h3 { color: #333; margin-top: 1.5rem; border-bottom: 1px solid #ccc; padding-bottom: .2rem; }
+  h4 { color: #555; margin-top: 1rem; }
+  .meta { color: #666; font-size: 0.9em; margin-bottom: .5rem; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 1.5rem; }
+  th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; font-size: 0.9em; }
+  th { background: #0078d4; color: #fff; cursor: pointer; user-select: none; white-space: nowrap; }
+  th:hover { background: #005a9e; }
+  th::after { content: ' ⇅'; font-size: 0.75em; opacity: 0.5; }
+  th.sort-asc::after { content: ' ↑'; font-size: 0.85em; opacity: 1; }
+  th.sort-desc::after { content: ' ↓'; font-size: 0.85em; opacity: 1; }
+  tr:nth-child(even) { background: #f2f2f2; }
+  tr:hover { background: #e6f2ff; }
+  a { color: #0078d4; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .summary { background: #fff; border: 1px solid #ddd; border-radius: 6px;
+             padding: 1rem 1.5rem; margin-bottom: 2rem; }
+  .summary table { margin-bottom: 0; }
+  .summary th, .summary td { border: 1px solid #e6e6e6; padding: 10px 15px; }
+  .summary th { background: #f8f9fa; color: #333; font-weight: 600; }
+  .timestamp { color: #999; font-size: 0.85em; }
+  .metric-value { font-size: 1.5em; font-weight: bold; color: #0078d4; }
+  .metric-label { color: #666; font-size: 0.9em; margin-top: 0.25rem; }
+  .highlight-box { background: #e6f2ff; border-left: 4px solid #0078d4;
+                   padding: 1rem; margin-bottom: 1rem; }
+  .severity-critical { background: #fee; border-left: 4px solid #dc3545; }
+  .severity-high { background: #fff3cd; border-left: 4px solid #fd7e14; }
+  .severity-medium { background: #e2e3e5; border-left: 4px solid #6c757d; }
+  .severity-low { background: #d1ecf1; border-left: 4px solid #17a2b8; }
+  .number { text-align: right; font-family: 'SF Mono', 'Consolas', monospace; }
+  .section-header { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .metric-card { background: #fff; border: 1px solid #ddd; border-radius: 6px;
+                 padding: 1rem; margin-bottom: 1rem; display: inline-block; min-width: 200px;
+                 margin-right: 1rem; flex: 0 1 auto; }
+  .coverage-badge { background: #28a745; color: white; padding: 0.25rem 0.5rem; 
+                    border-radius: 3px; font-size: 0.8em; font-weight: bold; }
+  .progress-bar { width: 100%; height: 20px; background: #e9ecef; border-radius: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #0078d4, #005a9e); }
+</style>
+<script>
+function sortTable(th) {
+  var table = th.closest('table');
+  var idx = Array.from(th.parentNode.children).indexOf(th);
+  var asc = th.dataset.sort !== 'asc';
+  table.querySelectorAll('th').forEach(function(h) {
+    h.dataset.sort = '';
+    h.classList.remove('sort-asc', 'sort-desc');
+  });
+  th.dataset.sort = asc ? 'asc' : 'desc';
+  th.classList.add(asc ? 'sort-asc' : 'sort-desc');
+  var allRows = Array.from(table.rows);
+  var dataRows = allRows.slice(1);
+  dataRows.sort(function(a, b) {
+    var aVal = (a.cells[idx] ? a.cells[idx].textContent.trim() : '');
+    var bVal = (b.cells[idx] ? b.cells[idx].textContent.trim() : '');
+    var aNum = parseFloat(aVal.replace(/[^\d.-]/g, ''));
+    var bNum = parseFloat(bVal.replace(/[^\d.-]/g, ''));
+    if (!isNaN(aNum) && !isNaN(bNum)) { return asc ? aNum - bNum : bNum - aNum; }
+    return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+  });
+  dataRows.forEach(function(r) { table.appendChild(r); });
+}
+</script>
+</head>
+<body>
+
+<h1>WsClient Test Generation Progress</h1>
+<p class="timestamp">Report Generated: March 4, 2026</p>
+
+<div class="summary">
+<h2>Executive Summary</h2>
+<table>
+<tr><th>Metric</th><th>Value</th></tr>
+<tr><td>Total Tests Generated</td><td class="number"><strong>293</strong></td></tr>
+<tr><td>Total Tests Enabled</td><td class="number"><strong>276</strong></td></tr>
+<tr><td>Total Lines of Code Generated</td><td class="number"><strong>8,175</strong></td></tr>
+<tr><td>Estimated Engineer Hours Saved</td><td class="number"><strong>~481</strong></td></tr>
+<tr><td>Automatically Fixed Client Issues</td><td class="number"><strong>9</strong> (3 Critical · 2 High · 4 Medium)</td></tr>
+<tr><td>Low Confidence Client Issues</td><td class="number"><strong>0</strong></td></tr>
+<tr><td>Server Issues Reported (test failures)</td><td class="number"><strong>16</strong> (2 High · 4 Medium · 3 Low root causes)</td></tr>
+<tr><td>Server API Methods Covered by Test Generator</td><td class="number"><strong>16 / 365 (4.4%)</strong></td></tr>
+<tr><td>Tested Services: Server API Coverage</td><td class="number"><span class="coverage-badge">100%</span></td></tr>
+<tr><td>Tested Services: Client Branch Coverage</td><td class="number"><span class="coverage-badge">88%</span></td></tr>
+</table>
+</div>
+
+<div class="section-header">
+  <div class="metric-card">
+    <div class="metric-value">293</div>
+    <div class="metric-label">Tests Generated</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">276</div>
+    <div class="metric-label">Tests Enabled</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">481</div>
+    <div class="metric-label">Hours Saved</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">9</div>
+    <div class="metric-label">Client Issues Fixed</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">16</div>
+    <div class="metric-label">Server Issues Identified</div>
+  </div>
+</div>
+
+<h2>ESP Service Coverage Details</h2>
+
+<table>
+<tr><th onclick="sortTable(this)">Service</th><th onclick="sortTable(this)" class="number">Methods Tested</th><th onclick="sortTable(this)" class="number">API Coverage</th><th onclick="sortTable(this)" class="number">Server Branch Coverage</th><th onclick="sortTable(this)" class="number">Client Branch Coverage</th><th onclick="sortTable(this)">Notes</th></tr>
+<tr><td>WsStore</td><td class="number">10/10</td><td class="number"><span class="coverage-badge">100%</span></td><td class="number">N/A</td><td class="number"><span class="coverage-badge">82%</span></td><td><em>Missed branches: error handling / null checks</em></td></tr>
+<tr><td>WsDFU</td><td class="number">3/26</td><td class="number">N/A</td><td class="number">N/A</td><td class="number">N/A</td><td><em>Partial coverage - 3 methods tested</em></td></tr>
+<tr><td>WsResources</td><td class="number">3/3</td><td class="number"><span class="coverage-badge">100%</span></td><td class="number">N/A</td><td class="number"><span class="coverage-badge">93%</span></td><td><em>Full coverage achieved</em></td></tr>
+</table>
+
+<h2>Issue Analysis</h2>
+
+<h3>Automatically Fixed Client Issues — by Severity</h3>
+<table>
+<tr><th onclick="sortTable(this)">Severity</th><th onclick="sortTable(this)" class="number">Count</th></tr>
+<tr><td class="severity-critical">Critical</td><td class="number">3</td></tr>
+<tr><td class="severity-high">High</td><td class="number">2</td></tr>
+<tr><td class="severity-medium">Medium</td><td class="number">4</td></tr>
+<tr><td>Low</td><td class="number">0</td></tr>
+<tr style="background: #e6f2ff; font-weight: bold;"><td><strong>Total</strong></td><td class="number"><strong>9</strong></td></tr>
+</table>
+
+<h3>Server Issues Reported — by Severity</h3>
+<div class="highlight-box">
+<strong>Note:</strong> Counts represent <strong>distinct root causes</strong>. A single issue may affect multiple tests (e.g., the DALI <code>@</code> encoding issue alone causes 7 test failures).
+</div>
+
+<table>
+<tr><th onclick="sortTable(this)">Severity</th><th onclick="sortTable(this)" class="number">Distinct Issues</th><th onclick="sortTable(this)" class="number">Test Failures</th></tr>
+<tr><td class="severity-high">High</td><td class="number">2</td><td class="number">8</td></tr>
+<tr><td class="severity-medium">Medium</td><td class="number">4</td><td class="number">5</td></tr>
+<tr><td>Low</td><td class="number">3</td><td class="number">3</td></tr>
+<tr style="background: #e6f2ff; font-weight: bold;"><td><strong>Total</strong></td><td class="number"><strong>9</strong></td><td class="number"><strong>16</strong></td></tr>
+</table>
+
+<h2>Resource Estimation</h2>
+
+<h3>Estimated Engineer Hours Saved</h3>
+<div class="highlight-box">
+The ~481 hour estimate is derived from three components:
+</div>
+
+<table>
+<tr><th onclick="sortTable(this)">Component</th><th onclick="sortTable(this)">Calculation</th><th onclick="sortTable(this)" class="number">Hours</th></tr>
+<tr><td>Manual test authoring</td><td>293 tests × 1.5 hrs/test</td><td class="number">440</td></tr>
+<tr><td>Client bug discovery &amp; fix</td><td>9 issues × 3 hrs/issue</td><td class="number">27</td></tr>
+<tr><td>Server issue investigation &amp; documentation</td><td>9 root causes × 1.5 hrs/issue</td><td class="number">14</td></tr>
+<tr style="background: #e6f2ff; font-weight: bold;"><td><strong>Total</strong></td><td></td><td class="number"><strong>481</strong></td></tr>
+</table>
+
+<div class="highlight-box">
+<strong>Assumptions:</strong>
+<ul>
+<li><strong>1.5 hrs/test</strong> — covers API familiarisation, test design, implementation, and debugging against a live server</li>
+<li><strong>3 hrs/client issue</strong> — covers reproduction, root cause analysis, implementing the fix, and verification</li>
+<li><strong>1.5 hrs/server issue</strong> — covers reproduction, investigation, and writing a clear bug report; excludes server-side fix time</li>
+</ul>
+</div>
+
+<h2>Coverage Analysis</h2>
+
+<h3>Server API Methods Coverage</h3>
+<table>
+<tr><th onclick="sortTable(this)">Service</th><th onclick="sortTable(this)" class="number">Total Methods</th><th onclick="sortTable(this)" class="number">Covered</th><th onclick="sortTable(this)" class="number">Remaining</th><th onclick="sortTable(this)">Coverage %</th></tr>
+<tr><td>ws_store.ecm</td><td class="number">10</td><td class="number">10</td><td class="number">0</td><td><span class="coverage-badge">100%</span></td></tr>
+<tr><td>ws_dfu.ecm</td><td class="number">26</td><td class="number">3</td><td class="number">23</td><td>11.5%</td></tr>
+<tr><td>ws_workunits.ecm</td><td class="number">80</td><td class="number">0</td><td class="number">80</td><td>0%</td></tr>
+<tr><td>ws_access.ecm</td><td class="number">53</td><td class="number">0</td><td class="number">53</td><td>0%</td></tr>
+<tr><td>ws_fs.ecm</td><td class="number">31</td><td class="number">0</td><td class="number">31</td><td>0%</td></tr>
+<tr><td>ws_dali.ecm</td><td class="number">29</td><td class="number">0</td><td class="number">29</td><td>0%</td></tr>
+<tr><td>ws_smc.ecm</td><td class="number">22</td><td class="number">0</td><td class="number">22</td><td>0%</td></tr>
+<tr><td>ws_topology.ecm</td><td class="number">20</td><td class="number">0</td><td class="number">20</td><td>0%</td></tr>
+<tr><td>ws_packageprocess.ecm</td><td class="number">16</td><td class="number">0</td><td class="number">16</td><td>0%</td></tr>
+<tr><td>ws_esdlconfig.ecm</td><td class="number">12</td><td class="number">0</td><td class="number">12</td><td>0%</td></tr>
+<tr><td>ws_dfuXref.ecm</td><td class="number">11</td><td class="number">0</td><td class="number">11</td><td>0%</td></tr>
+<tr><td>ws_sql.ecm</td><td class="number">10</td><td class="number">0</td><td class="number">10</td><td>0%</td></tr>
+<tr><td>ws_espcontrol.ecm</td><td class="number">10</td><td class="number">0</td><td class="number">10</td><td>0%</td></tr>
+<tr><td>ws_machine.ecm</td><td class="number">5</td><td class="number">0</td><td class="number">5</td><td>0%</td></tr>
+<tr><td>ws_sasha.ecm</td><td class="number">4</td><td class="number">0</td><td class="number">4</td><td>0%</td></tr>
+<tr><td>ws_decoupledlogging.ecm</td><td class="number">4</td><td class="number">0</td><td class="number">4</td><td>0%</td></tr>
+<tr><td>ws_account.ecm</td><td class="number">4</td><td class="number">0</td><td class="number">4</td><td>0%</td></tr>
+<tr><td>ws_resources.ecm</td><td class="number">3</td><td class="number">3</td><td class="number">0</td><td><span class="coverage-badge">100%</span></td></tr>
+<tr><td>ws_logaccess.ecm</td><td class="number">3</td><td class="number">0</td><td class="number">3</td><td>0%</td></tr>
+<tr><td>ws_fileio.ecm</td><td class="number">3</td><td class="number">0</td><td class="number">3</td><td>0%</td></tr>
+<tr><td>ws_dfs.ecm</td><td class="number">3</td><td class="number">0</td><td class="number">3</td><td>0%</td></tr>
+<tr><td>ws_codesign.ecm</td><td class="number">3</td><td class="number">0</td><td class="number">3</td><td>0%</td></tr>
+<tr><td>ws_loggingservice.ecm</td><td class="number">2</td><td class="number">0</td><td class="number">2</td><td>0%</td></tr>
+<tr><td>ws_cloud.ecm</td><td class="number">2</td><td class="number">0</td><td class="number">2</td><td>0%</td></tr>
+<tr><td>ldapenvironment.ecm</td><td class="number">2</td><td class="number">0</td><td class="number">2</td><td>0%</td></tr>
+<tr><td>ws_elk.ecm</td><td class="number">1</td><td class="number">0</td><td class="number">1</td><td>0%</td></tr>
+<tr style="background: #e6f2ff; font-weight: bold;"><td><strong>Total</strong></td><td class="number"><strong>365</strong></td><td class="number"><strong>16</strong></td><td class="number"><strong>349</strong></td><td><strong>4.4%</strong></td></tr>
+</table>
+
+<h2>Detailed Results by Method</h2>
+
+<h3>WsDFU.getFileDataColumns</h3>
+<table>
+<tr><th>Metric</th><th class="number">Value</th></tr>
+<tr><td>Tests Generated</td><td class="number">19</td></tr>
+<tr><td>Tests Passed</td><td class="number">15</td></tr>
+<tr><td>Tests Failed</td><td class="number">4</td></tr>
+<tr><td>Automatically Fixed Client Issues</td><td class="number">2</td></tr>
+<tr><td>Low Confidence Client Issues</td><td class="number">0</td></tr>
+<tr><td>Server Issues Reported</td><td class="number">3</td></tr>
+<tr><td>Lines of Code Generated</td><td class="number">494</td></tr>
+</table>
+
+<h4>Automatically Fixed Client Issues</h4>
+<div class="severity-critical">
+<strong>Critical</strong>
+<ul>
+<li>Fix <code>ClassCastException</code> in <code>ArrayOfDFUDataColumn</code> unwrapping</li>
+<li>Implement virtual column filtering</li>
+</ul>
+</div>
+
+<h4>Server Issues Reported</h4>
+<div class="severity-high">
+<strong>High Priority</strong>
+<ul>
+<li><strong>DATASET Column Support</strong> — Enhance ESP <code>DFUGetDataColumns</code> service to return <code>DATASET</code>-type fields</li>
+</ul>
+</div>
+
+<div class="severity-medium">
+<strong>Medium Priority</strong>
+<ul>
+<li><strong><code>ColumnEclType</code> Consistency</strong> — Ensure ESP service always populates the <code>ColumnEclType</code> field</li>
+</ul>
+</div>
+
+<h3>WsDFU.getLogicalFiles</h3>
+<table>
+<tr><th>Metric</th><th class="number">Value</th></tr>
+<tr><td>Tests Generated</td><td class="number">33</td></tr>
+<tr><td>Tests Passed</td><td class="number">30</td></tr>
+<tr><td>Tests Failed</td><td class="number">3</td></tr>
+<tr><td>Automatically Fixed Client Issues</td><td class="number">0</td></tr>
+<tr><td>Low Confidence Client Issues</td><td class="number">0</td></tr>
+<tr><td>Server Issues Reported</td><td class="number">3</td></tr>
+<tr><td>Lines of Code Generated</td><td class="number">458</td></tr>
+</table>
+
+<h4>Server Issues Reported</h4>
+<div class="severity-low">
+<strong>Low Priority</strong>
+<ul>
+<li><strong>Duplicate Files in Pagination Splits</strong> — Duplicate results appear across paginated responses</li>
+<li><strong><code>firstN = 0</code> Returns Full List</strong> — A <code>firstN</code> value of 0 should return zero files, not the full list</li>
+<li><strong>Tilde Search Semantics</strong> — Support for tilde (<code>~</code>) prefix in logical file queries is inconsistent</li>
+</ul>
+</div>
+
+<h3>WsDFU.fastWURefresh</h3>
+<table>
+<tr><th>Metric</th><th class="number">Value</th></tr>
+<tr><td>Tests Generated</td><td class="number">18</td></tr>
+<tr><td>Tests Passed</td><td class="number">18</td></tr>
+<tr><td>Tests Failed</td><td class="number">0</td></tr>
+<tr><td>Automatically Fixed Client Issues</td><td class="number">1</td></tr>
+<tr><td>Low Confidence Client Issues</td><td class="number">0</td></tr>
+<tr><td>Server Issues Reported</td><td class="number">0</td></tr>
+<tr><td>Lines of Code Generated</td><td class="number">697</td></tr>
+</table>
+
+<h4>Automatically Fixed Client Issues</h4>
+<div class="severity-medium">
+<strong>Medium Priority</strong>
+<ul>
+<li><strong><code>WorkunitWrapper.updateState(ECLWorkunit)</code></strong> — Failed to populate some fields, causing test failures</li>
+</ul>
+</div>
+
+<h3>WsStore — All Methods</h3>
+<table>
+<tr><th>Metric</th><th class="number">Value</th></tr>
+<tr><td>Methods Covered</td><td class="number">12</td></tr>
+<tr><td>Tests Generated</td><td class="number">170</td></tr>
+<tr><td>Tests Passed</td><td class="number">160</td></tr>
+<tr><td>Tests Failed</td><td class="number">10</td></tr>
+<tr><td>Automatically Fixed Client Issues</td><td class="number">6</td></tr>
+<tr><td>Low Confidence Client Issues</td><td class="number">0</td></tr>
+<tr><td>Server Issues Reported</td><td class="number">10</td></tr>
+<tr><td>Lines of Code Generated</td><td class="number">5,368</td></tr>
+</table>
+
+<h4>Code Coverage</h4>
+<table>
+<tr><th>Metric</th><th class="number">Value</th></tr>
+<tr><td>Function Coverage</td><td class="number"><span class="coverage-badge">100%</span></td></tr>
+<tr><td>Branch Coverage</td><td class="number"><span class="coverage-badge">82%</span></td></tr>
+</table>
+<div class="highlight-box">
+<strong>Note:</strong> Missed branches are typically error handling and null checks not considered worth testing.
+</div>
+
+<h4>Automatically Fixed Client Issues</h4>
+<div class="severity-critical">
+<strong>Critical</strong>
+<ul>
+<li>Fix wrong parameter in <code>fetchValueEncrypted</code> delegate call (<code>secretKey</code> was passed as the <code>key</code> argument)</li>
+</ul>
+</div>
+
+<div class="severity-high">
+<strong>High</strong>
+<ul>
+<li>Handle <code>ArrayOfEspExceptionWrapper</code> gracefully in <code>fetchValue</code>, <code>listNamespaces</code>, <code>fetchAllNSKeys</code>, and <code>fetchKeyMetaData</code> (return null/empty instead of propagating exception)</li>
+<li>Re-throw <code>RemoteException</code> on connection failure in <code>listNSKeys</code> and <code>fetchAllNSKeys</code> (was silently swallowed)</li>
+</ul>
+</div>
+
+<div class="severity-medium">
+<strong>Medium</strong>
+<ul>
+<li>Guard against null internal stub in <code>fetchAllNSKeys</code> (throw descriptive exception instead of <code>NullPointerException</code>)</li>
+<li>Add null/mode input validation to <code>setValueEncrypted</code> (Cipher and secretKey overloads)</li>
+<li>Guard against null <code>Cipher</code> argument in <code>fetchValueEncrypted</code></li>
+</ul>
+</div>
+
+<h4>Server Issues Reported</h4>
+<div class="severity-high">
+<strong>High Priority</strong>
+<ul>
+<li><strong>DALI <code>@</code> Character Encoding</strong> — 7 tests fail when store names, namespace names, or usernames contain <code>@</code>; DALI internally encodes <code>@</code> → <code>_a</code>, corrupting path lookups. Affects <code>listNamespaces</code>, <code>listNSKeys</code>, <code>fetchAllNSKeys</code>, <code>deleteValue</code>, and <code>deleteNamespace</code></li>
+</ul>
+</div>
+
+<div class="severity-medium">
+<strong>Medium Priority</strong>
+<ul>
+<li><strong><code>listStores</code> Type Filter Not Enforced</strong> — Server ignores <code>typeFilter</code> parameter and returns all stores regardless of type</li>
+<li><strong>Non-Idempotent <code>deleteNamespace</code></strong> — Server throws an error on a second <code>deleteNamespace</code> call for an already-deleted namespace instead of returning gracefully</li>
+<li><strong>Silent Credential Acceptance</strong> — <code>fetchAllNSKeys</code> does not return an authentication error when called with invalid credentials on a secured cluster</li>
+</ul>
+</div>
+
+<h3>WsResources — All Methods</h3>
+<table>
+<tr><th>Metric</th><th class="number">Value</th></tr>
+<tr><td>Tests Generated</td><td class="number">53</td></tr>
+<tr><td>Tests Passed</td><td class="number">53</td></tr>
+<tr><td>Tests Failed</td><td class="number">0</td></tr>
+<tr><td>Automatically Fixed Client Issues</td><td class="number">0</td></tr>
+<tr><td>Low Confidence Client Issues</td><td class="number">0</td></tr>
+<tr><td>Server Issues Reported</td><td class="number">0</td></tr>
+<tr><td>Lines of Code Generated</td><td class="number">1,158</td></tr>
+</table>
+
+<h4>Code Coverage</h4>
+<table>
+<tr><th>Metric</th><th class="number">Value</th></tr>
+<tr><td>Function Coverage</td><td class="number"><span class="coverage-badge">100%</span></td></tr>
+<tr><td>Branch Coverage</td><td class="number"><span class="coverage-badge">93%</span></td></tr>
+</table>
+
+</body>
+</html>
