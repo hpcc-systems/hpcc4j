@@ -14,9 +14,9 @@
 
   <properties>
     <javadoc.excludePackageNames>net.razorvine.*:org.apache.*:org.hpccsystems.commons.*:org.hpccsystems.generated.*:org.hpccsystems.dfs.*:org.hpccsystems.ws.*:org.hpccsystems.ws.client.antlr.*</javadoc.excludePackageNames>
-    <spark.runtime.version>2.4.6</spark.runtime.version>
-    <scala.binary.version>2.11</scala.binary.version>
-    <scala.version>2.11</scala.version>
+    <spark.runtime.version>3.5.8</spark.runtime.version>
+    <scala.binary.version>2.12</scala.binary.version>
+    <scala.version>2.12.11</scala.version>
  </properties>
 
   <dependencies>
@@ -181,22 +181,6 @@
         <scala.binary.version>2.11</scala.binary.version>
         <scala.version>2.11</scala.version>
       </properties>
-    </profile>
-    <profile>
-        <id>spark33</id>
-        <properties>
-            <scala.binary.version>2.12</scala.binary.version>
-            <scala.version>2.12.11</scala.version>
-            <spark.runtime.version>3.3.2</spark.runtime.version>
-        </properties>
-    </profile>
-    <profile>
-        <id>spark34</id>
-        <properties>
-            <scala.binary.version>2.12</scala.binary.version>
-            <scala.version>2.12.11</scala.version>
-            <spark.runtime.version>3.4.1</spark.runtime.version>
-        </properties>
     </profile>
     <profile>
       <id>release</id>
