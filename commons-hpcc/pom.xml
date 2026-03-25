@@ -35,6 +35,17 @@
     </plugins>
   </build>
 
+  <dependencies>
+    <!-- log4j-core (jar, not pom) is required for test-only Core API usage:
+         AbstractAppender, LoggerContext, Configurator, etc. -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
   <profiles>
     <profile>
       <id>release</id>

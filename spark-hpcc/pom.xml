@@ -57,6 +57,7 @@
       <artifactId>log4j-core</artifactId>
       <version>${log4j.version}</version>
       <type>pom</type>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.hpccsystems</groupId>
