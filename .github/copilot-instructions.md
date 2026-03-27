@@ -50,11 +50,11 @@ HPCCWsClient client = HPCCWsClient.get(conn);
 Dataset<Row> df = spark.read()
     .format("hpcc")
     .option("host", "http://127.0.0.1:8010")
-    .option("cluster", "mythor") 
+    .option("cluster", "mythor")
     .option("path", "/spark/test/dataset")
     .load();
 
-// Writing to HPCC  
+// Writing to HPCC
 df.write()
     .format("hpcc")
     .mode("overwrite")
@@ -76,10 +76,42 @@ df.write()
 - **Test groups**: `@org.hpccsystems.commons.annotations.BaseTests` annotation
 - **Connection configuration**: Test classes typically use environment variables for HPCC cluster details
 
-### Code Formatting
-- **Mandatory**: Use Eclipse formatter from `/eclipse/HPCC-JAVA-Formatter.xml`
-- **Indentation**: 4 spaces, no tabs
-- **License headers**: Apache 2.0 headers required on all source files, ensure new files are dated with current year
+### Code Formatting Rules
+Copilot must actively enforce the Eclipse formatting rules from `/eclipse/HPCC-JAVA-Formatter.xml` during ALL code reviews and suggestions. **Check every Java file modification against these rules:**
+
+#### Critical Formatting Requirements:
+- **Indentation**: Exactly 4 spaces per level (never tabs)
+- **Brace placement**: Opening braces on new lines for classes/methods/control structures
+- **Spacing**:
+  - Space after commas: `method(a, b, c)` not `method(a,b,c)`
+  - Space around binary operators: `x + y` not `x+y`
+  - Space after keywords: `if (condition)` not `if(condition)`
+  - NO space before parentheses in method calls: `method()` not `method ()`
+- **Blank lines**:
+  - 1 line after package declaration
+  - 1 line after import section
+  - 1 line between methods
+- **License headers**: Apache 2.0 headers required on all new files, dated with current year
+
+#### Maven Formatter Validation:
+- **Validation command**: `mvn formatter:validate` - checks formatting without modifying files
+- **Format command**: `mvn formatter:format` - automatically fixes formatting violations
+- **Module-specific**: Use `-pl <module>` flag for individual modules (e.g., `mvn formatter:format -pl wsclient`)
+
+#### Copilot Review Process:
+1. **Always scan for formatting violations** in any Java code review
+2. **Point out specific formatting issues** with examples of correct formatting
+3. **Suggest running `mvn formatter:format -pl <module>`** to auto-fix violations
+4. **Never approve code** that violates HPCC4J formatting standards
+5. **Provide inline corrections** showing the properly formatted version
+
+#### Common Violations to Flag:
+- Mixed indentation (tabs + spaces)
+- Missing spaces around operators or after commas
+- Incorrect brace placement
+- Missing blank lines after package/imports
+- Inconsistent line endings
+- Missing or incorrect license headers
 
 ## Version Compatibility
 
