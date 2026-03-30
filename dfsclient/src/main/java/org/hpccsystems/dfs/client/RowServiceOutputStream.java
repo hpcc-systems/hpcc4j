@@ -50,7 +50,7 @@ public class RowServiceOutputStream extends OutputStream
 {
     private static final Logger  log                           = LogManager.getLogger(RowServiceOutputStream.class);
     public static final int      DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
-    public static final int      DEFAULT_SOCKET_OP_TIMEOUT_MS  = 1500000000; // 15 second timeout on reads
+    public static final int      DEFAULT_SOCKET_OP_TIMEOUT_MS  = 15000; // 15 second timeout on reads
     private static int           SCRATCH_BUFFER_LEN            = 2048;
 
     private DataPartition        dataPartition                 = null;

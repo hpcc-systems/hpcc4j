@@ -381,12 +381,6 @@ public class DFSIndexTest extends BaseRemoteTest
         System.out.println("Publish Finished");
     }
 
-    // @Test
-    // public void unsortedIndexWriteTest() throws Exception
-    // {
-
-    // }
-
     private String partitionListToString(List<DataPartition> partitions)
     {
         String matchedPartitionStr = "[ ";
