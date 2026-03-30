@@ -25,12 +25,14 @@ import org.junit.experimental.categories.Category;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.lang.StringBuilder;
 import java.lang.Math;
 
 import org.hpccsystems.ws.client.BaseRemoteTest;
 import org.hpccsystems.ws.client.HPCCWsDFUClient;
 import org.hpccsystems.ws.client.HPCCWsWorkUnitsClient;
+import org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileType;
 import org.hpccsystems.ws.client.utils.Connection;
 import org.hpccsystems.ws.client.wrappers.wsworkunits.WorkunitWrapper;
 import org.hpccsystems.ws.client.wrappers.wsdfu.DFUCreateFileWrapper;
@@ -46,6 +48,7 @@ import org.hpccsystems.dfs.client.DataPartition;
 import org.hpccsystems.dfs.client.CompiledFieldFilter;
 
 import org.hpccsystems.commons.ecl.HpccSrcType;
+import org.apache.hadoop.thirdparty.protobuf.Field;
 import org.hpccsystems.commons.ecl.FieldDef;
 import org.hpccsystems.commons.ecl.FieldType;
 import org.hpccsystems.commons.ecl.FieldFilter;
@@ -282,6 +285,107 @@ public class DFSIndexTest extends BaseRemoteTest
             fileReader.close();
         }
     }
+
+    @Test
+    public void writeIndexTest() throws Exception
+    {
+        FieldDef[] indexChildDefs = new FieldDef[] {
+            new FieldDef("key", FieldType.INTEGER, "INTEGER4", 4, true, false, FieldDef.FLAG_BIASED_FIELD, HpccSrcType.KEYED_INTEGER, new FieldDef[0]),
+            new FieldDef("payload", FieldType.STRING, "STRING16", 16, true, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0])
+        };
+        FieldDef indexRecordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, indexChildDefs);
+
+        FieldDef[] childDefs = new FieldDef[] {
+            new FieldDef("key", FieldType.INTEGER, "INTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]),
+            new FieldDef("payload", FieldType.STRING, "STRING16", 16, true, false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0])
+        };
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, childDefs);
+
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < 1000; i++)
+        {
+            Object[] fields = new Object[2];
+            fields[0] = Long.valueOf(i);
+            fields[1] = "payload_" + (1000 - i);
+            records.add(new HPCCRecord(fields, recordDef));
+        }
+
+        //------------------------------------------------------------------------------
+        //  Request a temp file be created in HPCC to write to
+        //------------------------------------------------------------------------------
+
+        String fileName = "test_index_write";
+        String clusterName = this.thorClusterFileGroup;
+
+        // String eclRecordDefn = RecordDefinitionTranslator.toECLRecord(recordDef);
+        String eclRecordDefn = "{ integer4 key => string16 payload, unsigned8 __internal_fpos__ };";
+        HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
+
+        CompressionAlgorithm compressionAlgorithm = CompressionAlgorithm.INDEX_LZW;
+        DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, clusterName, eclRecordDefn, 300, true, DFUFileTypeWrapper.Index, "");
+        System.out.println("Create Finished");
+
+        DFUFilePartWrapper[] dfuFileParts = createResult.getFileParts();
+        DataPartition[] hpccPartitions = DataPartition.createPartitions(dfuFileParts, new NullRemapper(new RemapInfo(), createResult.getFileAccessInfo()), 
+                                                                        dfuFileParts.length, null, createResult.getFileAccessInfoBlob(), DataPartition.FileType.INDEX);
+
+        //------------------------------------------------------------------------------
+        //  Write partitions to file parts
+        //------------------------------------------------------------------------------
+
+        int recordsPerPartition = records.size() / dfuFileParts.length;
+
+        // These should be distributed evenly but we won't do this for the test
+        int residualRecords = records.size() % dfuFileParts.length;
+
+        int currentRecord = 0;
+        long bytesWritten = 0;
+        for (int partitionIndex = 0; partitionIndex < hpccPartitions.length; partitionIndex++)
+        {
+            int numRecordsInPartition = recordsPerPartition;
+            if (partitionIndex == dfuFileParts.length - 1)
+            {
+                numRecordsInPartition += residualRecords;
+            }
+            
+            HPCCRemoteFileWriter.FileWriteContext writeContext = new HPCCRemoteFileWriter.FileWriteContext();
+            writeContext.recordDef = recordDef;
+            writeContext.ouputRecordDef = indexRecordDef;
+            writeContext.fileCompression = compressionAlgorithm;
+            
+            HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef);
+            HPCCRemoteFileWriter<HPCCRecord> fileWriter= new HPCCRemoteFileWriter<HPCCRecord>(writeContext, hpccPartitions[partitionIndex], recordAccessor);
+
+            if (hpccPartitions[partitionIndex].isTLK())
+            {
+                fileWriter.writeRecord(records.get(records.size() - 1));
+            }
+            else 
+            {
+                for (int j = 0; j < numRecordsInPartition; j++, currentRecord++)
+                {
+                    fileWriter.writeRecord(records.get(currentRecord));
+                }
+            }
+
+            fileWriter.close();
+            bytesWritten += fileWriter.getBytesWritten();
+        }
+
+        //------------------------------------------------------------------------------
+        //  Publish and finalize the temp file
+        //------------------------------------------------------------------------------
+
+        System.out.println("Publish Start");
+        dfuClient.publishFile(createResult.getFileID(), eclRecordDefn, currentRecord, bytesWritten, true);
+        System.out.println("Publish Finished");
+    }
+
+    // @Test
+    // public void unsortedIndexWriteTest() throws Exception
+    // {
+
+    // }
 
     private String partitionListToString(List<DataPartition> partitions)
     {

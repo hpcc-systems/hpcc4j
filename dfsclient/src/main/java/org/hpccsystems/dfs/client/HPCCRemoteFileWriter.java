@@ -48,19 +48,32 @@ public class HPCCRemoteFileWriter<T>
     public static class FileWriteContext
     {
         public FieldDef recordDef = null;
+        public FieldDef ouputRecordDef = null; // Used for index files, if null will use recordDef
         public CompressionAlgorithm fileCompression = CompressionAlgorithm.DEFAULT;
-        public int connectTimeoutMs = -1;
-        public int socketOpTimeoutMs = -1;
+        public int connectTimeoutMs = RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS;
+        public int socketOpTimeoutMs = RowServiceOutputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS;
         public Span parentSpan = null;
     }
 
-    private static FileWriteContext constructReadContext(FieldDef recordDef, CompressionAlgorithm fileCompression, int connectTimeoutMs, int socketOpTimeoutMs)
+    private static FileWriteContext constructWriteContext(FieldDef recordDef, CompressionAlgorithm fileCompression, int connectTimeoutMs, int socketOpTimeoutMs)
     {
         FileWriteContext context = new FileWriteContext();
         context.recordDef = recordDef;
         context.fileCompression = fileCompression;
         context.connectTimeoutMs = connectTimeoutMs;
         context.socketOpTimeoutMs = socketOpTimeoutMs;
+
+        return context;
+    }
+
+    private static RowServiceOutputStream.StreamContext constructStreamContext(FileWriteContext writeContext)
+    {
+        RowServiceOutputStream.StreamContext context = new RowServiceOutputStream.StreamContext();
+        context.inputRecordDefinition = writeContext.recordDef;
+        context.outputRecordDefinition = writeContext.ouputRecordDef != null ? writeContext.ouputRecordDef : writeContext.recordDef;
+        context.fileCompression = writeContext.fileCompression;
+        context.connectTimeoutMs = writeContext.connectTimeoutMs;
+        context.sockOpTimeoutMs = writeContext.socketOpTimeoutMs;
 
         return context;
     }
@@ -128,7 +141,7 @@ public class HPCCRemoteFileWriter<T>
     public HPCCRemoteFileWriter(DataPartition dp, FieldDef recordDef, IRecordAccessor recordAccessor, CompressionAlgorithm fileCompression, int connectTimeoutMs, int socketOpTimeoutMs)
             throws Exception
     {
-        this(constructReadContext(recordDef, fileCompression, connectTimeoutMs, socketOpTimeoutMs), dp, recordAccessor);
+        this(constructWriteContext(recordDef, fileCompression, connectTimeoutMs, socketOpTimeoutMs), dp, recordAccessor);
     }
 
     public HPCCRemoteFileWriter(FileWriteContext ctx, DataPartition dp, IRecordAccessor recordAccessor)
@@ -155,17 +168,17 @@ public class HPCCRemoteFileWriter<T>
                                                 AttributeKey.stringKey("server.port"), Integer.toString(dp.getPort()));
         writeSpan.setAllAttributes(attributes);
 
-        this.outputStream = new RowServiceOutputStream(dataPartition.getCopyIP(0), dataPartition.getPort(), dataPartition.getUseSsl(),
-                dataPartition.getFileAccessBlob(), context.recordDef, this.dataPartition.getThisPart(), this.dataPartition.getCopyPath(0),
-                context.fileCompression, context.connectTimeoutMs, context.socketOpTimeoutMs, this.writeSpan);
+        RowServiceOutputStream.StreamContext writeContext = constructStreamContext(this.context);
+        writeContext.fileWriteSpan = this.writeSpan;
 
+        this.outputStream = new RowServiceOutputStream(writeContext, dp);
         this.binaryRecordWriter = new BinaryRecordWriter(this.outputStream);
         this.binaryRecordWriter.initialize(this.recordAccessor);
 
         log.info("HPCCRemoteFileWriter: Opening file part: " + dataPartition.getThisPart()
-                + " compression: " + context.fileCompression.name());
+                + " compression: " + writeContext.fileCompression.name());
         log.trace("Record definition:\n"
-                + RecordDefinitionTranslator.toJsonRecord(context.recordDef));
+                + RecordDefinitionTranslator.toJsonRecord(writeContext.inputRecordDefinition));
         openTimeMs = System.currentTimeMillis();
     }
 

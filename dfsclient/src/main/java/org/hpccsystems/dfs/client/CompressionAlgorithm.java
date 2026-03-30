@@ -18,21 +18,23 @@ package org.hpccsystems.dfs.client;
 
 public enum CompressionAlgorithm
 {
-    NONE (
-            "false"
-    ), DEFAULT (
-            "true"
-    ), LZ4 (
-            "LZ4"
-    ), FLZ (
-            "FLZ"
-    ), LZW (
-            "LZW"
-    ), ZLIB (
-            "ZLIB"
-    );
+    NONE ("false"),
+    DEFAULT ("true"),
+    LZ4 ("LZ4"),
+    FLZ ("FLZ"), 
+    LZW ("LZW"),
+    ZLIB ("ZLIB"),
+    INDEX_DEFAULT("DEFAULT", true),
+    INDEX_LZW("LZW", true),
+    INDEX_ROW("ROW", true),
+    INDEX_INPLACE("INPLACE", true),
+    INDEX_INPLACE_LZ4HC("INPLACE:lz4hc", true),
+    INDEX_INPLACE_LZ4S("INPLACE:lz4s", true),
+    INDEX_INPLACE_LZ4SHC("INPLACE:lz4shc", true),
+    INDEX_INPLACE_ZSTDS("INPLACE:zstds", true);
 
     private String name = null;
+    private boolean isIndexCompression = false;
 
     /**
      * Instantiates a new compression algorithm.
@@ -45,6 +47,12 @@ public enum CompressionAlgorithm
         name = compression;
     }
 
+    CompressionAlgorithm(String compression, boolean isIndex)
+    {
+        name = compression;
+        isIndexCompression = isIndex;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -53,5 +61,15 @@ public enum CompressionAlgorithm
     public String toString()
     {
         return name;
+    }
+
+    /**
+     * Checks if is index compression.
+     *
+     * @return true, if is index compression
+     */
+    public boolean isIndexCompression()
+    {
+        return isIndexCompression;
     }
 }

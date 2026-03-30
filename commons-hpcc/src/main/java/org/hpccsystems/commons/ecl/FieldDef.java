@@ -27,6 +27,9 @@ public class FieldDef implements Serializable
     private static final int  MASK_32_LOWER_HALF = 0xffff;
     private static final int  MASK_32_UPPER_HALF = 0xffff0000;
 
+    final public static int   FLAG_BIASED_FIELD  = 0x00020000; // Applied to keyed integers and swapped integers
+    final public static int   FLAG_PAYLOAD_FIELD = 0x00010000; // Denotes a field is part of the payload of a record in a key
+
     private String            fieldName          = "";
     private FieldType         fieldType          = FieldType.UNKNOWN;
     private String            typeName           = FieldType.UNKNOWN.description();

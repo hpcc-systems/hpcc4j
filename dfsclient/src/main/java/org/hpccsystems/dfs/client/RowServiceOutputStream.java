@@ -19,6 +19,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.AttributedCharacterIterator.Attribute;
+import java.util.stream.Stream;
 import java.io.OutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -39,6 +40,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.hpccsystems.commons.ecl.RecordDefinitionTranslator;
 import org.hpccsystems.commons.errors.HpccFileException;
+import org.hpccsystems.dfs.client.DataPartition.FileType;
 import org.hpccsystems.commons.ecl.FieldDef;
 
 /**
@@ -48,18 +50,21 @@ public class RowServiceOutputStream extends OutputStream
 {
     private static final Logger  log                           = LogManager.getLogger(RowServiceOutputStream.class);
     public static final int      DEFAULT_CONNECT_TIMEOUT_MILIS = 5000; // 5 second connection timeout
-    public static final int      DEFAULT_SOCKET_OP_TIMEOUT_MS  = 15000; // 15 second timeout on reads
+    public static final int      DEFAULT_SOCKET_OP_TIMEOUT_MS  = 1500000000; // 15 second timeout on reads
     private static int           SCRATCH_BUFFER_LEN            = 2048;
 
+    private DataPartition        dataPartition                 = null;
     private String               rowServiceVersion             = "";
     private String               rowServiceIP                  = null;
     private int                  rowServicePort                = -1;
-    private FieldDef             recordDef                     = null;
+    private FieldDef             inputRecordDef                = null;
+    private FieldDef             outputRecordDef               = null;
     private String               filePath                      = null;
     private int                  filePartIndex                 = -1;
     private String               accessToken                   = null;
     private CompressionAlgorithm compressionAlgo               = CompressionAlgorithm.NONE;
     private int                  sockOpTimeoutMs               = DEFAULT_SOCKET_OP_TIMEOUT_MS;
+    private int                  indexNodeSize                  = StreamContext.USE_DEFAULT_NODE_SIZE;
 
     private Socket               socket                        = null;
     private DataInputStream      dis                           = null;
@@ -81,6 +86,19 @@ public class RowServiceOutputStream extends OutputStream
         String errorMessage = null;
     }
 
+    public static class StreamContext
+    {
+        public static final int USE_DEFAULT_NODE_SIZE = -1;
+
+        public FieldDef inputRecordDefinition;
+        public FieldDef outputRecordDefinition;
+        public CompressionAlgorithm fileCompression;
+        public int indexNodeSize = USE_DEFAULT_NODE_SIZE;
+        public int connectTimeoutMs = DEFAULT_CONNECT_TIMEOUT_MILIS;
+        public int sockOpTimeoutMs = DEFAULT_SOCKET_OP_TIMEOUT_MS;
+        public Span fileWriteSpan = null;
+    };
+
     /**
      * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster
      * Assumes SSL connection required/available.
@@ -91,7 +109,7 @@ public class RowServiceOutputStream extends OutputStream
      *            the port
      * @param accessToken
      *            the access token
-     * @param recordDef
+     * @param inputRecordDef
      *            the record def
      * @param filePartIndex
      *            the file part index
@@ -104,10 +122,10 @@ public class RowServiceOutputStream extends OutputStream
      * @deprecated -- use 8 param version instead which contains optional useSSL param
      */
     @Deprecated
-    RowServiceOutputStream(String ip, int port, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+    RowServiceOutputStream(String ip, int port, String accessToken, FieldDef inputRecordDef, int filePartIndex, String filePartPath,
             CompressionAlgorithm fileCompression) throws Exception
     {
-        this(ip, port, true, accessToken, recordDef, filePartIndex, filePartPath, fileCompression);
+        this(ip, port, true, accessToken, inputRecordDef, filePartIndex, filePartPath, fileCompression);
     }
 
     /**
@@ -121,7 +139,7 @@ public class RowServiceOutputStream extends OutputStream
      *            the use SSL
      * @param accessToken
      *            the access token
-     * @param recordDef
+     * @param inputRecordDef
      *            the record def
      * @param filePartIndex
      *            the file part index
@@ -132,10 +150,10 @@ public class RowServiceOutputStream extends OutputStream
      * @throws Exception
      *             the exception
      */
-    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef inputRecordDef, int filePartIndex, String filePartPath,
             CompressionAlgorithm fileCompression) throws Exception
     {
-        this(ip,port,useSSL,accessToken,recordDef,filePartIndex,filePartPath,fileCompression, DEFAULT_CONNECT_TIMEOUT_MILIS);
+        this(ip,port,useSSL,accessToken,inputRecordDef,filePartIndex,filePartPath,fileCompression, DEFAULT_CONNECT_TIMEOUT_MILIS);
     }
 
     /**
@@ -149,7 +167,7 @@ public class RowServiceOutputStream extends OutputStream
      *            the use SSL
      * @param accessToken
      *            the access token
-     * @param recordDef
+     * @param inputRecordDef
      *            the record def
      * @param filePartIndex
      *            the file part index
@@ -162,10 +180,10 @@ public class RowServiceOutputStream extends OutputStream
      * @throws Exception
      *             the exception
      */
-    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef inputRecordDef, int filePartIndex, String filePartPath,
             CompressionAlgorithm fileCompression, int connectTimeoutMs) throws Exception
     {
-        this(ip,port,useSSL,accessToken,recordDef,filePartIndex,filePartPath,fileCompression, connectTimeoutMs, DEFAULT_SOCKET_OP_TIMEOUT_MS, null);
+        this(ip,port,useSSL,accessToken,inputRecordDef,filePartIndex,filePartPath,fileCompression, connectTimeoutMs, DEFAULT_SOCKET_OP_TIMEOUT_MS, null);
     }
 
     /**
@@ -179,7 +197,7 @@ public class RowServiceOutputStream extends OutputStream
      *            the use SSL
      * @param accessToken
      *            the access token
-     * @param recordDef
+     * @param inputRecordDef
      *            the record def
      * @param filePartIndex
      *            the file part index
@@ -194,10 +212,10 @@ public class RowServiceOutputStream extends OutputStream
      * @throws Exception
      *             the exception
      */
-    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef inputRecordDef, int filePartIndex, String filePartPath,
             CompressionAlgorithm fileCompression, int connectTimeoutMs, int sockOpTimeoutMS) throws Exception
     {
-        this(ip,port,useSSL,accessToken,recordDef,filePartIndex,filePartPath,fileCompression, connectTimeoutMs, sockOpTimeoutMS, null);
+        this(ip,port,useSSL,accessToken,inputRecordDef,filePartIndex,filePartPath,fileCompression, connectTimeoutMs, sockOpTimeoutMS, null);
     }
 
     /**
@@ -211,7 +229,7 @@ public class RowServiceOutputStream extends OutputStream
      *            the use SSL
      * @param accessToken
      *            the access token
-     * @param recordDef
+     * @param inputRecordDef
      *            the record def
      * @param filePartIndex
      *            the file part index
@@ -228,36 +246,61 @@ public class RowServiceOutputStream extends OutputStream
      * @throws Exception
      *             the exception
      */
-    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef recordDef, int filePartIndex, String filePartPath,
+    RowServiceOutputStream(String ip, int port, boolean useSSL, String accessToken, FieldDef inputRecordDef, int filePartIndex, String filePartPath,
             CompressionAlgorithm fileCompression, int connectTimeoutMs, int sockOpTimeoutMS, Span fileWriteSpan) throws Exception
     {
-        this.rowServiceIP = ip;
-        this.rowServicePort = port;
-        this.recordDef = recordDef;
-        this.filePartIndex = filePartIndex;
-        this.filePath = filePartPath;
-        this.accessToken = accessToken;
-        this.compressionAlgo = fileCompression;
+        this(constructStreamContext(inputRecordDef, inputRecordDef, fileCompression, connectTimeoutMs, sockOpTimeoutMS, fileWriteSpan), 
+             constructDataPartition(ip, filePartPath, filePartIndex, port, useSSL, accessToken));
+    }
 
-        if (sockOpTimeoutMS < 0)
+    /**
+     * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster.
+     * @param streamContext
+     *            the stream context containing shared nformation about the write operation
+     * @param dataPartition
+     *            the data partition containing information about the file part to write to
+     * @throws Exception
+     *             the exception
+     */
+    RowServiceOutputStream(StreamContext streamContext, DataPartition dp) throws Exception
+    {
+        dataPartition = dp;
+        rowServiceIP = dp.getCopyIP(0);
+        rowServicePort = dp.getPort();
+        filePartIndex = dp.getThisPart();
+        filePath = dp.getCopyPath(0);
+        accessToken = dp.getFileAccessBlob();
+        inputRecordDef = streamContext.inputRecordDefinition;
+        outputRecordDef = streamContext.outputRecordDefinition;
+        indexNodeSize = streamContext.indexNodeSize;
+
+        compressionAlgo = streamContext.fileCompression;
+        if (dp.getFileType() == FileType.INDEX && !compressionAlgo.isIndexCompression())
         {
-            sockOpTimeoutMS = DEFAULT_SOCKET_OP_TIMEOUT_MS;
+            log.warn("Compression algorithm " + compressionAlgo + " is not an index compression algorithm. Defaulting to INDEX_DEFAULT.");
+            compressionAlgo = CompressionAlgorithm.INDEX_DEFAULT;
         }
-        this.sockOpTimeoutMs = sockOpTimeoutMS;
 
+        sockOpTimeoutMs = streamContext.sockOpTimeoutMs;
+        if (sockOpTimeoutMs < 0)
+        {
+            sockOpTimeoutMs = DEFAULT_SOCKET_OP_TIMEOUT_MS;
+        }
+
+        int connectTimeoutMs = streamContext.connectTimeoutMs;
         if (connectTimeoutMs < 0)
         {
             connectTimeoutMs = DEFAULT_CONNECT_TIMEOUT_MILIS;
         }
 
-        if (fileWriteSpan != null && fileWriteSpan.getSpanContext().isValid())
+        if (streamContext.fileWriteSpan != null && streamContext.fileWriteSpan.getSpanContext().isValid())
         {
-            this.fileWriteSpan = fileWriteSpan;
-            this.traceContextHeader = org.hpccsystems.ws.client.utils.Utils.getTraceParentHeader(fileWriteSpan);
+            fileWriteSpan = streamContext.fileWriteSpan;
+            traceContextHeader = org.hpccsystems.ws.client.utils.Utils.getTraceParentHeader(fileWriteSpan);
         }
 
         Span connectSpan = null;
-        if (this.fileWriteSpan != null)
+        if (fileWriteSpan != null)
         {
             connectSpan = Utils.createChildSpan(fileWriteSpan, "Connect");
             connectSpan.setStatus(StatusCode.OK);
@@ -266,7 +309,7 @@ public class RowServiceOutputStream extends OutputStream
 
         try
         {
-            if (useSSL)
+            if (dp.getUseSsl())
             {
                 SSLSocketFactory ssf = (SSLSocketFactory) SSLSocketFactory.getDefault();
                 this.socket = (SSLSocket) ssf.createSocket();
@@ -398,6 +441,31 @@ public class RowServiceOutputStream extends OutputStream
         makeInitialWriteRequest();
     }
 
+    private static DataPartition constructDataPartition(String ip, String filePartPath, int filePartIndex, int port, boolean useSSL, String accessToken)
+    {
+        String copyLocations[] = new String[1];
+        copyLocations[0] = ip;
+
+        String copyPaths[] = new String[1];
+        copyPaths[0] = filePartPath;
+
+        DataPartition partition = new DataPartition(copyLocations, copyPaths, filePartIndex, 1, port, useSSL, accessToken);
+        return partition;
+    }
+
+    private static StreamContext constructStreamContext(FieldDef inputRecordDef, FieldDef outputRecordDef, CompressionAlgorithm fileCompression,
+            int connectTimeoutMs, int sockOpTimeoutMS, Span fileWriteSpan)
+    {
+        StreamContext streamContext = new StreamContext();
+        streamContext.inputRecordDefinition = inputRecordDef;
+        streamContext.outputRecordDefinition = outputRecordDef;
+        streamContext.fileCompression = fileCompression;
+        streamContext.connectTimeoutMs = connectTimeoutMs;
+        streamContext.sockOpTimeoutMs = sockOpTimeoutMS;
+        streamContext.fileWriteSpan = fileWriteSpan;
+        return streamContext;
+    }
+
     private Attributes getServerAttributes()
     {
         return Attributes.of(ServerAttributes.SERVER_ADDRESS, this.rowServiceIP,
@@ -414,7 +482,20 @@ public class RowServiceOutputStream extends OutputStream
 
     private void makeInitialWriteRequest() throws Exception
     {
-        String jsonRecordDef = RecordDefinitionTranslator.toJsonRecord(this.recordDef).toString();
+        String jsonRecordDef = RecordDefinitionTranslator.toJsonRecord(this.inputRecordDef).toString();
+
+        String indexWriteAttrs = "";
+        String writeKind = "diskwrite";
+        if (this.dataPartition.getFileType() == FileType.INDEX)
+        {
+            String outRecordDef = RecordDefinitionTranslator.toJsonRecord(this.outputRecordDef).toString();
+            writeKind = "indexwrite";
+            if (indexNodeSize != StreamContext.USE_DEFAULT_NODE_SIZE)
+            {
+                indexWriteAttrs += "\"nodeSize\" : " + indexNodeSize + ",\n";
+            }
+            indexWriteAttrs = "\"output\" : " + outRecordDef + "\n";
+        }
 
         final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
         String initialRequest = "\n{\n"
@@ -423,12 +504,13 @@ public class RowServiceOutputStream extends OutputStream
                 + "    \"replyLimit\" : " + SCRATCH_BUFFER_LEN + ",\n"
                 + (useOldProtocol ? "" : "\"command\" : \"newstream\",\n")
                 + "    \"node\" : {\n"
-                + "        \"kind\" : \"diskwrite\",\n"
+                + "        \"kind\" : \"" + writeKind + "\",\n"
                 + "        \"metaInfo\" : \"" + this.accessToken + "\",\n"
                 + "        \"fileName\" : \"" + this.filePath + "\",\n"
                 + "        \"filePart\" : \"" + this.filePartIndex + "\",\n"
                 + "        \"compressed\" : \"" + this.compressionAlgo + "\",\n"
-                + "        \"input\" : " + jsonRecordDef + "\n"
+                + "        \"input\" : " + jsonRecordDef + ",\n"
+                + indexWriteAttrs
                 + "    }\n"
                 + "}\n";
 

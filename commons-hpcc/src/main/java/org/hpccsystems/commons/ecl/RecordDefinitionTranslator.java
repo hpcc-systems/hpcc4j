@@ -76,8 +76,6 @@ public class RecordDefinitionTranslator
 
     final private static char   XPATH_DELIMITER       = 0x0001;
 
-    // Additional retained flags
-    final private static int    FLAG_IS_PAYLOAD_FIELD = 0x00010000;
 
     /**
      * Gets the field type.
