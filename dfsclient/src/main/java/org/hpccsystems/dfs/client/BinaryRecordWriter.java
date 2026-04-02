@@ -59,6 +59,7 @@ public class BinaryRecordWriter implements IRecordWriter
     private OutputStream        outputStream        = null;
     private ByteBuffer          buffer              = null;
     private long                bytesWritten        = 0;
+    private int                 lastCompleteRecordPosition = 0;
     private IRecordAccessor     rootRecordAccessor  = null;
 
     private StreamOperationMessages  messages = new StreamOperationMessages();
@@ -125,6 +126,7 @@ public class BinaryRecordWriter implements IRecordWriter
     public void writeRecord(Object record) throws Exception
     {
         writeRecord(this.rootRecordAccessor, record);
+        this.lastCompleteRecordPosition = this.buffer.position();
     }
 
     /**
@@ -209,12 +211,35 @@ public class BinaryRecordWriter implements IRecordWriter
      */
     public void flush() throws Exception
     {
-        byte[] data = this.buffer.array();
-        int dataLen = this.buffer.position();
-        this.outputStream.write(data, 0, dataLen);
-        this.bytesWritten += dataLen;
+        if (this.lastCompleteRecordPosition == 0)
+        {
+            // No complete records to flush yet. If the buffer is nearly full, grow it to
+            // make room for the remainder of the in-progress record.
+            if (this.buffer.remaining() <= 32)
+            {
+                ByteBuffer newBuffer = ByteBuffer.allocate(this.buffer.capacity() * 2);
+                newBuffer.order(this.buffer.order());
+                int currentPosition = this.buffer.position();
+                newBuffer.put(this.buffer.array(), 0, currentPosition);
+                newBuffer.position(currentPosition);
+                this.buffer = newBuffer;
+            }
+            return;
+        }
 
-        this.buffer.clear();
+        byte[] data = this.buffer.array();
+        this.outputStream.write(data, 0, this.lastCompleteRecordPosition);
+        this.bytesWritten += this.lastCompleteRecordPosition;
+
+        // Compact: move any partial-record bytes after lastCompleteRecordPosition to the
+        // front of the buffer so they are retained for the next flush.
+        int remainingBytes = this.buffer.position() - this.lastCompleteRecordPosition;
+        if (remainingBytes > 0)
+        {
+            System.arraycopy(data, this.lastCompleteRecordPosition, data, 0, remainingBytes);
+        }
+        this.buffer.position(remainingBytes);
+        this.lastCompleteRecordPosition = 0;
     }
 
     /**

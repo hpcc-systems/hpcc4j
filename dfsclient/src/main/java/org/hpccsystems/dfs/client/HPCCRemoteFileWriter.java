@@ -48,7 +48,7 @@ public class HPCCRemoteFileWriter<T>
     public static class FileWriteContext
     {
         public FieldDef recordDef = null;
-        public FieldDef ouputRecordDef = null; // Used for index files, if null will use recordDef
+        public FieldDef outputRecordDef = null; // Used for index files, if null will use recordDef
         public CompressionAlgorithm fileCompression = CompressionAlgorithm.DEFAULT;
         public int connectTimeoutMs = RowServiceOutputStream.DEFAULT_CONNECT_TIMEOUT_MILIS;
         public int socketOpTimeoutMs = RowServiceOutputStream.DEFAULT_SOCKET_OP_TIMEOUT_MS;
@@ -70,7 +70,7 @@ public class HPCCRemoteFileWriter<T>
     {
         RowServiceOutputStream.StreamContext context = new RowServiceOutputStream.StreamContext();
         context.inputRecordDefinition = writeContext.recordDef;
-        context.outputRecordDefinition = writeContext.ouputRecordDef != null ? writeContext.ouputRecordDef : writeContext.recordDef;
+        context.outputRecordDefinition = writeContext.outputRecordDef != null ? writeContext.outputRecordDef : writeContext.recordDef;
         context.fileCompression = writeContext.fileCompression;
         context.connectTimeoutMs = writeContext.connectTimeoutMs;
         context.sockOpTimeoutMs = writeContext.socketOpTimeoutMs;

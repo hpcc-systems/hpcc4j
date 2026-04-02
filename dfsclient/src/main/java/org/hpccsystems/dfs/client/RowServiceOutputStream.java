@@ -18,8 +18,6 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.text.AttributedCharacterIterator.Attribute;
-import java.util.stream.Stream;
 import java.io.OutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -256,7 +254,7 @@ public class RowServiceOutputStream extends OutputStream
     /**
      * Creates RowServiceOutputStream to be used to stream data to target dafilesrv on HPCC cluster.
      * @param streamContext
-     *            the stream context containing shared nformation about the write operation
+     *            the stream context containing shared information about the write operation
      * @param dataPartition
      *            the data partition containing information about the file part to write to
      * @throws Exception
@@ -484,17 +482,18 @@ public class RowServiceOutputStream extends OutputStream
     {
         String jsonRecordDef = RecordDefinitionTranslator.toJsonRecord(this.inputRecordDef).toString();
 
-        String indexWriteAttrs = "";
+        String indexWriteAttrs = "\n";
         String writeKind = "diskwrite";
         if (this.dataPartition.getFileType() == FileType.INDEX)
         {
             String outRecordDef = RecordDefinitionTranslator.toJsonRecord(this.outputRecordDef).toString();
             writeKind = "indexwrite";
+            indexWriteAttrs = ",\n";
             if (indexNodeSize != StreamContext.USE_DEFAULT_NODE_SIZE)
             {
                 indexWriteAttrs += "\"nodeSize\" : " + indexNodeSize + ",\n";
             }
-            indexWriteAttrs = "\"output\" : " + outRecordDef + "\n";
+            indexWriteAttrs += "\"output\" : " + outRecordDef + "\n";
         }
 
         final String trace = traceContextHeader != null ? "\"_trace\": { \"traceparent\" : \"" + traceContextHeader + "\" },\n" : "";
@@ -509,7 +508,7 @@ public class RowServiceOutputStream extends OutputStream
                 + "        \"fileName\" : \"" + this.filePath + "\",\n"
                 + "        \"filePart\" : \"" + this.filePartIndex + "\",\n"
                 + "        \"compressed\" : \"" + this.compressionAlgo + "\",\n"
-                + "        \"input\" : " + jsonRecordDef + ",\n"
+                + "        \"input\" : " + jsonRecordDef + ""
                 + indexWriteAttrs
                 + "    }\n"
                 + "}\n";
