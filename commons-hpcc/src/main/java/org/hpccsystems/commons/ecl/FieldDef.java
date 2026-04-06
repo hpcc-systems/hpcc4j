@@ -488,12 +488,14 @@ public class FieldDef implements Serializable
         FieldDef[] indexChildDefs = new FieldDef[this.defs.length];
         for (int i = 0; i < this.defs.length; i++)
         {
-            indexChildDefs[i] = new FieldDef(this.defs[i]);
+            FieldDef childDef = new FieldDef(this.defs[i]);
+            indexChildDefs[i] = childDef;
+
             // Integers in the key must be biased and have the source type set to keyed integer to be properly handled by the HPCC platform when used in an index record definition
-            if (indexChildDefs[i].fieldType == FieldType.INTEGER) 
+            if (!childDef.isPayloadField() && childDef.fieldType == FieldType.INTEGER) 
             {
-                indexChildDefs[i].setAdditionalFlags(indexChildDefs[i].getAdditionalFlags() | FLAG_BIASED_FIELD);
-                indexChildDefs[i].setSourceType(HpccSrcType.KEYED_INTEGER);
+                childDef.setAdditionalFlags(childDef.getAdditionalFlags() | FLAG_BIASED_FIELD);
+                childDef.setSourceType(HpccSrcType.KEYED_INTEGER);
             }
         }
 

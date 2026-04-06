@@ -339,14 +339,14 @@ public class DFSIndexTest extends BaseRemoteTest
             new FieldDef("uint4",   FieldType.INTEGER,     "UNSIGNED4",      4,        true,  true,  HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
             new FieldDef("int2",    FieldType.INTEGER,     "INTEGER2",       2,        true,  false, HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
             new FieldDef("uint2",   FieldType.INTEGER,     "UNSIGNED2",      2,        true,  true,  HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
-            new FieldDef("udec16",  FieldType.DECIMAL,     "UDECIMAL16_8",   dec16Len, true,  true,  HpccSrcType.UNKNOWN,          new FieldDef[0]),
+            new FieldDef("udec16",  FieldType.DECIMAL,     "UDECIMAL16_8",   dec16Len, true,  true,  HpccSrcType.LITTLE_ENDIAN,          new FieldDef[0]),
             new FieldDef("fixStr8", FieldType.STRING,      "STRING8",        8,        true,  false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]),
             // --- Payload fields (FLAG_PAYLOAD_FIELD) ---
             new FieldDef("r8",         FieldType.REAL,       "REAL8",          8,        true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
             new FieldDef("r4",         FieldType.REAL,       "REAL4",          4,        true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
-            new FieldDef("dec16",      FieldType.DECIMAL,    "DECIMAL16_8",    dec16Len, true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.UNKNOWN,          new FieldDef[0]),
-            new FieldDef("dec15",      FieldType.DECIMAL,    "DECIMAL15_8",    dec15Len, true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.UNKNOWN,          new FieldDef[0]),
-            new FieldDef("udec15",     FieldType.DECIMAL,    "UDECIMAL15_8",   dec15Len, true,  true,  FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.UNKNOWN,          new FieldDef[0]),
+            new FieldDef("dec16",      FieldType.DECIMAL,    "DECIMAL16_8",    dec16Len, true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.LITTLE_ENDIAN,          new FieldDef[0]),
+            new FieldDef("dec15",      FieldType.DECIMAL,    "DECIMAL15_8",    dec15Len, true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.LITTLE_ENDIAN,          new FieldDef[0]),
+            new FieldDef("udec15",     FieldType.DECIMAL,    "UDECIMAL15_8",   dec15Len, true,  true,  FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.LITTLE_ENDIAN,          new FieldDef[0]),
             new FieldDef("qStr",       FieldType.STRING,     "QSTRING",        0,        false, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.QSTRING,          new FieldDef[0]),
             new FieldDef("fixStr8pay", FieldType.STRING,     "STRING8",        8,        true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]),
             new FieldDef("str",        FieldType.STRING,     "STRING",         0,        false, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]),
@@ -427,6 +427,8 @@ public class DFSIndexTest extends BaseRemoteTest
             CompressionAlgorithm compressionAlgorithm) throws Exception
     {
         FieldDef indexRecordDef = recordDef.toIndexRecordDef();
+
+        // Need to use inline record definition for indices due to lack of support for index definitions in the standard ECL record ESP side.
         String indexEclRecordDef = RecordDefinitionTranslator.toInlineECLRecord(indexRecordDef, true);
         HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
 

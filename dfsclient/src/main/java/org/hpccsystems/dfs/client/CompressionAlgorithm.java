@@ -31,7 +31,12 @@ public enum CompressionAlgorithm
     INDEX_INPLACE_LZ4HC("INPLACE:lz4hc", true),
     INDEX_INPLACE_LZ4S("INPLACE:lz4s", true),
     INDEX_INPLACE_LZ4SHC("INPLACE:lz4shc", true),
-    INDEX_INPLACE_ZSTDS("INPLACE:zstds", true);
+    INDEX_INPLACE_ZSTDS("INPLACE:zstds", true),
+    INDEX_HYBRID("HYBRID", true),
+    INDEX_HYBRID_LZ4HC("HYBRID:lz4hc", true),
+    INDEX_HYBRID_LZ4S("HYBRID:lz4s", true),
+    INDEX_HYBRID_LZ4SHC("HYBRID:lz4shc", true),
+    INDEX_HYBRID_ZSTDS("HYBRID:zstds", true);
 
     private String name = null;
     private boolean isIndexCompression = false;

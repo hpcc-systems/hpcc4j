@@ -508,8 +508,8 @@ public class RowServiceOutputStream extends OutputStream
                 + "        \"fileName\" : \"" + this.filePath + "\",\n"
                 + "        \"filePart\" : \"" + this.filePartIndex + "\",\n"
                 + "        \"compressed\" : \"" + this.compressionAlgo + "\",\n"
-                + "        \"input\" : " + jsonRecordDef + ""
-                + indexWriteAttrs
+                + "        \"input\" : " + jsonRecordDef
+                +           indexWriteAttrs
                 + "    }\n"
                 + "}\n";
 

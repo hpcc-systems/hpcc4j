@@ -48,6 +48,9 @@ public class BinaryRecordWriter implements IRecordWriter
     private static final int    MASK_32_LOWER_HALF  = 0xffff;
     private static final int    SCRATCH_BUFFER_SIZE = 256;
 
+    // Minimum buffer capacity to trigger resize when writing a record larger than the buffer capacity, or a flush when nearing buffer capacity
+    private static final int    FLUSH_CAPACITY_LIMIT = 32; 
+
     // DO NOT CHANGE THESE VALUES. HERE FOR CODE READABILITY ONLY
     private static final int     QSTR_COMPRESSED_CHUNK_LEN = 3;
     private static final int     QSTR_EXPANDED_CHUNK_LEN   = 4;
@@ -141,9 +144,9 @@ public class BinaryRecordWriter implements IRecordWriter
      */
     private void writeRecord(IRecordAccessor recordAccessor, Object record) throws Exception
     {
-        // If we have less than 32 bytes left in the buffer flush to the channel
+        // If we have less than FLUSH_CAPACITY_LIMIT bytes left in the buffer flush to the channel
         // Note: variable length fields still need to check remaining capacity
-        if (this.buffer.remaining() <= 32)
+        if (this.buffer.remaining() <= FLUSH_CAPACITY_LIMIT)
         {
             this.flush();
         }
@@ -215,7 +218,7 @@ public class BinaryRecordWriter implements IRecordWriter
         {
             // No complete records to flush yet. If the buffer is nearly full, grow it to
             // make room for the remainder of the in-progress record.
-            if (this.buffer.remaining() <= 32)
+            if (this.buffer.remaining() <= FLUSH_CAPACITY_LIMIT)
             {
                 ByteBuffer newBuffer = ByteBuffer.allocate(this.buffer.capacity() * 2);
                 newBuffer.order(this.buffer.order());
@@ -301,9 +304,9 @@ public class BinaryRecordWriter implements IRecordWriter
     @SuppressWarnings("unchecked")
     private void writeField(FieldDef fd, Object fieldValue) throws Exception
     {
-        // If we have less than 32 bytes left in the buffer flush to the channel
+        // If we have less than FLUSH_CAPACITY_LIMIT bytes left in the buffer flush to the channel
         // Note: variable length fields still need to check remaining capacity
-        if (this.buffer.remaining() <= 32)
+        if (this.buffer.remaining() <= FLUSH_CAPACITY_LIMIT)
         {
             this.flush();
         }
@@ -1059,7 +1062,7 @@ public class BinaryRecordWriter implements IRecordWriter
             this.buffer.put(data, offset, writeSize);
             offset += writeSize;
 
-            if (this.buffer.remaining() <= 32)
+            if (this.buffer.remaining() <= FLUSH_CAPACITY_LIMIT)
             {
                 this.flush();
             }

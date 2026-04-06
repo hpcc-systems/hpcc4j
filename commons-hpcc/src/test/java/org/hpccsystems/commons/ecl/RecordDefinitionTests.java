@@ -75,39 +75,25 @@ public class RecordDefinitionTests
     public void testInlineECLRecordGeneration() throws Exception
     {
         FieldDef complexRecDef = TestFieldDefinitions.getComplexRecordDefinition();
-        try
-        {
-            String inlineDef = RecordDefinitionTranslator.toInlineECLRecord(complexRecDef);
-            Assert.assertNotNull("Inline ECL record definition should not be null", inlineDef);
-            Assert.assertTrue("Inline record should start with '{'", inlineDef.startsWith("{"));
-            Assert.assertTrue("Inline record should end with '}'", inlineDef.endsWith("}"));
-            Assert.assertFalse("Inline record should not contain 'RECORD' keyword", inlineDef.contains("RECORD"));
-            Assert.assertFalse("Inline record should not contain 'END' keyword", inlineDef.contains("\nEND"));
-        }
-        catch (Exception e)
-        {
-            Assert.fail("Exception generating inline ECL for complex record: " + e.getMessage());
-        }
+        String inlineDef = RecordDefinitionTranslator.toInlineECLRecord(complexRecDef);
+        Assert.assertNotNull("Inline ECL record definition should not be null", inlineDef);
+        Assert.assertTrue("Inline record should start with '{'", inlineDef.startsWith("{"));
+        Assert.assertTrue("Inline record should end with '}'", inlineDef.endsWith("}"));
+        Assert.assertFalse("Inline record should not contain 'RECORD' keyword", inlineDef.contains("RECORD"));
+        Assert.assertFalse("Inline record should not contain 'END' keyword", inlineDef.contains("\nEND"));
     }
 
     @Test
     public void testInlineECLIndexRecordGeneration() throws Exception
     {
         String indexRecordJson = TestFieldDefinitions.getAllTypesIndexRecordDefinitionJson();
-        try
-        {
-            FieldDef indexRecDef = RecordDefinitionTranslator.parseJsonRecordDefinition(new org.json.JSONObject(indexRecordJson));
-            String inlineDef = RecordDefinitionTranslator.toInlineECLRecord(indexRecDef, true);
-            Assert.assertNotNull("Inline ECL index record definition should not be null", inlineDef);
-            Assert.assertTrue("Inline index record should start with '{'", inlineDef.startsWith("{"));
-            Assert.assertTrue("Inline index record should end with '}'", inlineDef.endsWith("}"));
-            Assert.assertTrue("Inline index record should contain '=>' separator", inlineDef.contains("=>"));
-            Assert.assertTrue("Inline index record should contain '__internal_fpos__'", inlineDef.contains("__internal_fpos__"));
-        }
-        catch (Exception e)
-        {
-            Assert.fail("Exception generating inline ECL for index record: " + e.getMessage());
-        }
+        FieldDef indexRecDef = RecordDefinitionTranslator.parseJsonRecordDefinition(new org.json.JSONObject(indexRecordJson));
+        String inlineDef = RecordDefinitionTranslator.toInlineECLRecord(indexRecDef, true);
+        Assert.assertNotNull("Inline ECL index record definition should not be null", inlineDef);
+        Assert.assertTrue("Inline index record should start with '{'", inlineDef.startsWith("{"));
+        Assert.assertTrue("Inline index record should end with '}'", inlineDef.endsWith("}"));
+        Assert.assertTrue("Inline index record should contain '=>' separator", inlineDef.contains("=>"));
+        Assert.assertTrue("Inline index record should contain '__internal_fpos__'", inlineDef.contains("__internal_fpos__"));
     }
 
     @After
