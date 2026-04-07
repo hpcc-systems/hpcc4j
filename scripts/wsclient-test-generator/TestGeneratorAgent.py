@@ -28,13 +28,6 @@ Arguments:
                        If omitted, the script will prompt interactively at startup.
                        Pass an empty string or 'none' to skip scenario input.
                        Example: --scenarios "invalid credentials, empty input, large result sets"
-    --env-config       Path to a JSON file defining one or more named HPCC environments
-                       (containerized, baremetal, secure, etc.). Each environment specifies
-                       its own hpccconn, wssqlconn, user, password, and secure flag.
-                       See environments.example.json for the expected schema.
-    --env              Run only tests whose environmentRequirements list includes this
-                       environment name (e.g., 'containerized', 'baremetal', 'secure').
-                       Requires --env-config.
     --parallel-threads Number of concurrent Maven test processes in Step 4 (default: 1).
                        Setting this > 1 runs tests in parallel to reduce wall-clock time.
 
@@ -69,7 +62,6 @@ import re
 import textwrap
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Any
 
 # === Configuration ===
@@ -127,17 +119,6 @@ def parse_arguments():
                              "If not provided, you will be prompted interactively at startup. "
                              "Pass an empty string or 'none' to skip scenario input entirely. "
                              "Example: --scenarios \"invalid credentials, empty input, large result sets\"")
-    parser.add_argument("--env-config",
-                        dest="ENV_CONFIG",
-                        default=None,
-                        help="Path to a JSON file defining HPCC environments (containerized, baremetal, secure, etc.). "
-                             "When provided, overrides --hpccconn/--wssqlconn/--hpccuser/--hpccpass for each "
-                             "named environment. See environments.example.json for the expected schema.")
-    parser.add_argument("--env",
-                        dest="ENV_FILTER",
-                        default=None,
-                        help="Run only tests whose environmentRequirements list includes this environment name "
-                             "(e.g., 'containerized', 'baremetal', 'secure'). Requires --env-config.")
     parser.add_argument("--parallel-threads",
                         dest="PARALLEL_THREADS",
                         type=int,
@@ -192,8 +173,6 @@ HPCC_SOURCE_DIR = os.path.abspath(args.HPCC_SOURCE_DIR) if args.HPCC_SOURCE_DIR 
 SKIP_ANALYSIS = args.skip_analysis
 START_FROM_STEP = args.start_from_step
 END_AT_STEP = args.end_at_step
-ENV_CONFIG_FILE = args.ENV_CONFIG
-ENV_FILTER = args.ENV_FILTER
 PARALLEL_THREADS = max(1, args.PARALLEL_THREADS)
 
 # Determine testing scenarios (from CLI arg or interactive prompt)
@@ -504,78 +483,6 @@ def render_prompt_file(prompt_file, variables=None):
     except IOError as e:
         print(f"❌ Error reading prompt file {prompt_file}: {e}")
         raise
-
-
-# ============================================================
-# Environment Configuration
-# ============================================================
-
-@dataclass
-class HPCCEnvironment:
-    """Represents a named HPCC test environment with connection details."""
-    name: str
-    hpccconn: str = "http://eclwatch.default:8010"
-    wssqlconn: str = "http://sql2ecl.default:8510"
-    user: str = ""
-    password: str = ""
-    secure: bool = False
-    description: str = ""
-
-
-def load_environment_config(config_file: str) -> Dict[str, HPCCEnvironment]:
-    """Load HPCC environments from a JSON configuration file.
-
-    The JSON file is expected to have the structure documented in
-    environments.example.json.  Each entry in the ``environments`` array
-    becomes an :class:`HPCCEnvironment` keyed by its ``name`` field.
-
-    Args:
-        config_file: Absolute or relative path to the JSON config file.
-
-    Returns:
-        Ordered dict mapping environment name -> HPCCEnvironment.
-
-    Raises:
-        SystemExit: On missing file, invalid JSON, or schema errors.
-    """
-    if not os.path.exists(config_file):
-        print(f"❌ Error: Environment config file not found: {config_file}")
-        sys.exit(1)
-
-    try:
-        with open(config_file, 'r') as f:
-            data = json.load(f)
-    except json.JSONDecodeError as e:
-        print(f"❌ Error: Invalid JSON in environment config file: {e}")
-        sys.exit(1)
-
-    envs: Dict[str, HPCCEnvironment] = {}
-    raw_envs = data.get("environments", [])
-    if not isinstance(raw_envs, list) or not raw_envs:
-        print("❌ Error: Environment config file must contain a non-empty 'environments' list.")
-        sys.exit(1)
-
-    for entry in raw_envs:
-        name = entry.get("name", "").strip()
-        if not name:
-            print("⚠️  Warning: Skipping environment entry without a 'name' field.")
-            continue
-        envs[name] = HPCCEnvironment(
-            name=name,
-            hpccconn=entry.get("hpccconn", "http://eclwatch.default:8010"),
-            wssqlconn=entry.get("wssqlconn", "http://sql2ecl.default:8510"),
-            user=entry.get("user", ""),
-            password=entry.get("password", ""),
-            secure=bool(entry.get("secure", False)),
-            description=entry.get("description", ""),
-        )
-        print(f"   📡 Environment loaded: {name} -> {envs[name].hpccconn}")
-
-    if not envs:
-        print("❌ Error: No valid environments found in config file.")
-        sys.exit(1)
-
-    return envs
 
 
 def copilot_generate(prompt_file, output_file, variables=None):
@@ -1304,15 +1211,6 @@ if START_FROM_STEP <= 4:
             sys.exit(1)
     else:
         print(f"✅ Found {len(tests_to_run)} tests to run")
-        # Warn about metadata quality issues that affect env-filtering
-        missing_env_req = [t.get("testName", "?") for t in tests_to_run if not t.get("environmentRequirements")]
-        if missing_env_req:
-            print(f"⚠️  {len(missing_env_req)} test(s) have no 'environmentRequirements' in metadata "
-                  f"— they will run in ALL environments regardless of --env filter.")
-            if len(missing_env_req) <= 10:
-                print(f"   Affected: {', '.join(missing_env_req)}")
-            else:
-                print(f"   First 10: {', '.join(missing_env_req[:10])} ...")
         # Find the test file path
         test_file_matches = glob.glob(TEST_FILE_GLOB, recursive=True)
         if not test_file_matches:
@@ -1329,82 +1227,21 @@ if START_FROM_STEP <= 4:
     hpcc_user = args.HPCC_USER or os.environ.get("HPCCUSER", "")
     hpcc_pass = args.HPCC_PASS or os.environ.get("HPCCPASS", "")
 
-    # If an environment config file was supplied, resolve the active environment(s)
-    active_environments: List[HPCCEnvironment] = []
-    if ENV_CONFIG_FILE:
-        print(f"\n📋 Loading environment config: {ENV_CONFIG_FILE}")
-        all_environments = load_environment_config(ENV_CONFIG_FILE)
-        if ENV_FILTER:
-            if ENV_FILTER not in all_environments:
-                print(f"❌ Error: Environment '{ENV_FILTER}' not found in config. "
-                      f"Available: {list(all_environments.keys())}")
-                sys.exit(1)
-            active_environments = [all_environments[ENV_FILTER]]
-            print(f"🔍 Running only tests for environment: {ENV_FILTER}")
-        else:
-            active_environments = list(all_environments.values())
-            print(f"🌐 Running tests across all {len(active_environments)} environment(s)")
+    print(f"\n🔗 HPCC connection: {hpcc_conn}")
+    print(f"🔗 WsSQL connection: {wssql_conn}")
+    if hpcc_user:
+        print(f"🔐 Username: {hpcc_user}")
+        print(f"🔐 Password: {'*' * len(hpcc_pass)}")
     else:
-        # Build a synthetic environment from the CLI / env-var credentials
-        active_environments = [
-            HPCCEnvironment(
-                name="default",
-                hpccconn=hpcc_conn,
-                wssqlconn=wssql_conn,
-                user=hpcc_user,
-                password=hpcc_pass,
-            )
-        ]
-
-    print(f"\n🔗 Active environments: {[e.name for e in active_environments]}")
+        print("🔓 No authentication credentials configured")
     print(f"⚡ Parallel thread count: {PARALLEL_THREADS}")
 
-    # Outer loop — iterate over each active environment
-    for env in active_environments:
-        hpcc_conn = env.hpccconn
-        wssql_conn = env.wssqlconn
-        hpcc_user = env.user
-        hpcc_pass = env.password
+    iteration = 0
+    test_results = []
 
-        print(f"\n{'='*60}")
-        print(f"🌐 ENVIRONMENT: {env.name.upper()}")
-        if env.description:
-            print(f"   {env.description}")
-        print(f"{'='*60}")
-        print(f"🔗 HPCC connection: {hpcc_conn}")
-        print(f"🔗 WsSQL connection: {wssql_conn}")
-        if hpcc_user:
-            print(f"🔐 Username: {hpcc_user}")
-            print(f"🔐 Password: {'*' * len(hpcc_pass)}")
-        else:
-            print("🔓 No authentication credentials configured")
-
-        # Filter tests by environmentRequirements when an env filter is active.
-        # A test is included in the run when ANY of the following is true:
-        #   1. environmentRequirements is missing or empty (backward-compat: run everywhere)
-        #   2. environmentRequirements contains "any"  (explicit wildcard)
-        #   3. environmentRequirements contains env.name (explicit match)
-        # Tests whose environmentRequirements list only contains OTHER env names are skipped.
-        if ENV_FILTER:
-            env_reqs = lambda t: t.get("environmentRequirements") or []
-            env_tests = [
-                t for t in tests_to_run
-                if not env_reqs(t)
-                or "any" in env_reqs(t)
-                or env.name in env_reqs(t)
-            ]
-            skipped = len(tests_to_run) - len(env_tests)
-            print(f"🔍 Tests matching environment '{env.name}': {len(env_tests)} / {len(tests_to_run)}"
-                  + (f" ({skipped} skipped — wrong env)" if skipped else ""))
-        else:
-            env_tests = tests_to_run[:]
-
-        if not env_tests:
-            print(f"⚠️  No tests to run for environment '{env.name}' — skipping.")
-            continue
-
-        # Track which tests to run (starts with all env-filtered tests, then only failures)
-        tests_to_execute = env_tests[:]
+    if tests_to_run:
+        # Track which tests to run (starts with all tests, then only failures)
+        tests_to_execute = tests_to_run[:]
         iteration = 0
 
         while iteration < MAX_TEST_FIX_ITERATIONS:
