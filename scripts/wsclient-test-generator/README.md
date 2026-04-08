@@ -11,10 +11,10 @@ The agent supports two modes:
 ## Features
 
 - 🤖 **AI-Powered Test Generation**: Uses Copilot CLI to analyze HPCC Platform source code and generate comprehensive test cases
-- � **Full-Service Mode**: Automatically discover and generate tests for every business method in a service client
+- 🔄 **Full-Service Mode**: Automatically discover and generate tests for every business method in a service client
 - 🧠 **Service Discovery & Dependency Analysis**: Analyzes inter-method dependencies, functional groups, and produces a topologically-ordered method list
 - 🎛️ **Model Selection**: Choose which AI model to use via `--model` flag (e.g., `claude-sonnet-4`, `gpt-4o`)
-- �🔍 **Method Analysis**: Deep analysis of server-side ESDL/ECM definitions and ESP service implementations
+- 🔍 **Method Analysis**: Deep analysis of server-side ESDL/ECM definitions and ESP service implementations
 - 🎯 **Smart Duplicate Prevention**: Analyzes existing test coverage before generating new tests
 - 🧪 **Test Metadata**: Generates structured JSON metadata for precise test execution and tracking
 - 🔨 **Automated Build Fixing**: Iteratively fixes compilation errors with AI assistance

@@ -428,22 +428,6 @@ def build_copilot_cmd(prompt_text):
     cmd.extend(["--add-dir", TMP_DIR])
     
     return cmd
-    
-    # Add model selection if specified
-    if COPILOT_MODEL:
-        cmd.extend(["--model", COPILOT_MODEL])
-    
-    # Add each whitelisted tool
-    for tool in COPILOT_WHITELIST:
-        cmd.extend(["--allow-tool", tool])
-
-    # Add directory context for better code awareness
-    cmd.extend(["--add-dir", HPCC4J_DIR])
-    if HPCC_SOURCE_DIR:  # Skip when empty — --add-dir "" causes Copilot CLI to abort
-        cmd.extend(["--add-dir", HPCC_SOURCE_DIR])
-    cmd.extend(["--add-dir", TMP_DIR])
-    
-    return cmd
 
 
 def render_prompt_template(template_text, variables=None):
@@ -839,7 +823,7 @@ def load_test_metadata(metadata_file):
 
 def save_test_results(results, iteration):
     """Save test results to a JSON file."""
-    results_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration{iteration}_{DATESTAMP}.json")
+    results_file = os.path.join(STEP4_OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration{iteration}_{DATESTAMP}.json")
     
     with open(results_file, 'w') as f:
         json.dump(results, f, indent=2)
@@ -1343,7 +1327,7 @@ if START_FROM_STEP <= 4:
             failure_report += f"\n\n---\n*Generated: {DATESTAMP}*\n"
         
             # Save the comprehensive failure report
-            failure_report_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FailureReport_Iteration{iteration}_{DATESTAMP}.md")
+            failure_report_file = os.path.join(STEP4_OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FailureReport_Iteration{iteration}_{DATESTAMP}.md")
             with open(failure_report_file, 'w') as f:
                 f.write(failure_report)
         
@@ -1369,7 +1353,7 @@ if START_FROM_STEP <= 4:
             )
         
             # Check if analysis file was created
-            analysis_summary_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}BatchAnalysis_Iteration{iteration}_{DATESTAMP}.md")
+            analysis_summary_file = os.path.join(STEP4_OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}BatchAnalysis_Iteration{iteration}_{DATESTAMP}.md")
             if os.path.exists(analysis_summary_file):
                 # Append datestamp if not already present
                 with open(analysis_summary_file, 'r') as f:
@@ -1414,7 +1398,7 @@ if START_FROM_STEP <= 4:
         print("No test results available")
 
     # Generate final comprehensive report
-    final_report_path = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FinalReport_{DATESTAMP}.md")
+    final_report_path = os.path.join(STEP4_OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FinalReport_{DATESTAMP}.md")
     latest_results_file = results_file if 'results_file' in locals() else 'N/A'
 
     print("\n📝 Generating final comprehensive report...")
@@ -1454,7 +1438,7 @@ if START_FROM_STEP <= 4:
     server_issue_tests = find_unverified_server_issue_tests(test_file_path)
     if server_issue_tests:
         unverified_report_path = os.path.join(
-            OUTPUT_DIR,
+            STEP4_OUTPUT_DIR,
             f"{SERVICE_NAME}.{METHOD_NAME}UnverifiedServerIssuesReport_{DATESTAMP}.md",
         )
         server_issue_tests_md = "\n".join([f"- {name}" for name in server_issue_tests])
@@ -1511,15 +1495,19 @@ if END_AT_STEP <= 4:
 if START_FROM_STEP <= 5:
     print("\n📊 Step 5: Aggregating cross-environment reports...")
 
-    # Locate all per-env FinalReport files produced this run (by datestamp)
+    # Locate all per-env FinalReport files produced this run (by datestamp).
+    # Use recursive=True to find files in per-environment subdirectories created by --env.
     final_report_files = sorted(glob.glob(
-        os.path.join(OUTPUT_DIR, f"*FinalReport_*{DATESTAMP}*.md")
+        os.path.join(OUTPUT_DIR, "**", f"*FinalReport_*{DATESTAMP}*.md"),
+        recursive=True,
     ))
     results_json_files = sorted(glob.glob(
-        os.path.join(OUTPUT_DIR, f"*TestResults_Iteration*{DATESTAMP}*.json")
+        os.path.join(OUTPUT_DIR, "**", f"*TestResults_Iteration*{DATESTAMP}*.json"),
+        recursive=True,
     ))
     server_issue_files = sorted(glob.glob(
-        os.path.join(OUTPUT_DIR, f"*UnverifiedServerIssuesReport_*{DATESTAMP}*.md")
+        os.path.join(OUTPUT_DIR, "**", f"*UnverifiedServerIssuesReport_*{DATESTAMP}*.md"),
+        recursive=True,
     ))
 
     if not final_report_files:

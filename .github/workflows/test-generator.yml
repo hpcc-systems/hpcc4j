@@ -109,12 +109,16 @@ jobs:
 
       - name: Check actor authorization
         run: |
-          if ! echo "${{ secrets.ALLOWED_ACTORS }}" | tr ',' '\n' | grep -qx "${{ github.actor }}"; then
+          ALLOWED="${{ secrets.ALLOWED_ACTORS }}"
+          if [ -z "$ALLOWED" ]; then
+            echo "ℹ️  ALLOWED_ACTORS not configured — relying on GitHub Environment required-reviewers gate."
+          elif ! echo "$ALLOWED" | tr ',' '\n' | grep -qx "${{ github.actor }}"; then
             echo "::error::Actor '${{ github.actor }}' is not in the ALLOWED_ACTORS list."
             echo "Add '${{ github.actor }}' to the ALLOWED_ACTORS repository secret to grant access."
             exit 1
+          else
+            echo "Actor '${{ github.actor }}' is authorized."
           fi
-          echo "Actor '${{ github.actor }}' is authorized."
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -240,7 +244,7 @@ jobs:
       - name: Teardown K8s HPCC deployment
         if: always()
         run: |
-          helm uninstall hpcc --namespace default --wait --timeout 5m || true
+          helm uninstall myhpcc --namespace default --wait --timeout 5m || true
           kubectl delete namespace default --wait=false || true
 
       # ── ENV 2: BAREMETAL INSECURE ───────────────────────────────────────────
