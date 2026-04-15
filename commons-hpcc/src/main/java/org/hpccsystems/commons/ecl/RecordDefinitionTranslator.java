@@ -76,8 +76,6 @@ public class RecordDefinitionTranslator
 
     final private static char   XPATH_DELIMITER       = 0x0001;
 
-    // Additional retained flags
-    final private static int    FLAG_IS_PAYLOAD_FIELD = 0x00010000;
 
     /**
      * Gets the field type.
@@ -202,7 +200,6 @@ public class RecordDefinitionTranslator
         final int additionalFlagsMask = ~0x7FFF;
         return (flags & additionalFlagsMask);
     }
-
     /**
      * toECL Converts the provided FieldDef into an ECL record definition.
      *
@@ -214,6 +211,22 @@ public class RecordDefinitionTranslator
      */
     public static String toECLRecord(FieldDef field) throws Exception
     {
+        return toECLRecord(field, false);
+    }
+
+    /**
+     * toECL Converts the provided FieldDef into an ECL record definition.
+     *
+     * @param field
+     *            the FieldDef to convert
+     * @param isIndexRecord
+     *           indicates whether the record definition is for an index 
+     * @return ECL Record defintion as a String
+     * @throws Exception
+     *             the exception
+     */
+    public static String toECLRecord(FieldDef field, boolean isIndexRecord) throws Exception
+    {
         if (field.getFieldType() != FieldType.RECORD)
         {
             throw new Exception("Invalid record structure. Root object must of type Record");
@@ -222,7 +235,7 @@ public class RecordDefinitionTranslator
         // Recurse through the tree structure and generate record defintions
         // LinkedHashMap to retain insertion order
         HashMap<String, String> recordDefinitionMap = new LinkedHashMap<String, String>();
-        String rootRecordName = getEClTypeDefinition(field, recordDefinitionMap);
+        String rootRecordName = getEClTypeDefinition(field, recordDefinitionMap, isIndexRecord);
 
         // Get root record definition and remove it from the map
         String rootDefinition = recordDefinitionMap.get(rootRecordName);
@@ -255,29 +268,31 @@ public class RecordDefinitionTranslator
     }
 
     /**
-     * Gets the e cl type definition.
+     * Gets the ecl type definition.
      *
      * @param field
      *            the field
      * @param recordDefinitionMap
      *            the record definition map
+     * @param isIndexRecord
+     *          indicates whether the record definition is for an index, which affects how payload fields are denoted in the ECL definition 
      * @return the e cl type definition
      * @throws Exception
      *             the exception
      */
-    private static String getEClTypeDefinition(FieldDef field, HashMap<String, String> recordDefinitionMap) throws Exception
+    private static String getEClTypeDefinition(FieldDef field, HashMap<String, String> recordDefinitionMap, boolean isIndexRecord) throws Exception
     {
         String type = "";
         switch (field.getFieldType())
         {
             case SET:
             {
-                type = "SET OF " + getEClTypeDefinition(field.getDef(0), recordDefinitionMap);
+                type = "SET OF " + getEClTypeDefinition(field.getDef(0), recordDefinitionMap, false);
                 break;
             }
             case DATASET:
             {
-                type = "DATASET(" + getEClTypeDefinition(field.getDef(0), recordDefinitionMap) + ")";
+                type = "DATASET(" + getEClTypeDefinition(field.getDef(0), recordDefinitionMap, false) + ")";
                 break;
             }
             case BINARY:
@@ -412,17 +427,38 @@ public class RecordDefinitionTranslator
             case RECORD:
             {
                 String definition = "RECORD\n";
+
+                boolean inPayload = false;
+                boolean hasFilepos = false;
                 for (int i = 0; i < field.getNumDefs(); i++)
                 {
                     FieldDef childField = field.getDef(i);
-                    definition += "\t" + getEClTypeDefinition(childField, recordDefinitionMap) + " " + childField.getFieldName();
+                    if (isIndexRecord && !inPayload && childField.isPayloadField())
+                    {
+                        definition += "\t=>\n";
+                        inPayload = true;
+                    }
+
+                    definition += "\t" + getEClTypeDefinition(childField, recordDefinitionMap, false) + " " + childField.getFieldName();
                     if (childField.getFieldType() == FieldType.FILEPOS)
                     {
+                        hasFilepos = true;
                         definition += " {virtual(fileposition)}";
                     }
 
                     definition += ";\n";
                 }
+
+                if (isIndexRecord && !inPayload)
+                {
+                    definition += "\t=>\n";
+                }
+
+                if (isIndexRecord && !hasFilepos)
+                {
+                    definition += "\tUNSIGNED8 __internal_fpos__ {virtual(fileposition)};\n";
+                }
+
                 definition += "END;\n";
 
                 int hash = definition.hashCode();
@@ -430,6 +466,273 @@ public class RecordDefinitionTranslator
 
                 recordDefinitionMap.put(recordDefnName, definition);
                 type = recordDefnName;
+                break;
+            }
+            default:
+            {
+                throw new Exception("Unable to generate ECL unknown field type: " + field.getFieldType().description());
+            }
+        }
+
+        if (field.isBlob())
+        {
+            type += " {blob}";
+        }
+
+        return type;
+    }
+
+    /**
+     * toInlineECLRecord Converts the provided FieldDef into an ECL record definition using the inline record format:
+     * { type1 field1, type2 field2, ... }
+     *
+     * @param field
+     *            the FieldDef to convert
+     * @return ECL inline record definition as a String
+     * @throws Exception
+     *             the exception
+     */
+    public static String toInlineECLRecord(FieldDef field) throws Exception
+    {
+        return toInlineECLRecord(field, false);
+    }
+
+    /**
+     * toInlineECLRecord Converts the provided FieldDef into an ECL record definition using the inline record format:
+     * { type1 field1, type2 field2, ... }
+     * For index records the key/payload separator =&gt; is included:
+     * { key_type key_field =&gt; payload_type payload_field, ... }
+     *
+     * @param field
+     *            the FieldDef to convert
+     * @param isIndexRecord
+     *            indicates whether the record definition is for an index
+     * @return ECL inline record definition as a String
+     * @throws Exception
+     *             the exception
+     */
+    public static String toInlineECLRecord(FieldDef field, boolean isIndexRecord) throws Exception
+    {
+        if (field.getFieldType() != FieldType.RECORD)
+        {
+            throw new Exception("Invalid record structure. Root object must of type Record");
+        }
+
+        return getInlineECLTypeDefinition(field, isIndexRecord) + ";";
+    }
+
+    /**
+     * Gets the inline ECL type definition string for the given field. For RECORD types this generates the inline
+     * { field1_type field1_name, ... } format. For DATASET and SET types the child record is inlined recursively.
+     * All other types produce the same ECL keyword as getEClTypeDefinition.
+     *
+     * @param field
+     *            the field
+     * @param isIndexRecord
+     *            indicates whether the record definition is for an index (only applies to RECORD fields)
+     * @return the inline ECL type definition string
+     * @throws Exception
+     *             the exception
+     */
+    private static String getInlineECLTypeDefinition(FieldDef field, boolean isIndexRecord) throws Exception
+    {
+        String type = "";
+        switch (field.getFieldType())
+        {
+            case SET:
+            {
+                type = "SET OF " + getInlineECLTypeDefinition(field.getDef(0), false);
+                break;
+            }
+            case DATASET:
+            {
+                type = "DATASET(" + getInlineECLTypeDefinition(field.getDef(0), false) + ")";
+                break;
+            }
+            case BINARY:
+            {
+                type = "DATA";
+                if (field.isFixed())
+                {
+                    type += field.getDataLen();
+                }
+                break;
+            }
+            case BOOLEAN:
+            {
+                type = "BOOLEAN";
+                break;
+            }
+            case INTEGER:
+            {
+                String root = "INTEGER";
+                if (field.isUnsigned())
+                {
+                    root = "UNSIGNED";
+                }
+
+                if (field.getDataLen() < 1 || field.getDataLen() > 8)
+                {
+                    throw new Exception("Error: Unsupported integer size: " + field.getDataLen() + " must 1-8.");
+                }
+
+                type = root + field.getDataLen();
+                break;
+            }
+            case FILEPOS:
+            {
+                if (field.isUnsigned() == false)
+                {
+                    throw new Exception("Error: Filepos must be unsigned");
+                }
+
+                if (field.getDataLen() != 8)
+                {
+                    throw new Exception("Error: Unsupported filepos size: " + field.getDataLen() + " must be 8.");
+                }
+
+                type = "UNSIGNED8";
+                break;
+            }
+            case DECIMAL:
+            {
+                String root = "DECIMAL";
+                if (field.isUnsigned())
+                {
+                    root = "U" + root;
+                }
+                type = root + field.getPrecision() + "_" + field.getScale();
+                break;
+            }
+            case REAL:
+            {
+                if (field.getDataLen() == 4)
+                {
+                    type = "REAL4";
+                }
+                else if (field.getDataLen() == 8)
+                {
+                    type = "REAL8";
+                }
+                else
+                {
+                    throw new Exception("Error: Unsupported real size: " + field.getDataLen() + " must 4 or 8.");
+                }
+                break;
+            }
+            case CHAR:
+            {
+                type = "STRING1";
+                break;
+            }
+            case STRING:
+            {
+                HpccSrcType srcType = field.getSourceType();
+                if (srcType == HpccSrcType.SINGLE_BYTE_CHAR)
+                {
+                    type = "STRING";
+                }
+                else if (srcType == HpccSrcType.UTF16LE || srcType == HpccSrcType.UTF16BE)
+                {
+                    type = "UNICODE";
+                }
+                else if (srcType == HpccSrcType.UTF8)
+                {
+                    type = "UTF8";
+                }
+                else if (srcType == HpccSrcType.QSTRING)
+                {
+                    type = "QSTRING";
+                }
+                else
+                {
+                    throw new Exception("Unable to convert type to ECL string. Encountered unexpected string source type: " + srcType);
+                }
+
+                if (field.isFixed())
+                {
+                    type += field.getDataLen();
+                }
+                break;
+            }
+            case VAR_STRING:
+            {
+                HpccSrcType srcType = field.getSourceType();
+                if (srcType == HpccSrcType.SINGLE_BYTE_CHAR)
+                {
+                    type = "VARSTRING";
+                }
+                else if (srcType == HpccSrcType.UTF16LE || srcType == HpccSrcType.UTF16BE)
+                {
+                    type = "VARUNICODE";
+                }
+                else
+                {
+                    throw new Exception("Unable to convert type to varstring. Encountered unexpected string source type: " + srcType);
+                }
+
+                if (field.isFixed())
+                {
+                    type += field.getDataLen();
+                }
+                break;
+            }
+            case RECORD:
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.append("{");
+
+                boolean inPayload = false;
+                boolean hasFilepos = false;
+                boolean firstField = true;
+
+                for (int i = 0; i < field.getNumDefs(); i++)
+                {
+                    FieldDef childField = field.getDef(i);
+
+                    if (isIndexRecord && !inPayload && childField.isPayloadField())
+                    {
+                        sb.append(" =>");
+                        inPayload = true;
+                        firstField = true;
+                    }
+
+                    if (!firstField)
+                    {
+                        sb.append(",");
+                    }
+
+                    sb.append(" ");
+                    sb.append(getInlineECLTypeDefinition(childField, false));
+                    sb.append(" ");
+                    sb.append(childField.getFieldName());
+
+                    if (childField.getFieldType() == FieldType.FILEPOS)
+                    {
+                        hasFilepos = true;
+                        sb.append(" {virtual(fileposition)}");
+                    }
+
+                    firstField = false;
+                }
+
+                if (isIndexRecord && !inPayload)
+                {
+                    sb.append(" =>");
+                    firstField = true;
+                }
+
+                if (isIndexRecord && !hasFilepos)
+                {
+                    if (!firstField)
+                    {
+                        sb.append(",");
+                    }
+                    sb.append(" UNSIGNED8 __internal_fpos__ {virtual(fileposition)}");
+                }
+
+                sb.append(" }");
+                type = sb.toString();
                 break;
             }
             default:
