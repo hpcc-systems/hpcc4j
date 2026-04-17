@@ -31,11 +31,23 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
         fetch-depth: 0
 
-    - name: Set up JDK 11
+    - name: Set up JFrog release repository
       uses: actions/setup-java@v4
       with:
-        java-version: 11
+        java-version: '11'
         distribution: 'temurin'
+        server-id: 'jfrog'
+        server-username: JFROG_USER
+        server-password: JFROG_TOKEN
+
+    - name: Set up JFrog snapshot repository
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        server-id: 'jfrog-snapshot'
+        server-username: JFROG_USER
+        server-password: JFROG_TOKEN
 
     # speed things up with caching from https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
     - name: Cache Maven packages
@@ -47,7 +59,10 @@ jobs:
 
     - name: Build with Maven
       id: build
-      run: mvn -B -Dmaven.test.skip=true package --file pom.xml
+      run: mvn -B -Dmaven.test.skip=true install --file pom.xml
+      env:
+        JFROG_USER: ${{ secrets.JFROG_USER }}
+        JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
 
   trigger-javadoc-test:
     uses: ./.github/workflows/javadoc-test.yml
