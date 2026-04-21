@@ -35,10 +35,10 @@ jobs:
         security: [enabled, disabled]
 
     steps:
-    - name: Setup JDK 11
+    - name: Setup JDK 17
       uses: actions/setup-java@v4
       with:
-        java-version: 11
+        java-version: 17
         distribution: 'temurin'
 
     - uses: "actions/setup-python@v2"

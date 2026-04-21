@@ -51,11 +51,6 @@ public class Result extends DataSingleton
     private Workunit  workunit;
     private ECLResult info;
 
-    public enum Notification
-    {
-        RESULT
-    }
-
     class ResultData
     {
         final int                       PAGE_SIZE   = 180;
@@ -154,7 +149,6 @@ public class Result extends DataSingleton
         info = new ECLResult();
         info.setSequence(sequence);
         data = new ResultData();
-        setChanged();
     }
 
     /**
@@ -339,10 +333,8 @@ public class Result extends DataSingleton
             if (UpdateState(result))
             {
                 retVal = true;
-                notifyObservers(Notification.RESULT);
             }
         }
-        monitor();
         return retVal;
     }
 
@@ -360,7 +352,6 @@ public class Result extends DataSingleton
 
             assert (result.getECLSchemas() != null);
             info = result;
-            setChanged();
             return true;
         }
         return false;

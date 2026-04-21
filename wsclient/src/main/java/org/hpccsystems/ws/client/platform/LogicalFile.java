@@ -51,11 +51,6 @@ public class LogicalFile extends DataSingleton
     private DFUFileDetailWrapper      dfufiledetail;
     private ECLSourceFile      eclsourcefile;
 
-    public enum Notification
-    {
-        LOGICALFILE
-    }
-
     /**
      * Instantiates a new logical file.
      *
@@ -169,7 +164,6 @@ public class LogicalFile extends DataSingleton
         {
             e.printStackTrace();
         }
-        notifyObservers(Notification.LOGICALFILE);
     }
 
     /**

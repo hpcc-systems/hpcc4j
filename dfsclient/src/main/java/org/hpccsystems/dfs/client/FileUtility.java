@@ -1098,7 +1098,7 @@ public class FileUtility
                         fileReader.close();
                         context.getCurrentOperation().bytesRead.addAndGet(fileReader.getStreamPosition());
 
-                        fileWriter.finalize();
+                        fileWriter.complete();
                         outputStream.close();
                     }
                     catch (Exception e)

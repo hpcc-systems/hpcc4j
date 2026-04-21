@@ -45,14 +45,30 @@ public interface IRecordWriter
     public void writeRecord(Object record) throws Exception;
 
     /**
-     * finalize
+     * complete
      * Must be called after all records have been written.
      * Will flush the internal buffer to the output channel.
      *
      * @throws Exception
      *             the exception
      */
-    public void finalize() throws Exception;
+    public void complete() throws Exception;
+
+    /**
+     * finalize
+     * Deprecated compatibility bridge for {@link #complete()}.
+     * This method was renamed to {@code complete()} to avoid conflict with
+     * {@link Object#finalize()} which is deprecated and removed in Java 17+.
+     *
+     * @deprecated Use {@link #complete()} instead. This method will be removed in a future release.
+     * @throws Exception
+     *             the exception
+     */
+    @Deprecated
+    default void finalize() throws Exception
+    {
+        complete();
+    }
 
     /**
      * getTotalBytesWritten

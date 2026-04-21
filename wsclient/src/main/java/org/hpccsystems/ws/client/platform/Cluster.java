@@ -123,7 +123,6 @@ public class Cluster extends DataSingleton
         if (info2.getName().equals(ci.getName()))
         {
             info2 = ci.getRaw();
-            setChanged();
         }
     }
 
@@ -138,7 +137,6 @@ public class Cluster extends DataSingleton
         if (info.getName().equals(tc.getName()))
         {
             info = tc;
-            setChanged();
         }
     }
 
@@ -153,7 +151,6 @@ public class Cluster extends DataSingleton
         if (info2.getName().equals(ci.getName()))
         {
             info2 = ci;
-            setChanged();
         }
     }
 

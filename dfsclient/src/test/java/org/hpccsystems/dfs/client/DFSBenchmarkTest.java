@@ -410,7 +410,7 @@ public class DFSBenchmarkTest extends BaseRemoteTest
         Integer[] recordCounts = new Integer[fileParts.length];
         for (int i = 0; i < fileParts.length; i++)
         {
-            recordCounts[i] = new Integer(0);
+            recordCounts[i] = Integer.valueOf(0);
         }
 
         int numReadingRounds = (fileParts.length + (numThreads-1)) / numThreads;

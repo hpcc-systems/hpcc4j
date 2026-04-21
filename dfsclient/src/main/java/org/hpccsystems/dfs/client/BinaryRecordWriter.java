@@ -240,16 +240,26 @@ public class BinaryRecordWriter implements IRecordWriter
     }
 
     /**
-     * finalize Must be called after all records have been written. Will flush the internal buffer to the output
+     * complete Must be called after all records have been written. Will flush the internal buffer to the output
      * channel.
      *
      * @throws Exception
      *             the exception
      */
-    public void finalize() throws Exception
+    public void complete() throws Exception
     {
         this.flush();
         this.outputStream.close();
+    }
+
+    /**
+     * @deprecated Use {@link #complete()} instead. This method will be removed in a future release.
+     */
+    @Deprecated
+    @Override
+    public void finalize() throws Exception
+    {
+        complete();
     }
 
     /**
