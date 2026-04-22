@@ -66,6 +66,13 @@ Everybody is encouraged to report issues and contribute to the project. When ope
 #### HPCC4J and HPCC Kubernetes Clusters
 Utilizing HPCC4J with containized HPCC Systems clusters requires some additional local configuration steps. These configuration steps are documented here: [Using HPCC4j with HPCC on a Kubernetes Cluster](https://github.com/hpcc-systems/hpcc4j/wiki/Using-HPCC4J-with-HPCC-on-a-Kubernetes-Cluster)
 
+#### Java 17 Requirement
+As of this release, HPCC4J requires **Java 17 or later**. Java 8–16 are no longer supported.
+
+**Migration notes for existing consumers:**
+- Replace any calls to `IRecordWriter.finalize()` with `IRecordWriter.complete()`. The `finalize()` method has been renamed to avoid collision with the deprecated `Object.finalize()` removed in Java 17. A `@Deprecated` bridge delegate remains available for the current release cycle to ease migration, but will be removed in a future version.
+- Review any code that relied on internal `Object.finalize()` override behaviour; that pattern is no longer supported on the JVM.
+
 #### Build
 These projects are configured to be built using Maven. To build the projects using Maven, navigate to the base directory of each project and issue the following command:
 

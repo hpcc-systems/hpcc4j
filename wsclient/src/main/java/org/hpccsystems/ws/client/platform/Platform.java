@@ -509,38 +509,29 @@ public class Platform extends DataSingleton
 
         try
         {
-            Workunit.All.pushTransaction("Platform.submit"); //$NON-NLS-1$
+            org.hpccsystems.ws.client.HPCCWsWorkUnitsClient wsWorkUnitsClient = platformHPCCClient.getWsWorkunitsClient();
 
-            try
+            List<ApplicationValueWrapper> appVals=new ArrayList<ApplicationValueWrapper>();
+            appVals.add(new ApplicationValueWrapper(API_ID,"path",filePath));
+
+            WorkunitWrapper response = wsWorkUnitsClient.createWUFromECL(hackUnicodeInXMLForAxisOneAndESP(archiveOrEcl), inlineResultLimit, appVals, jobname, compileOnly);
+
+            //response now has cluster set, no need to set it here
+
+            wu = getWorkunit(response.getWuid());
+            if (response != null)
             {
-                org.hpccsystems.ws.client.HPCCWsWorkUnitsClient wsWorkUnitsClient = platformHPCCClient.getWsWorkunitsClient();
-
-                List<ApplicationValueWrapper> appVals=new ArrayList<ApplicationValueWrapper>();
-                appVals.add(new ApplicationValueWrapper(API_ID,"path",filePath));
-
-                WorkunitWrapper response = wsWorkUnitsClient.createWUFromECL(hackUnicodeInXMLForAxisOneAndESP(archiveOrEcl), inlineResultLimit, appVals, jobname, compileOnly);
-
-                //response now has cluster set, no need to set it here
-
-                wu = getWorkunit(response.getWuid());
-                if (response != null)
-                {
-                    workunits.add(wu);
-                    wsWorkUnitsClient.submitWU(response.getWuid(), cluster);
-                }
-            }
-            catch (RemoteException e)
-            {
-                confirmDisable();
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
+                workunits.add(wu);
+                wsWorkUnitsClient.submitWU(response.getWuid(), cluster);
             }
         }
-        finally
+        catch (RemoteException e)
         {
-            Workunit.All.popTransaction();
+            confirmDisable();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
 
         return wu;
@@ -663,7 +654,6 @@ public class Platform extends DataSingleton
     {
         if (isEnabled())
         {
-            Workunit.All.pushTransaction("platform.getWorkunits"); //$NON-NLS-1$
             try
             {
                 org.hpccsystems.ws.client.HPCCWsWorkUnitsClient wsWorkUnitsClient = platformHPCCClient.getWsWorkunitsClient();
@@ -687,7 +677,6 @@ public class Platform extends DataSingleton
             {
                 e.printStackTrace();
             }
-            Workunit.All.popTransaction();
             return new HashSet<Workunit>(workunits);
         }
         return new HashSet<Workunit>();
@@ -729,7 +718,6 @@ public class Platform extends DataSingleton
     {
         if (isEnabled())
         {
-            Workunit.All.pushTransaction("platform.getWorkunits"); //$NON-NLS-1$
             try
             {
                 org.hpccsystems.ws.client.HPCCWsWorkUnitsClient wsWorkUnitsClient = platformHPCCClient.getWsWorkunitsClient();
@@ -755,7 +743,6 @@ public class Platform extends DataSingleton
             {
                 e.printStackTrace();
             }
-            Workunit.All.popTransaction();
             return new HashSet<Workunit>(workunits);
         }
         return new HashSet<Workunit>();

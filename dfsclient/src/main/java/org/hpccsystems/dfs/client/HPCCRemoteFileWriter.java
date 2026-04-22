@@ -233,7 +233,7 @@ public class HPCCRemoteFileWriter<T>
     public void close() throws Exception
     {
         this.report();
-        this.binaryRecordWriter.finalize();
+        this.binaryRecordWriter.complete();
 
         this.writeSpan.end();
 

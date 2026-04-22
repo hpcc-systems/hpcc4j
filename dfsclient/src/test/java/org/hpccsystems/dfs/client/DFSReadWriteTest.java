@@ -225,7 +225,7 @@ public class DFSReadWriteTest extends BaseRemoteTest
         writer.initialize(new HPCCRecordAccessor(recordDef));
 
         writer.writeRecord(record);
-        writer.finalize();
+        writer.complete();
 
         ByteArrayInputStream inStream = new ByteArrayInputStream(outStream.toByteArray());
         BinaryRecordReader reader = new BinaryRecordReader(inStream);

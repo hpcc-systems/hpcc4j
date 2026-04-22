@@ -18,6 +18,7 @@
 package org.hpccsystems.ws.client;
 
 import org.junit.runner.Description;
+import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunListener;
 
@@ -80,7 +81,8 @@ public class TestResultNotifier extends RunListener
         }
     }
 
-    protected void finalize() throws Throwable
+    @Override
+    public void testRunFinished(Result result) throws Exception
     {
         synchronized (this)
         {

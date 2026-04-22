@@ -1581,11 +1581,11 @@ public class HPCCFileSprayClient extends BaseHPCCWsClient
         {
             try
             {
-                outchannel.close();
-                inChannel.close();
-                output.close();
-                input.close();
-                aFile.close();
+                if (outchannel != null) outchannel.close();
+                if (inChannel != null) inChannel.close();
+                if (output != null) output.close();
+                if (input != null) input.close();
+                if (aFile != null) aFile.close();
             }
             catch (IOException e)
             {

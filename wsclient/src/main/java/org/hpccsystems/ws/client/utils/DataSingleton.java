@@ -7,106 +7,11 @@
  ******************************************************************************/
 package org.hpccsystems.ws.client.utils;
 
-import java.util.Observable;
-
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.client.Stub;
 
-public abstract class DataSingleton extends Observable
+public abstract class DataSingleton
 {
-    static final int MONITOR_SLEEP = 1000;
-
-    Thread           monitorThread;
-
-    protected DataSingleton()
-    {
-        monitorThread = null;
-    }
-
-    protected void monitor()
-    {
-        monitor(MONITOR_SLEEP);
-    }
-
-    synchronized void monitor(final int sleepTime)
-    {
-        if (isComplete())
-        {
-            return;
-        }
-
-        if (monitorThread == null || !monitorThread.isAlive())
-        {
-            monitorThread = new Thread(new Runnable() {
-                private int timerTickCount = 0;
-
-     
-                public void run()
-                {
-                    while (!isComplete())
-                    {
-                        this.timerTickCount++;
-                        if (this.timerTickCount == 1)
-                        {
-                            this.refresh(true);
-                        }
-                        else if (this.timerTickCount < 5 && this.timerTickCount % 1 == 0)
-                        {
-                            this.refresh();
-                        }
-                        else if (this.timerTickCount < 30 && this.timerTickCount % 5 == 0)
-                        {
-                            this.refresh();
-                        }
-                        else if (this.timerTickCount < 60 && this.timerTickCount % 10 == 0)
-                        {
-                            this.refresh();
-                        }
-                        else if (this.timerTickCount < 120 && this.timerTickCount % 30 == 0)
-                        {
-                            this.refresh(true);
-                        }
-                        else if (this.timerTickCount % 60 == 0)
-                        {
-                            this.refresh(true);
-                        }
-                        try
-                        {
-                            Thread.sleep(sleepTime);
-                        }
-                        catch (InterruptedException e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-                    monitorThread = null;
-                    this.timerTickCount = 0;
-                }
-
-                void refresh()
-                {
-                    this.refresh(false);
-                }
-
-                void refresh(boolean full)
-                {
-                    if (countObservers() > 0)
-                    {
-                        if (full || isComplete())
-                        {
-                            fullRefresh();
-                        }
-                        else
-                        {
-                            fastRefresh();
-                        }
-                    }
-                }
-            });
-            monitorThread.start();
-        }
-    }
-
     protected abstract boolean isComplete();
 
     protected abstract void fastRefresh();

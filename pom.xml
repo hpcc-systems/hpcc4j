@@ -31,27 +31,26 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.version>3.8.0</maven.compiler.version>
-    <maven.compiler.release>8</maven.compiler.release>
-    <maven.assembly.version>3.1.1</maven.assembly.version>
+    <maven.compiler.version>3.11.0</maven.compiler.version>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.assembly.version>3.6.0</maven.assembly.version>
     <maven.failsafe.version>3.1.2</maven.failsafe.version>
     <central.publishing.version>0.7.0</central.publishing.version>
     <central.publishing.autopublish>false</central.publishing.autopublish>
-    <maven.gpg.version>1.6</maven.gpg.version>
+    <maven.gpg.version>3.1.0</maven.gpg.version>
     <maven.gpg.skip>true</maven.gpg.skip>
-    <maven.javadoc.version>3.1.0</maven.javadoc.version>
-    <maven.source.version>2.2.1</maven.source.version>
+    <maven.javadoc.version>3.6.0</maven.javadoc.version>
+    <maven.source.version>3.3.0</maven.source.version>
     <maven.resources.version>3.0.2</maven.resources.version>
     <maven.clean.version>3.1.0</maven.clean.version>
     <maven.release.version>2.5.3</maven.release.version>
     <maven.deploy.version>2.8.2</maven.deploy.version>
     <maven.install.version>2.5.2</maven.install.version>
-    <maven.jar.version>3.0.2</maven.jar.version>
-    <maven.surefire.version>2.22.1</maven.surefire.version>
+    <maven.jar.version>3.3.0</maven.jar.version>
+    <maven.surefire.version>3.2.5</maven.surefire.version>
     <antlr.version>4.10.1</antlr.version>
-    <javax.mail.version>1.4</javax.mail.version>
-    <jsch.version>0.1.54</jsch.version>
-    <commons-io.version>2.7</commons-io.version>
+    <jsch.version>0.2.21</jsch.version>
+    <commons-io.version>2.16.1</commons-io.version>
     <junit.version>4.13.1</junit.version>
     <json.version>20231013</json.version>
     <log4j.version>2.25.3</log4j.version>
@@ -69,6 +68,7 @@
     <opentelemetry.semconv.version>1.25.0-alpha</opentelemetry.semconv.version>
     <opentelemetry.instrumentation.annotations.version>2.6.0</opentelemetry.instrumentation.annotations.version>
     <commons-fileupload2.version>2.0.0-M4</commons-fileupload2.version>
+    <argLine/>
   </properties>
 
   <scm>
@@ -178,14 +178,9 @@
       <version>${commons-io.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.jcraft</groupId>
+      <groupId>com.github.mwiede</groupId>
       <artifactId>jsch</artifactId>
       <version>${jsch.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>mail</artifactId>
-      <version>${javax.mail.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.axis2</groupId>
@@ -340,7 +335,7 @@
             </execution>
           </executions>
           <configuration>
-                <source>8</source>
+                <source>17</source>
                 <excludePackageNames>org.hpccsystems.ws.client.gen.*:org.hpccsystems.ws.client.antlr.*:org.hpccsystems.ws.client.wrappers.gen.*:org.hpccsystems.ws.client.extended.*</excludePackageNames>
                 <header>Copyright © 2021 HPCC Systems®. All rights reserved</header>
                 <footer>Copyright © 2021 HPCC Systems®. All rights reserved</footer>

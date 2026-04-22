@@ -17,6 +17,7 @@
     <spark.runtime.version>3.5.8</spark.runtime.version>
     <scala.binary.version>2.12</scala.binary.version>
     <scala.version>2.12.11</scala.version>
+    <spark.jvm.opens>--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/sun.nio.cs=ALL-UNNAMED --add-opens java.base/java.lang.invoke=ALL-UNNAMED</spark.jvm.opens>
  </properties>
 
   <dependencies>
@@ -120,12 +121,6 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <dependency>
-      <groupId>net.razorvine</groupId>
-      <artifactId>pyrolite</artifactId>
-      <version>4.13</version>
-      <scope>provided</scope>
-    </dependency>
   </dependencies>
   
   <build>
@@ -134,7 +129,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
         <configuration>
-          <argLine>${argLine}</argLine>
+          <argLine>${argLine} ${spark.jvm.opens}</argLine>
           <groups>${groups}</groups>
           <excludedGroups>${excludedGroups}</excludedGroups>
           <excludes>

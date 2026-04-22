@@ -44,11 +44,6 @@ public class FileSprayWorkunit extends DataSingleton
     private Platform    platform;
     private DFUWorkunitWrapper info;
 
-    public enum Notification
-    {
-        LOGICALFILEWORKUNIT,
-    }
-
     /**
      * Instantiates a new file spray workunit.
      *
@@ -62,7 +57,6 @@ public class FileSprayWorkunit extends DataSingleton
         this.platform = platform;
         info = new DFUWorkunitWrapper();
         info.setID(id);
-        setChanged();
     }
 
     /**
@@ -248,8 +242,6 @@ public class FileSprayWorkunit extends DataSingleton
                     if (e.getCode().equals("20082"))
                     { // No longer exists...
                         info.setState(999);
-                        setChanged();
-                        notifyObservers(Notification.LOGICALFILEWORKUNIT);
                         break;
                     }
                 }
@@ -281,15 +273,12 @@ public class FileSprayWorkunit extends DataSingleton
             if (updateState(dfuWorkunitWrapper))
             {
                 retVal = true;
-                notifyObservers(Notification.LOGICALFILEWORKUNIT);
             }
             if (updateLogicalFiles(dfuWorkunitWrapper))
             {
                 retVal = true;
-                notifyObservers(Notification.LOGICALFILEWORKUNIT);
             }
         }
-        monitor();
         return retVal;
     }
 
@@ -305,7 +294,6 @@ public class FileSprayWorkunit extends DataSingleton
         if (dfuWorkunitWrapper != null && info.getID().equals(dfuWorkunitWrapper.getID()) && EqualsUtil.hasChanged(info.getState(), dfuWorkunitWrapper.getState()))
         {
             info.setState(dfuWorkunitWrapper.getState());
-            setChanged();
             return true;
         }
         return false;
@@ -326,7 +314,6 @@ public class FileSprayWorkunit extends DataSingleton
                         .hasChanged(info.getDestLogicalName(), dfuWorkunitWrapper.getDestLogicalName())))
         {
             info = dfuWorkunitWrapper;
-            setChanged();
             return true;
         }
         return false;

@@ -47,11 +47,6 @@ public class Graph extends DataSingleton
     private Workunit workunit;
     private ECLGraph info;
 
-    public enum Notification
-    {
-        GRAPH
-    }
-
     /**
      * Instantiates a new graph.
      *
@@ -162,10 +157,8 @@ public class Graph extends DataSingleton
             if (UpdateState(graph))
             {
                 retVal = true;
-                notifyObservers(Notification.GRAPH);
             }
         }
-        monitor();
         return retVal;
     }
 
@@ -181,7 +174,6 @@ public class Graph extends DataSingleton
         if (info.getName().equals(graph.getName()) && EqualsUtil.hasChanged(info, graph))
         {
             info = graph;
-            setChanged();
             return true;
         }
         return false;

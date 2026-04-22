@@ -479,11 +479,11 @@ public class DFSIndexTest extends BaseRemoteTest
                 {
                     if (isStart)
                     {
-                        return new Integer(partitionIndex*4);
+                        return Integer.valueOf(partitionIndex*4);
                     }
                     else
                     {
-                        return new Integer(partitionIndex*4+3);
+                        return Integer.valueOf(partitionIndex*4+3);
                     }
                 }
                 case STRING:
