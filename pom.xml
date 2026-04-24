@@ -69,6 +69,9 @@
     <opentelemetry.semconv.version>1.25.0-alpha</opentelemetry.semconv.version>
     <opentelemetry.instrumentation.annotations.version>2.6.0</opentelemetry.instrumentation.annotations.version>
     <commons-fileupload2.version>2.0.0-M4</commons-fileupload2.version>
+    <jfrog>${env.JFROG_URL}/artifactory</jfrog>
+    <resolve.snapshot>${jfrog}/glb-maven-snapshot-virtual</resolve.snapshot>
+    <resolve.release>${jfrog}/glb-maven-virtual</resolve.release>
   </properties>
 
   <scm>
@@ -78,26 +81,38 @@
     <tag>HEAD</tag>
   </scm>
 
-  <!-- This is for deployment of snapshots -->
+  <!-- This is for deployment of artifacts -->
   <distributionManagement>
+    <repository>
+      <id>jfrog</id>
+      <url>${env.JFROG_URL}/artifactory/${env.JFROG_REPOSITORY}</url>
+    </repository>
     <snapshotRepository>
-      <id>central-portal-snapshots</id>
-      <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+      <id>jfrog-snapshot</id>
+      <url>${env.JFROG_URL}/artifactory/${env.JFROG_SNAPSHOT_REPOSITORY}</url>
     </snapshotRepository>
   </distributionManagement>
 
-  <!-- This is for fetching dependencies when doing SNAPSHOT builds -->
+  <!-- This is for fetching dependencies -->
   <repositories>
     <repository>
-      <id>central-portal-snapshots</id>
-      <name>Central Portal Snapshots</name>
-      <url>https://central.sonatype.com/repository/maven-snapshots</url>
+      <id>jfrog</id>
+      <name>hpccpl-maven-virtual</name>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <url>${resolve.release}</url>
+    </repository>
+    <repository>
+      <id>jfrog-snapshot</id>
+      <name>hpccpl-maven-snapshot-virtual</name>
       <releases>
         <enabled>false</enabled>
       </releases>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
+      <url>${resolve.snapshot}</url>
     </repository>
   </repositories>
   <dependencyManagement>
@@ -385,6 +400,22 @@
 
   <profiles>
     <profile>
+      <id>sonatype</id>
+      <repositories>
+        <repository>
+          <id>central-portal-snapshots</id>
+          <name>Central Portal Snapshots</name>
+          <url>https://central.sonatype.com/repository/maven-snapshots</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+    <profile>
       <id>release</id>
       <properties>
         <central.publishing.autopublish>true</central.publishing.autopublish>
@@ -547,35 +578,6 @@
         <maven.gpg.skip>false</maven.gpg.skip>
         <groups>org.hpccsystems.commons.annotations.BaseTests</groups>
       </properties>
-      <!-- Needed for access to jfrog servers given github stored secrets -->
-      <distributionManagement>
-        <repository>
-          <id>jfrog</id>
-          <url>${env.JFROG_URL}/artifactory/${env.JFROG_REPOSITORY}</url>
-        </repository>
-        <snapshotRepository>
-          <id>jfrog-snapshot</id>
-          <url>${env.JFROG_URL}/artifactory/${env.JFROG_SNAPSHOT_REPOSITORY}</url>
-        </snapshotRepository>
-      </distributionManagement>
-      <repositories>
-        <repository>
-          <id>jfrog</id>
-          <name>hpccpl-maven-virtual</name>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <url>${env.JFROG_URL}/artifactory/${env.JFROG_REPOSITORY}</url>
-        </repository>
-        <repository>
-          <id>snapshots</id>
-          <name>hccpl-maven-snapshot-virtual</name>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
-          <url>${env.JFROG_URL}/artifactory/${env.JFROG_SNAPSHOT_REPOSITORY}</url>
-        </repository>
-      </repositories>
       <build>
         <plugins>
           <plugin>
@@ -617,42 +619,4 @@
       </build>
     </profile>
   </profiles>
-
-  <developers>
-    <developer>
-      <id>rpastrana</id>
-      <name>Rodrigo Pastrana</name>
-      <email>info@hpccsystems.com</email>
-      <organization>LexisNexis Risk</organization>
-      <organizationUrl>https://hpccsystems.com</organizationUrl>
-      <roles>
-        <role>architect</role>
-        <role>developer</role>
-      </roles>
-      <timezone>America/New_York</timezone>
-    </developer>
-    <developer>
-      <id>jpmcmu</id>
-      <name>James McMullan</name>
-      <email>info@hpccsystems.com</email>
-      <organization>LexisNexis Risk</organization>
-      <organizationUrl>https://hpccsystems.com</organizationUrl>
-      <roles>
-        <role>developer</role>
-      </roles>
-      <timezone>America/New_York</timezone>
-    </developer>
-    <developer>
-      <id>mgardner</id>
-      <name>Michael Gardner</name>
-      <email>info@hpccsystems.com</email>
-      <organization>LexisNexis Risk</organization>
-      <organizationUrl>https://hpccsystems.com</organizationUrl>
-      <roles>
-        <role>maintainer</role>
-      </roles>
-      <timezone>America/New_York</timezone>
-    </developer>
-  </developers>
-
 </project>
