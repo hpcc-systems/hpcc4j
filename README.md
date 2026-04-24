@@ -79,6 +79,54 @@ For more information on how to use Maven see http://maven.apache.org
 All contributions must follow the JAVA source format described in the HPCC-JAVA-Formatter.xml file which can be found in /eclipse.
 This formatter can be used by the Eclipse IDE to automatically format JAVA source code.
 
+---
+
+## Contributors
+
+### Dependency Resolution
+
+By default, this project resolves dependencies from an internal JFrog Artifactory instance. You must set the `JFROG_URL` environment variable in your local environment for builds to succeed.
+
+**Set `JFROG_URL` in your environment:**
+
+On Linux/macOS, add the following to your `~/.bashrc`, `~/.zshrc`, or equivalent:
+```bash
+export JFROG_URL=https://useast.jfrog.lexisnexisrisk.com
+```
+
+On Windows (Command Prompt / System Environment Variables):
+```
+JFROG_URL=https://useast.jfrog.lexisnexisrisk.com
+```
+
+You will also need credentials for JFrog configured in your `~/.m2/settings.xml`:
+```xml
+<settings>
+  <servers>
+    <server>
+      <id>jfrog</id>
+      <username>YOUR_JFROG_USERNAME</username>
+      <password>YOUR_JFROG_TOKEN</password>
+    </server>
+    <server>
+      <id>jfrog-snapshot</id>
+      <username>YOUR_JFROG_USERNAME</username>
+      <password>YOUR_JFROG_TOKEN</password>
+    </server>
+  </servers>
+</settings>
+```
+
+### Building without JFrog Access
+
+If you do not have access to the internal JFrog instance, you can resolve dependencies from Maven Central / Sonatype instead by activating the `sonatype` profile:
+
+```bash
+mvn install -Psonatype
+```
+
+Note: SNAPSHOT versions of internal `org.hpccsystems` modules are only available via JFrog. The `sonatype` profile is suitable for building against released versions.
+
 - From eclipse, choose Window->Preferences->Java->Code Stype->Formatter...
 
 - Import the HPCC-JAVA-Formatter.xml file and set it as the Active profile.
