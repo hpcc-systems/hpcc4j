@@ -59,10 +59,13 @@ jobs:
 
     - name: Build with Maven
       id: build
-      run: mvn -B -Dmaven.test.skip=true install --file pom.xml
+      run: mvn -B -DskipTests install --file pom.xml
       env:
         JFROG_USER: ${{ secrets.JFROG_USER }}
         JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
+        JFROG_URL: ${{ vars.JFROG_URL }}
+        JFROG_SNAPSHOT_REPOSITORY: ${{ vars.JFROG_SNAPSHOT_REPOSITORY }}
+        JFROG_REPOSITORY: ${{ vars.JFROG_REPOSITORY }}
 
   trigger-javadoc-test:
     uses: ./.github/workflows/javadoc-test.yml
