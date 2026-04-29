@@ -26,6 +26,10 @@ on:
         required: false
         type: string
 
+permissions:
+  contents: read  # Required for actions/checkout to clone the repository
+  actions: write  # Required for actions/cache to save and restore the Maven dependency cache
+
 jobs:
   test-against-platform:
     runs-on: ubuntu-latest
