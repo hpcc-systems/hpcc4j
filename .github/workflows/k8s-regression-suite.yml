@@ -8,6 +8,10 @@ on:
         required: false
         type: string
 
+permissions:
+  contents: read  # Required for actions/checkout to clone the repository and HPCC-Platform
+  actions: write  # Required for actions/cache (Maven dependency cache) and actions/upload-artifact (test logs)
+
 jobs:
   parse-pr-body:
     runs-on: ubuntu-latest

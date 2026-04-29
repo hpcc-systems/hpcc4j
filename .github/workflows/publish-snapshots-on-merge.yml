@@ -15,6 +15,9 @@ on:
     branches:
     - 'candidate-*'
 
+permissions:
+  contents: read  # Required for actions/checkout to clone the repository; publishing uses external Maven credentials
+
 jobs:
   publish-maven-central:
     runs-on: ubuntu-latest
