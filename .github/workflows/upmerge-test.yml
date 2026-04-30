@@ -6,6 +6,10 @@ on:
     branches:
       - "candidate-*"
 
+permissions:
+  contents: read  # Required for actions/checkout to clone the repository
+  actions: write  # Required for actions/upload-artifact to store upmerge test results
+
 jobs:
   upmerge-test:
     runs-on: ubuntu-latest
