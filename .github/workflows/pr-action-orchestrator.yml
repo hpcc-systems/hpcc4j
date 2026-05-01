@@ -71,27 +71,30 @@ jobs:
     uses: ./.github/workflows/javadoc-test.yml
     needs: build
     if: needs.build.outputs.build-success == 'true'
-    with:
+    secrets:
       JFROG_USER: ${{ secrets.JFROG_USER }}
       JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
+    with:
       head_sha: ${{ github.event.pull_request.head.sha }}
 
   trigger-k8s-regression:
     uses: ./.github/workflows/k8s-regression-suite.yml
     needs: build
     if: needs.build.outputs.build-success == 'true'
-    with:
+    secrets:
       JFROG_USER: ${{ secrets.JFROG_USER }}
       JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
+    with:
       head_sha: ${{ github.event.pull_request.head.sha }}
 
   trigger-baremetal-regression:
     uses: ./.github/workflows/baremetal-regression-suite.yml
     needs: build
     if: needs.build.outputs.build-success == 'true'
-    with:
+    secrets:
       JFROG_USER: ${{ secrets.JFROG_USER }}
       JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
+    with:
       pull_request_number: ${{ github.event.pull_request.number }}
       pull_request_title: ${{ github.event.pull_request.title }}
       pull_request_author: ${{ github.event.pull_request.user.login }}
