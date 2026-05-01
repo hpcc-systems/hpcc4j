@@ -5,6 +5,10 @@ on:
     workflows: ["Upmerge Test"]
     types: [completed]
 
+permissions:
+  actions: read   # Required for actions/download-artifact to retrieve artifacts from the triggering workflow run
+  issues: write   # Required to post comments on pull requests via the GitHub REST API
+
 jobs:
   post-comment:
     runs-on: ubuntu-latest

@@ -82,6 +82,10 @@ on:
       LNB_TOKEN:
         required: false
 
+permissions:
+  contents: read  # Required for actions/checkout to clone the repository and HPCC-Platform
+  actions: write  # Required for hendrikmuhs/ccache-action (cache writes) and actions/upload-artifact (build packages)
+
 jobs:
 
   build-docker:

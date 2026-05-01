@@ -17,6 +17,10 @@ on:
         - enabled
         - disabled
 
+permissions:
+  contents: read  # Required for actions/checkout to clone the repository
+  actions: write  # Required for actions/cache (Maven cache) and actions/upload-artifact (test results)
+
 jobs:
   test-known-server-issues:
     runs-on: ubuntu-latest
