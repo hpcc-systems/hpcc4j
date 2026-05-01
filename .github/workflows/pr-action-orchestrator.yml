@@ -71,6 +71,7 @@ jobs:
     uses: ./.github/workflows/javadoc-test.yml
     needs: build
     if: needs.build.outputs.build-success == 'true'
+    secrets: inherit
     with:
       head_sha: ${{ github.event.pull_request.head.sha }}
 
@@ -78,6 +79,7 @@ jobs:
     uses: ./.github/workflows/k8s-regression-suite.yml
     needs: build
     if: needs.build.outputs.build-success == 'true'
+    secrets: inherit
     with:
       head_sha: ${{ github.event.pull_request.head.sha }}
 
@@ -85,6 +87,7 @@ jobs:
     uses: ./.github/workflows/baremetal-regression-suite.yml
     needs: build
     if: needs.build.outputs.build-success == 'true'
+    secrets: inherit
     with:
       pull_request_number: ${{ github.event.pull_request.number }}
       pull_request_title: ${{ github.event.pull_request.title }}

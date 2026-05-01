@@ -18,11 +18,23 @@ jobs:
       with:
         ref: ${{ inputs.head_sha }}
 
-    - name: Setup JDK 11
+    - name: Set up JFrog release repository
       uses: actions/setup-java@v4
       with:
         java-version: 11
         distribution: 'temurin'
+        server-id: 'jfrog'
+        server-username: JFROG_USER
+        server-password: JFROG_TOKEN
+
+    - name: Set up JFrog snapshot repository
+      uses: actions/setup-java@v4
+      with:
+        java-version: 11
+        distribution: 'temurin'
+        server-id: 'jfrog-snapshot'
+        server-username: JFROG_USER
+        server-password: JFROG_TOKEN
 
     - name: Cache Maven packages
       uses: actions/cache@v4
@@ -33,3 +45,7 @@ jobs:
 
     - name: Build Javadoc
       run: mvn -B -Dmaven.test.skip=true clean javadoc:javadoc
+      env:
+        JFROG_USER: ${{ secrets.JFROG_USER }}
+        JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
+        JFROG_URL: ${{ vars.JFROG_URL }}
