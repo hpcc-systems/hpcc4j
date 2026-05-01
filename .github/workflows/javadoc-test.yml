@@ -6,6 +6,11 @@ on:
       head_sha:
         required: true
         type: string
+    secrets:
+      JFROG_USER:
+        required: true
+      JFROG_TOKEN:
+        required: true
 
 permissions:
   contents: read

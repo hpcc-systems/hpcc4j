@@ -7,6 +7,11 @@ on:
       head_sha:
         required: false
         type: string
+    secrets:
+      JFROG_USER:
+        required: true
+      JFROG_TOKEN:
+        required: true
 
 jobs:
   parse-pr-body:

@@ -25,6 +25,11 @@ on:
       head_sha:
         required: false
         type: string
+    secrets:
+      JFROG_USER:
+        required: true
+      JFROG_TOKEN:
+        required: true
 
 jobs:
   test-against-platform:
@@ -94,7 +99,6 @@ jobs:
         PULL_REQUEST_AUTHOR_NAME : ${{ inputs.pull_request_author || github.event.pull_request.user.login }}
         PULL_URL: ${{ inputs.pull_url || github.event.pull_request.html_url }}
         COMMENTS_URL: ${{ inputs.comments_url || github.event.pull_request.comments_url }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH_NAME: ${{ inputs.base_ref || github.base_ref }}
       shell: python
       run: |
