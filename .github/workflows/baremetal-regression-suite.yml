@@ -25,6 +25,11 @@ on:
       head_sha:
         required: false
         type: string
+    secrets:
+      JFROG_USER:
+        required: true
+      JFROG_TOKEN:
+        required: true
 
 permissions:
   contents: read  # Required for actions/checkout to clone the repository
@@ -39,11 +44,23 @@ jobs:
         security: [enabled, disabled]
 
     steps:
-    - name: Setup JDK 11
+    - name: Set up JFrog release repository
       uses: actions/setup-java@v4
       with:
         java-version: 11
         distribution: 'temurin'
+        server-id: 'jfrog'
+        server-username: JFROG_USER
+        server-password: JFROG_TOKEN
+
+    - name: Set up JFrog snapshot repository
+      uses: actions/setup-java@v4
+      with:
+        java-version: 11
+        distribution: 'temurin'
+        server-id: 'jfrog-snapshot'
+        server-username: JFROG_USER
+        server-password: JFROG_TOKEN
 
     - uses: "actions/setup-python@v2"
       with:
@@ -86,7 +103,6 @@ jobs:
         PULL_REQUEST_AUTHOR_NAME : ${{ inputs.pull_request_author || github.event.pull_request.user.login }}
         PULL_URL: ${{ inputs.pull_url || github.event.pull_request.html_url }}
         COMMENTS_URL: ${{ inputs.comments_url || github.event.pull_request.comments_url }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH_NAME: ${{ inputs.base_ref || github.base_ref }}
       shell: python
       run: |
@@ -313,10 +329,18 @@ jobs:
     - name: Build with Maven (Secure)
       if: matrix.security == 'enabled'
       run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open -Dhpccuser=${{ env.DUMMY_USER}} -Dhpccpass=${{ env.DUMMY_PASS }} -DencodedUserName=${{ env.JUNIT_USER }} install
+      env:
+        JFROG_USER: ${{ secrets.JFROG_USER }}
+        JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
+        JFROG_URL: ${{ vars.JFROG_URL }}
     
     - name: Build with Maven (Insecure)
       if: matrix.security == 'disabled'
       run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=http://eclwatch.default:8010 -Dwssqlconn=http://sql2ecl.default:8510 -DHPCC30117=open install
+      env:
+        JFROG_USER: ${{ secrets.JFROG_USER }}
+        JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
+        JFROG_URL: ${{ vars.JFROG_URL }}
 
     - name: Process Errors
       shell: python
