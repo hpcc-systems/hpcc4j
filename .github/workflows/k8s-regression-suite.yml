@@ -7,6 +7,11 @@ on:
       head_sha:
         required: false
         type: string
+    secrets:
+      JFROG_USER:
+        required: true
+      JFROG_TOKEN:
+        required: true
 
 permissions:
   contents: read  # Required for actions/checkout to clone the repository and HPCC-Platform
@@ -120,11 +125,23 @@ jobs:
     needs: [parse-pr-body, build-docker]
     steps:
 
-    - name: Setup JDK 11
+    - name: Set up JFrog release repository
       uses: actions/setup-java@v4
       with:
         java-version: 11
         distribution: 'temurin'
+        server-id: 'jfrog'
+        server-username: JFROG_USER
+        server-password: JFROG_TOKEN
+
+    - name: Set up JFrog snapshot repository
+      uses: actions/setup-java@v4
+      with:
+        java-version: 11
+        distribution: 'temurin'
+        server-id: 'jfrog-snapshot'
+        server-username: JFROG_USER
+        server-password: JFROG_TOKEN
 
     - name: Install K8s
       uses: balchua/microk8s-actions@v0.3.2
@@ -169,6 +186,10 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B --activate-profiles jenkins-on-demand -Dmaven.gpg.skip=true -Dmaven.javadoc.skip=true -Dmaven.test.failure.ignore=true -Dhpccconn=https://eclwatch.default:8010 -Dwssqlconn=https://sql2ecl.default:8510 -DHPCC30117=open  install
+      env:
+        JFROG_USER: ${{ secrets.JFROG_USER }}
+        JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
+        JFROG_URL: ${{ vars.JFROG_URL }}
 
     - name: Rowservice Logs
       run: |
