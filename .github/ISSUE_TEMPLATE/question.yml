@@ -1,0 +1,68 @@
+name: Question
+description: Ask a question about HPCC4J usage, configuration, or best practices
+title: "[QUESTION]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about using HPCC4J? We're here to help!
+        
+        **Before asking**, please check:
+        - [Common Issues and Solutions wiki](https://github.com/hpcc-systems/hpcc4j/wiki/Common-Issues-and-Solutions)
+        - [HPCC4J Documentation](https://github.com/hpcc-systems/HPCC4J)
+        - Existing issues and discussions
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What would you like to know? Include any relevant context about what you're trying to accomplish.
+      placeholder: |
+        I'm trying to [what you want to do]...
+        
+        I've tried [what you've attempted]...
+        
+        [Your specific question]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: question-module
+    attributes:
+      label: Related Module (if known)
+      description: Which HPCC4J module is your question about?
+      options:
+        - wsclient - Web service clients for HPCC ESP services
+        - dfsclient - Direct file system access to HPCC distributed files
+        - spark-hpcc - Spark connector for reading/writing HPCC datasets
+        - commons-hpcc - Common utilities shared across modules
+        - clienttools - Java interface to HPCC client tools (eclcc)
+        - rdf2hpcc - RDF data ingestion tool
+        - General/Multiple modules
+        - Not sure
+
+  - type: textarea
+    id: code-or-details
+    attributes:
+      label: Code Sample or Additional Details
+      description: Share any relevant code, error messages, or environment details
+      placeholder: |
+        ```java
+        // Your code here
+        ```
+        
+        Or provide environment details:
+        - HPCC Systems Version: 
+        - HPCC4J Version: 
+        - Java Version: 
+      render: markdown
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please confirm before submitting
+      options:
+        - label: I have checked the [Common Issues and Solutions wiki](https://github.com/hpcc-systems/hpcc4j/wiki/Common-Issues-and-Solutions)
+          required: true
