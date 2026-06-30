@@ -1805,6 +1805,39 @@ public class DFUFileDetail implements org.apache.axis2.databinding.ADBBean {
     this.localExtendedIndexInfo = param;
   }
 
+  /** field for CompressionType */
+  protected java.lang.String localCompressionType;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localCompressionTypeTracker = false;
+
+  public boolean isCompressionTypeSpecified() {
+    return localCompressionTypeTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getCompressionType() {
+    return localCompressionType;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param CompressionType
+   */
+  public void setCompressionType(java.lang.String param) {
+    localCompressionTypeTracker = param != null;
+
+    this.localCompressionType = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -2615,6 +2648,22 @@ public class DFUFileDetail implements org.apache.axis2.databinding.ADBBean {
       localExtendedIndexInfo.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "ExtendedIndexInfo"),
           xmlWriter);
+    }
+    if (localCompressionTypeTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "CompressionType", xmlWriter);
+
+      if (localCompressionType == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("CompressionType cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localCompressionType);
+      }
+
+      xmlWriter.writeEndElement();
     }
     xmlWriter.writeEndElement();
   }
@@ -3783,6 +3832,25 @@ public class DFUFileDetail implements org.apache.axis2.databinding.ADBBean {
               object.setExtendedIndexInfo(
                   org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUIndexInfo.Factory.parse(
                       reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "CompressionType")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "CompressionType" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setCompressionType(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 

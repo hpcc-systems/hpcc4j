@@ -179,7 +179,8 @@ public class DFUSearchDataRequest implements org.apache.axis2.databinding.ADBBea
   }
 
   /** field for ChooseFile */
-  protected int localChooseFile;
+  protected int localChooseFile =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToInt("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -214,7 +215,8 @@ public class DFUSearchDataRequest implements org.apache.axis2.databinding.ADBBea
   }
 
   /** field for StartIndex */
-  protected long localStartIndex;
+  protected long localStartIndex =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -249,7 +251,8 @@ public class DFUSearchDataRequest implements org.apache.axis2.databinding.ADBBea
   }
 
   /** field for EndIndex */
-  protected long localEndIndex;
+  protected long localEndIndex =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -350,7 +353,8 @@ public class DFUSearchDataRequest implements org.apache.axis2.databinding.ADBBea
   }
 
   /** field for StartForGoback */
-  protected long localStartForGoback;
+  protected long localStartForGoback =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -420,7 +424,7 @@ public class DFUSearchDataRequest implements org.apache.axis2.databinding.ADBBea
   }
 
   /** field for Start */
-  protected long localStart;
+  protected long localStart = org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
