@@ -15,6 +15,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wsresources;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+import org.apache.axiom.om.OMElement;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -27,6 +28,7 @@ public class ConfiguredWebLinkWrapper
     protected String local_name;
     protected String local_description;
     protected String local_uRL;
+    protected OMElement local_resourceType;
 
     public ConfiguredWebLinkWrapper() {}
 
@@ -34,11 +36,12 @@ public class ConfiguredWebLinkWrapper
     {
         copy( configuredweblink );
     }
-    public ConfiguredWebLinkWrapper( String _name, String _description, String _uRL )
+    public ConfiguredWebLinkWrapper( String _name, String _description, String _uRL, OMElement _resourceType )
     {
         this.local_name = _name;
         this.local_description = _description;
         this.local_uRL = _uRL;
+        this.local_resourceType = _resourceType;
 
     }
 
@@ -50,13 +53,14 @@ public class ConfiguredWebLinkWrapper
         this.local_name = raw.getName();
         this.local_description = raw.getDescription();
         this.local_uRL = raw.getURL();
+        this.local_resourceType = raw.getResourceType();
 
     }
 
     @Override
     public String toString()
     {
-        return "ConfiguredWebLinkWrapper [" + "name = " + local_name + ", " + "description = " + local_description + ", " + "uRL = " + local_uRL + "]";
+        return "ConfiguredWebLinkWrapper [" + "name = " + local_name + ", " + "description = " + local_description + ", " + "uRL = " + local_uRL + ", " + "resourceType = " + local_resourceType + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.ConfiguredWebLink getRaw()
     {
@@ -64,6 +68,7 @@ public class ConfiguredWebLinkWrapper
         raw.setName( local_name);
         raw.setDescription( local_description);
         raw.setURL( local_uRL);
+        raw.setResourceType( local_resourceType);
         return raw;
     }
 
@@ -91,5 +96,13 @@ public class ConfiguredWebLinkWrapper
     public String getURL( )
     {
         return this.local_uRL;
+    }
+    public void setResourceType( OMElement _resourceType )
+    {
+        this.local_resourceType = _resourceType;
+    }
+    public OMElement getResourceType( )
+    {
+        return this.local_resourceType;
     }
 }

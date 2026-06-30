@@ -1,8 +1,8 @@
 /**
  * ConfiguredWebLink.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsresources.latest;
 
@@ -114,6 +114,39 @@ public class ConfiguredWebLink implements org.apache.axis2.databinding.ADBBean {
     this.localURL = param;
   }
 
+  /** field for ResourceType */
+  protected org.apache.axiom.om.OMElement localResourceType;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localResourceTypeTracker = false;
+
+  public boolean isResourceTypeSpecified() {
+    return localResourceTypeTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return org.apache.axiom.om.OMElement
+   */
+  public org.apache.axiom.om.OMElement getResourceType() {
+    return localResourceType;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param ResourceType
+   */
+  public void setResourceType(org.apache.axiom.om.OMElement param) {
+    localResourceTypeTracker = param != null;
+
+    this.localResourceType = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -210,6 +243,22 @@ public class ConfiguredWebLink implements org.apache.axis2.databinding.ADBBean {
       } else {
 
         xmlWriter.writeCharacters(localURL);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localResourceTypeTracker) {
+      namespace = "urn:hpccsystems:ws:wsresources";
+      writeStartElement(null, namespace, "ResourceType", xmlWriter);
+
+      if (localResourceType == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("ResourceType cannot be null!!");
+
+      } else {
+
+        localResourceType.serialize(xmlWriter);
       }
 
       xmlWriter.writeEndElement();
@@ -510,6 +559,29 @@ public class ConfiguredWebLink implements org.apache.axis2.databinding.ADBBean {
 
               object.setURL(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "ResourceType" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              org.apache.axiom.om.OMFactory fac =
+                  org.apache.axiom.om.OMAbstractFactory.getOMFactory();
+              org.apache.axiom.om.OMNamespace omNs =
+                  fac.createOMNamespace("urn:hpccsystems:ws:wsresources", "");
+              org.apache.axiom.om.OMElement _valueResourceType =
+                  fac.createOMElement("ResourceType", omNs);
+              _valueResourceType.addChild(fac.createOMText(_valueResourceType, content));
+              object.setResourceType(_valueResourceType);
 
               reader.next();
 
