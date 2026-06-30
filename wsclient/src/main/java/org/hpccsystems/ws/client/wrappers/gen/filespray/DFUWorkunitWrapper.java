@@ -65,6 +65,7 @@ public class DFUWorkunitWrapper
     protected String local_timeStarted;
     protected String local_timeStopped;
     protected String local_stateMessage;
+    protected String local_stateReason;
     protected String local_monitorEventName;
     protected boolean local_monitorSub;
     protected int local_monitorShotLimit;
@@ -89,7 +90,7 @@ public class DFUWorkunitWrapper
     {
         copy( dfuworkunit );
     }
-    public DFUWorkunitWrapper( String _iD, String _dFUServerName, String _clusterName, String _jobName, String _queue, String _user, boolean _isProtected, int _command, String _commandMessage, int _percentDone, int _secsLeft, String _progressMessage, String _summaryMessage, int _state, String _sourceLogicalName, String _sourceIP, String _sourceFilePath, String _sourceDali, int _sourceRecordSize, int _sourceFormat, String _rowTag, int _sourceNumParts, String _sourceDirectory, String _destLogicalName, String _destGroupName, String _destDirectory, String _destIP, String _destFilePath, int _destFormat, int _destNumParts, int _destRecordSize, boolean _replicate, boolean _overwrite, boolean _compress, String _sourceCsvSeparate, String _sourceCsvQuote, String _sourceCsvTerminate, String _sourceCsvEscape, String _timeStarted, String _timeStopped, String _stateMessage, String _monitorEventName, boolean _monitorSub, int _monitorShotLimit, String _sourceDiffKeyName, String _destDiffKeyName, boolean _archived, String _encrypt, String _decrypt, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, boolean _preserveCompression, int _expireDays, boolean _preserveFileParts, double _fileAccessCost, int _kbPerSecAve, int _kbPerSec )
+    public DFUWorkunitWrapper( String _iD, String _dFUServerName, String _clusterName, String _jobName, String _queue, String _user, boolean _isProtected, int _command, String _commandMessage, int _percentDone, int _secsLeft, String _progressMessage, String _summaryMessage, int _state, String _sourceLogicalName, String _sourceIP, String _sourceFilePath, String _sourceDali, int _sourceRecordSize, int _sourceFormat, String _rowTag, int _sourceNumParts, String _sourceDirectory, String _destLogicalName, String _destGroupName, String _destDirectory, String _destIP, String _destFilePath, int _destFormat, int _destNumParts, int _destRecordSize, boolean _replicate, boolean _overwrite, boolean _compress, String _sourceCsvSeparate, String _sourceCsvQuote, String _sourceCsvTerminate, String _sourceCsvEscape, String _timeStarted, String _timeStopped, String _stateMessage, String _stateReason, String _monitorEventName, boolean _monitorSub, int _monitorShotLimit, String _sourceDiffKeyName, String _destDiffKeyName, boolean _archived, String _encrypt, String _decrypt, boolean _failIfNoSourceFile, boolean _recordStructurePresent, boolean _quotedTerminator, boolean _preserveCompression, int _expireDays, boolean _preserveFileParts, double _fileAccessCost, int _kbPerSecAve, int _kbPerSec )
     {
         this.local_iD = _iD;
         this.local_dFUServerName = _dFUServerName;
@@ -132,6 +133,7 @@ public class DFUWorkunitWrapper
         this.local_timeStarted = _timeStarted;
         this.local_timeStopped = _timeStopped;
         this.local_stateMessage = _stateMessage;
+        this.local_stateReason = _stateReason;
         this.local_monitorEventName = _monitorEventName;
         this.local_monitorSub = _monitorSub;
         this.local_monitorShotLimit = _monitorShotLimit;
@@ -198,6 +200,7 @@ public class DFUWorkunitWrapper
         this.local_timeStarted = raw.getTimeStarted();
         this.local_timeStopped = raw.getTimeStopped();
         this.local_stateMessage = raw.getStateMessage();
+        this.local_stateReason = raw.getStateReason();
         this.local_monitorEventName = raw.getMonitorEventName();
         this.local_monitorSub = raw.getMonitorSub();
         this.local_monitorShotLimit = raw.getMonitorShotLimit();
@@ -221,7 +224,7 @@ public class DFUWorkunitWrapper
     @Override
     public String toString()
     {
-        return "DFUWorkunitWrapper [" + "iD = " + local_iD + ", " + "dFUServerName = " + local_dFUServerName + ", " + "clusterName = " + local_clusterName + ", " + "jobName = " + local_jobName + ", " + "queue = " + local_queue + ", " + "user = " + local_user + ", " + "isProtected = " + local_isProtected + ", " + "command = " + local_command + ", " + "commandMessage = " + local_commandMessage + ", " + "percentDone = " + local_percentDone + ", " + "secsLeft = " + local_secsLeft + ", " + "progressMessage = " + local_progressMessage + ", " + "summaryMessage = " + local_summaryMessage + ", " + "state = " + local_state + ", " + "sourceLogicalName = " + local_sourceLogicalName + ", " + "sourceIP = " + local_sourceIP + ", " + "sourceFilePath = " + local_sourceFilePath + ", " + "sourceDali = " + local_sourceDali + ", " + "sourceRecordSize = " + local_sourceRecordSize + ", " + "sourceFormat = " + local_sourceFormat + ", " + "rowTag = " + local_rowTag + ", " + "sourceNumParts = " + local_sourceNumParts + ", " + "sourceDirectory = " + local_sourceDirectory + ", " + "destLogicalName = " + local_destLogicalName + ", " + "destGroupName = " + local_destGroupName + ", " + "destDirectory = " + local_destDirectory + ", " + "destIP = " + local_destIP + ", " + "destFilePath = " + local_destFilePath + ", " + "destFormat = " + local_destFormat + ", " + "destNumParts = " + local_destNumParts + ", " + "destRecordSize = " + local_destRecordSize + ", " + "replicate = " + local_replicate + ", " + "overwrite = " + local_overwrite + ", " + "compress = " + local_compress + ", " + "sourceCsvSeparate = " + local_sourceCsvSeparate + ", " + "sourceCsvQuote = " + local_sourceCsvQuote + ", " + "sourceCsvTerminate = " + local_sourceCsvTerminate + ", " + "sourceCsvEscape = " + local_sourceCsvEscape + ", " + "timeStarted = " + local_timeStarted + ", " + "timeStopped = " + local_timeStopped + ", " + "stateMessage = " + local_stateMessage + ", " + "monitorEventName = " + local_monitorEventName + ", " + "monitorSub = " + local_monitorSub + ", " + "monitorShotLimit = " + local_monitorShotLimit + ", " + "sourceDiffKeyName = " + local_sourceDiffKeyName + ", " + "destDiffKeyName = " + local_destDiffKeyName + ", " + "archived = " + local_archived + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "preserveCompression = " + local_preserveCompression + ", " + "expireDays = " + local_expireDays + ", " + "preserveFileParts = " + local_preserveFileParts + ", " + "fileAccessCost = " + local_fileAccessCost + ", " + "kbPerSecAve = " + local_kbPerSecAve + ", " + "kbPerSec = " + local_kbPerSec + "]";
+        return "DFUWorkunitWrapper [" + "iD = " + local_iD + ", " + "dFUServerName = " + local_dFUServerName + ", " + "clusterName = " + local_clusterName + ", " + "jobName = " + local_jobName + ", " + "queue = " + local_queue + ", " + "user = " + local_user + ", " + "isProtected = " + local_isProtected + ", " + "command = " + local_command + ", " + "commandMessage = " + local_commandMessage + ", " + "percentDone = " + local_percentDone + ", " + "secsLeft = " + local_secsLeft + ", " + "progressMessage = " + local_progressMessage + ", " + "summaryMessage = " + local_summaryMessage + ", " + "state = " + local_state + ", " + "sourceLogicalName = " + local_sourceLogicalName + ", " + "sourceIP = " + local_sourceIP + ", " + "sourceFilePath = " + local_sourceFilePath + ", " + "sourceDali = " + local_sourceDali + ", " + "sourceRecordSize = " + local_sourceRecordSize + ", " + "sourceFormat = " + local_sourceFormat + ", " + "rowTag = " + local_rowTag + ", " + "sourceNumParts = " + local_sourceNumParts + ", " + "sourceDirectory = " + local_sourceDirectory + ", " + "destLogicalName = " + local_destLogicalName + ", " + "destGroupName = " + local_destGroupName + ", " + "destDirectory = " + local_destDirectory + ", " + "destIP = " + local_destIP + ", " + "destFilePath = " + local_destFilePath + ", " + "destFormat = " + local_destFormat + ", " + "destNumParts = " + local_destNumParts + ", " + "destRecordSize = " + local_destRecordSize + ", " + "replicate = " + local_replicate + ", " + "overwrite = " + local_overwrite + ", " + "compress = " + local_compress + ", " + "sourceCsvSeparate = " + local_sourceCsvSeparate + ", " + "sourceCsvQuote = " + local_sourceCsvQuote + ", " + "sourceCsvTerminate = " + local_sourceCsvTerminate + ", " + "sourceCsvEscape = " + local_sourceCsvEscape + ", " + "timeStarted = " + local_timeStarted + ", " + "timeStopped = " + local_timeStopped + ", " + "stateMessage = " + local_stateMessage + ", " + "stateReason = " + local_stateReason + ", " + "monitorEventName = " + local_monitorEventName + ", " + "monitorSub = " + local_monitorSub + ", " + "monitorShotLimit = " + local_monitorShotLimit + ", " + "sourceDiffKeyName = " + local_sourceDiffKeyName + ", " + "destDiffKeyName = " + local_destDiffKeyName + ", " + "archived = " + local_archived + ", " + "encrypt = " + local_encrypt + ", " + "decrypt = " + local_decrypt + ", " + "failIfNoSourceFile = " + local_failIfNoSourceFile + ", " + "recordStructurePresent = " + local_recordStructurePresent + ", " + "quotedTerminator = " + local_quotedTerminator + ", " + "preserveCompression = " + local_preserveCompression + ", " + "expireDays = " + local_expireDays + ", " + "preserveFileParts = " + local_preserveFileParts + ", " + "fileAccessCost = " + local_fileAccessCost + ", " + "kbPerSecAve = " + local_kbPerSecAve + ", " + "kbPerSec = " + local_kbPerSec + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunit getRaw()
     {
@@ -267,6 +270,7 @@ public class DFUWorkunitWrapper
         raw.setTimeStarted( local_timeStarted);
         raw.setTimeStopped( local_timeStopped);
         raw.setStateMessage( local_stateMessage);
+        raw.setStateReason( local_stateReason);
         raw.setMonitorEventName( local_monitorEventName);
         raw.setMonitorSub( local_monitorSub);
         raw.setMonitorShotLimit( local_monitorShotLimit);
@@ -615,6 +619,14 @@ public class DFUWorkunitWrapper
     public String getStateMessage( )
     {
         return this.local_stateMessage;
+    }
+    public void setStateReason( String _stateReason )
+    {
+        this.local_stateReason = _stateReason;
+    }
+    public String getStateReason( )
+    {
+        return this.local_stateReason;
     }
     public void setMonitorEventName( String _monitorEventName )
     {

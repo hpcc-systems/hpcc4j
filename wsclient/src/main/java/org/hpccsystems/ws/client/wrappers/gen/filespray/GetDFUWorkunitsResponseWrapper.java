@@ -26,7 +26,8 @@ public class GetDFUWorkunitsResponseWrapper
 {
     protected ArrayOfEspExceptionWrapper local_exceptions;
     protected ArrayOfDFUWorkunitWrapper local_results;
-    protected String local_type;
+    protected DFUCommandWrapper local_command;
+    protected boolean local_archived;
     protected String local_owner;
     protected String local_cluster;
     protected String local_stateReq;
@@ -50,11 +51,12 @@ public class GetDFUWorkunitsResponseWrapper
     {
         copy( getdfuworkunitsresponse );
     }
-    public GetDFUWorkunitsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfDFUWorkunitWrapper _results, String _type, String _owner, String _cluster, String _stateReq, long _pageSize, long _prevPage, long _nextPage, long _lastPage, long _numWUs, long _pageStartFrom, long _pageEndAt, boolean _first, String _sortby, boolean _descending, String _basicQuery, String _filters, long _cacheHint )
+    public GetDFUWorkunitsResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, ArrayOfDFUWorkunitWrapper _results, DFUCommandWrapper _command, boolean _archived, String _owner, String _cluster, String _stateReq, long _pageSize, long _prevPage, long _nextPage, long _lastPage, long _numWUs, long _pageStartFrom, long _pageEndAt, boolean _first, String _sortby, boolean _descending, String _basicQuery, String _filters, long _cacheHint )
     {
         this.local_exceptions = _exceptions;
         this.local_results = _results;
-        this.local_type = _type;
+        this.local_command = _command;
+        this.local_archived = _archived;
         this.local_owner = _owner;
         this.local_cluster = _cluster;
         this.local_stateReq = _stateReq;
@@ -83,7 +85,9 @@ public class GetDFUWorkunitsResponseWrapper
             this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
         if (raw.getResults() != null)
             this.local_results = new ArrayOfDFUWorkunitWrapper( raw.getResults());
-        this.local_type = raw.getType();
+        if (raw.getCommand() != null)
+            this.local_command = new DFUCommandWrapper( raw.getCommand());
+        this.local_archived = raw.getArchived();
         this.local_owner = raw.getOwner();
         this.local_cluster = raw.getCluster();
         this.local_stateReq = raw.getStateReq();
@@ -106,7 +110,7 @@ public class GetDFUWorkunitsResponseWrapper
     @Override
     public String toString()
     {
-        return "GetDFUWorkunitsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "results = " + local_results + ", " + "type = " + local_type + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "stateReq = " + local_stateReq + ", " + "pageSize = " + local_pageSize + ", " + "prevPage = " + local_prevPage + ", " + "nextPage = " + local_nextPage + ", " + "lastPage = " + local_lastPage + ", " + "numWUs = " + local_numWUs + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "pageEndAt = " + local_pageEndAt + ", " + "first = " + local_first + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "basicQuery = " + local_basicQuery + ", " + "filters = " + local_filters + ", " + "cacheHint = " + local_cacheHint + "]";
+        return "GetDFUWorkunitsResponseWrapper [" + "exceptions = " + local_exceptions + ", " + "results = " + local_results + ", " + "command = " + local_command + ", " + "archived = " + local_archived + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "stateReq = " + local_stateReq + ", " + "pageSize = " + local_pageSize + ", " + "prevPage = " + local_prevPage + ", " + "nextPage = " + local_nextPage + ", " + "lastPage = " + local_lastPage + ", " + "numWUs = " + local_numWUs + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "pageEndAt = " + local_pageEndAt + ", " + "first = " + local_first + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "basicQuery = " + local_basicQuery + ", " + "filters = " + local_filters + ", " + "cacheHint = " + local_cacheHint + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunitsResponse getRaw()
     {
@@ -115,7 +119,9 @@ public class GetDFUWorkunitsResponseWrapper
             raw.setExceptions( local_exceptions.getRaw());
         if (local_results != null)
             raw.setResults( local_results.getRaw());
-        raw.setType( local_type);
+        if (local_command != null)
+            raw.setCommand( local_command.getRaw());
+        raw.setArchived( local_archived);
         raw.setOwner( local_owner);
         raw.setCluster( local_cluster);
         raw.setStateReq( local_stateReq);
@@ -152,13 +158,21 @@ public class GetDFUWorkunitsResponseWrapper
     {
         return this.local_results;
     }
-    public void setType( String _type )
+    public void setCommand( DFUCommandWrapper _command )
     {
-        this.local_type = _type;
+        this.local_command = _command;
     }
-    public String getType( )
+    public DFUCommandWrapper getCommand( )
     {
-        return this.local_type;
+        return this.local_command;
+    }
+    public void setArchived( boolean _archived )
+    {
+        this.local_archived = _archived;
+    }
+    public boolean getArchived( )
+    {
+        return this.local_archived;
     }
     public void setOwner( String _owner )
     {
