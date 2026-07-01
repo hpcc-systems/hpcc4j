@@ -993,6 +993,39 @@ public class WUEclDefinitionAction implements org.apache.axis2.databinding.ADBBe
     this.localRemoteStorage = param;
   }
 
+  /** field for DfuTargetPlane */
+  protected java.lang.String localDfuTargetPlane;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localDfuTargetPlaneTracker = false;
+
+  public boolean isDfuTargetPlaneSpecified() {
+    return localDfuTargetPlaneTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getDfuTargetPlane() {
+    return localDfuTargetPlane;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param DfuTargetPlane
+   */
+  public void setDfuTargetPlane(java.lang.String param) {
+    localDfuTargetPlaneTracker = param != null;
+
+    this.localDfuTargetPlane = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -1457,6 +1490,22 @@ public class WUEclDefinitionAction implements org.apache.axis2.databinding.ADBBe
       } else {
 
         xmlWriter.writeCharacters(localRemoteStorage);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localDfuTargetPlaneTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "DfuTargetPlane", xmlWriter);
+
+      if (localDfuTargetPlane == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("DfuTargetPlane cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localDfuTargetPlane);
       }
 
       xmlWriter.writeEndElement();
@@ -2221,6 +2270,25 @@ public class WUEclDefinitionAction implements org.apache.axis2.databinding.ADBBe
               java.lang.String content = reader.getElementText();
 
               object.setRemoteStorage(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "DfuTargetPlane")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "DfuTargetPlane" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setDfuTargetPlane(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();

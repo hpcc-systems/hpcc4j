@@ -763,6 +763,42 @@ public class WUInfoDetails implements org.apache.axis2.databinding.ADBBean {
     this.localIncludeProcesses = param;
   }
 
+  /** field for IncludeFileSummaries */
+  protected boolean localIncludeFileSummaries =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localIncludeFileSummariesTracker = false;
+
+  public boolean isIncludeFileSummariesSpecified() {
+    return localIncludeFileSummariesTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getIncludeFileSummaries() {
+    return localIncludeFileSummaries;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param IncludeFileSummaries
+   */
+  public void setIncludeFileSummaries(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localIncludeFileSummariesTracker = true;
+
+    this.localIncludeFileSummaries = param;
+  }
+
   /** field for SuppressResultSchemas */
   protected boolean localSuppressResultSchemas =
       org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
@@ -1210,6 +1246,23 @@ public class WUInfoDetails implements org.apache.axis2.databinding.ADBBean {
         xmlWriter.writeCharacters(
             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
                 localIncludeProcesses));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localIncludeFileSummariesTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "IncludeFileSummaries", xmlWriter);
+
+      if (false) {
+
+        throw new org.apache.axis2.databinding.ADBException(
+            "IncludeFileSummaries cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localIncludeFileSummaries));
       }
 
       xmlWriter.writeEndElement();
@@ -1898,6 +1951,26 @@ public class WUInfoDetails implements org.apache.axis2.databinding.ADBBean {
               java.lang.String content = reader.getElementText();
 
               object.setIncludeProcesses(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "IncludeFileSummaries")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "IncludeFileSummaries" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setIncludeFileSummaries(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();

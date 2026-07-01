@@ -36,7 +36,7 @@ public class LogAccessFilterWrapper
     protected LogSelectColumnModeWrapper local_selectColumnMode;
     protected List<String> local_customColumns = null;
     protected List<String> local_componentsFilter = null;
-    protected LogAccessLogFormatWrapper local_format;
+    protected String local_format;
     protected SortDirectionWrapper local_sortByTimeDirection;
     protected LogEventClassWrapper local_logEventType;
 
@@ -46,7 +46,7 @@ public class LogAccessFilterWrapper
     {
         copy( logaccessfilter );
     }
-    public LogAccessFilterWrapper( String _wildcardFilter, TimeRangeWrapper _absoluteTimeRange, UnsignedInt _relativeTimeRangeBuffer, UnsignedInt _lineLimit, long _lineStartFrom, LogSelectColumnModeWrapper _selectColumnMode, List<String> _customColumns, List<String> _componentsFilter, LogAccessLogFormatWrapper _format, SortDirectionWrapper _sortByTimeDirection, LogEventClassWrapper _logEventType )
+    public LogAccessFilterWrapper( String _wildcardFilter, TimeRangeWrapper _absoluteTimeRange, UnsignedInt _relativeTimeRangeBuffer, UnsignedInt _lineLimit, long _lineStartFrom, LogSelectColumnModeWrapper _selectColumnMode, List<String> _customColumns, List<String> _componentsFilter, String _format, SortDirectionWrapper _sortByTimeDirection, LogEventClassWrapper _logEventType )
     {
         this.local_wildcardFilter = _wildcardFilter;
         this.local_absoluteTimeRange = _absoluteTimeRange;
@@ -89,8 +89,7 @@ public class LogAccessFilterWrapper
             {
                 this.local_componentsFilter.add(new String(raw.getComponentsFilter().getItem()[i]));
             }
-        }        if (raw.getFormat() != null)
-            this.local_format = new LogAccessLogFormatWrapper( raw.getFormat());
+        }        this.local_format = raw.getFormat();
         if (raw.getSortByTimeDirection() != null)
             this.local_sortByTimeDirection = new SortDirectionWrapper( raw.getSortByTimeDirection());
         if (raw.getLogEventType() != null)
@@ -132,8 +131,7 @@ public class LogAccessFilterWrapper
             }
             raw.setComponentsFilter(arr);
         }
-        if (local_format != null)
-            raw.setFormat( local_format.getRaw());
+        raw.setFormat( local_format);
         if (local_sortByTimeDirection != null)
             raw.setSortByTimeDirection( local_sortByTimeDirection.getRaw());
         if (local_logEventType != null)
@@ -206,11 +204,11 @@ public class LogAccessFilterWrapper
     {
         return this.local_componentsFilter;
     }
-    public void setFormat( LogAccessLogFormatWrapper _format )
+    public void setFormat( String _format )
     {
         this.local_format = _format;
     }
-    public LogAccessLogFormatWrapper getFormat( )
+    public String getFormat( )
     {
         return this.local_format;
     }

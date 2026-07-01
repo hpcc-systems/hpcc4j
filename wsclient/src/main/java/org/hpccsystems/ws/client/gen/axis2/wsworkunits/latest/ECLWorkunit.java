@@ -2554,6 +2554,41 @@ public class ECLWorkunit implements org.apache.axis2.databinding.ADBBean {
     this.localFileAccessCost = param;
   }
 
+  /** field for CostSavingPotential */
+  protected double localCostSavingPotential;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localCostSavingPotentialTracker = false;
+
+  public boolean isCostSavingPotentialSpecified() {
+    return localCostSavingPotentialTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return double
+   */
+  public double getCostSavingPotential() {
+    return localCostSavingPotential;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param CostSavingPotential
+   */
+  public void setCostSavingPotential(double param) {
+
+    // setting primitive attribute tracker to true
+    localCostSavingPotentialTracker = !java.lang.Double.isNaN(param);
+
+    this.localCostSavingPotential = param;
+  }
+
   /** field for CompileCost */
   protected double localCompileCost;
 
@@ -2659,6 +2694,75 @@ public class ECLWorkunit implements org.apache.axis2.databinding.ADBBean {
     localECLWUProcessListTracker = param != null;
 
     this.localECLWUProcessList = param;
+  }
+
+  /** field for FailureDesc */
+  protected java.lang.String localFailureDesc;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localFailureDescTracker = false;
+
+  public boolean isFailureDescSpecified() {
+    return localFailureDescTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getFailureDesc() {
+    return localFailureDesc;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param FailureDesc
+   */
+  public void setFailureDesc(java.lang.String param) {
+    localFailureDescTracker = param != null;
+
+    this.localFailureDesc = param;
+  }
+
+  /** field for FileSummaries */
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfECLWUFileSummary
+      localFileSummaries;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localFileSummariesTracker = false;
+
+  public boolean isFileSummariesSpecified() {
+    return localFileSummariesTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfECLWUFileSummary
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfECLWUFileSummary
+      getFileSummaries() {
+    return localFileSummaries;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param FileSummaries
+   */
+  public void setFileSummaries(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfECLWUFileSummary param) {
+    localFileSummariesTracker = param != null;
+
+    this.localFileSummaries = param;
   }
 
   /**
@@ -3730,6 +3834,22 @@ public class ECLWorkunit implements org.apache.axis2.databinding.ADBBean {
 
       xmlWriter.writeEndElement();
     }
+    if (localCostSavingPotentialTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "CostSavingPotential", xmlWriter);
+
+      if (java.lang.Double.isNaN(localCostSavingPotential)) {
+
+        throw new org.apache.axis2.databinding.ADBException("CostSavingPotential cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
+                localCostSavingPotential));
+      }
+
+      xmlWriter.writeEndElement();
+    }
     if (localCompileCostTracker) {
       namespace = "urn:hpccsystems:ws:wsworkunits";
       writeStartElement(null, namespace, "CompileCost", xmlWriter);
@@ -3766,6 +3886,30 @@ public class ECLWorkunit implements org.apache.axis2.databinding.ADBBean {
       }
       localECLWUProcessList.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ECLWUProcessList"),
+          xmlWriter);
+    }
+    if (localFailureDescTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "FailureDesc", xmlWriter);
+
+      if (localFailureDesc == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("FailureDesc cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localFailureDesc);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localFileSummariesTracker) {
+      if (localFileSummaries == null) {
+        throw new org.apache.axis2.databinding.ADBException("FileSummaries cannot be null!!");
+      }
+      localFileSummaries.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "FileSummaries"),
           xmlWriter);
     }
     xmlWriter.writeEndElement();
@@ -5303,6 +5447,26 @@ public class ECLWorkunit implements org.apache.axis2.databinding.ADBBean {
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
+                && new javax.xml.namespace.QName(
+                        "urn:hpccsystems:ws:wsworkunits", "CostSavingPotential")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "CostSavingPotential" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setCostSavingPotential(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
                 && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "CompileCost")
                     .equals(reader.getName())) {
 
@@ -5348,6 +5512,36 @@ public class ECLWorkunit implements org.apache.axis2.databinding.ADBBean {
               object.setECLWUProcessList(
                   org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfECLWUProcess.Factory
                       .parse(reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "FailureDesc")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "FailureDesc" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setFailureDesc(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "FileSummaries")
+                    .equals(reader.getName())) {
+
+              object.setFileSummaries(
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ArrayOfECLWUFileSummary
+                      .Factory.parse(reader));
 
               reader.next();
 

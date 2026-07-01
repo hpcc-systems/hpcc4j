@@ -27,7 +27,10 @@ public class ECLWUProcessWrapper
     protected String local_name;
     protected String local_type;
     protected String local_podName;
+    protected String local_containerName;
+    protected Graphs_type0Wrapper local_graphs;
     protected int local_instanceNumber;
+    protected String local_sequence;
     protected String local_log;
     protected String local_pID;
     protected String local_pattern;
@@ -39,12 +42,15 @@ public class ECLWUProcessWrapper
     {
         copy( eclwuprocess );
     }
-    public ECLWUProcessWrapper( String _name, String _type, String _podName, int _instanceNumber, String _log, String _pID, String _pattern, int _max )
+    public ECLWUProcessWrapper( String _name, String _type, String _podName, String _containerName, Graphs_type0Wrapper _graphs, int _instanceNumber, String _sequence, String _log, String _pID, String _pattern, int _max )
     {
         this.local_name = _name;
         this.local_type = _type;
         this.local_podName = _podName;
+        this.local_containerName = _containerName;
+        this.local_graphs = _graphs;
         this.local_instanceNumber = _instanceNumber;
+        this.local_sequence = _sequence;
         this.local_log = _log;
         this.local_pID = _pID;
         this.local_pattern = _pattern;
@@ -60,7 +66,11 @@ public class ECLWUProcessWrapper
         this.local_name = raw.getName();
         this.local_type = raw.getType();
         this.local_podName = raw.getPodName();
+        this.local_containerName = raw.getContainerName();
+        if (raw.getGraphs() != null)
+            this.local_graphs = new Graphs_type0Wrapper( raw.getGraphs());
         this.local_instanceNumber = raw.getInstanceNumber();
+        this.local_sequence = raw.getSequence();
         this.local_log = raw.getLog();
         this.local_pID = raw.getPID();
         this.local_pattern = raw.getPattern();
@@ -71,7 +81,7 @@ public class ECLWUProcessWrapper
     @Override
     public String toString()
     {
-        return "ECLWUProcessWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "podName = " + local_podName + ", " + "instanceNumber = " + local_instanceNumber + ", " + "log = " + local_log + ", " + "pID = " + local_pID + ", " + "pattern = " + local_pattern + ", " + "max = " + local_max + "]";
+        return "ECLWUProcessWrapper [" + "name = " + local_name + ", " + "type = " + local_type + ", " + "podName = " + local_podName + ", " + "containerName = " + local_containerName + ", " + "graphs = " + local_graphs + ", " + "instanceNumber = " + local_instanceNumber + ", " + "sequence = " + local_sequence + ", " + "log = " + local_log + ", " + "pID = " + local_pID + ", " + "pattern = " + local_pattern + ", " + "max = " + local_max + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.ECLWUProcess getRaw()
     {
@@ -79,7 +89,11 @@ public class ECLWUProcessWrapper
         raw.setName( local_name);
         raw.setType( local_type);
         raw.setPodName( local_podName);
+        raw.setContainerName( local_containerName);
+        if (local_graphs != null)
+            raw.setGraphs( local_graphs.getRaw());
         raw.setInstanceNumber( local_instanceNumber);
+        raw.setSequence( local_sequence);
         raw.setLog( local_log);
         raw.setPID( local_pID);
         raw.setPattern( local_pattern);
@@ -112,6 +126,22 @@ public class ECLWUProcessWrapper
     {
         return this.local_podName;
     }
+    public void setContainerName( String _containerName )
+    {
+        this.local_containerName = _containerName;
+    }
+    public String getContainerName( )
+    {
+        return this.local_containerName;
+    }
+    public void setGraphs( Graphs_type0Wrapper _graphs )
+    {
+        this.local_graphs = _graphs;
+    }
+    public Graphs_type0Wrapper getGraphs( )
+    {
+        return this.local_graphs;
+    }
     public void setInstanceNumber( int _instanceNumber )
     {
         this.local_instanceNumber = _instanceNumber;
@@ -119,6 +149,14 @@ public class ECLWUProcessWrapper
     public int getInstanceNumber( )
     {
         return this.local_instanceNumber;
+    }
+    public void setSequence( String _sequence )
+    {
+        this.local_sequence = _sequence;
+    }
+    public String getSequence( )
+    {
+        return this.local_sequence;
     }
     public void setLog( String _log )
     {

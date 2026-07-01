@@ -114,6 +114,72 @@ public class ECLWUProcess implements org.apache.axis2.databinding.ADBBean {
     this.localPodName = param;
   }
 
+  /** field for ContainerName */
+  protected java.lang.String localContainerName;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localContainerNameTracker = false;
+
+  public boolean isContainerNameSpecified() {
+    return localContainerNameTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getContainerName() {
+    return localContainerName;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param ContainerName
+   */
+  public void setContainerName(java.lang.String param) {
+    localContainerNameTracker = param != null;
+
+    this.localContainerName = param;
+  }
+
+  /** field for Graphs */
+  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Graphs_type0 localGraphs;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localGraphsTracker = false;
+
+  public boolean isGraphsSpecified() {
+    return localGraphsTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Graphs_type0
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Graphs_type0 getGraphs() {
+    return localGraphs;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Graphs
+   */
+  public void setGraphs(org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Graphs_type0 param) {
+    localGraphsTracker = param != null;
+
+    this.localGraphs = param;
+  }
+
   /** field for InstanceNumber */
   protected int localInstanceNumber =
       org.apache.axis2.databinding.utils.ConverterUtil.convertToInt("1");
@@ -148,6 +214,39 @@ public class ECLWUProcess implements org.apache.axis2.databinding.ADBBean {
     localInstanceNumberTracker = param != java.lang.Integer.MIN_VALUE;
 
     this.localInstanceNumber = param;
+  }
+
+  /** field for Sequence */
+  protected java.lang.String localSequence;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localSequenceTracker = false;
+
+  public boolean isSequenceSpecified() {
+    return localSequenceTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getSequence() {
+    return localSequence;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Sequence
+   */
+  public void setSequence(java.lang.String param) {
+    localSequenceTracker = param != null;
+
+    this.localSequence = param;
   }
 
   /** field for Log */
@@ -380,6 +479,29 @@ public class ECLWUProcess implements org.apache.axis2.databinding.ADBBean {
 
       xmlWriter.writeEndElement();
     }
+    if (localContainerNameTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "ContainerName", xmlWriter);
+
+      if (localContainerName == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("ContainerName cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localContainerName);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localGraphsTracker) {
+      if (localGraphs == null) {
+        throw new org.apache.axis2.databinding.ADBException("Graphs cannot be null!!");
+      }
+      localGraphs.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Graphs"), xmlWriter);
+    }
     if (localInstanceNumberTracker) {
       namespace = "urn:hpccsystems:ws:wsworkunits";
       writeStartElement(null, namespace, "InstanceNumber", xmlWriter);
@@ -391,6 +513,22 @@ public class ECLWUProcess implements org.apache.axis2.databinding.ADBBean {
       } else {
         xmlWriter.writeCharacters(
             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localInstanceNumber));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localSequenceTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "Sequence", xmlWriter);
+
+      if (localSequence == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("Sequence cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localSequence);
       }
 
       xmlWriter.writeEndElement();
@@ -759,6 +897,36 @@ public class ECLWUProcess implements org.apache.axis2.databinding.ADBBean {
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ContainerName")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "ContainerName" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setContainerName(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Graphs")
+                    .equals(reader.getName())) {
+
+              object.setGraphs(
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Graphs_type0.Factory.parse(
+                      reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
                 && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "InstanceNumber")
                     .equals(reader.getName())) {
 
@@ -773,6 +941,25 @@ public class ECLWUProcess implements org.apache.axis2.databinding.ADBBean {
 
               object.setInstanceNumber(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Sequence")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Sequence" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setSequence(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 

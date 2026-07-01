@@ -51,6 +51,7 @@ public class WUQuerysetImportWrapper
     protected String local_dfuPublisherWuid;
     protected String local_remoteStorage;
     protected String local_keyCompression;
+    protected String local_dfuTargetPlane;
 
     public WUQuerysetImportWrapper() {}
 
@@ -58,7 +59,7 @@ public class WUQuerysetImportWrapper
     {
         copy( wuquerysetimport );
     }
-    public WUQuerysetImportWrapper( String _target, String _queryMask, boolean _replace, boolean _activeOnly, QuerysetImportActivationWrapper _activation, boolean _compressed, DataHandler _data, boolean _allowForeignFiles, String _dfsServer, boolean _copyFiles, boolean _overwriteDfs, String _sourceProcess, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied, String _dfuPublisherWuid, String _remoteStorage, String _keyCompression )
+    public WUQuerysetImportWrapper( String _target, String _queryMask, boolean _replace, boolean _activeOnly, QuerysetImportActivationWrapper _activation, boolean _compressed, DataHandler _data, boolean _allowForeignFiles, String _dfsServer, boolean _copyFiles, boolean _overwriteDfs, String _sourceProcess, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied, String _dfuPublisherWuid, String _remoteStorage, String _keyCompression, String _dfuTargetPlane )
     {
         this.local_target = _target;
         this.local_queryMask = _queryMask;
@@ -85,6 +86,7 @@ public class WUQuerysetImportWrapper
         this.local_dfuPublisherWuid = _dfuPublisherWuid;
         this.local_remoteStorage = _remoteStorage;
         this.local_keyCompression = _keyCompression;
+        this.local_dfuTargetPlane = _dfuTargetPlane;
 
     }
 
@@ -119,13 +121,14 @@ public class WUQuerysetImportWrapper
         this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
         this.local_remoteStorage = raw.getRemoteStorage();
         this.local_keyCompression = raw.getKeyCompression();
+        this.local_dfuTargetPlane = raw.getDfuTargetPlane();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUQuerysetImportWrapper [" + "target = " + local_target + ", " + "queryMask = " + local_queryMask + ", " + "replace = " + local_replace + ", " + "activeOnly = " + local_activeOnly + ", " + "activation = " + local_activation + ", " + "compressed = " + local_compressed + ", " + "data = " + local_data + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "dfsServer = " + local_dfsServer + ", " + "copyFiles = " + local_copyFiles + ", " + "overwriteDfs = " + local_overwriteDfs + ", " + "sourceProcess = " + local_sourceProcess + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "remoteStorage = " + local_remoteStorage + ", " + "keyCompression = " + local_keyCompression + "]";
+        return "WUQuerysetImportWrapper [" + "target = " + local_target + ", " + "queryMask = " + local_queryMask + ", " + "replace = " + local_replace + ", " + "activeOnly = " + local_activeOnly + ", " + "activation = " + local_activation + ", " + "compressed = " + local_compressed + ", " + "data = " + local_data + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "dfsServer = " + local_dfsServer + ", " + "copyFiles = " + local_copyFiles + ", " + "overwriteDfs = " + local_overwriteDfs + ", " + "sourceProcess = " + local_sourceProcess + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "remoteStorage = " + local_remoteStorage + ", " + "keyCompression = " + local_keyCompression + ", " + "dfuTargetPlane = " + local_dfuTargetPlane + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetImport getRaw()
     {
@@ -156,6 +159,7 @@ public class WUQuerysetImportWrapper
         raw.setDfuPublisherWuid( local_dfuPublisherWuid);
         raw.setRemoteStorage( local_remoteStorage);
         raw.setKeyCompression( local_keyCompression);
+        raw.setDfuTargetPlane( local_dfuTargetPlane);
         return raw;
     }
 
@@ -359,5 +363,13 @@ public class WUQuerysetImportWrapper
     public String getKeyCompression( )
     {
         return this.local_keyCompression;
+    }
+    public void setDfuTargetPlane( String _dfuTargetPlane )
+    {
+        this.local_dfuTargetPlane = _dfuTargetPlane;
+    }
+    public String getDfuTargetPlane( )
+    {
+        return this.local_dfuTargetPlane;
     }
 }
