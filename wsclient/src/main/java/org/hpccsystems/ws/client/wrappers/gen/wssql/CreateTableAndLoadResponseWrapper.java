@@ -15,6 +15,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
+import org.apache.axiom.om.OMElement;
 
 /**
  * Generated Axis2 ADB stub class wrapper
@@ -25,7 +26,7 @@ package org.hpccsystems.ws.client.wrappers.gen.wssql;
 public class CreateTableAndLoadResponseWrapper
 {
     protected String local_tableName;
-    protected boolean local_success;
+    protected OMElement local_success;
     protected String local_eclRecordDefinition;
     protected ECLWorkunitWrapper local_workunit;
 
@@ -35,7 +36,7 @@ public class CreateTableAndLoadResponseWrapper
     {
         copy( createtableandloadresponse );
     }
-    public CreateTableAndLoadResponseWrapper( String _tableName, boolean _success, String _eclRecordDefinition, ECLWorkunitWrapper _workunit )
+    public CreateTableAndLoadResponseWrapper( String _tableName, OMElement _success, String _eclRecordDefinition, ECLWorkunitWrapper _workunit )
     {
         this.local_tableName = _tableName;
         this.local_success = _success;
@@ -82,11 +83,11 @@ public class CreateTableAndLoadResponseWrapper
     {
         return this.local_tableName;
     }
-    public void setSuccess( boolean _success )
+    public void setSuccess( OMElement _success )
     {
         this.local_success = _success;
     }
-    public boolean getSuccess( )
+    public OMElement getSuccess( )
     {
         return this.local_success;
     }

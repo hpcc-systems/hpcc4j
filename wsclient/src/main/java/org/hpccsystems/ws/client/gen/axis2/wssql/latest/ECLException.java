@@ -1,8 +1,8 @@
 /**
  * ECLException.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssql.latest;
 
@@ -14,39 +14,6 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
   Namespace URI = urn:hpccsystems:ws:wssql
   Namespace Prefix = ns1
   */
-
-  /** field for Source */
-  protected java.lang.String localSource;
-
-  /*  This tracker boolean wil be used to detect whether the user called the set method
-   *   for this attribute. It will be used to determine whether to include this field
-   *   in the serialized XML
-   */
-  protected boolean localSourceTracker = false;
-
-  public boolean isSourceSpecified() {
-    return localSourceTracker;
-  }
-
-  /**
-   * Auto generated getter method
-   *
-   * @return java.lang.String
-   */
-  public java.lang.String getSource() {
-    return localSource;
-  }
-
-  /**
-   * Auto generated setter method
-   *
-   * @param param Source
-   */
-  public void setSource(java.lang.String param) {
-    localSourceTracker = param != null;
-
-    this.localSource = param;
-  }
 
   /** field for Severity */
   protected java.lang.String localSeverity;
@@ -79,6 +46,39 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
     localSeverityTracker = param != null;
 
     this.localSeverity = param;
+  }
+
+  /** field for Source */
+  protected java.lang.String localSource;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localSourceTracker = false;
+
+  public boolean isSourceSpecified() {
+    return localSourceTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getSource() {
+    return localSource;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Source
+   */
+  public void setSource(java.lang.String param) {
+    localSourceTracker = param != null;
+
+    this.localSource = param;
   }
 
   /** field for Code */
@@ -149,37 +149,39 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
     this.localMessage = param;
   }
 
-  /** field for FileName */
-  protected java.lang.String localFileName;
+  /** field for Column */
+  protected int localColumn;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localFileNameTracker = false;
+  protected boolean localColumnTracker = false;
 
-  public boolean isFileNameSpecified() {
-    return localFileNameTracker;
+  public boolean isColumnSpecified() {
+    return localColumnTracker;
   }
 
   /**
    * Auto generated getter method
    *
-   * @return java.lang.String
+   * @return int
    */
-  public java.lang.String getFileName() {
-    return localFileName;
+  public int getColumn() {
+    return localColumn;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param FileName
+   * @param param Column
    */
-  public void setFileName(java.lang.String param) {
-    localFileNameTracker = param != null;
+  public void setColumn(int param) {
 
-    this.localFileName = param;
+    // setting primitive attribute tracker to true
+    localColumnTracker = param != java.lang.Integer.MIN_VALUE;
+
+    this.localColumn = param;
   }
 
   /** field for LineNo */
@@ -217,39 +219,37 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
     this.localLineNo = param;
   }
 
-  /** field for Column */
-  protected int localColumn;
+  /** field for FileName */
+  protected java.lang.String localFileName;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localColumnTracker = false;
+  protected boolean localFileNameTracker = false;
 
-  public boolean isColumnSpecified() {
-    return localColumnTracker;
+  public boolean isFileNameSpecified() {
+    return localFileNameTracker;
   }
 
   /**
    * Auto generated getter method
    *
-   * @return int
+   * @return java.lang.String
    */
-  public int getColumn() {
-    return localColumn;
+  public java.lang.String getFileName() {
+    return localFileName;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param Column
+   * @param param FileName
    */
-  public void setColumn(int param) {
+  public void setFileName(java.lang.String param) {
+    localFileNameTracker = param != null;
 
-    // setting primitive attribute tracker to true
-    localColumnTracker = param != java.lang.Integer.MIN_VALUE;
-
-    this.localColumn = param;
+    this.localFileName = param;
   }
 
   /** field for Activity */
@@ -355,6 +355,41 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
     this.localPriority = param;
   }
 
+  /** field for Cost */
+  protected double localCost;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localCostTracker = false;
+
+  public boolean isCostSpecified() {
+    return localCostTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return double
+   */
+  public double getCost() {
+    return localCost;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Cost
+   */
+  public void setCost(double param) {
+
+    // setting primitive attribute tracker to true
+    localCostTracker = !java.lang.Double.isNaN(param);
+
+    this.localCost = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -402,22 +437,6 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
             "xsi", "http://www.w3.org/2001/XMLSchema-instance", "type", "ECLException", xmlWriter);
       }
     }
-    if (localSourceTracker) {
-      namespace = "urn:hpccsystems:ws:wssql";
-      writeStartElement(null, namespace, "Source", xmlWriter);
-
-      if (localSource == null) {
-        // write the nil attribute
-
-        throw new org.apache.axis2.databinding.ADBException("Source cannot be null!!");
-
-      } else {
-
-        xmlWriter.writeCharacters(localSource);
-      }
-
-      xmlWriter.writeEndElement();
-    }
     if (localSeverityTracker) {
       namespace = "urn:hpccsystems:ws:wssql";
       writeStartElement(null, namespace, "Severity", xmlWriter);
@@ -430,6 +449,22 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
       } else {
 
         xmlWriter.writeCharacters(localSeverity);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localSourceTracker) {
+      namespace = "urn:hpccsystems:ws:wssql";
+      writeStartElement(null, namespace, "Source", xmlWriter);
+
+      if (localSource == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("Source cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localSource);
       }
 
       xmlWriter.writeEndElement();
@@ -465,18 +500,17 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
 
       xmlWriter.writeEndElement();
     }
-    if (localFileNameTracker) {
+    if (localColumnTracker) {
       namespace = "urn:hpccsystems:ws:wssql";
-      writeStartElement(null, namespace, "FileName", xmlWriter);
+      writeStartElement(null, namespace, "Column", xmlWriter);
 
-      if (localFileName == null) {
-        // write the nil attribute
+      if (localColumn == java.lang.Integer.MIN_VALUE) {
 
-        throw new org.apache.axis2.databinding.ADBException("FileName cannot be null!!");
+        throw new org.apache.axis2.databinding.ADBException("Column cannot be null!!");
 
       } else {
-
-        xmlWriter.writeCharacters(localFileName);
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localColumn));
       }
 
       xmlWriter.writeEndElement();
@@ -496,17 +530,18 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
 
       xmlWriter.writeEndElement();
     }
-    if (localColumnTracker) {
+    if (localFileNameTracker) {
       namespace = "urn:hpccsystems:ws:wssql";
-      writeStartElement(null, namespace, "Column", xmlWriter);
+      writeStartElement(null, namespace, "FileName", xmlWriter);
 
-      if (localColumn == java.lang.Integer.MIN_VALUE) {
+      if (localFileName == null) {
+        // write the nil attribute
 
-        throw new org.apache.axis2.databinding.ADBException("Column cannot be null!!");
+        throw new org.apache.axis2.databinding.ADBException("FileName cannot be null!!");
 
       } else {
-        xmlWriter.writeCharacters(
-            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localColumn));
+
+        xmlWriter.writeCharacters(localFileName);
       }
 
       xmlWriter.writeEndElement();
@@ -553,6 +588,21 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
       } else {
         xmlWriter.writeCharacters(
             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPriority));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localCostTracker) {
+      namespace = "urn:hpccsystems:ws:wssql";
+      writeStartElement(null, namespace, "Cost", xmlWriter);
+
+      if (java.lang.Double.isNaN(localCost)) {
+
+        throw new org.apache.axis2.databinding.ADBException("Cost cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localCost));
       }
 
       xmlWriter.writeEndElement();
@@ -801,25 +851,6 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
           if (reader.isStartElement()) {
 
             if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "Source")
-                    .equals(reader.getName())) {
-
-              nillableValue =
-                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
-              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
-                throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "Source" + "  cannot be null");
-              }
-
-              java.lang.String content = reader.getElementText();
-
-              object.setSource(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
-
-              reader.next();
-
-            } // End of if for expected property start element
-            else if (reader.isStartElement()
                 && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "Severity")
                     .equals(reader.getName())) {
 
@@ -833,6 +864,25 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
               java.lang.String content = reader.getElementText();
 
               object.setSeverity(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "Source")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Source" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setSource(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
@@ -877,20 +927,20 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "FileName")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "Column")
                     .equals(reader.getName())) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
               if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
                 throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "FileName" + "  cannot be null");
+                    "The element: " + "Column" + "  cannot be null");
               }
 
               java.lang.String content = reader.getElementText();
 
-              object.setFileName(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+              object.setColumn(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
 
               reader.next();
 
@@ -915,20 +965,20 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "Column")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "FileName")
                     .equals(reader.getName())) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
               if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
                 throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "Column" + "  cannot be null");
+                    "The element: " + "FileName" + "  cannot be null");
               }
 
               java.lang.String content = reader.getElementText();
 
-              object.setColumn(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+              object.setFileName(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 
@@ -986,6 +1036,25 @@ public class ECLException implements org.apache.axis2.databinding.ADBBean {
 
               object.setPriority(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToInt(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "Cost")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Cost" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setCost(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
 
               reader.next();
 
