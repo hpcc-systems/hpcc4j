@@ -491,6 +491,135 @@
 			</xsd:complexType>
 			
       
+			<xsd:complexType name="Dimension">
+				
+        
+				<xsd:all>
+					
+          
+					<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="Value" type="xsd:string"/>
+					
+        
+				</xsd:all>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="ArrayOfDimension">
+				
+        
+				<xsd:sequence>
+					
+          
+					<xsd:element minOccurs="0" maxOccurs="unbounded" name="Dimension" type="tns:Dimension"/>
+					
+        
+				</xsd:sequence>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="DateTimeRange">
+				
+        
+				<xsd:all>
+					
+          
+					<xsd:element minOccurs="0" name="Start" type="xsd:dateTime"/>
+					
+          
+					<xsd:element minOccurs="0" name="End" type="xsd:dateTime"/>
+					
+        
+				</xsd:all>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="Stat">
+				
+        
+				<xsd:all>
+					
+          
+					<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="Value" type="xsd:string"/>
+					
+        
+				</xsd:all>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="GlobalMetric">
+				
+        
+				<xsd:all>
+					
+          
+					<xsd:element minOccurs="0" name="Category" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="Dimensions">
+						
+            
+						<xsd:complexType>
+							
+              
+							<xsd:sequence>
+								
+                
+								<xsd:element minOccurs="0" maxOccurs="unbounded" name="Dimension" type="tns:Dimension"/>
+								
+              
+							</xsd:sequence>
+							
+            
+						</xsd:complexType>
+						
+          
+					</xsd:element>
+					
+          
+					<xsd:element minOccurs="0" name="DateTimeRange" type="tns:DateTimeRange"/>
+					
+          
+					<xsd:element minOccurs="0" name="Stats">
+						
+            
+						<xsd:complexType>
+							
+              
+							<xsd:sequence>
+								
+                
+								<xsd:element minOccurs="0" maxOccurs="unbounded" name="Stat" type="tns:Stat"/>
+								
+              
+							</xsd:sequence>
+							
+            
+						</xsd:complexType>
+						
+          
+					</xsd:element>
+					
+        
+				</xsd:all>
+				
+      
+			</xsd:complexType>
+			
+      
 			<xsd:complexType name="ThorCluster">
 				
         
@@ -863,6 +992,21 @@
 			</xsd:element>
 			
       
+			<xsd:element name="GetBanner">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
 			<xsd:element name="GetBuildInfo">
 				
         
@@ -870,6 +1014,33 @@
 					
           
 					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetGlobalMetrics">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Category" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="Dimensions" type="tns:ArrayOfDimension"/>
+						
+            
+						<xsd:element minOccurs="0" name="DateTimeRange" type="tns:DateTimeRange"/>
+						
+          
+					</xsd:all>
 					
         
 				</xsd:complexType>
@@ -1166,6 +1337,51 @@
 			</xsd:element>
 			
       
+			<xsd:element name="RecordGlobalMetrics">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Category" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="Dimensions" type="tns:ArrayOfDimension"/>
+						
+            
+						<xsd:element minOccurs="0" name="Stats">
+							
+              
+							<xsd:complexType>
+								
+                
+								<xsd:sequence>
+									
+                  
+									<xsd:element minOccurs="0" maxOccurs="unbounded" name="Stat" type="tns:Stat"/>
+									
+                
+								</xsd:sequence>
+								
+              
+							</xsd:complexType>
+							
+            
+						</xsd:element>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
 			<xsd:element name="RoxieControlCmd">
 				
         
@@ -1395,7 +1611,6 @@
 						
             
 						<xsd:element minOccurs="0" name="ESPInstance" type="xsd:string"/>
-						<xsd:element minOccurs="0" name="NetAddress" type="xsd:string"/> <!-- manually added because it was dropped in v1.27-->
 						
             
 						<xsd:element minOccurs="0" name="OS" type="xsd:int"/>
@@ -1440,6 +1655,48 @@
 			</xsd:element>
 			
       
+			<xsd:element name="GetBannerResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="BannerContent" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="BannerColor" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="BannerSize" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="BannerScroll" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="ChatURL" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="ShowBanner" type="xsd:int" default="0"/>
+						
+            
+						<xsd:element minOccurs="0" name="ShowChatURL" type="xsd:int" default="0"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
 			<xsd:element name="GetBuildInfoResponse">
 				
         
@@ -1453,6 +1710,48 @@
 						
             
 						<xsd:element minOccurs="0" name="BuildInfo" type="tns:ArrayOfNamedValue"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="GetGlobalMetricsResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="GlobalMetrics">
+							
+              
+							<xsd:complexType>
+								
+                
+								<xsd:sequence>
+									
+                  
+									<xsd:element minOccurs="0" maxOccurs="unbounded" name="GlobalMetric" type="tns:GlobalMetric"/>
+									
+                
+								</xsd:sequence>
+								
+              
+							</xsd:complexType>
+							
+            
+						</xsd:element>
 						
           
 					</xsd:all>
@@ -1609,6 +1908,30 @@
 					
           
 					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="RecordGlobalMetricsResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="Result" type="xsd:string"/>
+						
+          
+					</xsd:all>
 					
         
 				</xsd:complexType>
@@ -1797,6 +2120,24 @@
 	</message>
 	
   
+	<message name="GetBannerSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetBanner"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetBannerSoapOut">
+		
+    
+		<part name="parameters" element="tns:GetBannerResponse"/>
+		
+  
+	</message>
+	
+  
 	<message name="GetBuildInfoSoapIn">
 		
     
@@ -1810,6 +2151,24 @@
 		
     
 		<part name="parameters" element="tns:GetBuildInfoResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetGlobalMetricsSoapIn">
+		
+    
+		<part name="parameters" element="tns:GetGlobalMetrics"/>
+		
+  
+	</message>
+	
+  
+	<message name="GetGlobalMetricsSoapOut">
+		
+    
+		<part name="parameters" element="tns:GetGlobalMetricsResponse"/>
 		
   
 	</message>
@@ -2013,6 +2372,24 @@
 	</message>
 	
   
+	<message name="RecordGlobalMetricsSoapIn">
+		
+    
+		<part name="parameters" element="tns:RecordGlobalMetrics"/>
+		
+  
+	</message>
+	
+  
+	<message name="RecordGlobalMetricsSoapOut">
+		
+    
+		<part name="parameters" element="tns:RecordGlobalMetricsResponse"/>
+		
+  
+	</message>
+	
+  
 	<message name="RemoveJobSoapIn">
 		
     
@@ -2187,6 +2564,21 @@
 		</operation>
 		
     
+		<operation name="GetBanner">
+			
+      
+			<input message="tns:GetBannerSoapIn"/>
+			
+      
+			<output message="tns:GetBannerSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
 		<operation name="GetBuildInfo">
 			
       
@@ -2194,6 +2586,21 @@
 			
       
 			<output message="tns:GetBuildInfoSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetGlobalMetrics">
+			
+      
+			<input message="tns:GetGlobalMetricsSoapIn"/>
+			
+      
+			<output message="tns:GetGlobalMetricsSoapOut"/>
 			
       
 			<fault name="excfault" message="tns:EspSoapFault"/>
@@ -2367,6 +2774,21 @@
 		</operation>
 		
     
+		<operation name="RecordGlobalMetrics">
+			
+      
+			<input message="tns:RecordGlobalMetricsSoapIn"/>
+			
+      
+			<output message="tns:RecordGlobalMetricsSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
 		<operation name="RemoveJob">
 			
       
@@ -2484,7 +2906,7 @@
 		<operation name="Activity">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/Activity?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/Activity?ver_=1.30"/>
 			
       
 			<input>
@@ -2520,7 +2942,7 @@
 		<operation name="BrowseResources">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/BrowseResources?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/BrowseResources?ver_=1.30"/>
 			
       
 			<input>
@@ -2556,7 +2978,43 @@
 		<operation name="ClearQueue">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/ClearQueue?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/ClearQueue?ver_=1.30"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetBanner">
+			
+      
+			<soap:operation style="document" soapAction="WsSMC/GetBanner?ver_=1.30"/>
 			
       
 			<input>
@@ -2592,7 +3050,43 @@
 		<operation name="GetBuildInfo">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/GetBuildInfo?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/GetBuildInfo?ver_=1.30"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="GetGlobalMetrics">
+			
+      
+			<soap:operation style="document" soapAction="WsSMC/GetGlobalMetrics?ver_=1.30"/>
 			
       
 			<input>
@@ -2628,7 +3122,7 @@
 		<operation name="GetStatusServerInfo">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/GetStatusServerInfo?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/GetStatusServerInfo?ver_=1.30"/>
 			
       
 			<input>
@@ -2664,7 +3158,7 @@
 		<operation name="GetThorQueueAvailability">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/GetThorQueueAvailability?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/GetThorQueueAvailability?ver_=1.30"/>
 			
       
 			<input>
@@ -2700,7 +3194,7 @@
 		<operation name="Index">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/Index?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/Index?ver_=1.30"/>
 			
       
 			<input>
@@ -2736,7 +3230,7 @@
 		<operation name="LockQuery">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/LockQuery?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/LockQuery?ver_=1.30"/>
 			
       
 			<input>
@@ -2772,7 +3266,7 @@
 		<operation name="MoveJobBack">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/MoveJobBack?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/MoveJobBack?ver_=1.30"/>
 			
       
 			<input>
@@ -2808,7 +3302,7 @@
 		<operation name="MoveJobDown">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/MoveJobDown?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/MoveJobDown?ver_=1.30"/>
 			
       
 			<input>
@@ -2844,7 +3338,7 @@
 		<operation name="MoveJobFront">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/MoveJobFront?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/MoveJobFront?ver_=1.30"/>
 			
       
 			<input>
@@ -2880,7 +3374,7 @@
 		<operation name="MoveJobUp">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/MoveJobUp?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/MoveJobUp?ver_=1.30"/>
 			
       
 			<input>
@@ -2916,7 +3410,7 @@
 		<operation name="NotInCommunityEdition">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/NotInCommunityEdition?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/NotInCommunityEdition?ver_=1.30"/>
 			
       
 			<input>
@@ -2952,7 +3446,7 @@
 		<operation name="PauseQueue">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/PauseQueue?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/PauseQueue?ver_=1.30"/>
 			
       
 			<input>
@@ -2988,7 +3482,43 @@
 		<operation name="Ping">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/Ping?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/Ping?ver_=1.30"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="RecordGlobalMetrics">
+			
+      
+			<soap:operation style="document" soapAction="WsSMC/RecordGlobalMetrics?ver_=1.30"/>
 			
       
 			<input>
@@ -3024,7 +3554,7 @@
 		<operation name="RemoveJob">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/RemoveJob?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/RemoveJob?ver_=1.30"/>
 			
       
 			<input>
@@ -3060,7 +3590,7 @@
 		<operation name="ResumeQueue">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/ResumeQueue?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/ResumeQueue?ver_=1.30"/>
 			
       
 			<input>
@@ -3096,7 +3626,7 @@
 		<operation name="RoxieControlCmd">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/RoxieControlCmd?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/RoxieControlCmd?ver_=1.30"/>
 			
       
 			<input>
@@ -3132,7 +3662,7 @@
 		<operation name="RoxieXrefCmd">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/RoxieXrefCmd?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/RoxieXrefCmd?ver_=1.30"/>
 			
       
 			<input>
@@ -3168,7 +3698,7 @@
 		<operation name="SetBanner">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/SetBanner?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/SetBanner?ver_=1.30"/>
 			
       
 			<input>
@@ -3204,7 +3734,7 @@
 		<operation name="SetJobPriority">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/SetJobPriority?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/SetJobPriority?ver_=1.30"/>
 			
       
 			<input>
@@ -3240,7 +3770,7 @@
 		<operation name="StopQueue">
 			
       
-			<soap:operation style="document" soapAction="WsSMC/StopQueue?ver_=1.27"/>
+			<soap:operation style="document" soapAction="WsSMC/StopQueue?ver_=1.30"/>
 			
       
 			<input>
@@ -3282,7 +3812,7 @@
 		<port name="WsSMCServiceSoap" binding="tns:WsSMCServiceSoap">
 			
       
-			<soap:address location="http://eclwatch-65768756c6-9sm8c:8888/WsSMC?ver_=1.27"/>
+			<soap:address location="http://172.22.164.102:8010/WsSMC?ver_=1.30"/>
 			
     
 		</port>

@@ -1,8 +1,8 @@
 /**
  * ExtensionMapper.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssmc.latest;
 
@@ -50,6 +50,11 @@ public class ExtensionMapper {
       return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.TargetCluster.Factory.parse(reader);
     }
 
+    if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "Dimension".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Dimension.Factory.parse(reader);
+    }
+
     if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI)
         && "ArrayOfServerJobQueue".equals(typeName)) {
 
@@ -60,6 +65,12 @@ public class ExtensionMapper {
     if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "SMCJob".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJob.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "GlobalMetrics_type0".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GlobalMetrics_type0.Factory.parse(
+          reader);
     }
 
     if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "Lock".equals(typeName)) {
@@ -82,6 +93,27 @@ public class ExtensionMapper {
     if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "ArrayOfDFUJob".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfDFUJob.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "Stats_type0".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Stats_type0.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "Stats_type1".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Stats_type1.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "ArrayOfDimension".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfDimension.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "GlobalMetric".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GlobalMetric.Factory.parse(reader);
     }
 
     if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "ArrayOfEspException".equals(typeName)) {
@@ -118,6 +150,12 @@ public class ExtensionMapper {
       return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActiveWorkunit.Factory.parse(reader);
     }
 
+    if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "Dimensions_type0".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Dimensions_type0.Factory.parse(
+          reader);
+    }
+
     if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "ArrayOfThorCluster".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfThorCluster.Factory.parse(
@@ -145,6 +183,11 @@ public class ExtensionMapper {
       return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspException.Factory.parse(reader);
     }
 
+    if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "Stat".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Stat.Factory.parse(reader);
+    }
+
     if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI)
         && "ArrayOfHPCCResourceRepository".equals(typeName)) {
 
@@ -161,6 +204,11 @@ public class ExtensionMapper {
     if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "EspStringArray".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspStringArray.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "DateTimeRange".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssmc.latest.DateTimeRange.Factory.parse(reader);
     }
 
     if ("urn:hpccsystems:ws:wssmc".equals(namespaceURI) && "RoxieControlCmdType".equals(typeName)) {
