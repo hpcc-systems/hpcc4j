@@ -22,6 +22,18 @@ public class ExtensionMapper {
           reader);
     }
 
+    if ("urn:hpccsystems:ws:wstopology".equals(namespaceURI) && "TpMachineType".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachineType.Factory.parse(
+          reader);
+    }
+
+    if ("urn:hpccsystems:ws:wstopology".equals(namespaceURI) && "TpConfigResult".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpConfigResult.Factory.parse(
+          reader);
+    }
+
     if ("urn:hpccsystems:ws:wstopology".equals(namespaceURI) && "TpDkcSlave".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpDkcSlave.Factory.parse(reader);
@@ -49,6 +61,12 @@ public class ExtensionMapper {
     if ("urn:hpccsystems:ws:wstopology".equals(namespaceURI) && "TpMachine".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpMachine.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wstopology".equals(namespaceURI) && "Results_type0".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.Results_type0.Factory.parse(
+          reader);
     }
 
     if ("urn:hpccsystems:ws:wstopology".equals(namespaceURI)
@@ -218,6 +236,13 @@ public class ExtensionMapper {
 
       return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.ArrayOfTpDfuServer.Factory.parse(
           reader);
+    }
+
+    if ("urn:hpccsystems:ws:wstopology".equals(namespaceURI)
+        && "TpConfigResponseFormat".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpConfigResponseFormat.Factory
+          .parse(reader);
     }
 
     if ("urn:hpccsystems:ws:wstopology".equals(namespaceURI)
