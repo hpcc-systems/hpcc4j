@@ -74,6 +74,24 @@ All sub-projects can be built individually using the pom file in each sub-projec
 
 For more information on how to use Maven see http://maven.apache.org
 
+#### Code Formatting
+
+This project uses the Eclipse formatter configuration (`eclipse/HPCC-JAVA-Formatter.xml`) to ensure consistent Java code formatting. You can format code using Maven commands:
+
+**Validate formatting** (check for violations without modifying files):
+```bash
+mvn formatter:validate
+mvn formatter:validate -pl wsclient  # Check specific module
+```
+
+**Auto-format code** (applies Eclipse formatting rules):
+```bash
+mvn formatter:format
+mvn formatter:format -pl wsclient    # Format specific module
+```
+
+The formatter is configured to preserve code structure while ensuring consistent indentation, spacing, and brace placement according to the project's style guidelines.
+
 #### Contributions
 
 All contributions must follow the JAVA source format described in the HPCC-JAVA-Formatter.xml file which can be found in /eclipse.
