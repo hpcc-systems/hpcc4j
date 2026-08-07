@@ -52,11 +52,20 @@ public class HPCCQueueTypeWrapper
     {
         return "HPCCQueueTypeWrapper [" + "hPCCQueueType = " + local_hPCCQueueType + "]";
     }
+
+    // Note: this method was manually filled out due to an limitation in the wrapper generator.
     public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType getRaw()
     {
-        org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType raw = null;
+        if (local_hPCCQueueType.equalsIgnoreCase("ALL"))
+            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType.All;
+        else if (local_hPCCQueueType.equalsIgnoreCase("Thor"))
+            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType.Thor;
+        else if (local_hPCCQueueType.equalsIgnoreCase("HThor"))
+            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType.HThor;
+        else if (local_hPCCQueueType.equalsIgnoreCase("Roxie"))
+            return org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType.Roxie;
  //WARNING base class does not provide expected default constructor//Warning raw class doe not provide expected method: setHPCCQueueType(hPCCQueueType);
-        return raw;
+        return null;
     }
 
 
