@@ -59,7 +59,8 @@ jobs:
 
     - name: Build with Maven
       id: build
-      run: mvn -B -Dmaven.test.skip=true install --file pom.xml
+      # compile (but don't run) tests so the wsclient test-jar dfsclient depends on gets built
+      run: mvn -B -DskipTests install --file pom.xml
       env:
         JFROG_URL: ${{ vars.JFROG_URL }}
         JFROG_USER: ${{ secrets.JFROG_USER }}
