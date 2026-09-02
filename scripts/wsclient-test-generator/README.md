@@ -4,9 +4,16 @@
 
 TestGeneratorAgent.py is an AI-powered Python script that automates the complete lifecycle of generating, building, executing, and analyzing comprehensive test suites for HPCC Java client methods. It leverages GitHub Copilot CLI to intelligently create tests, fix compilation errors, and categorize test failures.
 
+The agent supports two modes:
+- **Single-method mode**: Generate tests for one specific method (e.g., `getFileDataColumns`)
+- **Full-service mode**: Automatically discover and generate tests for **all** business methods in a service (e.g., all methods in `HPCCWsStoreClient`)
+
 ## Features
 
 - 🤖 **AI-Powered Test Generation**: Uses Copilot CLI to analyze HPCC Platform source code and generate comprehensive test cases
+- 🔄 **Full-Service Mode**: Automatically discover and generate tests for every business method in a service client
+- 🧠 **Service Discovery & Dependency Analysis**: Analyzes inter-method dependencies, functional groups, and produces a topologically-ordered method list
+- 🎛️ **Model Selection**: Choose which AI model to use via `--model` flag (e.g., `claude-sonnet-4`, `gpt-4o`)
 - 🔍 **Method Analysis**: Deep analysis of server-side ESDL/ECM definitions and ESP service implementations
 - 🎯 **Smart Duplicate Prevention**: Analyzes existing test coverage before generating new tests
 - 🧪 **Test Metadata**: Generates structured JSON metadata for precise test execution and tracking
@@ -17,6 +24,13 @@ TestGeneratorAgent.py is an AI-powered Python script that automates the complete
 - 🎯 **Intelligent Categorization**: Automatically classifies failures as client-side, server-side, or invalid tests
 - 🔒 **Strict Security**: Whitelisted tool execution prevents unauthorized commands
 - 📝 **Comprehensive Reporting**: Generates detailed analysis documents and final reports
+- 🏷️ **Structured Test Comments**: Every test gets a unique label (`CFT-001-MethodName`) plus environment requirements in a Javadoc comment
+- 🌐 **Four Test Categories**: Core Functionality (CFT), Edge Case (ECT), Error Handling (EHT), and new Connectivity (CNT)
+- 🗂️ **Enhanced Test Metadata**: Labels, categories, and `environmentRequirements` field per test in the JSON file
+- 🌍 **Multi-Environment Config**: Define containerized, baremetal, and secure environments via JSON (`--env-config`)
+- 🔍 **Environment Filtering**: Run only tests that require a specific environment (`--env containerized`)
+- ⚡ **Parallel Test Execution**: Configurable thread-pool for concurrent Maven test processes (`--parallel-threads N`)
+- 🎫 **Per-Issue Ticket Files**: Server-side issues generate individual ticket-ready Markdown files alongside the summary report
 
 ## Prerequisites
 
@@ -40,27 +54,44 @@ chmod +x TestGeneratorAgent.py
 ### Basic Command Format
 
 ```bash
+# Single-method mode: generate tests for one method
 ./TestGeneratorAgent.py <SERVICE_NAME> <METHOD_NAME> --hpcc-source <HPCC_PLATFORM_DIR> [OPTIONS]
+
+# Full-service mode: generate tests for ALL business methods in a service
+./TestGeneratorAgent.py <SERVICE_NAME> --hpcc-source <HPCC_PLATFORM_DIR> [OPTIONS]
 ```
+
+When `METHOD_NAME` is omitted, the agent enters **full-service mode** — it discovers all business methods in the service client class and generates tests for each one.
 
 ### Required Arguments
 
 | Argument | Description | Example |
 |----------|-------------|---------|
-| `SERVICE_NAME` | Name of the HPCC service | `WsDFU`, `WsWorkunits`, `WsTopology` |
-| `METHOD_NAME` | Name of the method to test | `getFileDataColumns`, `getDatasetFields` |
+| `SERVICE_NAME` | Name of the HPCC service | `WsDFU`, `WsWorkunits`, `WSStore` |
 | `--hpcc-source` or `-s` | Path to HPCC Platform source code | `../HPCC-Platform` or `/Users/dev/HPCC-Platform` |
+
+### Positional-Optional Arguments
+
+| Argument | Description | Example |
+|----------|-------------|---------|
+| `METHOD_NAME` | Name of the method to test. If omitted, activates full-service mode. | `getFileDataColumns`, `ping` |
 
 ### Optional Arguments
 
 | Argument | Description | Default |
 |----------|-------------|---------|
+| `--model` or `-m` | AI model for Copilot CLI | Copilot CLI default |
 | `--skip-analysis` | Skip Step 1 if analysis file exists | `false` |
-| `--start-from-step N` | Start from specific step (1-4) | `1` |
+| `--start-from-step N` | Start from specific step (0-4) | `0` (full-service) / `1` (single-method) |
 | `--hpccconn URL` | HPCC cluster connection URL | `http://eclwatch.default:8010` |
 | `--wssqlconn URL` | WsSQL connection URL | `http://sql2ecl.default:8510` |
 | `--hpccuser USERNAME` | HPCC cluster username | Empty string |
 | `--hpccpass PASSWORD` | HPCC cluster password | Empty string |
+| `--env-config FILE` | Path to JSON file defining named HPCC environments (see `environments.example.json`) | None (uses `--hpccconn` / env vars) |
+| `--env NAME` | Run only tests whose `environmentRequirements` includes `NAME` (e.g., `containerized`, `baremetal`, `secure`). Requires `--env-config`. | None (all tests run) |
+| `--parallel-threads N` | Number of concurrent Maven test processes in Step 4 | `1` (sequential) |
+
+> **Note on `--start-from-step`**: Step 0 (Service Discovery) is only applicable in full-service mode. In single-method mode, the minimum start step is 1.
 
 ### Environment Variables
 
@@ -73,9 +104,48 @@ export HPCCUSER="myusername"
 export HPCCPASS="mypassword"
 ```
 
-## The Four-Step Process
+## The Five-Step Process
 
-### Step 0: Analysis Prompt Template
+### Step 0: Service Discovery & Dependency Analysis (Full-Service Mode Only)
+
+**Purpose**: Discover all business methods in a service client and analyze their inter-method dependencies
+
+**When**: This step runs automatically in full-service mode (when `METHOD_NAME` is omitted). It is skipped in single-method mode.
+
+**Actions**:
+- Reads [`ServiceAnalysisPrompt.md`](ServiceAnalysisPrompt.md) template
+- Analyzes `HPCC{ServiceName}Client.java` to identify all public business methods
+- Excludes factory methods (`get(...)`), infrastructure (`getServiceURI()`, `getDefaultStub()`), and constructors
+- Analyzes inter-method dependencies (e.g., `fetchValueEncrypted` wraps `fetchValue`)
+- Classifies methods into functional groups (e.g., Health, Store Management, KV CRUD)
+- Computes a topological ordering for analysis
+- Produces test independence guidelines
+
+**Outputs**:
+- `{Service}.ServiceAnalysis_{date}.md` — Human-readable service-level analysis with dependency graph, functional groups, and test guidelines
+- `{Service}.MethodList_{date}.json` — Machine-readable method list consumed by the orchestrator
+
+**Method List JSON Structure**:
+```json
+{
+  "service": "WSStore",
+  "clientClass": "HPCCWsStoreClient",
+  "methods": [
+    {
+      "name": "ping",
+      "signature": "boolean ping()",
+      "group": "Health",
+      "callsOtherMethods": [],
+      "serverStateEffect": "Read",
+      "analysisOrder": 1
+    }
+  ]
+}
+```
+
+The `methods` array is sorted by `analysisOrder` (topological/dependency order). Steps 1 and 2 iterate this array sequentially.
+
+### Analysis Prompt Template
 
 The agent uses [`MethodAnalysisPrompt.md`](MethodAnalysisPrompt.md) as the template for Step 1. This prompt:
 
@@ -97,7 +167,7 @@ The agent uses [`MethodAnalysisPrompt.md`](MethodAnalysisPrompt.md) as the templ
 
 ### Step 1: Method Analysis
 
-**Purpose**: Generate comprehensive analysis of the method to be tested
+**Purpose**: Generate comprehensive analysis of the method(s) to be tested
 
 **Actions**:
 - Reads `MethodAnalysisPrompt.md` template
@@ -106,7 +176,9 @@ The agent uses [`MethodAnalysisPrompt.md`](MethodAnalysisPrompt.md) as the templ
 - Identifies gaps in test coverage
 - Generates detailed method documentation with test case recommendations
 
-**Output**: `{Service}.{Method}Analysis.md`
+**In full-service mode**: This step loops over every method discovered in Step 0, producing a separate analysis file for each method. The `--skip-analysis` flag can be used to skip methods whose analysis files already exist.
+
+**Output**: `{Service}.{Method}Analysis_{date}.md` (one per method in full-service mode)
 
 **Key Features**:
 - Documents all existing tests for the method
@@ -131,19 +203,23 @@ The agent uses [`MethodAnalysisPrompt.md`](MethodAnalysisPrompt.md) as the templ
 
 **Actions**:
 - Reads the analysis file from Step 1
+- In full-service mode, also reads the service analysis from Step 0 for dependency context and test independence guidelines
 - Generates comprehensive test cases covering:
   - Basic functionality tests
   - Edge cases
   - Error handling scenarios
-- Creates test metadata JSON file
+- Creates test metadata JSON file (per method)
 - Generates expected results document
+- All tests go into the single `{Service}ClientTest.java` file with unique test data identifiers
 
 **Outputs**:
-- `{Service}.{Method}ExpectedTestResults.md`
-- `{Service}.{Method}TestMetadata.json`
+- `{Service}.{Method}ExpectedTestResults_{date}.md` (per method)
+- `{Service}.{Method}TestMetadata_{date}.json` (per method)
 - Modified `{Service}ClientTest.java` with new test methods
 
-**Test Metadata Structure**:
+**Full-service aggregation**: After all methods are processed, per-method metadata files are merged into a single aggregated file `{Service}.TestMetadata_{date}.json` with a `"method"` field on each test entry for grouping.
+
+**Test Metadata Structure** (per-method):
 ```json
 {
   "service": "WsDFU",
@@ -152,6 +228,7 @@ The agent uses [`MethodAnalysisPrompt.md`](MethodAnalysisPrompt.md) as the templ
   "tests": [
     {
       "testName": "testMethodName",
+      "method": "getDatasetFields",
       "description": "What the test validates",
       "category": "basic|edge-case|error-handling|integration",
       "expectedOutcome": "PASS|SKIP",
@@ -159,6 +236,20 @@ The agent uses [`MethodAnalysisPrompt.md`](MethodAnalysisPrompt.md) as the templ
       "requiredDataset": "~dataset::name",
       "notes": "Additional context"
     }
+  ]
+}
+```
+
+**Aggregated Metadata** (full-service mode — produced after Step 2 completes all methods):
+```json
+{
+  "service": "WSStore",
+  "mode": "full-service",
+  "testClass": "WSStoreClientTest",
+  "methods": ["ping", "createStore", "setValue", "..."],
+  "tests": [
+    {"testName": "testPingBasic", "method": "ping", "...": "..."},
+    {"testName": "testCreateStoreBasic", "method": "createStore", "...": "..."}
   ]
 }
 ```
@@ -246,7 +337,7 @@ export HPCCPASS="secret123"
 
 ## Complete Examples
 
-### Example 1: Full Run (All Steps)
+### Example 1: Single-Method — Full Run (All Steps)
 
 ```bash
 ./TestGeneratorAgent.py WsDFU getFileDataColumns \
@@ -259,7 +350,33 @@ This will:
 3. Build the project (fixing errors as needed)
 4. Run and analyze all tests
 
-### Example 2: Skip Analysis if Already Done
+### Example 2: Full-Service Mode — Generate Tests for Entire Service
+
+```bash
+./TestGeneratorAgent.py WSStore \
+    --hpcc-source ../HPCC-Platform \
+    --model claude-sonnet-4
+```
+
+This will:
+0. Discover all business methods in `HPCCWsStoreClient.java` (e.g., `ping`, `createStore`, `setValue`, `fetchValue`, ...)
+1. Analyze each method sequentially
+2. Generate tests for each method (all into `WSStoreClientTest.java`)
+3. Build the project (fixing compilation errors as needed)
+4. Run and analyze all tests
+
+### Example 3: Full-Service Mode — Resume from Test Generation
+
+```bash
+./TestGeneratorAgent.py WSStore \
+    --hpcc-source ../HPCC-Platform \
+    --start-from-step 2 \
+    --skip-analysis
+```
+
+This skips Step 0 (service discovery) and Step 1 (analysis) — useful when re-running after fixing issues in Step 2.
+
+### Example 4: Skip Analysis if Already Done
 
 ```bash
 ./TestGeneratorAgent.py WsDFU getFileDataColumns \
@@ -267,7 +384,7 @@ This will:
     --skip-analysis
 ```
 
-### Example 3: Resume from Test Execution with Authentication
+### Example 5: Resume from Test Execution with Authentication
 
 ```bash
 # Using command-line arguments
@@ -288,27 +405,46 @@ export HPCCPASS="mypassword"
     --start-from-step 4
 ```
 
-### Example 4: Generate Tests for New Method
+### Example 6: Use a Specific AI Model
 
 ```bash
 ./TestGeneratorAgent.py WsWorkunits getWorkunitResults \
-    --hpcc-source ~/projects/HPCC-Platform
+    --hpcc-source ~/projects/HPCC-Platform \
+    --model gpt-4o
 ```
 
 ## Generated Files
 
-After a complete run, the following files are created:
+### Single-Method Mode
 
 | File | Description | Step |
 |------|-------------|------|
-| `{Service}.{Method}Analysis.md` | Comprehensive method analysis | 1 |
-| `{Service}.{Method}ExpectedTestResults.md` | Expected test outcomes | 2 |
-| `{Service}.{Method}TestMetadata.json` | Test execution metadata | 2 |
+| `{Service}.{Method}Analysis_{date}.md` | Comprehensive method analysis | 1 |
+| `{Service}.{Method}ExpectedTestResults_{date}.md` | Expected test outcomes | 2 |
+| `{Service}.{Method}TestMetadata_{date}.json` | Test execution metadata | 2 |
 | `{Service}ClientTest.java` | Modified test class with new tests | 2 |
-| `{Service}.{Method}TestResults_Iteration{N}.json` | Results per iteration | 4 |
-| `{Service}.{Method}FailureReport_Iteration{N}.md` | Comprehensive failure details | 4 |
-| `{Service}.{Method}BatchAnalysis_Iteration{N}.md` | Batch analysis summary | 4 |
-| `{Service}.{Method}FinalReport.md` | Final comprehensive report | 4 |
+| `{Service}.{Method}TestResults_Iteration{N}_{date}.json` | Results per iteration | 4 |
+| `{Service}.{Method}FailureReport_Iteration{N}_{date}.md` | Comprehensive failure details | 4 |
+| `{Service}.{Method}BatchAnalysis_Iteration{N}_{date}.md` | Batch analysis summary | 4 |
+| `{Service}.{Method}FinalReport_{date}.md` | Final comprehensive report | 4 |
+
+Output directory: `{Service}_{Method}TestGeneration_{date}/`
+
+### Full-Service Mode (additional files)
+
+| File | Description | Step |
+|------|-------------|------|
+| `{Service}.ServiceAnalysis_{date}.md` | Service-level dependency analysis | 0 |
+| `{Service}.MethodList_{date}.json` | Machine-readable ordered method list | 0 |
+| `{Service}.{Method}Analysis_{date}.md` | Per-method analysis (one per method) | 1 |
+| `{Service}.{Method}TestMetadata_{date}.json` | Per-method test metadata (one per method) | 2 |
+| `{Service}.{Method}ExpectedTestResults_{date}.md` | Per-method expected results (one per method) | 2 |
+| `{Service}.TestMetadata_{date}.json` | **Aggregated** metadata across all methods | 2 |
+| `{Service}ClientTest.java` | Modified test class with tests for all methods | 2 |
+
+Output directory: `{Service}_FullServiceTestGeneration_{date}/`
+
+Steps 3 and 4 produce the same file types as single-method mode, but `{Method}` is replaced with `AllMethods` in filenames.
 
 ## Test Categorization System
 
@@ -414,6 +550,7 @@ The JSON file generated in Step 2 follows this structure:
   "tests": [
     {
       "testName": "string (exact test method name)",
+      "method": "string (method name this test covers)",
       "description": "string (what test validates)",
       "category": "basic|edge-case|error-handling|integration",
       "expectedOutcome": "PASS|SKIP",
@@ -436,14 +573,16 @@ The JSON file generated in Step 2 follows this structure:
 }
 ```
 
+In **full-service mode**, per-method metadata files are aggregated into a single file with an additional top-level `"mode": "full-service"` field and a `"methods"` array listing all discovered method names.
+
 ## Troubleshooting
 
 ### Issue: Analysis file not created
 
-**Symptom**: Step 1 completes but `{Service}.{Method}Analysis.md` doesn't exist
+**Symptom**: Step 1 completes but `{Service}.{Method}Analysis_{date}.md` doesn't exist
 
 **Solution**:
-1. Check file permissions in current directory
+1. Check file permissions in the output directory
 2. Manually create the file when prompted
 3. Verify Copilot CLI is working: `copilot --version`
 
@@ -459,7 +598,7 @@ The JSON file generated in Step 2 follows this structure:
 
 ### Issue: Step 4 fails to find test metadata
 
-**Symptom**: Error message about missing `{Service}.{Method}TestMetadata.json`
+**Symptom**: Error message about missing `{Service}.{Method}TestMetadata_{date}.json`
 
 **Solution**:
 1. Run from Step 2 to generate the metadata file
@@ -554,11 +693,12 @@ For faster execution, modify Step 4 to run tests in parallel (requires careful e
 
 When enhancing TestGeneratorAgent.py:
 
-1. Maintain the four-step structure
-2. Preserve backward compatibility
+1. Maintain the five-step structure (Step 0 for service discovery, Steps 1-4 for analysis through execution)
+2. Preserve backward compatibility (single-method mode must continue to work)
 3. Document new features in this README
 4. Add examples for new functionality
 5. Test with multiple service/method combinations
+6. Ensure full-service mode and single-method mode produce consistent results
 
 ## License
 
@@ -574,8 +714,17 @@ For issues or questions:
 
 ## Changelog
 
-### Current Version (November 2025)
-- ✅ Four-step automated test generation
+### February 2026
+- ✅ **Full-service mode**: Omit `METHOD_NAME` to generate tests for all business methods in a service
+- ✅ **Step 0 — Service Discovery**: New [`ServiceAnalysisPrompt.md`](ServiceAnalysisPrompt.md) discovers methods, analyzes dependencies, and produces a method list JSON
+- ✅ **`--model` / `-m` flag**: Select which AI model the Copilot CLI uses (e.g., `claude-sonnet-4`, `gpt-4o`)
+- ✅ **`--start-from-step 0`**: Resume from service discovery step in full-service mode
+- ✅ **Per-method metadata aggregation**: Merges per-method test metadata into a single JSON with `"method"` field per test entry
+- ✅ **Test independence guidelines**: Service analysis provides guidance for self-contained tests with unique data identifiers
+- ✅ **Updated `TestGenerationPrompt.md`**: Accepts service analysis context for dependency-aware test generation
+
+### November 2025
+- ✅ Five-step automated test generation (Step 0 added for service discovery)
 - ✅ Individual test execution with Maven profiles (`jenkins-on-demand`, `remote-test`)
 - ✅ JSON metadata for test tracking
 - ✅ **Batch failure analysis** (analyzes all failures together instead of one-by-one)
