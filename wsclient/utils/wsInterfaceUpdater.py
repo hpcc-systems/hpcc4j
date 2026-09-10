@@ -1,16 +1,12 @@
 #!/usr/bin/env python3
 
 import argparse
-from operator import ge
-from re import X, sub
 import subprocess
 import os, shutil
-from sre_compile import isstring
+import re
 import logging
-from tokenize import String
 import sys
 import xml.dom.minidom
-import pathlib
 
 isWindows = sys.platform.startswith("win")
 
@@ -81,21 +77,22 @@ def main():
     # 3) wsdl file prefix
     # 4) ESP service URI
     # 5) None ECLWatch port
-    services = [("wsattributes", None, "WsAttributes", "wsattributes", None),
+    services = [
+                ("wsattributes", None, "WsAttributes", "wsattributes", None),
                 ("wscodesign", "ws_codesign.ecm", "Ws_codesign", "ws_codesign", None),
                 ("wsdfu", "ws_dfu.ecm", "WsDFU", "wsdfu", None),
                 ("wsdfuxref", "ws_dfuXref.ecm", "WsDFUXRef", "wsdfuxref", None),
                 ("wsfileio", "ws_fileio.ecm", "WsFileIO", "wsfileio", None),
-                ("filespray", "ws_fs.ecm", "FileSpray", "filespray", None),
+                ("filespray", "ws_fs.ecm", "WsFileSpray", "filespray", None),
                 ("wspackageprocess", "ws_packageprocess.ecm", "WsPackageProcess", "wspackageprocess", None),
                 ("wsresources", "ws_resources.ecm", "WsResources", "wsresources", None),
                 ("wssmc", "ws_smc.ecm", "WsSMC", "wssmc", None),
                 ("wssql", "ws_sql.ecm", "WsSQL", "wssql", "8510"),
                 ("wsstore", "ws_store.ecm", "WsStore", "wsstore", None),
                 ("wstopology", "ws_topology.ecm", "WsTopology", "wstopology", None),
-                #("wsworkunits", "ws_workunits.ecm", "WsWorkunits", "wsworkunits", None),
-                ("wsdali", "ws_dali.ecm", "WsDali", "wsdali", None),
-                ("wscloud", "ws_cloud.ecm", "WsCloud", "WsCloud", None),
+                ("wsworkunits", "ws_workunits.ecm", "WsWorkunits", "wsworkunits", None),
+                #("wsdali", "ws_dali.ecm", "WsDali", "wsdali", None),
+                ("wscloud", "ws_cloud.ecm", "WsCloud", "wscloud", None),
     ]
 
     if args.verbose:
@@ -109,7 +106,7 @@ def main():
 
     if args.list_services:
         print("The following services are available for stubcode generation:")
-        for service_name, b, c in services:
+        for service_name, _, _, _, _ in services:
             print(f"{service_name}")
         return
 
@@ -123,7 +120,12 @@ def main():
         print("Will clone HPCC-Platform and hpcc4j on current working directory")
         for i in repositories:
             if args.user != "hpcc-systems":
-                shutil.rmtree(i)
+                if os.path.exists(i):
+                    try:
+                        shutil.rmtree(i)
+                    except OSError as e:
+                        logging.error(f"Failed to remove repository directory at {i}: {e}")
+                        raise
             if os.path.isdir(i):
                 checkout_branch(i, args.branch)
             else:
@@ -140,9 +142,15 @@ def main():
     build_hpcc4j()
     print("Done...")
 
-    for service_name, ecm_file, wsdl_prefix, service_uri, non_eclwatch_port in services:
-        if args.service != "all" and service_name != args.service:
-            continue
+    selected_services = [
+        (service_name, ecm_file, wsdl_prefix, service_uri, non_eclwatch_port)
+        for service_name, ecm_file, wsdl_prefix, service_uri, non_eclwatch_port in services
+        if args.service == "all" or service_name == args.service
+    ]
+
+    service_ready = {}
+
+    for service_name, ecm_file, wsdl_prefix, service_uri, non_eclwatch_port in selected_services:
         if ecm_file == None:
             continue
 
@@ -167,6 +175,7 @@ def main():
         print(f"Version stripped = {version_stripped}")
         if version == None:
             logging.warning(f"Version for {service_name} is None, skipping generation")
+            service_ready[service_name] = False
             continue
         for file in wsdl_files:
             if version_stripped in file:
@@ -182,8 +191,24 @@ def main():
             print(f"Cleaning up previous stub for {wsdl_prefix}...")
             remove_latest_stub(service_name)
             print(f"Generating latest stub for {wsdl_prefix}-{version}...")
-            generate_stubcode(service_name)
+            stub_return = generate_stubcode(service_name)
+            if stub_return != 0:
+                logging.error(f"Stub generation failed for {service_name} with exit code {stub_return}")
+                service_ready[service_name] = False
+                continue
             #break
+
+        stub_dir = f"{os.getcwd()}/wsclient/src/main/java/org/hpccsystems/ws/client/gen/axis2/{service_name}/latest"
+        has_stub = False
+        if os.path.isdir(stub_dir):
+            for filename in os.listdir(stub_dir):
+                if filename.endswith("Stub.java") and filename != "BaseServiceStub.java":
+                    has_stub = True
+                    break
+        if not has_stub:
+            logging.error(f"Generated stub package for {service_name} is missing expected *Stub.java class; skipping wrappers for {service_name}")
+
+        service_ready[service_name] = has_stub
 
     #print(f"Rebuilding wsclient...")
     #build_hpcc4j()
@@ -193,12 +218,34 @@ def main():
         print("Could not generate wsclient classpath!")
         return
     else:
-        for service_name, ecm_file, wsdl_prefix, service_uri, non_eclwatch_port in services:
-            if args.service != "all" and service_name != args.service:
+        print("Cleaning previous wsclient generated build artifacts...")
+        clean_wsclient_generated_artifacts()
+        print("Compiling wrapper generator utility classes...")
+        wrapper_util_rc = compile_wrapper_generator_prereqs(wsclient_classpath)
+        if wrapper_util_rc != 0:
+            raise RuntimeError(f"Wrapper generator utility compile failed with exit code {wrapper_util_rc}")
+
+        for service_name, ecm_file, wsdl_prefix, service_uri, non_eclwatch_port in selected_services:
+
+            if not service_ready.get(service_name, False):
+                print(f"Skipping wrapper generation for {service_name} because stubs are not ready")
                 continue
 
-            print(f"Generating latest stub wrappers for {wsdl_prefix}-{version}...")
-            generate_wrappers(service_name, wsdl_prefix, wsclient_classpath)
+            print(f"Compiling generated stubs for {service_name} before wrapper generation...")
+            stub_compile_rc, discovered_stub_name, compile_output = compile_stub_sources_for_service(service_name, wsclient_classpath)
+            if stub_compile_rc != 0:
+                output_detail = ""
+                if compile_output:
+                    tail_lines = compile_output[-20:] if len(compile_output) > 20 else compile_output
+                    output_detail = "\nLast compiler output:\n" + "".join(tail_lines)
+                raise RuntimeError(f"Stub compile failed for service '{service_name}' (stub name '{discovered_stub_name}') with exit code {stub_compile_rc}.{output_detail}")
+
+            classes_ok, class_validation_error = verify_compiled_service_classes(service_name)
+            if not classes_ok:
+                raise RuntimeError(f"Compiled class validation failed for service '{service_name}': {class_validation_error}")
+
+            wrapper_service_name = discover_wrapper_service_name(service_name, wsdl_prefix)
+            regenerate_wrappers_for_service(service_name, wrapper_service_name, wsclient_classpath)
             print("Done...")
 
     print(f"Building wsclient after WSDL based changes...")
@@ -215,6 +262,31 @@ def main():
 ################################################################################
 # helper functions
 ################################################################################
+
+def clean_wsclient_generated_artifacts():
+    """Remove compiled artifacts for generated stubs and wrapper utility classes
+    to prevent stale or corrupt .class files from interfering with wrapper generation."""
+    import glob
+
+    working_directory = f"{os.getcwd()}/wsclient"
+    gen_classes_root = f"{working_directory}/target/classes/org/hpccsystems/ws/client/gen"
+    utils_out_dir = f"{working_directory}/target/classes/org/hpccsystems/ws/client/utils"
+
+    if os.path.isdir(gen_classes_root):
+        try:
+            shutil.rmtree(gen_classes_root)
+            print(f"Cleaned generated stub class artifacts: {gen_classes_root}")
+        except OSError as e:
+            logging.error(f"Failed to clean generated stub class artifacts at {gen_classes_root}: {e}")
+            raise
+
+    for stale_class in glob.glob(f"{utils_out_dir}/Axis2ADBStubWrapperMaker*.class"):
+        try:
+            os.remove(stale_class)
+
+        except OSError as e:
+            logging.warning(f"Could not remove stale wrapper utility class: {stale_class}: {e}")
+
 
 def isWsClientDirAvailable():
     cwd = os.getcwd()
@@ -244,15 +316,161 @@ def remove_latest_stub(service):
     cwd = os.getcwd()
     latest_path = f"{cwd}/wsclient/src/main/java/org/hpccsystems/ws/client/gen/axis2/{service}/latest"
     if os.path.exists(latest_path):
-        shutil.rmtree(latest_path)
+        try:
+            shutil.rmtree(latest_path)
+        except OSError as e:
+            logging.error(f"Failed to remove generated stub code at {latest_path}: {e}")
+            raise
     else:
         logging.warning(f"Could not locate previous generated stub code for removal: {latest_path}")
+
+def remove_generated_wrappers(service):
+    cwd = os.getcwd()
+    wrappers_path = f"{cwd}/wsclient/src/main/java/org/hpccsystems/ws/client/wrappers/gen/{service}"
+    if os.path.exists(wrappers_path):
+        try:
+            shutil.rmtree(wrappers_path)
+        except OSError as e:
+            logging.error(f"Failed to remove generated wrapper code at {wrappers_path}: {e}")
+            raise
+    else:
+        logging.warning(f"Could not locate previous generated wrapper code for removal: {wrappers_path}")
+
+def restore_wrappers_from_backup(wrappers_backup_path, wrappers_path):
+    if not os.path.exists(wrappers_backup_path):
+        return
+
+    # If wrapper generation partially recreated the folder, discard it before restore.
+    if os.path.exists(wrappers_path):
+        try:
+            shutil.rmtree(wrappers_path)
+        except OSError as e:
+            logging.error(f"Failed to remove partial wrappers at {wrappers_path} during restore: {e}")
+            raise
+
+    try:
+        shutil.move(wrappers_backup_path, wrappers_path)
+    except OSError as e:
+        logging.error(f"Failed to restore wrapper backup from {wrappers_backup_path} to {wrappers_path}: {e}")
+        raise
+
+def regenerate_wrappers_for_service(service_name, wrapper_service_name, wsclient_classpath):
+    wrappers_path = f"{os.getcwd()}/wsclient/src/main/java/org/hpccsystems/ws/client/wrappers/gen/{service_name}"
+    wrappers_backup_path = f"{wrappers_path}__backup"
+
+    if os.path.exists(wrappers_backup_path):
+        try:
+            shutil.rmtree(wrappers_backup_path)
+        except OSError as e:
+            logging.error(f"Failed to remove old backup at {wrappers_backup_path}: {e}")
+            raise
+
+    if os.path.exists(wrappers_path):
+        shutil.copytree(wrappers_path, wrappers_backup_path)
+
+    print(f"Cleaning up previous wrappers for {service_name}...")
+    remove_generated_wrappers(service_name)
+
+    print(f"Generating latest stub wrappers for {wrapper_service_name}...")
+    try:
+        generate_wrappers(service_name, wrapper_service_name, wsclient_classpath)
+        if os.path.exists(wrappers_backup_path):
+            try:
+                shutil.rmtree(wrappers_backup_path)
+            except OSError as e:
+                logging.error(f"Failed to remove successful backup at {wrappers_backup_path}: {e}")
+                raise
+    except Exception as ex:
+        restore_wrappers_from_backup(wrappers_backup_path, wrappers_path)
+        raise RuntimeError(f"Wrapper generation failed for '{service_name}': {ex}") from ex
+
+def discover_wrapper_service_name(service_name, fallback_name):
+    stub_dir = f"{os.getcwd()}/wsclient/src/main/java/org/hpccsystems/ws/client/gen/axis2/{service_name}/latest"
+    if not os.path.isdir(stub_dir):
+        return fallback_name
+
+    try:
+        for filename in os.listdir(stub_dir):
+            if filename.endswith("Stub.java") and filename != "BaseServiceStub.java":
+                return filename[:-9]  # strip "Stub.java"
+    except Exception as ex:
+        logging.warning(f"Could not discover stub classname for {service_name}: {ex}")
+
+    return fallback_name
+
+def normalize_wsdl_filename(wsdl_output_path, service, wsdl_pre):
+    source_wsdl = f"{wsdl_output_path}/{service}.wsdl"
+    target_wsdl = f"{wsdl_output_path}/{wsdl_pre}.wsdl"
+
+    # On Windows, source and target can differ only by case (e.g. wsdfu.wsdl vs WsDFU.wsdl).
+    # In that case they resolve to the same file, so removing target would delete source.
+    source_norm = os.path.normcase(os.path.abspath(source_wsdl))
+    target_norm = os.path.normcase(os.path.abspath(target_wsdl))
+    if source_norm == target_norm:
+        return target_wsdl
+
+    # Use replace semantics so reruns can overwrite previous output cleanly.
+    os.replace(source_wsdl, target_wsdl)
+    return target_wsdl
+
+def apply_wsdl_compatibility_fixes(wsdl_path):
+    """Apply compatibility fixes to a WSDL and create a .notes file describing changes.
+
+    Current rule set:
+    - Convert xsd:uint64 / xsd:Uint64 to xsd:string to avoid downstream Java type issues.
+    """
+    if not os.path.exists(wsdl_path):
+        logging.warning(f"WSDL not found, cannot apply compatibility fixes: {wsdl_path}")
+        return 0
+
+    with open(wsdl_path, "r", encoding="utf-8") as f:
+        original_content = f.read()
+
+    pattern = re.compile(r'type=(["\'])xsd:(?:uint64|Uint64)\1')
+    changes = []
+
+    for match in pattern.finditer(original_content):
+        line_number = original_content.count("\n", 0, match.start()) + 1
+        original_fragment = match.group(0)
+        replacement_fragment = f'type={match.group(1)}xsd:string{match.group(1)}'
+        changes.append((line_number, original_fragment, replacement_fragment))
+
+    updated_content = pattern.sub(lambda m: f'type={m.group(1)}xsd:string{m.group(1)}', original_content)
+
+    if updated_content != original_content:
+        with open(wsdl_path, "w", encoding="utf-8") as f:
+            f.write(updated_content)
+
+    notes_path = f"{wsdl_path}.notes"
+
+    if changes:
+        notes_lines = [
+            f"Auto-generated compatibility notes for {os.path.basename(wsdl_path)}",
+            "",
+            "Rule applied:",
+            "type=\"xsd:uint64\" (or type=\"xsd:Uint64\") -> type=\"xsd:string\"",
+            "",
+            f"Total changes: {len(changes)}",
+            "",
+        ]
+        for line_number, original_fragment, replacement_fragment in changes:
+            notes_lines.append(f"line {line_number}: {original_fragment} -> {replacement_fragment}")
+
+        with open(notes_path, "w", encoding="utf-8") as notes_file:
+            notes_file.write("\n".join(notes_lines) + "\n")
+
+        print(f"Applied {len(changes)} compatibility fix(es) to {os.path.basename(wsdl_path)}")
+    else:
+        if os.path.exists(notes_path):
+            os.remove(notes_path)
+        print(f"No compatibility fixes needed for {os.path.basename(wsdl_path)}")
+
+    return len(changes)
 
 def fetch_wsdl(service, service_uri, wsdl_pre, protocol, host, port, ver):
     wsdl_output_path = f"{os.getcwd()}/wsclient/src/main/resources/WSDLs"
     # rename old file
     simple_version = str(ver).replace('.','')
-    src = f"{wsdl_output_path}/{wsdl_pre}.wsdl"
     dest = f"{wsdl_output_path}/{wsdl_pre}-{simple_version}.wsdl"
     fetch_wsdl_command = f"curl -s {protocol}://{host}:{port}/{service_uri}/?wsdl -o {wsdl_output_path}/{service}.wsdl -w %{{http_code}}"
     print(f"fetch_wsdl_command = {fetch_wsdl_command}")
@@ -270,8 +488,11 @@ def fetch_wsdl(service, service_uri, wsdl_pre, protocol, host, port, ver):
             except:
                 print (f"Could not determine {service} version")
 
-            os.rename(f"{wsdl_output_path}/{service}.wsdl", f"{wsdl_output_path}/{wsdl_pre}.wsdl")
-            shutil.copy2(f"{wsdl_output_path}/{wsdl_pre}.wsdl", dest );
+            target_wsdl = normalize_wsdl_filename(wsdl_output_path, service, wsdl_pre)
+            shutil.copy2(target_wsdl, dest)
+
+            apply_wsdl_compatibility_fixes(target_wsdl)
+            apply_wsdl_compatibility_fixes(dest)
         else:
             logging.error("no wsdl generated")
         logging.debug(f"generate_wsdl({service}, {ver}) output to {wsdl_output_path}")
@@ -290,14 +511,16 @@ def generate_wsdl(service, ecm, wsdl_pre, ver):
     wsdl_output_path = f"{os.getcwd()}/hpcc4j/wsclient/src/main/resources/WSDLs"
     # rename old file
     simple_version = str(ver).replace('.','')
-    src = f"{wsdl_output_path}/{wsdl_pre}.wsdl"
     dest = f"{wsdl_output_path}/{wsdl_pre}-{simple_version}.wsdl"
     generate_wsdl_command = f"esdl wsdl {full_ecm_file_path} {service} -iv {ver} --outdir {wsdl_output_path} --unversioned-ns"
     logging.debug(f"generate_wsdl_command = {generate_wsdl_command}")
     process = subprocess.run(generate_wsdl_command.split(), timeout=120)
     if os.path.exists(f"{wsdl_output_path}/{service}.wsdl"):
-        os.rename(f"{wsdl_output_path}/{service}.wsdl", f"{wsdl_output_path}/{wsdl_pre}.wsdl")
-        shutil.copy2(f"{wsdl_output_path}/{wsdl_pre}.wsdl", dest );
+        target_wsdl = normalize_wsdl_filename(wsdl_output_path, service, wsdl_pre)
+        shutil.copy2(target_wsdl, dest)
+
+        apply_wsdl_compatibility_fixes(target_wsdl)
+        apply_wsdl_compatibility_fixes(dest)
     else:
         logging.error("no wsdl generated")
     logging.debug(f"generate_wsdl({service}, {ecm}, {ver}) output to {wsdl_output_path}")
@@ -327,18 +550,200 @@ def build_hpcc4j():
         print(stdout.decode("utf-8"))
         print(stderr.decode("utf-8"))
 
+def compile_stub_sources_for_service(service_name, dep_classpath):
+    """Compile all generated gen/axis2/<service>/latest sources so wrapper
+    generation can reflect over the stub and any sibling generated model types.
+
+    Some services (for example wsworkunits) produce stubs that reference many
+    additional generated top-level classes. Compiling only the main *Stub.java is
+    insufficient and can fail with "cannot find symbol" errors for classes that do
+    exist in the same generated package."""
+    import glob
+    working_directory = f"{os.getcwd()}/wsclient"
+    src_dir = f"{working_directory}/src/main/java/org/hpccsystems/ws/client/gen/axis2/{service_name}/latest"
+    out_dir = f"{working_directory}/target/classes"
+    out_service_dir = f"{out_dir}/org/hpccsystems/ws/client/gen/axis2/{service_name}/latest"
+    os.makedirs(out_dir, exist_ok=True)
+
+    stub_name = discover_wrapper_service_name(service_name, "")
+    if not stub_name:
+        logging.error(f"Could not discover stub name for {service_name}")
+        return (1, "<unknown>", [f"Error: Could not discover stub name for {service_name}"])
+    
+    main_stub = f"{src_dir}/{stub_name}Stub.java"
+    if not os.path.exists(main_stub):
+        logging.error(f"Main stub not found: {main_stub}")
+        return (1, stub_name, [f"Error: Main stub not found at {main_stub}"])
+
+    java_files = sorted(glob.glob(f"{src_dir}/*.java"))
+    if not java_files:
+        logging.error(f"No generated Java sources found in {src_dir}")
+        return (1, stub_name, [f"Error: no generated Java sources found in {src_dir}"])
+
+    logging.debug(f"Compiling {len(java_files)} generated stub files in package")
+
+    # Remove stale service classes so old/corrupt artifacts cannot break wrapper generation.
+    if os.path.isdir(out_service_dir):
+        try:
+            shutil.rmtree(out_service_dir)
+        except OSError as e:
+            logging.error(f"Failed to remove stale compiled classes at {out_service_dir}: {e}")
+            raise
+
+    import tempfile
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as argfile:
+        argfile_path = argfile.name
+        argfile.write("\n".join(f'"{f.replace(os.sep, "/")}"' for f in java_files))
+
+    try:
+        compile_cmd = ["javac", "-cp", dep_classpath, "-d", out_dir, f"@{argfile_path}"]
+        logging.debug(f"compile_stub_sources_for_service command: {compile_cmd}")
+        process = subprocess.Popen(compile_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=working_directory)
+        output_lines = []
+        for line in process.stdout:
+            message = str(line, 'utf-8')
+            print(message, end='')
+            output_lines.append(message)
+        return (process.wait(), stub_name, output_lines)
+    finally:
+        os.unlink(argfile_path)
+
+def verify_compiled_service_classes(service_name):
+    """Validate generated classfiles are parseable by javap.
+    
+    For performance, validates only the main *Stub.class and a small set of 
+    known critical classes rather than every class. For large services (e.g., 
+    wsworkunits), this reduces hundreds of subprocess calls to just a few.
+    """
+    import glob
+
+    working_directory = f"{os.getcwd()}/wsclient"
+    class_root = f"{working_directory}/target/classes"
+    class_dir = f"{class_root}/org/hpccsystems/ws/client/gen/axis2/{service_name}/latest"
+    if not os.path.isdir(class_dir):
+        return (False, f"Compiled class directory does not exist: {class_dir}")
+
+    class_files = sorted(glob.glob(f"{class_dir}/*.class"))
+    if not class_files:
+        return (False, f"No compiled classes found in {class_dir}")
+
+    # Identify main stub and critical classes to validate (performance optimization)
+    stub_class = None
+    critical_patterns = ["Stub.class", "Exception.class"]
+    critical_classes_to_check = []
+
+    for class_file in class_files:
+        basename = os.path.basename(class_file)
+        if basename.endswith("Stub.class") and basename != "BaseServiceStub.class":
+            stub_class = class_file
+        if any(basename.endswith(pattern) for pattern in critical_patterns):
+            critical_classes_to_check.append(class_file)
+
+    if stub_class is None:
+        return (False, f"No *Stub.class found in {class_dir}")
+
+    # Validate with batched javap calls to reduce subprocess overhead
+    classes_to_validate = [stub_class]
+    if critical_classes_to_check:
+        # Limit to first 5 critical classes to keep validation lightweight
+        classes_to_validate.extend(critical_classes_to_check[:5])
+
+    validated = set()
+    for class_file in classes_to_validate:
+        if class_file in validated:
+            continue
+
+        rel_path = os.path.relpath(class_file, class_root).replace(os.sep, "/")
+        class_name = rel_path[:-6].replace("/", ".")
+        result = subprocess.run(
+            ["javap", "-classpath", class_root, class_name],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.PIPE,
+            cwd=working_directory,
+            text=True,
+        )
+        if result.returncode != 0:
+            details = result.stderr.strip() if result.stderr else "unknown javap error"
+            return (False, f"Invalid compiled class '{class_name}': {details}")
+        validated.add(class_file)
+
+    logging.info(f"Validated {len(validated)} representative compiled classes for {service_name}")
+    return (True, None)
+
+def compile_wrapper_generator_prereqs(dep_classpath):
+    import glob
+
+    working_directory = f"{os.getcwd()}/wsclient"
+    out_dir = f"{working_directory}/target/classes"
+    os.makedirs(out_dir, exist_ok=True)
+
+    wrapper_maker_src = f"{working_directory}/src/main/java/org/hpccsystems/ws/client/utils/Axis2ADBStubWrapperMaker.java"
+    utils_src = f"{working_directory}/src/main/java/org/hpccsystems/ws/client/utils/Utils.java"
+
+    # Remove stale wrapper-maker classes to avoid outer/inner class mismatch.
+    utils_out_dir = f"{out_dir}/org/hpccsystems/ws/client/utils"
+    for stale_class in glob.glob(f"{utils_out_dir}/Axis2ADBStubWrapperMaker*.class"):
+        try:
+            os.remove(stale_class)
+        except OSError:
+            logging.warning(f"Could not remove stale class artifact: {stale_class}")
+
+    compile_cmd = ["javac", "-cp", dep_classpath, "-d", out_dir, wrapper_maker_src, utils_src]
+    logging.debug(f"compile_wrapper_generator_prereqs command: {compile_cmd}")
+    process = subprocess.Popen(compile_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=working_directory)
+    for line in process.stdout:
+        message = str(line, 'utf-8')
+        print(message, end='')
+
+    rc = process.wait()
+    if rc != 0:
+        return rc
+
+    expected_classes = [
+        f"{utils_out_dir}/Axis2ADBStubWrapperMaker.class",
+        f"{utils_out_dir}/Axis2ADBStubWrapperMaker$SimpleField.class",
+        f"{utils_out_dir}/Utils.class",
+    ]
+    missing = [c for c in expected_classes if not os.path.exists(c)]
+    if missing:
+        logging.error(f"Wrapper utility compile appears incomplete. Missing classes: {missing}")
+        return 1
+
+    return 0
+
+def build_preferred_wsclient_classpath(raw_classpath, working_directory):
+    """Return classpath with wsclient target/classes prioritized and deduplicated."""
+    if raw_classpath is None:
+        return None
+
+    target_classes = f"{working_directory}/target/classes"
+    entries = [e for e in raw_classpath.split(os.pathsep) if e and e.strip()]
+
+    deduped = []
+    seen = set()
+
+    # Ensure target/classes is searched first by the JVM classloader.
+    for entry in [target_classes] + entries:
+        normalized = os.path.normcase(os.path.abspath(entry))
+        if normalized in seen:
+            continue
+        seen.add(normalized)
+        deduped.append(entry)
+
+    return os.pathsep.join(deduped)
+
 def generate_stubcode(service):
-    wsdl_output_path = f"{os.getcwd()}/wsclient/src/main/resources/WSDLs"
     generate_stubcode_command = f"mvn -Pgenerate-{service}-stub process-resources"
     logging.debug(f"generate_stubcode_command = {generate_stubcode_command}")
     working_directory = f"{os.getcwd()}/wsclient"
     process = subprocess.Popen(generate_stubcode_command.split(), shell=isWindows, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=working_directory)
     for line in process.stdout:
         message = str(line, 'utf-8')
+        print(message, end='')
         if message.startswith("[INFO]"):
             logging.info(message)
-        else:
-            print(message)
+
+    return process.wait()
 
 def get_wsclient_runtime_classpath():
     class_path = None
@@ -352,11 +757,7 @@ def get_wsclient_runtime_classpath():
         with open('wsclient/wsclient_classpath.txt', 'r') as file:
             class_path = file.read().replace('\n', '')
 
-        if isWindows:
-            class_path += ";"
-        else:
-            class_path += ":"
-        class_path += f"{working_directory}/target/classes"
+        class_path = build_preferred_wsclient_classpath(class_path, working_directory)
     else:
         print("wsclient classpath failed")
         print(stdout.decode("utf-8"))
@@ -364,22 +765,52 @@ def get_wsclient_runtime_classpath():
 
     return class_path
 
-def generate_wrappers(service_name, wsdl_prefix, wsclient_class_path):
+def generate_wrappers(service_name, wrapper_service_name, wsclient_class_path):
     wrapper_class_name = "org.hpccsystems.ws.client.utils.Axis2ADBStubWrapperMaker"
-    wrappers_output_path = f"{os.getcwd()}/wsclient/src/main/java"
     wrappers_package = "org.hpccsystems.ws.client.wrappers.gen"
     package_to_wrap = f"org.hpccsystems.ws.client.gen.axis2.{service_name}.latest"
     working_directory = f"{os.getcwd()}/wsclient"
-    gen_wrappers_command= f"java -classpath {wsclient_class_path} {wrapper_class_name} outputpackage=org.hpccsystems.ws.client.wrappers.gen targetpackage=org.hpccsystems.ws.client.gen.axis2.{service_name}.latest servicename={wsdl_prefix} outputdir={working_directory}/src/main/java"
+
+    effective_classpath = build_preferred_wsclient_classpath(wsclient_class_path, working_directory)
+
+    gen_wrappers_command = [
+        "java",
+        "-classpath",
+        effective_classpath,
+        wrapper_class_name,
+        f"outputpackage={wrappers_package}",
+        f"targetpackage={package_to_wrap}",
+        f"servicename={wrapper_service_name}",
+        f"outputdir={working_directory}/src/main/java"
+    ]
     logging.debug(f"gen_wrappers_command: {gen_wrappers_command}")
 
-    process = subprocess.Popen(gen_wrappers_command.split(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=working_directory)
+    process = subprocess.Popen(gen_wrappers_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=working_directory)
+    saw_alert = False
+    fatal_messages = []
+    output_tail = []
     for line in process.stdout:
         message = str(line, 'utf-8')
+        print(message, end='')
+        output_tail.append(message.strip())
+        if len(output_tail) > 40:
+            output_tail.pop(0)
         if message.startswith("Alert!") or message.startswith("Warning:"):
             logging.warning(message)
+            if message.startswith("Alert!"):
+                saw_alert = True
+                fatal_messages.append(message.strip())
         else:
             logging.info(message)
+
+    return_code = process.wait()
+    if return_code != 0 or saw_alert:
+        details = ""
+        if fatal_messages:
+            details = "\n" + "\n".join(fatal_messages)
+        elif output_tail:
+            details = "\nLast wrapper generator output lines:\n" + "\n".join(output_tail)
+        raise RuntimeError(f"Wrapper generation failed for service '{service_name}' (stub name '{wrapper_service_name}') with exit code {return_code}.{details}")
 
 #generate-wsdl/hpcc4j$ 
 # java
@@ -414,7 +845,6 @@ def get_ecm_filepath(ecm_file):
 
 def request_runtime_wsdl_version(service, service_uri, protocol, host, port):
     version = None
-    version_output = open('tmpversion.txt', 'w')
     logging.debug(f"service : {service}")
     fetch_version_command = f"curl -s {protocol}://{host}:{port}/{service_uri}/version_ -o ./tmpversion.txt -w %{{http_code}}"
     logging.debug(f"Running command : {fetch_version_command}")
@@ -430,8 +860,6 @@ def request_runtime_wsdl_version(service, service_uri, protocol, host, port):
         logging.debug(f"Service version: {version}")
     else:
         print(f"Failed to retrieve {service} WSDL version: HTTP code: '{process.stdout.decode('utf-8')}'")
-
-    version_output.close()
     
     return version
 
