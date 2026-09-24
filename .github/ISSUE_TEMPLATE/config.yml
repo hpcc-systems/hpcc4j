@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 HPCC4J Wiki
+    url: https://github.com/hpcc-systems/hpcc4j/wiki
+    about: Browse documentation, guides, and examples
+  - name: 💡 Common Issues and Solutions
+    url: https://github.com/hpcc-systems/hpcc4j/wiki/Common-Issues-and-Solutions
+    about: Check known issues and their solutions before opening a new issue
+  - name: � Spark Example Notebook
+    url: https://github.com/hpcc-systems/HPCC4J/blob/master/spark-hpcc/Examples/PySparkExample.ipynb
+    about: See practical examples of using HPCC4J with Apache Spark
+  - name: 🏢 HPCC Systems Community
+    url: https://hpccsystems.com/community
+    about: Join the broader HPCC Systems community
