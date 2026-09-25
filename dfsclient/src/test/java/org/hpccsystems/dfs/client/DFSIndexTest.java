@@ -22,6 +22,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -281,6 +284,236 @@ public class DFSIndexTest extends BaseRemoteTest
             }
             fileReader.close();
         }
+    }
+
+    @Test
+    @WithSpan
+    public void writeIndexTest() throws Exception
+    {
+        FieldDef[] childDefs = new FieldDef[]
+        {
+            new FieldDef("key", FieldType.INTEGER, "INTEGER4", 4, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]),
+            new FieldDef("payload", FieldType.STRING, "STRING16", 16, true, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0])
+        };
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 4, false, false, HpccSrcType.LITTLE_ENDIAN, childDefs);
+
+        int numRecords = 1000000;
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>();
+        for (int i = 0; i < numRecords; i++)
+        {
+            Object[] fields = new Object[2];
+            fields[0] = Long.valueOf(i);
+            fields[1] = "payload_" + (numRecords - i);
+            records.add(new HPCCRecord(fields, recordDef));
+        }
+
+        writeIndexFile("test::index::write", recordDef, records, CompressionAlgorithm.INDEX_DEFAULT);
+    }
+
+    @Test
+    @WithSpan
+    public void writeAllTypesIndexTest() throws Exception
+    {
+        // childRec := {STRING8 childField1, INTEGER8 childField2, REAL8 childField3}
+        FieldDef childRecDef = new FieldDef("childRec", FieldType.RECORD, "childRec", 0, false, false,
+                HpccSrcType.UNKNOWN, new FieldDef[]
+                {
+                    new FieldDef("childField1", FieldType.STRING,  "STRING8",  8, true,  false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]),
+                    new FieldDef("childField2", FieldType.INTEGER, "INTEGER8", 8, true,  false, HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
+                    new FieldDef("childField3", FieldType.REAL,    "REAL8",    8, true,  false, HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0])
+                });
+
+        // Decimal len encoding: (scale << 16) | precision
+        long dec16Len = ((long) 8 << 16) | 16L; // DECIMAL16_8  / UDECIMAL16_8
+        long dec15Len = ((long) 8 << 16) | 15L; // DECIMAL15_8  / UDECIMAL15_8
+
+        // Key fields match the index definition from generate-datasets.ecl:
+        //   INDEX(Ptbl, {int8, uint8, int4, uint4, int2, uint2, udec16, fixStr8, RecPtr}, key_name)
+        // Payload fields cover the remaining types supported by the writer.
+        FieldDef[] fieldDefs = new FieldDef[]
+        {
+            // --- Key fields (no FLAG_PAYLOAD_FIELD) ---
+            new FieldDef("int8",    FieldType.INTEGER,     "INTEGER8",       8,        true,  false, HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
+            new FieldDef("uint8",   FieldType.INTEGER,     "UNSIGNED8",      8,        true,  true,  HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
+            new FieldDef("int4",    FieldType.INTEGER,     "INTEGER4",       4,        true,  false, HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
+            new FieldDef("uint4",   FieldType.INTEGER,     "UNSIGNED4",      4,        true,  true,  HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
+            new FieldDef("int2",    FieldType.INTEGER,     "INTEGER2",       2,        true,  false, HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
+            new FieldDef("uint2",   FieldType.INTEGER,     "UNSIGNED2",      2,        true,  true,  HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
+            new FieldDef("udec16",  FieldType.DECIMAL,     "UDECIMAL16_8",   dec16Len, true,  true,  HpccSrcType.LITTLE_ENDIAN,          new FieldDef[0]),
+            new FieldDef("fixStr8", FieldType.STRING,      "STRING8",        8,        true,  false, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]),
+            // --- Payload fields (FLAG_PAYLOAD_FIELD) ---
+            new FieldDef("r8",         FieldType.REAL,       "REAL8",          8,        true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
+            new FieldDef("r4",         FieldType.REAL,       "REAL4",          4,        true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.LITTLE_ENDIAN,    new FieldDef[0]),
+            new FieldDef("dec16",      FieldType.DECIMAL,    "DECIMAL16_8",    dec16Len, true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.LITTLE_ENDIAN,          new FieldDef[0]),
+            new FieldDef("dec15",      FieldType.DECIMAL,    "DECIMAL15_8",    dec15Len, true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.LITTLE_ENDIAN,          new FieldDef[0]),
+            new FieldDef("udec15",     FieldType.DECIMAL,    "UDECIMAL15_8",   dec15Len, true,  true,  FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.LITTLE_ENDIAN,          new FieldDef[0]),
+            new FieldDef("qStr",       FieldType.STRING,     "QSTRING",        0,        false, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.QSTRING,          new FieldDef[0]),
+            new FieldDef("fixStr8pay", FieldType.STRING,     "STRING8",        8,        true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]),
+            new FieldDef("str",        FieldType.STRING,     "STRING",         0,        false, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]),
+            new FieldDef("varStr",     FieldType.VAR_STRING, "VARSTRING",      0,        false, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]),
+            new FieldDef("varStr8",    FieldType.VAR_STRING, "VARSTRING8",     8,        true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.SINGLE_BYTE_CHAR, new FieldDef[0]),
+            new FieldDef("utfStr",     FieldType.STRING,     "UTF8",           0,        false, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.UTF8,             new FieldDef[0]),
+            new FieldDef("uni8",       FieldType.STRING,     "UNICODE8",       8,        true,  false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.UTF16LE,          new FieldDef[0]),
+            new FieldDef("uni",        FieldType.STRING,     "UNICODE",        0,        false, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.UTF16LE,          new FieldDef[0]),
+            new FieldDef("varUni",     FieldType.VAR_STRING, "VARUNICODE",     0,        false, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.UTF16LE,          new FieldDef[0]),
+            new FieldDef("childDataset", FieldType.DATASET,  "DATASET(childRec)", 0,     false, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.UNKNOWN, new FieldDef[]{ childRecDef }),
+            new FieldDef("int1Set",    FieldType.SET,        "SET OF INTEGER1", 0,        false, false, FieldDef.FLAG_PAYLOAD_FIELD, HpccSrcType.UNKNOWN,
+                    new FieldDef[]{ new FieldDef("", FieldType.INTEGER, "INTEGER1", 1, true, false, HpccSrcType.LITTLE_ENDIAN, new FieldDef[0]) })
+        };
+        FieldDef recordDef = new FieldDef("RootRecord", FieldType.RECORD, "rec", 0, false, false,
+                HpccSrcType.UNKNOWN, fieldDefs);
+
+        // Shared child dataset and set values used in every record
+        List<Object> childDatasetValue = new ArrayList<Object>();
+        childDatasetValue.add(new HPCCRecord(new Object[]{ "childval ", Long.valueOf(42L), Double.valueOf(3.14) }, childRecDef));
+
+        List<Object> int1SetValue = new ArrayList<Object>();
+        int1SetValue.add(Long.valueOf(1L));
+        int1SetValue.add(Long.valueOf(2L));
+        int1SetValue.add(Long.valueOf(3L));
+
+        int numRecords = 1000;
+        List<HPCCRecord> records = new ArrayList<HPCCRecord>(numRecords);
+        for (int i = 0; i < numRecords; i++)
+        {
+            String fixStr = String.format("%-8s", "s" + i).substring(0, 8);
+            String uni8Str = String.format("%-8s", "u" + i).substring(0, 8);
+            Object[] fields = new Object[]
+            {
+                // Key fields
+                Long.valueOf(i),                           // int8
+                Long.valueOf(i),                           // uint8
+                Long.valueOf(i),                           // int4
+                Long.valueOf(i),                           // uint4
+                Long.valueOf(i % 30000),                   // int2  (fits in 2-byte signed)
+                Long.valueOf(i % 60000),                   // uint2 (fits in 2-byte unsigned)
+                BigDecimal.valueOf(i),                     // udec16
+                fixStr,                                    // fixStr8
+                // Payload fields
+                Double.valueOf(i * 1.5),                   // r8
+                Double.valueOf((float)(i * 0.5)),          // r4
+                BigDecimal.valueOf(i),                     // dec16
+                BigDecimal.valueOf(i),                     // dec15
+                BigDecimal.valueOf(i),                     // udec15
+                "q" + i,                                   // qStr  (printable ASCII only)
+                fixStr,                                    // fixStr8pay
+                "str" + i,                                 // str
+                "var" + i,                                 // varStr
+                "vs" + (i % 100),                          // varStr8 (max 5 chars, fits in 8)
+                "utf" + i,                                 // utfStr
+                uni8Str,                                   // uni8
+                "uni" + i,                                 // uni
+                "vu" + i,                                  // varUni
+                childDatasetValue,                         // childDataset
+                int1SetValue                               // int1Set
+            };
+            records.add(new HPCCRecord(fields, recordDef));
+        }
+
+        writeIndexFile("test::index::all_types_write", recordDef, records, CompressionAlgorithm.INDEX_DEFAULT);
+    }
+
+    /**
+     * Creates, writes, and publishes an index file to HPCC.
+     * Key fields in recordDef should have no FLAG_PAYLOAD_FIELD; payload fields should have FLAG_PAYLOAD_FIELD set.
+     *
+     * @param fileName           the target file name (without ~)
+     * @param recordDef          the input record definition
+     * @param records            the records to write, sorted by key fields
+     * @param compressionAlgorithm the compression algorithm to use
+     * @throws Exception if an error occurs
+     */
+    private void writeIndexFile(String fileName, FieldDef recordDef, List<HPCCRecord> records,
+            CompressionAlgorithm compressionAlgorithm) throws Exception
+    {
+        FieldDef indexRecordDef = recordDef.toIndexRecordDef();
+
+        // Need to use inline record definition for indices due to lack of support for index definitions in the standard ECL record ESP side.
+        String indexEclRecordDef = RecordDefinitionTranslator.toInlineECLRecord(indexRecordDef, true);
+        HPCCWsDFUClient dfuClient = wsclient.getWsDFUClient();
+
+        DFUCreateFileWrapper createResult = dfuClient.createFile(fileName, this.thorClusterFileGroup,
+                indexEclRecordDef, 300, true, DFUFileTypeWrapper.Index, "");
+
+        DFUFilePartWrapper[] dfuFileParts = createResult.getFileParts();
+        DataPartition[] hpccPartitions = DataPartition.createPartitions(dfuFileParts,
+                new NullRemapper(new RemapInfo(), createResult.getFileAccessInfo()),
+                dfuFileParts.length, null, createResult.getFileAccessInfoBlob(), DataPartition.FileType.INDEX);
+
+        int tlkPartitionIndex = -1;
+        List<HPCCRecord> tlkRecords = new ArrayList<HPCCRecord>();
+
+        int numNonTLKParts = dfuFileParts.length - 1;
+        int recordsPerPartition = records.size() / numNonTLKParts;
+        int residualRecords = records.size() % numNonTLKParts;
+
+        int currentRecord = 0;
+        long bytesWritten = 0;
+        for (int partitionIndex = 0; partitionIndex < hpccPartitions.length; partitionIndex++)
+        {
+            int numRecordsInPartition = recordsPerPartition;
+
+            // These should be distributed evenly but we will add them to the last partition for this test
+            if (partitionIndex == dfuFileParts.length - 1)
+            {
+                numRecordsInPartition += residualRecords;
+            }
+
+            if (hpccPartitions[partitionIndex].isTLK())
+            {
+                tlkPartitionIndex = partitionIndex;
+                continue;
+            }
+            tlkRecords.add(records.get(currentRecord + numRecordsInPartition - 1));
+
+            HPCCRemoteFileWriter.FileWriteContext writeContext = new HPCCRemoteFileWriter.FileWriteContext();
+            writeContext.recordDef = recordDef;
+            writeContext.outputRecordDef = indexRecordDef;
+            writeContext.fileCompression = compressionAlgorithm;
+
+            HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef);
+            HPCCRemoteFileWriter<HPCCRecord> fileWriter = new HPCCRemoteFileWriter<HPCCRecord>(writeContext,
+                    hpccPartitions[partitionIndex], recordAccessor);
+
+            for (int j = 0; j < numRecordsInPartition; j++, currentRecord++)
+            {
+                fileWriter.writeRecord(records.get(currentRecord));
+            }
+
+            fileWriter.close();
+            bytesWritten += fileWriter.getBytesWritten();
+        }
+
+        //------------------------------------------------------------------------------
+        //  Write the TLK
+        //------------------------------------------------------------------------------
+
+        if (tlkPartitionIndex != -1)
+        {
+            System.out.println("Writing TLK partition: " + tlkPartitionIndex);
+            HPCCRemoteFileWriter.FileWriteContext writeContext = new HPCCRemoteFileWriter.FileWriteContext();
+            writeContext.recordDef = recordDef;
+            writeContext.outputRecordDef = indexRecordDef;
+            writeContext.fileCompression = compressionAlgorithm;
+
+            HPCCRecordAccessor recordAccessor = new HPCCRecordAccessor(recordDef);
+            HPCCRemoteFileWriter<HPCCRecord> fileWriter = new HPCCRemoteFileWriter<HPCCRecord>(writeContext,
+                    hpccPartitions[tlkPartitionIndex], recordAccessor);
+
+            for (HPCCRecord tlkRecord : tlkRecords)
+            {
+                fileWriter.writeRecord(tlkRecord);
+            }
+
+            fileWriter.close();
+            bytesWritten += fileWriter.getBytesWritten();
+        }
+
+        //------------------------------------------------------------------------------
+        //  Publish and finalize the temp file
+        //------------------------------------------------------------------------------
+
+        dfuClient.publishFile(createResult.getFileID(), indexEclRecordDef, currentRecord, bytesWritten, true);
     }
 
     private String partitionListToString(List<DataPartition> partitions)
