@@ -5,18 +5,31 @@ Test Generator Agent for HPCC4J
 This script automates the process of generating comprehensive tests for HPCC Java client methods.
 
 Usage:
+    # Single-method mode:
     ./TestGeneratorAgent.py <SERVICE_NAME> <METHOD_NAME> --hpcc-source <HPCC_PLATFORM_DIR>
+    
+    # Full-service mode (generates tests for ALL business methods):
+    ./TestGeneratorAgent.py <SERVICE_NAME> --hpcc-source <HPCC_PLATFORM_DIR>
     
 Example:
     ./TestGeneratorAgent.py WsDFU getFileDataColumns --hpcc-source ../HPCC-Platform
     ./TestGeneratorAgent.py WsDFU getFileDataColumns -s ~/projects/HPCC-Platform
+    ./TestGeneratorAgent.py WSStore -s ../HPCC-Platform --model claude-sonnet-4
 
 Arguments:
-    SERVICE_NAME       Name of the HPCC service (e.g., WsDFU, WsWorkunits)
-    METHOD_NAME        Name of the method to test (e.g., getFileDataColumns)
+    SERVICE_NAME       Name of the HPCC service (e.g., WsDFU, WsWorkunits, WSStore)
+    METHOD_NAME        Name of the method to test (e.g., getFileDataColumns).
+                       If omitted, generates tests for ALL business methods (full-service mode).
     --hpcc-source, -s  Path to HPCC Platform source code directory (required)
                        Can be relative (e.g., ../HPCC-Platform) or absolute
                        The script will convert it to an absolute path
+    --model, -m        AI model to use for Copilot CLI (e.g., claude-sonnet-4, gpt-4o)
+    --scenarios        Comma-separated list of specific testing scenarios to focus on.
+                       If omitted, the script will prompt interactively at startup.
+                       Pass an empty string or 'none' to skip scenario input.
+                       Example: --scenarios "invalid credentials, empty input, large result sets"
+    --parallel-threads Number of concurrent Maven test processes in Step 4 (default: 1).
+                       Setting this > 1 runs tests in parallel to reduce wall-clock time.
 
 The script will:
 1. Generate a method analysis using the MethodAnalysisPrompt.md template
@@ -32,6 +45,12 @@ The script will:
      * Categorize server issues with @Category(UnverifiedServerIssues.class)
    - Generate comprehensive analysis reports
    - Continue until all tests pass or are properly categorized
+
+Full-service mode additionally:
+0. Discovers all business methods via ServiceAnalysisPrompt.md
+1. Loops per-method analysis for each discovered method
+2. Loops per-method test generation for each method
+3. Aggregates all test metadata before build & test execution
 """
 import subprocess
 import os
@@ -42,16 +61,27 @@ import json
 import re
 import textwrap
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import List, Optional, Dict, Any
 
 # === Configuration ===
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Generate tests for HPCC service methods")
     parser.add_argument("SERVICE_NAME", help="Name of the service to test")
-    parser.add_argument("METHOD_NAME", help="Name of the method to test")
+    parser.add_argument("METHOD_NAME", nargs='?', default=None,
+                        help="Name of the method to test. If omitted, generates tests for ALL business methods.")
     parser.add_argument("--hpcc-source", "-s", 
                         dest="HPCC_SOURCE_DIR",
-                        required=True,
-                        help="Path to HPCC Platform source code directory (e.g., ../HPCC-Platform)")
+                        required=False,
+                        default=None,
+                        help="Path to HPCC Platform source code directory (e.g., ../HPCC-Platform). "
+                             "Required when running steps 0-2 (analysis/test generation). "
+                             "Optional when starting from step 3 or later.")
+    parser.add_argument("--model", "-m",
+                        dest="COPILOT_MODEL",
+                        default=None,
+                        help="AI model to use for Copilot CLI (e.g., claude-sonnet-4, gpt-4o). "
+                             "If not specified, uses the Copilot CLI default.")
     parser.add_argument("--hpccconn",
                         dest="HPCC_CONN",
                         default=None,
@@ -77,49 +107,177 @@ def parse_arguments():
                         help="Skip Step 1 (analysis generation) if analysis file already exists")
     parser.add_argument("--start-from-step",
                         type=int,
-                        choices=[1, 2, 3, 4],
+                        choices=[0, 1, 2, 3, 4, 5],
+                        default=0,
+                        help="Start from a specific step (0=Service Discovery [full-service only], "
+                             "1=Analysis, 2=Test Generation, 3=Build, 4=Test Execution, "
+                             "5=Aggregate cross-env reports [reads existing per-env output files])")
+    parser.add_argument("--scenarios",
+                        dest="TESTING_SCENARIOS",
+                        default=None,
+                        help="Specific testing scenarios to focus on (comma-separated). "
+                             "If not provided, you will be prompted interactively at startup. "
+                             "Pass an empty string or 'none' to skip scenario input entirely. "
+                             "Example: --scenarios \"invalid credentials, empty input, large result sets\"")
+    parser.add_argument("--parallel-threads",
+                        dest="PARALLEL_THREADS",
+                        type=int,
                         default=1,
-                        help="Start from a specific step (1=Analysis, 2=Test Generation, 3=Build, 4=Test Execution)")
+                        help="Number of parallel threads used to execute individual tests (default: 1 = sequential). "
+                             "Set to a value > 1 to run tests concurrently and speed up Step 4.")
+    parser.add_argument("--end-at-step",
+                        type=int,
+                        choices=[0, 1, 2, 3, 4, 5],
+                        default=5,
+                        help="Stop after completing this step (inclusive). "
+                             "Useful for running only generation+build (--end-at-step 3) "
+                             "before running per-environment test steps separately. "
+                             "(default: 5 = run all steps)")
+    parser.add_argument("--ci",
+                        action="store_true",
+                        help="Run in non-interactive CI mode. All interactive prompts will "
+                             "either use safe defaults or abort with an error instead of "
+                             "blocking on user input.")
     return parser.parse_args()
 
 args = parse_arguments()
+
+# Non-interactive CI mode: set via --ci flag.
+IS_CI = args.ci
+if IS_CI:
+    print("ℹ️  CI mode enabled (--ci). All interactive prompts will either use defaults or abort.")
+
+
+def _ci_input(prompt: str, ci_default: str = "", ci_fail_msg: str = "") -> str:
+    """Drop-in replacement for input() that is safe in CI.
+
+    If running interactively, delegates to the real input().
+    If running non-interactively:
+      - If ci_fail_msg is provided, prints it and exits with code 1.
+      - Otherwise returns ci_default silently.
+    """
+    if not IS_CI:
+        return input(prompt)
+    if ci_fail_msg:
+        print(f"❌ {ci_fail_msg}")
+        sys.exit(1)
+    print(f"[CI] Skipping prompt '{prompt.strip()}' — using default: '{ci_default}'")
+    return ci_default
+
+
 SERVICE_NAME = args.SERVICE_NAME
 METHOD_NAME = args.METHOD_NAME
-HPCC_SOURCE_DIR = os.path.abspath(args.HPCC_SOURCE_DIR)  # Convert to absolute path
+FULL_SERVICE_MODE = (METHOD_NAME is None)
+COPILOT_MODEL = args.COPILOT_MODEL
+HPCC_SOURCE_DIR = os.path.abspath(args.HPCC_SOURCE_DIR) if args.HPCC_SOURCE_DIR else None
 SKIP_ANALYSIS = args.skip_analysis
 START_FROM_STEP = args.start_from_step
+END_AT_STEP = args.end_at_step
+PARALLEL_THREADS = max(1, args.PARALLEL_THREADS)
+
+# Determine testing scenarios (from CLI arg or interactive prompt)
+if args.TESTING_SCENARIOS is not None:
+    TESTING_SCENARIOS = args.TESTING_SCENARIOS.strip()
+    if TESTING_SCENARIOS.lower() == 'none':
+        TESTING_SCENARIOS = ""
+else:
+    print("\n🎯 Specific Testing Scenarios")
+    print("   Enter comma-separated scenarios to focus test generation on.")
+    print("   Example: invalid credentials, empty input, large result sets, concurrent access")
+    print("   Press Enter to skip and use default scenario coverage.")
+    _user_scenarios = _ci_input("   Scenarios: ", ci_default="").strip()
+    TESTING_SCENARIOS = _user_scenarios
+
+if TESTING_SCENARIOS:
+    print(f"🎯 Testing scenarios: {TESTING_SCENARIOS}")
+    _scenarios_list = "\n".join(
+        f"- {s.strip()}" for s in TESTING_SCENARIOS.split(",") if s.strip()
+    )
+    TESTING_SCENARIOS_SECTION = (
+        f"\n## 🎯 Requested Testing Scenarios\n\n"
+        f"> ⚠️ The following specific scenarios have been explicitly requested and "
+        f"**must** be included in the analysis and test case plan. "
+        f"These take priority over standard gap analysis.\n\n"
+        f"{_scenarios_list}\n\n"
+        f"Ensure each of the above scenarios has at least one dedicated test case, "
+        f"even if a similar scenario is already covered by existing tests.\n"
+    )
+else:
+    print("🎯 No specific scenarios requested — using default coverage")
+    TESTING_SCENARIOS_SECTION = ""
+
+# Compute the ESP service name: strip leading Ws/WS prefix (case-insensitive) and lowercase.
+# e.g., WsDFU -> dfu, WSStore -> store, WsWorkunits -> workunits
+# This matches the HPCC Platform directory naming convention (esp/services/ws_<name>)
+if SERVICE_NAME.lower().startswith("ws"):
+    ESP_SERVICE_NAME = SERVICE_NAME[2:].lower()
+else:
+    ESP_SERVICE_NAME = SERVICE_NAME.lower()
+
+# In single-method mode, default start step to 1 (skip step 0)
+if not FULL_SERVICE_MODE and START_FROM_STEP == 0:
+    START_FROM_STEP = 1
 
 # Generate datestamp for this test generation run
 DATESTAMP = datetime.now().strftime("%Y-%m-%d")
 print(f"🕐 Test generation started: {DATESTAMP}")
 
-# Validate that the HPCC source directory exists
-if not os.path.exists(HPCC_SOURCE_DIR):
-    print(f"❌ Error: HPCC Platform source directory not found: {HPCC_SOURCE_DIR}")
-    sys.exit(1)
+if FULL_SERVICE_MODE:
+    print(f"🔄 Full-service mode: generating tests for ALL business methods in {SERVICE_NAME}")
+    METHOD_NAME = "AllMethods"  # Default for report variables
+else:
+    print(f"🔧 Single-method mode: generating tests for {SERVICE_NAME}.{METHOD_NAME}")
 
-# Validate that it looks like an HPCC Platform directory
-esp_dir = os.path.join(HPCC_SOURCE_DIR, "esp")
-if not os.path.exists(esp_dir):
-    print(f"⚠️  Warning: '{esp_dir}' not found. Are you sure this is the HPCC Platform source directory?")
-    response = input("Continue anyway? (y/N): ")
-    if response.lower() != 'y':
+if COPILOT_MODEL:
+    print(f"🤖 Using Copilot model: {COPILOT_MODEL}")
+
+# HPCC source is required for steps 0-2 (analysis/test generation) but not for 3-5
+if START_FROM_STEP <= 2:
+    if HPCC_SOURCE_DIR is None:
+        print(f"❌ Error: --hpcc-source is required when running steps 0-2 (analysis/test generation).")
         sys.exit(1)
-
-print(f"✅ Using HPCC Platform source: {HPCC_SOURCE_DIR}")
+    if not os.path.exists(HPCC_SOURCE_DIR):
+        print(f"❌ Error: HPCC Platform source directory not found: {HPCC_SOURCE_DIR}")
+        sys.exit(1)
+    # Validate that it looks like an HPCC Platform directory
+    esp_dir = os.path.join(HPCC_SOURCE_DIR, "esp")
+    if not os.path.exists(esp_dir):
+        print(f"⚠️  Warning: '{esp_dir}' not found. Are you sure this is the HPCC Platform source directory?")
+        response = _ci_input(
+            "Continue anyway? (y/N): ",
+            ci_fail_msg=f"esp directory not found at '{esp_dir}'. "
+                        "Verify --hpcc-source points to a valid HPCC Platform checkout."
+        )
+        if response.lower() != 'y':
+            sys.exit(1)
+    print(f"✅ Using HPCC Platform source: {HPCC_SOURCE_DIR}")
+else:
+    if HPCC_SOURCE_DIR:
+        if not os.path.exists(HPCC_SOURCE_DIR):
+            print(f"❌ Error: HPCC Platform source directory not found: {HPCC_SOURCE_DIR}")
+            sys.exit(1)
+        print(f"✅ Using HPCC Platform source: {HPCC_SOURCE_DIR}")
+    else:
+        HPCC_SOURCE_DIR = ""  # Use empty string for any downstream path joins
+        print(f"ℹ️  No HPCC Platform source specified (not required for steps >= 3)")
 
 # Create output directory for all test generation artifacts
-OUTPUT_DIR = f"{SERVICE_NAME}_{METHOD_NAME}TestGeneration_{DATESTAMP}"
+if FULL_SERVICE_MODE:
+    OUTPUT_DIR = f"{SERVICE_NAME}_FullServiceTestGeneration_{DATESTAMP}"
+else:
+    OUTPUT_DIR = f"{SERVICE_NAME}_{METHOD_NAME}TestGeneration_{DATESTAMP}"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 print(f"📁 Output directory: {os.path.abspath(OUTPUT_DIR)}")
 
 ARCHITECTURE_FILE = os.path.join(os.path.dirname(__file__), "../../CodeArchitectureAnalysis.md")
 PROMPT_FILE = os.path.join(os.path.dirname(__file__), "MethodAnalysisPrompt.md")
+SERVICE_ANALYSIS_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "ServiceAnalysisPrompt.md")
 TEST_GENERATION_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "TestGenerationPrompt.md")
 FIX_TEST_COMPILATION_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "FixTestCompilationPrompt.md")
 BATCH_FAILURE_ANALYSIS_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "BatchFailureAnalysisPrompt.md")
 FINAL_REPORT_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "FinalReportPrompt.md")
 UNVERIFIED_SERVER_ISSUES_REPORT_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "UnverifiedServerIssuesReportPrompt.md")
+AGGREGATE_REPORT_PROMPT_FILE = os.path.join(os.path.dirname(__file__), "AggregateReportPrompt.md")
 ANALYSIS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}Analysis_{DATESTAMP}.md")
 EXPECTED_RESULTS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}ExpectedTestResults_{DATESTAMP}.md")
 TEST_FILE_GLOB = f"**/{SERVICE_NAME}ClientTest.java"
@@ -245,7 +403,7 @@ COPILOT_WHITELIST = [
 def build_copilot_cmd(prompt_text):
     """Return a list suitable for subprocess.run for invoking the copilot CLI
     with the current whitelist.
-    
+
     Tools are passed using the --allow-tool parameter with the correct format:
     - shell(command) for shell commands
     - write for file creation/modification
@@ -253,7 +411,11 @@ def build_copilot_cmd(prompt_text):
     
     Also adds directory context for HPCC4J, HPCC Platform, and tmp directories.
     """
-    cmd = ["copilot", "-p", prompt_text]
+    cmd = ["copilot", "-p", prompt_text, "--no-ask-user"]
+    
+    # Add model selection if specified
+    if COPILOT_MODEL:
+        cmd.extend(["--model", COPILOT_MODEL])
     
     # Add each whitelisted tool
     for tool in COPILOT_WHITELIST:
@@ -261,7 +423,8 @@ def build_copilot_cmd(prompt_text):
 
     # Add directory context for better code awareness
     cmd.extend(["--add-dir", HPCC4J_DIR])
-    cmd.extend(["--add-dir", HPCC_SOURCE_DIR])
+    if HPCC_SOURCE_DIR:  # Skip when empty — --add-dir "" causes Copilot CLI to abort
+        cmd.extend(["--add-dir", HPCC_SOURCE_DIR])
     cmd.extend(["--add-dir", TMP_DIR])
     
     return cmd
@@ -312,13 +475,19 @@ def copilot_generate(prompt_file, output_file, variables=None):
     
     # Add HPCC Platform source directory context
     hpcc_context = textwrap.dedent(f"""
-        ## HPCC Platform Source Code Location
+        ## Project Root Directories
 
-        The HPCC Platform source code is located at: `{HPCC_SOURCE_DIR}`
+        **HPCC4J Project Root:** `{HPCC4J_DIR}`
+        **HPCC Platform Source Root:** `{HPCC_SOURCE_DIR}`
+
+        > ⚠️ Always search from these root directories — do NOT use `.` (current working directory)
+        > as the search root, as the script may be run from a different directory.
 
         **Important Paths:**
-        - ESP Service Implementations: `{os.path.join(HPCC_SOURCE_DIR, 'esp/services/ws_' + SERVICE_NAME)}`
-        - IDL Definitions: `{os.path.join(HPCC_SOURCE_DIR, 'esp/scm/ws_' + SERVICE_NAME + '.ecm')}`
+        - ESP Service Implementations: `{os.path.join(HPCC_SOURCE_DIR, 'esp/services/ws_' + ESP_SERVICE_NAME)}`
+        - IDL Definitions: `{os.path.join(HPCC_SOURCE_DIR, 'esp/scm/ws_' + ESP_SERVICE_NAME + '.ecm')}`
+        - Java test files: `{os.path.join(HPCC4J_DIR, 'wsclient/src/test/java')}`
+        - Java source files: `{os.path.join(HPCC4J_DIR, 'wsclient/src/main/java')}`
 
         **Access Note:** 
         Since the HPCC Platform source may be outside the current workspace, you may need to:
@@ -327,8 +496,8 @@ def copilot_generate(prompt_file, output_file, variables=None):
         3. Use file_search or grep_search tools with the full path: `{HPCC_SOURCE_DIR}`
 
         **Key Service Files to Review:**
-        - Server-side implementation: `{os.path.join(HPCC_SOURCE_DIR, 'esp/services/ws_' + SERVICE_NAME)}/`
-        - IDL definition: `{os.path.join(HPCC_SOURCE_DIR, 'esp/scm/ws_' + SERVICE_NAME + '.ecm')}`
+        - Server-side implementation: `{os.path.join(HPCC_SOURCE_DIR, 'esp/services/ws_' + ESP_SERVICE_NAME)}/`
+        - IDL definition: `{os.path.join(HPCC_SOURCE_DIR, 'esp/scm/ws_' + ESP_SERVICE_NAME + '.ecm')}`
     """)
     
     # Create the prompt with file output directive and HPCC context
@@ -351,24 +520,31 @@ def copilot_generate(prompt_file, output_file, variables=None):
     print("Note: This will run Copilot interactively. Please review the analysis and ensure it's saved to the correct file.")
     
     # Use subprocess with proper argument passing (build flags from whitelist)
-    result = subprocess.run(build_copilot_cmd(full_prompt))
+    # stderr is captured so non-zero exits can be diagnosed even if stdout streamed away
+    result = subprocess.run(build_copilot_cmd(full_prompt), stderr=subprocess.PIPE, text=True)
     
     # Check if Copilot command failed
     if result.returncode != 0:
         print(f"\n⚠️  Warning: Copilot command exited with code {result.returncode}")
         print("The analysis generation may not have completed successfully.")
+        if result.stderr:
+            print("\n--- Copilot stderr ---")
+            print(result.stderr[-3000:])
+            print("--- End Copilot stderr ---")
     
     # Check if the output file was created
     if not os.path.exists(output_file):
         print(f"\n⚠️  Warning: Expected output file {output_file} was not created.")
         print(f"Expected location: {os.path.abspath(output_file)}")
         print("\nCopilot may have encountered permission issues or the file may be in a different location.")
-        print("Options:")
-        print("  1. Press Enter if you created the file manually")
-        print("  2. Press Ctrl+C to exit and fix the issue")
-        input("\nPress Enter to continue once the file has been created...")
-        
-        # Check again after user confirmation
+        _ci_input(
+            "\nPress Enter to continue once the file has been created...",
+            ci_fail_msg=f"Expected output file was not created: {os.path.abspath(output_file)}. "
+                        "Copilot exited without producing the file. "
+                        "Check the Copilot CLI output above for errors."
+        )
+
+        # Check again after user confirmation (interactive mode only reaches here)
         if not os.path.exists(output_file):
             print(f"❌ Error: File {output_file} still not found at {os.path.abspath(output_file)}")
             print("Exiting. Please create the file manually and restart from this step.")
@@ -393,7 +569,7 @@ def copilot_fix_from_template(prompt_file, context_files, variables=None):
 
 def copilot_run_from_template(prompt_file, variables=None):
     prompt_text = render_prompt_file(prompt_file, variables)
-    return subprocess.run(build_copilot_cmd(prompt_text))
+    return subprocess.run(build_copilot_cmd(prompt_text), stderr=subprocess.PIPE, text=True)
 
 
 def find_unverified_server_issue_tests(test_file_path):
@@ -446,8 +622,17 @@ def copilot_fix(prompt, context_files):
     
     # Add HPCC Platform source context
     hpcc_context = textwrap.dedent(f"""
-        **HPCC Platform Source Location:**
-        The HPCC Platform source code is at: `{HPCC_SOURCE_DIR}`
+        ## Project Root Directories
+
+        **HPCC4J Project Root:** `{HPCC4J_DIR}`
+        **HPCC Platform Source Root:** `{HPCC_SOURCE_DIR}`
+
+        > ⚠️ Always search from these root directories — do NOT use `.` (current working directory)
+        > as the search root, as the script may be run from a different directory.
+
+        **Key paths:**
+        - Java test files: `{os.path.join(HPCC4J_DIR, 'wsclient/src/test/java')}`
+        - Java source files: `{os.path.join(HPCC4J_DIR, 'wsclient/src/main/java')}`
         - Server implementations: `{os.path.join(HPCC_SOURCE_DIR, 'esp/services')}`
         - IDL definitions: `{os.path.join(HPCC_SOURCE_DIR, 'esp/scm')}`
 
@@ -459,7 +644,13 @@ def copilot_fix(prompt, context_files):
     print(f"\n🤖 Running Copilot to fix issues...")
     
     # Use subprocess with proper argument passing (build flags from whitelist)
-    result = subprocess.run(build_copilot_cmd(full_prompt))
+    result = subprocess.run(build_copilot_cmd(full_prompt), stderr=subprocess.PIPE, text=True)
+    
+    if result.returncode != 0 and result.stderr:
+        print(f"⚠️  Copilot fix exited with code {result.returncode}")
+        print("\n--- Copilot stderr ---")
+        print(result.stderr[-3000:])
+        print("--- End Copilot stderr ---")
     
     print("✅ Copilot fix completed!")
 
@@ -539,6 +730,87 @@ def run_individual_test(test_class, test_name, hpcc_conn="http://eclwatch.defaul
     }
 
 
+def run_tests_parallel(tests_to_execute, test_class, hpcc_conn, wssql_conn, hpcc_user, hpcc_pass,
+                       disable_dataset_generation=False, num_threads=1):
+    """Run a list of tests, optionally in parallel using a thread pool.
+
+    When *num_threads* is 1 (the default) tests are executed sequentially to
+    preserve the existing behaviour.  For values > 1 a :class:`ThreadPoolExecutor`
+    is used so that multiple Maven sub-processes run concurrently.
+
+    Note: Maven itself is NOT thread-safe when multiple instances share the same
+    local repository cache.  To avoid race conditions on the ``.m2`` directory the
+    per-test Maven commands use ``-pl wsclient`` (a single module) and ``test``
+    (not ``install``), which minimises cross-process cache writes.  For additional
+    safety users can set ``MAVEN_OPTS=-Dmaven.repo.local=<unique-path>`` per job in
+    the GitHub Actions workflow.
+
+    Args:
+        tests_to_execute: List of test-metadata dicts (each with at least ``testName``).
+        test_class: Java test class name (e.g. ``WsStoreClientTest``).
+        hpcc_conn, wssql_conn, hpcc_user, hpcc_pass: Connection credentials.
+        disable_dataset_generation: Passed through to :func:`run_individual_test`.
+        num_threads: Maximum number of concurrent test processes.
+
+    Returns:
+        List of result dicts in the same order as *tests_to_execute*, each
+        containing ``{"metadata": <test_info>, "result": <run_individual_test result>}``.
+    """
+    ordered_results: List[Dict[str, Any]] = [None] * len(tests_to_execute)  # type: ignore[list-item]
+
+    if num_threads <= 1:
+        # Sequential path — identical to the original loop
+        for idx, test_info in enumerate(tests_to_execute):
+            test_name = test_info.get("testName")
+            if not test_name:
+                print(f"⚠️  Skipping test with missing testName: {test_info}")
+                ordered_results[idx] = {"metadata": test_info, "result": {"test_name": None, "passed": False,
+                                                                           "output": "", "error_message": "missing testName",
+                                                                           "exit_code": -1}}
+                continue
+            result = run_individual_test(test_class, test_name, hpcc_conn, wssql_conn,
+                                         hpcc_user, hpcc_pass, disable_dataset_generation)
+            ordered_results[idx] = {"metadata": test_info, "result": result}
+            if result["passed"]:
+                print(f"   ✅ {test_name} - PASSED")
+            else:
+                print(f"   ❌ {test_name} - FAILED")
+    else:
+        print(f"⚡ Parallel execution enabled: up to {num_threads} concurrent test(s)")
+        future_to_idx: Dict[Any, int] = {}
+        with ThreadPoolExecutor(max_workers=num_threads) as executor:
+            for idx, test_info in enumerate(tests_to_execute):
+                test_name = test_info.get("testName")
+                if not test_name:
+                    print(f"⚠️  Skipping test with missing testName: {test_info}")
+                    ordered_results[idx] = {"metadata": test_info, "result": {"test_name": None, "passed": False,
+                                                                               "output": "", "error_message": "missing testName",
+                                                                               "exit_code": -1}}
+                    continue
+                future = executor.submit(run_individual_test, test_class, test_name,
+                                         hpcc_conn, wssql_conn, hpcc_user, hpcc_pass,
+                                         disable_dataset_generation)
+                future_to_idx[future] = idx
+
+            for future in as_completed(future_to_idx):
+                idx = future_to_idx[future]
+                test_info = tests_to_execute[idx]
+                try:
+                    result = future.result()
+                except Exception as exc:
+                    test_name = test_info.get("testName", "unknown")
+                    print(f"   💥 {test_name} - EXCEPTION: {exc}")
+                    result = {"test_name": test_name, "passed": False, "output": str(exc),
+                              "error_message": str(exc), "exit_code": -1}
+                ordered_results[idx] = {"metadata": test_info, "result": result}
+                if result.get("passed"):
+                    print(f"   ✅ {result.get('test_name')} - PASSED")
+                else:
+                    print(f"   ❌ {result.get('test_name')} - FAILED")
+
+    return ordered_results
+
+
 def load_test_metadata(metadata_file):
     """Load test metadata from JSON file."""
     if not os.path.exists(metadata_file):
@@ -551,7 +823,7 @@ def load_test_metadata(metadata_file):
 
 def save_test_results(results, iteration):
     """Save test results to a JSON file."""
-    results_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration{iteration}_{DATESTAMP}.json")
+    results_file = os.path.join(STEP4_OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration{iteration}_{DATESTAMP}.json")
     
     with open(results_file, 'w') as f:
         json.dump(results, f, indent=2)
@@ -559,60 +831,293 @@ def save_test_results(results, iteration):
     print(f"✅ Test results saved to: {results_file}")
     return results_file
 
-# === Step 1: Generate Method Analysis ===
-if START_FROM_STEP <= 1:
-    if SKIP_ANALYSIS and os.path.exists(ANALYSIS_FILE):
-        print(f"⏭️  Skipping Step 1: Analysis file {ANALYSIS_FILE} already exists")
+
+def load_method_list(method_list_file):
+    """Load the ordered method list from the Step 0 JSON output.
+    
+    Args:
+        method_list_file: Path to the JSON method list file produced by Step 0
+        
+    Returns:
+        List of method name strings, sorted by analysisOrder
+        
+    Raises:
+        FileNotFoundError: If the JSON file doesn't exist
+        json.JSONDecodeError: If the file is not valid JSON
+        KeyError: If the JSON structure is missing required fields
+    """
+    with open(method_list_file, 'r') as f:
+        data = json.load(f)
+    # Return method names in analysis order
+    methods = sorted(data["methods"], key=lambda m: m["analysisOrder"])
+    return [m["name"] for m in methods]
+
+
+def aggregate_metadata(method_metadata_files, service_name, datestamp, output_dir):
+    """Merge per-method test metadata JSON files into a single aggregated file.
+    
+    Args:
+        method_metadata_files: Dict mapping method_name -> metadata_file_path
+        service_name: Name of the service (e.g., "WSStore")
+        datestamp: Date string for file naming
+        output_dir: Output directory for the aggregated file
+        
+    Returns:
+        Path to the aggregated metadata JSON file
+    """
+    aggregated = {
+        "service": service_name,
+        "mode": "full-service",
+        "testClass": f"{service_name}ClientTest",
+        "methods": list(method_metadata_files.keys()),
+        "tests": []
+    }
+    
+    for method_name, metadata_file in method_metadata_files.items():
+        if not os.path.exists(metadata_file):
+            print(f"⚠️  Warning: Metadata file not found for method {method_name}: {metadata_file}")
+            continue
+        
+        try:
+            with open(metadata_file, 'r') as f:
+                method_metadata = json.load(f)
+        except (json.JSONDecodeError, IOError) as e:
+            print(f"⚠️  Warning: Could not read metadata for {method_name}: {e}")
+            continue
+        
+        # Add "method" field to each test entry and merge into aggregated list
+        for test_entry in method_metadata.get("tests", []):
+            test_entry["method"] = method_name
+            aggregated["tests"].append(test_entry)
+    
+    aggregated_file = os.path.join(output_dir, f"{service_name}.TestMetadata_{datestamp}.json")
+    with open(aggregated_file, 'w') as f:
+        json.dump(aggregated, f, indent=2)
+    
+    print(f"✅ Aggregated metadata: {len(aggregated['tests'])} tests across {len(aggregated['methods'])} methods")
+    print(f"   Saved to: {aggregated_file}")
+    return aggregated_file
+
+
+# ============================================================
+# Full-Service Mode Orchestration
+# ============================================================
+
+if FULL_SERVICE_MODE:
+    print(f"\n{'='*60}")
+    print(f"🔄 FULL-SERVICE MODE: {SERVICE_NAME}")
+    print(f"{'='*60}")
+
+    # === Step 0: Service Discovery & Dependency Analysis ===
+    if START_FROM_STEP <= 0:
+        print("\n🔍 Step 0: Service Discovery & Dependency Analysis...")
+        SERVICE_ANALYSIS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.ServiceAnalysis_{DATESTAMP}.md")
+        METHOD_LIST_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.MethodList_{DATESTAMP}.json")
+
+        copilot_generate(
+            SERVICE_ANALYSIS_PROMPT_FILE,
+            SERVICE_ANALYSIS_FILE,
+            {
+                "ServiceName": SERVICE_NAME,
+                "METHOD_LIST_FILE": os.path.abspath(METHOD_LIST_FILE),
+            }
+        )
+
+        if not os.path.exists(METHOD_LIST_FILE):
+            print(f"❌ Error: Method list JSON was not created at {METHOD_LIST_FILE}")
+            print("Step 0 must produce this file. Please re-run.")
+            sys.exit(1)
     else:
-        print("🔍 Step 1: Analyzing method using Copilot CLI...")
-        copilot_generate(PROMPT_FILE, ANALYSIS_FILE, {"ServiceName": SERVICE_NAME, "MethodName": METHOD_NAME})
-else:
-    print(f"⏭️  Skipping Step 1: Starting from Step {START_FROM_STEP}")
+        print(f"⏭️  Skipping Step 0: Starting from Step {START_FROM_STEP}")
+        SERVICE_ANALYSIS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.ServiceAnalysis_{DATESTAMP}.md")
+        METHOD_LIST_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.MethodList_{DATESTAMP}.json")
 
-# === Step 2: Implement Tests from Analysis ===
-if START_FROM_STEP <= 2:
-    print("🧪 Step 2: Generating tests from analysis...")
-
-    # Check if analysis file exists before proceeding
-    if not os.path.exists(ANALYSIS_FILE):
-        print(f"❌ Error: Analysis file {ANALYSIS_FILE} was not created in Step 1.")
-        print("Please create the analysis file manually and re-run from Step 2, or restart the script.")
+    # Load the method list
+    try:
+        discovered_methods = load_method_list(METHOD_LIST_FILE)
+        print(f"✅ Loaded {len(discovered_methods)} methods from {METHOD_LIST_FILE}")
+        for i, m in enumerate(discovered_methods, 1):
+            print(f"   {i}. {m}")
+    except (FileNotFoundError, json.JSONDecodeError, KeyError) as e:
+        print(f"❌ Error: Could not load method list JSON: {e}")
+        print("Please ensure Step 0 completed successfully.")
         sys.exit(1)
 
-    with open(ANALYSIS_FILE) as f:
-        analysis_content = f.read()
+    # === Step 1: Per-Method Analysis (Looped) ===
+    method_analysis_files = {}
+    if START_FROM_STEP <= 1:
+        print(f"\n🔍 Step 1: Per-Method Analysis ({len(discovered_methods)} methods)...")
 
-    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
+        # Read service analysis content to pass as context
+        service_analysis_context = ""
+        if os.path.exists(SERVICE_ANALYSIS_FILE):
+            with open(SERVICE_ANALYSIS_FILE, 'r') as f:
+                service_analysis_context = f.read()
 
-    copilot_fix_from_template(
-        TEST_GENERATION_PROMPT_FILE,
-        [ANALYSIS_FILE],
-        {
-            "ANALYSIS_FILE": ANALYSIS_FILE,
-            "SERVICE_NAME": SERVICE_NAME,
-            "METHOD_NAME": METHOD_NAME,
-            "EXPECTED_RESULTS_FILE": EXPECTED_RESULTS_FILE,
-            "TEST_METADATA_FILE": TEST_METADATA_FILE,
-        },
-    )
-    
-    # Verify the metadata file was created
-    if not os.path.exists(TEST_METADATA_FILE):
-        print(f"⚠️  Warning: Test metadata file {TEST_METADATA_FILE} was not created.")
-        print(f"Creating a basic template...")
-        template = {
-            "service": SERVICE_NAME,
-            "method": METHOD_NAME,
-            "testClass": f"{SERVICE_NAME}ClientTest",
-            "tests": []
-        }
-        with open(TEST_METADATA_FILE, 'w') as f:
-            json.dump(template, f, indent=2)
-        print(f"✅ Created template file: {TEST_METADATA_FILE}")
-        print(f"⚠️  Please populate it with test information before proceeding to Step 4")
+        for method_idx, method_name in enumerate(discovered_methods, 1):
+            analysis_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{method_name}Analysis_{DATESTAMP}.md")
+            method_analysis_files[method_name] = analysis_file
+
+            if SKIP_ANALYSIS and os.path.exists(analysis_file):
+                print(f"⏭️  [{method_idx}/{len(discovered_methods)}] Skipping {method_name}: analysis file exists")
+                continue
+
+            print(f"\n📋 [{method_idx}/{len(discovered_methods)}] Analyzing method: {method_name}")
+            copilot_generate(
+                PROMPT_FILE,
+                analysis_file,
+                {
+                    "ServiceName": SERVICE_NAME,
+                    "MethodName": method_name,
+                    "TESTING_SCENARIOS_SECTION": TESTING_SCENARIOS_SECTION,
+                }
+            )
+    else:
+        print(f"⏭️  Skipping Step 1: Starting from Step {START_FROM_STEP}")
+        # Build the expected file paths for downstream use
+        for method_name in discovered_methods:
+            method_analysis_files[method_name] = os.path.join(
+                OUTPUT_DIR, f"{SERVICE_NAME}.{method_name}Analysis_{DATESTAMP}.md"
+            )
+
+    # === Step 2: Per-Method Test Generation (Looped) ===
+    method_metadata_files = {}
+    if START_FROM_STEP <= 2:
+        print(f"\n🧪 Step 2: Per-Method Test Generation ({len(discovered_methods)} methods)...")
+
+        for method_idx, method_name in enumerate(discovered_methods, 1):
+            analysis_file = method_analysis_files.get(method_name)
+            if not analysis_file or not os.path.exists(analysis_file):
+                print(f"⚠️  [{method_idx}/{len(discovered_methods)}] Skipping {method_name}: analysis file not found")
+                continue
+
+            print(f"\n📋 [{method_idx}/{len(discovered_methods)}] Generating tests for: {method_name}")
+
+            per_method_metadata_file = os.path.join(
+                OUTPUT_DIR, f"{SERVICE_NAME}.{method_name}TestMetadata_{DATESTAMP}.json"
+            )
+            per_method_expected_results = os.path.join(
+                OUTPUT_DIR, f"{SERVICE_NAME}.{method_name}ExpectedTestResults_{DATESTAMP}.md"
+            )
+            method_metadata_files[method_name] = per_method_metadata_file
+
+            # Build context files list — include service analysis if available
+            context_files = [analysis_file]
+            if os.path.exists(SERVICE_ANALYSIS_FILE):
+                context_files.append(SERVICE_ANALYSIS_FILE)
+
+            copilot_fix_from_template(
+                TEST_GENERATION_PROMPT_FILE,
+                context_files,
+                {
+                    "ANALYSIS_FILE": analysis_file,
+                    "SERVICE_NAME": SERVICE_NAME,
+                    "METHOD_NAME": method_name,
+                    "EXPECTED_RESULTS_FILE": per_method_expected_results,
+                    "TEST_METADATA_FILE": per_method_metadata_file,
+                    "SERVICE_ANALYSIS_FILE": SERVICE_ANALYSIS_FILE,
+                    "TESTING_SCENARIOS_SECTION": TESTING_SCENARIOS_SECTION,
+                },
+            )
+
+            # Verify metadata file was created
+            if not os.path.exists(per_method_metadata_file):
+                print(f"⚠️  Warning: Test metadata file not created for {method_name}.")
+                print(f"   Creating template at: {per_method_metadata_file}")
+                template = {
+                    "service": SERVICE_NAME,
+                    "method": method_name,
+                    "testClass": f"{SERVICE_NAME}ClientTest",
+                    "tests": []
+                }
+                with open(per_method_metadata_file, 'w') as f:
+                    json.dump(template, f, indent=2)
+    else:
+        print(f"⏭️  Skipping Step 2: Starting from Step {START_FROM_STEP}")
+        for method_name in discovered_methods:
+            method_metadata_files[method_name] = os.path.join(
+                OUTPUT_DIR, f"{SERVICE_NAME}.{method_name}TestMetadata_{DATESTAMP}.json"
+            )
+
+    # Aggregate all per-method metadata into one file
+    TEST_METADATA_FILE = aggregate_metadata(method_metadata_files, SERVICE_NAME, DATESTAMP, OUTPUT_DIR)
+
+    # Update global variables used by Steps 3 & 4
+    ANALYSIS_FILE = SERVICE_ANALYSIS_FILE  # Use service analysis for build-fix context
+    EXPECTED_RESULTS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.AllMethodsExpectedTestResults_{DATESTAMP}.md")
+    FAILURE_ANALYSIS_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.FailureAnalysis_{DATESTAMP}.md")
+
+    # Fall through to Steps 3 & 4 below (shared with single-method mode)
+
 else:
-    print(f"⏭️  Skipping Step 2: Starting from Step {START_FROM_STEP}")
-    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
+    # ============================================================
+    # Single-Method Mode (Original Flow)
+    # ============================================================
+
+    # === Step 1: Generate Method Analysis ===
+    if START_FROM_STEP <= 1:
+        if SKIP_ANALYSIS and os.path.exists(ANALYSIS_FILE):
+            print(f"⏭️  Skipping Step 1: Analysis file {ANALYSIS_FILE} already exists")
+        else:
+            print("🔍 Step 1: Analyzing method using Copilot CLI...")
+            copilot_generate(
+                PROMPT_FILE,
+                ANALYSIS_FILE,
+                {
+                    "ServiceName": SERVICE_NAME,
+                    "MethodName": METHOD_NAME,
+                    "TESTING_SCENARIOS_SECTION": TESTING_SCENARIOS_SECTION,
+                }
+            )
+    else:
+        print(f"⏭️  Skipping Step 1: Starting from Step {START_FROM_STEP}")
+
+    # === Step 2: Implement Tests from Analysis ===
+    if START_FROM_STEP <= 2:
+        print("🧪 Step 2: Generating tests from analysis...")
+
+        # Check if analysis file exists before proceeding
+        if not os.path.exists(ANALYSIS_FILE):
+            print(f"❌ Error: Analysis file {ANALYSIS_FILE} was not created in Step 1.")
+            print("Please create the analysis file manually and re-run from Step 2, or restart the script.")
+            sys.exit(1)
+
+        with open(ANALYSIS_FILE) as f:
+            analysis_content = f.read()
+
+        TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
+
+        copilot_fix_from_template(
+            TEST_GENERATION_PROMPT_FILE,
+            [ANALYSIS_FILE],
+            {
+                "ANALYSIS_FILE": ANALYSIS_FILE,
+                "SERVICE_NAME": SERVICE_NAME,
+                "METHOD_NAME": METHOD_NAME,
+                "EXPECTED_RESULTS_FILE": EXPECTED_RESULTS_FILE,
+                "TEST_METADATA_FILE": TEST_METADATA_FILE,
+                "SERVICE_ANALYSIS_FILE": "",
+                "TESTING_SCENARIOS_SECTION": TESTING_SCENARIOS_SECTION,
+            },
+        )
+
+        # Verify the metadata file was created
+        if not os.path.exists(TEST_METADATA_FILE):
+            print(f"⚠️  Warning: Test metadata file {TEST_METADATA_FILE} was not created.")
+            print(f"Creating a basic template...")
+            template = {
+                "service": SERVICE_NAME,
+                "method": METHOD_NAME,
+                "testClass": f"{SERVICE_NAME}ClientTest",
+                "tests": []
+            }
+            with open(TEST_METADATA_FILE, 'w') as f:
+                json.dump(template, f, indent=2)
+            print(f"✅ Created template file: {TEST_METADATA_FILE}")
+            print(f"⚠️  Please populate it with test information before proceeding to Step 4")
+    else:
+        print(f"⏭️  Skipping Step 2: Starting from Step {START_FROM_STEP}")
+        TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
 
 # === Step 3: Build Project and Fix Compilation Issues ===
 if START_FROM_STEP <= 3:
@@ -652,13 +1157,22 @@ if START_FROM_STEP <= 3:
 else:
     print(f"⏭️  Skipping Step 3: Starting from Step {START_FROM_STEP}")
 
+# Early-exit if requested
+if END_AT_STEP <= 3:
+    print(f"\n🏁 Stopping after Step 3 (--end-at-step {END_AT_STEP})")
+    print("\n✅ Process complete!")
+    sys.exit(0)
+
 # === Step 4: Run Tests with Iterative Failure Analysis ===
 if START_FROM_STEP <= 4:
     print("🚀 Step 4: Running tests with comprehensive failure analysis...")
     print(f"📋 Maximum iterations: {MAX_TEST_FIX_ITERATIONS}")
 
     # Load test metadata
-    TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
+    # In full-service mode, TEST_METADATA_FILE is already set by aggregate_metadata()
+    # In single-method mode, it was set in Step 2 — but if starting from step 4 directly, derive it
+    if not FULL_SERVICE_MODE:
+        TEST_METADATA_FILE = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
     test_metadata = load_test_metadata(TEST_METADATA_FILE)
     
     if not test_metadata:
@@ -691,190 +1205,181 @@ if START_FROM_STEP <= 4:
             test_file_path = test_file_matches[0]
             print(f"✅ Found test file: {test_file_path}")
 
-    iteration = 0
-
     # Get HPCC connection settings from command-line args, environment, or use defaults
     hpcc_conn = args.HPCC_CONN or os.environ.get("HPCCCONN", "http://eclwatch.default:8010")
     wssql_conn = args.WSSQL_CONN or os.environ.get("WSSQLCONN", "http://sql2ecl.default:8510")
     hpcc_user = args.HPCC_USER or os.environ.get("HPCCUSER", "")
     hpcc_pass = args.HPCC_PASS or os.environ.get("HPCCPASS", "")
-    
-    print(f"\n🔗 Using HPCC connection: {hpcc_conn}")
-    print(f"🔗 Using WsSQL connection: {wssql_conn}")
+
+    print(f"\n🔗 HPCC connection: {hpcc_conn}")
+    print(f"🔗 WsSQL connection: {wssql_conn}")
     if hpcc_user:
-        print(f"🔐 Using HPCC username: {hpcc_user}")
-        print(f"🔐 Using HPCC password: {'*' * len(hpcc_pass)}")
+        print(f"🔐 Username: {hpcc_user}")
+        print(f"🔐 Password: {'*' * len(hpcc_pass)}")
     else:
-        print(f"🔓 No authentication credentials provided")
+        print("🔓 No authentication credentials configured")
+    print(f"⚡ Parallel thread count: {PARALLEL_THREADS}")
 
-    # Track which tests to run (starts with all tests, then only failures)
-    tests_to_execute = tests_to_run.copy()
+    iteration = 0
+    test_results = []
 
-    while iteration < MAX_TEST_FIX_ITERATIONS:
-        iteration += 1
-        print(f"\n{'='*60}")
-        print(f"🔄 ITERATION {iteration}/{MAX_TEST_FIX_ITERATIONS}")
-        print(f"{'='*60}")
+    if tests_to_run:
+        # Track which tests to run (starts with all tests, then only failures)
+        tests_to_execute = tests_to_run[:]
+        iteration = 0
+
+        while iteration < MAX_TEST_FIX_ITERATIONS:
+            iteration += 1
+            print(f"\n{'='*60}")
+            print(f"🔄 ITERATION {iteration}/{MAX_TEST_FIX_ITERATIONS}")
+            print(f"{'='*60}")
     
-        # Only generate datasets on the first iteration
-        disable_dataset_generation = (iteration > 1)
-        if disable_dataset_generation:
-            print(f"🚫 Dataset generation DISABLED for iteration {iteration} (only runs on iteration 1)")
-        else:
-            print(f"✅ Dataset generation ENABLED for iteration {iteration}")
-        
-        # Run tests
-        print(f"\n🧪 Running {len(tests_to_execute)} test(s) individually...")
-        test_results = []
-        
-        for test_info in tests_to_execute:
-            test_name = test_info.get("testName")
-            if not test_name:
-                print(f"⚠️  Skipping test with missing testName: {test_info}")
-                continue
-            
-            # Run the individual test
-            result = run_individual_test(test_class, test_name, hpcc_conn, wssql_conn, hpcc_user, hpcc_pass, disable_dataset_generation)
-            test_results.append({
-                "metadata": test_info,
-                "result": result
-            })
-            
-            # Print immediate result
-            if result["passed"]:
-                print(f"   ✅ {test_name} - PASSED")
+            # Only generate datasets on the first iteration
+            disable_dataset_generation = (iteration > 1)
+            if disable_dataset_generation:
+                print(f"🚫 Dataset generation DISABLED for iteration {iteration} (only runs on iteration 1)")
             else:
-                print(f"   ❌ {test_name} - FAILED")
+                print(f"✅ Dataset generation ENABLED for iteration {iteration}")
         
-        # Save test results
-        results_file = save_test_results(test_results, iteration)
+# Run tests — parallel or sequential depending on PARALLEL_THREADS
+            print(f"\n🧪 Running {len(tests_to_execute)} test(s)" +
+                  (f" (up to {PARALLEL_THREADS} in parallel)..." if PARALLEL_THREADS > 1 else " sequentially..."))
+            test_results = run_tests_parallel(
+                tests_to_execute, test_class,
+                hpcc_conn, wssql_conn, hpcc_user, hpcc_pass,
+                disable_dataset_generation=disable_dataset_generation,
+                num_threads=PARALLEL_THREADS,
+            )
         
-        # Collect failures
-        failures = [tr for tr in test_results if not tr["result"]["passed"]]
+            # Save test results
+            results_file = save_test_results(test_results, iteration)
+        
+            # Collect failures
+            failures = [tr for tr in test_results if not tr["result"]["passed"]]
     
-        if not failures:
-            print("\n🎉 All tests passed!")
-            break
+            if not failures:
+                print("\n🎉 All tests passed!")
+                break
     
-        print(f"\n⚠️  Found {len(failures)} test failure(s)")
+            print(f"\n⚠️  Found {len(failures)} test failure(s)")
         
-        # Calculate statistics
-        passed_count = len([tr for tr in test_results if tr["result"]["passed"]])
-        failed_count = len(failures)
+            # Calculate statistics
+            passed_count = len([tr for tr in test_results if tr["result"]["passed"]])
+            failed_count = len(failures)
         
-        print(f"\n📊 Iteration {iteration} Results:")
-        print(f"   Total Tests Run: {len(test_results)}")
-        print(f"   Passed: {passed_count}")
-        print(f"   Failed: {failed_count}")
+            print(f"\n📊 Iteration {iteration} Results:")
+            print(f"   Total Tests Run: {len(test_results)}")
+            print(f"   Passed: {passed_count}")
+            print(f"   Failed: {failed_count}")
     
-        # Build comprehensive failure report for batch analysis
-        print(f"\n📝 Preparing comprehensive failure report...")
+            # Build comprehensive failure report for batch analysis
+            print(f"\n📝 Preparing comprehensive failure report...")
         
-        failure_report = textwrap.dedent(f"""
-            # Test Failure Report - Iteration {iteration}
-            # Service: {SERVICE_NAME}, Method: {METHOD_NAME}
+            failure_report = textwrap.dedent(f"""
+                # Test Failure Report - Iteration {iteration}
+                # Service: {SERVICE_NAME}, Method: {METHOD_NAME}
 
-            ## Summary
-            - Total tests run: {len(test_results)}
-            - Tests passed: {passed_count}
-            - Tests failed: {failed_count}
-            - Test results file: {results_file}
-            - Test file: {test_file_path}
+                ## Summary
+                - Total tests run: {len(test_results)}
+                - Tests passed: {passed_count}
+                - Tests failed: {failed_count}
+                - Test results file: {results_file}
+                - Test file: {test_file_path}
 
-            ## Failed Tests Details
-
-        """)
-        
-        for idx, failure_data in enumerate(failures, 1):
-            test_name = failure_data["result"]["test_name"]
-            test_metadata_info = failure_data["metadata"]
-            failure_content = failure_data["result"]["error_message"]
-            full_output = failure_data["result"]["output"]
-            
-            failure_report += textwrap.dedent(f"""
-                ### {idx}. {test_name}
-
-                **Test Metadata:**
-                - Category: {test_metadata_info.get('category', 'unknown')}
-                - Description: {test_metadata_info.get('description', 'N/A')}
-                - Expected Outcome: {test_metadata_info.get('expectedOutcome', 'PASS')}
-                - Requires Data: {test_metadata_info.get('requiresData', False)}
-                - Required Dataset: {test_metadata_info.get('requiredDataset', 'N/A')}
-                - Notes: {test_metadata_info.get('notes', 'N/A')}
-
-                **Exit Code:** {failure_data["result"]["exit_code"]}
-
-                **Error Message:**
-                ```
-                {failure_content}
-                ```
-
-                **Full Output (last 2000 chars):**
-                ```
-                {full_output[-2000:]}
-                ```
-
-                ---
+                ## Failed Tests Details
 
             """)
-
-        # Append datestamp to failure report
-        failure_report += f"\n\n---\n*Generated: {DATESTAMP}*\n"
         
-        # Save the comprehensive failure report
-        failure_report_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FailureReport_Iteration{iteration}_{DATESTAMP}.md")
-        with open(failure_report_file, 'w') as f:
-            f.write(failure_report)
-        
-        print(f"✅ Failure report saved: {failure_report_file}")
-
-        # Now analyze ALL failures at once with Copilot
-        print(f"\n🤖 Analyzing all {len(failures)} failure(s) with Copilot...")
-        
-        # Run Copilot for batch analysis and fixes
-        print(f"\n🔧 Running Copilot to analyze and fix all failures...")
-        copilot_run_from_template(
-            BATCH_FAILURE_ANALYSIS_PROMPT_FILE,
-            {
-                    "ITERATION": iteration,
-                    "FAILURE_REPORT_FILE": failure_report_file,
-                    "TEST_FILE_PATH": test_file_path,
-                    "RESULTS_FILE": results_file,
-                    "SERVICE_NAME": SERVICE_NAME,
-                    "METHOD_NAME": METHOD_NAME,
-                    "DATESTAMP": DATESTAMP,
-                    "CODE_ARCHITECTURE_PROMPT": code_architecture_prompt,
-            },
-        )
-        
-        # Check if analysis file was created
-        analysis_summary_file = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}BatchAnalysis_Iteration{iteration}_{DATESTAMP}.md")
-        if os.path.exists(analysis_summary_file):
-            # Append datestamp if not already present
-            with open(analysis_summary_file, 'r') as f:
-                content = f.read()
-            if f"*Generated: {DATESTAMP}*" not in content:
-                with open(analysis_summary_file, 'a') as f:
-                    f.write(f"\n\n---\n*Generated: {DATESTAMP}*\n")
+            for idx, failure_data in enumerate(failures, 1):
+                test_name = failure_data["result"]["test_name"]
+                test_metadata_info = failure_data["metadata"]
+                failure_content = failure_data["result"]["error_message"]
+                full_output = failure_data["result"]["output"]
             
-            print(f"✅ Analysis summary created: {analysis_summary_file}")
-            with open(analysis_summary_file, 'r') as f:
-                analysis_content = f.read()
-            print(f"\n📋 Analysis Summary:\n{analysis_content[:500]}...")
-        else:
-            print(f"⚠️  Warning: Analysis summary not created at {analysis_summary_file}")
+                failure_report += textwrap.dedent(f"""
+                    ### {idx}. {test_name}
+
+                    **Test Metadata:**
+                    - Category: {test_metadata_info.get('category', 'unknown')}
+                    - Description: {test_metadata_info.get('description', 'N/A')}
+                    - Expected Outcome: {test_metadata_info.get('expectedOutcome', 'PASS')}
+                    - Requires Data: {test_metadata_info.get('requiresData', False)}
+                    - Required Dataset: {test_metadata_info.get('requiredDataset', 'N/A')}
+                    - Notes: {test_metadata_info.get('notes', 'N/A')}
+
+                    **Exit Code:** {failure_data["result"]["exit_code"]}
+
+                    **Error Message:**
+                    ```
+                    {failure_content}
+                    ```
+
+                    **Full Output (last 2000 chars):**
+                    ```
+                    {full_output[-2000:]}
+                    ```
+
+                    ---
+
+                """)
+
+            # Append datestamp to failure report
+            failure_report += f"\n\n---\n*Generated: {DATESTAMP}*\n"
         
-        # Prepare to re-run only the failed tests in next iteration
-        # Extract metadata from failures since failures have structure: {"metadata": {...}, "result": {...}}
-        tests_to_execute = [f["metadata"] for f in failures]
+            # Save the comprehensive failure report
+            failure_report_file = os.path.join(STEP4_OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FailureReport_Iteration{iteration}_{DATESTAMP}.md")
+            with open(failure_report_file, 'w') as f:
+                f.write(failure_report)
         
-        print(f"\n🔁 Next iteration will re-run {len(failures)} failed test(s)")
+            print(f"✅ Failure report saved: {failure_report_file}")
+
+            # Now analyze ALL failures at once with Copilot
+            print(f"\n🤖 Analyzing all {len(failures)} failure(s) with Copilot...")
         
-        # Give user a chance to review before continuing
-        print(f"\n⏸️  Iteration {iteration} complete. Copilot should have made fixes.")
-        print(f"   - Review {analysis_summary_file} for details")
-        print(f"   - Check {test_file_path} for changes")
-        print(f"   - Failed tests will be re-run in next iteration")
+            # Run Copilot for batch analysis and fixes
+            print(f"\n🔧 Running Copilot to analyze and fix all failures...")
+            copilot_run_from_template(
+                BATCH_FAILURE_ANALYSIS_PROMPT_FILE,
+                {
+                        "ITERATION": iteration,
+                        "FAILURE_REPORT_FILE": failure_report_file,
+                        "TEST_FILE_PATH": test_file_path,
+                        "RESULTS_FILE": results_file,
+                        "SERVICE_NAME": SERVICE_NAME,
+                        "METHOD_NAME": METHOD_NAME,
+                        "DATESTAMP": DATESTAMP,
+                        "CODE_ARCHITECTURE_PROMPT": code_architecture_prompt,
+                },
+            )
+        
+            # Check if analysis file was created
+            analysis_summary_file = os.path.join(STEP4_OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}BatchAnalysis_Iteration{iteration}_{DATESTAMP}.md")
+            if os.path.exists(analysis_summary_file):
+                # Append datestamp if not already present
+                with open(analysis_summary_file, 'r') as f:
+                    content = f.read()
+                if f"*Generated: {DATESTAMP}*" not in content:
+                    with open(analysis_summary_file, 'a') as f:
+                        f.write(f"\n\n---\n*Generated: {DATESTAMP}*\n")
+            
+                print(f"✅ Analysis summary created: {analysis_summary_file}")
+                with open(analysis_summary_file, 'r') as f:
+                    analysis_content = f.read()
+                print(f"\n📋 Analysis Summary:\n{analysis_content[:500]}...")
+            else:
+                print(f"⚠️  Warning: Analysis summary not created at {analysis_summary_file}")
+        
+            # Prepare to re-run only the failed tests in next iteration
+            # Extract metadata from failures since failures have structure: {"metadata": {...}, "result": {...}}
+            tests_to_execute = [f["metadata"] for f in failures]
+        
+            print(f"\n🔁 Next iteration will re-run {len(failures)} failed test(s)")
+        
+            # Give user a chance to review before continuing
+            print(f"\n⏸️  Iteration {iteration} complete. Copilot should have made fixes.")
+            print(f"   - Review {analysis_summary_file} for details")
+            print(f"   - Check {test_file_path} for changes")
+            print(f"   - Failed tests will be re-run in next iteration")
 
     # Final summary
     print(f"\n{'='*60}")
@@ -893,7 +1398,7 @@ if START_FROM_STEP <= 4:
         print("No test results available")
 
     # Generate final comprehensive report
-    final_report_path = os.path.join(OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FinalReport_{DATESTAMP}.md")
+    final_report_path = os.path.join(STEP4_OUTPUT_DIR, f"{SERVICE_NAME}.{METHOD_NAME}FinalReport_{DATESTAMP}.md")
     latest_results_file = results_file if 'results_file' in locals() else 'N/A'
 
     print("\n📝 Generating final comprehensive report...")
@@ -933,7 +1438,7 @@ if START_FROM_STEP <= 4:
     server_issue_tests = find_unverified_server_issue_tests(test_file_path)
     if server_issue_tests:
         unverified_report_path = os.path.join(
-            OUTPUT_DIR,
+            STEP4_OUTPUT_DIR,
             f"{SERVICE_NAME}.{METHOD_NAME}UnverifiedServerIssuesReport_{DATESTAMP}.md",
         )
         server_issue_tests_md = "\n".join([f"- {name}" for name in server_issue_tests])
@@ -960,9 +1465,16 @@ if START_FROM_STEP <= 4:
 
     print("\n🎉 Test analysis and categorization complete!")
     print(f"\n📁 Generated Files in {OUTPUT_DIR}:")
-    print(f"   - {os.path.basename(ANALYSIS_FILE)}")
-    print(f"   - {os.path.basename(EXPECTED_RESULTS_FILE)}")
-    print(f"   - {SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
+    if FULL_SERVICE_MODE:
+        print(f"   - {SERVICE_NAME}.ServiceAnalysis_{DATESTAMP}.md")
+        print(f"   - {SERVICE_NAME}.MethodList_{DATESTAMP}.json")
+        print(f"   - {SERVICE_NAME}.<method>Analysis_{DATESTAMP}.md (per method)")
+        print(f"   - {SERVICE_NAME}.<method>TestMetadata_{DATESTAMP}.json (per method)")
+        print(f"   - {SERVICE_NAME}.TestMetadata_{DATESTAMP}.json (aggregated)")
+    else:
+        print(f"   - {os.path.basename(ANALYSIS_FILE)}")
+        print(f"   - {os.path.basename(EXPECTED_RESULTS_FILE)}")
+        print(f"   - {SERVICE_NAME}.{METHOD_NAME}TestMetadata_{DATESTAMP}.json")
     print(f"   - {os.path.basename(FAILURE_ANALYSIS_FILE)}")
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}FinalReport_{DATESTAMP}.md")
     if 'server_issue_tests' in locals() and server_issue_tests:
@@ -972,5 +1484,69 @@ if START_FROM_STEP <= 4:
     print(f"   - {SERVICE_NAME}.{METHOD_NAME}TestResults_Iteration*_{DATESTAMP}.json")
 else:
     print(f"⏭️  Skipping Step 4: Not requested")
+
+# Early-exit if requested
+if END_AT_STEP <= 4:
+    print(f"\n🏁 Stopping after Step 4 (--end-at-step {END_AT_STEP})")
+    print("\n✅ Process complete!")
+    sys.exit(0)
+
+# === Step 5: Aggregate cross-environment reports ===
+if START_FROM_STEP <= 5:
+    print("\n📊 Step 5: Aggregating cross-environment reports...")
+
+    # Locate all per-env FinalReport files produced this run (by datestamp).
+    # Use recursive=True to find files in per-environment subdirectories created by --env.
+    final_report_files = sorted(glob.glob(
+        os.path.join(OUTPUT_DIR, "**", f"*FinalReport_*{DATESTAMP}*.md"),
+        recursive=True,
+    ))
+    results_json_files = sorted(glob.glob(
+        os.path.join(OUTPUT_DIR, "**", f"*TestResults_Iteration*{DATESTAMP}*.json"),
+        recursive=True,
+    ))
+    server_issue_files = sorted(glob.glob(
+        os.path.join(OUTPUT_DIR, "**", f"*UnverifiedServerIssuesReport_*{DATESTAMP}*.md"),
+        recursive=True,
+    ))
+
+    if not final_report_files:
+        print("⚠️  No per-env FinalReport files found in output dir — skipping aggregate report.")
+    elif not os.path.exists(AGGREGATE_REPORT_PROMPT_FILE):
+        print(f"⚠️  AggregateReportPrompt.md not found at {AGGREGATE_REPORT_PROMPT_FILE} — skipping.")
+    else:
+        aggregate_report_path = os.path.join(
+            OUTPUT_DIR, f"{SERVICE_NAME}.AllEnvAggregateReport_{DATESTAMP}.md"
+        )
+        print(f"📋 Per-env FinalReports found: {len(final_report_files)}")
+        print(f"📋 Per-env TestResults JSONs found: {len(results_json_files)}")
+        if server_issue_files:
+            print(f"🔴 Per-env ServerIssues reports found: {len(server_issue_files)}")
+
+        copilot_generate(
+            AGGREGATE_REPORT_PROMPT_FILE,
+            aggregate_report_path,
+            {
+                "SERVICE_NAME": SERVICE_NAME,
+                "DATESTAMP": DATESTAMP,
+                "OUTPUT_DIR": OUTPUT_DIR,
+                "PER_ENV_FINAL_REPORTS": "\n".join(f"- {f}" for f in final_report_files),
+                "PER_ENV_RESULTS_JSONS": "\n".join(f"- {f}" for f in results_json_files),
+                "PER_ENV_SERVER_ISSUE_FILES": "\n".join(f"- {f}" for f in server_issue_files)
+                    if server_issue_files else "(none)",
+            },
+        )
+
+        if os.path.exists(aggregate_report_path):
+            with open(aggregate_report_path, 'r') as f:
+                content = f.read()
+            if f"*Generated: {DATESTAMP}*" not in content:
+                with open(aggregate_report_path, 'a') as f:
+                    f.write(f"\n\n---\n*Generated: {DATESTAMP}*\n")
+            print(f"✅ Aggregate report created: {aggregate_report_path}")
+        else:
+            print(f"⚠️  Aggregate report not created at expected path: {aggregate_report_path}")
+else:
+    print(f"⏭️  Skipping Step 5: Not requested")
 
 print("\n✅ Process complete!")

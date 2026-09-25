@@ -1,0 +1,486 @@
+name: WsClient Test Generator Suite
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Manual trigger only.  Runs the generated test suite for a specified WsClient
+# service across three environment types: containerized (K8s), baremetal, and
+# secure (baremetal + authentication).
+#
+# Prerequisites:
+#   • HPCC Platform source (optional): provide hpcc_platform_repo + hpcc_platform_branch
+#     to have the workflow run analysis + test generation (steps 0-3) automatically.
+#     Without a source repo the test class for SERVICE_NAME must already exist in the
+#     repository (i.e. steps 0-3 were run locally and the result was committed).
+#
+# Access control (REQUIRED SETUP — repo admin):
+#   • Create a GitHub Environment named "test-runner" in repo Settings →
+#     Environments. Add required reviewers (only they can approve runs).
+#     This prevents unauthorized workflow_dispatch invocations.
+#   • Optionally set the ALLOWED_ACTORS secret (comma-separated GitHub usernames)
+#     for an additional actor allowlist check enforced in the workflow itself.
+#
+# Secrets required:
+#   • COPILOT_CLI_TOKEN — PAT (classic or fine-grained) for an account with an
+#     active GitHub Copilot subscription.  Used by setup-copilot-cli action.
+#     The standard GITHUB_TOKEN does NOT have Copilot API access.
+#   • ALLOWED_ACTORS (optional) — comma-separated actor allowlist.
+#
+# Outputs:
+#   • All result files committed to a new branch:
+#       test-results/<SERVICE_NAME>/<YYYYMMDD>-<run_id>
+#     with sub-directories: containerized/, baremetal/, secure/
+# ─────────────────────────────────────────────────────────────────────────────
+
+on:
+  workflow_dispatch:
+    inputs:
+      service_name:
+        description: "WsClient service name (e.g. WsDFU, WSStore, WsResources)"
+        required: true
+        type: string
+      method_name:
+        description: "Method name for single-method mode (leave blank for full-service mode)"
+        required: false
+        default: ""
+        type: string
+      parallel_threads:
+        description: "Number of parallel Maven test processes in Step 4 (default: 1)"
+        required: false
+        default: "1"
+        type: string
+      output_dir:
+        description: "Path (relative to repo root) of TestGeneratorAgent output dir to load metadata from. Leave blank to run all tests in the service's test class."
+        required: false
+        default: ""
+        type: string
+      hpcc_platform_repo:
+        description: "HPCC Platform GitHub repository (owner/repo) for K8s deployment. Leave blank for latest community release."
+        required: false
+        default: "hpcc-systems/hpcc-platform"
+        type: string
+      hpcc_platform_branch:
+        description: "HPCC Platform branch/tag for K8s deployment. Used only when hpcc_platform_repo is set."
+        required: false
+        default: "master"
+        type: string
+      copilot_model:
+        description: "Copilot model for TestGeneratorAgent (e.g. claude-sonnet-4, gpt-4o). Leave blank for the Copilot CLI default."
+        required: false
+        default: "claude-sonnet-4.6"
+        type: string
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Permissions: contents:write is required to push the results branch.
+# ─────────────────────────────────────────────────────────────────────────────
+permissions:
+  contents: write
+  pull-requests: write
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Jobs
+# ─────────────────────────────────────────────────────────────────────────────
+jobs:
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Single sequential job:
+  #   1. One-time setup (JDK, Python, Copilot CLI) + generate & compile (steps 0-3)
+  #   2. ENV: containerized (K8s/microk8s) → step 4 → teardown
+  #   3. ENV: baremetal insecure (dpkg HPCC) → step 4 → stay installed
+  #   4. ENV: baremetal secure (reconfigure htpasswdsecmgr) → step 4 → stop
+  #   5. Aggregate cross-env reports (step 5)
+  #   6. Commit results to branch
+  # ───────────────────────────────────────────────────────────────────────────
+  run-tests:
+    name: Build → Containerized → Baremetal → Secure → Aggregate
+    runs-on: ubuntu-latest
+    # Guard: only run on forks, never on the canonical upstream repo.
+    if: github.repository != 'hpcc-systems/hpcc4j'
+    # ── ACCESS GATE ────────────────────────────────────────────────────────────
+    # References the "test-runner" Environment.  Configure required reviewers
+    # in repo Settings → Environments → test-runner.
+    environment: test-runner
+    # Allow up to 6 hours for the full sequential run across all environments.
+    timeout-minutes: 360
+    # continue-on-error at the step level handles per-env failures gracefully.
+    # The job itself does not use continue-on-error so the commit/publish step
+    # still runs (it is covered by an explicit if: always() on that step).
+
+    steps:
+      # ── ONE-TIME SETUP ──────────────────────────────────────────────────────
+
+      - name: Check actor authorization
+        run: |
+          ALLOWED="${{ secrets.ALLOWED_ACTORS }}"
+          if [ -z "$ALLOWED" ]; then
+            echo "ℹ️  ALLOWED_ACTORS not configured — relying on GitHub Environment required-reviewers gate."
+          elif ! echo "$ALLOWED" | tr ',' '\n' | grep -qx "${{ github.actor }}"; then
+            echo "::error::Actor '${{ github.actor }}' is not in the ALLOWED_ACTORS list."
+            echo "Add '${{ github.actor }}' to the ALLOWED_ACTORS repository secret to grant access."
+            exit 1
+          else
+            echo "Actor '${{ github.actor }}' is authorized."
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Setup JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Setup Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Setup GitHub Copilot CLI
+        uses: ./.github/actions/setup-copilot-cli
+        with:
+          copilot-pat: ${{ secrets.COPILOT_CLI_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          workflow-file: test-generator.yml
+          actor-whitelist: ${{ secrets.ALLOWED_ACTORS }}
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Checkout HPCC Platform source (for analysis)
+        if: github.event.inputs.hpcc_platform_repo != ''
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.inputs.hpcc_platform_repo }}
+          ref: ${{ github.event.inputs.hpcc_platform_branch }}
+          path: HPCC-Platform
+
+      - name: Generate tests and compile (steps 0-3)
+        id: gen_and_build
+        env:
+          SERVICE_NAME: ${{ github.event.inputs.service_name }}
+          METHOD_NAME: ${{ github.event.inputs.method_name }}
+          HPCC_PLATFORM_REPO: ${{ github.event.inputs.hpcc_platform_repo }}
+          COPILOT_MODEL: ${{ github.event.inputs.copilot_model }}
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_CLI_TOKEN }}
+        run: |
+          ARGS="$SERVICE_NAME"
+          if [ -n "$METHOD_NAME" ]; then ARGS="$ARGS $METHOD_NAME"; fi
+
+          if [ -n "$HPCC_PLATFORM_REPO" ]; then
+            # Platform source was checked out — run full analysis + generation + build (steps 0-3)
+            ARGS="$ARGS --hpcc-source ./HPCC-Platform"
+          else
+            # No platform source — test class must already exist; skip to build-only (step 3)
+            ARGS="$ARGS --start-from-step 3"
+          fi
+
+          ARGS="$ARGS --end-at-step 3"
+          ARGS="$ARGS --scenarios none"
+          ARGS="$ARGS --ci"
+          if [ -n "$COPILOT_MODEL" ]; then ARGS="$ARGS --model $COPILOT_MODEL"; fi
+
+          echo "Running: python3 scripts/wsclient-test-generator/TestGeneratorAgent.py $ARGS"
+          python3 scripts/wsclient-test-generator/TestGeneratorAgent.py $ARGS
+
+      # ── ENV 1: CONTAINERIZED (K8s / microk8s) ──────────────────────────────
+
+      - name: Setup microk8s
+        uses: balchua/microk8s-actions@v0.3.2
+        with:
+          channel: "1.26/stable"
+          devMode: "true"
+          addons: '["dns", "rbac", "hostpath-storage", "registry"]'
+
+      - name: Build HPCC Docker Image
+        if: github.event.inputs.hpcc_platform_repo != ''
+        uses: ./.github/actions/build-k8s
+        with:
+          platform-folder: ./HPCC-Platform
+
+      - name: Deploy HPCC on K8s
+        id: k8s_deploy
+        continue-on-error: true
+        uses: ./.github/actions/deploy-hpcc-k8s
+        with:
+          use-local-image: ${{ github.event.inputs.hpcc_platform_repo != '' }}
+          platform-folder: ./HPCC-Platform
+
+      - name: Run tests — containerized environment
+        if: steps.k8s_deploy.outcome == 'success'
+        continue-on-error: true
+        env:
+          SERVICE_NAME: ${{ github.event.inputs.service_name }}
+          METHOD_NAME: ${{ github.event.inputs.method_name }}
+          PARALLEL_THREADS: ${{ github.event.inputs.parallel_threads }}
+          OUTPUT_DIR: ${{ github.event.inputs.output_dir }}
+          COPILOT_MODEL: ${{ github.event.inputs.copilot_model }}
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_CLI_TOKEN }}
+        run: |
+          ARGS="$SERVICE_NAME"
+          if [ -n "$METHOD_NAME" ]; then ARGS="$ARGS $METHOD_NAME"; fi
+          ARGS="$ARGS --hpccconn https://eclwatch.default:8010 --wssqlconn https://sql2ecl.default:8510"
+          ARGS="$ARGS --start-from-step 4 --end-at-step 4"
+          ARGS="$ARGS --parallel-threads $PARALLEL_THREADS"
+          ARGS="$ARGS --scenarios none"
+          ARGS="$ARGS --ci"
+          if [ -n "$COPILOT_MODEL" ]; then ARGS="$ARGS --model $COPILOT_MODEL"; fi
+
+          echo "Running: python3 scripts/wsclient-test-generator/TestGeneratorAgent.py $ARGS"
+          python3 scripts/wsclient-test-generator/TestGeneratorAgent.py $ARGS
+
+      - name: Collect K8s logs
+        if: always()
+        run: |
+          mkdir -p test-logs/containerized
+          kubectl logs -l server=rowservice --namespace default > test-logs/containerized/rowservice.log 2>&1 || true
+          kubectl logs -l app=eclwatch --namespace default > test-logs/containerized/eclwatch.log 2>&1 || true
+          kubectl logs -l app=sql2ecl --namespace default > test-logs/containerized/sql2ecl.log 2>&1 || true
+
+      - name: Teardown K8s HPCC deployment
+        if: always()
+        run: |
+          helm uninstall myhpcc --namespace default --wait --timeout 5m || true
+          kubectl delete namespace default --wait=false || true
+
+      # ── ENV 2: BAREMETAL INSECURE ───────────────────────────────────────────
+
+      - name: Extract HPCC Platform version
+        id: hpcc_version
+        shell: python
+        run: |
+          import os, re, subprocess, sys
+
+          def get_tag_version(cmd):
+              pattern = re.compile(r'.*hpcc4j_([0-9]+\.[0-9]+\.[0-9]+).*')
+              proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+              out, _ = proc.communicate()
+              match = pattern.match(str(out))
+              if match:
+                  return list(map(int, match.group(1).split('.')))
+              return None
+
+          ver = get_tag_version("git tag --list 'hpcc4j_*-release' --sort=-v:refname | head -n 1")
+          if ver is None:
+              ver = [9, 6, 0]
+
+          ver_str = ".".join(map(str, ver))
+          prev = [ver[0], ver[1], max(0, ver[2] - 2)]
+          prev_str = ".".join(map(str, prev))
+
+          base = "https://github.com/hpcc-systems/HPCC-Platform/releases/download"
+          def url(v): return f"{base}/community_{v}-1/hpccsystems-platform-community_{v}-1jammy_amd64_withsymbols.deb"
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"latestVersion={ver_str}\n")
+              f.write(f"latestVersionURL={url(ver_str)}\n")
+              f.write(f"previousVersionURL={url(prev_str)}\n")
+
+      - name: Install HPCC Platform
+        id: hpcc_install
+        continue-on-error: true
+        run: |
+          URL="${{ steps.hpcc_version.outputs.latestVersionURL }}"
+          PREV="${{ steps.hpcc_version.outputs.previousVersionURL }}"
+          if wget -q --spider "$URL"; then wget -q "$URL"
+          elif wget -q --spider "$PREV"; then wget -q "$PREV"
+          else echo "Unable to find HPCC Platform package"; exit 1; fi
+          sudo apt-get update -q
+          sudo dpkg -i hpccsystems-platform-community_*.deb || sudo apt-get -f install -y
+          sudo /opt/HPCCSystems/etc/init.d/setupPKI
+
+      - name: Start HPCC Platform
+        if: steps.hpcc_install.outcome == 'success'
+        run: |
+          export LANG="en_US.UTF-8"
+          sudo update-locale
+          sudo /etc/init.d/hpcc-init start
+
+      - name: Add host file entries
+        if: steps.hpcc_install.outcome == 'success'
+        run: |
+          sudo sh -c "echo '127.0.0.1 eclwatch.default' >> /etc/hosts"
+          sudo sh -c "echo '127.0.0.1 rowservice.default' >> /etc/hosts"
+          sudo sh -c "echo '127.0.0.1 sql2ecl.default' >> /etc/hosts"
+
+      - name: Run tests — baremetal environment
+        if: steps.hpcc_install.outcome == 'success'
+        continue-on-error: true
+        env:
+          SERVICE_NAME: ${{ github.event.inputs.service_name }}
+          METHOD_NAME: ${{ github.event.inputs.method_name }}
+          PARALLEL_THREADS: ${{ github.event.inputs.parallel_threads }}
+          COPILOT_MODEL: ${{ github.event.inputs.copilot_model }}
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_CLI_TOKEN }}
+        run: |
+          ARGS="$SERVICE_NAME"
+          if [ -n "$METHOD_NAME" ]; then ARGS="$ARGS $METHOD_NAME"; fi
+          ARGS="$ARGS --hpccconn http://eclwatch.default:8010 --wssqlconn http://sql2ecl.default:8510"
+          ARGS="$ARGS --start-from-step 4 --end-at-step 4"
+          ARGS="$ARGS --parallel-threads $PARALLEL_THREADS"
+          ARGS="$ARGS --scenarios none"
+          ARGS="$ARGS --ci"
+          if [ -n "$COPILOT_MODEL" ]; then ARGS="$ARGS --model $COPILOT_MODEL"; fi
+
+          python3 scripts/wsclient-test-generator/TestGeneratorAgent.py $ARGS
+
+      # ── ENV 3: BAREMETAL SECURE (reuse the same HPCC install) ──────────────
+
+      - name: Generate htpasswd credentials
+        if: steps.hpcc_install.outcome == 'success'
+        run: |
+          HPCC_USER=$(openssl rand -hex 8)
+          HPCC_PASS=$(openssl rand -hex 16)
+          echo "HPCC_USER=$HPCC_USER" >> $GITHUB_ENV
+          echo "HPCC_PASS=$HPCC_PASS" >> $GITHUB_ENV
+          sudo apt-get install -y apache2-utils
+          sudo htpasswd -c -b /etc/HPCCSystems/.htpasswd "$HPCC_USER" "$HPCC_PASS"
+
+      - name: Configure htpasswdsecmgr
+        if: steps.hpcc_install.outcome == 'success'
+        shell: python
+        run: |
+          import xml.etree.ElementTree as ET
+
+          env_file = '/etc/HPCCSystems/environment.xml'
+          tree = ET.parse(env_file)
+          root = tree.getroot()
+
+          programs = root.find('./Programs')
+          build = programs.find('./Build')
+          buildset = ET.SubElement(build, 'BuildSet')
+          buildset.set('deployable', 'no')
+          buildset.set('installSet', 'deploy_map.xml')
+          buildset.set('name', 'htpasswdsecmgr')
+          buildset.set('path', 'componentfiles/htpasswdsecmgr')
+          buildset.set('processName', 'HtpasswdSecurityManager')
+          buildset.set('schema', 'htpasswd_secmgr.xsd')
+
+          software = root.find('./Software')
+          for esp in software.findall('./EspProcess'):
+              auth = esp.find('./Authentication')
+              if auth is not None:
+                  auth.set('method', 'secmgrPlugin')
+              for binding in esp.findall('./EspBinding'):
+                  if binding.get('name') == 'myespsmc':
+                      binding.set('type', 'htpasswdsecmgr')
+
+          mgr = ET.SubElement(software, 'HtpasswdSecurityManager')
+          mgr.set('build', '_')
+          mgr.set('buildSet', 'htpasswdsecmgr')
+          mgr.set('htpasswdFile', '/etc/HPCCSystems/.htpasswd')
+          mgr.set('instanceFactoryName', 'createInstance')
+          mgr.set('libName', 'libhtpasswdSecurity.so')
+          mgr.set('name', 'htpasswdsecmgr')
+          mgr.set('type', 'SecurityManager')
+
+          tree.write('tmp_environment.xml')
+
+      - name: Apply htpasswdsecmgr config and restart HPCC
+        if: steps.hpcc_install.outcome == 'success'
+        run: |
+          sudo mv /etc/HPCCSystems/environment.xml /etc/HPCCSystems/environment.xml.bak
+          sudo mv tmp_environment.xml /etc/HPCCSystems/environment.xml
+          sudo chown hpcc:hpcc /etc/HPCCSystems/environment.xml
+          export LANG="en_US.UTF-8"
+          sudo update-locale
+          sudo /etc/init.d/hpcc-init restart
+
+      - name: Run tests — secure environment
+        if: steps.hpcc_install.outcome == 'success'
+        continue-on-error: true
+        env:
+          SERVICE_NAME: ${{ github.event.inputs.service_name }}
+          METHOD_NAME: ${{ github.event.inputs.method_name }}
+          PARALLEL_THREADS: ${{ github.event.inputs.parallel_threads }}
+          COPILOT_MODEL: ${{ github.event.inputs.copilot_model }}
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_CLI_TOKEN }}
+        run: |
+          ARGS="$SERVICE_NAME"
+          if [ -n "$METHOD_NAME" ]; then ARGS="$ARGS $METHOD_NAME"; fi
+          ARGS="$ARGS --hpccconn http://eclwatch.default:8010 --wssqlconn http://sql2ecl.default:8510 --hpccuser $HPCC_USER --hpccpass $HPCC_PASS"
+          ARGS="$ARGS --start-from-step 4 --end-at-step 4"
+          ARGS="$ARGS --parallel-threads $PARALLEL_THREADS"
+          ARGS="$ARGS --scenarios none"
+          ARGS="$ARGS --ci"
+          if [ -n "$COPILOT_MODEL" ]; then ARGS="$ARGS --model $COPILOT_MODEL"; fi
+
+          python3 scripts/wsclient-test-generator/TestGeneratorAgent.py $ARGS
+
+      - name: Stop HPCC Platform
+        if: always() && steps.hpcc_install.outcome == 'success'
+        run: sudo /etc/init.d/hpcc-init stop || true
+
+      # ── STEP 5: AGGREGATE CROSS-ENV REPORTS ────────────────────────────────
+
+      - name: Aggregate cross-environment reports (Step 5)
+        continue-on-error: true
+        env:
+          SERVICE_NAME: ${{ github.event.inputs.service_name }}
+          METHOD_NAME: ${{ github.event.inputs.method_name }}
+          COPILOT_MODEL: ${{ github.event.inputs.copilot_model }}
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_CLI_TOKEN }}
+        run: |
+          ARGS="$SERVICE_NAME"
+          if [ -n "$METHOD_NAME" ]; then ARGS="$ARGS $METHOD_NAME"; fi
+          ARGS="$ARGS --start-from-step 5"
+          ARGS="$ARGS --scenarios none"
+          ARGS="$ARGS --ci"
+          if [ -n "$COPILOT_MODEL" ]; then ARGS="$ARGS --model $COPILOT_MODEL"; fi
+
+          echo "Running aggregate reports step..."
+          python3 scripts/wsclient-test-generator/TestGeneratorAgent.py $ARGS
+
+      # ── PUBLISH: COMMIT RESULTS TO BRANCH ──────────────────────────────────
+
+      - name: Commit and push results branch
+        if: always()
+        id: push_branch
+        env:
+          SERVICE_NAME: ${{ github.event.inputs.service_name }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_NUMBER: ${{ github.run_number }}
+          ACTOR: ${{ github.actor }}
+        run: |
+          DATESTAMP=$(date +%Y%m%d)
+          BRANCH="test-results/${SERVICE_NAME}/${DATESTAMP}-${RUN_ID}"
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "$BRANCH"
+
+          # Remove artifacts that must not be committed:
+          #   • HPCC-Platform — nested git repo (checked out for analysis/build)
+          #   • *.deb         — downloaded platform packages (can be 400MB+)
+          #   • environments.json — contains generated credentials
+          #   • ca.seq        — ephemeral TLS artifact
+          rm -rf HPCC-Platform
+          rm -f *.deb environments.json ca.seq
+
+          # Stage all new, modified, and deleted files produced during this run
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No result files found — nothing to commit."
+            echo "branch_created=false" >> $GITHUB_OUTPUT
+          else
+            COMMIT_MSG="test-results: ${SERVICE_NAME} run #${RUN_NUMBER} (${RUN_ID}) by ${ACTOR}"
+            git commit -m "$COMMIT_MSG"
+            git push origin "$BRANCH"
+            echo "branch_created=true"  >> $GITHUB_OUTPUT
+            echo "branch_name=$BRANCH"  >> $GITHUB_OUTPUT
+            echo "✅ Results committed to branch: $BRANCH"
+          fi
+
+      - name: Print results branch URL
+        if: steps.push_branch.outputs.branch_created == 'true'
+        run: |
+          REPO="${{ github.server_url }}/${{ github.repository }}"
+          BRANCH="${{ steps.push_branch.outputs.branch_name }}"
+          echo "Results branch: ${REPO}/tree/${BRANCH}"
+          echo "Compare / PR:   ${REPO}/compare/${BRANCH}"
