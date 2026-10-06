@@ -27,6 +27,11 @@ public class FieldDef implements Serializable
     private static final int  MASK_32_LOWER_HALF = 0xffff;
     private static final int  MASK_32_UPPER_HALF = 0xffff0000;
 
+    // Additional flags are used to retain layout information for HPCC records during conversion, these values come from the HPCC platform
+    // See RtlFieldTypeMask in: https://github.com/hpcc-systems/HPCC-Platform/blob/master/rtl/include/eclhelper.hpp
+    final public static int   FLAG_PAYLOAD_FIELD = 0x00010000; // Denotes a field is part of the payload of a record in a key
+    final public static int   FLAG_BIASED_FIELD  = 0x00020000; // Applied to keyed integers and swapped integers
+
     private String            fieldName          = "";
     private FieldType         fieldType          = FieldType.UNKNOWN;
     private String            typeName           = FieldType.UNKNOWN.description();
@@ -385,6 +390,16 @@ public class FieldDef implements Serializable
     }
 
     /**
+     * Checks if this field is a payload field.
+     *
+     * @return true if this field is a payload field, false otherwise
+     */
+    public boolean isPayloadField()
+    {
+        return (this.additionalFlags & FLAG_PAYLOAD_FIELD) != 0;
+    }
+
+    /**
      * Number of field definitions. Zero if this is not a record
      *
      * @return number
@@ -461,6 +476,30 @@ public class FieldDef implements Serializable
             }
         };
         return rslt;
+    }
+
+    public FieldDef toIndexRecordDef() throws IllegalStateException
+    {
+        if (this.fieldType != FieldType.RECORD)
+        {
+            throw new IllegalStateException("Only record field defs can be converted to index record definitions");
+        }
+
+        FieldDef[] indexChildDefs = new FieldDef[this.defs.length];
+        for (int i = 0; i < this.defs.length; i++)
+        {
+            FieldDef childDef = new FieldDef(this.defs[i]);
+            indexChildDefs[i] = childDef;
+
+            // Integers in the key must be biased and have the source type set to keyed integer to be properly handled by the HPCC platform when used in an index record definition
+            if (!childDef.isPayloadField() && childDef.fieldType == FieldType.INTEGER) 
+            {
+                childDef.setAdditionalFlags(childDef.getAdditionalFlags() | FLAG_BIASED_FIELD);
+                childDef.setSourceType(HpccSrcType.KEYED_INTEGER);
+            }
+        }
+
+        return new FieldDef(this.fieldName, this.fieldType, this.typeName, this.len, this.fixedLength, this.isUnsigned, this.additionalFlags, this.srcType, indexChildDefs);
     }
 
     /**
