@@ -12,6 +12,7 @@
 1. **Core Functionality Tests (CFT)**: Basic operation, complete requests, data variations, typical workflows
 2. **Edge Case Tests (ECT)**: Boundary values, optional parameters, unusual inputs, performance limits  
 3. **Error Handling Tests (EHT)**: Invalid inputs, server-side errors, client-side errors
+4. **Connectivity Tests (CNT)**: Service reachability, authentication success/failure, endpoint validation
 
 **Dataset Integration:**
 - Review existing datasets from `generate-datasets.ecl` before defining tests
@@ -53,6 +54,45 @@ The goal is to:
 - Service implementations are defined in: `esp/services/ws_${ServiceName}`
 - Request and response object definitions (IDL) are in: `esp/scm/ws_${ServiceName}.ecm`
 
+## 🔍 File Search Strategy
+
+> ⚠️ **Important**: File and directory names may differ in capitalisation or have minor naming differences from what is expected. **Always use fuzzy/case-insensitive searches** — never assume an exact path is correct.
+>
+> ⚠️ **Always search from the project root directories provided in the context above** (HPCC4J Project Root and HPCC Platform Source Root). Do NOT use `.` as a search root — the script may be run from a different directory and `.` will not be the project root.
+
+**Required approach when locating any file:**
+
+1. **Use `find -iname` from the project root** (case-insensitive), not from `.`:
+   ```bash
+   # Java client / test files — search from HPCC4J project root
+   find <HPCC4J_PROJECT_ROOT> -iname "*${ServiceName}*" -type f
+   find <HPCC4J_PROJECT_ROOT>/wsclient/src -iname "*${ServiceName}ClientTest*"
+
+   # HPCC Platform source files — search from HPCC Platform source root
+   find <HPCC_PLATFORM_SOURCE_ROOT>/esp -iname "*${ServiceName}*" -type f
+   ```
+
+2. **Try multiple name variants** if the first search returns nothing:
+   - With and without the `Ws`/`WS` prefix (e.g., `WsStore` → `Store`, `store`)
+   - All-lowercase, PascalCase, camelCase variants
+   - Partial name globs (e.g., `*store*client*`, `*Store*`)
+   - Underscore vs. no-separator variants (e.g., `ws_store` vs `wsstore`)
+
+3. **Use `grep -ril` from the project root** when a name-based search fails:
+   ```bash
+   grep -ril "class HPCC.*StoreClient" <HPCC4J_PROJECT_ROOT>/wsclient/src
+   grep -ril "ServiceName" <HPCC_PLATFORM_SOURCE_ROOT>/esp --include="*.ecm"
+   ```
+
+4. **Try the full source tree** before concluding a file does not exist:
+   ```bash
+   find <HPCC_PLATFORM_SOURCE_ROOT> -iname "*.ecm" | xargs grep -il "${ServiceName}"
+   ```
+
+5. **Never give up after one failed search** — try at least 3 different variants/strategies before treating a file as missing.
+
+---
+
 ## 🧪 Testing Guidelines
 
 ### Test Location
@@ -72,6 +112,7 @@ Test cases should fully cover:
 - Invalid inputs and expected error responses  
 - Exceptional conditions or failure scenarios
 
+${TESTING_SCENARIOS_SECTION}
 ## 🧠 Task Instructions
 
 You will be provided a method that lacks test coverage or has insufficient coverage.
@@ -116,6 +157,7 @@ For each existing test found:
 - Core Functionality Tests covered: [count and brief description]
 - Edge Case Tests covered: [count and brief description]
 - Error Handling Tests covered: [count and brief description]
+- Connectivity Tests covered: [count and brief description]
 - **Gaps identified**: [List scenarios that are NOT covered by existing tests]
 
 **Important**: Any test scenario that is adequately covered by an existing test **MUST NOT** be included in the new test case plan (Step 7). Only generate test cases for scenarios that have gaps or no coverage.
@@ -166,6 +208,7 @@ Test cases must be organized into three primary categories with clearly labeled 
 - Core Functionality Tests: `CFT-001`, `CFT-002`, etc.
 - Edge Case Tests: `ECT-001`, `ECT-002`, etc.
 - Error Handling Tests: `EHT-001`, `EHT-002`, etc.
+- Connectivity Tests: `CNT-001`, `CNT-002`, etc.
 
 ##### A. Core Functionality Tests
 Tests that verify the method's primary purpose and expected normal operation:
@@ -204,21 +247,34 @@ Tests that verify proper handling of invalid inputs and error conditions:
   - Unexpected response formats
   - Communication failures
 
+##### D. Connectivity Tests
+Tests that validate the service is reachable and authentication behaves correctly.
+- **Reachability**: Method returns a non-null/non-exception response for a minimal valid request
+- **Valid auth**: Request succeeds when valid credentials are supplied (skip if environment is unsecured)
+- **Invalid auth**: Request returns an appropriate auth error for bad/empty credentials
+
 **Test Case Specification Format:**
 
 For each test case, provide:
 
 | Field | Description |
 |-------|-------------|
-| **Test ID** | Unique identifier (e.g., `CFT-001` for Core Functionality Test) |
-| **Category** | Core Functionality / Edge Case / Error Handling |
+| **Test ID** | Unique identifier (e.g., `CFT-001` for Core Functionality Test, `CNT-001` for Connectivity Test) |
+| **Category** | Core Functionality / Edge Case / Error Handling / Connectivity |
 | **Subcategory** | Specific classification from above |
 | **Description** | Brief summary of what is being tested |
+| **Environment Requirements** | Comma-separated list: `any`, `containerized`, `baremetal`, `secure` |
 | **Input Data** | Complete request fields and values |
 | **Dataset** | Either: existing dataset name (e.g., `~benchmark::integer::20KB`) OR `[NEW DATASET REQUIRED]` with specifications |
 | **Expected Output** | Response values, exception type, or error code |
 | **Pass Criteria** | Specific conditions that indicate success |
 | **Notes** | Additional context, dependencies, or setup requirements |
+
+**Environment requirements guidance:**
+- `any` — no special infrastructure needed; test runs in all environments
+- `containerized` — requires a K8s/Docker-deployed HPCC cluster
+- `baremetal` — requires a bare-metal/native HPCC installation
+- `secure` — requires an HPCC cluster with authentication/security plugin enabled
 
 **Dataset Requirements Format (for new datasets):**
 
@@ -264,7 +320,31 @@ Rationale: Existing datasets don't contain null values, which are critical for t
 
 #### 8. New Dataset Specifications
 
-If any test cases require new datasets, consolidate all requirements here with complete ECL code snippets for dataset generation.
+If any test cases require new datasets, consolidate all requirements here AND provide the ECL code that must be added to `generate-datasets.ecl`.
+
+> ⚠️ **CRITICAL**: New datasets are created by adding ECL code to:
+> `wsclient/src/test/resources/generate-datasets.ecl`
+>
+> This file is submitted to the HPCC cluster automatically before every test run via `BaseRemoteTest.initialize()`. Any dataset NOT defined here will not exist when tests run, causing test failures.
+
+For each new dataset, provide a complete ECL block following the **existing `IF(~Std.File.FileExists(...))` idempotent pattern** already used in the file. Example:
+
+```ecl
+// --- New dataset for ${ServiceName} ${MethodName} tests ---
+dataset_name_new := '~test::${purpose}::${type}';
+rec_new := { STRING path, INTEGER4 depth };
+ds_new := DATASET(500, TRANSFORM(rec_new,
+    SELF.path := '/test/' + (STRING)(COUNTER);
+    SELF.depth := COUNTER % 10;
+), DISTRIBUTED);
+IF(~Std.File.FileExists(dataset_name_new), OUTPUT(ds_new,,dataset_name_new,overwrite));
+```
+
+**Required for each new dataset:**
+- Dataset name following convention: `~test::${purpose}::${type}`
+- Complete ECL RECORD definition and DATASET/TRANSFORM
+- The `IF(~Std.File.FileExists(...), OUTPUT(...,overwrite))` guard
+- A comment identifying which test IDs require this dataset
 
 ### Step 3 — Review Available Test Datasets
 

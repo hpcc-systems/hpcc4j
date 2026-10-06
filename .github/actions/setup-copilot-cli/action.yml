@@ -236,3 +236,7 @@ runs:
           gh auth status
           exit 1
         fi
+        
+        # Export token to GITHUB_ENV so it persists for all subsequent steps
+        # in the calling workflow (Copilot CLI checks GH_TOKEN for auth)
+        echo "GH_TOKEN=$GH_TOKEN" >> $GITHUB_ENV

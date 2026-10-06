@@ -1,0 +1,38 @@
+{
+  "_comment": "Example HPCC environment configuration for TestGeneratorAgent.py --env-config.",
+  "_usage": [
+    "Pass this file with: --env-config environments.json",
+    "Run only containerized tests: --env-config environments.json --env containerized",
+    "Run all environments sequentially: --env-config environments.json"
+  ],
+
+  "environments": [
+    {
+      "name": "containerized",
+      "description": "Kubernetes-deployed HPCC cluster (microk8s / Docker). Requires containerized environment to be running.",
+      "hpccconn": "https://eclwatch.default:8010",
+      "wssqlconn": "https://sql2ecl.default:8510",
+      "user": "",
+      "password": "",
+      "secure": false
+    },
+    {
+      "name": "baremetal",
+      "description": "Bare-metal / native HPCC installation on Ubuntu. Requires HPCC Platform .deb package installed.",
+      "hpccconn": "http://eclwatch.default:8010",
+      "wssqlconn": "http://sql2ecl.default:8510",
+      "user": "",
+      "password": "",
+      "secure": false
+    },
+    {
+      "name": "secure",
+      "description": "Bare-metal HPCC installation with htpasswdsecmgr authentication enabled. Requires 'user' and 'password' to be set.",
+      "hpccconn": "http://eclwatch.default:8010",
+      "wssqlconn": "http://sql2ecl.default:8510",
+      "user": "REPLACE_WITH_HPCC_USER",
+      "password": "REPLACE_WITH_HPCC_PASS",
+      "secure": true
+    }
+  ]
+}
