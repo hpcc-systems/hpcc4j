@@ -62,9 +62,9 @@ jobs:
         server-username: JFROG_USER
         server-password: JFROG_TOKEN
 
-    - uses: "actions/setup-python@v2"
+    - uses: "actions/setup-python@v6"
       with:
-        python-version: "3.8"
+        python-version: "3.11"
 
     - name: "Install Python dependencies"
       run: |

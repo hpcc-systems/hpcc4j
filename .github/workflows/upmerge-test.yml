@@ -29,9 +29,9 @@ jobs:
           echo "Pull Request URL: $PULL_URL"
           echo "Comments URL: $COMMENTS_URL"
           echo "Branch Name: $BRANCH_NAME"
-      - uses: "actions/setup-python@v5"
+      - uses: "actions/setup-python@v6"
         with:
-          python-version: "3.8"
+          python-version: "3.11"
       - name: "Install dependencies"
         run: |
           set -xe
