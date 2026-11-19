@@ -1,8 +1,8 @@
 /**
  * ExtensionMapper.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssql.latest;
 
@@ -19,6 +19,12 @@ public class ExtensionMapper {
     if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "ECLWorkflow".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLWorkflow.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "ECLWUFileSummary".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLWUFileSummary.Factory.parse(
+          reader);
     }
 
     if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "Values_type0".equals(typeName)) {
@@ -110,6 +116,13 @@ public class ExtensionMapper {
       return org.hpccsystems.ws.client.gen.axis2.wssql.latest.NamedValue.Factory.parse(reader);
     }
 
+    if ("urn:hpccsystems:ws:wssql".equals(namespaceURI)
+        && "ArrayOfECLWUFileSummary".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWUFileSummary.Factory.parse(
+          reader);
+    }
+
     if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "HPCCTable".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wssql.latest.HPCCTable.Factory.parse(reader);
@@ -176,6 +189,11 @@ public class ExtensionMapper {
       return org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataType.Factory.parse(reader);
     }
 
+    if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "ECLWUProcess".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLWUProcess.Factory.parse(reader);
+    }
+
     if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "DataTypeParam".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wssql.latest.DataTypeParam.Factory.parse(reader);
@@ -210,6 +228,12 @@ public class ExtensionMapper {
     if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "ECLSchemaItem".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLSchemaItem.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "ArrayOfECLWUProcess".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssql.latest.ArrayOfECLWUProcess.Factory.parse(
+          reader);
     }
 
     if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "EclFieldDeclaration".equals(typeName)) {
@@ -337,6 +361,11 @@ public class ExtensionMapper {
     if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "ECLTimer".equals(typeName)) {
 
       return org.hpccsystems.ws.client.gen.axis2.wssql.latest.ECLTimer.Factory.parse(reader);
+    }
+
+    if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "Graphs_type0".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.wssql.latest.Graphs_type0.Factory.parse(reader);
     }
 
     if ("urn:hpccsystems:ws:wssql".equals(namespaceURI) && "HPCCColumn".equals(typeName)) {

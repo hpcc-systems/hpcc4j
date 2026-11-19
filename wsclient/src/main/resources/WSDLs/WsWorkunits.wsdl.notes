@@ -1,0 +1,10 @@
+Auto-generated compatibility notes for WsWorkunits.wsdl
+
+Rule applied:
+type="xsd:uint64" (or type="xsd:Uint64") -> type="xsd:string"
+
+Total changes: 3
+
+line 776: type="xsd:uint64" -> type="xsd:string"
+line 2300: type="xsd:uint64" -> type="xsd:string"
+line 8168: type="xsd:uint64" -> type="xsd:string"

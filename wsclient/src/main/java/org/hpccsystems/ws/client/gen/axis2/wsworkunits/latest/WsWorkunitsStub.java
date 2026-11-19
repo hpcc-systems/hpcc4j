@@ -43,7 +43,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     // creating the operations
     org.apache.axis2.description.AxisOperation __operation;
 
-    _operations = new org.apache.axis2.description.AxisOperation[81];
+    _operations = new org.apache.axis2.description.AxisOperation[82];
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -56,7 +56,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetStats"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUHelperFileArchive"));
     _service.addOperation(__operation);
 
     _operations[1] = __operation;
@@ -64,7 +64,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryDetails"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetStats"));
     _service.addOperation(__operation);
 
     _operations[2] = __operation;
@@ -72,7 +72,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUListArchiveFiles"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryDetails"));
     _service.addOperation(__operation);
 
     _operations[3] = __operation;
@@ -80,7 +80,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCopyQuerySet"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUListArchiveFiles"));
     _service.addOperation(__operation);
 
     _operations[4] = __operation;
@@ -88,7 +88,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUPublishWorkunit"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCopyQuerySet"));
     _service.addOperation(__operation);
 
     _operations[5] = __operation;
@@ -96,7 +96,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryConfig"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUPublishWorkunit"));
     _service.addOperation(__operation);
 
     _operations[6] = __operation;
@@ -104,7 +104,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCompileECL"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryConfig"));
     _service.addOperation(__operation);
 
     _operations[7] = __operation;
@@ -112,7 +112,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUProtect"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCompileECL"));
     _service.addOperation(__operation);
 
     _operations[8] = __operation;
@@ -120,7 +120,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUListLocalFileRequired"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUProtect"));
     _service.addOperation(__operation);
 
     _operations[9] = __operation;
@@ -128,7 +128,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wURecreateQuery"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUListLocalFileRequired"));
     _service.addOperation(__operation);
 
     _operations[10] = __operation;
@@ -136,7 +136,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCheckFeatures"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wURecreateQuery"));
     _service.addOperation(__operation);
 
     _operations[11] = __operation;
@@ -144,7 +144,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCreateAndUpdate"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCheckFeatures"));
     _service.addOperation(__operation);
 
     _operations[12] = __operation;
@@ -152,7 +152,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGraphInfo"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCreateAndUpdate"));
     _service.addOperation(__operation);
 
     _operations[13] = __operation;
@@ -160,7 +160,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetGraphNameAndTypes"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGraphInfo"));
     _service.addOperation(__operation);
 
     _operations[14] = __operation;
@@ -168,7 +168,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUListQueriesUsingFile"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetGraphNameAndTypes"));
     _service.addOperation(__operation);
 
     _operations[15] = __operation;
@@ -176,7 +176,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUSyntaxCheckECL"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUListQueriesUsingFile"));
     _service.addOperation(__operation);
 
     _operations[16] = __operation;
@@ -184,7 +184,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDeployWorkunit"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUSyntaxCheckECL"));
     _service.addOperation(__operation);
 
     _operations[17] = __operation;
@@ -192,7 +192,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCreateZAPInfo"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDeployWorkunit"));
     _service.addOperation(__operation);
 
     _operations[18] = __operation;
@@ -200,7 +200,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUUpdateQueryEntry"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCreateZAPInfo"));
     _service.addOperation(__operation);
 
     _operations[19] = __operation;
@@ -208,7 +208,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResultBin"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUUpdateQueryEntry"));
     _service.addOperation(__operation);
 
     _operations[20] = __operation;
@@ -216,7 +216,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUShowScheduled"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResultBin"));
     _service.addOperation(__operation);
 
     _operations[21] = __operation;
@@ -224,7 +224,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetArchiveFile"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUShowScheduled"));
     _service.addOperation(__operation);
 
     _operations[22] = __operation;
@@ -232,7 +232,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUFullResult"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetArchiveFile"));
     _service.addOperation(__operation);
 
     _operations[23] = __operation;
@@ -240,7 +240,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysetExport"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUFullResult"));
     _service.addOperation(__operation);
 
     _operations[24] = __operation;
@@ -248,10 +248,18 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wULightWeightQuery"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysetExport"));
     _service.addOperation(__operation);
 
     _operations[25] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wULightWeightQuery"));
+    _service.addOperation(__operation);
+
+    _operations[26] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -260,7 +268,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
             "urn:hpccsystems:ws:wsworkunits", "wUQueryDetailsLightWeight"));
     _service.addOperation(__operation);
 
-    _operations[26] = __operation;
+    _operations[27] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -268,7 +276,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysetDetails"));
     _service.addOperation(__operation);
 
-    _operations[27] = __operation;
+    _operations[28] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -276,7 +284,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUSchedule"));
     _service.addOperation(__operation);
 
-    _operations[28] = __operation;
+    _operations[29] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -284,7 +292,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUClusterJobQueueLOG"));
     _service.addOperation(__operation);
 
-    _operations[29] = __operation;
+    _operations[30] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -292,7 +300,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResultSummary"));
     _service.addOperation(__operation);
 
-    _operations[30] = __operation;
+    _operations[31] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -300,26 +308,18 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetPlugins"));
     _service.addOperation(__operation);
 
-    _operations[31] = __operation;
+    _operations[32] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuery"));
     _service.addOperation(__operation);
 
-    _operations[32] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUAbort"));
-    _service.addOperation(__operation);
-
     _operations[33] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUWaitComplete"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUAbort"));
     _service.addOperation(__operation);
 
     _operations[34] = __operation;
@@ -327,14 +327,15 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResultView"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUWaitComplete"));
     _service.addOperation(__operation);
 
     _operations[35] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUInfo"));
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResultView"));
     _service.addOperation(__operation);
 
     _operations[36] = __operation;
@@ -342,7 +343,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDetailsMeta"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDelete"));
     _service.addOperation(__operation);
 
     _operations[37] = __operation;
@@ -350,15 +351,14 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDelete"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDetailsMeta"));
     _service.addOperation(__operation);
 
     _operations[38] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryGetSummaryStats"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUInfo"));
     _service.addOperation(__operation);
 
     _operations[39] = __operation;
@@ -366,7 +366,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUClusterJobSummaryXLS"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryGetSummaryStats"));
     _service.addOperation(__operation);
 
     _operations[40] = __operation;
@@ -374,7 +374,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCopyLogicalFiles"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUClusterJobSummaryXLS"));
     _service.addOperation(__operation);
 
     _operations[41] = __operation;
@@ -382,7 +382,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetGraph"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCopyLogicalFiles"));
     _service.addOperation(__operation);
 
     _operations[42] = __operation;
@@ -390,7 +390,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetNumFileToCopy"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetGraph"));
     _service.addOperation(__operation);
 
     _operations[43] = __operation;
@@ -398,7 +398,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysetImport"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetNumFileToCopy"));
     _service.addOperation(__operation);
 
     _operations[44] = __operation;
@@ -406,7 +406,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDetails"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysetImport"));
     _service.addOperation(__operation);
 
     _operations[45] = __operation;
@@ -414,7 +414,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCDebug"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDetails"));
     _service.addOperation(__operation);
 
     _operations[46] = __operation;
@@ -422,7 +422,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUEclDefinitionAction"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCDebug"));
     _service.addOperation(__operation);
 
     _operations[47] = __operation;
@@ -430,7 +430,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUUpdate"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUEclDefinitionAction"));
     _service.addOperation(__operation);
 
     _operations[48] = __operation;
@@ -438,7 +438,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetDependancyTrees"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUUpdate"));
     _service.addOperation(__operation);
 
     _operations[49] = __operation;
@@ -446,7 +446,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetThorJobList"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetDependancyTrees"));
     _service.addOperation(__operation);
 
     _operations[50] = __operation;
@@ -454,7 +454,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysetQueryAction"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetThorJobList"));
     _service.addOperation(__operation);
 
     _operations[51] = __operation;
@@ -462,7 +462,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUWaitCompiled"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysetQueryAction"));
     _service.addOperation(__operation);
 
     _operations[52] = __operation;
@@ -470,7 +470,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResubmit"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUWaitCompiled"));
     _service.addOperation(__operation);
 
     _operations[53] = __operation;
@@ -478,7 +478,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGraphTiming"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResubmit"));
     _service.addOperation(__operation);
 
     _operations[54] = __operation;
@@ -486,7 +486,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGVCGraphInfo"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGraphTiming"));
     _service.addOperation(__operation);
 
     _operations[55] = __operation;
@@ -494,7 +494,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResult"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGVCGraphInfo"));
     _service.addOperation(__operation);
 
     _operations[56] = __operation;
@@ -502,7 +502,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysets"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResult"));
     _service.addOperation(__operation);
 
     _operations[57] = __operation;
@@ -510,7 +510,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "gVCAjaxGraph"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysets"));
     _service.addOperation(__operation);
 
     _operations[58] = __operation;
@@ -518,7 +518,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUProcessGraph"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "gVCAjaxGraph"));
     _service.addOperation(__operation);
 
     _operations[59] = __operation;
@@ -526,22 +526,22 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUExport"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUProcessGraph"));
     _service.addOperation(__operation);
 
     _operations[60] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ping"));
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUExport"));
     _service.addOperation(__operation);
 
     _operations[61] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUInfoDetails"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ping"));
     _service.addOperation(__operation);
 
     _operations[62] = __operation;
@@ -549,7 +549,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUJobList"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUInfoDetails"));
     _service.addOperation(__operation);
 
     _operations[63] = __operation;
@@ -557,7 +557,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCreate"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUJobList"));
     _service.addOperation(__operation);
 
     _operations[64] = __operation;
@@ -565,7 +565,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUAnalyseHotspot"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCreate"));
     _service.addOperation(__operation);
 
     _operations[65] = __operation;
@@ -573,7 +573,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUAction"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUAnalyseHotspot"));
     _service.addOperation(__operation);
 
     _operations[66] = __operation;
@@ -581,7 +581,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUListQueries"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUAction"));
     _service.addOperation(__operation);
 
     _operations[67] = __operation;
@@ -589,7 +589,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryFiles"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUListQueries"));
     _service.addOperation(__operation);
 
     _operations[68] = __operation;
@@ -597,7 +597,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryGetGraph"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryFiles"));
     _service.addOperation(__operation);
 
     _operations[69] = __operation;
@@ -605,7 +605,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUClusterJobXLS"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryGetGraph"));
     _service.addOperation(__operation);
 
     _operations[70] = __operation;
@@ -613,29 +613,29 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetThorJobQueue"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUClusterJobXLS"));
     _service.addOperation(__operation);
 
     _operations[71] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wURun"));
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetThorJobQueue"));
     _service.addOperation(__operation);
 
     _operations[72] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUFile"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wURun"));
     _service.addOperation(__operation);
 
     _operations[73] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysetCopyQuery"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUFile"));
     _service.addOperation(__operation);
 
     _operations[74] = __operation;
@@ -643,7 +643,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetZAPInfo"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysetCopyQuery"));
     _service.addOperation(__operation);
 
     _operations[75] = __operation;
@@ -651,7 +651,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUClusterJobQueueXLS"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetZAPInfo"));
     _service.addOperation(__operation);
 
     _operations[76] = __operation;
@@ -659,10 +659,18 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUMultiQuerysetDetails"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUClusterJobQueueXLS"));
     _service.addOperation(__operation);
 
     _operations[77] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUMultiQuerysetDetails"));
+    _service.addOperation(__operation);
+
+    _operations[78] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -671,7 +679,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
             "urn:hpccsystems:ws:wsworkunits", "wUAddLocalFileToWorkunit"));
     _service.addOperation(__operation);
 
-    _operations[78] = __operation;
+    _operations[79] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -679,7 +687,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUPushEvent"));
     _service.addOperation(__operation);
 
-    _operations[79] = __operation;
+    _operations[80] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -687,7 +695,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUSubmit"));
     _service.addOperation(__operation);
 
-    _operations[80] = __operation;
+    _operations[81] = __operation;
   }
 
   // populates the faults
@@ -712,6 +720,22 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     faultExceptionNameMap.put(
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions"),
+            "WUHelperFileArchive"),
+        "org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions"),
+            "WUHelperFileArchive"),
+        "org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions"),
+            "WUHelperFileArchive"),
+        "org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions"),
             "WUGetStats"),
         "org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault");
     faultExceptionClassNameMap.put(
@@ -1272,17 +1296,17 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     faultExceptionNameMap.put(
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions"),
-            "WUInfo"),
+            "WUDelete"),
         "org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault");
     faultExceptionClassNameMap.put(
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions"),
-            "WUInfo"),
+            "WUDelete"),
         "org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault");
     faultMessageMap.put(
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions"),
-            "WUInfo"),
+            "WUDelete"),
         "org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Exceptions");
 
     faultExceptionNameMap.put(
@@ -1304,17 +1328,17 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     faultExceptionNameMap.put(
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions"),
-            "WUDelete"),
+            "WUInfo"),
         "org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault");
     faultExceptionClassNameMap.put(
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions"),
-            "WUDelete"),
+            "WUInfo"),
         "org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault");
     faultMessageMap.put(
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Exceptions"),
-            "WUDelete"),
+            "WUInfo"),
         "org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Exceptions");
 
     faultExceptionNameMap.put(
@@ -2014,13 +2038,13 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
   public WsWorkunitsStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://172.27.163.120:8010/WsWorkunits?ver_=2.02");
+    this(configurationContext, "http://172.22.164.102:8010/WsWorkunits?ver_=2.09");
   }
 
   /** Default Constructor */
   public WsWorkunitsStub() throws org.apache.axis2.AxisFault {
 
-    this("http://172.27.163.120:8010/WsWorkunits?ver_=2.02");
+    this("http://172.22.164.102:8010/WsWorkunits?ver_=2.09");
   }
 
   /** Constructor taking the target endpoint */
@@ -2046,7 +2070,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetAliasAction?ver_=2.02");
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetAliasAction?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2162,20 +2186,22 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGetStats
-   * @param wUGetStats6
+   * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUHelperFileArchive
+   * @param wUHelperFileArchive6
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetStatsResponse wUGetStats(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetStats wUGetStats6)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchiveResponse
+      wUHelperFileArchive(
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchive
+              wUHelperFileArchive6)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetStats?ver_=2.02");
+      _operationClient.getOptions().setAction("WsWorkunits/WUHelperFileArchive?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2189,7 +2215,135 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGetStats6,
+              wUHelperFileArchive6,
+              optimizeContent(
+                  new javax.xml.namespace.QName(
+                      "urn:hpccsystems:ws:wsworkunits", "wUHelperFileArchive")),
+              new javax.xml.namespace.QName(
+                  "urn:hpccsystems:ws:wsworkunits", "WUHelperFileArchive"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchiveResponse
+                  .class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchiveResponse)
+          object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUHelperFileArchive"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "WUHelperFileArchive"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "WUHelperFileArchive"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGetStats
+   * @param wUGetStats8
+   * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetStatsResponse wUGetStats(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetStats wUGetStats8)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[2].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetStats?ver_=2.09");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              wUGetStats8,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetStats")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUGetStats"));
@@ -2285,20 +2439,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQueryDetails
-   * @param wUQueryDetails8
+   * @param wUQueryDetails10
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetailsResponse
       wUQueryDetails(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetails wUQueryDetails8)
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetails wUQueryDetails10)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryDetails?ver_=2.02");
+          _serviceClient.createClient(_operations[3].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryDetails?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2312,7 +2466,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQueryDetails8,
+              wUQueryDetails10,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUQueryDetails")),
@@ -2409,21 +2563,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUListArchiveFiles
-   * @param wUListArchiveFiles10
+   * @param wUListArchiveFiles12
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListArchiveFilesResponse
       wUListArchiveFiles(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListArchiveFiles
-              wUListArchiveFiles10)
+              wUListArchiveFiles12)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUListArchiveFiles?ver_=2.02");
+          _serviceClient.createClient(_operations[4].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUListArchiveFiles?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2437,7 +2591,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUListArchiveFiles10,
+              wUListArchiveFiles12,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUListArchiveFiles")),
@@ -2539,20 +2693,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUCopyQuerySet
-   * @param wUCopyQuerySet12
+   * @param wUCopyQuerySet14
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyQuerySetResponse
       wUCopyQuerySet(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyQuerySet wUCopyQuerySet12)
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyQuerySet wUCopyQuerySet14)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[4].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCopyQuerySet?ver_=2.02");
+          _serviceClient.createClient(_operations[5].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUCopyQuerySet?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2566,7 +2720,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUCopyQuerySet12,
+              wUCopyQuerySet14,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUCopyQuerySet")),
@@ -2663,21 +2817,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUPublishWorkunit
-   * @param wUPublishWorkunit14
+   * @param wUPublishWorkunit16
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPublishWorkunitResponse
       wUPublishWorkunit(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPublishWorkunit
-              wUPublishWorkunit14)
+              wUPublishWorkunit16)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[5].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUPublishWorkunit?ver_=2.02");
+          _serviceClient.createClient(_operations[6].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUPublishWorkunit?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2691,7 +2845,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUPublishWorkunit14,
+              wUPublishWorkunit16,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUPublishWorkunit")),
@@ -2792,19 +2946,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQueryConfig
-   * @param wUQueryConfig16
+   * @param wUQueryConfig18
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryConfigResponse wUQueryConfig(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryConfig wUQueryConfig16)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryConfig wUQueryConfig18)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[6].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryConfig?ver_=2.02");
+          _serviceClient.createClient(_operations[7].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryConfig?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2818,7 +2972,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQueryConfig16,
+              wUQueryConfig18,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryConfig")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUQueryConfig"));
@@ -2914,19 +3068,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUCompileECL
-   * @param wUCompileECL18
+   * @param wUCompileECL20
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCompileECLResponse wUCompileECL(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCompileECL wUCompileECL18)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCompileECL wUCompileECL20)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[7].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCompileECL?ver_=2.02");
+          _serviceClient.createClient(_operations[8].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUCompileECL?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2940,7 +3094,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUCompileECL18,
+              wUCompileECL20,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCompileECL")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUCompileECL"));
@@ -3036,19 +3190,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUProtect
-   * @param wUProtect20
+   * @param wUProtect22
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUProtectResponse wUProtect(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUProtect wUProtect20)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUProtect wUProtect22)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[8].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUProtect?ver_=2.02");
+          _serviceClient.createClient(_operations[9].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUProtect?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3062,7 +3216,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUProtect20,
+              wUProtect22,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUProtect")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUProtect"));
@@ -3158,21 +3312,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUListLocalFileRequired
-   * @param wUListLocalFileRequired22
+   * @param wUListLocalFileRequired24
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListLocalFileRequiredResponse
       wUListLocalFileRequired(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListLocalFileRequired
-              wUListLocalFileRequired22)
+              wUListLocalFileRequired24)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[9].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUListLocalFileRequired?ver_=2.02");
+          _serviceClient.createClient(_operations[10].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUListLocalFileRequired?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3186,7 +3340,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUListLocalFileRequired22,
+              wUListLocalFileRequired24,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUListLocalFileRequired")),
@@ -3290,20 +3444,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wURecreateQuery
-   * @param wURecreateQuery24
+   * @param wURecreateQuery26
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQueryResponse
       wURecreateQuery(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQuery wURecreateQuery24)
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURecreateQuery wURecreateQuery26)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[10].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WURecreateQuery?ver_=2.02");
+          _serviceClient.createClient(_operations[11].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WURecreateQuery?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3317,7 +3471,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wURecreateQuery24,
+              wURecreateQuery26,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wURecreateQuery")),
@@ -3417,20 +3571,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUCheckFeatures
-   * @param wUCheckFeatures26
+   * @param wUCheckFeatures28
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeaturesResponse
       wUCheckFeatures(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeatures wUCheckFeatures26)
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCheckFeatures wUCheckFeatures28)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[11].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCheckFeatures?ver_=2.02");
+          _serviceClient.createClient(_operations[12].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUCheckFeatures?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3444,7 +3598,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUCheckFeatures26,
+              wUCheckFeatures28,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUCheckFeatures")),
@@ -3544,19 +3698,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUCreateAndUpdate
-   * @param wUCreateAndUpdate28
+   * @param wUCreateAndUpdate30
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUUpdateResponse wUCreateAndUpdate(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateAndUpdate wUCreateAndUpdate28)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateAndUpdate wUCreateAndUpdate30)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[12].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCreateAndUpdate?ver_=2.02");
+          _serviceClient.createClient(_operations[13].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUCreateAndUpdate?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3570,7 +3724,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUCreateAndUpdate28,
+              wUCreateAndUpdate30,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUCreateAndUpdate")),
@@ -3669,19 +3823,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGraphInfo
-   * @param wUGraphInfo30
+   * @param wUGraphInfo32
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGraphInfoResponse wUGraphInfo(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGraphInfo wUGraphInfo30)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGraphInfo wUGraphInfo32)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[13].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGraphInfo?ver_=2.02");
+          _serviceClient.createClient(_operations[14].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGraphInfo?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3695,7 +3849,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGraphInfo30,
+              wUGraphInfo32,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGraphInfo")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUGraphInfo"));
@@ -3791,21 +3945,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGetGraphNameAndTypes
-   * @param wUGetGraphNameAndTypes32
+   * @param wUGetGraphNameAndTypes34
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetGraphNameAndTypesResponse
       wUGetGraphNameAndTypes(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetGraphNameAndTypes
-              wUGetGraphNameAndTypes32)
+              wUGetGraphNameAndTypes34)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[14].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetGraphNameAndTypes?ver_=2.02");
+          _serviceClient.createClient(_operations[15].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetGraphNameAndTypes?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3819,7 +3973,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGetGraphNameAndTypes32,
+              wUGetGraphNameAndTypes34,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUGetGraphNameAndTypes")),
@@ -3922,21 +4076,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUListQueriesUsingFile
-   * @param wUListQueriesUsingFile34
+   * @param wUListQueriesUsingFile36
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListQueriesUsingFileResponse
       wUListQueriesUsingFile(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListQueriesUsingFile
-              wUListQueriesUsingFile34)
+              wUListQueriesUsingFile36)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[15].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUListQueriesUsingFile?ver_=2.02");
+          _serviceClient.createClient(_operations[16].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUListQueriesUsingFile?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3950,7 +4104,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUListQueriesUsingFile34,
+              wUListQueriesUsingFile36,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUListQueriesUsingFile")),
@@ -4053,21 +4207,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUSyntaxCheckECL
-   * @param wUSyntaxCheckECL36
+   * @param wUSyntaxCheckECL38
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSyntaxCheckResponse
       wUSyntaxCheckECL(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSyntaxCheckECL
-              wUSyntaxCheckECL36)
+              wUSyntaxCheckECL38)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[16].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUSyntaxCheckECL?ver_=2.02");
+          _serviceClient.createClient(_operations[17].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUSyntaxCheckECL?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4081,7 +4235,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUSyntaxCheckECL36,
+              wUSyntaxCheckECL38,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUSyntaxCheckECL")),
@@ -4180,21 +4334,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUDeployWorkunit
-   * @param wUDeployWorkunit38
+   * @param wUDeployWorkunit40
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeployWorkunitResponse
       wUDeployWorkunit(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeployWorkunit
-              wUDeployWorkunit38)
+              wUDeployWorkunit40)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[17].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUDeployWorkunit?ver_=2.02");
+          _serviceClient.createClient(_operations[18].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUDeployWorkunit?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4208,7 +4362,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUDeployWorkunit38,
+              wUDeployWorkunit40,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUDeployWorkunit")),
@@ -4309,20 +4463,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUCreateZAPInfo
-   * @param wUCreateZAPInfo40
+   * @param wUCreateZAPInfo42
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfoResponse
       wUCreateZAPInfo(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfo wUCreateZAPInfo40)
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateZAPInfo wUCreateZAPInfo42)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[18].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCreateZAPInfo?ver_=2.02");
+          _serviceClient.createClient(_operations[19].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUCreateZAPInfo?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4336,7 +4490,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUCreateZAPInfo40,
+              wUCreateZAPInfo42,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUCreateZAPInfo")),
@@ -4436,21 +4590,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUUpdateQueryEntry
-   * @param wUUpdateQueryEntry42
+   * @param wUUpdateQueryEntry44
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUUpdateQueryEntryResponse
       wUUpdateQueryEntry(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUUpdateQueryEntry
-              wUUpdateQueryEntry42)
+              wUUpdateQueryEntry44)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[19].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUUpdateQueryEntry?ver_=2.02");
+          _serviceClient.createClient(_operations[20].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUUpdateQueryEntry?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4464,7 +4618,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUUpdateQueryEntry42,
+              wUUpdateQueryEntry44,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUUpdateQueryEntry")),
@@ -4566,19 +4720,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUResultBin
-   * @param wUResultBin44
+   * @param wUResultBin46
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultBinResponse wUResultBin(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultBin wUResultBin44)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultBin wUResultBin46)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[20].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUResultBin?ver_=2.02");
+          _serviceClient.createClient(_operations[21].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUResultBin?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4592,7 +4746,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUResultBin44,
+              wUResultBin46,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResultBin")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUResultBin"));
@@ -4688,20 +4842,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUShowScheduled
-   * @param wUShowScheduled46
+   * @param wUShowScheduled48
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUShowScheduledResponse
       wUShowScheduled(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUShowScheduled wUShowScheduled46)
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUShowScheduled wUShowScheduled48)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[21].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUShowScheduled?ver_=2.02");
+          _serviceClient.createClient(_operations[22].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUShowScheduled?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4715,7 +4869,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUShowScheduled46,
+              wUShowScheduled48,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUShowScheduled")),
@@ -4815,21 +4969,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGetArchiveFile
-   * @param wUGetArchiveFile48
+   * @param wUGetArchiveFile50
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetArchiveFileResponse
       wUGetArchiveFile(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetArchiveFile
-              wUGetArchiveFile48)
+              wUGetArchiveFile50)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[22].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetArchiveFile?ver_=2.02");
+          _serviceClient.createClient(_operations[23].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetArchiveFile?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4843,7 +4997,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGetArchiveFile48,
+              wUGetArchiveFile50,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUGetArchiveFile")),
@@ -4944,19 +5098,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUFullResult
-   * @param wUFullResult50
+   * @param wUFullResult52
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUFullResultResponse wUFullResult(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUFullResult wUFullResult50)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUFullResult wUFullResult52)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[23].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUFullResult?ver_=2.02");
+          _serviceClient.createClient(_operations[24].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUFullResult?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -4970,7 +5124,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUFullResult50,
+              wUFullResult52,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUFullResult")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUFullResult"));
@@ -5066,21 +5220,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQuerysetExport
-   * @param wUQuerysetExport52
+   * @param wUQuerysetExport54
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetExportResponse
       wUQuerysetExport(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetExport
-              wUQuerysetExport52)
+              wUQuerysetExport54)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[24].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetExport?ver_=2.02");
+          _serviceClient.createClient(_operations[25].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetExport?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5094,7 +5248,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQuerysetExport52,
+              wUQuerysetExport54,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUQuerysetExport")),
@@ -5195,21 +5349,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wULightWeightQuery
-   * @param wULightWeightQuery54
+   * @param wULightWeightQuery56
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WULightWeightQueryResponse
       wULightWeightQuery(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WULightWeightQuery
-              wULightWeightQuery54)
+              wULightWeightQuery56)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[25].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WULightWeightQuery?ver_=2.02");
+          _serviceClient.createClient(_operations[26].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WULightWeightQuery?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5223,7 +5377,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wULightWeightQuery54,
+              wULightWeightQuery56,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wULightWeightQuery")),
@@ -5326,21 +5480,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    *
    * @see
    *     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQueryDetailsLightWeight
-   * @param wUQueryDetailsLightWeight56
+   * @param wUQueryDetailsLightWeight58
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetailsResponse
       wUQueryDetailsLightWeight(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryDetailsLightWeight
-              wUQueryDetailsLightWeight56)
+              wUQueryDetailsLightWeight58)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[26].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryDetailsLightWeight?ver_=2.02");
+          _serviceClient.createClient(_operations[27].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryDetailsLightWeight?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5354,7 +5508,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQueryDetailsLightWeight56,
+              wUQueryDetailsLightWeight58,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUQueryDetailsLightWeight")),
@@ -5455,21 +5609,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQuerysetDetails
-   * @param wUQuerysetDetails58
+   * @param wUQuerysetDetails60
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetDetailsResponse
       wUQuerysetDetails(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetDetails
-              wUQuerysetDetails58)
+              wUQuerysetDetails60)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[27].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetDetails?ver_=2.02");
+          _serviceClient.createClient(_operations[28].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetDetails?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5483,7 +5637,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQuerysetDetails58,
+              wUQuerysetDetails60,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUQuerysetDetails")),
@@ -5584,19 +5738,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUSchedule
-   * @param wUSchedule60
+   * @param wUSchedule62
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUScheduleResponse wUSchedule(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSchedule wUSchedule60)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSchedule wUSchedule62)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[28].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUSchedule?ver_=2.02");
+          _serviceClient.createClient(_operations[29].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUSchedule?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5610,7 +5764,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUSchedule60,
+              wUSchedule62,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUSchedule")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUSchedule"));
@@ -5706,21 +5860,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUClusterJobQueueLOG
-   * @param wUClusterJobQueueLOG62
+   * @param wUClusterJobQueueLOG64
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobQueueLOGResponse
       wUClusterJobQueueLOG(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobQueueLOG
-              wUClusterJobQueueLOG62)
+              wUClusterJobQueueLOG64)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[29].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobQueueLOG?ver_=2.02");
+          _serviceClient.createClient(_operations[30].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobQueueLOG?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5734,7 +5888,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUClusterJobQueueLOG62,
+              wUClusterJobQueueLOG64,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUClusterJobQueueLOG")),
@@ -5836,20 +5990,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUResultSummary
-   * @param wUResultSummary64
+   * @param wUResultSummary66
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultSummaryResponse
       wUResultSummary(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultSummary wUResultSummary64)
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultSummary wUResultSummary66)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[30].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUResultSummary?ver_=2.02");
+          _serviceClient.createClient(_operations[31].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUResultSummary?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5863,7 +6017,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUResultSummary64,
+              wUResultSummary66,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUResultSummary")),
@@ -5963,19 +6117,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGetPlugins
-   * @param wUGetPlugins66
+   * @param wUGetPlugins68
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetPluginsResponse wUGetPlugins(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetPlugins wUGetPlugins66)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetPlugins wUGetPlugins68)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[31].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetPlugins?ver_=2.02");
+          _serviceClient.createClient(_operations[32].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetPlugins?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -5989,7 +6143,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGetPlugins66,
+              wUGetPlugins68,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetPlugins")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUGetPlugins"));
@@ -6085,19 +6239,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQuery
-   * @param wUQuery68
+   * @param wUQuery70
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryResponse wUQuery(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuery wUQuery68)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuery wUQuery70)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[32].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuery?ver_=2.02");
+          _serviceClient.createClient(_operations[33].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuery?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6111,7 +6265,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQuery68,
+              wUQuery70,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuery")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUQuery"));
@@ -6207,19 +6361,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUAbort
-   * @param wUAbort70
+   * @param wUAbort72
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAbortResponse wUAbort(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAbort wUAbort70)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAbort wUAbort72)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[33].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUAbort?ver_=2.02");
+          _serviceClient.createClient(_operations[34].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUAbort?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6233,7 +6387,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUAbort70,
+              wUAbort72,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUAbort")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUAbort"));
@@ -6329,19 +6483,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUWaitComplete
-   * @param wUWaitComplete72
+   * @param wUWaitComplete74
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUWaitResponse wUWaitComplete(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUWaitComplete wUWaitComplete72)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUWaitComplete wUWaitComplete74)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[34].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUWaitComplete?ver_=2.02");
+          _serviceClient.createClient(_operations[35].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUWaitComplete?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6355,7 +6509,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUWaitComplete72,
+              wUWaitComplete74,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUWaitComplete")),
@@ -6452,19 +6606,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUResultView
-   * @param wUResultView74
+   * @param wUResultView76
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultViewResponse wUResultView(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultView wUResultView74)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultView wUResultView76)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[35].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUResultView?ver_=2.02");
+          _serviceClient.createClient(_operations[36].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUResultView?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6478,7 +6632,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUResultView74,
+              wUResultView76,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResultView")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUResultView"));
@@ -6573,134 +6727,12 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUInfo
-   * @param wUInfo76
+   * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUDelete
+   * @param wUDelete78
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse wUInfo(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo wUInfo76)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
-    org.apache.axis2.context.MessageContext _messageContext =
-        new org.apache.axis2.context.MessageContext();
-    try {
-      org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[36].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUInfo?ver_=2.02");
-      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
-
-      addPropertyToOperationClient(
-          _operationClient,
-          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
-          "&");
-
-      // create SOAP envelope with that payload
-      org.apache.axiom.soap.SOAPEnvelope env = null;
-
-      env =
-          toEnvelope(
-              getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUInfo76,
-              optimizeContent(
-                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUInfo")),
-              new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUInfo"));
-
-      // adding SOAP soap_headers
-      _serviceClient.addHeadersToEnvelope(env);
-      // set the message context with that soap envelope
-      _messageContext.setEnvelope(env);
-
-      // add the message contxt to the operation client
-      _operationClient.addMessageContext(_messageContext);
-
-      // execute the operation client
-      _operationClient.execute(true);
-
-      org.apache.axis2.context.MessageContext _returnMessageContext =
-          _operationClient.getMessageContext(
-              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
-      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-      _returnEnv.buildWithAttachments();
-
-      java.lang.Object object =
-          fromOM(
-              _returnEnv.getBody().getFirstElement(),
-              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse.class);
-      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
-
-      return (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse) object;
-
-    } catch (org.apache.axis2.AxisFault f) {
-
-      org.apache.axiom.om.OMElement faultElt = f.getDetail();
-      if (faultElt != null) {
-        if (faultExceptionNameMap.containsKey(
-            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUInfo"))) {
-          // make the fault by reflection
-          try {
-            java.lang.String exceptionClassName =
-                faultExceptionClassNameMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUInfo"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
-            java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
-            // message class
-            java.lang.String messageClassName =
-                faultMessageMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUInfo"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
-            java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
-
-            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault) {
-              throw (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault) ex;
-            }
-
-            throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.ClassNotFoundException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.NoSuchMethodException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.reflect.InvocationTargetException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.IllegalAccessException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.InstantiationException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          }
-        } else {
-          throw f;
-        }
-      } else {
-        throw f;
-      }
-    } finally {
-      if (_messageContext.getTransportOut() != null) {
-        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
-      }
-    }
-  }
-
-  /**
-   * Auto generated method signature
-   *
-   * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUDetailsMeta
-   * @param wUDetailsMeta78
-   * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaResponse wUDetailsMeta(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMeta wUDetailsMeta78)
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse wUDelete(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete wUDelete78)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
@@ -6708,7 +6740,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[37].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUDetailsMeta?ver_=2.02");
+      _operationClient.getOptions().setAction("WsWorkunits/WUDelete?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6722,129 +6754,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUDetailsMeta78,
-              optimizeContent(
-                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDetailsMeta")),
-              new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUDetailsMeta"));
-
-      // adding SOAP soap_headers
-      _serviceClient.addHeadersToEnvelope(env);
-      // set the message context with that soap envelope
-      _messageContext.setEnvelope(env);
-
-      // add the message contxt to the operation client
-      _operationClient.addMessageContext(_messageContext);
-
-      // execute the operation client
-      _operationClient.execute(true);
-
-      org.apache.axis2.context.MessageContext _returnMessageContext =
-          _operationClient.getMessageContext(
-              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
-      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-      _returnEnv.buildWithAttachments();
-
-      java.lang.Object object =
-          fromOM(
-              _returnEnv.getBody().getFirstElement(),
-              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaResponse.class);
-      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
-
-      return (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaResponse) object;
-
-    } catch (org.apache.axis2.AxisFault f) {
-
-      org.apache.axiom.om.OMElement faultElt = f.getDetail();
-      if (faultElt != null) {
-        if (faultExceptionNameMap.containsKey(
-            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUDetailsMeta"))) {
-          // make the fault by reflection
-          try {
-            java.lang.String exceptionClassName =
-                faultExceptionClassNameMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUDetailsMeta"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
-            java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
-            // message class
-            java.lang.String messageClassName =
-                faultMessageMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUDetailsMeta"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
-            java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
-
-            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault) {
-              throw (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault) ex;
-            }
-
-            throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.ClassNotFoundException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.NoSuchMethodException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.reflect.InvocationTargetException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.IllegalAccessException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.InstantiationException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          }
-        } else {
-          throw f;
-        }
-      } else {
-        throw f;
-      }
-    } finally {
-      if (_messageContext.getTransportOut() != null) {
-        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
-      }
-    }
-  }
-
-  /**
-   * Auto generated method signature
-   *
-   * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUDelete
-   * @param wUDelete80
-   * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse wUDelete(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete wUDelete80)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
-    org.apache.axis2.context.MessageContext _messageContext =
-        new org.apache.axis2.context.MessageContext();
-    try {
-      org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[38].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUDelete?ver_=2.02");
-      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
-
-      addPropertyToOperationClient(
-          _operationClient,
-          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
-          "&");
-
-      // create SOAP envelope with that payload
-      org.apache.axiom.soap.SOAPEnvelope env = null;
-
-      env =
-          toEnvelope(
-              getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUDelete80,
+              wUDelete78,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDelete")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUDelete"));
@@ -6939,22 +6849,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQueryGetSummaryStats
-   * @param wUQueryGetSummaryStats82
+   * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUDetailsMeta
+   * @param wUDetailsMeta80
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetSummaryStatsResponse
-      wUQueryGetSummaryStats(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetSummaryStats
-              wUQueryGetSummaryStats82)
-          throws java.rmi.RemoteException,
-              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaResponse wUDetailsMeta(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMeta wUDetailsMeta80)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[39].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryGetSummaryStats?ver_=2.02");
+          _serviceClient.createClient(_operations[38].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUDetailsMeta?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -6968,7 +6876,253 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQueryGetSummaryStats82,
+              wUDetailsMeta80,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDetailsMeta")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUDetailsMeta"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsMetaResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUDetailsMeta"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUDetailsMeta"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUDetailsMeta"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUInfo
+   * @param wUInfo82
+   * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse wUInfo(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo wUInfo82)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[39].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUInfo?ver_=2.09");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              wUInfo82,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUInfo")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUInfo"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUInfo"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUInfo"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "WUInfo"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQueryGetSummaryStats
+   * @param wUQueryGetSummaryStats84
+   * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetSummaryStatsResponse
+      wUQueryGetSummaryStats(
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetSummaryStats
+              wUQueryGetSummaryStats84)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[40].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryGetSummaryStats?ver_=2.09");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              wUQueryGetSummaryStats84,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUQueryGetSummaryStats")),
@@ -7071,21 +7225,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUClusterJobSummaryXLS
-   * @param wUClusterJobSummaryXLS84
+   * @param wUClusterJobSummaryXLS86
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobSummaryXLSResponse
       wUClusterJobSummaryXLS(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobSummaryXLS
-              wUClusterJobSummaryXLS84)
+              wUClusterJobSummaryXLS86)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[40].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobSummaryXLS?ver_=2.02");
+          _serviceClient.createClient(_operations[41].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobSummaryXLS?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7099,7 +7253,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUClusterJobSummaryXLS84,
+              wUClusterJobSummaryXLS86,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUClusterJobSummaryXLS")),
@@ -7202,21 +7356,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUCopyLogicalFiles
-   * @param wUCopyLogicalFiles86
+   * @param wUCopyLogicalFiles88
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyLogicalFilesResponse
       wUCopyLogicalFiles(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCopyLogicalFiles
-              wUCopyLogicalFiles86)
+              wUCopyLogicalFiles88)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[41].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCopyLogicalFiles?ver_=2.02");
+          _serviceClient.createClient(_operations[42].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUCopyLogicalFiles?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7230,7 +7384,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUCopyLogicalFiles86,
+              wUCopyLogicalFiles88,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUCopyLogicalFiles")),
@@ -7332,19 +7486,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGetGraph
-   * @param wUGetGraph88
+   * @param wUGetGraph90
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetGraphResponse wUGetGraph(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetGraph wUGetGraph88)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetGraph wUGetGraph90)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[42].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetGraph?ver_=2.02");
+          _serviceClient.createClient(_operations[43].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetGraph?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7358,7 +7512,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGetGraph88,
+              wUGetGraph90,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetGraph")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUGetGraph"));
@@ -7454,21 +7608,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGetNumFileToCopy
-   * @param wUGetNumFileToCopy90
+   * @param wUGetNumFileToCopy92
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetNumFileToCopyResponse
       wUGetNumFileToCopy(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetNumFileToCopy
-              wUGetNumFileToCopy90)
+              wUGetNumFileToCopy92)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[43].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetNumFileToCopy?ver_=2.02");
+          _serviceClient.createClient(_operations[44].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetNumFileToCopy?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7482,7 +7636,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGetNumFileToCopy90,
+              wUGetNumFileToCopy92,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUGetNumFileToCopy")),
@@ -7584,21 +7738,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQuerysetImport
-   * @param wUQuerysetImport92
+   * @param wUQuerysetImport94
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetImportResponse
       wUQuerysetImport(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetImport
-              wUQuerysetImport92)
+              wUQuerysetImport94)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[44].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetImport?ver_=2.02");
+          _serviceClient.createClient(_operations[45].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetImport?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7612,7 +7766,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQuerysetImport92,
+              wUQuerysetImport94,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUQuerysetImport")),
@@ -7713,19 +7867,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUDetails
-   * @param wUDetails94
+   * @param wUDetails96
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetailsResponse wUDetails(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetails wUDetails94)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDetails wUDetails96)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[45].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUDetails?ver_=2.02");
+          _serviceClient.createClient(_operations[46].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUDetails?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7739,7 +7893,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUDetails94,
+              wUDetails96,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUDetails")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUDetails"));
@@ -7835,19 +7989,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUCDebug
-   * @param wUCDebug96
+   * @param wUCDebug98
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDebugResponse wUCDebug(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCDebug wUCDebug96)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCDebug wUCDebug98)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[46].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCDebug?ver_=2.02");
+          _serviceClient.createClient(_operations[47].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUCDebug?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7861,7 +8015,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUCDebug96,
+              wUCDebug98,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCDebug")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUCDebug"));
@@ -7957,21 +8111,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUEclDefinitionAction
-   * @param wUEclDefinitionAction98
+   * @param wUEclDefinitionAction100
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionActionResponse
       wUEclDefinitionAction(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionAction
-              wUEclDefinitionAction98)
+              wUEclDefinitionAction100)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[47].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUEclDefinitionAction?ver_=2.02");
+          _serviceClient.createClient(_operations[48].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUEclDefinitionAction?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -7985,7 +8139,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUEclDefinitionAction98,
+              wUEclDefinitionAction100,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUEclDefinitionAction")),
@@ -8088,19 +8242,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUUpdate
-   * @param wUUpdate100
+   * @param wUUpdate102
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUUpdateResponse wUUpdate(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUUpdate wUUpdate100)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUUpdate wUUpdate102)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[48].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUUpdate?ver_=2.02");
+          _serviceClient.createClient(_operations[49].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUUpdate?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8114,7 +8268,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUUpdate100,
+              wUUpdate102,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUUpdate")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUUpdate"));
@@ -8210,21 +8364,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGetDependancyTrees
-   * @param wUGetDependancyTrees102
+   * @param wUGetDependancyTrees104
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetDependancyTreesResponse
       wUGetDependancyTrees(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetDependancyTrees
-              wUGetDependancyTrees102)
+              wUGetDependancyTrees104)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[49].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetDependancyTrees?ver_=2.02");
+          _serviceClient.createClient(_operations[50].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetDependancyTrees?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8238,7 +8392,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGetDependancyTrees102,
+              wUGetDependancyTrees104,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUGetDependancyTrees")),
@@ -8340,21 +8494,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGetThorJobList
-   * @param wUGetThorJobList104
+   * @param wUGetThorJobList106
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetThorJobListResponse
       wUGetThorJobList(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetThorJobList
-              wUGetThorJobList104)
+              wUGetThorJobList106)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[50].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetThorJobList?ver_=2.02");
+          _serviceClient.createClient(_operations[51].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetThorJobList?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8368,7 +8522,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGetThorJobList104,
+              wUGetThorJobList106,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUGetThorJobList")),
@@ -8469,21 +8623,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQuerysetQueryAction
-   * @param wUQuerysetQueryAction106
+   * @param wUQuerysetQueryAction108
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetQueryActionResponse
       wUQuerysetQueryAction(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetQueryAction
-              wUQuerysetQueryAction106)
+              wUQuerysetQueryAction108)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[51].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetQueryAction?ver_=2.02");
+          _serviceClient.createClient(_operations[52].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetQueryAction?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8497,7 +8651,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQuerysetQueryAction106,
+              wUQuerysetQueryAction108,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUQuerysetQueryAction")),
@@ -8600,19 +8754,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUWaitCompiled
-   * @param wUWaitCompiled108
+   * @param wUWaitCompiled110
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUWaitResponse wUWaitCompiled(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUWaitCompiled wUWaitCompiled108)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUWaitCompiled wUWaitCompiled110)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[52].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUWaitCompiled?ver_=2.02");
+          _serviceClient.createClient(_operations[53].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUWaitCompiled?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8626,7 +8780,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUWaitCompiled108,
+              wUWaitCompiled110,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUWaitCompiled")),
@@ -8723,19 +8877,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUResubmit
-   * @param wUResubmit110
+   * @param wUResubmit112
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResubmitResponse wUResubmit(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResubmit wUResubmit110)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResubmit wUResubmit112)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[53].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUResubmit?ver_=2.02");
+          _serviceClient.createClient(_operations[54].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUResubmit?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8749,7 +8903,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUResubmit110,
+              wUResubmit112,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResubmit")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUResubmit"));
@@ -8845,19 +8999,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGraphTiming
-   * @param wUGraphTiming112
+   * @param wUGraphTiming114
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGraphTimingResponse wUGraphTiming(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGraphTiming wUGraphTiming112)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGraphTiming wUGraphTiming114)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[54].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGraphTiming?ver_=2.02");
+          _serviceClient.createClient(_operations[55].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGraphTiming?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8871,7 +9025,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGraphTiming112,
+              wUGraphTiming114,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGraphTiming")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUGraphTiming"));
@@ -8967,20 +9121,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGVCGraphInfo
-   * @param wUGVCGraphInfo114
+   * @param wUGVCGraphInfo116
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGVCGraphInfoResponse
       wUGVCGraphInfo(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGVCGraphInfo wUGVCGraphInfo114)
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGVCGraphInfo wUGVCGraphInfo116)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[55].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGVCGraphInfo?ver_=2.02");
+          _serviceClient.createClient(_operations[56].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGVCGraphInfo?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -8994,7 +9148,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGVCGraphInfo114,
+              wUGVCGraphInfo116,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUGVCGraphInfo")),
@@ -9091,19 +9245,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUResult
-   * @param wUResult116
+   * @param wUResult118
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResultResponse wUResult(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResult wUResult116)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUResult wUResult118)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[56].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUResult?ver_=2.02");
+          _serviceClient.createClient(_operations[57].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUResult?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9117,7 +9271,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUResult116,
+              wUResult118,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUResult")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUResult"));
@@ -9213,19 +9367,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQuerysets
-   * @param wUQuerysets118
+   * @param wUQuerysets120
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetsResponse wUQuerysets(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysets wUQuerysets118)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysets wUQuerysets120)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[57].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysets?ver_=2.02");
+          _serviceClient.createClient(_operations[58].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysets?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9239,7 +9393,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQuerysets118,
+              wUQuerysets120,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQuerysets")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUQuerysets"));
@@ -9335,19 +9489,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#gVCAjaxGraph
-   * @param gVCAjaxGraph120
+   * @param gVCAjaxGraph122
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.GVCAjaxGraphResponse gVCAjaxGraph(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.GVCAjaxGraph gVCAjaxGraph120)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.GVCAjaxGraph gVCAjaxGraph122)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[58].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/GVCAjaxGraph?ver_=2.02");
+          _serviceClient.createClient(_operations[59].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/GVCAjaxGraph?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9361,7 +9515,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              gVCAjaxGraph120,
+              gVCAjaxGraph122,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "gVCAjaxGraph")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "GVCAjaxGraph"));
@@ -9457,20 +9611,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUProcessGraph
-   * @param wUProcessGraph122
+   * @param wUProcessGraph124
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUProcessGraphResponse
       wUProcessGraph(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUProcessGraph wUProcessGraph122)
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUProcessGraph wUProcessGraph124)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[59].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUProcessGraph?ver_=2.02");
+          _serviceClient.createClient(_operations[60].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUProcessGraph?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9484,7 +9638,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUProcessGraph122,
+              wUProcessGraph124,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUProcessGraph")),
@@ -9581,19 +9735,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUExport
-   * @param wUExport124
+   * @param wUExport126
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUExportResponse wUExport(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUExport wUExport124)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUExport wUExport126)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[60].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUExport?ver_=2.02");
+          _serviceClient.createClient(_operations[61].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUExport?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9607,7 +9761,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUExport124,
+              wUExport126,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUExport")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUExport"));
@@ -9703,19 +9857,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#ping
-   * @param ping126
+   * @param ping128
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunitsPingResponse ping(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Ping ping126)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Ping ping128)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[61].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/Ping?ver_=2.02");
+          _serviceClient.createClient(_operations[62].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/Ping?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9729,7 +9883,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              ping126,
+              ping128,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ping")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Ping"));
@@ -9826,19 +9980,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUInfoDetails
-   * @param wUInfoDetails128
+   * @param wUInfoDetails130
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse wUInfoDetails(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoDetails wUInfoDetails128)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoDetails wUInfoDetails130)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[62].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUInfoDetails?ver_=2.02");
+          _serviceClient.createClient(_operations[63].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUInfoDetails?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9852,7 +10006,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUInfoDetails128,
+              wUInfoDetails130,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUInfoDetails")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUInfoDetails"));
@@ -9948,19 +10102,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUJobList
-   * @param wUJobList130
+   * @param wUJobList132
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUJobListResponse wUJobList(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUJobList wUJobList130)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUJobList wUJobList132)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[63].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUJobList?ver_=2.02");
+          _serviceClient.createClient(_operations[64].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUJobList?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -9974,7 +10128,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUJobList130,
+              wUJobList132,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUJobList")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUJobList"));
@@ -10070,19 +10224,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUCreate
-   * @param wUCreate132
+   * @param wUCreate134
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreateResponse wUCreate(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreate wUCreate132)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUCreate wUCreate134)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[64].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUCreate?ver_=2.02");
+          _serviceClient.createClient(_operations[65].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUCreate?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10096,7 +10250,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUCreate132,
+              wUCreate134,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUCreate")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUCreate"));
@@ -10192,21 +10346,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUAnalyseHotspot
-   * @param wUAnalyseHotspot134
+   * @param wUAnalyseHotspot136
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAnalyseHotspotResponse
       wUAnalyseHotspot(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAnalyseHotspot
-              wUAnalyseHotspot134)
+              wUAnalyseHotspot136)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[65].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUAnalyseHotspot?ver_=2.02");
+          _serviceClient.createClient(_operations[66].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUAnalyseHotspot?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10220,7 +10374,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUAnalyseHotspot134,
+              wUAnalyseHotspot136,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUAnalyseHotspot")),
@@ -10321,19 +10475,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUAction
-   * @param wUAction136
+   * @param wUAction138
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUActionResponse wUAction(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAction wUAction136)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAction wUAction138)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[66].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUAction?ver_=2.02");
+          _serviceClient.createClient(_operations[67].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUAction?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10347,7 +10501,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUAction136,
+              wUAction138,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUAction")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUAction"));
@@ -10443,19 +10597,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUListQueries
-   * @param wUListQueries138
+   * @param wUListQueries140
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListQueriesResponse wUListQueries(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListQueries wUListQueries138)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUListQueries wUListQueries140)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[67].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUListQueries?ver_=2.02");
+          _serviceClient.createClient(_operations[68].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUListQueries?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10469,7 +10623,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUListQueries138,
+              wUListQueries140,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUListQueries")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUListQueries"));
@@ -10565,19 +10719,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQueryFiles
-   * @param wUQueryFiles140
+   * @param wUQueryFiles142
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryFilesResponse wUQueryFiles(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryFiles wUQueryFiles140)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryFiles wUQueryFiles142)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[68].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryFiles?ver_=2.02");
+          _serviceClient.createClient(_operations[69].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryFiles?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10591,7 +10745,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQueryFiles140,
+              wUQueryFiles142,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUQueryFiles")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUQueryFiles"));
@@ -10687,20 +10841,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQueryGetGraph
-   * @param wUQueryGetGraph142
+   * @param wUQueryGetGraph144
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetGraphResponse
       wUQueryGetGraph(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetGraph wUQueryGetGraph142)
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQueryGetGraph wUQueryGetGraph144)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[69].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQueryGetGraph?ver_=2.02");
+          _serviceClient.createClient(_operations[70].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQueryGetGraph?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10714,7 +10868,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQueryGetGraph142,
+              wUQueryGetGraph144,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUQueryGetGraph")),
@@ -10814,20 +10968,20 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUClusterJobXLS
-   * @param wUClusterJobXLS144
+   * @param wUClusterJobXLS146
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobXLSResponse
       wUClusterJobXLS(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobXLS wUClusterJobXLS144)
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobXLS wUClusterJobXLS146)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[70].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobXLS?ver_=2.02");
+          _serviceClient.createClient(_operations[71].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobXLS?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10841,7 +10995,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUClusterJobXLS144,
+              wUClusterJobXLS146,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUClusterJobXLS")),
@@ -10941,21 +11095,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGetThorJobQueue
-   * @param wUGetThorJobQueue146
+   * @param wUGetThorJobQueue148
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetThorJobQueueResponse
       wUGetThorJobQueue(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetThorJobQueue
-              wUGetThorJobQueue146)
+              wUGetThorJobQueue148)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[71].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetThorJobQueue?ver_=2.02");
+          _serviceClient.createClient(_operations[72].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetThorJobQueue?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -10969,7 +11123,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGetThorJobQueue146,
+              wUGetThorJobQueue148,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUGetThorJobQueue")),
@@ -11070,19 +11224,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wURun
-   * @param wURun148
+   * @param wURun150
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURunResponse wURun(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURun wURun148)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WURun wURun150)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[72].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WURun?ver_=2.02");
+          _serviceClient.createClient(_operations[73].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WURun?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11096,7 +11250,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wURun148,
+              wURun150,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wURun")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WURun"));
@@ -11192,19 +11346,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUFile
-   * @param wUFile150
+   * @param wUFile152
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WULogFileResponse wUFile(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUFile wUFile150)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUFile wUFile152)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[73].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUFile?ver_=2.02");
+          _serviceClient.createClient(_operations[74].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUFile?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11218,7 +11372,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUFile150,
+              wUFile152,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUFile")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUFile"));
@@ -11314,21 +11468,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUQuerysetCopyQuery
-   * @param wUQuerysetCopyQuery152
+   * @param wUQuerysetCopyQuery154
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerySetCopyQueryResponse
       wUQuerysetCopyQuery(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetCopyQuery
-              wUQuerysetCopyQuery152)
+              wUQuerysetCopyQuery154)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[74].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetCopyQuery?ver_=2.02");
+          _serviceClient.createClient(_operations[75].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUQuerysetCopyQuery?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11342,7 +11496,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUQuerysetCopyQuery152,
+              wUQuerysetCopyQuery154,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUQuerysetCopyQuery")),
@@ -11444,19 +11598,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUGetZAPInfo
-   * @param wUGetZAPInfo154
+   * @param wUGetZAPInfo156
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetZAPInfoResponse wUGetZAPInfo(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetZAPInfo wUGetZAPInfo154)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetZAPInfo wUGetZAPInfo156)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[75].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUGetZAPInfo?ver_=2.02");
+          _serviceClient.createClient(_operations[76].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUGetZAPInfo?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11470,7 +11624,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUGetZAPInfo154,
+              wUGetZAPInfo156,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUGetZAPInfo")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUGetZAPInfo"));
@@ -11566,21 +11720,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUClusterJobQueueXLS
-   * @param wUClusterJobQueueXLS156
+   * @param wUClusterJobQueueXLS158
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobQueueXLSResponse
       wUClusterJobQueueXLS(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUClusterJobQueueXLS
-              wUClusterJobQueueXLS156)
+              wUClusterJobQueueXLS158)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[76].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobQueueXLS?ver_=2.02");
+          _serviceClient.createClient(_operations[77].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUClusterJobQueueXLS?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11594,7 +11748,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUClusterJobQueueXLS156,
+              wUClusterJobQueueXLS158,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUClusterJobQueueXLS")),
@@ -11696,21 +11850,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUMultiQuerysetDetails
-   * @param wUMultiQuerysetDetails158
+   * @param wUMultiQuerysetDetails160
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUMultiQuerySetDetailsResponse
       wUMultiQuerysetDetails(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUMultiQuerysetDetails
-              wUMultiQuerysetDetails158)
+              wUMultiQuerysetDetails160)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[77].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUMultiQuerysetDetails?ver_=2.02");
+          _serviceClient.createClient(_operations[78].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUMultiQuerysetDetails?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11724,7 +11878,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUMultiQuerysetDetails158,
+              wUMultiQuerysetDetails160,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUMultiQuerysetDetails")),
@@ -11828,21 +11982,21 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    *
    * @see
    *     org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUAddLocalFileToWorkunit
-   * @param wUAddLocalFileToWorkunit160
+   * @param wUAddLocalFileToWorkunit162
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAddLocalFileToWorkunitResponse
       wUAddLocalFileToWorkunit(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUAddLocalFileToWorkunit
-              wUAddLocalFileToWorkunit160)
+              wUAddLocalFileToWorkunit162)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[78].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUAddLocalFileToWorkunit?ver_=2.02");
+          _serviceClient.createClient(_operations[79].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUAddLocalFileToWorkunit?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11856,7 +12010,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUAddLocalFileToWorkunit160,
+              wUAddLocalFileToWorkunit162,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wsworkunits", "wUAddLocalFileToWorkunit")),
@@ -11960,19 +12114,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUPushEvent
-   * @param wUPushEvent162
+   * @param wUPushEvent164
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEventResponse wUPushEvent(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEvent wUPushEvent162)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUPushEvent wUPushEvent164)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[79].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUPushEvent?ver_=2.02");
+          _serviceClient.createClient(_operations[80].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUPushEvent?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -11986,7 +12140,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUPushEvent162,
+              wUPushEvent164,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUPushEvent")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUPushEvent"));
@@ -12082,19 +12236,19 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WsWorkunits#wUSubmit
-   * @param wUSubmit164
+   * @param wUSubmit166
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSubmitResponse wUSubmit(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSubmit wUSubmit164)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUSubmit wUSubmit166)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[80].getName());
-      _operationClient.getOptions().setAction("WsWorkunits/WUSubmit?ver_=2.02");
+          _serviceClient.createClient(_operations[81].getName());
+      _operationClient.getOptions().setAction("WsWorkunits/WUSubmit?ver_=2.09");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -12108,7 +12262,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              wUSubmit164,
+              wUSubmit166,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "wUSubmit")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "WUSubmit"));
@@ -12214,7 +12368,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     }
     return false;
   }
-  // http://172.27.163.120:8010/WsWorkunits?ver_=2.02
+  // http://172.22.164.102:8010/WsWorkunits?ver_=2.09
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetAliasAction param,
       boolean optimizeContent)
@@ -12252,6 +12406,35 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
     try {
       return param.getOMElement(
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.Exceptions.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchive param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchive.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchiveResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchiveResponse
+              .MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -13230,12 +13413,13 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo param, boolean optimizeContent)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete param,
+      boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo.MY_QNAME,
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -13243,13 +13427,13 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse param,
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse.MY_QNAME,
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -13285,13 +13469,12 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete param,
-      boolean optimizeContent)
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete.MY_QNAME,
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -13299,13 +13482,13 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse param,
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse.MY_QNAME,
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -14481,6 +14664,31 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchive param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchive
+                      .MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
       org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGetStats param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
@@ -15329,7 +15537,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo param,
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -15341,7 +15549,8 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
           .getBody()
           .addChild(
               param.getOMElement(
-                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo.MY_QNAME, factory));
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete.MY_QNAME,
+                  factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -15376,7 +15585,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete param,
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -15388,8 +15597,7 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
           .getBody()
           .addChild(
               param.getOMElement(
-                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete.MY_QNAME,
-                  factory));
+                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -17238,6 +17446,28 @@ public class WsWorkunitsStub extends org.apache.axis2.client.Stub implements WsW
         java.lang.Object result =
             org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUGVCGraphInfoResponse.Factory
                 .parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchive.class.equals(
+          type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchive.Factory
+                .parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchiveResponse.class
+          .equals(type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchiveResponse
+                .Factory.parse(reader);
         reader.close();
         return result;
       }

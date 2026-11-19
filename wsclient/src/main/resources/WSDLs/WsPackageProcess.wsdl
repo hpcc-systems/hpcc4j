@@ -481,6 +481,9 @@
             
 						<xsd:element minOccurs="0" name="KeyCompression" type="xsd:string"/>
 						
+            
+						<xsd:element minOccurs="0" name="DfuTargetPlane" type="xsd:string"/>
+						
           
 					</xsd:all>
 					
@@ -567,6 +570,9 @@
 						
             
 						<xsd:element minOccurs="0" name="KeyCompression" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="DfuTargetPlane" type="xsd:string"/>
 						
           
 					</xsd:all>
@@ -657,6 +663,9 @@
 						
             
 						<xsd:element minOccurs="0" name="KeyCompression" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="DfuTargetPlane" type="xsd:string"/>
 						
           
 					</xsd:all>
@@ -2183,7 +2192,7 @@
 		<operation name="ActivatePackage">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/ActivatePackage?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/ActivatePackage?ver_=1.08"/>
 			
       
 			<input>
@@ -2219,7 +2228,7 @@
 		<operation name="AddPackage">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/AddPackage?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/AddPackage?ver_=1.08"/>
 			
       
 			<input>
@@ -2255,7 +2264,7 @@
 		<operation name="AddPartToPackageMap">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/AddPartToPackageMap?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/AddPartToPackageMap?ver_=1.08"/>
 			
       
 			<input>
@@ -2291,7 +2300,7 @@
 		<operation name="CopyPackageMap">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/CopyPackageMap?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/CopyPackageMap?ver_=1.08"/>
 			
       
 			<input>
@@ -2327,7 +2336,7 @@
 		<operation name="DeActivatePackage">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/DeActivatePackage?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/DeActivatePackage?ver_=1.08"/>
 			
       
 			<input>
@@ -2363,7 +2372,7 @@
 		<operation name="DeletePackage">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/DeletePackage?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/DeletePackage?ver_=1.08"/>
 			
       
 			<input>
@@ -2399,7 +2408,7 @@
 		<operation name="Echo">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/Echo?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/Echo?ver_=1.08"/>
 			
       
 			<input>
@@ -2435,7 +2444,7 @@
 		<operation name="GetPackage">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/GetPackage?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/GetPackage?ver_=1.08"/>
 			
       
 			<input>
@@ -2471,7 +2480,7 @@
 		<operation name="GetPackageMapById">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/GetPackageMapById?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/GetPackageMapById?ver_=1.08"/>
 			
       
 			<input>
@@ -2507,7 +2516,7 @@
 		<operation name="GetPackageMapSelectOptions">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/GetPackageMapSelectOptions?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/GetPackageMapSelectOptions?ver_=1.08"/>
 			
       
 			<input>
@@ -2543,7 +2552,7 @@
 		<operation name="GetPartFromPackageMap">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/GetPartFromPackageMap?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/GetPartFromPackageMap?ver_=1.08"/>
 			
       
 			<input>
@@ -2579,7 +2588,7 @@
 		<operation name="GetQueryFileMapping">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/GetQueryFileMapping?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/GetQueryFileMapping?ver_=1.08"/>
 			
       
 			<input>
@@ -2615,7 +2624,7 @@
 		<operation name="ListPackage">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/ListPackage?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/ListPackage?ver_=1.08"/>
 			
       
 			<input>
@@ -2651,7 +2660,7 @@
 		<operation name="ListPackages">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/ListPackages?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/ListPackages?ver_=1.08"/>
 			
       
 			<input>
@@ -2687,7 +2696,7 @@
 		<operation name="Ping">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/Ping?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/Ping?ver_=1.08"/>
 			
       
 			<input>
@@ -2723,7 +2732,7 @@
 		<operation name="RemovePartFromPackageMap">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/RemovePartFromPackageMap?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/RemovePartFromPackageMap?ver_=1.08"/>
 			
       
 			<input>
@@ -2759,7 +2768,7 @@
 		<operation name="ValidatePackage">
 			
       
-			<soap:operation style="document" soapAction="WsPackageProcess/ValidatePackage?ver_=1.07"/>
+			<soap:operation style="document" soapAction="WsPackageProcess/ValidatePackage?ver_=1.08"/>
 			
       
 			<input>
@@ -2801,7 +2810,7 @@
 		<port name="WsPackageProcessServiceSoap" binding="tns:WsPackageProcessServiceSoap">
 			
       
-			<soap:address location="http://172.27.163.120:8010/WsPackageProcess?ver_=1.07"/>
+			<soap:address location="http://172.22.164.102:8010/WsPackageProcess?ver_=1.08"/>
 			
     
 		</port>

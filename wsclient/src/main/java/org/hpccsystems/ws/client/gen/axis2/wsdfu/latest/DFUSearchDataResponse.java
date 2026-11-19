@@ -1725,7 +1725,8 @@ public class DFUSearchDataResponse implements org.apache.axis2.databinding.ADBBe
   }
 
   /** field for ChooseFile */
-  protected int localChooseFile;
+  protected int localChooseFile =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToInt("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -1928,7 +1929,8 @@ public class DFUSearchDataResponse implements org.apache.axis2.databinding.ADBBe
   }
 
   /** field for StartForGoback */
-  protected long localStartForGoback;
+  protected long localStartForGoback =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field

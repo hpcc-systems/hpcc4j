@@ -1,8 +1,8 @@
 /**
  * WsDfuStub.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:46:59 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:49:45 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsdfu.latest;
 
@@ -43,7 +43,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     // creating the operations
     org.apache.axis2.description.AxisOperation __operation;
 
-    _operations = new org.apache.axis2.description.AxisOperation[27];
+    _operations = new org.apache.axis2.description.AxisOperation[29];
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -68,15 +68,14 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUDefFile"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileRename"));
     _service.addOperation(__operation);
 
     _operations[3] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUGetFileMetaData"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUDefFile"));
     _service.addOperation(__operation);
 
     _operations[4] = __operation;
@@ -84,24 +83,32 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileAccessV2"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUGetFileMetaData"));
     _service.addOperation(__operation);
 
     _operations[5] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileView"));
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileAccessV2"));
     _service.addOperation(__operation);
 
     _operations[6] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUSpace"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileView"));
     _service.addOperation(__operation);
 
     _operations[7] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUSpace"));
+    _service.addOperation(__operation);
+
+    _operations[8] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -109,26 +116,18 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "addtoSuperfile"));
     _service.addOperation(__operation);
 
-    _operations[8] = __operation;
+    _operations[9] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileAccess"));
     _service.addOperation(__operation);
 
-    _operations[9] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUSearchData"));
-    _service.addOperation(__operation);
-
     _operations[10] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUArrayAction"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUSearchData"));
     _service.addOperation(__operation);
 
     _operations[11] = __operation;
@@ -136,7 +135,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFilePublish"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUArrayAction"));
     _service.addOperation(__operation);
 
     _operations[12] = __operation;
@@ -144,17 +143,25 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "eclRecordTypeInfo"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFilePublish"));
     _service.addOperation(__operation);
 
     _operations[13] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "addRemote"));
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "eclRecordTypeInfo"));
     _service.addOperation(__operation);
 
     _operations[14] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "addRemote"));
+    _service.addOperation(__operation);
+
+    _operations[15] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -162,19 +169,11 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "superfileAction"));
     _service.addOperation(__operation);
 
-    _operations[15] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileCreate"));
-    _service.addOperation(__operation);
-
     _operations[16] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUGetDataColumns"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileCreate"));
     _service.addOperation(__operation);
 
     _operations[17] = __operation;
@@ -182,17 +181,25 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFURecordTypeInfo"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUGetDataColumns"));
     _service.addOperation(__operation);
 
     _operations[18] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "superfileList"));
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFURecordTypeInfo"));
     _service.addOperation(__operation);
 
     _operations[19] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "superfileList"));
+    _service.addOperation(__operation);
+
+    _operations[20] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -200,49 +207,57 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileCreateV2"));
     _service.addOperation(__operation);
 
-    _operations[20] = __operation;
+    _operations[21] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "add"));
     _service.addOperation(__operation);
 
-    _operations[21] = __operation;
+    _operations[22] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "savexml"));
     _service.addOperation(__operation);
 
-    _operations[22] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUQuery"));
-    _service.addOperation(__operation);
-
     _operations[23] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUSearch"));
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUGetMetaInquiry"));
     _service.addOperation(__operation);
 
     _operations[24] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUBrowseData"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUQuery"));
     _service.addOperation(__operation);
 
     _operations[25] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUInfo"));
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUSearch"));
     _service.addOperation(__operation);
 
     _operations[26] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUBrowseData"));
+    _service.addOperation(__operation);
+
+    _operations[27] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUInfo"));
+    _service.addOperation(__operation);
+
+    _operations[28] = __operation;
   }
 
   // populates the faults
@@ -292,6 +307,22 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
 
     faultExceptionNameMap.put(
         new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Exceptions"),
+            "DFUFileRename"),
+        "org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Exceptions"),
+            "DFUFileRename"),
+        "org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Exceptions"),
+            "DFUFileRename"),
+        "org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Exceptions"), "DFUDefFile"),
         "org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault");
     faultExceptionClassNameMap.put(
@@ -590,6 +621,22 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     faultMessageMap.put(
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Exceptions"), "Savexml"),
+        "org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Exceptions"),
+            "DFUGetMetaInquiry"),
+        "org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Exceptions"),
+            "DFUGetMetaInquiry"),
+        "org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Exceptions"),
+            "DFUGetMetaInquiry"),
         "org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.Exceptions");
 
     faultExceptionNameMap.put(
@@ -678,13 +725,13 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
   public WsDfuStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://10.1.1.180:8888/WsDfu?ver_=1.65");
+    this(configurationContext, "http://172.22.164.102:8010/WsDfu?ver_=1.69");
   }
 
   /** Default Constructor */
   public WsDfuStub() throws org.apache.axis2.AxisFault {
 
-    this("http://10.1.1.180:8888/WsDfu?ver_=1.65");
+    this("http://172.22.164.102:8010/WsDfu?ver_=1.69");
   }
 
   /** Constructor taking the target endpoint */
@@ -708,7 +755,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("WsDfu/ListHistory?ver_=1.65");
+      _operationClient.getOptions().setAction("WsDfu/ListHistory?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -830,7 +877,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("WsDfu/EraseHistory?ver_=1.65");
+      _operationClient.getOptions().setAction("WsDfu/EraseHistory?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -952,7 +999,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("WsDfu/Ping?ver_=1.65");
+      _operationClient.getOptions().setAction("WsDfu/Ping?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1060,12 +1107,12 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUDefFile
-   * @param dFUDefFileRequest8
+   * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUFileRename
+   * @param dFUFileRenameRequest8
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileResponse dFUDefFile(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileRequest dFUDefFileRequest8)
+  public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameResponse dFUFileRename(
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameRequest dFUFileRenameRequest8)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
@@ -1073,7 +1120,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUDefFile?ver_=1.65");
+      _operationClient.getOptions().setAction("WsDfu/DFUFileRename?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1087,7 +1134,129 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUDefFileRequest8,
+              dFUFileRenameRequest8,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileRename")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileRenameRequest"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "DFUFileRename"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "DFUFileRename"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "DFUFileRename"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUDefFile
+   * @param dFUDefFileRequest10
+   * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileResponse dFUDefFile(
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUDefFileRequest dFUDefFileRequest10)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[4].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUDefFile?ver_=1.69");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              dFUDefFileRequest10,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUDefFile")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUDefFileRequest"));
@@ -1183,21 +1352,21 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUGetFileMetaData
-   * @param dFUGetFileMetaDataRequest10
+   * @param dFUGetFileMetaDataRequest12
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataResponse
       dFUGetFileMetaData(
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetFileMetaDataRequest
-              dFUGetFileMetaDataRequest10)
+              dFUGetFileMetaDataRequest12)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[4].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUGetFileMetaData?ver_=1.65");
+          _serviceClient.createClient(_operations[5].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUGetFileMetaData?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1211,7 +1380,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUGetFileMetaDataRequest10,
+              dFUGetFileMetaDataRequest12,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUGetFileMetaData")),
               new javax.xml.namespace.QName(
@@ -1310,20 +1479,20 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUFileAccessV2
-   * @param dFUFileAccessV2Request12
+   * @param dFUFileAccessV2Request14
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessResponse dFUFileAccessV2(
       org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessV2Request
-          dFUFileAccessV2Request12)
+          dFUFileAccessV2Request14)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[5].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFileAccessV2?ver_=1.65");
+          _serviceClient.createClient(_operations[6].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUFileAccessV2?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1337,7 +1506,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUFileAccessV2Request12,
+              dFUFileAccessV2Request14,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileAccessV2")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileAccessV2Request"));
@@ -1435,19 +1604,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUFileView
-   * @param dFUFileViewRequest14
+   * @param dFUFileViewRequest16
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewResponse dFUFileView(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewRequest dFUFileViewRequest14)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewRequest dFUFileViewRequest16)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[6].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFileView?ver_=1.65");
+          _serviceClient.createClient(_operations[7].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUFileView?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1461,7 +1630,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUFileViewRequest14,
+              dFUFileViewRequest16,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileView")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileViewRequest"));
@@ -1557,19 +1726,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUSpace
-   * @param dFUSpaceRequest16
+   * @param dFUSpaceRequest18
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSpaceResponse dFUSpace(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSpaceRequest dFUSpaceRequest16)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSpaceRequest dFUSpaceRequest18)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[7].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUSpace?ver_=1.65");
+          _serviceClient.createClient(_operations[8].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUSpace?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1583,7 +1752,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUSpaceRequest16,
+              dFUSpaceRequest18,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUSpace")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUSpaceRequest"));
@@ -1679,20 +1848,20 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#addtoSuperfile
-   * @param addtoSuperfileRequest18
+   * @param addtoSuperfileRequest20
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileResponse addtoSuperfile(
       org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddtoSuperfileRequest
-          addtoSuperfileRequest18)
+          addtoSuperfileRequest20)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[8].getName());
-      _operationClient.getOptions().setAction("WsDfu/AddtoSuperfile?ver_=1.65");
+          _serviceClient.createClient(_operations[9].getName());
+      _operationClient.getOptions().setAction("WsDfu/AddtoSuperfile?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1706,7 +1875,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              addtoSuperfileRequest18,
+              addtoSuperfileRequest20,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "addtoSuperfile")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "AddtoSuperfileRequest"));
@@ -1802,19 +1971,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUFileAccess
-   * @param dFUFileAccessRequest20
+   * @param dFUFileAccessRequest22
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessResponse dFUFileAccess(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessRequest dFUFileAccessRequest20)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileAccessRequest dFUFileAccessRequest22)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[9].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFileAccess?ver_=1.65");
+          _serviceClient.createClient(_operations[10].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUFileAccess?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1828,7 +1997,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUFileAccessRequest20,
+              dFUFileAccessRequest22,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileAccess")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileAccessRequest"));
@@ -1924,19 +2093,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUSearchData
-   * @param dFUSearchDataRequest22
+   * @param dFUSearchDataRequest24
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchDataResponse dFUSearchData(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchDataRequest dFUSearchDataRequest22)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchDataRequest dFUSearchDataRequest24)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[10].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUSearchData?ver_=1.65");
+          _serviceClient.createClient(_operations[11].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUSearchData?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1950,7 +2119,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUSearchDataRequest22,
+              dFUSearchDataRequest24,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUSearchData")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUSearchDataRequest"));
@@ -2046,20 +2215,20 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUArrayAction
-   * @param dFUArrayActionRequest24
+   * @param dFUArrayActionRequest26
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionResponse dFUArrayAction(
       org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUArrayActionRequest
-          dFUArrayActionRequest24)
+          dFUArrayActionRequest26)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[11].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUArrayAction?ver_=1.65");
+          _serviceClient.createClient(_operations[12].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUArrayAction?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2073,7 +2242,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUArrayActionRequest24,
+              dFUArrayActionRequest26,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUArrayAction")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUArrayActionRequest"));
@@ -2169,20 +2338,20 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUFilePublish
-   * @param dFUFilePublishRequest26
+   * @param dFUFilePublishRequest28
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePublishResponse dFUFilePublish(
       org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePublishRequest
-          dFUFilePublishRequest26)
+          dFUFilePublishRequest28)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[12].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFilePublish?ver_=1.65");
+          _serviceClient.createClient(_operations[13].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUFilePublish?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2196,7 +2365,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUFilePublishRequest26,
+              dFUFilePublishRequest28,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFilePublish")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFilePublishRequest"));
@@ -2292,21 +2461,21 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#eclRecordTypeInfo
-   * @param eclRecordTypeInfoRequest28
+   * @param eclRecordTypeInfoRequest30
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EclRecordTypeInfoResponse
       eclRecordTypeInfo(
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EclRecordTypeInfoRequest
-              eclRecordTypeInfoRequest28)
+              eclRecordTypeInfoRequest30)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[13].getName());
-      _operationClient.getOptions().setAction("WsDfu/EclRecordTypeInfo?ver_=1.65");
+          _serviceClient.createClient(_operations[14].getName());
+      _operationClient.getOptions().setAction("WsDfu/EclRecordTypeInfo?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2320,7 +2489,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              eclRecordTypeInfoRequest28,
+              eclRecordTypeInfoRequest30,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "eclRecordTypeInfo")),
               new javax.xml.namespace.QName(
@@ -2419,19 +2588,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#addRemote
-   * @param addRemoteRequest30
+   * @param addRemoteRequest32
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddRemoteResponse addRemote(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddRemoteRequest addRemoteRequest30)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddRemoteRequest addRemoteRequest32)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[14].getName());
-      _operationClient.getOptions().setAction("WsDfu/AddRemote?ver_=1.65");
+          _serviceClient.createClient(_operations[15].getName());
+      _operationClient.getOptions().setAction("WsDfu/AddRemote?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2445,7 +2614,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              addRemoteRequest30,
+              addRemoteRequest32,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "addRemote")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "AddRemoteRequest"));
@@ -2541,20 +2710,20 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#superfileAction
-   * @param superfileActionRequest32
+   * @param superfileActionRequest34
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionResponse superfileAction(
       org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileActionRequest
-          superfileActionRequest32)
+          superfileActionRequest34)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[15].getName());
-      _operationClient.getOptions().setAction("WsDfu/SuperfileAction?ver_=1.65");
+          _serviceClient.createClient(_operations[16].getName());
+      _operationClient.getOptions().setAction("WsDfu/SuperfileAction?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2568,7 +2737,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              superfileActionRequest32,
+              superfileActionRequest34,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "superfileAction")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "SuperfileActionRequest"));
@@ -2666,19 +2835,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUFileCreate
-   * @param dFUFileCreateRequest34
+   * @param dFUFileCreateRequest36
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateResponse dFUFileCreate(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateRequest dFUFileCreateRequest34)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateRequest dFUFileCreateRequest36)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[16].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFileCreate?ver_=1.65");
+          _serviceClient.createClient(_operations[17].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUFileCreate?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2692,7 +2861,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUFileCreateRequest34,
+              dFUFileCreateRequest36,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileCreate")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileCreateRequest"));
@@ -2788,21 +2957,21 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUGetDataColumns
-   * @param dFUGetDataColumnsRequest36
+   * @param dFUGetDataColumnsRequest38
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetDataColumnsResponse
       dFUGetDataColumns(
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUGetDataColumnsRequest
-              dFUGetDataColumnsRequest36)
+              dFUGetDataColumnsRequest38)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[17].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUGetDataColumns?ver_=1.65");
+          _serviceClient.createClient(_operations[18].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUGetDataColumns?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2816,7 +2985,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUGetDataColumnsRequest36,
+              dFUGetDataColumnsRequest38,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUGetDataColumns")),
               new javax.xml.namespace.QName(
@@ -2915,21 +3084,21 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFURecordTypeInfo
-   * @param dFURecordTypeInfoRequest38
+   * @param dFURecordTypeInfoRequest40
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFURecordTypeInfoResponse
       dFURecordTypeInfo(
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFURecordTypeInfoRequest
-              dFURecordTypeInfoRequest38)
+              dFURecordTypeInfoRequest40)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[18].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFURecordTypeInfo?ver_=1.65");
+          _serviceClient.createClient(_operations[19].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFURecordTypeInfo?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2943,7 +3112,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFURecordTypeInfoRequest38,
+              dFURecordTypeInfoRequest40,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFURecordTypeInfo")),
               new javax.xml.namespace.QName(
@@ -3042,19 +3211,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#superfileList
-   * @param superfileListRequest40
+   * @param superfileListRequest42
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListResponse superfileList(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListRequest superfileListRequest40)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SuperfileListRequest superfileListRequest42)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[19].getName());
-      _operationClient.getOptions().setAction("WsDfu/SuperfileList?ver_=1.65");
+          _serviceClient.createClient(_operations[20].getName());
+      _operationClient.getOptions().setAction("WsDfu/SuperfileList?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3068,7 +3237,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              superfileListRequest40,
+              superfileListRequest42,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "superfileList")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "SuperfileListRequest"));
@@ -3164,20 +3333,20 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUFileCreateV2
-   * @param dFUFileCreateV2Request42
+   * @param dFUFileCreateV2Request44
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateResponse dFUFileCreateV2(
       org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileCreateV2Request
-          dFUFileCreateV2Request42)
+          dFUFileCreateV2Request44)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[20].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUFileCreateV2?ver_=1.65");
+          _serviceClient.createClient(_operations[21].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUFileCreateV2?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3191,7 +3360,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUFileCreateV2Request42,
+              dFUFileCreateV2Request44,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUFileCreateV2")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUFileCreateV2Request"));
@@ -3289,19 +3458,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#add
-   * @param addRequest44
+   * @param addRequest46
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddResponse add(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddRequest addRequest44)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.AddRequest addRequest46)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[21].getName());
-      _operationClient.getOptions().setAction("WsDfu/Add?ver_=1.65");
+          _serviceClient.createClient(_operations[22].getName());
+      _operationClient.getOptions().setAction("WsDfu/Add?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3315,7 +3484,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              addRequest44,
+              addRequest46,
               optimizeContent(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "add")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "AddRequest"));
 
@@ -3410,19 +3579,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#savexml
-   * @param savexmlRequest46
+   * @param savexmlRequest48
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SavexmlResponse savexml(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SavexmlRequest savexmlRequest46)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.SavexmlRequest savexmlRequest48)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[22].getName());
-      _operationClient.getOptions().setAction("WsDfu/Savexml?ver_=1.65");
+          _serviceClient.createClient(_operations[23].getName());
+      _operationClient.getOptions().setAction("WsDfu/Savexml?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3436,7 +3605,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              savexmlRequest46,
+              savexmlRequest48,
               optimizeContent(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "savexml")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "SavexmlRequest"));
 
@@ -3530,20 +3699,21 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUQuery
-   * @param dFUQueryRequest48
+   * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUGetMetaInquiry
+   * @param dFUMetaInquiryRequest50
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryResponse dFUQuery(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryRequest dFUQueryRequest48)
+  public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryResponse dFUGetMetaInquiry(
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryRequest
+          dFUMetaInquiryRequest50)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[23].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUQuery?ver_=1.65");
+          _serviceClient.createClient(_operations[24].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUGetMetaInquiry?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3557,7 +3727,131 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUQueryRequest48,
+              dFUMetaInquiryRequest50,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUGetMetaInquiry")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUMetaInquiryRequest"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "DFUGetMetaInquiry"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "DFUGetMetaInquiry"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "DFUGetMetaInquiry"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUQuery
+   * @param dFUQueryRequest52
+   * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryResponse dFUQuery(
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryRequest dFUQueryRequest52)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[25].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUQuery?ver_=1.69");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              dFUQueryRequest52,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUQuery")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUQueryRequest"));
@@ -3653,19 +3947,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUSearch
-   * @param dFUSearchRequest50
+   * @param dFUSearchRequest54
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchResponse dFUSearch(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchRequest dFUSearchRequest50)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUSearchRequest dFUSearchRequest54)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[24].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUSearch?ver_=1.65");
+          _serviceClient.createClient(_operations[26].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUSearch?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3679,7 +3973,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUSearchRequest50,
+              dFUSearchRequest54,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUSearch")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUSearchRequest"));
@@ -3775,19 +4069,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUBrowseData
-   * @param dFUBrowseDataRequest52
+   * @param dFUBrowseDataRequest56
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataResponse dFUBrowseData(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataRequest dFUBrowseDataRequest52)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUBrowseDataRequest dFUBrowseDataRequest56)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[25].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUBrowseData?ver_=1.65");
+          _serviceClient.createClient(_operations[27].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUBrowseData?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3801,7 +4095,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUBrowseDataRequest52,
+              dFUBrowseDataRequest56,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUBrowseData")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUBrowseDataRequest"));
@@ -3897,19 +4191,19 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfu#dFUInfo
-   * @param dFUInfoRequest54
+   * @param dFUInfoRequest58
    * @throws org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse dFUInfo(
-      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoRequest dFUInfoRequest54)
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoRequest dFUInfoRequest58)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[26].getName());
-      _operationClient.getOptions().setAction("WsDfu/DFUInfo?ver_=1.65");
+          _serviceClient.createClient(_operations[28].getName());
+      _operationClient.getOptions().setAction("WsDfu/DFUInfo?ver_=1.69");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -3923,7 +4217,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              dFUInfoRequest54,
+              dFUInfoRequest58,
               optimizeContent(new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "dFUInfo")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "DFUInfoRequest"));
 
@@ -4028,7 +4322,7 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     }
     return false;
   }
-  // http://10.1.1.180:8888/WsDfu?ver_=1.65
+  // http://172.22.164.102:8010/WsDfu?ver_=1.69
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.ListHistoryRequest param,
       boolean optimizeContent)
@@ -4120,6 +4414,34 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
     try {
       return param.getOMElement(
           org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuPingResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameRequest param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameRequest.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -4657,6 +4979,34 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
   }
 
   private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryRequest param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryRequest.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryRequest param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
@@ -4831,6 +5181,30 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
           .addChild(
               param.getOMElement(
                   org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.WsDfuPingRequest.MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameRequest param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameRequest.MY_QNAME,
                   factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
@@ -5325,6 +5699,30 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryRequest param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryRequest.MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
       org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryRequest param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
@@ -5640,6 +6038,28 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
         return result;
       }
 
+      if (org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameRequest.class.equals(
+          type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameRequest.Factory.parse(
+                reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameResponse.class.equals(
+          type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileRenameResponse.Factory.parse(
+                reader);
+        reader.close();
+        return result;
+      }
+
       if (org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFileViewRequest.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
@@ -5718,6 +6138,28 @@ public class WsDfuStub extends org.apache.axis2.client.Stub implements WsDfu {
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
         java.lang.Object result =
             org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUInfoResponse.Factory.parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryRequest.class.equals(
+          type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryRequest.Factory.parse(
+                reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryResponse.class.equals(
+          type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUMetaInquiryResponse.Factory.parse(
+                reader);
         reader.close();
         return result;
       }

@@ -293,7 +293,8 @@ public class LogAccessFilter implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for Format */
-  protected org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessLogFormat localFormat;
+  protected java.lang.String localFormat =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToString("CSV");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -308,9 +309,9 @@ public class LogAccessFilter implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated getter method
    *
-   * @return org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessLogFormat
+   * @return java.lang.String
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessLogFormat getFormat() {
+  public java.lang.String getFormat() {
     return localFormat;
   }
 
@@ -319,8 +320,7 @@ public class LogAccessFilter implements org.apache.axis2.databinding.ADBBean {
    *
    * @param param Format
    */
-  public void setFormat(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessLogFormat param) {
+  public void setFormat(java.lang.String param) {
     localFormatTracker = param != null;
 
     this.localFormat = param;
@@ -548,11 +548,20 @@ public class LogAccessFilter implements org.apache.axis2.databinding.ADBBean {
           xmlWriter);
     }
     if (localFormatTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "Format", xmlWriter);
+
       if (localFormat == null) {
+        // write the nil attribute
+
         throw new org.apache.axis2.databinding.ADBException("Format cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localFormat);
       }
-      localFormat.serialize(
-          new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Format"), xmlWriter);
+
+      xmlWriter.writeEndElement();
     }
     if (localSortByTimeDirectionTracker) {
       if (localSortByTimeDirection == null) {
@@ -941,9 +950,17 @@ public class LogAccessFilter implements org.apache.axis2.databinding.ADBBean {
                 && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "Format")
                     .equals(reader.getName())) {
 
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Format" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
               object.setFormat(
-                  org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.LogAccessLogFormat.Factory
-                      .parse(reader));
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 

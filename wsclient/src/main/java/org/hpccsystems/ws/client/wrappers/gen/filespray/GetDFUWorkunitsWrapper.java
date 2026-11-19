@@ -28,7 +28,8 @@ public class GetDFUWorkunitsWrapper
     protected String local_owner;
     protected String local_cluster;
     protected String local_stateReq;
-    protected String local_type;
+    protected DFUCommandWrapper local_command;
+    protected boolean local_archived;
     protected String local_jobname;
     protected long local_pageSize;
     protected int local_currentPage;
@@ -48,13 +49,14 @@ public class GetDFUWorkunitsWrapper
     {
         copy( getdfuworkunits );
     }
-    public GetDFUWorkunitsWrapper( String _wuid, String _owner, String _cluster, String _stateReq, String _type, String _jobname, long _pageSize, int _currentPage, long _pageStartFrom, String _sortby, boolean _descending, long _cacheHint, String _parentWuid, String _publisherWuid, boolean _includeProgressMessages, boolean _includeTimings, boolean _includeTransferRate )
+    public GetDFUWorkunitsWrapper( String _wuid, String _owner, String _cluster, String _stateReq, DFUCommandWrapper _command, boolean _archived, String _jobname, long _pageSize, int _currentPage, long _pageStartFrom, String _sortby, boolean _descending, long _cacheHint, String _parentWuid, String _publisherWuid, boolean _includeProgressMessages, boolean _includeTimings, boolean _includeTransferRate )
     {
         this.local_wuid = _wuid;
         this.local_owner = _owner;
         this.local_cluster = _cluster;
         this.local_stateReq = _stateReq;
-        this.local_type = _type;
+        this.local_command = _command;
+        this.local_archived = _archived;
         this.local_jobname = _jobname;
         this.local_pageSize = _pageSize;
         this.local_currentPage = _currentPage;
@@ -79,7 +81,9 @@ public class GetDFUWorkunitsWrapper
         this.local_owner = raw.getOwner();
         this.local_cluster = raw.getCluster();
         this.local_stateReq = raw.getStateReq();
-        this.local_type = raw.getType();
+        if (raw.getCommand() != null)
+            this.local_command = new DFUCommandWrapper( raw.getCommand());
+        this.local_archived = raw.getArchived();
         this.local_jobname = raw.getJobname();
         this.local_pageSize = raw.getPageSize();
         this.local_currentPage = raw.getCurrentPage();
@@ -98,7 +102,7 @@ public class GetDFUWorkunitsWrapper
     @Override
     public String toString()
     {
-        return "GetDFUWorkunitsWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "stateReq = " + local_stateReq + ", " + "type = " + local_type + ", " + "jobname = " + local_jobname + ", " + "pageSize = " + local_pageSize + ", " + "currentPage = " + local_currentPage + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "cacheHint = " + local_cacheHint + ", " + "parentWuid = " + local_parentWuid + ", " + "publisherWuid = " + local_publisherWuid + ", " + "includeProgressMessages = " + local_includeProgressMessages + ", " + "includeTimings = " + local_includeTimings + ", " + "includeTransferRate = " + local_includeTransferRate + "]";
+        return "GetDFUWorkunitsWrapper [" + "wuid = " + local_wuid + ", " + "owner = " + local_owner + ", " + "cluster = " + local_cluster + ", " + "stateReq = " + local_stateReq + ", " + "command = " + local_command + ", " + "archived = " + local_archived + ", " + "jobname = " + local_jobname + ", " + "pageSize = " + local_pageSize + ", " + "currentPage = " + local_currentPage + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "cacheHint = " + local_cacheHint + ", " + "parentWuid = " + local_parentWuid + ", " + "publisherWuid = " + local_publisherWuid + ", " + "includeProgressMessages = " + local_includeProgressMessages + ", " + "includeTimings = " + local_includeTimings + ", " + "includeTransferRate = " + local_includeTransferRate + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.filespray.latest.GetDFUWorkunits getRaw()
     {
@@ -107,7 +111,9 @@ public class GetDFUWorkunitsWrapper
         raw.setOwner( local_owner);
         raw.setCluster( local_cluster);
         raw.setStateReq( local_stateReq);
-        raw.setType( local_type);
+        if (local_command != null)
+            raw.setCommand( local_command.getRaw());
+        raw.setArchived( local_archived);
         raw.setJobname( local_jobname);
         raw.setPageSize( local_pageSize);
         raw.setCurrentPage( local_currentPage);
@@ -156,13 +162,21 @@ public class GetDFUWorkunitsWrapper
     {
         return this.local_stateReq;
     }
-    public void setType( String _type )
+    public void setCommand( DFUCommandWrapper _command )
     {
-        this.local_type = _type;
+        this.local_command = _command;
     }
-    public String getType( )
+    public DFUCommandWrapper getCommand( )
     {
-        return this.local_type;
+        return this.local_command;
+    }
+    public void setArchived( boolean _archived )
+    {
+        this.local_archived = _archived;
+    }
+    public boolean getArchived( )
+    {
+        return this.local_archived;
     }
     public void setJobname( String _jobname )
     {

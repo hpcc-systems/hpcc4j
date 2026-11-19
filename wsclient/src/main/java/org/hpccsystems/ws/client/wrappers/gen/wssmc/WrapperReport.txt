@@ -3,13 +3,14 @@ Generated Axis2 ADB stub class wrapper package report:
   Wrapper package name: org.hpccsystems.ws.client.wrappers.gen.wssmc
   Wrapped service name: WsSMC
   Wrapped package: org.hpccsystems.ws.client.gen.axis2.wssmc.latest
-  Wrapped service version: 1.27
+  Wrapped service version: 1.30
 Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActiveWorkunit
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Activity
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActivityResponse
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfActiveWorkunit
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfDFUJob
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfDimension
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfEspException
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfHPCCResource
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ArrayOfHPCCResourceRepository
@@ -22,17 +23,26 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.DateTimeRange
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.DFUJob
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Dimension
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Dimensions_type0
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Endpoints_type0
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspException
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBanner
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBannerResponse
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfo
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetrics
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetricsResponse
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailability
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GlobalMetric
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GlobalMetrics_type0
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.HPCCResource
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.HPCCResourceRepository
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Index
@@ -49,6 +59,8 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.PauseQueue
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetrics
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetricsResponse
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RemoveJob
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ResumeQueue
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd
@@ -66,6 +78,9 @@ Wrapped Classes:
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Stat
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Stats_type0
+    org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Stats_type1
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StatusServerInfo
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StopQueue
     org.hpccsystems.ws.client.gen.axis2.wssmc.latest.TargetCluster

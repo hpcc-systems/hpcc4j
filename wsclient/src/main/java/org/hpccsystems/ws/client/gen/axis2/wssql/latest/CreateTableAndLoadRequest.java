@@ -1,8 +1,8 @@
 /**
  * CreateTableAndLoadRequest.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssql.latest;
 
@@ -80,7 +80,7 @@ public class CreateTableAndLoadRequest implements org.apache.axis2.databinding.A
   }
 
   /** field for Overwrite */
-  protected boolean localOverwrite;
+  protected org.apache.axiom.om.OMElement localOverwrite;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -95,9 +95,9 @@ public class CreateTableAndLoadRequest implements org.apache.axis2.databinding.A
   /**
    * Auto generated getter method
    *
-   * @return boolean
+   * @return org.apache.axiom.om.OMElement
    */
-  public boolean getOverwrite() {
+  public org.apache.axiom.om.OMElement getOverwrite() {
     return localOverwrite;
   }
 
@@ -106,10 +106,8 @@ public class CreateTableAndLoadRequest implements org.apache.axis2.databinding.A
    *
    * @param param Overwrite
    */
-  public void setOverwrite(boolean param) {
-
-    // setting primitive attribute tracker to true
-    localOverwriteTracker = true;
+  public void setOverwrite(org.apache.axiom.om.OMElement param) {
+    localOverwriteTracker = param != null;
 
     this.localOverwrite = param;
   }
@@ -400,13 +398,14 @@ public class CreateTableAndLoadRequest implements org.apache.axis2.databinding.A
       namespace = "urn:hpccsystems:ws:wssql";
       writeStartElement(null, namespace, "Overwrite", xmlWriter);
 
-      if (false) {
+      if (localOverwrite == null) {
+        // write the nil attribute
 
         throw new org.apache.axis2.databinding.ADBException("Overwrite cannot be null!!");
 
       } else {
-        xmlWriter.writeCharacters(
-            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localOverwrite));
+
+        localOverwrite.serialize(xmlWriter);
       }
 
       xmlWriter.writeEndElement();
@@ -760,9 +759,7 @@ public class CreateTableAndLoadRequest implements org.apache.axis2.databinding.A
               reader.next();
 
             } // End of if for expected property start element
-            else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "Overwrite")
-                    .equals(reader.getName())) {
+            else if (reader.isStartElement()) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
@@ -773,8 +770,14 @@ public class CreateTableAndLoadRequest implements org.apache.axis2.databinding.A
 
               java.lang.String content = reader.getElementText();
 
-              object.setOverwrite(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+              org.apache.axiom.om.OMFactory fac =
+                  org.apache.axiom.om.OMAbstractFactory.getOMFactory();
+              org.apache.axiom.om.OMNamespace omNs =
+                  fac.createOMNamespace("urn:hpccsystems:ws:wssql", "");
+              org.apache.axiom.om.OMElement _valueOverwrite =
+                  fac.createOMElement("Overwrite", omNs);
+              _valueOverwrite.addChild(fac.createOMText(_valueOverwrite, content));
+              object.setOverwrite(_valueOverwrite);
 
               reader.next();
 

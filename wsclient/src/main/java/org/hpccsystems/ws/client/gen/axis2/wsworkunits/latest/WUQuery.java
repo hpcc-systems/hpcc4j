@@ -831,6 +831,39 @@ public class WUQuery implements org.apache.axis2.databinding.ADBBean {
     this.localMinimumCompileCost = param;
   }
 
+  /** field for ErrorContents */
+  protected java.lang.String localErrorContents;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localErrorContentsTracker = false;
+
+  public boolean isErrorContentsSpecified() {
+    return localErrorContentsTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getErrorContents() {
+    return localErrorContents;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param ErrorContents
+   */
+  public void setErrorContents(java.lang.String param) {
+    localErrorContentsTracker = param != null;
+
+    this.localErrorContents = param;
+  }
+
   /** field for Sortby */
   protected java.lang.String localSortby;
 
@@ -1346,6 +1379,22 @@ public class WUQuery implements org.apache.axis2.databinding.ADBBean {
         xmlWriter.writeCharacters(
             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(
                 localMinimumCompileCost));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localErrorContentsTracker) {
+      namespace = "urn:hpccsystems:ws:wsworkunits";
+      writeStartElement(null, namespace, "ErrorContents", xmlWriter);
+
+      if (localErrorContents == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("ErrorContents cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localErrorContents);
       }
 
       xmlWriter.writeEndElement();
@@ -2081,6 +2130,25 @@ public class WUQuery implements org.apache.axis2.databinding.ADBBean {
 
               object.setMinimumCompileCost(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToDouble(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsworkunits", "ErrorContents")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "ErrorContents" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setErrorContents(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();
 

@@ -27,6 +27,7 @@ public class DFUFilePartWrapper
     protected int local_partIndex;
     protected ArrayOfDFUFileCopyWrapper local_copies;
     protected boolean local_topLevelKey;
+    protected long local_recordCount;
 
     public DFUFilePartWrapper() {}
 
@@ -34,11 +35,12 @@ public class DFUFilePartWrapper
     {
         copy( dfufilepart );
     }
-    public DFUFilePartWrapper( int _partIndex, ArrayOfDFUFileCopyWrapper _copies, boolean _topLevelKey )
+    public DFUFilePartWrapper( int _partIndex, ArrayOfDFUFileCopyWrapper _copies, boolean _topLevelKey, long _recordCount )
     {
         this.local_partIndex = _partIndex;
         this.local_copies = _copies;
         this.local_topLevelKey = _topLevelKey;
+        this.local_recordCount = _recordCount;
 
     }
 
@@ -51,13 +53,14 @@ public class DFUFilePartWrapper
         if (raw.getCopies() != null)
             this.local_copies = new ArrayOfDFUFileCopyWrapper( raw.getCopies());
         this.local_topLevelKey = raw.getTopLevelKey();
+        this.local_recordCount = raw.getRecordCount();
 
     }
 
     @Override
     public String toString()
     {
-        return "DFUFilePartWrapper [" + "partIndex = " + local_partIndex + ", " + "copies = " + local_copies + ", " + "topLevelKey = " + local_topLevelKey + "]";
+        return "DFUFilePartWrapper [" + "partIndex = " + local_partIndex + ", " + "copies = " + local_copies + ", " + "topLevelKey = " + local_topLevelKey + ", " + "recordCount = " + local_recordCount + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUFilePart getRaw()
     {
@@ -66,6 +69,7 @@ public class DFUFilePartWrapper
         if (local_copies != null)
             raw.setCopies( local_copies.getRaw());
         raw.setTopLevelKey( local_topLevelKey);
+        raw.setRecordCount( local_recordCount);
         return raw;
     }
 
@@ -93,5 +97,13 @@ public class DFUFilePartWrapper
     public boolean getTopLevelKey( )
     {
         return this.local_topLevelKey;
+    }
+    public void setRecordCount( long _recordCount )
+    {
+        this.local_recordCount = _recordCount;
+    }
+    public long getRecordCount( )
+    {
+        return this.local_recordCount;
     }
 }

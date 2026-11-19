@@ -1,8 +1,8 @@
 /**
  * WsResourcesStub.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:46:59 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:49:45 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wsresources.latest;
 
@@ -172,13 +172,13 @@ public class WsResourcesStub extends org.apache.axis2.client.Stub implements WsR
   public WsResourcesStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://10.1.1.180:8888/WsResources?ver_=1.03");
+    this(configurationContext, "http://172.22.164.102:8010/WsResources?ver_=1.04");
   }
 
   /** Default Constructor */
   public WsResourcesStub() throws org.apache.axis2.AxisFault {
 
-    this("http://10.1.1.180:8888/WsResources?ver_=1.03");
+    this("http://172.22.164.102:8010/WsResources?ver_=1.04");
   }
 
   /** Constructor taking the target endpoint */
@@ -202,7 +202,7 @@ public class WsResourcesStub extends org.apache.axis2.client.Stub implements WsR
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("WsResources/TargetQuery?ver_=1.03");
+      _operationClient.getOptions().setAction("WsResources/TargetQuery?ver_=1.04");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -326,7 +326,7 @@ public class WsResourcesStub extends org.apache.axis2.client.Stub implements WsR
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("WsResources/Ping?ver_=1.03");
+      _operationClient.getOptions().setAction("WsResources/Ping?ver_=1.04");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -451,7 +451,7 @@ public class WsResourcesStub extends org.apache.axis2.client.Stub implements WsR
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("WsResources/WebLinksQuery?ver_=1.03");
+      _operationClient.getOptions().setAction("WsResources/WebLinksQuery?ver_=1.04");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -575,7 +575,7 @@ public class WsResourcesStub extends org.apache.axis2.client.Stub implements WsR
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("WsResources/ServiceQuery?ver_=1.03");
+      _operationClient.getOptions().setAction("WsResources/ServiceQuery?ver_=1.04");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -696,7 +696,7 @@ public class WsResourcesStub extends org.apache.axis2.client.Stub implements WsR
     }
     return false;
   }
-  // http://10.1.1.180:8888/WsResources?ver_=1.03
+  // http://172.22.164.102:8010/WsResources?ver_=1.04
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wsresources.latest.TargetQueryRequest param,
       boolean optimizeContent)

@@ -1396,6 +1396,39 @@ public class DFUWorkunit implements org.apache.axis2.databinding.ADBBean {
     this.localStateMessage = param;
   }
 
+  /** field for StateReason */
+  protected java.lang.String localStateReason;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localStateReasonTracker = false;
+
+  public boolean isStateReasonSpecified() {
+    return localStateReasonTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getStateReason() {
+    return localStateReason;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param StateReason
+   */
+  public void setStateReason(java.lang.String param) {
+    localStateReasonTracker = param != null;
+
+    this.localStateReason = param;
+  }
+
   /** field for MonitorEventName */
   protected java.lang.String localMonitorEventName;
 
@@ -2672,6 +2705,22 @@ public class DFUWorkunit implements org.apache.axis2.databinding.ADBBean {
       } else {
 
         xmlWriter.writeCharacters(localStateMessage);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localStateReasonTracker) {
+      namespace = "urn:hpccsystems:ws:filespray";
+      writeStartElement(null, namespace, "StateReason", xmlWriter);
+
+      if (localStateReason == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("StateReason cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localStateReason);
       }
 
       xmlWriter.writeEndElement();
@@ -3963,6 +4012,25 @@ public class DFUWorkunit implements org.apache.axis2.databinding.ADBBean {
               java.lang.String content = reader.getElementText();
 
               object.setStateMessage(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "StateReason")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "StateReason" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setStateReason(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();

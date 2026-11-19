@@ -39,6 +39,7 @@ public class DFUQueryRequestWrapper
     protected int local_pageSize;
     protected int local_pageStartFrom;
     protected String local_sortby;
+    protected String local_fields;
     protected boolean local_descending;
     protected boolean local_oneLevelDirFileReturn;
     protected long local_cacheHint;
@@ -57,7 +58,7 @@ public class DFUQueryRequestWrapper
     {
         copy( dfuqueryrequest );
     }
-    public DFUQueryRequestWrapper( String _prefix, String _nodeGroup, String _contentType, boolean _invertContent, String _logicalName, String _owner, String _startDate, String _endDate, String _fileType, long _fileSizeFrom, long _fileSizeTo, int _firstN, int _pageSize, int _pageStartFrom, String _sortby, boolean _descending, boolean _oneLevelDirFileReturn, long _cacheHint, int _maxNumberOfFiles, boolean _includeSuperOwner, String _startAccessedTime, String _endAccessedTime, long _maxSkewFrom, long _maxSkewTo, long _minSkewFrom, long _minSkewTo )
+    public DFUQueryRequestWrapper( String _prefix, String _nodeGroup, String _contentType, boolean _invertContent, String _logicalName, String _owner, String _startDate, String _endDate, String _fileType, long _fileSizeFrom, long _fileSizeTo, int _firstN, int _pageSize, int _pageStartFrom, String _sortby, String _fields, boolean _descending, boolean _oneLevelDirFileReturn, long _cacheHint, int _maxNumberOfFiles, boolean _includeSuperOwner, String _startAccessedTime, String _endAccessedTime, long _maxSkewFrom, long _maxSkewTo, long _minSkewFrom, long _minSkewTo )
     {
         this.local_prefix = _prefix;
         this.local_nodeGroup = _nodeGroup;
@@ -74,6 +75,7 @@ public class DFUQueryRequestWrapper
         this.local_pageSize = _pageSize;
         this.local_pageStartFrom = _pageStartFrom;
         this.local_sortby = _sortby;
+        this.local_fields = _fields;
         this.local_descending = _descending;
         this.local_oneLevelDirFileReturn = _oneLevelDirFileReturn;
         this.local_cacheHint = _cacheHint;
@@ -108,6 +110,7 @@ public class DFUQueryRequestWrapper
         this.local_pageSize = raw.getPageSize();
         this.local_pageStartFrom = raw.getPageStartFrom();
         this.local_sortby = raw.getSortby();
+        this.local_fields = raw.getFields();
         this.local_descending = raw.getDescending();
         this.local_oneLevelDirFileReturn = raw.getOneLevelDirFileReturn();
         this.local_cacheHint = raw.getCacheHint();
@@ -125,7 +128,7 @@ public class DFUQueryRequestWrapper
     @Override
     public String toString()
     {
-        return "DFUQueryRequestWrapper [" + "prefix = " + local_prefix + ", " + "nodeGroup = " + local_nodeGroup + ", " + "contentType = " + local_contentType + ", " + "invertContent = " + local_invertContent + ", " + "logicalName = " + local_logicalName + ", " + "owner = " + local_owner + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "fileType = " + local_fileType + ", " + "fileSizeFrom = " + local_fileSizeFrom + ", " + "fileSizeTo = " + local_fileSizeTo + ", " + "firstN = " + local_firstN + ", " + "pageSize = " + local_pageSize + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "sortby = " + local_sortby + ", " + "descending = " + local_descending + ", " + "oneLevelDirFileReturn = " + local_oneLevelDirFileReturn + ", " + "cacheHint = " + local_cacheHint + ", " + "maxNumberOfFiles = " + local_maxNumberOfFiles + ", " + "includeSuperOwner = " + local_includeSuperOwner + ", " + "startAccessedTime = " + local_startAccessedTime + ", " + "endAccessedTime = " + local_endAccessedTime + ", " + "maxSkewFrom = " + local_maxSkewFrom + ", " + "maxSkewTo = " + local_maxSkewTo + ", " + "minSkewFrom = " + local_minSkewFrom + ", " + "minSkewTo = " + local_minSkewTo + "]";
+        return "DFUQueryRequestWrapper [" + "prefix = " + local_prefix + ", " + "nodeGroup = " + local_nodeGroup + ", " + "contentType = " + local_contentType + ", " + "invertContent = " + local_invertContent + ", " + "logicalName = " + local_logicalName + ", " + "owner = " + local_owner + ", " + "startDate = " + local_startDate + ", " + "endDate = " + local_endDate + ", " + "fileType = " + local_fileType + ", " + "fileSizeFrom = " + local_fileSizeFrom + ", " + "fileSizeTo = " + local_fileSizeTo + ", " + "firstN = " + local_firstN + ", " + "pageSize = " + local_pageSize + ", " + "pageStartFrom = " + local_pageStartFrom + ", " + "sortby = " + local_sortby + ", " + "fields = " + local_fields + ", " + "descending = " + local_descending + ", " + "oneLevelDirFileReturn = " + local_oneLevelDirFileReturn + ", " + "cacheHint = " + local_cacheHint + ", " + "maxNumberOfFiles = " + local_maxNumberOfFiles + ", " + "includeSuperOwner = " + local_includeSuperOwner + ", " + "startAccessedTime = " + local_startAccessedTime + ", " + "endAccessedTime = " + local_endAccessedTime + ", " + "maxSkewFrom = " + local_maxSkewFrom + ", " + "maxSkewTo = " + local_maxSkewTo + ", " + "minSkewFrom = " + local_minSkewFrom + ", " + "minSkewTo = " + local_minSkewTo + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsdfu.latest.DFUQueryRequest getRaw()
     {
@@ -145,6 +148,7 @@ public class DFUQueryRequestWrapper
         raw.setPageSize( local_pageSize);
         raw.setPageStartFrom( local_pageStartFrom);
         raw.setSortby( local_sortby);
+        raw.setFields( local_fields);
         raw.setDescending( local_descending);
         raw.setOneLevelDirFileReturn( local_oneLevelDirFileReturn);
         raw.setCacheHint( local_cacheHint);
@@ -279,6 +283,14 @@ public class DFUQueryRequestWrapper
     public String getSortby( )
     {
         return this.local_sortby;
+    }
+    public void setFields( String _fields )
+    {
+        this.local_fields = _fields;
+    }
+    public String getFields( )
+    {
+        return this.local_fields;
     }
     public void setDescending( boolean _descending )
     {

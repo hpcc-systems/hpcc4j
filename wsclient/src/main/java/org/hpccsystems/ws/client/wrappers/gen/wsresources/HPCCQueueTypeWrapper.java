@@ -1,7 +1,5 @@
 package org.hpccsystems.ws.client.wrappers.gen.wsresources;
 
-import org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType;
-
 /*******************************************************************************
  * HPCC SYSTEMS software Copyright (C) 2021 HPCC Systems.
  *
@@ -54,6 +52,8 @@ public class HPCCQueueTypeWrapper
     {
         return "HPCCQueueTypeWrapper [" + "hPCCQueueType = " + local_hPCCQueueType + "]";
     }
+
+    // Note: this method was manually filled out due to an limitation in the wrapper generator.
     public org.hpccsystems.ws.client.gen.axis2.wsresources.latest.HPCCQueueType getRaw()
     {
         if (local_hPCCQueueType.equalsIgnoreCase("ALL"))

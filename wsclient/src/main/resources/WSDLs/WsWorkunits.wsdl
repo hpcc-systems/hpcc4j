@@ -116,6 +116,54 @@
 			</xsd:simpleType>
 			
       
+			<xsd:simpleType name="WUQueryActivationMode">
+				
+        
+				<xsd:annotation>
+					
+          
+					<xsd:appinfo>
+						
+            
+						<item name="0" description="Do not activate query"/>
+						
+            
+						<item name="1" description="Activate query"/>
+						
+            
+						<item name="2" description="Activate query, suspend previous"/>
+						
+            
+						<item name="3" description="Activate query, delete previous"/>
+						
+          
+					</xsd:appinfo>
+					
+        
+				</xsd:annotation>
+				
+        
+				<xsd:restriction base="xsd:int">
+					
+          
+					<xsd:enumeration value="0"/>
+					
+          
+					<xsd:enumeration value="1"/>
+					
+          
+					<xsd:enumeration value="2"/>
+					
+          
+					<xsd:enumeration value="3"/>
+					
+        
+				</xsd:restriction>
+				
+      
+			</xsd:simpleType>
+			
+      
 			<xsd:simpleType name="LogSelectColumnMode">
 				
         
@@ -365,6 +413,102 @@
 			</xsd:simpleType>
 			
       
+			<xsd:simpleType name="WUFileDownloadOption">
+				
+        
+				<xsd:annotation>
+					
+          
+					<xsd:appinfo>
+						
+            
+						<item name="0" description="OriginalText"/>
+						
+            
+						<item name="1" description="Attachment"/>
+						
+            
+						<item name="2" description="ZIP"/>
+						
+            
+						<item name="3" description="GZIP"/>
+						
+          
+					</xsd:appinfo>
+					
+        
+				</xsd:annotation>
+				
+        
+				<xsd:restriction base="xsd:int">
+					
+          
+					<xsd:enumeration value="0"/>
+					
+          
+					<xsd:enumeration value="1"/>
+					
+          
+					<xsd:enumeration value="2"/>
+					
+          
+					<xsd:enumeration value="3"/>
+					
+        
+				</xsd:restriction>
+				
+      
+			</xsd:simpleType>
+			
+      
+			<xsd:simpleType name="WUFileType">
+				
+        
+				<xsd:restriction base="xsd:string">
+					
+          
+					<xsd:enumeration value="XML"/>
+					
+          
+					<xsd:enumeration value="cpp"/>
+					
+          
+					<xsd:enumeration value="dll"/>
+					
+          
+					<xsd:enumeration value="res"/>
+					
+          
+					<xsd:enumeration value="log"/>
+					
+          
+					<xsd:enumeration value="WUECL"/>
+					
+          
+					<xsd:enumeration value="ThorLog"/>
+					
+          
+					<xsd:enumeration value="ThorSlaveLog"/>
+					
+          
+					<xsd:enumeration value="EclAgentLog"/>
+					
+          
+					<xsd:enumeration value="ArchiveQuery"/>
+					
+          
+					<xsd:enumeration value="ComponentLog"/>
+					
+          
+					<xsd:enumeration value="PostMortem"/>
+					
+        
+				</xsd:restriction>
+				
+      
+			</xsd:simpleType>
+			
+      
 			<xsd:simpleType name="WUQueryFilterSuspendedType">
 				
         
@@ -504,54 +648,6 @@
 					
           
 					<xsd:enumeration value="ResetQueryStats"/>
-					
-        
-				</xsd:restriction>
-				
-      
-			</xsd:simpleType>
-			
-      
-			<xsd:simpleType name="WUQueryActivationMode">
-				
-        
-				<xsd:annotation>
-					
-          
-					<xsd:appinfo>
-						
-            
-						<item name="0" description="Do not activate query"/>
-						
-            
-						<item name="1" description="Activate query"/>
-						
-            
-						<item name="2" description="Activate query, suspend previous"/>
-						
-            
-						<item name="3" description="Activate query, delete previous"/>
-						
-          
-					</xsd:appinfo>
-					
-        
-				</xsd:annotation>
-				
-        
-				<xsd:restriction base="xsd:int">
-					
-          
-					<xsd:enumeration value="0"/>
-					
-          
-					<xsd:enumeration value="1"/>
-					
-          
-					<xsd:enumeration value="2"/>
-					
-          
-					<xsd:enumeration value="3"/>
 					
         
 				</xsd:restriction>
@@ -1481,7 +1577,34 @@
 					<xsd:element minOccurs="0" name="PodName" type="xsd:string"/>
 					
           
+					<xsd:element minOccurs="0" name="ContainerName" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="Graphs">
+						
+            
+						<xsd:complexType>
+							
+              
+							<xsd:sequence>
+								
+                
+								<xsd:element minOccurs="0" maxOccurs="unbounded" name="Graph" type="xsd:string"/>
+								
+              
+							</xsd:sequence>
+							
+            
+						</xsd:complexType>
+						
+          
+					</xsd:element>
+					
+          
 					<xsd:element minOccurs="0" name="InstanceNumber" type="xsd:int" default="1"/>
+					
+          
+					<xsd:element minOccurs="0" name="Sequence" type="xsd:string"/>
 					
           
 					<xsd:element minOccurs="0" name="Log" type="xsd:string"/>
@@ -1509,6 +1632,45 @@
 					
           
 					<xsd:element minOccurs="0" maxOccurs="unbounded" name="ECLWUProcess" type="tns:ECLWUProcess"/>
+					
+        
+				</xsd:sequence>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="ECLWUFileSummary">
+				
+        
+				<xsd:all>
+					
+          
+					<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="IsOpt" type="xsd:boolean" default="false"/>
+					
+          
+					<xsd:element minOccurs="0" name="IsSigned" type="xsd:boolean" default="false"/>
+					
+        
+				</xsd:all>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="ArrayOfECLWUFileSummary">
+				
+        
+				<xsd:sequence>
+					
+          
+					<xsd:element minOccurs="0" maxOccurs="unbounded" name="ECLWUFileSummary" type="tns:ECLWUFileSummary"/>
 					
         
 				</xsd:sequence>
@@ -1781,6 +1943,9 @@
 					<xsd:element minOccurs="0" name="FileAccessCost" type="xsd:double"/>
 					
           
+					<xsd:element minOccurs="0" name="CostSavingPotential" type="xsd:double"/>
+					
+          
 					<xsd:element minOccurs="0" name="CompileCost" type="xsd:double"/>
 					
           
@@ -1788,6 +1953,12 @@
 					
           
 					<xsd:element minOccurs="0" name="ECLWUProcessList" type="tns:ArrayOfECLWUProcess"/>
+					
+          
+					<xsd:element minOccurs="0" name="FailureDesc" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="FileSummaries" type="tns:ArrayOfECLWUFileSummary"/>
 					
         
 				</xsd:all>
@@ -1859,7 +2030,7 @@
 					<xsd:element minOccurs="0" name="ComponentsFilter" type="tns:EspStringArray"/>
 					
           
-					<xsd:element minOccurs="0" name="Format" type="tns:LogAccessLogFormat" default="CSV"/>
+					<xsd:element minOccurs="0" name="Format" type="xsd:string" default="CSV"/>
 					
           
 					<xsd:element minOccurs="0" name="sortByTimeDirection" type="tns:SortDirection" default="1"/>
@@ -2598,6 +2769,78 @@
 					
           
 					<xsd:element minOccurs="0" maxOccurs="unbounded" name="ThorQueue" type="tns:ThorQueue"/>
+					
+        
+				</xsd:sequence>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="WUFileOption">
+				
+        
+				<xsd:all>
+					
+          
+					<xsd:element minOccurs="0" name="FileType" type="tns:WUFileType" default="XML"/>
+					
+          
+					<xsd:element minOccurs="0" name="Name" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="IPAddress" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="Description" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="Process" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="LogDate" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="ClusterGroup" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="PlainText" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="SlaveNumber" type="xsd:int" default="1"/>
+					
+          
+					<xsd:element minOccurs="0" name="SizeLimit" type="xsd:long" default="0"/>
+					
+          
+					<xsd:element minOccurs="0" name="MaxLogRecords" type="xsd:unsignedInt"/>
+					
+          
+					<xsd:element minOccurs="0" name="LogSelectColumnMode" type="tns:LogSelectColumnMode" default="1"/>
+					
+          
+					<xsd:element minOccurs="0" name="LogFormat" type="tns:LogAccessLogFormat" default="0"/>
+					
+          
+					<xsd:element minOccurs="0" name="LogSearchTimeBuffSecs" type="xsd:unsignedInt"/>
+					
+          
+					<xsd:element minOccurs="0" name="LogColumns" type="tns:EspStringArray"/>
+					
+        
+				</xsd:all>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="ArrayOfWUFileOption">
+				
+        
+				<xsd:sequence>
+					
+          
+					<xsd:element minOccurs="0" maxOccurs="unbounded" name="WUFileOption" type="tns:WUFileOption"/>
 					
         
 				</xsd:sequence>
@@ -4198,6 +4441,12 @@
             
 						<xsd:element minOccurs="0" name="KeyCompression" type="xsd:string"/>
 						
+            
+						<xsd:element minOccurs="0" name="DfuTargetPlane" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="Activate" type="tns:WUQueryActivationMode"/>
+						
           
 					</xsd:all>
 					
@@ -4695,6 +4944,9 @@
 						
             
 						<xsd:element minOccurs="0" name="RemoteStorage" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="DfuTargetPlane" type="xsd:string"/>
 						
           
 					</xsd:all>
@@ -5243,6 +5495,33 @@
 			</xsd:element>
 			
       
+			<xsd:element name="WUHelperFileArchive">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="Wuid" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="DownloadOption" type="tns:WUFileDownloadOption" default="2"/>
+						
+            
+						<xsd:element minOccurs="0" name="WUFileOptions" type="tns:ArrayOfWUFileOption"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
 			<xsd:element name="WUInfo">
 				
         
@@ -5313,6 +5592,9 @@
 						
             
 						<xsd:element minOccurs="0" name="IncludeProcesses" type="xsd:boolean" default="false"/>
+						
+            
+						<xsd:element minOccurs="0" name="IncludeFileSummaries" type="xsd:boolean" default="false"/>
 						
             
 						<xsd:element minOccurs="0" name="SuppressResultSchemas" type="xsd:boolean" default="false"/>
@@ -5400,6 +5682,9 @@
 						
             
 						<xsd:element minOccurs="0" name="IncludeProcesses" type="xsd:boolean" default="false"/>
+						
+            
+						<xsd:element minOccurs="0" name="IncludeFileSummaries" type="xsd:boolean" default="false"/>
 						
             
 						<xsd:element minOccurs="0" name="SuppressResultSchemas" type="xsd:boolean" default="false"/>
@@ -5869,6 +6154,9 @@
             
 						<xsd:element minOccurs="0" name="KeyCompression" type="xsd:string"/>
 						
+            
+						<xsd:element minOccurs="0" name="DfuTargetPlane" type="xsd:string"/>
+						
           
 					</xsd:all>
 					
@@ -5982,6 +6270,9 @@
 						
             
 						<xsd:element minOccurs="0" name="MinimumCompileCost" type="xsd:double" default="0"/>
+						
+            
+						<xsd:element minOccurs="0" name="ErrorContents" type="xsd:string"/>
 						
             
 						<xsd:element minOccurs="0" name="Sortby" type="xsd:string"/>
@@ -6364,6 +6655,9 @@
             
 						<xsd:element minOccurs="0" name="KeyCompression" type="xsd:string"/>
 						
+            
+						<xsd:element minOccurs="0" name="DfuTargetPlane" type="xsd:string"/>
+						
           
 					</xsd:all>
 					
@@ -6519,6 +6813,9 @@
 						
             
 						<xsd:element minOccurs="0" name="KeyCompression" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="DfuTargetPlane" type="xsd:string"/>
 						
           
 					</xsd:all>
@@ -6696,6 +6993,9 @@
 						
             
 						<xsd:element minOccurs="0" name="KeyCompression" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="DfuTargetPlane" type="xsd:string"/>
 						
           
 					</xsd:all>
@@ -8547,6 +8847,30 @@
 						
             
 						<xsd:element minOccurs="0" name="Workunit" type="tns:ECLWorkunit"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="WUHelperFileArchiveResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="thefile" type="xsd:base64Binary"/>
 						
           
 					</xsd:all>
@@ -10985,6 +11309,24 @@
 	</message>
 	
   
+	<message name="WUHelperFileArchiveSoapIn">
+		
+    
+		<part name="parameters" element="tns:WUHelperFileArchive"/>
+		
+  
+	</message>
+	
+  
+	<message name="WUHelperFileArchiveSoapOut">
+		
+    
+		<part name="parameters" element="tns:WUHelperFileArchiveResponse"/>
+		
+  
+	</message>
+	
+  
 	<message name="WUInfoSoapIn">
 		
     
@@ -12329,6 +12671,21 @@
 		</operation>
 		
     
+		<operation name="WUHelperFileArchive">
+			
+      
+			<input message="tns:WUHelperFileArchiveSoapIn"/>
+			
+      
+			<output message="tns:WUHelperFileArchiveSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
 		<operation name="WUInfo">
 			
       
@@ -12971,7 +13328,7 @@
 		<operation name="GVCAjaxGraph">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/GVCAjaxGraph?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/GVCAjaxGraph?ver_=2.09"/>
 			
       
 			<input>
@@ -13007,7 +13364,7 @@
 		<operation name="Ping">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/Ping?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/Ping?ver_=2.09"/>
 			
       
 			<input>
@@ -13043,7 +13400,7 @@
 		<operation name="WUAbort">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUAbort?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUAbort?ver_=2.09"/>
 			
       
 			<input>
@@ -13079,7 +13436,7 @@
 		<operation name="WUAction">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUAction?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUAction?ver_=2.09"/>
 			
       
 			<input>
@@ -13115,7 +13472,7 @@
 		<operation name="WUAddLocalFileToWorkunit">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUAddLocalFileToWorkunit?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUAddLocalFileToWorkunit?ver_=2.09"/>
 			
       
 			<input>
@@ -13151,7 +13508,7 @@
 		<operation name="WUAnalyseHotspot">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUAnalyseHotspot?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUAnalyseHotspot?ver_=2.09"/>
 			
       
 			<input>
@@ -13187,7 +13544,7 @@
 		<operation name="WUCDebug">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUCDebug?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUCDebug?ver_=2.09"/>
 			
       
 			<input>
@@ -13223,7 +13580,7 @@
 		<operation name="WUCheckFeatures">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUCheckFeatures?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUCheckFeatures?ver_=2.09"/>
 			
       
 			<input>
@@ -13259,7 +13616,7 @@
 		<operation name="WUClusterJobQueueLOG">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUClusterJobQueueLOG?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUClusterJobQueueLOG?ver_=2.09"/>
 			
       
 			<input>
@@ -13295,7 +13652,7 @@
 		<operation name="WUClusterJobQueueXLS">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUClusterJobQueueXLS?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUClusterJobQueueXLS?ver_=2.09"/>
 			
       
 			<input>
@@ -13331,7 +13688,7 @@
 		<operation name="WUClusterJobSummaryXLS">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUClusterJobSummaryXLS?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUClusterJobSummaryXLS?ver_=2.09"/>
 			
       
 			<input>
@@ -13367,7 +13724,7 @@
 		<operation name="WUClusterJobXLS">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUClusterJobXLS?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUClusterJobXLS?ver_=2.09"/>
 			
       
 			<input>
@@ -13403,7 +13760,7 @@
 		<operation name="WUCompileECL">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUCompileECL?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUCompileECL?ver_=2.09"/>
 			
       
 			<input>
@@ -13439,7 +13796,7 @@
 		<operation name="WUCopyLogicalFiles">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUCopyLogicalFiles?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUCopyLogicalFiles?ver_=2.09"/>
 			
       
 			<input>
@@ -13475,7 +13832,7 @@
 		<operation name="WUCopyQuerySet">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUCopyQuerySet?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUCopyQuerySet?ver_=2.09"/>
 			
       
 			<input>
@@ -13511,7 +13868,7 @@
 		<operation name="WUCreate">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUCreate?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUCreate?ver_=2.09"/>
 			
       
 			<input>
@@ -13547,7 +13904,7 @@
 		<operation name="WUCreateAndUpdate">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUCreateAndUpdate?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUCreateAndUpdate?ver_=2.09"/>
 			
       
 			<input>
@@ -13583,7 +13940,7 @@
 		<operation name="WUCreateZAPInfo">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUCreateZAPInfo?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUCreateZAPInfo?ver_=2.09"/>
 			
       
 			<input>
@@ -13619,7 +13976,7 @@
 		<operation name="WUDelete">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUDelete?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUDelete?ver_=2.09"/>
 			
       
 			<input>
@@ -13655,7 +14012,7 @@
 		<operation name="WUDeployWorkunit">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUDeployWorkunit?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUDeployWorkunit?ver_=2.09"/>
 			
       
 			<input>
@@ -13691,7 +14048,7 @@
 		<operation name="WUDetails">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUDetails?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUDetails?ver_=2.09"/>
 			
       
 			<input>
@@ -13727,7 +14084,7 @@
 		<operation name="WUDetailsMeta">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUDetailsMeta?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUDetailsMeta?ver_=2.09"/>
 			
       
 			<input>
@@ -13763,7 +14120,7 @@
 		<operation name="WUEclDefinitionAction">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUEclDefinitionAction?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUEclDefinitionAction?ver_=2.09"/>
 			
       
 			<input>
@@ -13799,7 +14156,7 @@
 		<operation name="WUExport">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUExport?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUExport?ver_=2.09"/>
 			
       
 			<input>
@@ -13835,7 +14192,7 @@
 		<operation name="WUFile">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUFile?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUFile?ver_=2.09"/>
 			
       
 			<input>
@@ -13871,7 +14228,7 @@
 		<operation name="WUFullResult">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUFullResult?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUFullResult?ver_=2.09"/>
 			
       
 			<input>
@@ -13907,7 +14264,7 @@
 		<operation name="WUGVCGraphInfo">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGVCGraphInfo?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGVCGraphInfo?ver_=2.09"/>
 			
       
 			<input>
@@ -13943,7 +14300,7 @@
 		<operation name="WUGetArchiveFile">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGetArchiveFile?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGetArchiveFile?ver_=2.09"/>
 			
       
 			<input>
@@ -13979,7 +14336,7 @@
 		<operation name="WUGetDependancyTrees">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGetDependancyTrees?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGetDependancyTrees?ver_=2.09"/>
 			
       
 			<input>
@@ -14015,7 +14372,7 @@
 		<operation name="WUGetGraph">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGetGraph?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGetGraph?ver_=2.09"/>
 			
       
 			<input>
@@ -14051,7 +14408,7 @@
 		<operation name="WUGetGraphNameAndTypes">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGetGraphNameAndTypes?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGetGraphNameAndTypes?ver_=2.09"/>
 			
       
 			<input>
@@ -14087,7 +14444,7 @@
 		<operation name="WUGetNumFileToCopy">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGetNumFileToCopy?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGetNumFileToCopy?ver_=2.09"/>
 			
       
 			<input>
@@ -14123,7 +14480,7 @@
 		<operation name="WUGetPlugins">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGetPlugins?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGetPlugins?ver_=2.09"/>
 			
       
 			<input>
@@ -14159,7 +14516,7 @@
 		<operation name="WUGetStats">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGetStats?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGetStats?ver_=2.09"/>
 			
       
 			<input>
@@ -14195,7 +14552,7 @@
 		<operation name="WUGetThorJobList">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGetThorJobList?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGetThorJobList?ver_=2.09"/>
 			
       
 			<input>
@@ -14231,7 +14588,7 @@
 		<operation name="WUGetThorJobQueue">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGetThorJobQueue?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGetThorJobQueue?ver_=2.09"/>
 			
       
 			<input>
@@ -14267,7 +14624,7 @@
 		<operation name="WUGetZAPInfo">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGetZAPInfo?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGetZAPInfo?ver_=2.09"/>
 			
       
 			<input>
@@ -14303,7 +14660,7 @@
 		<operation name="WUGraphInfo">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGraphInfo?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGraphInfo?ver_=2.09"/>
 			
       
 			<input>
@@ -14339,7 +14696,43 @@
 		<operation name="WUGraphTiming">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUGraphTiming?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUGraphTiming?ver_=2.09"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="WUHelperFileArchive">
+			
+      
+			<soap:operation style="document" soapAction="WsWorkunits/WUHelperFileArchive?ver_=2.09"/>
 			
       
 			<input>
@@ -14375,7 +14768,7 @@
 		<operation name="WUInfo">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUInfo?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUInfo?ver_=2.09"/>
 			
       
 			<input>
@@ -14411,7 +14804,7 @@
 		<operation name="WUInfoDetails">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUInfoDetails?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUInfoDetails?ver_=2.09"/>
 			
       
 			<input>
@@ -14447,7 +14840,7 @@
 		<operation name="WUJobList">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUJobList?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUJobList?ver_=2.09"/>
 			
       
 			<input>
@@ -14483,7 +14876,7 @@
 		<operation name="WULightWeightQuery">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WULightWeightQuery?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WULightWeightQuery?ver_=2.09"/>
 			
       
 			<input>
@@ -14519,7 +14912,7 @@
 		<operation name="WUListArchiveFiles">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUListArchiveFiles?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUListArchiveFiles?ver_=2.09"/>
 			
       
 			<input>
@@ -14555,7 +14948,7 @@
 		<operation name="WUListLocalFileRequired">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUListLocalFileRequired?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUListLocalFileRequired?ver_=2.09"/>
 			
       
 			<input>
@@ -14591,7 +14984,7 @@
 		<operation name="WUListQueries">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUListQueries?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUListQueries?ver_=2.09"/>
 			
       
 			<input>
@@ -14627,7 +15020,7 @@
 		<operation name="WUListQueriesUsingFile">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUListQueriesUsingFile?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUListQueriesUsingFile?ver_=2.09"/>
 			
       
 			<input>
@@ -14663,7 +15056,7 @@
 		<operation name="WUMultiQuerysetDetails">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUMultiQuerysetDetails?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUMultiQuerysetDetails?ver_=2.09"/>
 			
       
 			<input>
@@ -14699,7 +15092,7 @@
 		<operation name="WUProcessGraph">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUProcessGraph?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUProcessGraph?ver_=2.09"/>
 			
       
 			<input>
@@ -14735,7 +15128,7 @@
 		<operation name="WUProtect">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUProtect?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUProtect?ver_=2.09"/>
 			
       
 			<input>
@@ -14771,7 +15164,7 @@
 		<operation name="WUPublishWorkunit">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUPublishWorkunit?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUPublishWorkunit?ver_=2.09"/>
 			
       
 			<input>
@@ -14807,7 +15200,7 @@
 		<operation name="WUPushEvent">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUPushEvent?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUPushEvent?ver_=2.09"/>
 			
       
 			<input>
@@ -14843,7 +15236,7 @@
 		<operation name="WUQuery">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQuery?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQuery?ver_=2.09"/>
 			
       
 			<input>
@@ -14879,7 +15272,7 @@
 		<operation name="WUQueryConfig">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQueryConfig?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQueryConfig?ver_=2.09"/>
 			
       
 			<input>
@@ -14915,7 +15308,7 @@
 		<operation name="WUQueryDetails">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQueryDetails?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQueryDetails?ver_=2.09"/>
 			
       
 			<input>
@@ -14951,7 +15344,7 @@
 		<operation name="WUQueryDetailsLightWeight">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQueryDetailsLightWeight?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQueryDetailsLightWeight?ver_=2.09"/>
 			
       
 			<input>
@@ -14987,7 +15380,7 @@
 		<operation name="WUQueryFiles">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQueryFiles?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQueryFiles?ver_=2.09"/>
 			
       
 			<input>
@@ -15023,7 +15416,7 @@
 		<operation name="WUQueryGetGraph">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQueryGetGraph?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQueryGetGraph?ver_=2.09"/>
 			
       
 			<input>
@@ -15059,7 +15452,7 @@
 		<operation name="WUQueryGetSummaryStats">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQueryGetSummaryStats?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQueryGetSummaryStats?ver_=2.09"/>
 			
       
 			<input>
@@ -15095,7 +15488,7 @@
 		<operation name="WUQuerysetAliasAction">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetAliasAction?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetAliasAction?ver_=2.09"/>
 			
       
 			<input>
@@ -15131,7 +15524,7 @@
 		<operation name="WUQuerysetCopyQuery">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetCopyQuery?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetCopyQuery?ver_=2.09"/>
 			
       
 			<input>
@@ -15167,7 +15560,7 @@
 		<operation name="WUQuerysetDetails">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetDetails?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetDetails?ver_=2.09"/>
 			
       
 			<input>
@@ -15203,7 +15596,7 @@
 		<operation name="WUQuerysetExport">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetExport?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetExport?ver_=2.09"/>
 			
       
 			<input>
@@ -15239,7 +15632,7 @@
 		<operation name="WUQuerysetImport">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetImport?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetImport?ver_=2.09"/>
 			
       
 			<input>
@@ -15275,7 +15668,7 @@
 		<operation name="WUQuerysetQueryAction">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetQueryAction?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysetQueryAction?ver_=2.09"/>
 			
       
 			<input>
@@ -15311,7 +15704,7 @@
 		<operation name="WUQuerysets">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysets?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUQuerysets?ver_=2.09"/>
 			
       
 			<input>
@@ -15347,7 +15740,7 @@
 		<operation name="WURecreateQuery">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WURecreateQuery?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WURecreateQuery?ver_=2.09"/>
 			
       
 			<input>
@@ -15383,7 +15776,7 @@
 		<operation name="WUResubmit">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUResubmit?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUResubmit?ver_=2.09"/>
 			
       
 			<input>
@@ -15419,7 +15812,7 @@
 		<operation name="WUResult">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUResult?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUResult?ver_=2.09"/>
 			
       
 			<input>
@@ -15455,7 +15848,7 @@
 		<operation name="WUResultBin">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUResultBin?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUResultBin?ver_=2.09"/>
 			
       
 			<input>
@@ -15491,7 +15884,7 @@
 		<operation name="WUResultSummary">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUResultSummary?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUResultSummary?ver_=2.09"/>
 			
       
 			<input>
@@ -15527,7 +15920,7 @@
 		<operation name="WUResultView">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUResultView?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUResultView?ver_=2.09"/>
 			
       
 			<input>
@@ -15563,7 +15956,7 @@
 		<operation name="WURun">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WURun?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WURun?ver_=2.09"/>
 			
       
 			<input>
@@ -15599,7 +15992,7 @@
 		<operation name="WUSchedule">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUSchedule?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUSchedule?ver_=2.09"/>
 			
       
 			<input>
@@ -15635,7 +16028,7 @@
 		<operation name="WUShowScheduled">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUShowScheduled?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUShowScheduled?ver_=2.09"/>
 			
       
 			<input>
@@ -15671,7 +16064,7 @@
 		<operation name="WUSubmit">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUSubmit?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUSubmit?ver_=2.09"/>
 			
       
 			<input>
@@ -15707,7 +16100,7 @@
 		<operation name="WUSyntaxCheckECL">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUSyntaxCheckECL?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUSyntaxCheckECL?ver_=2.09"/>
 			
       
 			<input>
@@ -15743,7 +16136,7 @@
 		<operation name="WUUpdate">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUUpdate?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUUpdate?ver_=2.09"/>
 			
       
 			<input>
@@ -15779,7 +16172,7 @@
 		<operation name="WUUpdateQueryEntry">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUUpdateQueryEntry?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUUpdateQueryEntry?ver_=2.09"/>
 			
       
 			<input>
@@ -15815,7 +16208,7 @@
 		<operation name="WUWaitCompiled">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUWaitCompiled?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUWaitCompiled?ver_=2.09"/>
 			
       
 			<input>
@@ -15851,7 +16244,7 @@
 		<operation name="WUWaitComplete">
 			
       
-			<soap:operation style="document" soapAction="WsWorkunits/WUWaitComplete?ver_=2.02"/>
+			<soap:operation style="document" soapAction="WsWorkunits/WUWaitComplete?ver_=2.09"/>
 			
       
 			<input>
@@ -15893,7 +16286,7 @@
 		<port name="WsWorkunitsServiceSoap" binding="tns:WsWorkunitsServiceSoap">
 			
       
-			<soap:address location="http://172.27.163.120:8010/WsWorkunits?ver_=2.02"/>
+			<soap:address location="http://172.22.164.102:8010/WsWorkunits?ver_=2.09"/>
 			
     
 		</port>

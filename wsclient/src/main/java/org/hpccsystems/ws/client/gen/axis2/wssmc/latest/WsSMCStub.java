@@ -1,8 +1,8 @@
 /**
  * WsSMCStub.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:46:59 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:49:45 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssmc.latest;
 
@@ -43,63 +43,28 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     // creating the operations
     org.apache.axis2.description.AxisOperation __operation;
 
-    _operations = new org.apache.axis2.description.AxisOperation[22];
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "lockQuery"));
-    _service.addOperation(__operation);
-
-    _operations[0] = __operation;
+    _operations = new org.apache.axis2.description.AxisOperation[25];
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "pauseQueue"));
     _service.addOperation(__operation);
 
-    _operations[1] = __operation;
+    _operations[0] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "resumeQueue"));
     _service.addOperation(__operation);
 
-    _operations[2] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "index"));
-    _service.addOperation(__operation);
-
-    _operations[3] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "activity"));
-    _service.addOperation(__operation);
-
-    _operations[4] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "moveJobDown"));
-    _service.addOperation(__operation);
-
-    _operations[5] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "setBanner"));
-    _service.addOperation(__operation);
-
-    _operations[6] = __operation;
+    _operations[1] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "moveJobBack"));
     _service.addOperation(__operation);
 
-    _operations[7] = __operation;
+    _operations[2] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -107,29 +72,21 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getStatusServerInfo"));
     _service.addOperation(__operation);
 
-    _operations[8] = __operation;
+    _operations[3] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "moveJobUp"));
     _service.addOperation(__operation);
 
-    _operations[9] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "roxieControlCmd"));
-    _service.addOperation(__operation);
-
-    _operations[10] = __operation;
+    _operations[4] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "ping"));
     _service.addOperation(__operation);
 
-    _operations[11] = __operation;
+    _operations[5] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -137,57 +94,30 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "browseResources"));
     _service.addOperation(__operation);
 
-    _operations[12] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getBuildInfo"));
-    _service.addOperation(__operation);
-
-    _operations[13] = __operation;
+    _operations[6] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "clearQueue"));
     _service.addOperation(__operation);
 
-    _operations[14] = __operation;
+    _operations[7] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
     __operation.setName(
-        new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getThorQueueAvailability"));
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "recordGlobalMetrics"));
     _service.addOperation(__operation);
 
-    _operations[15] = __operation;
+    _operations[8] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "moveJobFront"));
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getGlobalMetrics"));
     _service.addOperation(__operation);
 
-    _operations[16] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "roxieXrefCmd"));
-    _service.addOperation(__operation);
-
-    _operations[17] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "stopQueue"));
-    _service.addOperation(__operation);
-
-    _operations[18] = __operation;
-
-    __operation = new org.apache.axis2.description.OutInAxisOperation();
-
-    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "removeJob"));
-    _service.addOperation(__operation);
-
-    _operations[19] = __operation;
+    _operations[9] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -195,7 +125,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "setJobPriority"));
     _service.addOperation(__operation);
 
-    _operations[20] = __operation;
+    _operations[10] = __operation;
 
     __operation = new org.apache.axis2.description.OutInAxisOperation();
 
@@ -203,7 +133,100 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
         new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "notInCommunityEdition"));
     _service.addOperation(__operation);
 
+    _operations[11] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "lockQuery"));
+    _service.addOperation(__operation);
+
+    _operations[12] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "index"));
+    _service.addOperation(__operation);
+
+    _operations[13] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "activity"));
+    _service.addOperation(__operation);
+
+    _operations[14] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "moveJobDown"));
+    _service.addOperation(__operation);
+
+    _operations[15] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "setBanner"));
+    _service.addOperation(__operation);
+
+    _operations[16] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getBanner"));
+    _service.addOperation(__operation);
+
+    _operations[17] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "roxieControlCmd"));
+    _service.addOperation(__operation);
+
+    _operations[18] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getBuildInfo"));
+    _service.addOperation(__operation);
+
+    _operations[19] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(
+        new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getThorQueueAvailability"));
+    _service.addOperation(__operation);
+
+    _operations[20] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "moveJobFront"));
+    _service.addOperation(__operation);
+
     _operations[21] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "roxieXrefCmd"));
+    _service.addOperation(__operation);
+
+    _operations[22] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "stopQueue"));
+    _service.addOperation(__operation);
+
+    _operations[23] = __operation;
+
+    __operation = new org.apache.axis2.description.OutInAxisOperation();
+
+    __operation.setName(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "removeJob"));
+    _service.addOperation(__operation);
+
+    _operations[24] = __operation;
   }
 
   // populates the faults
@@ -211,19 +234,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
 
     faultExceptionNameMap.put(
         new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "LockQuery"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultExceptionClassNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "LockQuery"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultMessageMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "LockQuery"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
-
-    faultExceptionNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "PauseQueue"),
         "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
     faultExceptionClassNameMap.put(
@@ -246,6 +256,167 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     faultMessageMap.put(
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "ResumeQueue"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobBack"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobBack"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobBack"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "GetStatusServerInfo"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "GetStatusServerInfo"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "GetStatusServerInfo"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobUp"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobUp"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobUp"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "Ping"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "Ping"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "Ping"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "BrowseResources"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "BrowseResources"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "BrowseResources"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "ClearQueue"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "ClearQueue"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "ClearQueue"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "RecordGlobalMetrics"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "RecordGlobalMetrics"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "RecordGlobalMetrics"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "GetGlobalMetrics"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "GetGlobalMetrics"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "GetGlobalMetrics"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "SetJobPriority"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "SetJobPriority"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "SetJobPriority"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "NotInCommunityEdition"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "NotInCommunityEdition"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
+            "NotInCommunityEdition"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
+
+    faultExceptionNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "LockQuery"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultExceptionClassNameMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "LockQuery"),
+        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
+    faultMessageMap.put(
+        new org.apache.axis2.client.FaultMapKey(
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "LockQuery"),
         "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
 
     faultExceptionNameMap.put(
@@ -302,44 +473,15 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
 
     faultExceptionNameMap.put(
         new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobBack"),
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "GetBanner"),
         "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
     faultExceptionClassNameMap.put(
         new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobBack"),
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "GetBanner"),
         "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
     faultMessageMap.put(
         new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobBack"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
-
-    faultExceptionNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "GetStatusServerInfo"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultExceptionClassNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "GetStatusServerInfo"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultMessageMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "GetStatusServerInfo"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
-
-    faultExceptionNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobUp"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultExceptionClassNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobUp"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultMessageMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "MoveJobUp"),
+            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "GetBanner"),
         "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
 
     faultExceptionNameMap.put(
@@ -360,35 +502,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
 
     faultExceptionNameMap.put(
         new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "Ping"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultExceptionClassNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "Ping"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultMessageMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "Ping"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
-
-    faultExceptionNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "BrowseResources"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultExceptionClassNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "BrowseResources"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultMessageMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "BrowseResources"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
-
-    faultExceptionNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
             "GetBuildInfo"),
         "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
@@ -401,19 +514,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
             "GetBuildInfo"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
-
-    faultExceptionNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "ClearQueue"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultExceptionClassNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "ClearQueue"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultMessageMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "ClearQueue"),
         "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
 
     faultExceptionNameMap.put(
@@ -488,38 +588,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     faultMessageMap.put(
         new org.apache.axis2.client.FaultMapKey(
             new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"), "RemoveJob"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
-
-    faultExceptionNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "SetJobPriority"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultExceptionClassNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "SetJobPriority"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultMessageMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "SetJobPriority"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
-
-    faultExceptionNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "NotInCommunityEdition"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultExceptionClassNameMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "NotInCommunityEdition"),
-        "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault");
-    faultMessageMap.put(
-        new org.apache.axis2.client.FaultMapKey(
-            new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Exceptions"),
-            "NotInCommunityEdition"),
         "org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions");
   }
 
@@ -553,13 +621,13 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   public WsSMCStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://eclwatch-65768756c6-9sm8c:8888/WsSMC?ver_=1.27");
+    this(configurationContext, "http://172.22.164.102:8010/WsSMC?ver_=1.30");
   }
 
   /** Default Constructor */
   public WsSMCStub() throws org.apache.axis2.AxisFault {
 
-    this("http://eclwatch-65768756c6-9sm8c:8888/WsSMC?ver_=1.27");
+    this("http://172.22.164.102:8010/WsSMC?ver_=1.30");
   }
 
   /** Constructor taking the target endpoint */
@@ -570,12 +638,12 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#lockQuery
-   * @param lockQuery7
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#pauseQueue
+   * @param pauseQueue7
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse lockQuery(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery lockQuery7)
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse pauseQueue(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.PauseQueue pauseQueue7)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
@@ -583,7 +651,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("WsSMC/LockQuery?ver_=1.27");
+      _operationClient.getOptions().setAction("WsSMC/PauseQueue?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -597,129 +665,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              lockQuery7,
-              optimizeContent(
-                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "lockQuery")),
-              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "LockQuery"));
-
-      // adding SOAP soap_headers
-      _serviceClient.addHeadersToEnvelope(env);
-      // set the message context with that soap envelope
-      _messageContext.setEnvelope(env);
-
-      // add the message contxt to the operation client
-      _operationClient.addMessageContext(_messageContext);
-
-      // execute the operation client
-      _operationClient.execute(true);
-
-      org.apache.axis2.context.MessageContext _returnMessageContext =
-          _operationClient.getMessageContext(
-              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
-      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-      _returnEnv.buildWithAttachments();
-
-      java.lang.Object object =
-          fromOM(
-              _returnEnv.getBody().getFirstElement(),
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse.class);
-      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
-
-      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse) object;
-
-    } catch (org.apache.axis2.AxisFault f) {
-
-      org.apache.axiom.om.OMElement faultElt = f.getDetail();
-      if (faultElt != null) {
-        if (faultExceptionNameMap.containsKey(
-            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "LockQuery"))) {
-          // make the fault by reflection
-          try {
-            java.lang.String exceptionClassName =
-                faultExceptionClassNameMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "LockQuery"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
-            java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
-            // message class
-            java.lang.String messageClassName =
-                faultMessageMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "LockQuery"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
-            java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
-
-            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
-              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
-            }
-
-            throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.ClassNotFoundException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.NoSuchMethodException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.reflect.InvocationTargetException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.IllegalAccessException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.InstantiationException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          }
-        } else {
-          throw f;
-        }
-      } else {
-        throw f;
-      }
-    } finally {
-      if (_messageContext.getTransportOut() != null) {
-        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
-      }
-    }
-  }
-
-  /**
-   * Auto generated method signature
-   *
-   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#pauseQueue
-   * @param pauseQueue9
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse pauseQueue(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.PauseQueue pauseQueue9)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
-    org.apache.axis2.context.MessageContext _messageContext =
-        new org.apache.axis2.context.MessageContext();
-    try {
-      org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("WsSMC/PauseQueue?ver_=1.27");
-      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
-
-      addPropertyToOperationClient(
-          _operationClient,
-          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
-          "&");
-
-      // create SOAP envelope with that payload
-      org.apache.axiom.soap.SOAPEnvelope env = null;
-
-      env =
-          toEnvelope(
-              getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              pauseQueue9,
+              pauseQueue7,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "pauseQueue")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "PauseQueue"));
@@ -815,19 +761,19 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#resumeQueue
-   * @param resumeQueue11
+   * @param resumeQueue9
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse resumeQueue(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ResumeQueue resumeQueue11)
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ResumeQueue resumeQueue9)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("WsSMC/ResumeQueue?ver_=1.27");
+          _serviceClient.createClient(_operations[1].getName());
+      _operationClient.getOptions().setAction("WsSMC/ResumeQueue?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -841,7 +787,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              resumeQueue11,
+              resumeQueue9,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "resumeQueue")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "ResumeQueue"));
@@ -936,507 +882,20 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#index
-   * @param index13
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse index(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Index index13)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
-    org.apache.axis2.context.MessageContext _messageContext =
-        new org.apache.axis2.context.MessageContext();
-    try {
-      org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("WsSMC/Index?ver_=1.27");
-      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
-
-      addPropertyToOperationClient(
-          _operationClient,
-          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
-          "&");
-
-      // create SOAP envelope with that payload
-      org.apache.axiom.soap.SOAPEnvelope env = null;
-
-      env =
-          toEnvelope(
-              getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              index13,
-              optimizeContent(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "index")),
-              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Index"));
-
-      // adding SOAP soap_headers
-      _serviceClient.addHeadersToEnvelope(env);
-      // set the message context with that soap envelope
-      _messageContext.setEnvelope(env);
-
-      // add the message contxt to the operation client
-      _operationClient.addMessageContext(_messageContext);
-
-      // execute the operation client
-      _operationClient.execute(true);
-
-      org.apache.axis2.context.MessageContext _returnMessageContext =
-          _operationClient.getMessageContext(
-              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
-      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-      _returnEnv.buildWithAttachments();
-
-      java.lang.Object object =
-          fromOM(
-              _returnEnv.getBody().getFirstElement(),
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse.class);
-      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
-
-      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse) object;
-
-    } catch (org.apache.axis2.AxisFault f) {
-
-      org.apache.axiom.om.OMElement faultElt = f.getDetail();
-      if (faultElt != null) {
-        if (faultExceptionNameMap.containsKey(
-            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Index"))) {
-          // make the fault by reflection
-          try {
-            java.lang.String exceptionClassName =
-                faultExceptionClassNameMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Index"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
-            java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
-            // message class
-            java.lang.String messageClassName =
-                faultMessageMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Index"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
-            java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
-
-            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
-              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
-            }
-
-            throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.ClassNotFoundException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.NoSuchMethodException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.reflect.InvocationTargetException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.IllegalAccessException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.InstantiationException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          }
-        } else {
-          throw f;
-        }
-      } else {
-        throw f;
-      }
-    } finally {
-      if (_messageContext.getTransportOut() != null) {
-        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
-      }
-    }
-  }
-
-  /**
-   * Auto generated method signature
-   *
-   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#activity
-   * @param activity15
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActivityResponse activity(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Activity activity15)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
-    org.apache.axis2.context.MessageContext _messageContext =
-        new org.apache.axis2.context.MessageContext();
-    try {
-      org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[4].getName());
-      _operationClient.getOptions().setAction("WsSMC/Activity?ver_=1.27");
-      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
-
-      addPropertyToOperationClient(
-          _operationClient,
-          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
-          "&");
-
-      // create SOAP envelope with that payload
-      org.apache.axiom.soap.SOAPEnvelope env = null;
-
-      env =
-          toEnvelope(
-              getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              activity15,
-              optimizeContent(
-                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "activity")),
-              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Activity"));
-
-      // adding SOAP soap_headers
-      _serviceClient.addHeadersToEnvelope(env);
-      // set the message context with that soap envelope
-      _messageContext.setEnvelope(env);
-
-      // add the message contxt to the operation client
-      _operationClient.addMessageContext(_messageContext);
-
-      // execute the operation client
-      _operationClient.execute(true);
-
-      org.apache.axis2.context.MessageContext _returnMessageContext =
-          _operationClient.getMessageContext(
-              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
-      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-      _returnEnv.buildWithAttachments();
-
-      java.lang.Object object =
-          fromOM(
-              _returnEnv.getBody().getFirstElement(),
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActivityResponse.class);
-      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
-
-      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActivityResponse) object;
-
-    } catch (org.apache.axis2.AxisFault f) {
-
-      org.apache.axiom.om.OMElement faultElt = f.getDetail();
-      if (faultElt != null) {
-        if (faultExceptionNameMap.containsKey(
-            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Activity"))) {
-          // make the fault by reflection
-          try {
-            java.lang.String exceptionClassName =
-                faultExceptionClassNameMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Activity"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
-            java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
-            // message class
-            java.lang.String messageClassName =
-                faultMessageMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Activity"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
-            java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
-
-            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
-              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
-            }
-
-            throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.ClassNotFoundException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.NoSuchMethodException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.reflect.InvocationTargetException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.IllegalAccessException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.InstantiationException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          }
-        } else {
-          throw f;
-        }
-      } else {
-        throw f;
-      }
-    } finally {
-      if (_messageContext.getTransportOut() != null) {
-        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
-      }
-    }
-  }
-
-  /**
-   * Auto generated method signature
-   *
-   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#moveJobDown
-   * @param moveJobDown17
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse moveJobDown(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobDown moveJobDown17)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
-    org.apache.axis2.context.MessageContext _messageContext =
-        new org.apache.axis2.context.MessageContext();
-    try {
-      org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[5].getName());
-      _operationClient.getOptions().setAction("WsSMC/MoveJobDown?ver_=1.27");
-      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
-
-      addPropertyToOperationClient(
-          _operationClient,
-          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
-          "&");
-
-      // create SOAP envelope with that payload
-      org.apache.axiom.soap.SOAPEnvelope env = null;
-
-      env =
-          toEnvelope(
-              getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              moveJobDown17,
-              optimizeContent(
-                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "moveJobDown")),
-              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "MoveJobDown"));
-
-      // adding SOAP soap_headers
-      _serviceClient.addHeadersToEnvelope(env);
-      // set the message context with that soap envelope
-      _messageContext.setEnvelope(env);
-
-      // add the message contxt to the operation client
-      _operationClient.addMessageContext(_messageContext);
-
-      // execute the operation client
-      _operationClient.execute(true);
-
-      org.apache.axis2.context.MessageContext _returnMessageContext =
-          _operationClient.getMessageContext(
-              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
-      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-      _returnEnv.buildWithAttachments();
-
-      java.lang.Object object =
-          fromOM(
-              _returnEnv.getBody().getFirstElement(),
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse.class);
-      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
-
-      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse) object;
-
-    } catch (org.apache.axis2.AxisFault f) {
-
-      org.apache.axiom.om.OMElement faultElt = f.getDetail();
-      if (faultElt != null) {
-        if (faultExceptionNameMap.containsKey(
-            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "MoveJobDown"))) {
-          // make the fault by reflection
-          try {
-            java.lang.String exceptionClassName =
-                faultExceptionClassNameMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "MoveJobDown"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
-            java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
-            // message class
-            java.lang.String messageClassName =
-                faultMessageMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "MoveJobDown"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
-            java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
-
-            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
-              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
-            }
-
-            throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.ClassNotFoundException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.NoSuchMethodException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.reflect.InvocationTargetException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.IllegalAccessException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.InstantiationException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          }
-        } else {
-          throw f;
-        }
-      } else {
-        throw f;
-      }
-    } finally {
-      if (_messageContext.getTransportOut() != null) {
-        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
-      }
-    }
-  }
-
-  /**
-   * Auto generated method signature
-   *
-   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#setBanner
-   * @param setBanner19
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBannerResponse setBanner(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBanner setBanner19)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
-    org.apache.axis2.context.MessageContext _messageContext =
-        new org.apache.axis2.context.MessageContext();
-    try {
-      org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[6].getName());
-      _operationClient.getOptions().setAction("WsSMC/SetBanner?ver_=1.27");
-      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
-
-      addPropertyToOperationClient(
-          _operationClient,
-          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
-          "&");
-
-      // create SOAP envelope with that payload
-      org.apache.axiom.soap.SOAPEnvelope env = null;
-
-      env =
-          toEnvelope(
-              getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              setBanner19,
-              optimizeContent(
-                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "setBanner")),
-              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "SetBanner"));
-
-      // adding SOAP soap_headers
-      _serviceClient.addHeadersToEnvelope(env);
-      // set the message context with that soap envelope
-      _messageContext.setEnvelope(env);
-
-      // add the message contxt to the operation client
-      _operationClient.addMessageContext(_messageContext);
-
-      // execute the operation client
-      _operationClient.execute(true);
-
-      org.apache.axis2.context.MessageContext _returnMessageContext =
-          _operationClient.getMessageContext(
-              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
-      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-      _returnEnv.buildWithAttachments();
-
-      java.lang.Object object =
-          fromOM(
-              _returnEnv.getBody().getFirstElement(),
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBannerResponse.class);
-      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
-
-      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBannerResponse) object;
-
-    } catch (org.apache.axis2.AxisFault f) {
-
-      org.apache.axiom.om.OMElement faultElt = f.getDetail();
-      if (faultElt != null) {
-        if (faultExceptionNameMap.containsKey(
-            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetBanner"))) {
-          // make the fault by reflection
-          try {
-            java.lang.String exceptionClassName =
-                faultExceptionClassNameMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetBanner"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
-            java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
-            // message class
-            java.lang.String messageClassName =
-                faultMessageMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetBanner"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
-            java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
-
-            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
-              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
-            }
-
-            throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.ClassNotFoundException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.NoSuchMethodException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.reflect.InvocationTargetException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.IllegalAccessException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.InstantiationException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          }
-        } else {
-          throw f;
-        }
-      } else {
-        throw f;
-      }
-    } finally {
-      if (_messageContext.getTransportOut() != null) {
-        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
-      }
-    }
-  }
-
-  /**
-   * Auto generated method signature
-   *
    * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#moveJobBack
-   * @param moveJobBack21
+   * @param moveJobBack11
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse moveJobBack(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack moveJobBack21)
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack moveJobBack11)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[7].getName());
-      _operationClient.getOptions().setAction("WsSMC/MoveJobBack?ver_=1.27");
+          _serviceClient.createClient(_operations[2].getName());
+      _operationClient.getOptions().setAction("WsSMC/MoveJobBack?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1450,7 +909,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              moveJobBack21,
+              moveJobBack11,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "moveJobBack")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "MoveJobBack"));
@@ -1546,21 +1005,21 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#getStatusServerInfo
-   * @param getStatusServerInfo23
+   * @param getStatusServerInfo13
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse
       getStatusServerInfo(
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo
-              getStatusServerInfo23)
+              getStatusServerInfo13)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[8].getName());
-      _operationClient.getOptions().setAction("WsSMC/GetStatusServerInfo?ver_=1.27");
+          _serviceClient.createClient(_operations[3].getName());
+      _operationClient.getOptions().setAction("WsSMC/GetStatusServerInfo?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1574,7 +1033,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              getStatusServerInfo23,
+              getStatusServerInfo13,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getStatusServerInfo")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "GetStatusServerInfo"));
@@ -1672,19 +1131,19 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#moveJobUp
-   * @param moveJobUp25
+   * @param moveJobUp15
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse moveJobUp(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp moveJobUp25)
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp moveJobUp15)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[9].getName());
-      _operationClient.getOptions().setAction("WsSMC/MoveJobUp?ver_=1.27");
+          _serviceClient.createClient(_operations[4].getName());
+      _operationClient.getOptions().setAction("WsSMC/MoveJobUp?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1698,7 +1157,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              moveJobUp25,
+              moveJobUp15,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "moveJobUp")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "MoveJobUp"));
@@ -1793,144 +1252,20 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#roxieControlCmd
-   * @param roxieControlCmd27
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdResponse roxieControlCmd(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd roxieControlCmd27)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
-    org.apache.axis2.context.MessageContext _messageContext =
-        new org.apache.axis2.context.MessageContext();
-    try {
-      org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[10].getName());
-      _operationClient.getOptions().setAction("WsSMC/RoxieControlCmd?ver_=1.27");
-      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
-
-      addPropertyToOperationClient(
-          _operationClient,
-          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
-          "&");
-
-      // create SOAP envelope with that payload
-      org.apache.axiom.soap.SOAPEnvelope env = null;
-
-      env =
-          toEnvelope(
-              getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              roxieControlCmd27,
-              optimizeContent(
-                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "roxieControlCmd")),
-              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "RoxieControlCmd"));
-
-      // adding SOAP soap_headers
-      _serviceClient.addHeadersToEnvelope(env);
-      // set the message context with that soap envelope
-      _messageContext.setEnvelope(env);
-
-      // add the message contxt to the operation client
-      _operationClient.addMessageContext(_messageContext);
-
-      // execute the operation client
-      _operationClient.execute(true);
-
-      org.apache.axis2.context.MessageContext _returnMessageContext =
-          _operationClient.getMessageContext(
-              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
-      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-      _returnEnv.buildWithAttachments();
-
-      java.lang.Object object =
-          fromOM(
-              _returnEnv.getBody().getFirstElement(),
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdResponse.class);
-      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
-
-      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdResponse) object;
-
-    } catch (org.apache.axis2.AxisFault f) {
-
-      org.apache.axiom.om.OMElement faultElt = f.getDetail();
-      if (faultElt != null) {
-        if (faultExceptionNameMap.containsKey(
-            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "RoxieControlCmd"))) {
-          // make the fault by reflection
-          try {
-            java.lang.String exceptionClassName =
-                faultExceptionClassNameMap.get(
-                    new org.apache.axis2.client.FaultMapKey(
-                        faultElt.getQName(), "RoxieControlCmd"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
-            java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
-            // message class
-            java.lang.String messageClassName =
-                faultMessageMap.get(
-                    new org.apache.axis2.client.FaultMapKey(
-                        faultElt.getQName(), "RoxieControlCmd"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
-            java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
-
-            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
-              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
-            }
-
-            throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.ClassNotFoundException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.NoSuchMethodException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.reflect.InvocationTargetException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.IllegalAccessException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.InstantiationException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          }
-        } else {
-          throw f;
-        }
-      } else {
-        throw f;
-      }
-    } finally {
-      if (_messageContext.getTransportOut() != null) {
-        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
-      }
-    }
-  }
-
-  /**
-   * Auto generated method signature
-   *
    * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#ping
-   * @param ping29
+   * @param ping17
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMCPingResponse ping(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping ping29)
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping ping17)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[11].getName());
-      _operationClient.getOptions().setAction("WsSMC/Ping?ver_=1.27");
+          _serviceClient.createClient(_operations[5].getName());
+      _operationClient.getOptions().setAction("WsSMC/Ping?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1944,7 +1279,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              ping29,
+              ping17,
               optimizeContent(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "ping")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Ping"));
 
@@ -2039,19 +1374,19 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#browseResources
-   * @param browseResources31
+   * @param browseResources19
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse browseResources(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources browseResources31)
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources browseResources19)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[12].getName());
-      _operationClient.getOptions().setAction("WsSMC/BrowseResources?ver_=1.27");
+          _serviceClient.createClient(_operations[6].getName());
+      _operationClient.getOptions().setAction("WsSMC/BrowseResources?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2065,7 +1400,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              browseResources31,
+              browseResources19,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "browseResources")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "BrowseResources"));
@@ -2162,142 +1497,20 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#getBuildInfo
-   * @param getBuildInfo33
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse getBuildInfo(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfo getBuildInfo33)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
-    org.apache.axis2.context.MessageContext _messageContext =
-        new org.apache.axis2.context.MessageContext();
-    try {
-      org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[13].getName());
-      _operationClient.getOptions().setAction("WsSMC/GetBuildInfo?ver_=1.27");
-      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
-
-      addPropertyToOperationClient(
-          _operationClient,
-          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
-          "&");
-
-      // create SOAP envelope with that payload
-      org.apache.axiom.soap.SOAPEnvelope env = null;
-
-      env =
-          toEnvelope(
-              getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              getBuildInfo33,
-              optimizeContent(
-                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getBuildInfo")),
-              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "GetBuildInfo"));
-
-      // adding SOAP soap_headers
-      _serviceClient.addHeadersToEnvelope(env);
-      // set the message context with that soap envelope
-      _messageContext.setEnvelope(env);
-
-      // add the message contxt to the operation client
-      _operationClient.addMessageContext(_messageContext);
-
-      // execute the operation client
-      _operationClient.execute(true);
-
-      org.apache.axis2.context.MessageContext _returnMessageContext =
-          _operationClient.getMessageContext(
-              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
-      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-      _returnEnv.buildWithAttachments();
-
-      java.lang.Object object =
-          fromOM(
-              _returnEnv.getBody().getFirstElement(),
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse.class);
-      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
-
-      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse) object;
-
-    } catch (org.apache.axis2.AxisFault f) {
-
-      org.apache.axiom.om.OMElement faultElt = f.getDetail();
-      if (faultElt != null) {
-        if (faultExceptionNameMap.containsKey(
-            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "GetBuildInfo"))) {
-          // make the fault by reflection
-          try {
-            java.lang.String exceptionClassName =
-                faultExceptionClassNameMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "GetBuildInfo"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
-            java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
-            // message class
-            java.lang.String messageClassName =
-                faultMessageMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "GetBuildInfo"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
-            java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
-
-            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
-              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
-            }
-
-            throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.ClassNotFoundException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.NoSuchMethodException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.reflect.InvocationTargetException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.IllegalAccessException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.InstantiationException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          }
-        } else {
-          throw f;
-        }
-      } else {
-        throw f;
-      }
-    } finally {
-      if (_messageContext.getTransportOut() != null) {
-        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
-      }
-    }
-  }
-
-  /**
-   * Auto generated method signature
-   *
    * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#clearQueue
-   * @param clearQueue35
+   * @param clearQueue21
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse clearQueue(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue clearQueue35)
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue clearQueue21)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[14].getName());
-      _operationClient.getOptions().setAction("WsSMC/ClearQueue?ver_=1.27");
+          _serviceClient.createClient(_operations[7].getName());
+      _operationClient.getOptions().setAction("WsSMC/ClearQueue?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2311,7 +1524,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              clearQueue35,
+              clearQueue21,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "clearQueue")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "ClearQueue"));
@@ -2406,22 +1619,22 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   /**
    * Auto generated method signature
    *
-   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#getThorQueueAvailability
-   * @param getThorQueueAvailability37
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#recordGlobalMetrics
+   * @param recordGlobalMetrics23
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse
-      getThorQueueAvailability(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailability
-              getThorQueueAvailability37)
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetricsResponse
+      recordGlobalMetrics(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetrics
+              recordGlobalMetrics23)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[15].getName());
-      _operationClient.getOptions().setAction("WsSMC/GetThorQueueAvailability?ver_=1.27");
+          _serviceClient.createClient(_operations[8].getName());
+      _operationClient.getOptions().setAction("WsSMC/RecordGlobalMetrics?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2435,7 +1648,1485 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              getThorQueueAvailability37,
+              recordGlobalMetrics23,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "recordGlobalMetrics")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "RecordGlobalMetrics"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetricsResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetricsResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "RecordGlobalMetrics"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "RecordGlobalMetrics"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "RecordGlobalMetrics"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#getGlobalMetrics
+   * @param getGlobalMetrics25
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetricsResponse getGlobalMetrics(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetrics getGlobalMetrics25)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[9].getName());
+      _operationClient.getOptions().setAction("WsSMC/GetGlobalMetrics?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              getGlobalMetrics25,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getGlobalMetrics")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "GetGlobalMetrics"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetricsResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetricsResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "GetGlobalMetrics"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "GetGlobalMetrics"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "GetGlobalMetrics"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#setJobPriority
+   * @param setJobPriority27
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse setJobPriority(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority setJobPriority27)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[10].getName());
+      _operationClient.getOptions().setAction("WsSMC/SetJobPriority?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              setJobPriority27,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "setJobPriority")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "SetJobPriority"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetJobPriority"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetJobPriority"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetJobPriority"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#notInCommunityEdition
+   * @param notInCommunityEdition29
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse
+      notInCommunityEdition(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition
+              notInCommunityEdition29)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[11].getName());
+      _operationClient.getOptions().setAction("WsSMC/NotInCommunityEdition?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              notInCommunityEdition29,
+              optimizeContent(
+                  new javax.xml.namespace.QName(
+                      "urn:hpccsystems:ws:wssmc", "notInCommunityEdition")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "NotInCommunityEdition"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse)
+          object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(
+                faultElt.getQName(), "NotInCommunityEdition"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "NotInCommunityEdition"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "NotInCommunityEdition"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#lockQuery
+   * @param lockQuery31
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse lockQuery(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery lockQuery31)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[12].getName());
+      _operationClient.getOptions().setAction("WsSMC/LockQuery?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              lockQuery31,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "lockQuery")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "LockQuery"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "LockQuery"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "LockQuery"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "LockQuery"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#index
+   * @param index33
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse index(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Index index33)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[13].getName());
+      _operationClient.getOptions().setAction("WsSMC/Index?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              index33,
+              optimizeContent(new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "index")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Index"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCIndexResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Index"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Index"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Index"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#activity
+   * @param activity35
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActivityResponse activity(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Activity activity35)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[14].getName());
+      _operationClient.getOptions().setAction("WsSMC/Activity?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              activity35,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "activity")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "Activity"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActivityResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ActivityResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Activity"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Activity"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "Activity"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#moveJobDown
+   * @param moveJobDown37
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse moveJobDown(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobDown moveJobDown37)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[15].getName());
+      _operationClient.getOptions().setAction("WsSMC/MoveJobDown?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              moveJobDown37,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "moveJobDown")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "MoveJobDown"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "MoveJobDown"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "MoveJobDown"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "MoveJobDown"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#setBanner
+   * @param setBanner39
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBannerResponse setBanner(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBanner setBanner39)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[16].getName());
+      _operationClient.getOptions().setAction("WsSMC/SetBanner?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              setBanner39,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "setBanner")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "SetBanner"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBannerResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBannerResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetBanner"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetBanner"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetBanner"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#getBanner
+   * @param getBanner41
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBannerResponse getBanner(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBanner getBanner41)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[17].getName());
+      _operationClient.getOptions().setAction("WsSMC/GetBanner?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              getBanner41,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getBanner")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "GetBanner"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBannerResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBannerResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "GetBanner"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "GetBanner"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "GetBanner"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#roxieControlCmd
+   * @param roxieControlCmd43
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdResponse roxieControlCmd(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmd roxieControlCmd43)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[18].getName());
+      _operationClient.getOptions().setAction("WsSMC/RoxieControlCmd?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              roxieControlCmd43,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "roxieControlCmd")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "RoxieControlCmd"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieControlCmdResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "RoxieControlCmd"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "RoxieControlCmd"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(
+                        faultElt.getQName(), "RoxieControlCmd"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#getBuildInfo
+   * @param getBuildInfo45
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse getBuildInfo(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfo getBuildInfo45)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[19].getName());
+      _operationClient.getOptions().setAction("WsSMC/GetBuildInfo?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              getBuildInfo45,
+              optimizeContent(
+                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "getBuildInfo")),
+              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "GetBuildInfo"));
+
+      // adding SOAP soap_headers
+      _serviceClient.addHeadersToEnvelope(env);
+      // set the message context with that soap envelope
+      _messageContext.setEnvelope(env);
+
+      // add the message contxt to the operation client
+      _operationClient.addMessageContext(_messageContext);
+
+      // execute the operation client
+      _operationClient.execute(true);
+
+      org.apache.axis2.context.MessageContext _returnMessageContext =
+          _operationClient.getMessageContext(
+              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
+      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
+      _returnEnv.buildWithAttachments();
+
+      java.lang.Object object =
+          fromOM(
+              _returnEnv.getBody().getFirstElement(),
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse.class);
+      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
+
+      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse) object;
+
+    } catch (org.apache.axis2.AxisFault f) {
+
+      org.apache.axiom.om.OMElement faultElt = f.getDetail();
+      if (faultElt != null) {
+        if (faultExceptionNameMap.containsKey(
+            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "GetBuildInfo"))) {
+          // make the fault by reflection
+          try {
+            java.lang.String exceptionClassName =
+                faultExceptionClassNameMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "GetBuildInfo"));
+            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
+            java.lang.reflect.Constructor constructor =
+                exceptionClass.getConstructor(java.lang.String.class);
+            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
+            // message class
+            java.lang.String messageClassName =
+                faultMessageMap.get(
+                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "GetBuildInfo"));
+            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
+            java.lang.Object messageObject = fromOM(faultElt, messageClass);
+            java.lang.reflect.Method m =
+                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
+            m.invoke(ex, new java.lang.Object[] {messageObject});
+
+            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
+              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
+            }
+
+            throw new java.rmi.RemoteException(ex.getMessage(), ex);
+          } catch (java.lang.ClassCastException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.ClassNotFoundException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.NoSuchMethodException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.reflect.InvocationTargetException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.IllegalAccessException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          } catch (java.lang.InstantiationException e) {
+            // we cannot intantiate the class - throw the original Axis fault
+            throw f;
+          }
+        } else {
+          throw f;
+        }
+      } else {
+        throw f;
+      }
+    } finally {
+      if (_messageContext.getTransportOut() != null) {
+        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
+      }
+    }
+  }
+
+  /**
+   * Auto generated method signature
+   *
+   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#getThorQueueAvailability
+   * @param getThorQueueAvailability47
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailabilityResponse
+      getThorQueueAvailability(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetThorQueueAvailability
+              getThorQueueAvailability47)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
+    org.apache.axis2.context.MessageContext _messageContext =
+        new org.apache.axis2.context.MessageContext();
+    try {
+      org.apache.axis2.client.OperationClient _operationClient =
+          _serviceClient.createClient(_operations[20].getName());
+      _operationClient.getOptions().setAction("WsSMC/GetThorQueueAvailability?ver_=1.30");
+      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
+
+      addPropertyToOperationClient(
+          _operationClient,
+          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
+          "&");
+
+      // create SOAP envelope with that payload
+      org.apache.axiom.soap.SOAPEnvelope env = null;
+
+      env =
+          toEnvelope(
+              getFactory(_operationClient.getOptions().getSoapVersionURI()),
+              getThorQueueAvailability47,
               optimizeContent(
                   new javax.xml.namespace.QName(
                       "urn:hpccsystems:ws:wssmc", "getThorQueueAvailability")),
@@ -2538,19 +3229,19 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#moveJobFront
-   * @param moveJobFront39
+   * @param moveJobFront49
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse moveJobFront(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobFront moveJobFront39)
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobFront moveJobFront49)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[16].getName());
-      _operationClient.getOptions().setAction("WsSMC/MoveJobFront?ver_=1.27");
+          _serviceClient.createClient(_operations[21].getName());
+      _operationClient.getOptions().setAction("WsSMC/MoveJobFront?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2564,7 +3255,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              moveJobFront39,
+              moveJobFront49,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "moveJobFront")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "MoveJobFront"));
@@ -2660,19 +3351,19 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#roxieXrefCmd
-   * @param roxieXrefCmd41
+   * @param roxieXrefCmd51
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieXrefCmdResponse roxieXrefCmd(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieXrefCmd roxieXrefCmd41)
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RoxieXrefCmd roxieXrefCmd51)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[17].getName());
-      _operationClient.getOptions().setAction("WsSMC/RoxieXrefCmd?ver_=1.27");
+          _serviceClient.createClient(_operations[22].getName());
+      _operationClient.getOptions().setAction("WsSMC/RoxieXrefCmd?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2686,7 +3377,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              roxieXrefCmd41,
+              roxieXrefCmd51,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "roxieXrefCmd")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "RoxieXrefCmd"));
@@ -2782,19 +3473,19 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#stopQueue
-   * @param stopQueue43
+   * @param stopQueue53
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse stopQueue(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StopQueue stopQueue43)
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.StopQueue stopQueue53)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[18].getName());
-      _operationClient.getOptions().setAction("WsSMC/StopQueue?ver_=1.27");
+          _serviceClient.createClient(_operations[23].getName());
+      _operationClient.getOptions().setAction("WsSMC/StopQueue?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2808,7 +3499,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              stopQueue43,
+              stopQueue53,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "stopQueue")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "StopQueue"));
@@ -2904,19 +3595,19 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
    * Auto generated method signature
    *
    * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#removeJob
-   * @param removeJob45
+   * @param removeJob55
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse removeJob(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RemoveJob removeJob45)
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RemoveJob removeJob55)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
     org.apache.axis2.context.MessageContext _messageContext =
         new org.apache.axis2.context.MessageContext();
     try {
       org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[19].getName());
-      _operationClient.getOptions().setAction("WsSMC/RemoveJob?ver_=1.27");
+          _serviceClient.createClient(_operations[24].getName());
+      _operationClient.getOptions().setAction("WsSMC/RemoveJob?ver_=1.30");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -2930,7 +3621,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
       env =
           toEnvelope(
               getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              removeJob45,
+              removeJob55,
               optimizeContent(
                   new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "removeJob")),
               new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "RemoveJob"));
@@ -3022,257 +3713,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     }
   }
 
-  /**
-   * Auto generated method signature
-   *
-   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#setJobPriority
-   * @param setJobPriority47
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse setJobPriority(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority setJobPriority47)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
-    org.apache.axis2.context.MessageContext _messageContext =
-        new org.apache.axis2.context.MessageContext();
-    try {
-      org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[20].getName());
-      _operationClient.getOptions().setAction("WsSMC/SetJobPriority?ver_=1.27");
-      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
-
-      addPropertyToOperationClient(
-          _operationClient,
-          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
-          "&");
-
-      // create SOAP envelope with that payload
-      org.apache.axiom.soap.SOAPEnvelope env = null;
-
-      env =
-          toEnvelope(
-              getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              setJobPriority47,
-              optimizeContent(
-                  new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "setJobPriority")),
-              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "SetJobPriority"));
-
-      // adding SOAP soap_headers
-      _serviceClient.addHeadersToEnvelope(env);
-      // set the message context with that soap envelope
-      _messageContext.setEnvelope(env);
-
-      // add the message contxt to the operation client
-      _operationClient.addMessageContext(_messageContext);
-
-      // execute the operation client
-      _operationClient.execute(true);
-
-      org.apache.axis2.context.MessageContext _returnMessageContext =
-          _operationClient.getMessageContext(
-              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
-      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-      _returnEnv.buildWithAttachments();
-
-      java.lang.Object object =
-          fromOM(
-              _returnEnv.getBody().getFirstElement(),
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse.class);
-      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
-
-      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse) object;
-
-    } catch (org.apache.axis2.AxisFault f) {
-
-      org.apache.axiom.om.OMElement faultElt = f.getDetail();
-      if (faultElt != null) {
-        if (faultExceptionNameMap.containsKey(
-            new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetJobPriority"))) {
-          // make the fault by reflection
-          try {
-            java.lang.String exceptionClassName =
-                faultExceptionClassNameMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetJobPriority"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
-            java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
-            // message class
-            java.lang.String messageClassName =
-                faultMessageMap.get(
-                    new org.apache.axis2.client.FaultMapKey(faultElt.getQName(), "SetJobPriority"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
-            java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
-
-            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
-              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
-            }
-
-            throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.ClassNotFoundException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.NoSuchMethodException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.reflect.InvocationTargetException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.IllegalAccessException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.InstantiationException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          }
-        } else {
-          throw f;
-        }
-      } else {
-        throw f;
-      }
-    } finally {
-      if (_messageContext.getTransportOut() != null) {
-        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
-      }
-    }
-  }
-
-  /**
-   * Auto generated method signature
-   *
-   * @see org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMC#notInCommunityEdition
-   * @param notInCommunityEdition49
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse
-      notInCommunityEdition(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition
-              notInCommunityEdition49)
-          throws java.rmi.RemoteException,
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault {
-    org.apache.axis2.context.MessageContext _messageContext =
-        new org.apache.axis2.context.MessageContext();
-    try {
-      org.apache.axis2.client.OperationClient _operationClient =
-          _serviceClient.createClient(_operations[21].getName());
-      _operationClient.getOptions().setAction("WsSMC/NotInCommunityEdition?ver_=1.27");
-      _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
-
-      addPropertyToOperationClient(
-          _operationClient,
-          org.apache.axis2.description.WSDL2Constants.ATTR_WHTTP_QUERY_PARAMETER_SEPARATOR,
-          "&");
-
-      // create SOAP envelope with that payload
-      org.apache.axiom.soap.SOAPEnvelope env = null;
-
-      env =
-          toEnvelope(
-              getFactory(_operationClient.getOptions().getSoapVersionURI()),
-              notInCommunityEdition49,
-              optimizeContent(
-                  new javax.xml.namespace.QName(
-                      "urn:hpccsystems:ws:wssmc", "notInCommunityEdition")),
-              new javax.xml.namespace.QName("urn:hpccsystems:ws:wssmc", "NotInCommunityEdition"));
-
-      // adding SOAP soap_headers
-      _serviceClient.addHeadersToEnvelope(env);
-      // set the message context with that soap envelope
-      _messageContext.setEnvelope(env);
-
-      // add the message contxt to the operation client
-      _operationClient.addMessageContext(_messageContext);
-
-      // execute the operation client
-      _operationClient.execute(true);
-
-      org.apache.axis2.context.MessageContext _returnMessageContext =
-          _operationClient.getMessageContext(
-              org.apache.axis2.wsdl.WSDLConstants.MESSAGE_LABEL_IN_VALUE);
-      org.apache.axiom.soap.SOAPEnvelope _returnEnv = _returnMessageContext.getEnvelope();
-      _returnEnv.buildWithAttachments();
-
-      java.lang.Object object =
-          fromOM(
-              _returnEnv.getBody().getFirstElement(),
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse.class);
-      org.apache.axis2.kernel.TransportUtils.detachInputStream(_returnMessageContext);
-
-      return (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse)
-          object;
-
-    } catch (org.apache.axis2.AxisFault f) {
-
-      org.apache.axiom.om.OMElement faultElt = f.getDetail();
-      if (faultElt != null) {
-        if (faultExceptionNameMap.containsKey(
-            new org.apache.axis2.client.FaultMapKey(
-                faultElt.getQName(), "NotInCommunityEdition"))) {
-          // make the fault by reflection
-          try {
-            java.lang.String exceptionClassName =
-                faultExceptionClassNameMap.get(
-                    new org.apache.axis2.client.FaultMapKey(
-                        faultElt.getQName(), "NotInCommunityEdition"));
-            java.lang.Class exceptionClass = java.lang.Class.forName(exceptionClassName);
-            java.lang.reflect.Constructor constructor =
-                exceptionClass.getConstructor(java.lang.String.class);
-            java.lang.Exception ex = (java.lang.Exception) constructor.newInstance(f.getMessage());
-            // message class
-            java.lang.String messageClassName =
-                faultMessageMap.get(
-                    new org.apache.axis2.client.FaultMapKey(
-                        faultElt.getQName(), "NotInCommunityEdition"));
-            java.lang.Class messageClass = java.lang.Class.forName(messageClassName);
-            java.lang.Object messageObject = fromOM(faultElt, messageClass);
-            java.lang.reflect.Method m =
-                exceptionClass.getMethod("setFaultMessage", new java.lang.Class[] {messageClass});
-            m.invoke(ex, new java.lang.Object[] {messageObject});
-
-            if (ex instanceof org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) {
-              throw (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault) ex;
-            }
-
-            throw new java.rmi.RemoteException(ex.getMessage(), ex);
-          } catch (java.lang.ClassCastException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.ClassNotFoundException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.NoSuchMethodException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.reflect.InvocationTargetException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.IllegalAccessException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          } catch (java.lang.InstantiationException e) {
-            // we cannot intantiate the class - throw the original Axis fault
-            throw f;
-          }
-        } else {
-          throw f;
-        }
-      } else {
-        throw f;
-      }
-    } finally {
-      if (_messageContext.getTransportOut() != null) {
-        _messageContext.getTransportOut().getSender().cleanup(_messageContext);
-      }
-    }
-  }
-
   private javax.xml.namespace.QName[] opNameArray = null;
 
   private boolean optimizeContent(javax.xml.namespace.QName opName) {
@@ -3287,47 +3727,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     }
     return false;
   }
-  // http://eclwatch-65768756c6-9sm8c:8888/WsSMC?ver_=1.27
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery param, boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse param,
-      boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions param, boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
+  // http://172.22.164.102:8010/WsSMC?ver_=1.30
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wssmc.latest.PauseQueue param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
@@ -3356,12 +3756,300 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   }
 
   private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions param, boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Exceptions.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ResumeQueue param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ResumeQueue.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack param, boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp param, boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping param, boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMCPingResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMCPingResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue param, boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetrics param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetrics.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetricsResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetricsResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetrics param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetrics.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetricsResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetricsResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery param, boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery.MY_QNAME,
+          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  private org.apache.axiom.om.OMElement toOM(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse param,
+      boolean optimizeContent)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+      return param.getOMElement(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3436,20 +4124,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse param,
-      boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetBanner param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
@@ -3477,12 +4151,12 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack param, boolean optimizeContent)
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBanner param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack.MY_QNAME,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBanner.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3490,40 +4164,13 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo param,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBannerResponse param,
       boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
     try {
       return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse param,
-      boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp param, boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp.MY_QNAME,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBannerResponse.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3559,61 +4206,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
   }
 
   private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping param, boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMCPingResponse param,
-      boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMCPingResponse.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources param,
-      boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse param,
-      boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfo param, boolean optimizeContent)
       throws org.apache.axis2.AxisFault {
 
@@ -3634,19 +4226,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     try {
       return param.getOMElement(
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue param, boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue.MY_QNAME,
           org.apache.axiom.om.OMAbstractFactory.getOMFactory());
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3748,85 +4327,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
     }
   }
 
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority param,
-      boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse param,
-      boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition param,
-      boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.om.OMElement toOM(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse param,
-      boolean optimizeContent)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-      return param.getOMElement(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse.MY_QNAME,
-          org.apache.axiom.om.OMAbstractFactory.getOMFactory());
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
-      org.apache.axiom.soap.SOAPFactory factory,
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery param,
-      boolean optimizeContent,
-      javax.xml.namespace.QName elementQName)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-
-      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
-      emptyEnvelope
-          .getBody()
-          .addChild(
-              param.getOMElement(
-                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery.MY_QNAME, factory));
-      return emptyEnvelope;
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  /* methods to provide back word compatibility */
-
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
       org.hpccsystems.ws.client.gen.axis2.wssmc.latest.PauseQueue param,
@@ -3865,6 +4365,265 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
           .addChild(
               param.getOMElement(
                   org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ResumeQueue.MY_QNAME, factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack.MY_QNAME, factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo.MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp.MY_QNAME, factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping.MY_QNAME, factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources.MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue.MY_QNAME, factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetrics param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetrics.MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetrics param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetrics.MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority.MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition.MY_QNAME,
+                  factory));
+      return emptyEnvelope;
+    } catch (org.apache.axis2.databinding.ADBException e) {
+      throw org.apache.axis2.AxisFault.makeFault(e);
+    }
+  }
+
+  /* methods to provide back word compatibility */
+
+  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
+      org.apache.axiom.soap.SOAPFactory factory,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery param,
+      boolean optimizeContent,
+      javax.xml.namespace.QName elementQName)
+      throws org.apache.axis2.AxisFault {
+
+    try {
+
+      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
+      emptyEnvelope
+          .getBody()
+          .addChild(
+              param.getOMElement(
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -3967,7 +4726,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack param,
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBanner param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
       throws org.apache.axis2.AxisFault {
@@ -3979,54 +4738,7 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
           .getBody()
           .addChild(
               param.getOMElement(
-                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack.MY_QNAME, factory));
-      return emptyEnvelope;
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  /* methods to provide back word compatibility */
-
-  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
-      org.apache.axiom.soap.SOAPFactory factory,
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo param,
-      boolean optimizeContent,
-      javax.xml.namespace.QName elementQName)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-
-      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
-      emptyEnvelope
-          .getBody()
-          .addChild(
-              param.getOMElement(
-                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo.MY_QNAME,
-                  factory));
-      return emptyEnvelope;
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  /* methods to provide back word compatibility */
-
-  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
-      org.apache.axiom.soap.SOAPFactory factory,
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp param,
-      boolean optimizeContent,
-      javax.xml.namespace.QName elementQName)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-
-      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
-      emptyEnvelope
-          .getBody()
-          .addChild(
-              param.getOMElement(
-                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp.MY_QNAME, factory));
+                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBanner.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -4061,53 +4773,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
 
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
       org.apache.axiom.soap.SOAPFactory factory,
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping param,
-      boolean optimizeContent,
-      javax.xml.namespace.QName elementQName)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-
-      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
-      emptyEnvelope
-          .getBody()
-          .addChild(
-              param.getOMElement(
-                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping.MY_QNAME, factory));
-      return emptyEnvelope;
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  /* methods to provide back word compatibility */
-
-  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
-      org.apache.axiom.soap.SOAPFactory factory,
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources param,
-      boolean optimizeContent,
-      javax.xml.namespace.QName elementQName)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-
-      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
-      emptyEnvelope
-          .getBody()
-          .addChild(
-              param.getOMElement(
-                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources.MY_QNAME,
-                  factory));
-      return emptyEnvelope;
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  /* methods to provide back word compatibility */
-
-  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
-      org.apache.axiom.soap.SOAPFactory factory,
       org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfo param,
       boolean optimizeContent,
       javax.xml.namespace.QName elementQName)
@@ -4121,29 +4786,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
           .addChild(
               param.getOMElement(
                   org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfo.MY_QNAME, factory));
-      return emptyEnvelope;
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  /* methods to provide back word compatibility */
-
-  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
-      org.apache.axiom.soap.SOAPFactory factory,
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue param,
-      boolean optimizeContent,
-      javax.xml.namespace.QName elementQName)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-
-      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
-      emptyEnvelope
-          .getBody()
-          .addChild(
-              param.getOMElement(
-                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue.MY_QNAME, factory));
       return emptyEnvelope;
     } catch (org.apache.axis2.databinding.ADBException e) {
       throw org.apache.axis2.AxisFault.makeFault(e);
@@ -4269,54 +4911,6 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
 
   /* methods to provide back word compatibility */
 
-  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
-      org.apache.axiom.soap.SOAPFactory factory,
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority param,
-      boolean optimizeContent,
-      javax.xml.namespace.QName elementQName)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-
-      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
-      emptyEnvelope
-          .getBody()
-          .addChild(
-              param.getOMElement(
-                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority.MY_QNAME,
-                  factory));
-      return emptyEnvelope;
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  /* methods to provide back word compatibility */
-
-  private org.apache.axiom.soap.SOAPEnvelope toEnvelope(
-      org.apache.axiom.soap.SOAPFactory factory,
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition param,
-      boolean optimizeContent,
-      javax.xml.namespace.QName elementQName)
-      throws org.apache.axis2.AxisFault {
-
-    try {
-
-      org.apache.axiom.soap.SOAPEnvelope emptyEnvelope = factory.getDefaultEnvelope();
-      emptyEnvelope
-          .getBody()
-          .addChild(
-              param.getOMElement(
-                  org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition.MY_QNAME,
-                  factory));
-      return emptyEnvelope;
-    } catch (org.apache.axis2.databinding.ADBException e) {
-      throw org.apache.axis2.AxisFault.makeFault(e);
-    }
-  }
-
-  /* methods to provide back word compatibility */
-
   /** get the default envelope */
   private org.apache.axiom.soap.SOAPEnvelope toEnvelope(org.apache.axiom.soap.SOAPFactory factory) {
     return factory.getDefaultEnvelope();
@@ -4383,6 +4977,25 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
         return result;
       }
 
+      if (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBanner.class.equals(type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBanner.Factory.parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBannerResponse.class.equals(type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBannerResponse.Factory.parse(
+                reader);
+        reader.close();
+        return result;
+      }
+
       if (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfo.class.equals(type)) {
 
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
@@ -4398,6 +5011,26 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
         java.lang.Object result =
             org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse.Factory.parse(
+                reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetrics.class.equals(type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetrics.Factory.parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetricsResponse.class.equals(
+          type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetricsResponse.Factory.parse(
                 reader);
         reader.close();
         return result;
@@ -4546,6 +5179,27 @@ public class WsSMCStub extends org.apache.axis2.client.Stub implements WsSMC {
         javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
         java.lang.Object result =
             org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping.Factory.parse(reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetrics.class.equals(type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetrics.Factory.parse(
+                reader);
+        reader.close();
+        return result;
+      }
+
+      if (org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetricsResponse.class.equals(
+          type)) {
+
+        javax.xml.stream.XMLStreamReader reader = param.getXMLStreamReaderWithoutCaching();
+        java.lang.Object result =
+            org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetricsResponse.Factory
+                .parse(reader);
         reader.close();
         return result;
       }

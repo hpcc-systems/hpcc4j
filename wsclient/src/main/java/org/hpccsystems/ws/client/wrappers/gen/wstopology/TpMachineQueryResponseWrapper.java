@@ -27,7 +27,7 @@ public class TpMachineQueryResponseWrapper
     protected ArrayOfEspExceptionWrapper local_exceptions;
     protected boolean local_enablePreflightInfo;
     protected boolean local_hasThorSpareProcess;
-    protected String local_type;
+    protected TpMachineTypeWrapper local_type;
     protected String local_cluster;
     protected String local_oldIP;
     protected String local_logDirectory;
@@ -48,7 +48,7 @@ public class TpMachineQueryResponseWrapper
     {
         copy( tpmachinequeryresponse );
     }
-    public TpMachineQueryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, boolean _enablePreflightInfo, boolean _hasThorSpareProcess, String _type, String _cluster, String _oldIP, String _logDirectory, String _path, int _memThreshold, int _diskThreshold, int _cpuThreshold, String _memThresholdType, String _diskThresholdType, String _preflightProcessFilter, boolean _enableSNMP, String _acceptLanguage, ArrayOfTpMachineWrapper _tpMachines )
+    public TpMachineQueryResponseWrapper( ArrayOfEspExceptionWrapper _exceptions, boolean _enablePreflightInfo, boolean _hasThorSpareProcess, TpMachineTypeWrapper _type, String _cluster, String _oldIP, String _logDirectory, String _path, int _memThreshold, int _diskThreshold, int _cpuThreshold, String _memThresholdType, String _diskThresholdType, String _preflightProcessFilter, boolean _enableSNMP, String _acceptLanguage, ArrayOfTpMachineWrapper _tpMachines )
     {
         this.local_exceptions = _exceptions;
         this.local_enablePreflightInfo = _enablePreflightInfo;
@@ -79,7 +79,8 @@ public class TpMachineQueryResponseWrapper
             this.local_exceptions = new ArrayOfEspExceptionWrapper( raw.getExceptions());
         this.local_enablePreflightInfo = raw.getEnablePreflightInfo();
         this.local_hasThorSpareProcess = raw.getHasThorSpareProcess();
-        this.local_type = raw.getType();
+        if (raw.getType() != null)
+            this.local_type = new TpMachineTypeWrapper( raw.getType());
         this.local_cluster = raw.getCluster();
         this.local_oldIP = raw.getOldIP();
         this.local_logDirectory = raw.getLogDirectory();
@@ -109,7 +110,8 @@ public class TpMachineQueryResponseWrapper
             raw.setExceptions( local_exceptions.getRaw());
         raw.setEnablePreflightInfo( local_enablePreflightInfo);
         raw.setHasThorSpareProcess( local_hasThorSpareProcess);
-        raw.setType( local_type);
+        if (local_type != null)
+            raw.setType( local_type.getRaw());
         raw.setCluster( local_cluster);
         raw.setOldIP( local_oldIP);
         raw.setLogDirectory( local_logDirectory);
@@ -152,11 +154,11 @@ public class TpMachineQueryResponseWrapper
     {
         return this.local_hasThorSpareProcess;
     }
-    public void setType( String _type )
+    public void setType( TpMachineTypeWrapper _type )
     {
         this.local_type = _type;
     }
-    public String getType( )
+    public TpMachineTypeWrapper getType( )
     {
         return this.local_type;
     }

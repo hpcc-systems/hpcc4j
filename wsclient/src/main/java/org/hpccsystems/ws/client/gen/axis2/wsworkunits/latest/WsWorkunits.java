@@ -28,6 +28,19 @@ public interface WsWorkunits {
   /**
    * Auto generated method signature
    *
+   * @param wUHelperFileArchive
+   * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchiveResponse
+      wUHelperFileArchive(
+          org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUHelperFileArchive
+              wUHelperFileArchive)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
    * @param wUGetStats
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
@@ -444,11 +457,11 @@ public interface WsWorkunits {
   /**
    * Auto generated method signature
    *
-   * @param wUInfo
+   * @param wUDelete
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse wUInfo(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo wUInfo)
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse wUDelete(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete wUDelete)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault;
 
@@ -466,11 +479,11 @@ public interface WsWorkunits {
   /**
    * Auto generated method signature
    *
-   * @param wUDelete
+   * @param wUInfo
    * @throws org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDeleteResponse wUDelete(
-      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUDelete wUDelete)
+  public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfoResponse wUInfo(
+      org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUInfo wUInfo)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.EspSoapFault;
 

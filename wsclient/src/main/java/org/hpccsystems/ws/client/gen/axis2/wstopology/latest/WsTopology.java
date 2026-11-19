@@ -28,19 +28,6 @@ public interface WsTopology {
   /**
    * Auto generated method signature
    *
-   * @param tpGetServicePluginsRequest
-   * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse
-      tpGetServicePlugins(
-          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsRequest
-              tpGetServicePluginsRequest)
-          throws java.rmi.RemoteException,
-              org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault;
-
-  /**
-   * Auto generated method signature
-   *
    * @param tpClusterQueryRequest
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
@@ -48,6 +35,32 @@ public interface WsTopology {
       tpClusterQuery(
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterQueryRequest
               tpClusterQueryRequest)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param tpConfiguredComponentsRequest
+   * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpConfiguredComponentsResponse
+      tpConfiguredComponents(
+          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpConfiguredComponentsRequest
+              tpConfiguredComponentsRequest)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param tpGetServicePluginsRequest
+   * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsResponse
+      tpGetServicePlugins(
+          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpGetServicePluginsRequest
+              tpGetServicePluginsRequest)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault;
 
@@ -91,6 +104,18 @@ public interface WsTopology {
   /**
    * Auto generated method signature
    *
+   * @param tpClusterInfoRequest
+   * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoResponse tpClusterInfo(
+      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest
+          tpClusterInfoRequest)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
    * @param tpGetComponentFileRequest
    * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
    */
@@ -100,18 +125,6 @@ public interface WsTopology {
               tpGetComponentFileRequest)
           throws java.rmi.RemoteException,
               org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault;
-
-  /**
-   * Auto generated method signature
-   *
-   * @param tpClusterInfoRequest
-   * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoResponse tpClusterInfo(
-      org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpClusterInfoRequest
-          tpClusterInfoRequest)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault;
 
   /**
    * Auto generated method signature
@@ -185,6 +198,19 @@ public interface WsTopology {
       org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpSwapNodeRequest tpSwapNodeRequest)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param tpComponentConfigurationRequest
+   * @throws org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpComponentConfigurationResponse
+      tpComponentConfiguration(
+          org.hpccsystems.ws.client.gen.axis2.wstopology.latest.TpComponentConfigurationRequest
+              tpComponentConfigurationRequest)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wstopology.latest.EspSoapFault;
 
   /**
    * Auto generated method signature

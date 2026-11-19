@@ -83,37 +83,72 @@ public class GetDFUWorkunitsResponse implements org.apache.axis2.databinding.ADB
     this.localResults = param;
   }
 
-  /** field for Type */
-  protected java.lang.String localType;
+  /** field for Command */
+  protected org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUCommand localCommand;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
    *   in the serialized XML
    */
-  protected boolean localTypeTracker = false;
+  protected boolean localCommandTracker = false;
 
-  public boolean isTypeSpecified() {
-    return localTypeTracker;
+  public boolean isCommandSpecified() {
+    return localCommandTracker;
   }
 
   /**
    * Auto generated getter method
    *
-   * @return java.lang.String
+   * @return org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUCommand
    */
-  public java.lang.String getType() {
-    return localType;
+  public org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUCommand getCommand() {
+    return localCommand;
   }
 
   /**
    * Auto generated setter method
    *
-   * @param param Type
+   * @param param Command
    */
-  public void setType(java.lang.String param) {
-    localTypeTracker = param != null;
+  public void setCommand(org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUCommand param) {
+    localCommandTracker = param != null;
 
-    this.localType = param;
+    this.localCommand = param;
+  }
+
+  /** field for Archived */
+  protected boolean localArchived;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localArchivedTracker = false;
+
+  public boolean isArchivedSpecified() {
+    return localArchivedTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return boolean
+   */
+  public boolean getArchived() {
+    return localArchived;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Archived
+   */
+  public void setArchived(boolean param) {
+
+    // setting primitive attribute tracker to true
+    localArchivedTracker = true;
+
+    this.localArchived = param;
   }
 
   /** field for Owner */
@@ -732,18 +767,24 @@ public class GetDFUWorkunitsResponse implements org.apache.axis2.databinding.ADB
       localResults.serialize(
           new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "results"), xmlWriter);
     }
-    if (localTypeTracker) {
+    if (localCommandTracker) {
+      if (localCommand == null) {
+        throw new org.apache.axis2.databinding.ADBException("Command cannot be null!!");
+      }
+      localCommand.serialize(
+          new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Command"), xmlWriter);
+    }
+    if (localArchivedTracker) {
       namespace = "urn:hpccsystems:ws:filespray";
-      writeStartElement(null, namespace, "Type", xmlWriter);
+      writeStartElement(null, namespace, "Archived", xmlWriter);
 
-      if (localType == null) {
-        // write the nil attribute
+      if (false) {
 
-        throw new org.apache.axis2.databinding.ADBException("Type cannot be null!!");
+        throw new org.apache.axis2.databinding.ADBException("Archived cannot be null!!");
 
       } else {
-
-        xmlWriter.writeCharacters(localType);
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localArchived));
       }
 
       xmlWriter.writeEndElement();
@@ -1260,20 +1301,31 @@ public class GetDFUWorkunitsResponse implements org.apache.axis2.databinding.ADB
 
             } // End of if for expected property start element
             else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Type")
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Command")
+                    .equals(reader.getName())) {
+
+              object.setCommand(
+                  org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUCommand.Factory.parse(
+                      reader));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:filespray", "Archived")
                     .equals(reader.getName())) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
               if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
                 throw new org.apache.axis2.databinding.ADBException(
-                    "The element: " + "Type" + "  cannot be null");
+                    "The element: " + "Archived" + "  cannot be null");
               }
 
               java.lang.String content = reader.getElementText();
 
-              object.setType(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+              object.setArchived(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
 
               reader.next();
 

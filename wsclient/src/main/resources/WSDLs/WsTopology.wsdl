@@ -68,6 +68,24 @@
 			</xsd:complexType>
 			
       
+			<xsd:simpleType name="TpConfigResponseFormat">
+				
+        
+				<xsd:restriction base="xsd:string">
+					
+          
+					<xsd:enumeration value="XML"/>
+					
+          
+					<xsd:enumeration value="YAML"/>
+					
+        
+				</xsd:restriction>
+				
+      
+			</xsd:simpleType>
+			
+      
 			<xsd:simpleType name="RoxieQueueFilter">
 				
         
@@ -81,6 +99,48 @@
 					
           
 					<xsd:enumeration value="WorkunitsOnly"/>
+					
+        
+				</xsd:restriction>
+				
+      
+			</xsd:simpleType>
+			
+      
+			<xsd:simpleType name="TpMachineType">
+				
+        
+				<xsd:restriction base="xsd:string">
+					
+          
+					<xsd:enumeration value="ALLNODES"/>
+					
+          
+					<xsd:enumeration value="THORMACHINES"/>
+					
+          
+					<xsd:enumeration value="HOLEMACHINES"/>
+					
+          
+					<xsd:enumeration value="ROXIEMACHINES"/>
+					
+          
+					<xsd:enumeration value="MACHINES"/>
+					
+          
+					<xsd:enumeration value="AVAILABLEMACHINES"/>
+					
+          
+					<xsd:enumeration value="DROPZONE"/>
+					
+          
+					<xsd:enumeration value="STANDBYNNODE"/>
+					
+          
+					<xsd:enumeration value="THORSPARENODES"/>
+					
+          
+					<xsd:enumeration value="HOLESTANDBYNODES"/>
 					
         
 				</xsd:restriction>
@@ -243,6 +303,24 @@
 					
         
 				</xsd:sequence>
+				
+      
+			</xsd:complexType>
+			
+      
+			<xsd:complexType name="TpConfigResult">
+				
+        
+				<xsd:all>
+					
+          
+					<xsd:element minOccurs="0" name="ComponentName" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="Configuration" type="xsd:string"/>
+					
+        
+				</xsd:all>
 				
       
 			</xsd:complexType>
@@ -1352,6 +1430,42 @@
 			</xsd:element>
 			
       
+			<xsd:element name="TpComponentConfigurationRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element minOccurs="0" name="ComponentNames" type="tns:EspStringArray"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="TpConfiguredComponentsRequest">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all/>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
 			<xsd:element name="TpDropZoneQueryRequest">
 				
         
@@ -1604,7 +1718,7 @@
 					<xsd:all>
 						
             
-						<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="Type" type="tns:TpMachineType"/>
 						
             
 						<xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
@@ -1860,6 +1974,75 @@
 						
             
 						<xsd:element minOccurs="0" name="TpClusters" type="tns:ArrayOfTpCluster"/>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="TpComponentConfigurationResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="ConfigFormat" type="tns:TpConfigResponseFormat"/>
+						
+            
+						<xsd:element minOccurs="0" name="Results">
+							
+              
+							<xsd:complexType>
+								
+                
+								<xsd:sequence>
+									
+                  
+									<xsd:element minOccurs="0" maxOccurs="unbounded" name="Result" type="tns:TpConfigResult"/>
+									
+                
+								</xsd:sequence>
+								
+              
+							</xsd:complexType>
+							
+            
+						</xsd:element>
+						
+          
+					</xsd:all>
+					
+        
+				</xsd:complexType>
+				
+      
+			</xsd:element>
+			
+      
+			<xsd:element name="TpConfiguredComponentsResponse">
+				
+        
+				<xsd:complexType>
+					
+          
+					<xsd:all>
+						
+            
+						<xsd:element name="Exceptions" type="tns:ArrayOfEspException" minOccurs="0" maxOccurs="1"/>
+						
+            
+						<xsd:element minOccurs="0" name="ConfiguredComponents" type="tns:EspStringArray"/>
 						
           
 					</xsd:all>
@@ -2183,7 +2366,7 @@
 						<xsd:element minOccurs="0" name="HasThorSpareProcess" type="xsd:boolean"/>
 						
             
-						<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="Type" type="tns:TpMachineType"/>
 						
             
 						<xsd:element minOccurs="0" name="Cluster" type="xsd:string"/>
@@ -2547,6 +2730,42 @@
 		
     
 		<part name="parameters" element="tns:TpClusterQueryResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="TpComponentConfigurationSoapIn">
+		
+    
+		<part name="parameters" element="tns:TpComponentConfigurationRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="TpComponentConfigurationSoapOut">
+		
+    
+		<part name="parameters" element="tns:TpComponentConfigurationResponse"/>
+		
+  
+	</message>
+	
+  
+	<message name="TpConfiguredComponentsSoapIn">
+		
+    
+		<part name="parameters" element="tns:TpConfiguredComponentsRequest"/>
+		
+  
+	</message>
+	
+  
+	<message name="TpConfiguredComponentsSoapOut">
+		
+    
+		<part name="parameters" element="tns:TpConfiguredComponentsResponse"/>
 		
   
 	</message>
@@ -2921,6 +3140,36 @@
 		</operation>
 		
     
+		<operation name="TpComponentConfiguration">
+			
+      
+			<input message="tns:TpComponentConfigurationSoapIn"/>
+			
+      
+			<output message="tns:TpComponentConfigurationSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
+		<operation name="TpConfiguredComponents">
+			
+      
+			<input message="tns:TpConfiguredComponentsSoapIn"/>
+			
+      
+			<output message="tns:TpConfiguredComponentsSoapOut"/>
+			
+      
+			<fault name="excfault" message="tns:EspSoapFault"/>
+			
+    
+		</operation>
+		
+    
 		<operation name="TpDropZoneQuery">
 			
       
@@ -3188,7 +3437,7 @@
 		<operation name="Ping">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/Ping?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/Ping?ver_=1.33"/>
 			
       
 			<input>
@@ -3224,7 +3473,7 @@
 		<operation name="SystemLog">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/SystemLog?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/SystemLog?ver_=1.33"/>
 			
       
 			<input>
@@ -3260,7 +3509,7 @@
 		<operation name="TpClusterInfo">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpClusterInfo?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpClusterInfo?ver_=1.33"/>
 			
       
 			<input>
@@ -3296,7 +3545,79 @@
 		<operation name="TpClusterQuery">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpClusterQuery?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpClusterQuery?ver_=1.33"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="TpComponentConfiguration">
+			
+      
+			<soap:operation style="document" soapAction="WsTopology/TpComponentConfiguration?ver_=1.33"/>
+			
+      
+			<input>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</input>
+			
+      
+			<output>
+				
+        
+				<soap:body use="literal"/>
+				
+      
+			</output>
+			
+      
+			<fault name="excfault">
+				
+        
+				<soap:fault name="excfault" use="literal"/>
+				
+      
+			</fault>
+			
+    
+		</operation>
+		
+    
+		<operation name="TpConfiguredComponents">
+			
+      
+			<soap:operation style="document" soapAction="WsTopology/TpConfiguredComponents?ver_=1.33"/>
 			
       
 			<input>
@@ -3332,7 +3653,7 @@
 		<operation name="TpDropZoneQuery">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpDropZoneQuery?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpDropZoneQuery?ver_=1.33"/>
 			
       
 			<input>
@@ -3368,7 +3689,7 @@
 		<operation name="TpGetComponentFile">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpGetComponentFile?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpGetComponentFile?ver_=1.33"/>
 			
       
 			<input>
@@ -3404,7 +3725,7 @@
 		<operation name="TpGetServicePlugins">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpGetServicePlugins?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpGetServicePlugins?ver_=1.33"/>
 			
       
 			<input>
@@ -3440,7 +3761,7 @@
 		<operation name="TpGroupQuery">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpGroupQuery?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpGroupQuery?ver_=1.33"/>
 			
       
 			<input>
@@ -3476,7 +3797,7 @@
 		<operation name="TpListLogFiles">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpListLogFiles?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpListLogFiles?ver_=1.33"/>
 			
       
 			<input>
@@ -3512,7 +3833,7 @@
 		<operation name="TpListTargetClusters">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpListTargetClusters?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpListTargetClusters?ver_=1.33"/>
 			
       
 			<input>
@@ -3548,7 +3869,7 @@
 		<operation name="TpLogFile">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpLogFile?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpLogFile?ver_=1.33"/>
 			
       
 			<input>
@@ -3584,7 +3905,7 @@
 		<operation name="TpLogFileDisplay">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpLogFileDisplay?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpLogFileDisplay?ver_=1.33"/>
 			
       
 			<input>
@@ -3620,7 +3941,7 @@
 		<operation name="TpLogicalClusterQuery">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpLogicalClusterQuery?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpLogicalClusterQuery?ver_=1.33"/>
 			
       
 			<input>
@@ -3656,7 +3977,7 @@
 		<operation name="TpMachineInfo">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpMachineInfo?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpMachineInfo?ver_=1.33"/>
 			
       
 			<input>
@@ -3692,7 +4013,7 @@
 		<operation name="TpMachineQuery">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpMachineQuery?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpMachineQuery?ver_=1.33"/>
 			
       
 			<input>
@@ -3728,7 +4049,7 @@
 		<operation name="TpServiceQuery">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpServiceQuery?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpServiceQuery?ver_=1.33"/>
 			
       
 			<input>
@@ -3764,7 +4085,7 @@
 		<operation name="TpSetMachineStatus">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpSetMachineStatus?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpSetMachineStatus?ver_=1.33"/>
 			
       
 			<input>
@@ -3800,7 +4121,7 @@
 		<operation name="TpSwapNode">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpSwapNode?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpSwapNode?ver_=1.33"/>
 			
       
 			<input>
@@ -3836,7 +4157,7 @@
 		<operation name="TpTargetClusterQuery">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpTargetClusterQuery?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpTargetClusterQuery?ver_=1.33"/>
 			
       
 			<input>
@@ -3872,7 +4193,7 @@
 		<operation name="TpThorStatus">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpThorStatus?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpThorStatus?ver_=1.33"/>
 			
       
 			<input>
@@ -3908,7 +4229,7 @@
 		<operation name="TpXMLFile">
 			
       
-			<soap:operation style="document" soapAction="WsTopology/TpXMLFile?ver_=1.32"/>
+			<soap:operation style="document" soapAction="WsTopology/TpXMLFile?ver_=1.33"/>
 			
       
 			<input>
@@ -3950,7 +4271,7 @@
 		<port name="WsTopologyServiceSoap" binding="tns:WsTopologyServiceSoap">
 			
       
-			<soap:address location="http://eclwatch-65768756c6-9sm8c:8888/WsTopology?ver_=1.32"/>
+			<soap:address location="http://172.22.164.102:8010/WsTopology?ver_=1.33"/>
 			
     
 		</port>

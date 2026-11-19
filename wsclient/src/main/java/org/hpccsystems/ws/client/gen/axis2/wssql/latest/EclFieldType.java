@@ -1,8 +1,8 @@
 /**
  * EclFieldType.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssql.latest;
 
@@ -82,7 +82,7 @@ public class EclFieldType implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for Length */
-  protected java.math.BigInteger localLength;
+  protected org.apache.axiom.om.OMElement localLength;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -97,9 +97,9 @@ public class EclFieldType implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated getter method
    *
-   * @return java.math.BigInteger
+   * @return org.apache.axiom.om.OMElement
    */
-  public java.math.BigInteger getLength() {
+  public org.apache.axiom.om.OMElement getLength() {
     return localLength;
   }
 
@@ -108,14 +108,14 @@ public class EclFieldType implements org.apache.axis2.databinding.ADBBean {
    *
    * @param param Length
    */
-  public void setLength(java.math.BigInteger param) {
+  public void setLength(org.apache.axiom.om.OMElement param) {
     localLengthTracker = param != null;
 
     this.localLength = param;
   }
 
   /** field for Precision */
-  protected java.math.BigInteger localPrecision;
+  protected org.apache.axiom.om.OMElement localPrecision;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -130,9 +130,9 @@ public class EclFieldType implements org.apache.axis2.databinding.ADBBean {
   /**
    * Auto generated getter method
    *
-   * @return java.math.BigInteger
+   * @return org.apache.axiom.om.OMElement
    */
-  public java.math.BigInteger getPrecision() {
+  public org.apache.axiom.om.OMElement getPrecision() {
     return localPrecision;
   }
 
@@ -141,7 +141,7 @@ public class EclFieldType implements org.apache.axis2.databinding.ADBBean {
    *
    * @param param Precision
    */
-  public void setPrecision(java.math.BigInteger param) {
+  public void setPrecision(org.apache.axiom.om.OMElement param) {
     localPrecisionTracker = param != null;
 
     this.localPrecision = param;
@@ -228,8 +228,7 @@ public class EclFieldType implements org.apache.axis2.databinding.ADBBean {
 
       } else {
 
-        xmlWriter.writeCharacters(
-            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localLength));
+        localLength.serialize(xmlWriter);
       }
 
       xmlWriter.writeEndElement();
@@ -245,8 +244,7 @@ public class EclFieldType implements org.apache.axis2.databinding.ADBBean {
 
       } else {
 
-        xmlWriter.writeCharacters(
-            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localPrecision));
+        localPrecision.serialize(xmlWriter);
       }
 
       xmlWriter.writeEndElement();
@@ -524,9 +522,7 @@ public class EclFieldType implements org.apache.axis2.databinding.ADBBean {
               reader.next();
 
             } // End of if for expected property start element
-            else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "Length")
-                    .equals(reader.getName())) {
+            else if (reader.isStartElement()) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
@@ -537,15 +533,18 @@ public class EclFieldType implements org.apache.axis2.databinding.ADBBean {
 
               java.lang.String content = reader.getElementText();
 
-              object.setLength(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToInteger(content));
+              org.apache.axiom.om.OMFactory fac =
+                  org.apache.axiom.om.OMAbstractFactory.getOMFactory();
+              org.apache.axiom.om.OMNamespace omNs =
+                  fac.createOMNamespace("urn:hpccsystems:ws:wssql", "");
+              org.apache.axiom.om.OMElement _valueLength = fac.createOMElement("Length", omNs);
+              _valueLength.addChild(fac.createOMText(_valueLength, content));
+              object.setLength(_valueLength);
 
               reader.next();
 
             } // End of if for expected property start element
-            else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "Precision")
-                    .equals(reader.getName())) {
+            else if (reader.isStartElement()) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
@@ -556,8 +555,14 @@ public class EclFieldType implements org.apache.axis2.databinding.ADBBean {
 
               java.lang.String content = reader.getElementText();
 
-              object.setPrecision(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToInteger(content));
+              org.apache.axiom.om.OMFactory fac =
+                  org.apache.axiom.om.OMAbstractFactory.getOMFactory();
+              org.apache.axiom.om.OMNamespace omNs =
+                  fac.createOMNamespace("urn:hpccsystems:ws:wssql", "");
+              org.apache.axiom.om.OMElement _valuePrecision =
+                  fac.createOMElement("Precision", omNs);
+              _valuePrecision.addChild(fac.createOMText(_valuePrecision, content));
+              object.setPrecision(_valuePrecision);
 
               reader.next();
 

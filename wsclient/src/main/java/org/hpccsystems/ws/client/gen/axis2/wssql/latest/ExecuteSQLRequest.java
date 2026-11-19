@@ -1,8 +1,8 @@
 /**
  * ExecuteSQLRequest.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssql.latest;
 
@@ -182,7 +182,8 @@ public class ExecuteSQLRequest implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for SuppressResults */
-  protected boolean localSuppressResults;
+  protected boolean localSuppressResults =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -288,7 +289,8 @@ public class ExecuteSQLRequest implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for ResultLimit */
-  protected int localResultLimit;
+  protected int localResultLimit =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToInt("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -323,7 +325,8 @@ public class ExecuteSQLRequest implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for ResultWindowStart */
-  protected int localResultWindowStart;
+  protected int localResultWindowStart =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToInt("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -358,7 +361,8 @@ public class ExecuteSQLRequest implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for ResultWindowCount */
-  protected int localResultWindowCount;
+  protected int localResultWindowCount =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToInt("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -393,7 +397,8 @@ public class ExecuteSQLRequest implements org.apache.axis2.databinding.ADBBean {
   }
 
   /** field for IgnoreCache */
-  protected boolean localIgnoreCache;
+  protected boolean localIgnoreCache =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("0");
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field

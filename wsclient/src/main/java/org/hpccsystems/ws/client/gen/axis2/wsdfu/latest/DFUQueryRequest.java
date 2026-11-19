@@ -522,6 +522,39 @@ public class DFUQueryRequest implements org.apache.axis2.databinding.ADBBean {
     this.localSortby = param;
   }
 
+  /** field for Fields */
+  protected java.lang.String localFields;
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localFieldsTracker = false;
+
+  public boolean isFieldsSpecified() {
+    return localFieldsTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return java.lang.String
+   */
+  public java.lang.String getFields() {
+    return localFields;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param Fields
+   */
+  public void setFields(java.lang.String param) {
+    localFieldsTracker = param != null;
+
+    this.localFields = param;
+  }
+
   /** field for Descending */
   protected boolean localDescending =
       org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean("false");
@@ -1185,6 +1218,22 @@ public class DFUQueryRequest implements org.apache.axis2.databinding.ADBBean {
       } else {
 
         xmlWriter.writeCharacters(localSortby);
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localFieldsTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "Fields", xmlWriter);
+
+      if (localFields == null) {
+        // write the nil attribute
+
+        throw new org.apache.axis2.databinding.ADBException("Fields cannot be null!!");
+
+      } else {
+
+        xmlWriter.writeCharacters(localFields);
       }
 
       xmlWriter.writeEndElement();
@@ -1883,6 +1932,25 @@ public class DFUQueryRequest implements org.apache.axis2.databinding.ADBBean {
               java.lang.String content = reader.getElementText();
 
               object.setSortby(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "Fields")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "Fields" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setFields(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToString(content));
 
               reader.next();

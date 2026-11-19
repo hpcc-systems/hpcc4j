@@ -55,6 +55,7 @@ public class WUEclDefinitionActionWrapper
     protected boolean local_stopIfFilesCopied;
     protected String local_dfuPublisherWuid;
     protected String local_remoteStorage;
+    protected String local_dfuTargetPlane;
 
     public WUEclDefinitionActionWrapper() {}
 
@@ -62,7 +63,7 @@ public class WUEclDefinitionActionWrapper
     {
         copy( wuecldefinitionaction );
     }
-    public WUEclDefinitionActionWrapper( List<String> _eclDefinitions, EclDefinitionActionsWrapper _actionType, String _target, String _remoteDali, String _sourceProcess, String _priority, String _comment, String _memoryLimit, boolean _deletePrevious, boolean _suspendPrevious, boolean _noActivate, boolean _noReload, boolean _dontCopyFiles, boolean _allowForeign, boolean _updateDfs, boolean _updateSuperfiles, boolean _updateCloneFrom, boolean _dontAppendCluster, int _msToWait, int _timeLimit, int _warnTimeLimit, boolean _dfuCopyFiles, boolean _dfuOverwrite, String _dfuQueue, boolean _onlyCopyFiles, boolean _stopIfFilesCopied, String _dfuPublisherWuid, String _remoteStorage )
+    public WUEclDefinitionActionWrapper( List<String> _eclDefinitions, EclDefinitionActionsWrapper _actionType, String _target, String _remoteDali, String _sourceProcess, String _priority, String _comment, String _memoryLimit, boolean _deletePrevious, boolean _suspendPrevious, boolean _noActivate, boolean _noReload, boolean _dontCopyFiles, boolean _allowForeign, boolean _updateDfs, boolean _updateSuperfiles, boolean _updateCloneFrom, boolean _dontAppendCluster, int _msToWait, int _timeLimit, int _warnTimeLimit, boolean _dfuCopyFiles, boolean _dfuOverwrite, String _dfuQueue, boolean _onlyCopyFiles, boolean _stopIfFilesCopied, String _dfuPublisherWuid, String _remoteStorage, String _dfuTargetPlane )
     {
         this.local_eclDefinitions = _eclDefinitions;
         this.local_actionType = _actionType;
@@ -92,6 +93,7 @@ public class WUEclDefinitionActionWrapper
         this.local_stopIfFilesCopied = _stopIfFilesCopied;
         this.local_dfuPublisherWuid = _dfuPublisherWuid;
         this.local_remoteStorage = _remoteStorage;
+        this.local_dfuTargetPlane = _dfuTargetPlane;
 
     }
 
@@ -135,13 +137,14 @@ public class WUEclDefinitionActionWrapper
         this.local_stopIfFilesCopied = raw.getStopIfFilesCopied();
         this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
         this.local_remoteStorage = raw.getRemoteStorage();
+        this.local_dfuTargetPlane = raw.getDfuTargetPlane();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUEclDefinitionActionWrapper [" + "eclDefinitions = " + local_eclDefinitions + ", " + "actionType = " + local_actionType + ", " + "target = " + local_target + ", " + "remoteDali = " + local_remoteDali + ", " + "sourceProcess = " + local_sourceProcess + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "memoryLimit = " + local_memoryLimit + ", " + "deletePrevious = " + local_deletePrevious + ", " + "suspendPrevious = " + local_suspendPrevious + ", " + "noActivate = " + local_noActivate + ", " + "noReload = " + local_noReload + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "allowForeign = " + local_allowForeign + ", " + "updateDfs = " + local_updateDfs + ", " + "updateSuperfiles = " + local_updateSuperfiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "dontAppendCluster = " + local_dontAppendCluster + ", " + "msToWait = " + local_msToWait + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "dfuQueue = " + local_dfuQueue + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "remoteStorage = " + local_remoteStorage + "]";
+        return "WUEclDefinitionActionWrapper [" + "eclDefinitions = " + local_eclDefinitions + ", " + "actionType = " + local_actionType + ", " + "target = " + local_target + ", " + "remoteDali = " + local_remoteDali + ", " + "sourceProcess = " + local_sourceProcess + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "memoryLimit = " + local_memoryLimit + ", " + "deletePrevious = " + local_deletePrevious + ", " + "suspendPrevious = " + local_suspendPrevious + ", " + "noActivate = " + local_noActivate + ", " + "noReload = " + local_noReload + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "allowForeign = " + local_allowForeign + ", " + "updateDfs = " + local_updateDfs + ", " + "updateSuperfiles = " + local_updateSuperfiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "dontAppendCluster = " + local_dontAppendCluster + ", " + "msToWait = " + local_msToWait + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "dfuQueue = " + local_dfuQueue + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "remoteStorage = " + local_remoteStorage + ", " + "dfuTargetPlane = " + local_dfuTargetPlane + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUEclDefinitionAction getRaw()
     {
@@ -183,6 +186,7 @@ public class WUEclDefinitionActionWrapper
         raw.setStopIfFilesCopied( local_stopIfFilesCopied);
         raw.setDfuPublisherWuid( local_dfuPublisherWuid);
         raw.setRemoteStorage( local_remoteStorage);
+        raw.setDfuTargetPlane( local_dfuTargetPlane);
         return raw;
     }
 
@@ -410,5 +414,13 @@ public class WUEclDefinitionActionWrapper
     public String getRemoteStorage( )
     {
         return this.local_remoteStorage;
+    }
+    public void setDfuTargetPlane( String _dfuTargetPlane )
+    {
+        this.local_dfuTargetPlane = _dfuTargetPlane;
+    }
+    public String getDfuTargetPlane( )
+    {
+        return this.local_dfuTargetPlane;
     }
 }

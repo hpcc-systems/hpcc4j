@@ -1,8 +1,8 @@
 /**
  * WssqlStub.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:46:59 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:49:45 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssql.latest;
 
@@ -323,13 +323,13 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
   public WssqlStub(org.apache.axis2.context.ConfigurationContext configurationContext)
       throws org.apache.axis2.AxisFault {
 
-    this(configurationContext, "http://10.1.1.145:8880/wssql?ver_=3.06");
+    this(configurationContext, "http://172.22.164.102:8510/wssql?ver_=3.08");
   }
 
   /** Default Constructor */
   public WssqlStub() throws org.apache.axis2.AxisFault {
 
-    this("http://10.1.1.145:8880/wssql?ver_=3.06");
+    this("http://172.22.164.102:8510/wssql?ver_=3.08");
   }
 
   /** Constructor taking the target endpoint */
@@ -353,7 +353,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[0].getName());
-      _operationClient.getOptions().setAction("wssql/ExecuteSQL?ver_=3.06");
+      _operationClient.getOptions().setAction("wssql/ExecuteSQL?ver_=3.08");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -475,7 +475,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[1].getName());
-      _operationClient.getOptions().setAction("wssql/PrepareSQL?ver_=3.06");
+      _operationClient.getOptions().setAction("wssql/PrepareSQL?ver_=3.08");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -598,7 +598,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[2].getName());
-      _operationClient.getOptions().setAction("wssql/GetDBSystemInfo?ver_=3.06");
+      _operationClient.getOptions().setAction("wssql/GetDBSystemInfo?ver_=3.08");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -724,7 +724,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[3].getName());
-      _operationClient.getOptions().setAction("wssql/GetRelatedIndexes?ver_=3.06");
+      _operationClient.getOptions().setAction("wssql/GetRelatedIndexes?ver_=3.08");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -849,7 +849,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[4].getName());
-      _operationClient.getOptions().setAction("wssql/GetDBMetaData?ver_=3.06");
+      _operationClient.getOptions().setAction("wssql/GetDBMetaData?ver_=3.08");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -973,7 +973,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[5].getName());
-      _operationClient.getOptions().setAction("wssql/SetRelatedIndexes?ver_=3.06");
+      _operationClient.getOptions().setAction("wssql/SetRelatedIndexes?ver_=3.08");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1098,7 +1098,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[6].getName());
-      _operationClient.getOptions().setAction("wssql/GetResults?ver_=3.06");
+      _operationClient.getOptions().setAction("wssql/GetResults?ver_=3.08");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1220,7 +1220,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[7].getName());
-      _operationClient.getOptions().setAction("wssql/Ping?ver_=3.06");
+      _operationClient.getOptions().setAction("wssql/Ping?ver_=3.08");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1341,7 +1341,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[8].getName());
-      _operationClient.getOptions().setAction("wssql/Echo?ver_=3.06");
+      _operationClient.getOptions().setAction("wssql/Echo?ver_=3.08");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1464,7 +1464,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[9].getName());
-      _operationClient.getOptions().setAction("wssql/CreateTableAndLoad?ver_=3.06");
+      _operationClient.getOptions().setAction("wssql/CreateTableAndLoad?ver_=3.08");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1591,7 +1591,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     try {
       org.apache.axis2.client.OperationClient _operationClient =
           _serviceClient.createClient(_operations[10].getName());
-      _operationClient.getOptions().setAction("wssql/ExecutePreparedSQL?ver_=3.06");
+      _operationClient.getOptions().setAction("wssql/ExecutePreparedSQL?ver_=3.08");
       _operationClient.getOptions().setExceptionToBeThrownOnSOAPFault(true);
 
       addPropertyToOperationClient(
@@ -1714,7 +1714,7 @@ public class WssqlStub extends org.apache.axis2.client.Stub implements Wssql {
     }
     return false;
   }
-  // http://10.1.1.145:8880/wssql?ver_=3.06
+  // http://172.22.164.102:8510/wssql?ver_=3.08
   private org.apache.axiom.om.OMElement toOM(
       org.hpccsystems.ws.client.gen.axis2.wssql.latest.ExecuteSQLRequest param,
       boolean optimizeContent)

@@ -98,6 +98,51 @@
 			</xsd:simpleType>
 			
       
+			<xsd:simpleType name="DFUCommand">
+				
+        
+				<xsd:restriction base="xsd:string">
+					
+          
+					<xsd:enumeration value="copy"/>
+					
+          
+					<xsd:enumeration value="remove"/>
+					
+          
+					<xsd:enumeration value="move"/>
+					
+          
+					<xsd:enumeration value="rename"/>
+					
+          
+					<xsd:enumeration value="replicate"/>
+					
+          
+					<xsd:enumeration value="import"/>
+					
+          
+					<xsd:enumeration value="export"/>
+					
+          
+					<xsd:enumeration value="monitor"/>
+					
+          
+					<xsd:enumeration value="copymerge"/>
+					
+          
+					<xsd:enumeration value="supercopy"/>
+					
+          
+					<xsd:enumeration value="publish"/>
+					
+        
+				</xsd:restriction>
+				
+      
+			</xsd:simpleType>
+			
+      
 			<xsd:complexType name="DFUWorkunit">
 				
         
@@ -225,6 +270,9 @@
 					
           
 					<xsd:element minOccurs="0" name="StateMessage" type="xsd:string"/>
+					
+          
+					<xsd:element minOccurs="0" name="StateReason" type="xsd:string"/>
 					
           
 					<xsd:element minOccurs="0" name="MonitorEventName" type="xsd:string"/>
@@ -603,6 +651,9 @@
 						
             
 						<xsd:element minOccurs="0" name="KeyCompression" type="xsd:string"/>
+						
+            
+						<xsd:element minOccurs="0" name="DestNumParts" type="xsd:int" default="0"/>
 						
           
 					</xsd:all>
@@ -1139,7 +1190,10 @@
 						<xsd:element minOccurs="0" name="StateReq" type="xsd:string"/>
 						
             
-						<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="Command" type="tns:DFUCommand"/>
+						
+            
+						<xsd:element minOccurs="0" name="Archived" type="xsd:boolean" default="false"/>
 						
             
 						<xsd:element minOccurs="0" name="Jobname" type="xsd:string"/>
@@ -2204,7 +2258,10 @@
 						<xsd:element minOccurs="0" name="results" type="tns:ArrayOfDFUWorkunit"/>
 						
             
-						<xsd:element minOccurs="0" name="Type" type="xsd:string"/>
+						<xsd:element minOccurs="0" name="Command" type="tns:DFUCommand"/>
+						
+            
+						<xsd:element minOccurs="0" name="Archived" type="xsd:boolean"/>
 						
             
 						<xsd:element minOccurs="0" name="Owner" type="xsd:string"/>
@@ -3638,7 +3695,7 @@
 		<operation name="AbortDFUWorkunit">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/AbortDFUWorkunit?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/AbortDFUWorkunit?ver_=1.29"/>
 			
       
 			<input>
@@ -3674,7 +3731,7 @@
 		<operation name="Copy">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/Copy?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/Copy?ver_=1.29"/>
 			
       
 			<input>
@@ -3710,7 +3767,7 @@
 		<operation name="CreateDFUPublisherWorkunit">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/CreateDFUPublisherWorkunit?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/CreateDFUPublisherWorkunit?ver_=1.29"/>
 			
       
 			<input>
@@ -3746,7 +3803,7 @@
 		<operation name="CreateDFUWorkunit">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/CreateDFUWorkunit?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/CreateDFUWorkunit?ver_=1.29"/>
 			
       
 			<input>
@@ -3782,7 +3839,7 @@
 		<operation name="DFUWUFile">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/DFUWUFile?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/DFUWUFile?ver_=1.29"/>
 			
       
 			<input>
@@ -3818,7 +3875,7 @@
 		<operation name="DFUWUSearch">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/DFUWUSearch?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/DFUWUSearch?ver_=1.29"/>
 			
       
 			<input>
@@ -3854,7 +3911,7 @@
 		<operation name="DFUWorkunitsAction">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/DFUWorkunitsAction?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/DFUWorkunitsAction?ver_=1.29"/>
 			
       
 			<input>
@@ -3890,7 +3947,7 @@
 		<operation name="DeleteDFUWorkunit">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/DeleteDFUWorkunit?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/DeleteDFUWorkunit?ver_=1.29"/>
 			
       
 			<input>
@@ -3926,7 +3983,7 @@
 		<operation name="DeleteDFUWorkunits">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/DeleteDFUWorkunits?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/DeleteDFUWorkunits?ver_=1.29"/>
 			
       
 			<input>
@@ -3962,7 +4019,7 @@
 		<operation name="DeleteDropZoneFiles">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/DeleteDropZoneFiles?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/DeleteDropZoneFiles?ver_=1.29"/>
 			
       
 			<input>
@@ -3998,7 +4055,7 @@
 		<operation name="Despray">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/Despray?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/Despray?ver_=1.29"/>
 			
       
 			<input>
@@ -4034,7 +4091,7 @@
 		<operation name="DfuMonitor">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/DfuMonitor?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/DfuMonitor?ver_=1.29"/>
 			
       
 			<input>
@@ -4070,7 +4127,7 @@
 		<operation name="DropZoneFileSearch">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/DropZoneFileSearch?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/DropZoneFileSearch?ver_=1.29"/>
 			
       
 			<input>
@@ -4106,7 +4163,7 @@
 		<operation name="DropZoneFiles">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/DropZoneFiles?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/DropZoneFiles?ver_=1.29"/>
 			
       
 			<input>
@@ -4142,7 +4199,7 @@
 		<operation name="EchoDateTime">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/EchoDateTime?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/EchoDateTime?ver_=1.29"/>
 			
       
 			<input>
@@ -4178,7 +4235,7 @@
 		<operation name="FileList">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/FileList?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/FileList?ver_=1.29"/>
 			
       
 			<input>
@@ -4214,7 +4271,7 @@
 		<operation name="GetDFUExceptions">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/GetDFUExceptions?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/GetDFUExceptions?ver_=1.29"/>
 			
       
 			<input>
@@ -4250,7 +4307,7 @@
 		<operation name="GetDFUProgress">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/GetDFUProgress?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/GetDFUProgress?ver_=1.29"/>
 			
       
 			<input>
@@ -4286,7 +4343,7 @@
 		<operation name="GetDFUServerQueues">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/GetDFUServerQueues?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/GetDFUServerQueues?ver_=1.29"/>
 			
       
 			<input>
@@ -4322,7 +4379,7 @@
 		<operation name="GetDFUWorkunit">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/GetDFUWorkunit?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/GetDFUWorkunit?ver_=1.29"/>
 			
       
 			<input>
@@ -4358,7 +4415,7 @@
 		<operation name="GetDFUWorkunits">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/GetDFUWorkunits?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/GetDFUWorkunits?ver_=1.29"/>
 			
       
 			<input>
@@ -4394,7 +4451,7 @@
 		<operation name="GetRemoteTargets">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/GetRemoteTargets?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/GetRemoteTargets?ver_=1.29"/>
 			
       
 			<input>
@@ -4430,7 +4487,7 @@
 		<operation name="GetSprayTargets">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/GetSprayTargets?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/GetSprayTargets?ver_=1.29"/>
 			
       
 			<input>
@@ -4466,7 +4523,7 @@
 		<operation name="OpenSave">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/OpenSave?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/OpenSave?ver_=1.29"/>
 			
       
 			<input>
@@ -4502,7 +4559,7 @@
 		<operation name="Ping">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/Ping?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/Ping?ver_=1.29"/>
 			
       
 			<input>
@@ -4538,7 +4595,7 @@
 		<operation name="Rename">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/Rename?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/Rename?ver_=1.29"/>
 			
       
 			<input>
@@ -4574,7 +4631,7 @@
 		<operation name="Replicate">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/Replicate?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/Replicate?ver_=1.29"/>
 			
       
 			<input>
@@ -4610,7 +4667,7 @@
 		<operation name="ShowResult">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/ShowResult?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/ShowResult?ver_=1.29"/>
 			
       
 			<input>
@@ -4646,7 +4703,7 @@
 		<operation name="SprayFixed">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/SprayFixed?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/SprayFixed?ver_=1.29"/>
 			
       
 			<input>
@@ -4682,7 +4739,7 @@
 		<operation name="SprayVariable">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/SprayVariable?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/SprayVariable?ver_=1.29"/>
 			
       
 			<input>
@@ -4718,7 +4775,7 @@
 		<operation name="SubmitDFUWorkunit">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/SubmitDFUWorkunit?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/SubmitDFUWorkunit?ver_=1.29"/>
 			
       
 			<input>
@@ -4754,7 +4811,7 @@
 		<operation name="UpdateDFUWorkunit">
 			
       
-			<soap:operation style="document" soapAction="FileSpray/UpdateDFUWorkunit?ver_=1.27"/>
+			<soap:operation style="document" soapAction="FileSpray/UpdateDFUWorkunit?ver_=1.29"/>
 			
       
 			<input>
@@ -4796,7 +4853,7 @@
 		<port name="FileSprayServiceSoap" binding="tns:FileSprayServiceSoap">
 			
       
-			<soap:address location="http://172.27.163.120:8010/FileSpray?ver_=1.27"/>
+			<soap:address location="http://172.22.164.102:8010/FileSpray?ver_=1.29"/>
 			
     
 		</port>

@@ -1,8 +1,8 @@
 /**
  * WsSMC.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:46:59 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:49:45 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssmc.latest;
 
@@ -11,17 +11,6 @@ package org.hpccsystems.ws.client.gen.axis2.wssmc.latest;
  */
 
 public interface WsSMC {
-
-  /**
-   * Auto generated method signature
-   *
-   * @param lockQuery
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse lockQuery(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery lockQuery)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
 
   /**
    * Auto generated method signature
@@ -42,6 +31,131 @@ public interface WsSMC {
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse resumeQueue(
       org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ResumeQueue resumeQueue)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param moveJobBack
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse moveJobBack(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack moveJobBack)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param getStatusServerInfo
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse
+      getStatusServerInfo(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo getStatusServerInfo)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param moveJobUp
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse moveJobUp(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp moveJobUp)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param ping
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMCPingResponse ping(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping ping)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param browseResources
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse browseResources(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources browseResources)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param clearQueue
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse clearQueue(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue clearQueue)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param recordGlobalMetrics
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetricsResponse
+      recordGlobalMetrics(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RecordGlobalMetrics recordGlobalMetrics)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param getGlobalMetrics
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetricsResponse getGlobalMetrics(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetGlobalMetrics getGlobalMetrics)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param setJobPriority
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse setJobPriority(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority setJobPriority)
+      throws java.rmi.RemoteException,
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param notInCommunityEdition
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse
+      notInCommunityEdition(
+          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition
+              notInCommunityEdition)
+          throws java.rmi.RemoteException,
+              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
+
+  /**
+   * Auto generated method signature
+   *
+   * @param lockQuery
+   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
+   */
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQueryResponse lockQuery(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.LockQuery lockQuery)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
 
@@ -92,34 +206,11 @@ public interface WsSMC {
   /**
    * Auto generated method signature
    *
-   * @param moveJobBack
+   * @param getBanner
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse moveJobBack(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobBack moveJobBack)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
-
-  /**
-   * Auto generated method signature
-   *
-   * @param getStatusServerInfo
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfoResponse
-      getStatusServerInfo(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetStatusServerInfo getStatusServerInfo)
-          throws java.rmi.RemoteException,
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
-
-  /**
-   * Auto generated method signature
-   *
-   * @param moveJobUp
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCJobResponse moveJobUp(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.MoveJobUp moveJobUp)
+  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBannerResponse getBanner(
+      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBanner getBanner)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
 
@@ -137,44 +228,11 @@ public interface WsSMC {
   /**
    * Auto generated method signature
    *
-   * @param ping
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.WsSMCPingResponse ping(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.Ping ping)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
-
-  /**
-   * Auto generated method signature
-   *
-   * @param browseResources
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResourcesResponse browseResources(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.BrowseResources browseResources)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
-
-  /**
-   * Auto generated method signature
-   *
    * @param getBuildInfo
    * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
    */
   public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfoResponse getBuildInfo(
       org.hpccsystems.ws.client.gen.axis2.wssmc.latest.GetBuildInfo getBuildInfo)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
-
-  /**
-   * Auto generated method signature
-   *
-   * @param clearQueue
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCQueueResponse clearQueue(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.ClearQueue clearQueue)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
 
@@ -234,30 +292,6 @@ public interface WsSMC {
       org.hpccsystems.ws.client.gen.axis2.wssmc.latest.RemoveJob removeJob)
       throws java.rmi.RemoteException,
           org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
-
-  /**
-   * Auto generated method signature
-   *
-   * @param setJobPriority
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SMCPriorityResponse setJobPriority(
-      org.hpccsystems.ws.client.gen.axis2.wssmc.latest.SetJobPriority setJobPriority)
-      throws java.rmi.RemoteException,
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
-
-  /**
-   * Auto generated method signature
-   *
-   * @param notInCommunityEdition
-   * @throws org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault :
-   */
-  public org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEditionResponse
-      notInCommunityEdition(
-          org.hpccsystems.ws.client.gen.axis2.wssmc.latest.NotInCommunityEdition
-              notInCommunityEdition)
-          throws java.rmi.RemoteException,
-              org.hpccsystems.ws.client.gen.axis2.wssmc.latest.EspSoapFault;
 
   //
 }

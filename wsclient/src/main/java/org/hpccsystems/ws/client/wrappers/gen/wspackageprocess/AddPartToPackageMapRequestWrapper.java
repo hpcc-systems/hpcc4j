@@ -45,6 +45,10 @@ public class AddPartToPackageMapRequestWrapper
     protected boolean local_dfuOverwrite;
     protected boolean local_onlyCopyFiles;
     protected boolean local_stopIfFilesCopied;
+    protected String local_dfuPublisherWuid;
+    protected String local_remoteStorage;
+    protected String local_keyCompression;
+    protected String local_dfuTargetPlane;
 
     public AddPartToPackageMapRequestWrapper() {}
 
@@ -52,7 +56,7 @@ public class AddPartToPackageMapRequestWrapper
     {
         copy( addparttopackagemaprequest );
     }
-    public AddPartToPackageMapRequestWrapper( String _target, String _process, String _packageMap, boolean _globalScope, String _partName, String _content, boolean _deletePrevious, String _daliIp, String _sourceProcess, boolean _allowForeignFiles, boolean _preloadAllPackages, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied )
+    public AddPartToPackageMapRequestWrapper( String _target, String _process, String _packageMap, boolean _globalScope, String _partName, String _content, boolean _deletePrevious, String _daliIp, String _sourceProcess, boolean _allowForeignFiles, boolean _preloadAllPackages, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied, String _dfuPublisherWuid, String _remoteStorage, String _keyCompression, String _dfuTargetPlane )
     {
         this.local_target = _target;
         this.local_process = _process;
@@ -74,6 +78,10 @@ public class AddPartToPackageMapRequestWrapper
         this.local_dfuOverwrite = _dfuOverwrite;
         this.local_onlyCopyFiles = _onlyCopyFiles;
         this.local_stopIfFilesCopied = _stopIfFilesCopied;
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+        this.local_remoteStorage = _remoteStorage;
+        this.local_keyCompression = _keyCompression;
+        this.local_dfuTargetPlane = _dfuTargetPlane;
 
     }
 
@@ -102,13 +110,17 @@ public class AddPartToPackageMapRequestWrapper
         this.local_dfuOverwrite = raw.getDfuOverwrite();
         this.local_onlyCopyFiles = raw.getOnlyCopyFiles();
         this.local_stopIfFilesCopied = raw.getStopIfFilesCopied();
+        this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
+        this.local_remoteStorage = raw.getRemoteStorage();
+        this.local_keyCompression = raw.getKeyCompression();
+        this.local_dfuTargetPlane = raw.getDfuTargetPlane();
 
     }
 
     @Override
     public String toString()
     {
-        return "AddPartToPackageMapRequestWrapper [" + "target = " + local_target + ", " + "process = " + local_process + ", " + "packageMap = " + local_packageMap + ", " + "globalScope = " + local_globalScope + ", " + "partName = " + local_partName + ", " + "content = " + local_content + ", " + "deletePrevious = " + local_deletePrevious + ", " + "daliIp = " + local_daliIp + ", " + "sourceProcess = " + local_sourceProcess + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "preloadAllPackages = " + local_preloadAllPackages + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + "]";
+        return "AddPartToPackageMapRequestWrapper [" + "target = " + local_target + ", " + "process = " + local_process + ", " + "packageMap = " + local_packageMap + ", " + "globalScope = " + local_globalScope + ", " + "partName = " + local_partName + ", " + "content = " + local_content + ", " + "deletePrevious = " + local_deletePrevious + ", " + "daliIp = " + local_daliIp + ", " + "sourceProcess = " + local_sourceProcess + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "preloadAllPackages = " + local_preloadAllPackages + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "remoteStorage = " + local_remoteStorage + ", " + "keyCompression = " + local_keyCompression + ", " + "dfuTargetPlane = " + local_dfuTargetPlane + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wspackageprocess.latest.AddPartToPackageMapRequest getRaw()
     {
@@ -133,6 +145,10 @@ public class AddPartToPackageMapRequestWrapper
         raw.setDfuOverwrite( local_dfuOverwrite);
         raw.setOnlyCopyFiles( local_onlyCopyFiles);
         raw.setStopIfFilesCopied( local_stopIfFilesCopied);
+        raw.setDfuPublisherWuid( local_dfuPublisherWuid);
+        raw.setRemoteStorage( local_remoteStorage);
+        raw.setKeyCompression( local_keyCompression);
+        raw.setDfuTargetPlane( local_dfuTargetPlane);
         return raw;
     }
 
@@ -296,5 +312,37 @@ public class AddPartToPackageMapRequestWrapper
     public boolean getStopIfFilesCopied( )
     {
         return this.local_stopIfFilesCopied;
+    }
+    public void setDfuPublisherWuid( String _dfuPublisherWuid )
+    {
+        this.local_dfuPublisherWuid = _dfuPublisherWuid;
+    }
+    public String getDfuPublisherWuid( )
+    {
+        return this.local_dfuPublisherWuid;
+    }
+    public void setRemoteStorage( String _remoteStorage )
+    {
+        this.local_remoteStorage = _remoteStorage;
+    }
+    public String getRemoteStorage( )
+    {
+        return this.local_remoteStorage;
+    }
+    public void setKeyCompression( String _keyCompression )
+    {
+        this.local_keyCompression = _keyCompression;
+    }
+    public String getKeyCompression( )
+    {
+        return this.local_keyCompression;
+    }
+    public void setDfuTargetPlane( String _dfuTargetPlane )
+    {
+        this.local_dfuTargetPlane = _dfuTargetPlane;
+    }
+    public String getDfuTargetPlane( )
+    {
+        return this.local_dfuTargetPlane;
     }
 }

@@ -119,6 +119,42 @@ public class DFUFilePart implements org.apache.axis2.databinding.ADBBean {
     this.localTopLevelKey = param;
   }
 
+  /** field for RecordCount */
+  protected long localRecordCount =
+      org.apache.axis2.databinding.utils.ConverterUtil.convertToLong("-1");
+
+  /*  This tracker boolean wil be used to detect whether the user called the set method
+   *   for this attribute. It will be used to determine whether to include this field
+   *   in the serialized XML
+   */
+  protected boolean localRecordCountTracker = false;
+
+  public boolean isRecordCountSpecified() {
+    return localRecordCountTracker;
+  }
+
+  /**
+   * Auto generated getter method
+   *
+   * @return long
+   */
+  public long getRecordCount() {
+    return localRecordCount;
+  }
+
+  /**
+   * Auto generated setter method
+   *
+   * @param param RecordCount
+   */
+  public void setRecordCount(long param) {
+
+    // setting primitive attribute tracker to true
+    localRecordCountTracker = param != java.lang.Long.MIN_VALUE;
+
+    this.localRecordCount = param;
+  }
+
   /**
    * @param parentQName
    * @param factory
@@ -199,6 +235,21 @@ public class DFUFilePart implements org.apache.axis2.databinding.ADBBean {
       } else {
         xmlWriter.writeCharacters(
             org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localTopLevelKey));
+      }
+
+      xmlWriter.writeEndElement();
+    }
+    if (localRecordCountTracker) {
+      namespace = "urn:hpccsystems:ws:wsdfu";
+      writeStartElement(null, namespace, "RecordCount", xmlWriter);
+
+      if (localRecordCount == java.lang.Long.MIN_VALUE) {
+
+        throw new org.apache.axis2.databinding.ADBException("RecordCount cannot be null!!");
+
+      } else {
+        xmlWriter.writeCharacters(
+            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localRecordCount));
       }
 
       xmlWriter.writeEndElement();
@@ -491,6 +542,25 @@ public class DFUFilePart implements org.apache.axis2.databinding.ADBBean {
 
               object.setTopLevelKey(
                   org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+
+              reader.next();
+
+            } // End of if for expected property start element
+            else if (reader.isStartElement()
+                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wsdfu", "RecordCount")
+                    .equals(reader.getName())) {
+
+              nillableValue =
+                  reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
+              if ("true".equals(nillableValue) || "1".equals(nillableValue)) {
+                throw new org.apache.axis2.databinding.ADBException(
+                    "The element: " + "RecordCount" + "  cannot be null");
+              }
+
+              java.lang.String content = reader.getElementText();
+
+              object.setRecordCount(
+                  org.apache.axis2.databinding.utils.ConverterUtil.convertToLong(content));
 
               reader.next();
 

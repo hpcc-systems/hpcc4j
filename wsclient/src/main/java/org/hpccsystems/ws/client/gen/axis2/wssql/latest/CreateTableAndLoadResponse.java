@@ -1,8 +1,8 @@
 /**
  * CreateTableAndLoadResponse.java
  *
- * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 1.8.1 Built on : Jun 07,
- * 2022 (03:47:13 EDT)
+ * <p>This file was auto-generated from WSDL by the Apache Axis2 version: 2.0.0 Built on : Mar 05,
+ * 2025 (12:50:10 HST)
  */
 package org.hpccsystems.ws.client.gen.axis2.wssql.latest;
 
@@ -48,7 +48,7 @@ public class CreateTableAndLoadResponse implements org.apache.axis2.databinding.
   }
 
   /** field for Success */
-  protected boolean localSuccess;
+  protected org.apache.axiom.om.OMElement localSuccess;
 
   /*  This tracker boolean wil be used to detect whether the user called the set method
    *   for this attribute. It will be used to determine whether to include this field
@@ -63,9 +63,9 @@ public class CreateTableAndLoadResponse implements org.apache.axis2.databinding.
   /**
    * Auto generated getter method
    *
-   * @return boolean
+   * @return org.apache.axiom.om.OMElement
    */
-  public boolean getSuccess() {
+  public org.apache.axiom.om.OMElement getSuccess() {
     return localSuccess;
   }
 
@@ -74,10 +74,8 @@ public class CreateTableAndLoadResponse implements org.apache.axis2.databinding.
    *
    * @param param Success
    */
-  public void setSuccess(boolean param) {
-
-    // setting primitive attribute tracker to true
-    localSuccessTracker = true;
+  public void setSuccess(org.apache.axiom.om.OMElement param) {
+    localSuccessTracker = param != null;
 
     this.localSuccess = param;
   }
@@ -218,13 +216,14 @@ public class CreateTableAndLoadResponse implements org.apache.axis2.databinding.
       namespace = "urn:hpccsystems:ws:wssql";
       writeStartElement(null, namespace, "Success", xmlWriter);
 
-      if (false) {
+      if (localSuccess == null) {
+        // write the nil attribute
 
         throw new org.apache.axis2.databinding.ADBException("Success cannot be null!!");
 
       } else {
-        xmlWriter.writeCharacters(
-            org.apache.axis2.databinding.utils.ConverterUtil.convertToString(localSuccess));
+
+        localSuccess.serialize(xmlWriter);
       }
 
       xmlWriter.writeEndElement();
@@ -514,9 +513,7 @@ public class CreateTableAndLoadResponse implements org.apache.axis2.databinding.
               reader.next();
 
             } // End of if for expected property start element
-            else if (reader.isStartElement()
-                && new javax.xml.namespace.QName("urn:hpccsystems:ws:wssql", "Success")
-                    .equals(reader.getName())) {
+            else if (reader.isStartElement()) {
 
               nillableValue =
                   reader.getAttributeValue("http://www.w3.org/2001/XMLSchema-instance", "nil");
@@ -527,8 +524,13 @@ public class CreateTableAndLoadResponse implements org.apache.axis2.databinding.
 
               java.lang.String content = reader.getElementText();
 
-              object.setSuccess(
-                  org.apache.axis2.databinding.utils.ConverterUtil.convertToBoolean(content));
+              org.apache.axiom.om.OMFactory fac =
+                  org.apache.axiom.om.OMAbstractFactory.getOMFactory();
+              org.apache.axiom.om.OMNamespace omNs =
+                  fac.createOMNamespace("urn:hpccsystems:ws:wssql", "");
+              org.apache.axiom.om.OMElement _valueSuccess = fac.createOMElement("Success", omNs);
+              _valueSuccess.addChild(fac.createOMText(_valueSuccess, content));
+              object.setSuccess(_valueSuccess);
 
               reader.next();
 

@@ -110,6 +110,11 @@ public class ExtensionMapper {
       return org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUWorkunit.Factory.parse(reader);
     }
 
+    if ("urn:hpccsystems:ws:filespray".equals(namespaceURI) && "DFUCommand".equals(typeName)) {
+
+      return org.hpccsystems.ws.client.gen.axis2.filespray.latest.DFUCommand.Factory.parse(reader);
+    }
+
     if ("urn:hpccsystems:ws:filespray".equals(namespaceURI)
         && "GroupNodes_type0".equals(typeName)) {
 

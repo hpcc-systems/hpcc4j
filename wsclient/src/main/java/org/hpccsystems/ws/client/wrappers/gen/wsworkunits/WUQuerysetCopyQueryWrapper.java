@@ -56,6 +56,7 @@ public class WUQuerysetCopyQueryWrapper
     protected String local_dfuPublisherWuid;
     protected String local_remoteStorage;
     protected String local_keyCompression;
+    protected String local_dfuTargetPlane;
 
     public WUQuerysetCopyQueryWrapper() {}
 
@@ -63,7 +64,7 @@ public class WUQuerysetCopyQueryWrapper
     {
         copy( wuquerysetcopyquery );
     }
-    public WUQuerysetCopyQueryWrapper( String _source, String _target, String _cluster, String _daliServer, int _activate, boolean _overwrite, boolean _dontCopyFiles, int _wait, boolean _noReload, String _memoryLimit, NonNegativeInteger _timeLimit, NonNegativeInteger _warnTimeLimit, String _priority, String _comment, String _sourceProcess, String _destName, boolean _allowForeignFiles, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _sourceSSL, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied, String _dfuPublisherWuid, String _remoteStorage, String _keyCompression )
+    public WUQuerysetCopyQueryWrapper( String _source, String _target, String _cluster, String _daliServer, int _activate, boolean _overwrite, boolean _dontCopyFiles, int _wait, boolean _noReload, String _memoryLimit, NonNegativeInteger _timeLimit, NonNegativeInteger _warnTimeLimit, String _priority, String _comment, String _sourceProcess, String _destName, boolean _allowForeignFiles, boolean _updateSuperFiles, boolean _updateCloneFrom, boolean _appendCluster, boolean _includeFileErrors, boolean _sourceSSL, boolean _dfuCopyFiles, String _dfuQueue, NonNegativeInteger _dfuWait, boolean _dfuOverwrite, boolean _onlyCopyFiles, boolean _stopIfFilesCopied, String _dfuPublisherWuid, String _remoteStorage, String _keyCompression, String _dfuTargetPlane )
     {
         this.local_source = _source;
         this.local_target = _target;
@@ -96,6 +97,7 @@ public class WUQuerysetCopyQueryWrapper
         this.local_dfuPublisherWuid = _dfuPublisherWuid;
         this.local_remoteStorage = _remoteStorage;
         this.local_keyCompression = _keyCompression;
+        this.local_dfuTargetPlane = _dfuTargetPlane;
 
     }
 
@@ -135,13 +137,14 @@ public class WUQuerysetCopyQueryWrapper
         this.local_dfuPublisherWuid = raw.getDfuPublisherWuid();
         this.local_remoteStorage = raw.getRemoteStorage();
         this.local_keyCompression = raw.getKeyCompression();
+        this.local_dfuTargetPlane = raw.getDfuTargetPlane();
 
     }
 
     @Override
     public String toString()
     {
-        return "WUQuerysetCopyQueryWrapper [" + "source = " + local_source + ", " + "target = " + local_target + ", " + "cluster = " + local_cluster + ", " + "daliServer = " + local_daliServer + ", " + "activate = " + local_activate + ", " + "overwrite = " + local_overwrite + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "wait = " + local_wait + ", " + "noReload = " + local_noReload + ", " + "memoryLimit = " + local_memoryLimit + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "sourceProcess = " + local_sourceProcess + ", " + "destName = " + local_destName + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "sourceSSL = " + local_sourceSSL + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "remoteStorage = " + local_remoteStorage + ", " + "keyCompression = " + local_keyCompression + "]";
+        return "WUQuerysetCopyQueryWrapper [" + "source = " + local_source + ", " + "target = " + local_target + ", " + "cluster = " + local_cluster + ", " + "daliServer = " + local_daliServer + ", " + "activate = " + local_activate + ", " + "overwrite = " + local_overwrite + ", " + "dontCopyFiles = " + local_dontCopyFiles + ", " + "wait = " + local_wait + ", " + "noReload = " + local_noReload + ", " + "memoryLimit = " + local_memoryLimit + ", " + "timeLimit = " + local_timeLimit + ", " + "warnTimeLimit = " + local_warnTimeLimit + ", " + "priority = " + local_priority + ", " + "comment = " + local_comment + ", " + "sourceProcess = " + local_sourceProcess + ", " + "destName = " + local_destName + ", " + "allowForeignFiles = " + local_allowForeignFiles + ", " + "updateSuperFiles = " + local_updateSuperFiles + ", " + "updateCloneFrom = " + local_updateCloneFrom + ", " + "appendCluster = " + local_appendCluster + ", " + "includeFileErrors = " + local_includeFileErrors + ", " + "sourceSSL = " + local_sourceSSL + ", " + "dfuCopyFiles = " + local_dfuCopyFiles + ", " + "dfuQueue = " + local_dfuQueue + ", " + "dfuWait = " + local_dfuWait + ", " + "dfuOverwrite = " + local_dfuOverwrite + ", " + "onlyCopyFiles = " + local_onlyCopyFiles + ", " + "stopIfFilesCopied = " + local_stopIfFilesCopied + ", " + "dfuPublisherWuid = " + local_dfuPublisherWuid + ", " + "remoteStorage = " + local_remoteStorage + ", " + "keyCompression = " + local_keyCompression + ", " + "dfuTargetPlane = " + local_dfuTargetPlane + "]";
     }
     public org.hpccsystems.ws.client.gen.axis2.wsworkunits.latest.WUQuerysetCopyQuery getRaw()
     {
@@ -177,6 +180,7 @@ public class WUQuerysetCopyQueryWrapper
         raw.setDfuPublisherWuid( local_dfuPublisherWuid);
         raw.setRemoteStorage( local_remoteStorage);
         raw.setKeyCompression( local_keyCompression);
+        raw.setDfuTargetPlane( local_dfuTargetPlane);
         return raw;
     }
 
@@ -428,5 +432,13 @@ public class WUQuerysetCopyQueryWrapper
     public String getKeyCompression( )
     {
         return this.local_keyCompression;
+    }
+    public void setDfuTargetPlane( String _dfuTargetPlane )
+    {
+        this.local_dfuTargetPlane = _dfuTargetPlane;
+    }
+    public String getDfuTargetPlane( )
+    {
+        return this.local_dfuTargetPlane;
     }
 }
